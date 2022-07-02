@@ -4,7 +4,11 @@ module.exports = {
   webpack: {
     alias: {
       '@': path.resolve(__dirname, 'src/'),
-      '@components': path.resolve(__dirname, 'src/components/'),
+      '@app': path.resolve(__dirname, 'src/app/'),
+      '@component': path.resolve(__dirname, 'src/component/'),
+      '@page': path.resolve(__dirname, 'src/page/'),
+      '@template': path.resolve(__dirname, 'src/template/'),
+      '@context': path.resolve(__dirname, 'src/context/'),
     }
   },
   jest: {

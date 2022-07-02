@@ -33,7 +33,15 @@
   "paths": {
     "@": ["./src"],
     "@/*": ["./src/*"],
-    "@components": ["./src/components"],
-    "@components/*": ["./src/components/*"]
+    "@app": ["./src/app"],
+    "@app/*": ["./src/app/*"],
+    "@component": ["./src/component"],
+    "@component/*": ["./src/component/*"],
+    "@page": ["./src/page"],
+    "@page/*": ["./src/page/*"],
+    "@template": ["./src/template"],
+    "@template/*": ["./src/template/*"],
+    "@context": ["./src/context"],
+    "@context/*": ["./src/context/*"]
   },
 }

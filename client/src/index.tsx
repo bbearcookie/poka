@@ -1,15 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import App from '@app/App';
 import reportWebVitals from './reportWebVitals';
+import { store } from '@app/store';
+import { Provider } from 'react-redux';
 
+// StrictMode 상태에는 기본적으로 렌더링이 두 번씩 된다!
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 

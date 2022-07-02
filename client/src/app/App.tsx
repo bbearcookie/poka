@@ -1,9 +1,10 @@
 import React from 'react';
+import AdminPage from '@page/AdminPage';
 
 function App() {
   return (
     <div className="App">
-      하이
+      <AdminPage />
     </div>
   );
 }
