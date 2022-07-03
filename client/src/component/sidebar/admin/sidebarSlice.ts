@@ -1,23 +1,26 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { Link } from "react-router-dom";
 
 const name = 'adminSidebar';
 
 interface State {
-  activeId: number;
-  parentActiveId: number;
+  activeURI: string;
+  // parentActiveId: number;
+  parentActiveId: string;
 }
 
 const initialState: State = {
-  activeId: 0,
-  parentActiveId: 0,
+  activeURI: 'none',
+  // parentActiveId: 0,
+  parentActiveId: 'none'
 };
 
 export const slice = createSlice({
   name,
   initialState,
   reducers: {
-    changeActiveId: (state, { payload }) => {
-      state.activeId = payload;
+    changeActiveURI: (state, { payload }) => {
+      state.activeURI = payload;
     },
     changeParentActiveId: (state, { payload }) => {
       state.parentActiveId = payload;
@@ -25,5 +28,5 @@ export const slice = createSlice({
   },
 });
 
-export const { changeActiveId, changeParentActiveId } = slice.actions;
+export const { changeActiveURI, changeParentActiveId } = slice.actions;
 export default slice.reducer;

@@ -1,10 +1,10 @@
 import React from 'react';
-import AdminPage from '@page/AdminPage';
+import Router from '@app/router/Router';
 
 function App() {
   return (
     <div className="App">
-      <AdminPage />
+      <Router />
     </div>
   );
 }
