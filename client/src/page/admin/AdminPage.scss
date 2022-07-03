@@ -1,8 +1,23 @@
 .AdminPage {
-
+  color: #121828;
+  
   .page-section {
     padding-left: 15rem; // 사이드 바 크기만큼 패딩
     min-height: 100vh;
-    background-color: aliceblue;
+    background-color: #F9FAFC;
+
+    .page-label {
+      font-size: 1.75rem;
+      margin: 0;
+    }
+
+    .label-section {
+      display: flex;
+      align-items: center;
+
+      .page-label {
+        flex-grow: 1;
+      }
+    }
   }
 }
