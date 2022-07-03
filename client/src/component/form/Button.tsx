@@ -7,7 +7,8 @@ import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 // 스타일 컴포넌트 =======================
 type ButtonTheme = 
   | "primary"
-  | "primary-outlined";
+  | "primary-outlined"
+  | "gray-outlined";
 
 type StyledButtonProps = {
   theme: ButtonTheme;
@@ -60,12 +61,25 @@ const StyledButton = styled.button<StyledButtonProps>`
           & {
             color: rgb(80, 72, 229);
             border: 1px solid rgb(167, 163, 242);
-            background-color: rgba(255, 255, 255);
+            background-color: white;
             box-shadow: none;
           }
 
           &:hover {
             background-color: rgba(248, 248, 254, 100);
+          }
+        `;
+      case "gray-outlined":
+        return css`
+          & {
+            color: gray;
+            border: 1px solid #E5E7EB;
+            background-color: white;
+            box-shadow: none;
+          }
+
+          &:hover {
+            background-color: #fcfcfc;
           }
         `;
     }

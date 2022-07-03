@@ -1,6 +1,7 @@
 import React from 'react';
 import AdminRouter from '@app/router/AdminRouter';
 import Sidebar from '@component/sidebar/admin/Sidebar';
+import Navbar from '@component/navbar/admin/Navbar';
 import './AdminPage.scss';
 
 type AdminPageProps = {
@@ -12,6 +13,7 @@ function AdminPage({ children }: AdminPageProps) {
     <div className="AdminPage">
       <Sidebar />
       <section className="page-section">
+        <Navbar />
         <AdminRouter />
       </section>
     </div>

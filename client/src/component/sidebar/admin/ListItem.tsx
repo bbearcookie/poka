@@ -34,7 +34,9 @@ export function ParentItem({ id, icon, text, iconMarginRight, children }: Parent
   const parentActiveId = useAppSelector((state) => state.adminSidebar.parentActiveId);
   const length = React.Children.count(children); // 하위 아이템 개수
 
-  const onClick = useCallback(() => {
+  const onClick = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    
     setShow(!show);
   }, [show]);
 
@@ -91,7 +93,9 @@ export function ChildItem({ showParent, parentId, to, icon, iconMarginRight, tex
     }
   }, []);
 
-  const onClick = useCallback(() => {
+  const onClick = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation(); // 사이드바 닫기 이벤트 발생하지 않도록 막음
+
     // 클릭한 아이템을 액티브로 지정
     dispatch(changeActiveURI(to));
 
@@ -103,13 +107,11 @@ export function ChildItem({ showParent, parentId, to, icon, iconMarginRight, tex
   }, []);
 
   return (
-    <Link to={to ? to : "#"}>
+    <Link to={to ? to : "#"} onClick={onClick}>
       <li className={classNames(
         "list-item",
         {"active": activeURI === to},
-      )}
-        onClick={onClick}
-      >
+      )}>
         {icon && 
           <FontAwesomeIcon 
             className="icon"

@@ -1,3 +1,10 @@
+.Sidebar_wrapper {
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
 .Sidebar {
   width: 15rem; height: 100vh;
   position: fixed;
