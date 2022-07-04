@@ -6,15 +6,13 @@ import { useAppSelector, useAppDispatch } from '@app/reduxHooks';
 import { changeActiveURI, changeShow } from './sidebarSlice';
 import './Sidebar.scss';
 
-type SidebarProps = {
+interface SidebarProps {
   children?: React.ReactNode;
-} & typeof SidebarDefaultProps;
+}
 
-const SidebarDefaultProps = {
+const SidebarDefaultProps = {};
 
-};
-
-function Sidebar({ children }: SidebarProps) {
+function Sidebar({ children }: SidebarProps & typeof SidebarDefaultProps) {
   const URI = window.location.pathname;
   const show = useAppSelector((state) => state.adminSidebar.show);
   const dispatch = useAppDispatch();

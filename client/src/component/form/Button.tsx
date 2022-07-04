@@ -10,11 +10,11 @@ type ButtonTheme =
   | "primary-outlined"
   | "gray-outlined";
 
-type StyledButtonProps = {
+interface StyledButtonProps {
   theme: ButtonTheme;
   padding: string;
   iconMargin: string;
-};
+}
 
 const StyledButton = styled.button<StyledButtonProps>`
   padding: ${p => p.padding};
@@ -87,7 +87,7 @@ const StyledButton = styled.button<StyledButtonProps>`
 `;
 
 // 버튼 컴포넌트 =========================
-type ButtonProps = {
+interface ButtonProps {
   className?: string;
   theme: ButtonTheme;
   padding?: string;
@@ -95,14 +95,14 @@ type ButtonProps = {
   rightIcon?: IconDefinition;
   iconMargin?: string; // 아이콘 크기가 달라서 마진을 직접 줘야하는 경우에 부여
   children?: React.ReactNode;
-} & typeof ButtonDefaultProps;
+}
 
 const ButtonDefaultProps = {
   padding: '1em',
   iconMargin: '0.5em'
 };
 
-function Button({ className, theme, padding, leftIcon, rightIcon, iconMargin, children }: ButtonProps) {
+function Button({ className, theme, padding, leftIcon, rightIcon, iconMargin, children }: ButtonProps & typeof ButtonDefaultProps) {
   return (
     <StyledButton
       className={classNames("Button", className)}

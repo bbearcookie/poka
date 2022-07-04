@@ -6,15 +6,13 @@ import { changeShow } from '@component/sidebar/admin/sidebarSlice';
 import { faBars, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import './Navbar.scss';
 
-type NavbarProps = {
+interface NavbarProps {
   children?: React.ReactNode;
-} & typeof NavbarDefaultProps;
-
-const NavbarDefaultProps = {
-
 }
 
-function Navbar({ children }: NavbarProps) {
+const NavbarDefaultProps = {}
+
+function Navbar({ children }: NavbarProps & typeof NavbarDefaultProps) {
   const show = useAppSelector((state) => state.adminSidebar.show);
   const dispatch = useAppDispatch();
 

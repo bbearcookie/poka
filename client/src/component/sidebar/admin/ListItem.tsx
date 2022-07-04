@@ -9,10 +9,10 @@ import { changeActiveURI, changeParentActiveId } from './sidebarSlice';
 
 // 토글 기능에 따라서 보여주는 스타일 컴포넌트  =============================================================
 // 하위 아이템의 개수에 따라서 height를 다르게 주기 위해 styled-components를 사용했다.
-type ExpandContentProps = {
+interface ExpandContentProps {
   show: boolean;
   length: number;
-};
+}
 
 const ExpandContent = styled.ul<ExpandContentProps>`
   max-height: ${p => p.show ? (2.9 * p.length).toString() + "em" : "0em"};
@@ -21,7 +21,7 @@ const ExpandContent = styled.ul<ExpandContentProps>`
 
 // 부모 아이템 컴포넌트 ===========================================================================
 // 토글 기능에 따라서 자식 아이템들을 보여주고 숨긴다.
-type ParentItemProps = {
+interface ParentItemProps {
   id: string;
   icon?: IconDefinition;
   text: string;
@@ -29,7 +29,11 @@ type ParentItemProps = {
   children: React.ReactNode; // 리스트 아이템의 하위 메뉴가 있는 경우에 사용
 }
 
-export function ParentItem({ id, icon, text, iconMarginRight, children }: ParentItemProps) {
+const ParentItemDefaultProps = {};
+
+export function ParentItem(
+  { id, icon, text, iconMarginRight, children }
+  : ParentItemProps & typeof ParentItemDefaultProps) {
   const [show, setShow] = useState(false);
   const parentActiveId = useAppSelector((state) => state.adminSidebar.parentActiveId);
   const length = React.Children.count(children); // 하위 아이템 개수
@@ -70,17 +74,25 @@ export function ParentItem({ id, icon, text, iconMarginRight, children }: Parent
   );
 }
 
+ParentItem.defaultProps = ParentItemDefaultProps;
+
 // 자식 아이템 컴포넌트 =========================================================================
-type ChildItemProps = {
+interface ChildItemProps {
   showParent?: () => {}, // 부모 내용을 보여주는 함수
   parentId?: string;
   to?: string;
   icon?: IconDefinition;
   text: string;
   iconMarginRight?: string; // 아이콘 크기가 달라서 마진을 직접 줘야하는 경우에 부여
+}
+
+const ChildItemDefaultProps = {
+  to: '#'
 };
 
-export function ChildItem({ showParent, parentId, to, icon, iconMarginRight, text }: ChildItemProps) {
+export function ChildItem(
+  { showParent, parentId, to, icon, iconMarginRight, text }
+  : ChildItemProps & typeof ChildItemDefaultProps) {
   const URI = window.location.pathname;
   const activeURI = useAppSelector((state) => state.adminSidebar.activeURI);
   const dispatch = useAppDispatch();
@@ -125,6 +137,4 @@ export function ChildItem({ showParent, parentId, to, icon, iconMarginRight, tex
   );
 }
 
-ChildItem.defaultProps = {
-  to: '#'
-};
+ChildItem.defaultProps = ChildItemDefaultProps;
