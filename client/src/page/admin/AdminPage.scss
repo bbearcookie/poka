@@ -6,16 +6,17 @@
     min-height: 100vh;
     background-color: #F9FAFC;
 
-    .page-label {
+    .title-label {
       font-size: 1.75rem;
       margin: 0;
     }
 
-    .label-section {
+    .title-label-section {
+      margin-bottom: 1em;
       display: flex;
       align-items: center;
 
-      .page-label {
+      .title-label {
         flex-grow: 1;
       }
     }

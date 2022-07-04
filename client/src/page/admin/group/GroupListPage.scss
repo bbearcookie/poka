@@ -1,3 +1,35 @@
 .GroupListPage {
   padding: 1.5em;
+
+  .Table {
+    width: 100%;
+    min-width: 40rem;
+
+    thead {
+      height: 3em;
+
+      .action {
+        text-align: right;
+      }
+    }
+
+    tbody {
+      height: 8em;
+
+      .name-section {
+        display: flex;
+        align-items: center;
+
+        img {
+          margin-right: 1rem;
+        }
+      }
+
+      .action-section {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  }
+
 }
