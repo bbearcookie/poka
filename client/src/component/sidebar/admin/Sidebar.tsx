@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 import { ChildItem, ParentItem } from '@component/sidebar/admin/ListItem';
@@ -21,16 +21,21 @@ function Sidebar({ children }: SidebarProps & typeof SidebarDefaultProps) {
   // URI 정보 변경시 사이드바 액티브 설정
   useEffect(() => {
     dispatch(changeActiveURI(location.pathname));
-  }, [location.pathname]);
+  }, [dispatch, location.pathname]);
 
   // 사이드바 닫기
-  const closeSidebar = (e: React.MouseEvent) => {
+  const closeSidebar = useCallback((e: React.MouseEvent) => {
     dispatch(changeShow(false));
-  }
+  }, [dispatch]);
+
+  // 사이드바 클릭시 닫히는 현상 방지
+  const blockPropagation = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+  }, []);
 
   return (
     <div className={classNames("Sidebar_wrapper", {"hide": !show})} onClick={closeSidebar}>
-      <aside className="Sidebar">
+      <aside className="Sidebar" onClick={blockPropagation}>
         <ul className="category">
           <li className="subheader-label">사용자 관리</li>
           <ChildItem to="/admin/user" icon={faUser} text="사용자" />
