@@ -36,7 +36,7 @@ function GroupListPage({ children }: GroupListPageProps & typeof GroupListPageDe
       <div className="title-label-section">
         <h1 className="title-label">그룹 목록</h1>
         <Link to="/admin/group/writer">
-          <Button theme="primary" padding="1em 1.5em" iconMargin="1em" leftIcon={faPlus}>추가</Button>
+          <Button theme="primary" padding="0.7em 1.3em" iconMargin="1em" leftIcon={faPlus}>추가</Button>
         </Link>
       </div>
 

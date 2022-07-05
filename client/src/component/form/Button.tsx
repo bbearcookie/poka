@@ -90,25 +90,33 @@ const StyledButton = styled.button<StyledButtonProps>`
 interface ButtonProps {
   className?: string;
   theme: ButtonTheme;
+  type?: 'button' | 'submit' | 'reset';
   padding?: string;
   leftIcon?: IconDefinition;
   rightIcon?: IconDefinition;
   iconMargin?: string; // 아이콘 크기가 달라서 마진을 직접 줘야하는 경우에 부여
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   children?: React.ReactNode;
 }
 
 const ButtonDefaultProps = {
+  type: 'button',
   padding: '1em',
   iconMargin: '0.5em'
 };
 
-function Button({ className, theme, padding, leftIcon, rightIcon, iconMargin, children }: ButtonProps & typeof ButtonDefaultProps) {
+function Button(
+  { className, theme, type, padding, leftIcon, rightIcon, iconMargin, onClick, children }:
+  ButtonProps & typeof ButtonDefaultProps) {
+
   return (
     <StyledButton
       className={classNames("Button", className)}
+      type={type}
       theme={theme}
       padding={padding}
       iconMargin={iconMargin}
+      onClick={onClick}
     >
       {leftIcon && <FontAwesomeIcon className="left-icon" icon={leftIcon} /> }
       {children}
