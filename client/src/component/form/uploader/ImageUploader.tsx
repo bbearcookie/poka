@@ -6,7 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import './ImageUploader.scss';
 
-interface Image {
+// 이미지 업로더 컴포넌트 =================
+export interface Image {
   file: File | null;
   previewURL: string | ArrayBuffer | null;
   initialURL: string;
@@ -14,14 +15,17 @@ interface Image {
 
 interface ImageUploaderProps {
   className?: string;
-  state: Image;
-  setState: React.Dispatch<React.SetStateAction<Image>>;
+  value: Image;
+  message?: string;
+  onChange: (img: Image) => void;
   children?: React.ReactNode;
 }
 
-const ImageUploaderDefaultProps = {};
+const ImageUploaderDefaultProps = {
+  message: ''
+};
 
-function ImageUploader({ className, state, setState, children }: ImageUploaderProps & typeof ImageUploaderDefaultProps) {
+function ImageUploader({ className, value, message, onChange, children }: ImageUploaderProps & typeof ImageUploaderDefaultProps) {
   const [isDragging, setIsDragging] = useState(false);
   const imageRef = useRef<HTMLInputElement>(null);
 
@@ -32,12 +36,13 @@ function ImageUploader({ className, state, setState, children }: ImageUploaderPr
   const resetImage = useCallback(() => {
     if (imageRef.current) imageRef.current.value = ''; // file 타입의 input 값 초기화
 
-    setState(produce(draft => {
-      draft.file = null; // 실제 이미지 파일 초기화
-      draft.previewURL = state.initialURL; // 브라우저에 임시로 보여줄 이미지 URL 초기화
-    }));
+    onChange({
+      ...value,
+      file: null, // 실제 이미지 파일 초기화
+      previewURL: value.initialURL, // 브라우저에 임시로 보여줄 이미지 URL 초기화
+    });
 
-  }, [setState, state.initialURL]);
+  }, [onChange, value]);
 
   // 선택한 파일로 이미지 변경
   const changeFile = useCallback((file: File | null) => {
@@ -48,17 +53,18 @@ function ImageUploader({ className, state, setState, children }: ImageUploaderPr
 
     if (acceptable.includes(file.type)) {
       reader.onloadend = () => {
-        setState(produce(draft => {
-          draft.file = file; // 실제 이미지 파일 설정
-          draft.previewURL = reader.result; // 브라우저에 임시로 보여줄 이미지 URL 설정
-        }));
+        onChange({
+          ...value,
+          file: file, // 실제 이미지 파일 설정
+          previewURL: reader.result, // 브라우저에 임시로 보여줄 이미지 URL 설정
+        });
       };
 
       reader.readAsDataURL(file);
     } else {
       alert('받을 수 없는 타입');
     }
-  }, [setState]);
+  }, [onChange, value]);
 
   // Input 파일 변경시 이미지 변경
   const onChangeInput = useCallback((e: React.ChangeEvent) => {
@@ -93,18 +99,18 @@ function ImageUploader({ className, state, setState, children }: ImageUploaderPr
     <article className={classNames("ImageUploader", className)}>
       <input type="file" accept=".jpg, .png" ref={imageRef} onChange={onChangeInput} />
 
-      {state.previewURL &&
+      {value.previewURL &&
       <img
-        src={String(state.previewURL)}
+        src={String(value.previewURL)}
         alt="업로드"
         onDragOver={onDragOver}
         onDragLeave={onDragLeave}
         onDrop={onDrop}
       />}
 
-      {!state.previewURL && 
+      {!value.previewURL && 
       <section
-        className={classNames("upload-section", {"isDragging": isDragging})}
+        className={classNames("ImageUploader__upload-section", {"isDragging": isDragging})}
         onClick={showInput}
         onDragOver={onDragOver}
         onDragLeave={onDragLeave}
@@ -114,7 +120,9 @@ function ImageUploader({ className, state, setState, children }: ImageUploaderPr
         <p className="description">파일을 드래그해서 업로드</p>
       </section>}
 
-      <section className="button-section">
+      <p className="ImageUploader__message-label">{message}</p>
+
+      <section className="ImageUploader__button-section">
         <Button type="button" theme="primary" padding="0.5em" leftIcon={faUpload} onClick={showInput}>파일 선택</Button>
         <Button type="button" theme="primary-outlined" padding="0.5em" leftIcon={faTrashCan} onClick={resetImage}>초기화</Button>
       </section>
