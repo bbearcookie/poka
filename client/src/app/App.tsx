@@ -1,9 +1,10 @@
 import React from 'react';
+import Router from '@app/router/Router';
 
 function App() {
   return (
     <div className="App">
-      하이
+      <Router />
     </div>
   );
 }

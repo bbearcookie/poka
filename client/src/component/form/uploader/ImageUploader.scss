@@ -1,0 +1,44 @@
+.ImageUploader {
+  img {
+    width: 100%;
+  }
+
+  input[type="file"] { display: none; }
+
+  .ImageUploader__upload-section {
+    margin-bottom: 1em; padding: 1em;
+    min-height: 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #E5E7EB;
+    color: #65748B;
+    border: 2px dashed #E5E7EB;
+    border-radius: 5px;
+    text-align: center;
+    user-select: none;
+    cursor: pointer;
+    transition: 0.1s all;
+
+    &.isDragging { background-color: #bfc1c6; }
+    &:hover { background-color: #dcdee1; }
+    svg { margin-bottom: 0.3em; }
+  }
+
+  .ImageUploader__message-label {
+    color: red;
+    margin: 0.5em 0 0.5em 0.8em;
+  }
+
+  .ImageUploader__button-section {
+    margin-top: 1em;
+    
+    .Button {
+      width: 100%;
+      border-radius: 50px;
+      margin-bottom: 1em;
+    }
+  }
+
+}
