@@ -11,6 +11,8 @@ export const saveData = async (name: string, content: string) => {
     return await con.execute(sql);
   } catch (err) {
     throw err;
+  } finally {
+    con.release();
   }
 };
 
@@ -23,5 +25,7 @@ export const selectAllData = async () => {
     return result;
   } catch (err) {
     throw err;
+  } finally {
+    con.release();
   }
 }
