@@ -65,6 +65,9 @@ function Sidebar({ children }: SidebarProps & typeof SidebarDefaultProps) {
             <ChildItem to="/admin/photo/writer" text="추가" />
           </ParentItem>
         </ul>
+        <ul className="category">
+          <ChildItem to="/admin/first" text="테스트페이지" />
+        </ul>
       </aside>
     </div>
   );
