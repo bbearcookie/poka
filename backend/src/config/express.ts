@@ -14,7 +14,7 @@ export default function() {
     originList.push(process.env.CLIENT_SERVER_URL);
   if (process.env.CLIENT_SERVER_URL_WITH_WWW)
     originList.push(process.env.CLIENT_SERVER_URL_WITH_WWW);
-
+    
   const corsOptions = {
     origin: (origin: any, callback: any) => {
       if (originList.indexOf(origin) !== -1) {

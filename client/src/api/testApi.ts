@@ -1,7 +1,5 @@
 import axios, { AxiosPromise } from "axios";
-
-const BACKEND = 'http://localhost:5000';
-const options = { withCredentials: true }; // 여러 API 요청들이 공통적으로 사용할만한 옵션
+import { BACKEND, options } from "@util/commonAPI";
 
 export const getTestOne = () => axios({
   ...options,

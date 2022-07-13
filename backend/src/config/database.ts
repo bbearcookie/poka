@@ -1,6 +1,4 @@
 import mysql from 'mysql2/promise';
-import dotenv from 'dotenv';
-dotenv.config(); // env 변수 사용
 
 const options = {
   host: process.env.DATABASE_HOST,

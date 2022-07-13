@@ -9,6 +9,7 @@ interface InputProps {
   value?: any;
   message?: string;
   autoComplete?: string;
+  maxLength?: number;
   placeholder?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
@@ -21,7 +22,7 @@ const InputDefaultProps = {
   onBlur: (e: React.FocusEvent<HTMLInputElement>) => {},
 };
 
-function Input({ className, type, name, value, message, placeholder, autoComplete, onChange, onBlur }: InputProps & typeof InputDefaultProps) {
+function Input({ className, type, name, value, message, placeholder, maxLength, autoComplete, onChange, onBlur }: InputProps & typeof InputDefaultProps) {
   return (
     <article className={classNames("Input", className)}>
       <input
@@ -29,6 +30,7 @@ function Input({ className, type, name, value, message, placeholder, autoComplet
         name={name}
         value={value}
         placeholder={placeholder}
+        maxLength={maxLength}
         autoComplete={autoComplete}
         onChange={onChange}
         onBlur={onBlur}
