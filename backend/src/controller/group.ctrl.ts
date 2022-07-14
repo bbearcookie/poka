@@ -9,7 +9,7 @@ import { GROUP_IMAGE_DIR } from '@util/fileDirectory';
 import * as groupService from '@service/group.service';
 const groupUploader = createUploader(GROUP_IMAGE_DIR);
 
-// 그룹 데이터 추가 API
+// 그룹 데이터 추가
 export const postGroup = {
   uploader: groupUploader.single('image'),
   validator: [

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Button from '@component/form/Button';
+import Button from '@component/form/basic/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAppSelector, useAppDispatch } from '@app/reduxHooks';
 import { changeShow } from '@component/sidebar/admin/sidebarSlice';
