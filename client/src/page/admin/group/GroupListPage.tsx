@@ -1,28 +1,14 @@
 import React from 'react';
+import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
+import { AxiosResponse } from 'axios';
 import Button from '@component/form/basic/Button';
 import Table from '@component/table/Table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import * as queryKey from '@util/queryKey';
+import * as groupAPI from '@api/groupAPI';
 import './GroupListPage.scss';
-
-const data = [
-  {
-    imgSrc: '/izone.png',
-    name: '아이즈원',
-    memberNum: 5,
-  },
-  {
-    imgSrc: '/bts.png',
-    name: 'BTS',
-    memberNum: 3,
-  },
-  {
-    imgSrc: '/twice.png',
-    name: '트와이스',
-    memberNum: 7,
-  },
-]
 
 interface GroupListPageProps {
   children?: React.ReactNode;
@@ -49,24 +35,7 @@ function GroupListPage({ children }: GroupListPageProps & typeof GroupListPageDe
           </tr>
         </thead>
         <tbody>
-          {data.map((item, idx) => (
-            <tr key={idx}>
-              <td>
-                <section className="name-section">
-                  <img src={item.imgSrc} width="60" height="60" alt={item.name} />
-                  <span>{item.name}</span>
-                </section>
-              </td>
-              <td>{item.memberNum}명</td>
-              <td>
-                <section className="action-section">
-                  <div className="icon-button">
-                    <FontAwesomeIcon icon={faArrowRight} />
-                  </div>
-                </section>
-              </td>
-            </tr>
-          ))}
+          <GroupList />
         </tbody>
       </Table>
 
@@ -77,3 +46,58 @@ function GroupListPage({ children }: GroupListPageProps & typeof GroupListPageDe
 GroupListPage.defaultProps = GroupListPageDefaultProps;
 
 export default GroupListPage;
+
+function GroupList({  }) {
+  const { status, data: groups, error } = 
+  useQuery<AxiosResponse<typeof groupAPI.getAllGroupList.resType>>
+  (queryKey.groupKeys.all, groupAPI.getAllGroupList.axios);
+
+  console.log(status);
+
+  if (status === 'loading') {
+    return <span>Loading...</span>;
+  }
+
+  return (
+    <>
+      {groups?.data?.groups.map((item, idx) => (
+        <tr key={idx}>
+        <td>
+          <section className="name-section">
+            <img src={`http://localhost:5000/image/group/${item.image_name}`} width="60" height="60" alt={item.name} />
+            <span>{item.name}</span>
+          </section>
+        </td>
+        <td>{item.member_cnt}명</td>
+        <td>
+          <section className="action-section">
+            <div className="icon-button">
+              <FontAwesomeIcon icon={faArrowRight} />
+            </div>
+          </section>
+        </td>
+      </tr>
+      ))}
+    </>
+  );
+}
+
+
+
+// const data = [
+//   {
+//     imgSrc: '/izone.png',
+//     name: '아이즈원',
+//     memberNum: 5,
+//   },
+//   {
+//     imgSrc: '/bts.png',
+//     name: 'BTS',
+//     memberNum: 3,
+//   },
+//   {
+//     imgSrc: '/twice.png',
+//     name: '트와이스',
+//     memberNum: 7,
+//   },
+// ]

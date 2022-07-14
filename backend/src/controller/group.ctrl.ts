@@ -9,6 +9,21 @@ import { GROUP_IMAGE_DIR } from '@util/fileDirectory';
 import * as groupService from '@service/group.service';
 const groupUploader = createUploader(GROUP_IMAGE_DIR);
 
+// 그룹 목록 조회
+export const getGroupList = {
+  controller: async (req: Request, res: Response) => {
+    try {
+      const [groups] = await groupService.selectAllGroupList();
+      return res.status(200).json({ message: '그룹 목록을 조회했습니다.', groups });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).send({ message: '서버 문제로 오류가 발생했습니다.' });
+    }
+    
+    return res.status(501).json({ message: 'Not Implemented' });
+  }
+}
+
 // 그룹 데이터 추가
 export const postGroup = {
   uploader: groupUploader.single('image'),

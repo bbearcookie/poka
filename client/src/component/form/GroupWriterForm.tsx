@@ -1,8 +1,9 @@
 import React, { useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType, MessageResponseType } from '@util/commonAPI';
+import { ErrorType } from '@util/commonAPI';
 import Input from '@component/form/basic/Input';
 import Button from '@component/form/basic/Button';
 import ImageUploader, { Image } from '@component/form/basic/uploader/ImageUploader';
@@ -33,11 +34,13 @@ function GroupWriterForm({ children }: GroupWriterFormProps & typeof GroupWriter
     name: '',
     image: ''
   });
+  const navigate = useNavigate();
 
   // 데이터 추가 요청
-  const postMutation = useMutation(groupAPI.postGroup, {
-    onSuccess: (result: AxiosResponse<MessageResponseType>) => {
-      toast.success(result.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
+  const postMutation = useMutation(groupAPI.postGroup.axios, {
+    onSuccess: (result: AxiosResponse<typeof groupAPI.postGroup.resType>) => {
+      toast.success(result.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
+      return navigate('/admin/group/list');
     },
     onError: (err: AxiosError<ErrorType<FormType>>) => {
       toast.error(err.response?.data.message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
@@ -115,6 +118,11 @@ function GroupWriterForm({ children }: GroupWriterFormProps & typeof GroupWriter
 
   }, [form, formMessage, postMutation, validate]);
 
+  // 취소 버튼 클릭시
+  const goBack = useCallback(() => {
+    return navigate('/admin/group/list');
+  }, [navigate]);
+
   return (
     <form onSubmit={onSubmit}>
       <section className="card">
@@ -139,7 +147,7 @@ function GroupWriterForm({ children }: GroupWriterFormProps & typeof GroupWriter
       </section>
 
       <section className="button-section">
-        <Button theme="primary-outlined" padding="1em 2em">취소</Button>
+        <Button theme="primary-outlined" padding="1em 2em" onClick={goBack}>취소</Button>
         <Button theme="primary" type="submit" padding="1em 2em">작성</Button>
       </section>
     </form>

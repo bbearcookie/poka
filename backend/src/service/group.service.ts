@@ -1,6 +1,23 @@
 import db from '@config/database';
 import { ResultSetHeader } from 'mysql2';
-import { getTimestampFilename } from '@util/multer';
+
+// 그룹 목록 조회
+export const selectAllGroupList = async () => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `
+    SELECT G.group_id, G.name, G.image_name,
+    (SELECT COUNT(*) FROM MemberData as M WHERE M.group_id=G.group_id) as member_cnt
+    FROM GroupData AS G`
+
+    return await con.query(sql);
+  } catch (err) {
+    throw err;
+  } finally {
+    con.release();
+  }
+}
 
 // 그룹 데이터 추가
 export const insertGroup = async (name: string) => {
@@ -36,7 +53,7 @@ export const updateImagename = async (groupId: number, imageName: string) => {
     SET image_name=(${con.escape(imageName)})
     WHERE group_id=${groupId}`;
 
-    await con.execute(sql);
+    return await con.execute(sql);
   } catch (err) {
     throw err;
   } finally {
