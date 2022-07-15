@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import path from 'path';
 import fs from 'fs/promises';
-import { body } from 'express-validator';
+import { body, param } from 'express-validator';
 import { validate } from '@util/validator';
 import { getTimestampFilename } from '@util/multer';
 import { createUploader } from '@util/multer';

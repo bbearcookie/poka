@@ -18,9 +18,13 @@
 
       .name-section {
         width: fit-content;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
+
+        a {
+          display: flex;
+          align-items: center;
+          text-decoration: none;
+          color: #121828;
+        }
 
         &:hover {
           .name { text-decoration: underline; }

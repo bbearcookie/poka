@@ -1,12 +1,12 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import Button from '@component/form/basic/Button';
 import Table from '@component/table/Table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { BACKEND } from '@util/commonAPI';
+import { BACKEND, ErrorType } from '@util/commonAPI';
 import * as queryKey from '@util/queryKey';
 import * as groupAPI from '@api/groupAPI';
 import './GroupListPage.scss';
@@ -50,7 +50,7 @@ export default GroupListPage;
 
 function GroupList() {
   const { status, data: groups, error } = 
-  useQuery<AxiosResponse<typeof groupAPI.getAllGroupList.resType>>
+  useQuery<AxiosResponse<typeof groupAPI.getAllGroupList.resType>, AxiosError<ErrorType>>
   (queryKey.groupKeys.all, groupAPI.getAllGroupList.axios);
 
   if (status === 'loading') {
@@ -84,16 +84,20 @@ function GroupList() {
       <tr key={idx}>
         <td>
           <section className="name-section">
-            <img src={`${BACKEND}/image/group/${item.image_name}`} width="60" height="60" alt={item.name} />
-            <span className="name">{item.name}</span>
+            <Link className="name-section" to={`/admin/group/detail/${item.group_id}`}>
+              <img src={`${BACKEND}/image/group/${item.image_name}`} width="60" height="60" alt={item.name} />
+              <span className="name">{item.name}</span>
+            </Link>
           </section>
         </td>
         <td>{item.member_cnt}명</td>
         <td>
           <section className="action-section">
-            <div className="icon-button">
-              <FontAwesomeIcon icon={faArrowRight} />
-            </div>
+            <Link to={`/admin/group/detail/${item.group_id}`}>
+              <div className="icon-button">
+                <FontAwesomeIcon icon={faArrowRight} />
+              </div>
+            </Link>
           </section>
         </td>
       </tr>

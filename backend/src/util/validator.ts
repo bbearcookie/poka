@@ -9,6 +9,7 @@ export function validate(req: Request, res: Response, next: NextFunction) {
     return { param: err.param, message: err.msg }
   });
 
+  if (result.length === 1) return res.status(400).json({ message: result[0].message });
   if (!errors.isEmpty()) return res.status(400).json({ message: '올바른 정보를 입력해주세요!', errors: result });
   next();
 }
