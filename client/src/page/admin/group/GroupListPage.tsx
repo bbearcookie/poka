@@ -86,9 +86,10 @@ interface GroupListProps {
 }
 
 function GroupList({ groups }: GroupListProps) {
+
   return (
     <>
-    {groups?.data?.groups.map((item, idx) => (
+    {groups.data?.groups.map((item, idx) => (
       <tr key={idx}>
         <td>
           <section className="name-section">

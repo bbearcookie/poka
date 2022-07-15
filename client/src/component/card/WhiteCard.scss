@@ -1,0 +1,16 @@
+.WhiteCard {
+  margin-bottom: 1em;
+  background-color: white;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+
+  .card-label { margin: 0.5em 0; }
+  .description { margin: 0; color: #65748B; }
+
+  .WhiteCardHeader {
+    padding: 1.5em;
+    border-bottom: 1px solid #E5E7EB;
+
+  }
+  .WhiteCardBody { padding: 1.5em; }
+}

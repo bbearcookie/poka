@@ -1,3 +1,46 @@
 .GroupDetailPage {
-  padding: 1.5em 10em;
+  padding: 5em 10%;
+
+  .group-section {
+    margin: 2em 0;
+    display: flex;
+    align-items: center;
+
+    .name-label {
+      margin-left: 1em;
+      font-size: 1.5rem;
+      font-weight: bold;
+      flex-grow: 1;
+    }
+  }
+
+  .Table {
+    width: 100%;
+    min-width: 40rem;
+    border: none;
+    margin-bottom: 5rem;
+
+    thead {
+      height: 3em;
+
+      .name { width: 60%;}
+      .photo { width: 30%; }
+      .action { width: 10%; text-align: right; }
+    }
+
+    tbody {
+      tr { height: 5em; }
+    }
+  }
+
+  .WhiteCard {
+    margin-bottom: 5em;
+    .Button {
+      margin-bottom: 1em;
+    }
+  }
+
+  @media screen and (max-width: 65rem) {
+    padding: 5em 1em;
+  }
 }

@@ -1,42 +1,23 @@
 .GroupWriterPage {
-  padding: 1.5em;
+  padding: 5em 1.5em;
 
-  .card {
-    margin-bottom: 1em;
-    padding: 1em;
-    background-color: white;
-    border: 1px solid #E5E7EB;
-    border-radius: 10px;
-
-    .label {
-      margin: 0 0 1em 0;
-    }
-
-    .description {
-      margin: 0;
-      color: #65748B;
-    }
+  .WhiteCard {
+    .label { margin: 0 0 1em 0; }
 
     .Input {
       margin-bottom: 1em;
 
-      input {
-        width: 100%; height: 2.5em;
-      }
+      input { width: 100%; height: 2.5em; }
     }
   }
 
-  .logo-card {
-    max-width: 25rem;
-  }
+  .logo-card { max-width: 25rem; }
 
   .button-section {
     display: flex;
     justify-content: right;
 
-    .Button {
-      margin-right: 1em;
-    }
+    .Button { margin-right: 1em; }
   }
 
   @media screen and (max-width: 15rem) {
@@ -44,9 +25,7 @@
       display: block;
       text-align: center;
 
-      .Button {
-        margin-bottom: 1em;
-      }
+      .Button { margin-bottom: 1em; }
     }
   }
 }

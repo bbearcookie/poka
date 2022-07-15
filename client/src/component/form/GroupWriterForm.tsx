@@ -6,6 +6,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorType } from '@util/commonAPI';
 import Input from '@component/form/basic/Input';
 import Button from '@component/form/basic/Button';
+import WhiteCard, { WhiteCardHeader, WhiteCardBody } from '@component/card/WhiteCard';
 import ImageUploader, { Image } from '@component/form/basic/uploader/ImageUploader';
 import * as groupAPI from '@api/groupAPI';
 
@@ -125,26 +126,30 @@ function GroupWriterForm({ children }: GroupWriterFormProps & typeof GroupWriter
 
   return (
     <form onSubmit={onSubmit}>
-      <section className="card">
-        <h3 className="label">이름</h3>
-        <Input
-          type="text"
-          name="name"
-          value={form.name}
-          message={formMessage.name}
-          placeholder="이름을 입력하세요"
-          maxLength={20}
-          autoComplete="off"
-          onChange={changeInput}
-          onBlur={blurInput}
-        />
-        <p className="description">아이돌 그룹의 이름을 지정합니다. 이 이름은 사용자가 포토카드를 찾거나, 관리자가 포토카드 정보를 관리할 때 사용됩니다.</p>
-      </section>
+      <WhiteCard>
+        <WhiteCardBody>
+          <h3 className="label">이름</h3>
+          <Input
+            type="text"
+            name="name"
+            value={form.name}
+            message={formMessage.name}
+            placeholder="이름을 입력하세요"
+            maxLength={20}
+            autoComplete="off"
+            onChange={changeInput}
+            onBlur={blurInput}
+          />
+          <p className="description">아이돌 그룹의 이름을 지정합니다. 이 이름은 사용자가 포토카드를 찾거나, 관리자가 포토카드 정보를 관리할 때 사용됩니다.</p>
+        </WhiteCardBody>
+      </WhiteCard>
 
-      <section className="card logo-card">
-        <h3 className="label">로고 이미지</h3>
-        <ImageUploader value={form.image} onChange={changeImage} message={formMessage.image} />
-      </section>
+      <WhiteCard className="logo-card">
+        <WhiteCardBody>
+          <h3 className="label">로고 이미지</h3>
+          <ImageUploader value={form.image} onChange={changeImage} message={formMessage.image} />
+        </WhiteCardBody>
+      </WhiteCard>
 
       <section className="button-section">
         <Button theme="primary-outlined" padding="1em 2em" onClick={goBack}>취소</Button>

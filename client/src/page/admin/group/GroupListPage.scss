@@ -32,13 +32,8 @@
 
         img { margin-right: 1rem; }
       }
-
-      .action-section {
-        display: flex;
-        justify-content: flex-end;
-      }
     }
-
+    
     &.skeleton {
       span {
         display: block;

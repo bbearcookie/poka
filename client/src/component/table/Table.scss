@@ -37,16 +37,23 @@
       background-color: white;
     }
 
-    // 아이콘 버튼
-    .icon-button {
-      padding: 0.5rem;
-      border-radius: 0.3rem;
-      transition: all 0.5s;
-      cursor: pointer;
-      user-select: none;
+    .action-section {
+      display: flex;
+      justify-content: flex-end;
 
-      &:hover {
-        background-color: rgb(249, 249, 250);
+      // 아이콘 버튼
+      .icon-button {
+        color: gray;
+        padding: 0.5rem;
+        border-radius: 0.3rem;
+        transition: all 0.5s;
+        cursor: pointer;
+        user-select: none;
+
+        &:hover {
+          color: inherit;
+          background-color: rgb(249, 249, 250);
+        }
       }
     }
   }
