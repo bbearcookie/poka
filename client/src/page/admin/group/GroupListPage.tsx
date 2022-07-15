@@ -6,6 +6,7 @@ import Button from '@component/form/basic/Button';
 import Table from '@component/table/Table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { BACKEND } from '@util/commonAPI';
 import * as queryKey from '@util/queryKey';
 import * as groupAPI from '@api/groupAPI';
 import './GroupListPage.scss';
@@ -29,8 +30,8 @@ function GroupListPage({ children }: GroupListPageProps & typeof GroupListPageDe
       <Table>
         <thead>
           <tr>
-            <th>이름</th>
-            <th>멤버</th>
+            <th className="name">이름</th>
+            <th className="member">멤버</th>
             <th className="action">액션</th>
           </tr>
         </thead>
@@ -47,25 +48,44 @@ GroupListPage.defaultProps = GroupListPageDefaultProps;
 
 export default GroupListPage;
 
-function GroupList({  }) {
+function GroupList() {
   const { status, data: groups, error } = 
   useQuery<AxiosResponse<typeof groupAPI.getAllGroupList.resType>>
   (queryKey.groupKeys.all, groupAPI.getAllGroupList.axios);
 
-  console.log(status);
-
   if (status === 'loading') {
-    return <span>Loading...</span>;
+    return (
+      <>
+      {Array.from({length: 9}).map((_, idx) => (
+        <tr className="skeleton" key={idx}>
+          <td>
+            <section className="name-section">
+              <span className="image" />
+              <span className="name" />
+            </section>
+          </td>
+          <td>
+            <span className="member-count" />
+          </td>
+          <td>
+            <section className="action-section">
+              <span className="icon-button" />
+            </section>
+          </td>
+        </tr>
+      ))}
+      </>
+    )
   }
 
   return (
     <>
-      {groups?.data?.groups.map((item, idx) => (
-        <tr key={idx}>
+    {groups?.data?.groups.map((item, idx) => (
+      <tr key={idx}>
         <td>
           <section className="name-section">
-            <img src={`http://localhost:5000/image/group/${item.image_name}`} width="60" height="60" alt={item.name} />
-            <span>{item.name}</span>
+            <img src={`${BACKEND}/image/group/${item.image_name}`} width="60" height="60" alt={item.name} />
+            <span className="name">{item.name}</span>
           </section>
         </td>
         <td>{item.member_cnt}명</td>
@@ -77,27 +97,7 @@ function GroupList({  }) {
           </section>
         </td>
       </tr>
-      ))}
+    ))}
     </>
   );
 }
-
-
-
-// const data = [
-//   {
-//     imgSrc: '/izone.png',
-//     name: '아이즈원',
-//     memberNum: 5,
-//   },
-//   {
-//     imgSrc: '/bts.png',
-//     name: 'BTS',
-//     memberNum: 3,
-//   },
-//   {
-//     imgSrc: '/twice.png',
-//     name: '트와이스',
-//     memberNum: 7,
-//   },
-// ]

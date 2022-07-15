@@ -8,26 +8,49 @@
     thead {
       height: 3em;
 
-      .action {
-        text-align: right;
-      }
+      .name { width: 60%;}
+      .member { width: 30%; }
+      .action { width: 10%; text-align: right; }
     }
 
     tbody {
-      height: 8em;
+      tr { height: 5em; }
 
       .name-section {
+        width: fit-content;
         display: flex;
         align-items: center;
+        cursor: pointer;
 
-        img {
-          margin-right: 1rem;
+        &:hover {
+          .name { text-decoration: underline; }
         }
+
+        img { margin-right: 1rem; }
       }
 
       .action-section {
         display: flex;
         justify-content: flex-end;
+      }
+
+      .skeleton {
+        span {
+          display: block;
+          background-color: gainsboro;
+          height: 1.25em;
+          border-radius: 10px;
+        }
+
+        .image {
+          width: 60px;
+          height: 60px;
+          margin-right: 1rem;
+        }
+
+        .name { width: 7em; }
+        .member-count { width: 5em; }
+        .icon-button { width: 1em; height: 0.2em; }
       }
     }
   }
