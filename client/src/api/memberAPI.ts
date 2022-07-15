@@ -5,7 +5,7 @@ export const getMembersOfGroup = {
   axios: (groupId: number) => () => axios({
     ...options,
     method: 'get',
-    url: `${BACKEND}/api/group/${groupId}/members`
+    url: `${BACKEND}/api/group/${groupId}/member`
   }),
   resType: undefined as undefined | {
     message: string;

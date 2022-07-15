@@ -24,7 +24,7 @@ const InputDefaultProps = {
 
 function Input({ className, type, name, value, message, placeholder, maxLength, autoComplete, onChange, onBlur }: InputProps & typeof InputDefaultProps) {
   return (
-    <article className={classNames("Input", className)}>
+    <div className={classNames("Input", className)}>
       <input
         type={type}
         name={name}
@@ -35,8 +35,8 @@ function Input({ className, type, name, value, message, placeholder, maxLength, 
         onChange={onChange}
         onBlur={onBlur}
       />
-      <p className="Input__message-label">{message}</p>
-    </article>
+      {message && <p className="Input__message-label">{message}</p>}
+    </div>
   );
 }
 
