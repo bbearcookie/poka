@@ -18,6 +18,26 @@ export const getAllGroupList = {
   }
 }
 
+export const getGroupDetail = {
+  axios: (groupId: number) => () => axios({
+    ...options,
+    method: 'get',
+    url: `${BACKEND}/api/group/${groupId}`
+  }),
+  resType: undefined as undefined | {
+    message: string;
+    group_id: number;
+    name: string;
+    image_name: string;
+    members: {
+      group_id: number;
+      member_id: number;
+      name: string;
+      photo_cnt: number;
+    }[];
+  }
+}
+
 export const postGroup = {
   axios: (data: object) => axios({
     ...options,

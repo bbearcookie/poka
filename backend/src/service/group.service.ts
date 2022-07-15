@@ -1,5 +1,5 @@
 import db from '@config/database';
-import { ResultSetHeader } from 'mysql2';
+import { ResultSetHeader, RowDataPacket } from 'mysql2';
 
 // 그룹 목록 조회
 export const selectAllGroupList = async () => {
@@ -12,6 +12,30 @@ export const selectAllGroupList = async () => {
     FROM GroupData AS G`
 
     return await con.query(sql);
+  } catch (err) {
+    throw err;
+  } finally {
+    con.release();
+  }
+}
+
+// 그룹 상세 조회
+export const selectGroupDetail = async (groupId: number) => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `
+    SELECT group_id, name, image_name
+    FROM GroupData
+    WHERE group_id=${con.escape(groupId)}`
+
+    interface DataType extends RowDataPacket {
+      group_id: number;
+      name: string;
+      image_name: string;
+    }
+
+    return await con.query<DataType[]>(sql);
   } catch (err) {
     throw err;
   } finally {

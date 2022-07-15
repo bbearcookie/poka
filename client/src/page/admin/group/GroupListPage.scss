@@ -1,5 +1,5 @@
 .GroupListPage {
-  padding: 1.5em;
+  padding: 5em 1.5em;
 
   .Table {
     width: 100%;
@@ -17,11 +17,11 @@
       tr { height: 5em; }
 
       .name-section {
+        display: flex;
+        align-items: center;
         width: fit-content;
 
         a {
-          display: flex;
-          align-items: center;
           text-decoration: none;
           color: #121828;
         }
@@ -37,25 +37,25 @@
         display: flex;
         justify-content: flex-end;
       }
+    }
 
-      .skeleton {
-        span {
-          display: block;
-          background-color: gainsboro;
-          height: 1.25em;
-          border-radius: 10px;
-        }
-
-        .image {
-          width: 60px;
-          height: 60px;
-          margin-right: 1rem;
-        }
-
-        .name { width: 7em; }
-        .member-count { width: 5em; }
-        .icon-button { width: 1em; height: 0.2em; }
+    &.skeleton {
+      span {
+        display: block;
+        background-color: gainsboro;
+        height: 1.25em;
+        border-radius: 10px;
       }
+
+      .image {
+        width: 60px;
+        height: 60px;
+        margin-right: 1rem;
+      }
+
+      .name { width: 7em; }
+      .member-count { width: 5em; }
+      .icon-button { width: 1em; height: 0.2em; }
     }
   }
 

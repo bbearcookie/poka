@@ -7,6 +7,8 @@ import { getTimestampFilename } from '@util/multer';
 import { createUploader } from '@util/multer';
 import { GROUP_IMAGE_DIR } from '@util/fileDirectory';
 import * as groupService from '@service/group.service';
+import * as memberService from '@service/member.service';
+import { FieldPacket } from 'mysql2';
 const groupUploader = createUploader(GROUP_IMAGE_DIR);
 
 // 그룹 목록 조회
@@ -20,6 +22,29 @@ export const getGroupList = {
       return res.status(500).send({ message: '서버 문제로 오류가 발생했습니다.' });
     }
     
+    return res.status(501).json({ message: 'Not Implemented' });
+  }
+}
+
+// 그룹 상세 조회
+export const getGroupDetail = {
+  validator: [
+    param('groupId').isNumeric().withMessage('그룹 ID는 숫자여야 해요.'),
+    validate
+  ],
+  controller: async (req: Request, res: Response) => {
+    const groupId = req.params.groupId as unknown as number;
+
+    try {
+      const [[group]] = await groupService.selectGroupDetail(groupId);
+      const [members] = await memberService.selectAllMembersOfGroup(groupId);
+
+      return res.status(200).json({ message: `${groupId}번 그룹의 상세 정보를 조회했습니다.`, ...group, members });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).send({ message: '서버 문제로 오류가 발생했습니다.' });
+    }
+
     return res.status(501).json({ message: 'Not Implemented' });
   }
 }

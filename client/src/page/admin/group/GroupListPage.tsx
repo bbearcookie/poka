@@ -1,11 +1,12 @@
 import React from 'react';
+import classNames from 'classnames';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
-import { AxiosError, AxiosResponse } from 'axios';
 import Button from '@component/form/basic/Button';
 import Table from '@component/table/Table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { AxiosError, AxiosResponse } from 'axios';
 import { BACKEND, ErrorType } from '@util/commonAPI';
 import * as queryKey from '@util/queryKey';
 import * as groupAPI from '@api/groupAPI';
@@ -18,6 +19,10 @@ interface GroupListPageProps {
 const GroupListPageDefaultProps = {};
 
 function GroupListPage({ children }: GroupListPageProps & typeof GroupListPageDefaultProps) {
+  const { status, data: groups, error } = 
+  useQuery<AxiosResponse<typeof groupAPI.getAllGroupList.resType>, AxiosError<ErrorType>>
+  (queryKey.groupKeys.all, groupAPI.getAllGroupList.axios);
+
   return (
     <section className="GroupListPage">
       <div className="title-label-section">
@@ -27,7 +32,7 @@ function GroupListPage({ children }: GroupListPageProps & typeof GroupListPageDe
         </Link>
       </div>
 
-      <Table>
+      <Table className={classNames({"skeleton": status === 'loading'})}>
         <thead>
           <tr>
             <th className="name">이름</th>
@@ -36,7 +41,9 @@ function GroupListPage({ children }: GroupListPageProps & typeof GroupListPageDe
           </tr>
         </thead>
         <tbody>
-          <GroupList />
+          {status === 'loading' && <Skeleton />}
+          {status === 'success' && <GroupList groups={groups} />}
+          {status === 'error' && <p>{error.response?.data.message}</p>}
         </tbody>
       </Table>
 
@@ -45,39 +52,40 @@ function GroupListPage({ children }: GroupListPageProps & typeof GroupListPageDe
 }
 
 GroupListPage.defaultProps = GroupListPageDefaultProps;
-
 export default GroupListPage;
 
-function GroupList() {
-  const { status, data: groups, error } = 
-  useQuery<AxiosResponse<typeof groupAPI.getAllGroupList.resType>, AxiosError<ErrorType>>
-  (queryKey.groupKeys.all, groupAPI.getAllGroupList.axios);
+// 스켈레톤 UI
+function Skeleton() {
+  return (
+    <>
+    {Array.from({length: 8}).map((_, idx) => (
+      <tr key={idx}>
+        <td>
+          <section className="name-section">
+            <span className="image" />
+            <span className="name" />
+          </section>
+        </td>
+        <td>
+          <span className="member-count" />
+        </td>
+        <td>
+          <section className="action-section">
+            <span className="icon-button" />
+          </section>
+        </td>
+      </tr>
+    ))}
+    </>
+  )
+}
 
-  if (status === 'loading') {
-    return (
-      <>
-      {Array.from({length: 9}).map((_, idx) => (
-        <tr className="skeleton" key={idx}>
-          <td>
-            <section className="name-section">
-              <span className="image" />
-              <span className="name" />
-            </section>
-          </td>
-          <td>
-            <span className="member-count" />
-          </td>
-          <td>
-            <section className="action-section">
-              <span className="icon-button" />
-            </section>
-          </td>
-        </tr>
-      ))}
-      </>
-    )
-  }
+// 로딩 완료 UI
+interface GroupListProps {
+  groups: AxiosResponse<typeof groupAPI.getAllGroupList.resType>;
+}
 
+function GroupList({ groups }: GroupListProps) {
   return (
     <>
     {groups?.data?.groups.map((item, idx) => (
