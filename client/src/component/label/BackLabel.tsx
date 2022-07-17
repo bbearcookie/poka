@@ -17,10 +17,12 @@ const BackLabelDefaultProps = {
 
 function BackLabel({ className, to, children }: BackLabelProps & typeof BackLabelDefaultProps) {
   return (
-    <Link to={to} className={classNames("BackLabel", className)}>
-      <FontAwesomeIcon className="icon" icon={faArrowLeft} />
-      {children}
-    </Link>
+    <div className={classNames("BackLabel", className)}>
+      <Link to={to}>
+        <FontAwesomeIcon className="icon" icon={faArrowLeft} />
+        {children}
+      </Link>
+    </div>
   );
 }
 

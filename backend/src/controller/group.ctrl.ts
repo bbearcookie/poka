@@ -36,8 +36,9 @@ export const getGroupDetail = {
 
     try {
       const [[group]] = await groupService.selectGroupDetail(groupId);
-      const [members] = await memberService.selectAllMembersOfGroup(groupId);
+      if (!group) return res.status(404).json({ message: '해당 그룹의 데이터가 서버에 존재하지 않아요.' });
 
+      const [members] = await memberService.selectAllMembersOfGroup(groupId);
       return res.status(200).json({ message: `${groupId}번 그룹의 상세 정보를 조회했습니다.`, ...group, members });
     } catch (err) {
       console.error(err);
