@@ -17,3 +17,28 @@ export const getMembersOfGroup = {
     }[];
   }
 }
+
+export const postMember = {
+  axios: (data: object) => axios({
+    ...options,
+    method: 'post',
+    url: `${BACKEND}/api/member`,
+    data
+  }),
+  resType: undefined as undefined | {
+    message: string;
+    memberId: number;
+  }
+}
+
+export const putMember = {
+  axios: (data: { memberId: number; [key: string]: any }) => axios({
+    ...options,
+    method: 'put',
+    url: `${BACKEND}/api/member/${data.memberId}`,
+    data
+  }),
+  resType: undefined as undefined | {
+    message: string;
+  }
+}

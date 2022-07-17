@@ -19,7 +19,7 @@ export const getGroupList = {
       return res.status(200).json({ message: '그룹 목록을 조회했습니다.', groups });
     } catch (err) {
       console.error(err);
-      return res.status(500).send({ message: '서버 문제로 오류가 발생했습니다.' });
+      return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
     }
     
     return res.status(501).json({ message: 'Not Implemented' });
@@ -33,7 +33,7 @@ export const getGroupDetail = {
     validate
   ],
   controller: async (req: Request, res: Response) => {
-    const groupId = req.params.groupId as unknown as number;
+    const groupId = Number(req.params.groupId);
 
     try {
       const [[group]] = await groupService.selectGroupDetail(groupId);
@@ -42,7 +42,7 @@ export const getGroupDetail = {
       return res.status(200).json({ message: `${groupId}번 그룹의 상세 정보를 조회했습니다.`, ...group, members });
     } catch (err) {
       console.error(err);
-      return res.status(500).send({ message: '서버 문제로 오류가 발생했습니다.' });
+      return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
     }
 
     return res.status(501).json({ message: 'Not Implemented' });
@@ -60,7 +60,7 @@ export const postGroup = {
     validate
   ],
   controller: async (req: Request, res: Response) => {
-    const { name } = req.body;
+    const name = req.body.name as unknown as string;
     const file = req.file;
 
     try {
@@ -78,7 +78,7 @@ export const postGroup = {
       return res.status(200).json({ message: '새로운 그룹을 등록했습니다.' });
     } catch (err) {
       console.error(err);
-      return res.status(500).send({ message: '서버 문제로 오류가 발생했습니다.' });
+      return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
     }
     
     return res.status(501).json({ message: 'Not Implemented' });

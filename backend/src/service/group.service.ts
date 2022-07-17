@@ -74,8 +74,8 @@ export const updateImagename = async (groupId: number, imageName: string) => {
   try {
     let sql = `
     UPDATE GroupData
-    SET image_name=(${con.escape(imageName)})
-    WHERE group_id=${groupId}`;
+    SET image_name=${con.escape(imageName)}
+    WHERE group_id=${con.escape(groupId)}`;
 
     return await con.execute(sql);
   } catch (err) {

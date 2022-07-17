@@ -1,4 +1,5 @@
 import db from '@config/database';
+import { ResultSetHeader, RowDataPacket } from 'mysql2';
 
 // 특정 그룹의 모든 멤버 조회
 export const selectAllMembersOfGroup = async (groupId: number) => {
@@ -12,6 +13,68 @@ export const selectAllMembersOfGroup = async (groupId: number) => {
     WHERE M.group_id=${con.escape(groupId)}`
 
     return await con.query(sql);
+  } catch (err) {
+    throw err;
+  } finally {
+    con.release();
+  }
+}
+
+// 특정 멤버 상세 정보 확인
+export const selectMemberDetail = async (memberId: number) => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `
+    SELECT member_id, group_id, name
+    FROM MemberData 
+    WHERE member_id=${con.escape(memberId)}`;
+
+    interface DataType extends RowDataPacket {
+      member_id: number;
+      group_id: number;
+      name: string;
+    }
+
+    return await con.query<DataType[]>(sql);
+  } catch (err) {
+    throw err;
+  } finally {
+    con.release();
+  }
+}
+
+// 특정 그룹에 멤버 추가
+export const insertMember = async (groupId: number, name: string) => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `
+    INSERT INTO MemberData (group_id, name)
+    VALUES (${con.escape(groupId)}, ${con.escape(name)})`
+
+    const [result] = await con.execute(sql);
+    const insertId = (result as ResultSetHeader).insertId;
+
+    return insertId;
+  } catch (err) {
+    throw err;
+  } finally {
+    con.release();
+  }
+}
+
+// 특정 멤버 정보 수정
+export const updateMember = async (memberId: number, name: string) => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `
+    UPDATE MemberData
+    SET name=${con.escape(name)}
+    WHERE member_id=${con.escape(memberId)}`;
+
+    return await con.execute(sql);
   } catch (err) {
     throw err;
   } finally {

@@ -30,7 +30,7 @@ export const getAllTestData = async (req: Request, res: Response) => {
     return res.send(list);
   } catch (err) {
     console.error(err);
-    return res.status(500).send("서버 문제로 오류가 발생했습니다.");
+    return res.status(500).json("서버 문제로 오류가 발생했습니다.");
   }
 
   return res.status(501).json({ message: 'Not Implemented' });
