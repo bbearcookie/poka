@@ -1,0 +1,18 @@
+.Skeleton {
+  span {
+    display: block;
+    background-color: gainsboro;
+    height: 1.25em;
+    border-radius: 10px;
+  }
+
+  .image {
+    width: 60px;
+    height: 60px;
+    margin-right: 1rem;
+  }
+
+  .name { width: 7em; }
+  .member-count { width: 5em; }
+  .icon-button { width: 1em; height: 0.2em; }
+}

@@ -4,19 +4,19 @@ import { useMutation } from 'react-query';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorType } from '@util/commonAPI';
-import Input from '@component/form/basic/Input';
-import Button from '@component/form/basic/Button';
+import Input from '@component/form/Input';
+import Button from '@component/form/Button';
 import WhiteCard, { WhiteCardHeader, WhiteCardBody } from '@component/card/WhiteCard';
-import ImageUploader, { Image } from '@component/form/basic/uploader/ImageUploader';
+import ImageUploader, { Image } from '@component/form/uploader/ImageUploader';
 import * as groupAPI from '@api/groupAPI';
 
-interface GroupWriterFormProps {
+interface FormProps {
   children?: React.ReactNode;
 }
 
-const GroupWriterFormDefaultProps = {};
+const FormDefaultProps = {};
 
-function GroupWriterForm({ children }: GroupWriterFormProps & typeof GroupWriterFormDefaultProps) {
+function Form({ children }: FormProps & typeof FormDefaultProps) {
   interface FormType {
     name: string;
     image: Image;
@@ -159,6 +159,6 @@ function GroupWriterForm({ children }: GroupWriterFormProps & typeof GroupWriter
   );
 }
 
-GroupWriterForm.defaultProps = GroupWriterFormDefaultProps;
+Form.defaultProps = FormDefaultProps;
 
-export default GroupWriterForm;
+export default Form;

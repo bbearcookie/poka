@@ -8,7 +8,6 @@ import { createUploader } from '@util/multer';
 import { GROUP_IMAGE_DIR } from '@util/fileDirectory';
 import * as groupService from '@service/group.service';
 import * as memberService from '@service/member.service';
-import { FieldPacket } from 'mysql2';
 const groupUploader = createUploader(GROUP_IMAGE_DIR);
 
 // 그룹 목록 조회

@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useRef } from 'react';
-import produce from 'immer';
 import classNames from 'classnames';
-import Button from '@component/form/basic/Button';
+import Button from '@component/form/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import './ImageUploader.scss';

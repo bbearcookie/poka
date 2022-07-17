@@ -1,6 +1,6 @@
 import React from 'react';
-import GroupWriterForm from '@component/form/GroupWriterForm';
-import './GroupWriterPage.scss';
+import Form from './Form';
+import './Index.scss';
 
 interface GroupWriterPageProps {
   children?: React.ReactNode;
@@ -12,7 +12,7 @@ function GroupWriterPage({ children }: GroupWriterPageProps & typeof GroupWriter
   return (
     <div className="GroupWriterPage">
       <h1 className="title-label">그룹 등록</h1>
-      <GroupWriterForm />
+      <Form />
     </div>
   );
 }

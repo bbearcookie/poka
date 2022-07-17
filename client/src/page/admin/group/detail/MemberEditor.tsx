@@ -5,8 +5,8 @@ import * as memberAPI from '@api/memberAPI';
 import * as queryKey from '@util/queryKey';
 import { ErrorType } from '@util/commonAPI';
 import { AxiosError, AxiosResponse } from 'axios';
-import Input from '@component/form/basic/Input';
-import Button from '@component/form/basic/Button';
+import Input from '@component/form/Input';
+import Button from '@component/form/Button';
 
 interface MemberEditorProps {
   groupId: number;

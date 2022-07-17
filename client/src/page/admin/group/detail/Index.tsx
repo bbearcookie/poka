@@ -8,7 +8,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { BACKEND } from '@util/commonAPI';
 import WhiteCard, { WhiteCardBody, WhiteCardHeader } from '@component/card/WhiteCard';
 import BackLabel from '@component/label/BackLabel';
-import Button from '@component/form/basic/Button';
+import Button from '@component/form/Button';
 import Table from '@component/table/Table';
 import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import MemberEditor from './MemberEditor';
