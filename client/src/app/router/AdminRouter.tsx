@@ -4,7 +4,7 @@ import FirstPage from "@page/admin/first/FirstPage";
 import SecondPage from "@page/admin/second/SecondPage";
 import GroupListPage from "@page/admin/group/GroupListPage";
 import GroupWriterPage from "@page/admin/group/GroupWriterPage";
-import GroupDetailPage from "@page/admin/group/GroupDetailPage";
+import GroupDetailPage from "@page/admin/group/detail/Index";
 
 // /admin 하위 라우팅 내용
 function AdminRouter() {
