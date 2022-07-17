@@ -1,19 +1,19 @@
-import React, { useState, useCallback, Fragment } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import * as groupAPI from '@api/groupAPI';
 import * as queryKey from '@util/queryKey';
-import { ErrorType } from '@util/commonAPI';
+import { BACKEND, ErrorType, getErrorMessage } from '@util/commonAPI';
 import { AxiosError, AxiosResponse } from 'axios';
-import { BACKEND } from '@util/commonAPI';
 import WhiteCard, { WhiteCardBody, WhiteCardHeader } from '@component/card/WhiteCard';
 import BackLabel from '@component/label/BackLabel';
 import Button from '@component/form/Button';
 import Table from '@component/table/Table';
-import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import MemberEditor from './MemberEditor';
-import MemberInfo from './MemberInfo';
+import SkeletonItem from '@component/skeleton/SkeletonItem';
+import MemberList from './MemberList';
+import SkeletonMemberList from './SkeletonMemberList';
 import MemberAddButton from './MemberAddButton';
+import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import './Index.scss';
 
 interface GroupDetailPageProps {
@@ -32,29 +32,21 @@ function GroupDetailPage({ children }: GroupDetailPageProps & typeof GroupDetail
   // 편집 모드 ON / OFF
   const startEditor = useCallback((target: number | boolean) => setEditorTarget(target), []);
   const closeEditor = useCallback(() => setEditorTarget(false), []);
-
-  if (status === 'loading') {
-    return (
-      <div className="GroupDetailPage">
-        <span>Loading...</span>
-      </div>
-    );
-  }
-
-  if (status === 'error') {
-    return (
-      <div className="GroupDetailPage">
-        <span>Error: {error.response?.data.message}</span>
-      </div>
-    );
-  }
   
   return (
     <div className="GroupDetailPage">
       <BackLabel to="/admin/group/list">그룹 목록</BackLabel>
       <section className="group-section">
-        <img src={`${BACKEND}/image/group/${group?.data?.image_name}`} width="60" height="60" alt={group?.data?.name} />
-        <h1 className="name-label">{group?.data?.name}</h1>
+        {status === 'loading' && 
+        <>
+          <SkeletonItem width="60px" height="60px" marginRight="1em" marginBottom="1.25em" />
+          <div className="name-label"><SkeletonItem width="5em" /></div>
+        </>}
+        {status === 'success' &&
+        <>
+          <img src={`${BACKEND}/image/group/${group?.data?.image_name}`} width="60" height="60" alt={group?.data?.name} />
+          <h1 className="name-label">{group?.data?.name}</h1>
+        </>}
         <Button theme="primary-outlined" padding="0.7em 1.3em" iconMargin="1em" rightIcon={faPenToSquare}>수정</Button>
       </section>
       
@@ -69,14 +61,17 @@ function GroupDetailPage({ children }: GroupDetailPageProps & typeof GroupDetail
             </tr>
           </thead>
           <tbody>
-            {group?.data?.members.map((item, idx) => (
-              <Fragment key={idx}>
-                {editorTarget === idx && <MemberEditor groupId={groupId} memberId={item.member_id} defaultValue={item.name} closeEditor={closeEditor} />}
-                {editorTarget !== idx && <MemberInfo name={item.name} photoCnt={item.photo_cnt} startEditor={() => startEditor(idx)} />}
-              </Fragment>
-            ))}
-
-            {editorTarget === true && <MemberEditor groupId={groupId} closeEditor={closeEditor} />}
+            {status === 'loading' && <SkeletonMemberList />}
+            {status === 'success' && 
+              <MemberList
+                group={group}
+                groupId={groupId}
+                editorTarget={editorTarget}
+                startEditor={startEditor}
+                closeEditor={closeEditor}
+              />
+            }
+            {status === 'error' && <tr><td>{getErrorMessage(error)}</td><td/><td/></tr>}
           </tbody>
         </Table>
 

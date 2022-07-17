@@ -1,5 +1,5 @@
 import React from 'react';
-import './SkeletonGroupList.scss';
+import SkeletonItem from '@component/skeleton/SkeletonItem';
 
 interface SkeletonGroupListProps {
   children?: React.ReactNode;
@@ -11,19 +11,17 @@ function SkeletonGroupList({ children }: SkeletonGroupListProps & typeof Skeleto
   return (
     <>
       {Array.from({length: 8}).map((_, idx) => (
-        <tr className="Skeleton" key={idx}>
+        <tr key={idx}>
           <td>
             <section className="name-section">
-              <span className="image" />
-              <span className="name" />
+              <SkeletonItem width="60px" height="60px" marginRight="1em" />
+              <SkeletonItem width="7em" />
             </section>
           </td>
-          <td>
-            <span className="member-count" />
-          </td>
+          <td><SkeletonItem width="5em" /></td>
           <td>
             <section className="action-section">
-              <span className="icon-button" />
+              <SkeletonItem width="2em" marginLeft="1em" />
             </section>
           </td>
         </tr>

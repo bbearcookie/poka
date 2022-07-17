@@ -27,7 +27,14 @@
       }
     }
 
-    
+    .Skeleton {
+      span {
+        display: block;
+        background-color: gainsboro;
+        height: 1.25em;
+        border-radius: 10px;
+      }
+    }
   }
 
   // 화면이 작아지면 사이드바 ON/OFF 기능 사용 가능

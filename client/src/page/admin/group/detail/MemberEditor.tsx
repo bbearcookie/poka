@@ -74,7 +74,7 @@ function MemberEditor({ groupId, memberId, defaultValue, closeEditor }: MemberEd
           onChange={changeInput}
           message={message}
           autoComplete="off"
-          placeholder={memberId ? '추가할 이름을 입력하세요' : '수정할 이름을 입력하세요'}
+          placeholder={memberId ? '수정할 이름을 입력하세요' : '추가할 이름을 입력하세요'}
         />
       </td>
       <td className="photo"></td>
