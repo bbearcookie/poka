@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface CardProps {
+  minWidth?: string;
+  maxWidth?: string;
   margin?: string;
   marginTop?: string;
   marginBottom?: string;
@@ -29,6 +31,8 @@ export default Card;
 
 // 스타일 컴포넌트
 const StyledCard = styled.article<CardProps>`
+  min-width: ${p => p.minWidth};
+  max-width: ${p => p.maxWidth};
   margin: ${p => p.margin};
   margin-top: ${p => p.marginTop};
   margin-bottom: ${p => p.marginBottom};
@@ -38,5 +42,6 @@ const StyledCard = styled.article<CardProps>`
   border: 1px solid #E5E7EB;
   border-radius: 10px;
 
+  .text { margin: 0; }
   .description { margin: 0; color: #65748B; }
 `

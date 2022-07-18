@@ -8,11 +8,11 @@ import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Button from '@component/form/Button';
 import Table from '@component/table/Table';
-import ConfirmCard from '@component/card/ConfirmCard';
+import ConfirmModal from '@component/modal/ConfirmModal';
 import MemberEditor from './MemberEditor';
 import MemberInfo from './MemberInfo';
 import MemberAddButton from './MemberAddButton';
-import { faPenToSquare, faTrashCan, faClose } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 interface SuccessProps {
   group: AxiosResponse<typeof groupAPI.getGroupDetail.resType>;
@@ -90,24 +90,10 @@ function Success({ group, groupId }: SuccessProps & typeof SuccessDefaultProps) 
       </Card>
 
       {showRemoveModal &&
-      <ConfirmCard title="그룹 삭제">
-        <p>안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요</p>
-        <p>hellohellohellohellohellohellohellohellohello</p>
-        <p>안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요</p>
-        <p>hellohellohellohellohellohellohellohellohello</p>
-        <p>안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요</p>
-        <p>hellohellohellohellohellohellohellohellohello</p>
-        <p>안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요</p>
-        <p>hellohellohellohellohellohellohellohellohello</p>
-        <p>안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요</p>
-        <p>hellohellohellohellohellohellohellohellohello</p>
-        <p>안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요</p>
-        <p>hellohellohellohellohellohellohellohellohello</p>
-        <p>안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요</p>
-        <p>hellohellohellohellohellohellohellohellohello</p>
-        <p>안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요</p>
-        <p>hellohellohellohellohellohellohellohellohello</p>
-      </ConfirmCard>}
+      <ConfirmModal titleName="그룹 삭제" onClose={closeRemoveModal} maxWidth="100vh">
+        <p className="text">이 그룹을 삭제하면 연관된 멤버와 포토카드도 함께 지워져요.</p>
+        <p className="text">정말로 {group.data?.name} 그룹을 삭제하시겠어요?</p>
+      </ConfirmModal>}
     </>
   );
 }

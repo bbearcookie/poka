@@ -51,6 +51,7 @@ export default Button;
 type ButtonTheme = 
   | "primary"
   | "primary-outlined"
+  | "gray"
   | "gray-outlined"
   | "danger"
   | "danger-outlined"
@@ -114,10 +115,23 @@ const StyledButton = styled.button<StyledButtonProps>`
             background-color: rgba(248, 248, 254, 100);
           }
         `;
+      case "gray":
+        return css`
+          & {
+            color: white;
+            background-color: #6C757D;
+            border: 1px solid gray;
+          }
+
+          &:hover {
+            background-color: rgb(92, 99, 106);
+            border: 1px solid rgb(92, 99, 106);
+          }
+        `;
       case "gray-outlined":
         return css`
           & {
-            color: gray;
+            color: #6C757D;
             border: 1px solid #E5E7EB;
             background-color: white;
             box-shadow: none;

@@ -16,7 +16,7 @@ function ErrorCard({ error, children }: ErrorCardProps & typeof ErrorCardDefault
   return (
     <Card>
       <CardHeader>
-        <h1 className="card-label">Error</h1>
+        <h1>Error</h1>
       </CardHeader>
       <CardBody>
         {error && <p>{getErrorMessage(error)}</p>}
