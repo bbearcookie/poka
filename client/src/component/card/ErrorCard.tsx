@@ -1,28 +1,28 @@
 import React from 'react';
-import classNames from 'classnames';
-import WhiteCard, { WhiteCardBody, WhiteCardHeader } from '@component/card/WhiteCard';
+import Card from '@component/card/basic/Card';
+import CardHeader from '@component/card/basic/CardHeader';
+import CardBody from '@component/card/basic/CardBody';
 import { AxiosError } from 'axios';
 import { ErrorType, getErrorMessage } from '@util/commonAPI';
 
 interface ErrorCardProps {
-  className?: string;
   error: AxiosError<ErrorType, any> | null
   children?: React.ReactNode;
 }
 
 const ErrorCardDefaultProps = {};
 
-function ErrorCard({ className, error, children }: ErrorCardProps & typeof ErrorCardDefaultProps) {
+function ErrorCard({ error, children }: ErrorCardProps & typeof ErrorCardDefaultProps) {
   return (
-    <WhiteCard className={classNames("ErrorCard", className)}>
-      <WhiteCardHeader>
+    <Card>
+      <CardHeader>
         <h1 className="card-label">Error</h1>
-      </WhiteCardHeader>
-      <WhiteCardBody>
+      </CardHeader>
+      <CardBody>
         {error && <p>{getErrorMessage(error)}</p>}
         {!error && <p>오류 발생</p>}
-      </WhiteCardBody>
-    </WhiteCard>
+      </CardBody>
+    </Card>
   );
 }
 

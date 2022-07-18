@@ -6,7 +6,9 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorType } from '@util/commonAPI';
 import Input from '@component/form/Input';
 import Button from '@component/form/Button';
-import WhiteCard, { WhiteCardHeader, WhiteCardBody } from '@component/card/WhiteCard';
+import Card from '@component/card/basic/Card';
+import CardHeader from '@component/card/basic/CardHeader';
+import CardBody from '@component/card/basic/CardBody';
 import ImageUploader, { Image } from '@component/form/uploader/ImageUploader';
 import * as groupAPI from '@api/groupAPI';
 
@@ -157,8 +159,8 @@ function Form({ name, imageName, groupId, children }: FormProps & typeof FormDef
 
   return (
     <form onSubmit={onSubmit}>
-      <WhiteCard>
-        <WhiteCardBody>
+      <Card marginBottom="2em">
+        <CardBody>
           <h3 className="label">이름</h3>
           <Input
             type="text"
@@ -172,15 +174,15 @@ function Form({ name, imageName, groupId, children }: FormProps & typeof FormDef
             onBlur={blurInput}
           />
           <p className="description">아이돌 그룹의 이름을 지정합니다. 이 이름은 사용자가 포토카드를 찾거나, 관리자가 포토카드 정보를 관리할 때 사용됩니다.</p>
-        </WhiteCardBody>
-      </WhiteCard>
+        </CardBody>
+      </Card>
 
-      <WhiteCard className="logo-card">
-        <WhiteCardBody>
+      <Card className="logo-card">
+        <CardBody>
           <h3 className="label">로고 이미지</h3>
           <ImageUploader value={input.image} onChange={changeImage} message={inputMessage.image} />
-        </WhiteCardBody>
-      </WhiteCard>
+        </CardBody>
+      </Card>
 
       <section className="button-section">
         <Button theme="primary-outlined" padding="1em 2em" onClick={goBack}>취소</Button>

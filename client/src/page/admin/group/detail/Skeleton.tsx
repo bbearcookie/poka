@@ -1,6 +1,7 @@
 import React from 'react';
 import SkeletonItem from '@component/skeleton/SkeletonItem';
-import WhiteCard, { WhiteCardBody } from '@component/card/WhiteCard';
+import Card from '@component/card/basic/Card';
+import CardBody from '@component/card/basic/CardBody';
 import Table from '@component/table/Table';
 
 interface SkeletonProps {
@@ -16,8 +17,8 @@ function Skeleton({ children }: SkeletonProps & typeof SkeletonDefaultProps) {
         <SkeletonItem width="60px" height="60px" marginRight="1em" marginBottom="1.25em" />
         <div className="name-label"><SkeletonItem width="5em" /></div>
       </section>
-      <WhiteCard>
-        <WhiteCardBody><h2 className="card-label">그룹의 멤버</h2></WhiteCardBody>
+      <Card>
+        <CardBody><h2 className="card-label">그룹의 멤버</h2></CardBody>
         <Table>
           <thead>
             <tr>
@@ -41,7 +42,7 @@ function Skeleton({ children }: SkeletonProps & typeof SkeletonDefaultProps) {
             ))}
           </tbody>
         </Table>
-      </WhiteCard>
+      </Card>
     </>
   );
 }
