@@ -18,11 +18,10 @@ export function CardHeader(p: CardHeaderProps & typeof CardHeaderDefaultProps) {
   );
 }
 CardHeader.defaultProps = CardHeaderDefaultProps;
+export default CardHeader;
 
 // 스타일 컴포넌트
 const StyledCardHeader = styled.header<CardHeaderProps>`
   padding: ${p => p.padding};
   border-bottom: 1px solid #E5E7EB;
 `;
-
-export default CardHeader;

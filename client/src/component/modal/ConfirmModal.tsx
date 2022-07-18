@@ -9,6 +9,9 @@ import CardFooter from '@component/card/basic/CardFooter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 
+// 모달 컴포넌트 =========================
+const CLASS = 'ConfirmModal';
+
 interface ConfirmModalProps {
   titleName: string;
   minWidth?: string;
@@ -19,8 +22,6 @@ interface ConfirmModalProps {
 }
 
 const ConfirmModalDefaultProps = {};
-
-const CLASS = 'ConfirmModal';
 
 function ConfirmModal(p: ConfirmModalProps & typeof ConfirmModalDefaultProps) {
   return (
@@ -52,7 +53,7 @@ ConfirmModal.defaultProps = ConfirmModalDefaultProps;
 
 export default ConfirmModal;
 
-// 스타일 컴포넌트
+// 스타일 컴포넌트 =========================
 const StyledHeader = styled.header<ConfirmModalProps>`
   display: flex;
   font-size: 1.75em;

@@ -4,7 +4,18 @@ import styled, { css } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
+type ButtonTheme = 
+| "primary"
+| "primary-outlined"
+| "gray"
+| "gray-outlined"
+| "danger"
+| "danger-outlined"
+
+
 // 버튼 컴포넌트 =========================
+const CLASS = 'Button';
+
 interface ButtonProps {
   className?: string;
   theme: ButtonTheme;
@@ -23,50 +34,25 @@ const ButtonDefaultProps = {
   iconMargin: '0.5em'
 };
 
-function Button(
-  { className, theme, type, padding, leftIcon, rightIcon, iconMargin, onClick, children }:
-  ButtonProps & typeof ButtonDefaultProps) {
-
+function Button(p: ButtonProps & typeof ButtonDefaultProps) {
   return (
-    <StyledButton
-      className={classNames("Button", className)}
-      type={type}
-      theme={theme}
-      padding={padding}
-      iconMargin={iconMargin}
-      onClick={onClick}
-    >
-      {leftIcon && <FontAwesomeIcon className="left-icon" icon={leftIcon} /> }
-      {children}
-      {rightIcon && <FontAwesomeIcon className="right-icon" icon={rightIcon} /> }
+    <StyledButton className={classNames(CLASS, p.className)} {...p}>
+      {p.leftIcon && <FontAwesomeIcon className={`${CLASS}__left-icon`} icon={p.leftIcon} /> }
+      {p.children}
+      {p.rightIcon && <FontAwesomeIcon className={`${CLASS}__right-icon`} icon={p.rightIcon} /> }
     </StyledButton>
   );
 }
 
 Button.defaultProps = ButtonDefaultProps;
-
 export default Button;
 
 // 스타일 컴포넌트 =======================
-type ButtonTheme = 
-  | "primary"
-  | "primary-outlined"
-  | "gray"
-  | "gray-outlined"
-  | "danger"
-  | "danger-outlined"
-
-interface StyledButtonProps {
-  theme: ButtonTheme;
-  padding: string;
-  iconMargin: string;
-}
-
-const StyledButton = styled.button<StyledButtonProps>`
+const StyledButton = styled.button<ButtonProps>`
   padding: ${p => p.padding};
+  font-family: inherit;
   border: 0;
   border-radius: 0.3rem;
-  font-family: inherit;
   box-shadow: 1px 1px 0 rgb(0, 0, 0, 0.5);
   cursor: pointer;
   user-select: none;
@@ -79,13 +65,8 @@ const StyledButton = styled.button<StyledButtonProps>`
     transition: box-shadow 0.1s;
   }
 
-  .left-icon {
-    margin-right: ${p => p.iconMargin};
-  }
-
-  .right-icon {
-    margin-left: ${p => p.iconMargin};
-  }
+  .${CLASS}__left-icon { margin-right: ${p => p.iconMargin}; }
+  .${CLASS}__right-icon { margin-left: ${p => p.iconMargin}; }
 
   ${(p) => {
     switch (p.theme) {

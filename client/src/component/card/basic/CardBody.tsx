@@ -18,9 +18,9 @@ export function CardBody(p: CardBodyProps & typeof CardBodyDefaultProps) {
   );
 }
 CardBody.defaultProps = CardBodyDefaultProps;
+export default CardBody;
 
+// 스타일 컴포넌트
 const StyledCardBody = styled.section<CardBodyProps>`
   padding: ${p => p.padding};
 `
-
-export default CardBody;

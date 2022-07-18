@@ -19,7 +19,6 @@ function CardFooter(p: CardFooterProps & typeof CardFooterDefaultProps) {
 }
 
 CardFooter.defaultProps = CardFooterDefaultProps;
-
 export default CardFooter;
 
 // 스타일 컴포넌트
