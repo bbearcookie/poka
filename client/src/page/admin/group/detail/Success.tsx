@@ -1,4 +1,5 @@
 import React, { useState, useCallback, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import { BACKEND } from '@util/commonAPI';
 import { AxiosResponse } from 'axios';
 import * as groupAPI from '@api/groupAPI';
@@ -29,7 +30,9 @@ function Success({ group, groupId }: SuccessProps & typeof SuccessDefaultProps) 
       <section className="group-section">
         <img src={`${BACKEND}/image/group/${group?.data?.image_name}`} width="60" height="60" alt={group?.data?.name} />
         <h1 className="name-label">{group?.data?.name}</h1>
-        <Button theme="primary-outlined" padding="0.7em 1.3em" iconMargin="1em" rightIcon={faPenToSquare}>수정</Button>
+        <Link to={`/admin/group/editor/${groupId}`}>
+          <Button theme="primary-outlined" padding="0.7em 1.3em" iconMargin="1em" rightIcon={faPenToSquare}>수정</Button>
+        </Link>
       </section>
       
       <WhiteCard>

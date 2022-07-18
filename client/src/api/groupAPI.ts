@@ -50,3 +50,16 @@ export const postGroup = {
     message: string;
   }
 }
+
+export const putGroup = {
+  axios: (data: { groupId: number; [key: string]: any }) => axios({
+    ...options,
+    headers: { 'Content-Type': 'multipart/form-data' },
+    method: 'put',
+    url: `${BACKEND}/api/group/${data.groupId}`,
+    data
+  }),
+  resType: undefined as undefined | {
+    message: string;
+  }
+}

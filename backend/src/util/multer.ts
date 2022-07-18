@@ -1,7 +1,6 @@
 import multer from 'multer';
 import fs from 'fs/promises';
 import fsAsync from 'fs';
-import path from 'path';
 
 // 파일의 mimetype에 따른 확장자를 반환하는 함수
 export function getExtension(mimetype: string) {

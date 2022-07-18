@@ -84,3 +84,47 @@ export const postGroup = {
     return res.status(501).json({ message: 'Not Implemented' });
   }
 }
+
+// 그룹 데이터 수정
+export const putGroup = {
+  uploader: groupUploader.single('image'),
+  validator: [
+    body('name').trim()
+      .not().isEmpty().withMessage('이름이 비어있어요.')
+      .isLength({ max: 20 }).withMessage('이름은 최대 20글자까지 입력할 수 있어요.'),
+    validate
+  ],
+  controller: async (req: Request, res: Response) => {
+    const groupId = Number(req.params.groupId);
+    const name = req.body.name as unknown as string;
+    const file = req.file;
+
+    try {
+      let [[group]] = await groupService.selectGroupDetail(groupId);
+      if (!group) return res.status(404).json({ message: '수정하려는 그룹을 찾지 못했어요.' });
+
+      // 다운받은 이미지 파일 있으면
+      let newFilename: string | undefined;
+      if (file) {
+        // 임시 다운로드 파일 이름 변경
+        newFilename = getTimestampFilename(groupId.toString(), file.mimetype);
+        try { fs.rename(file.path, path.join(file.destination, newFilename)) }
+        catch (err) { console.error(err); }
+
+        // 기존의 이미지 파일 삭제
+        if (process.env.INIT_CWD) {
+          try { fs.rm(path.join(process.env.INIT_CWD, GROUP_IMAGE_DIR, group.image_name)) }
+          catch (err) { console.error(err); }
+        }
+      }
+
+      await groupService.updateGroup(groupId, name, newFilename);
+      return res.status(200).json({ message: '그룹 정보를 수정했어요.' });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
+    }
+    
+    return res.status(501).json({ message: 'Not Implemented' });
+  }
+}
