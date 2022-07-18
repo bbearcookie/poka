@@ -1,31 +1,39 @@
 import React from 'react';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import './BackLabel.scss';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
+const CLASS = 'BackLabel';
 interface BackLabelProps {
   className?: String;
-  children?: React.ReactNode;
   to?: string;
+  children?: React.ReactNode;
 }
 
 const BackLabelDefaultProps = {
   to: '#'
 };
 
-function BackLabel({ className, to, children }: BackLabelProps & typeof BackLabelDefaultProps) {
+function BackLabel(p: BackLabelProps & typeof BackLabelDefaultProps) {
   return (
-    <div className={classNames("BackLabel", className)}>
-      <Link to={to}>
-        <FontAwesomeIcon className="icon" icon={faArrowLeft} />
-        {children}
+    <StyledLabel>
+      <Link to={p.to}>
+        <FontAwesomeIcon className={`${CLASS}__icon`} icon={faArrowLeft} />
+        {p.children}
       </Link>
-    </div>
+    </StyledLabel>
   );
 }
 
 BackLabel.defaultProps = BackLabelDefaultProps;
-
 export default BackLabel;
+
+const StyledLabel = styled.div<BackLabelProps>`
+  padding: 0.5em;
+  width: fit-content;
+
+  &:hover { text-decoration: underline; }
+  a { color: inherit; text-decoration: none; }
+  .${CLASS}__icon { margin-right: 0.75em; }
+`;

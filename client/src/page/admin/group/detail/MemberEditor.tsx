@@ -81,8 +81,8 @@ function MemberEditor({ groupId, memberId, defaultValue, closeEditor }: MemberEd
       <td className="photo"></td>
       <td className="action">
         <section className="action-section">
-          <Button theme="primary" padding="0.7em 1em" iconMargin="1em" onClick={onSubmit}>저장</Button>
-          <Button theme="gray-outlined" padding="0.7em 1em" iconMargin="1em" onClick={closeEditor}>취소</Button>
+          <Button theme="primary" padding="0.7em 1em" marginRight="0.5em" iconMargin="1em" onClick={onSubmit}>저장</Button>
+          <Button theme="gray-outlined" padding="0.7em 1em" marginRight="0.5em" iconMargin="1em" onClick={closeEditor}>취소</Button>
         </section>
       </td>
     </tr>

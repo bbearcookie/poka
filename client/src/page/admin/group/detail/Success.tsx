@@ -76,8 +76,8 @@ function Success({ group, groupId }: SuccessProps & typeof SuccessDefaultProps) 
         <CardHeader><h1>그룹 삭제</h1></CardHeader>
         <CardBody>
           <Button
-            className="remove-button"
             theme="danger-outlined"
+            marginBottom="1em"
             padding="0.7em 1.3em"
             iconMargin="1em"
             leftIcon={faTrashCan}

@@ -14,8 +14,8 @@ function MemberAddButton({ startEditor, children }: MemberAddButtonProps & typeo
   return (
     <section className="f-right">
       <Button
-        className="add-button"
         theme="primary"
+        margin="1.57em"
         padding="0.7em 1em"
         iconMargin="1em"
         leftIcon={faPlus}

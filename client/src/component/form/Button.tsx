@@ -20,6 +20,11 @@ interface ButtonProps {
   theme: ButtonTheme;
   className?: string;
   type?: 'button' | 'submit' | 'reset';
+  margin?: string;
+  marginTop?: string;
+  marginBottom?: string;
+  marginLeft?: string;
+  marginRight?: string;
   padding?: string;
   leftIcon?: IconDefinition;
   rightIcon?: IconDefinition;
@@ -49,6 +54,11 @@ export default Button;
 
 // 스타일 컴포넌트 =======================
 const StyledButton = styled.button<ButtonProps>`
+  margin: ${p => p.margin};
+  margin-top: ${p => p.marginTop};
+  margin-bottom: ${p => p.marginBottom};
+  margin-left: ${p => p.marginLeft};
+  margin-right: ${p => p.marginRight};
   padding: ${p => p.padding};
   font-family: inherit;
   border: 0;
