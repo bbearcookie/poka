@@ -17,8 +17,8 @@ type ButtonTheme =
 const CLASS = 'Button';
 
 interface ButtonProps {
-  className?: string;
   theme: ButtonTheme;
+  className?: string;
   type?: 'button' | 'submit' | 'reset';
   padding?: string;
   leftIcon?: IconDefinition;
@@ -36,7 +36,7 @@ const ButtonDefaultProps = {
 
 function Button(p: ButtonProps & typeof ButtonDefaultProps) {
   return (
-    <StyledButton className={classNames(CLASS, p.className)} {...p}>
+    <StyledButton {...p} className={classNames(CLASS, p.className)}>
       {p.leftIcon && <FontAwesomeIcon className={`${CLASS}__left-icon`} icon={p.leftIcon} /> }
       {p.children}
       {p.rightIcon && <FontAwesomeIcon className={`${CLASS}__right-icon`} icon={p.rightIcon} /> }

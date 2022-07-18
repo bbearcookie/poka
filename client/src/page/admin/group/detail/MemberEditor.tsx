@@ -68,6 +68,7 @@ function MemberEditor({ groupId, memberId, defaultValue, closeEditor }: MemberEd
     <tr className="member-editor">
       <td className="name">
         <Input
+          width="100%" height="2.5em"
           type="text"
           name="name"
           value={name}

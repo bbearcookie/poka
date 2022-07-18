@@ -7,7 +7,6 @@ import { ErrorType } from '@util/commonAPI';
 import Input from '@component/form/Input';
 import Button from '@component/form/Button';
 import Card from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import ImageUploader, { Image } from '@component/form/uploader/ImageUploader';
 import * as groupAPI from '@api/groupAPI';
@@ -163,6 +162,8 @@ function Form({ name, imageName, groupId, children }: FormProps & typeof FormDef
         <CardBody>
           <h3 className="label">이름</h3>
           <Input
+            width="100%" height="2.5em"
+            marginBottom="1em"
             type="text"
             name="name"
             value={input.name}
