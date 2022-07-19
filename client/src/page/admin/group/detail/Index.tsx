@@ -26,8 +26,8 @@ function GroupDetailPage({ children }: GroupDetailPageProps & typeof GroupDetail
   return (
     <div className="GroupDetailPage">
       <BackLabel to="/admin/group/list">그룹 목록</BackLabel>
-      {status === 'error' && <ErrorCard error={error} />}
-      {status === 'loading' && <Skeleton />}
+      {status === 'error' && <ErrorCard error={error} /> }
+      {status === 'loading' && <Skeleton /> }
       {status === 'success' && <Success group={group} groupId={groupId} /> }
     </div>
   );

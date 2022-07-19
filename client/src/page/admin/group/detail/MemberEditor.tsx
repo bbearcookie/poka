@@ -7,6 +7,7 @@ import { ErrorType } from '@util/commonAPI';
 import { AxiosError, AxiosResponse } from 'axios';
 import Input from '@component/form/Input';
 import Button from '@component/form/Button';
+import TableBodyItem from '@component/table/TableBodyItem';
 
 interface MemberEditorProps {
   groupId: number;
@@ -65,8 +66,8 @@ function MemberEditor({ groupId, memberId, defaultValue, closeEditor }: MemberEd
   }, [name, groupId, memberId, addMutation, modifyMutation]);
 
   return (
-    <tr className="member-editor">
-      <td className="name">
+    <tr>
+      <TableBodyItem paddingLeft="1em">
         <Input
           width="100%" height="2.5em"
           type="text"
@@ -77,14 +78,14 @@ function MemberEditor({ groupId, memberId, defaultValue, closeEditor }: MemberEd
           autoComplete="off"
           placeholder={memberId ? '수정할 이름을 입력하세요' : '추가할 이름을 입력하세요'}
         />
-      </td>
-      <td className="photo"></td>
-      <td className="action">
+      </TableBodyItem>
+      <TableBodyItem></TableBodyItem>
+      <TableBodyItem paddingRight="0.5em">
         <section className="action-section">
-          <Button theme="primary" padding="0.7em 1em" marginRight="0.5em" iconMargin="1em" onClick={onSubmit}>저장</Button>
-          <Button theme="gray-outlined" padding="0.7em 1em" marginRight="0.5em" iconMargin="1em" onClick={closeEditor}>취소</Button>
+          <Button theme="primary" padding="0.7em 1em" marginRight="0.5em" onClick={onSubmit}>저장</Button>
+          <Button theme="gray-outlined" padding="0.7em 1em" marginRight="0.5em" onClick={closeEditor}>취소</Button>
         </section>
-      </td>
+      </TableBodyItem>
     </tr>
   );
 }

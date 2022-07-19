@@ -8,6 +8,9 @@ import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Button from '@component/form/Button';
 import Table from '@component/table/Table';
+import TableHead from '@component/table/TableHead';
+import TableHeadItem from '@component/table/TableHeadItem';
+import TableBody from '@component/table/TableBody';
 import ConfirmModal from '@component/modal/ConfirmModal';
 import MemberEditor from './MemberEditor';
 import MemberInfo from './MemberInfo';
@@ -47,14 +50,14 @@ function Success({ group, groupId }: SuccessProps & typeof SuccessDefaultProps) 
         <CardHeader><h1>그룹의 멤버</h1></CardHeader>
         <CardBody padding="0">
           <Table>
-            <thead>
+            <TableHead height="3em">
               <tr>
-                <th className="name">이름</th>
-                <th className="photo">등록된 포토카드</th>
-                <th className="action">액션</th>
+                <TableHeadItem width="50%" paddingLeft="1.5em">이름</TableHeadItem>
+                <TableHeadItem width="20%">등록된 포토카드</TableHeadItem>
+                <TableHeadItem width="30%" paddingRight="1.5em" textAlign="right">액션</TableHeadItem>
               </tr>
-            </thead>
-            <tbody>
+            </TableHead>
+            <TableBody height="5em">
               <>
                 {group?.data?.members.map((item, idx) => (
                   <Fragment key={idx}>
@@ -65,7 +68,7 @@ function Success({ group, groupId }: SuccessProps & typeof SuccessDefaultProps) 
 
                 {editorTarget === true && <MemberEditor groupId={groupId} closeEditor={closeEditor} />}
               </>
-            </tbody>
+            </TableBody>
           </Table>
         </CardBody>
 

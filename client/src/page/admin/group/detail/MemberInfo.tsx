@@ -1,6 +1,7 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import IconButton from '@component/form/IconButton';
 import { faPenToSquare, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import TableBodyItem from '@component/table/TableBodyItem';
 
 interface MemberInfoProps {
   idx: number;
@@ -15,18 +16,14 @@ const MemberInfoDefaultProps = {};
 function MemberInfo({ idx, name, photoCnt, startEditor, children }: MemberInfoProps & typeof MemberInfoDefaultProps) {
   return (
     <tr>
-      <td>{name}</td>
-      <td>{photoCnt} 종류</td>
-      <td>
+      <TableBodyItem paddingLeft="1.5em">{name}</TableBodyItem>
+      <TableBodyItem>{photoCnt} 종류</TableBodyItem>
+      <TableBodyItem paddingRight="1.5em">
         <section className="action-section">
-          <div className="icon-button" onClick={() => startEditor(idx)}>
-            <FontAwesomeIcon icon={faPenToSquare} />
-          </div>
-          <div className="icon-button">
-            <FontAwesomeIcon icon={faArrowRight} />
-          </div>
+          <IconButton icon={faPenToSquare} onClick={() => startEditor(idx)} />
+          <IconButton icon={faArrowRight} />
         </section>
-      </td>
+      </TableBodyItem>
     </tr>
   );
 }

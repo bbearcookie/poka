@@ -2,36 +2,21 @@
   padding: 5em 1.5em;
 
   .Table {
-    width: 100%;
-    min-width: 40rem;
+    .name-section {
+      width: fit-content;
+      display: flex;
+      align-items: center;
+      color: inherit;
+      text-decoration: none;
 
-    thead {
-      height: 3em;
-
-      .name { width: 60%;}
-      .member { width: 30%; }
-      .action { width: 10%; text-align: right; }
+      &:hover { text-decoration: underline; }
+      img { margin-right: 1em; }
     }
-
-    tbody {
-      tr { height: 5em; }
-
-      .name-section {
-        display: flex;
-        align-items: center;
-        width: fit-content;
-
-        a {
-          text-decoration: none;
-          color: #121828;
-        }
-
-        &:hover {
-          .name { text-decoration: underline; }
-        }
-
-        img { margin-right: 1rem; }
-      }
+    
+    .action-section {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
     }
   }
 

@@ -15,33 +15,9 @@
   }
 
   .Table {
-    width: 100%;
-    min-width: 40rem;
-    border: none;
-
-    thead {
-      height: 3em;
-
-      .name { width: 50%; }
-      .photo { width: 20%; }
-      .action { width: 30%; text-align: right; }
-    }
-
-    tbody {
-      tr { height: 5em; }
-
-      .member-editor {
-        padding: 0;
-        margin: 0;
-
-        .action {
-          padding: 0 0.5em 0 0;
-
-          .action-section {
-            display: flex;
-          }
-        }
-      }
+    .action-section {
+      display: flex;
+      justify-content: flex-end;
     }
   }
 

@@ -3,9 +3,12 @@ import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import Button from '@component/form/Button';
 import Table from '@component/table/Table';
+import TableHead from '@component/table/TableHead';
+import TableBody from '@component/table/TableBody';
+import TableHeadItem from '@component/table/TableHeadItem';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType, getErrorMessage } from '@util/commonAPI';
+import { ErrorType, getErrorMessage, BACKEND } from '@util/commonAPI';
 import * as queryKey from '@util/queryKey';
 import * as groupAPI from '@api/groupAPI';
 import GroupList from './GroupList';
@@ -33,18 +36,18 @@ function GroupListPage({ children }: GroupListPageProps & typeof GroupListPageDe
       </div>
 
       <Table>
-        <thead>
+        <TableHead height="3rem">
           <tr>
-            <th className="name">이름</th>
-            <th className="member">멤버</th>
-            <th className="action">액션</th>
+            <TableHeadItem width="60%" paddingLeft="1.5em">이름</TableHeadItem>
+            <TableHeadItem width="30%">멤버</TableHeadItem>
+            <TableHeadItem width="10%" paddingRight="1.5em" textAlign="right">액션</TableHeadItem>
           </tr>
-        </thead>
-        <tbody>
+        </TableHead>
+        <TableBody height="5rem">
           {status === 'loading' && <SkeletonGroupList />}
           {status === 'success' && <GroupList groups={groups} />}
           {status === 'error' && <tr><td>{getErrorMessage(error)}</td><td/><td/></tr>}
-        </tbody>
+        </TableBody>
       </Table>
 
     </section>
