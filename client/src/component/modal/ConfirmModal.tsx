@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components'
-import Modal from '@component/modal/basic/Modal';
+import Modal, { LocationType } from '@component/modal/basic/Modal';
 import Button from '@component/form/Button';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import CardFooter from '@component/card/basic/CardFooter';
+import { ModalHookType } from '@hook/useModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 
@@ -14,34 +15,49 @@ const CLASS = 'ConfirmModal';
 
 interface ConfirmModalProps {
   titleName: string;
+  hook: ModalHookType;
+  confirmText?: string;
+  cancelText?: string;
   minWidth?: string;
   maxWidth?: string;
-  onRemove?: () => void;
-  onClose?: () => void;
+  location?: LocationType;
+  backdrop?: 'normal' | 'static'; // static: 모달 바깥 영역 클릭해도 모달이 닫히지 않음.
+  handleConfirm?: () => void;
   children?: React.ReactNode;
 }
 
-const ConfirmModalDefaultProps = {};
+const ConfirmModalDefaultProps = {
+  confirmText: '확인',
+  cancelText: '취소',
+  backdrop: 'normal'
+};
 
 function ConfirmModal(p: ConfirmModalProps & typeof ConfirmModalDefaultProps) {
   return (
-    <Modal>
+    <Modal
+      // 모달 보여주기 / 안보여주기
+      show={p.hook.show}
+      // 모달 위치 지정
+      location={p.location}
+      // backdrop이 normal일 때만 바깥 영역 클릭시 모달 닫기
+      {...(p.backdrop === 'normal' && { onClick: p.hook.close } )}
+    >
       <Card minWidth={p.minWidth} maxWidth={p.maxWidth}>
-        <CardHeader padding="1em">
+        <CardHeader padding="1.25em">
           <StyledHeader {...p}>
             <h1 className={`${CLASS}__title-label`}>{p.titleName}</h1>
-            <div className={`${CLASS}__icon-button`} onClick={p.onClose}>
+            <div className={`${CLASS}__icon-button`} onClick={p.hook.close}>
               <FontAwesomeIcon icon={faClose} />
             </div>
           </StyledHeader>
         </CardHeader>
-        <CardBody>
+        <CardBody padding="1.25em">
           {p.children}
         </CardBody>
-        <CardFooter padding="0 1em 1em 1em">
+        <CardFooter padding="0 1.25em 1.25em 1.25em">
           <StyledFooter {...p}>
-            <Button theme="danger" padding="0.7em" onClick={p.onRemove}>삭제</Button>
-            <Button theme="gray" padding="0.7em" onClick={p.onClose}>취소</Button>
+            <Button theme="danger" padding="0.7em" onClick={p.handleConfirm}>{p.confirmText}</Button>
+            <Button theme="gray" padding="0.7em" onClick={p.hook.close}>{p.cancelText}</Button>
           </StyledFooter>
         </CardFooter>
       </Card>
@@ -50,7 +66,6 @@ function ConfirmModal(p: ConfirmModalProps & typeof ConfirmModalDefaultProps) {
 }
 
 ConfirmModal.defaultProps = ConfirmModalDefaultProps;
-
 export default ConfirmModal;
 
 // 스타일 컴포넌트 =========================
@@ -68,7 +83,7 @@ const StyledHeader = styled.header<ConfirmModalProps>`
     color: gray;
     padding: 0 0.5rem;
     border-radius: 0.3rem;
-    transition: all 0.5s;
+    transition: background-color 0.5s;
     cursor: pointer;
     user-select: none;
 
@@ -86,6 +101,6 @@ const StyledFooter = styled.footer<ConfirmModalProps>`
 
   .Button {
     margin-left: 1em;
-    margin-top: 1em;
+    margin-top: 1.25em;
   }
 `

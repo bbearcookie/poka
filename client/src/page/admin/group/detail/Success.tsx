@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { BACKEND } from '@util/commonAPI';
 import { AxiosResponse } from 'axios';
 import * as groupAPI from '@api/groupAPI';
+import useModal from '@hook/useModal';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
@@ -26,15 +27,16 @@ const SuccessDefaultProps = {};
 
 function Success({ group, groupId }: SuccessProps & typeof SuccessDefaultProps) {
   const [editorTarget, setEditorTarget] = useState<number | boolean>(false); // 수정 모드일 경우 현재 수정중인 memberId를 나타낸다.
-  const [showRemoveModal, setShowRemoveModal] = useState(false);
+  const removeModal = useModal();
 
   // 편집 모드 ON / OFF
   const startEditor = useCallback((target: number | boolean) => setEditorTarget(target), []);
   const closeEditor = useCallback(() => setEditorTarget(false), []);
 
-  // 모달 ON / OFF
-  const openRemoveModal = useCallback(() => setShowRemoveModal(true), []);
-  const closeRemoveModal = useCallback(() => setShowRemoveModal(false), []);
+  // 그룹 삭제
+  const removeGroup = useCallback(() => {
+    console.log("그룹 삭제 요청하기");
+  }, []);
 
   return (
     <>
@@ -84,7 +86,7 @@ function Success({ group, groupId }: SuccessProps & typeof SuccessDefaultProps) 
             padding="0.7em 1.3em"
             iconMargin="1em"
             leftIcon={faTrashCan}
-            onClick={openRemoveModal}
+            onClick={removeModal.open}
           >
             그룹 삭제
           </Button>
@@ -92,11 +94,17 @@ function Success({ group, groupId }: SuccessProps & typeof SuccessDefaultProps) 
         </CardBody>
       </Card>
 
-      {showRemoveModal &&
-      <ConfirmModal titleName="그룹 삭제" onClose={closeRemoveModal} maxWidth="100vh">
+      <ConfirmModal
+        hook={removeModal}
+        maxWidth="100vh"
+        location="CENTER_CENTER"
+        titleName="그룹 삭제"
+        confirmText="삭제"
+        handleConfirm={removeGroup}
+      >
         <p className="text">이 그룹을 삭제하면 연관된 멤버와 포토카드도 함께 지워져요.</p>
         <p className="text">정말로 {group.data?.name} 그룹을 삭제하시겠어요?</p>
-      </ConfirmModal>}
+      </ConfirmModal>
     </>
   );
 }
