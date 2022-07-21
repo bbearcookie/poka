@@ -3,26 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
-import { getErrorMessage } from '@util/commonAPI';
+import { ErrorType, getErrorMessage } from '@util/commonAPI';
+import useModal from '@hook/useModal';
 import * as groupAPI from '@api/groupAPI';
 import * as queryKey from '@util/queryKey';
 import ConfirmModal from '@component/modal/ConfirmModal';
-import Card from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
-import CardBody from '@component/card/basic/CardBody';
-import Button from '@component/form/Button';
-import useModal from '@hook/useModal';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { ErrorType } from '@util/commonAPI';
+import RemoveCard from '@component/card/RemoveCard';
 
-interface MemberRemoveProps {
+interface GroupRemoveProps {
   group: AxiosResponse<typeof groupAPI.getGroupDetail.resType>;
   groupId: number;
 }
+const GroupRemoveDefaultProps = {};
 
-const MemberRemoveDefaultProps = {};
-
-function MemberRemove({ group, groupId }: MemberRemoveProps & typeof MemberRemoveDefaultProps) {
+function GroupRemove({ group, groupId }: GroupRemoveProps & typeof GroupRemoveDefaultProps) {
   const removeModal = useModal();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -47,22 +41,12 @@ function MemberRemove({ group, groupId }: MemberRemoveProps & typeof MemberRemov
 
   return (
     <>
-      <Card>
-        <CardHeader><h1>그룹 삭제</h1></CardHeader>
-        <CardBody>
-          <Button
-            theme="danger-outlined"
-            marginBottom="1em"
-            padding="0.7em 1.3em"
-            iconMargin="1em"
-            leftIcon={faTrashCan}
-            onClick={removeModal.open}
-          >
-            그룹 삭제
-          </Button>
-          <p className="description">해당 그룹을 삭제하면 연관된 멤버와 포토카드도 모두 지워지니 신중히 삭제해주세요.</p>
-        </CardBody>
-      </Card>
+      <RemoveCard
+        titleText="그룹 삭제"
+        onClick={removeModal.open}
+      >
+        <p className="description">해당 그룹을 삭제하면 연관된 멤버와 포토카드도 모두 지워지니 신중히 삭제해주세요.</p>
+      </RemoveCard>
 
       <ConfirmModal
         hook={removeModal}
@@ -79,5 +63,5 @@ function MemberRemove({ group, groupId }: MemberRemoveProps & typeof MemberRemov
   );
 }
 
-MemberRemove.defaultProps = MemberRemoveDefaultProps;
-export default MemberRemove;
+GroupRemove.defaultProps = GroupRemoveDefaultProps;
+export default GroupRemove;

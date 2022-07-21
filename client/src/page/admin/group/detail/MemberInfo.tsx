@@ -1,27 +1,34 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import IconButton from '@component/form/IconButton';
 import { faPenToSquare, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import TableBodyItem from '@component/table/TableBodyItem';
 
 interface MemberInfoProps {
   idx: number;
+  memberId: number;
   name: string;
   photoCnt: number;
   startEditor: (idx: number | boolean) => void;
   children?: React.ReactNode;
 }
-
 const MemberInfoDefaultProps = {};
 
-function MemberInfo({ idx, name, photoCnt, startEditor, children }: MemberInfoProps & typeof MemberInfoDefaultProps) {
+function MemberInfo({ idx, memberId, name, photoCnt, startEditor, children }: MemberInfoProps & typeof MemberInfoDefaultProps) {
   return (
     <tr>
-      <TableBodyItem paddingLeft="1.5em">{name}</TableBodyItem>
+      <TableBodyItem paddingLeft="1.5em">
+        <Link to={`/admin/member/detail/${memberId}`}>
+          {name}
+        </Link>
+      </TableBodyItem>
       <TableBodyItem>{photoCnt} 종류</TableBodyItem>
       <TableBodyItem paddingRight="1.5em">
         <section className="action-section">
           <IconButton icon={faPenToSquare} onClick={() => startEditor(idx)} />
-          <IconButton icon={faArrowRight} />
+          <Link to={`/admin/member/detail/${memberId}`}>
+            <IconButton icon={faArrowRight} />
+          </Link>
         </section>
       </TableBodyItem>
     </tr>
@@ -29,5 +36,4 @@ function MemberInfo({ idx, name, photoCnt, startEditor, children }: MemberInfoPr
 }
 
 MemberInfo.defaultProps = MemberInfoDefaultProps;
-
 export default MemberInfo;

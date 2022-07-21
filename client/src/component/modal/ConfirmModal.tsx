@@ -30,6 +30,7 @@ interface ConfirmModalProps {
 }
 
 const ConfirmModalDefaultProps = {
+  location: 'CENTER_CENTER',
   confirmButtonTheme: 'danger',
   cancelButtonTheme: 'gray',
   confirmText: '확인',

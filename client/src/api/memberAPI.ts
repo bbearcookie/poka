@@ -18,6 +18,22 @@ export const getMembersOfGroup = {
   }
 }
 
+export const getMemberDetail = {
+  axios: (memberId: number) => () => axios({
+    ...options,
+    method: 'get',
+    url: `${BACKEND}/api/member/${memberId}`
+  }),
+  resType: undefined as undefined | {
+    message: string;
+    group_id: number;
+    group_name: string;
+    member_id: number;
+    name: string;
+    photo_cnt: number;
+  }
+}
+
 export const postMember = {
   axios: (data: object) => axios({
     ...options,
@@ -37,6 +53,17 @@ export const putMember = {
     method: 'put',
     url: `${BACKEND}/api/member/${data.memberId}`,
     data
+  }),
+  resType: undefined as undefined | {
+    message: string;
+  }
+}
+
+export const deleteMember = {
+  axios: (memberId: number) => axios({
+    ...options,
+    method: 'delete',
+    url: `${BACKEND}/api/member/${memberId}`
   }),
   resType: undefined as undefined | {
     message: string;

@@ -26,14 +26,16 @@ export const selectMemberDetail = async (memberId: number) => {
 
   try {
     let sql = `
-    SELECT member_id, group_id, name
-    FROM MemberData 
-    WHERE member_id=${con.escape(memberId)}`;
+    SELECT M.member_id, M.group_id, M.name,
+    (SELECT COUNT(*) FROM Photocard as P WHERE P.member_id=M.member_id) as photo_cnt
+    FROM MemberData as M
+    WHERE M.member_id=${con.escape(memberId)}`;
 
     interface DataType extends RowDataPacket {
       member_id: number;
       group_id: number;
       name: string;
+      photo_cnt: number;
     }
 
     return await con.query<DataType[]>(sql);
@@ -74,6 +76,20 @@ export const updateMember = async (memberId: number, name: string) => {
     SET name=${con.escape(name)}
     WHERE member_id=${con.escape(memberId)}`;
 
+    return await con.execute(sql);
+  } catch (err) {
+    throw err;
+  } finally {
+    con.release();
+  }
+}
+
+// 멤버 데이터 삭제
+export const deleteMember = async (memberId: number) => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `DELETE FROM MemberData WHERE member_id=${con.escape(memberId)}`;
     return await con.execute(sql);
   } catch (err) {
     throw err;

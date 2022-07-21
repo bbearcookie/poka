@@ -1,0 +1,29 @@
+.MemberDetailPage {
+  padding: 5em 10%;
+
+  .name-section {
+    margin-bottom: 2rem;
+    p { margin: 0.4em 0; }
+
+    .name-label {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .group-name-label {
+      background-color: #E5E7EB;
+      padding: 0 0.4em;
+      border-radius: 5px;
+    }
+  }
+
+  .title-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+
+    .title-label {
+      flex-grow: 1;
+    }
+  }
+}

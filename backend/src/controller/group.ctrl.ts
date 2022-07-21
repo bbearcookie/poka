@@ -142,6 +142,12 @@ export const deleteGroup = {
       const [[group]] = await groupService.selectGroupDetail(groupId);
       if (!group) return res.status(404).json({ message: '해당 그룹의 데이터가 서버에 존재하지 않아요.' });
 
+      // 기존의 이미지 파일 삭제
+      if (process.env.INIT_CWD) {
+        try { fs.rm(path.join(process.env.INIT_CWD, GROUP_IMAGE_DIR, group.image_name)) }
+        catch (err) { console.error(err); }
+      }
+
       await groupService.deleteGroup(groupId);
       return res.status(200).json({ message: `그룹 ${group.name} 을(를) 삭제했어요.` });
     } catch (err) {
