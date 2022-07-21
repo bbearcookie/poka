@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
-type ButtonTheme = 
+export type ButtonTheme = 
 | "primary"
 | "primary-outlined"
 | "gray"

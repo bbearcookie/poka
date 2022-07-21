@@ -25,7 +25,7 @@ function Skeleton({ children }: SkeletonProps & typeof SkeletonDefaultProps) {
       <Card>
         <CardHeader><h1>그룹의 멤버</h1></CardHeader>
         <CardBody padding="0">
-          <Table>
+          <Table borderStyle="none">
           <TableHead height="3em">
               <tr>
                 <TableHeadItem width="50%" paddingLeft="1.5em">이름</TableHeadItem>

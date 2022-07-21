@@ -63,3 +63,14 @@ export const putGroup = {
     message: string;
   }
 }
+
+export const deleteGroup = {
+  axios: (groupId: number) => axios({
+    ...options,
+    method: 'delete',
+    url: `${BACKEND}/api/group/${groupId}`
+  }),
+  resType: undefined as undefined | {
+    message: string;
+  }
+}

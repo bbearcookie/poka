@@ -128,3 +128,27 @@ export const putGroup = {
     return res.status(501).json({ message: 'Not Implemented' });
   }
 }
+
+// 그룹 데이터 삭제
+export const deleteGroup = {
+  validator: [
+    param('groupId').isNumeric().withMessage('그룹 ID는 숫자여야 해요.'),
+    validate
+  ],
+  controller: async (req: Request, res: Response) => {
+    const groupId = Number(req.params.groupId);
+
+    try {
+      const [[group]] = await groupService.selectGroupDetail(groupId);
+      if (!group) return res.status(404).json({ message: '해당 그룹의 데이터가 서버에 존재하지 않아요.' });
+
+      await groupService.deleteGroup(groupId);
+      return res.status(200).json({ message: `그룹 ${group.name} 을(를) 삭제했어요.` });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
+    }
+    
+    return res.status(501).json({ message: 'Not Implemented' });
+  }
+}

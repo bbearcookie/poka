@@ -4,12 +4,18 @@ import styled from 'styled-components';
 interface TableProps {
   width?: string;
   minWidth?: string;
+  borderStyle?: string;
+  borderTop?: string;
+  borderBottom?: string;
+  borderLeft?: string;
+  borderRight?: string;
   children?: React.ReactNode;
 }
 
 const TableDefaultProps = {
   width: '100%',
-  minWidth: '40rem'
+  minWidth: '40rem',
+  borderStyle: '1px solid #E6E8F0'
 };
 
 function Table(p: TableProps & typeof TableDefaultProps) {
@@ -48,5 +54,9 @@ const StyledTable = styled.table<TableProps>`
   width: ${p => p.width};
   min-width: ${p => p.minWidth};
   border-collapse: collapse;
-  border: 1px solid #E6E8F0;
+  border: ${p => p.borderStyle};
+  border-top: ${p => p.borderTop};
+  border-bottom: ${p => p.borderBottom};
+  border-left: ${p => p.borderLeft};
+  border-right: ${p => p.borderRight};
 `;

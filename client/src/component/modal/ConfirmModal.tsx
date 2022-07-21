@@ -6,6 +6,7 @@ import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import CardFooter from '@component/card/basic/CardFooter';
+import { ButtonTheme } from '@component/form/Button';
 import { ModalHookType } from '@hook/useModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
@@ -23,10 +24,14 @@ interface ConfirmModalProps {
   location?: LocationType;
   backdrop?: 'normal' | 'static'; // static: 모달 바깥 영역 클릭해도 모달이 닫히지 않음.
   handleConfirm?: () => void;
+  confirmButtonTheme?: ButtonTheme;
+  cancelButtonTheme?: ButtonTheme;
   children?: React.ReactNode;
 }
 
 const ConfirmModalDefaultProps = {
+  confirmButtonTheme: 'danger',
+  cancelButtonTheme: 'gray',
   confirmText: '확인',
   cancelText: '취소',
   backdrop: 'normal'
@@ -56,8 +61,11 @@ function ConfirmModal(p: ConfirmModalProps & typeof ConfirmModalDefaultProps) {
         </CardBody>
         <CardFooter padding="0 1.25em 1.25em 1.25em">
           <StyledFooter {...p}>
-            <Button theme="danger" padding="0.7em" onClick={p.handleConfirm}>{p.confirmText}</Button>
-            <Button theme="gray" padding="0.7em" onClick={p.hook.close}>{p.cancelText}</Button>
+            {p.hook.errorMessage && <p className={`${CLASS}__error-label`}>{p.hook.errorMessage}</p>}
+            <section className={`${CLASS}__button-section`}>
+              <Button theme={p.confirmButtonTheme} padding="0.7em" onClick={p.handleConfirm}>{p.confirmText}</Button>
+              <Button theme={p.cancelButtonTheme} padding="0.7em" onClick={p.hook.close}>{p.cancelText}</Button>
+            </section>
           </StyledFooter>
         </CardFooter>
       </Card>
@@ -95,12 +103,20 @@ const StyledHeader = styled.header<ConfirmModalProps>`
 `;
 
 const StyledFooter = styled.footer<ConfirmModalProps>`
-  display: flex;
-  justify-content: flex-end;
-  flex-wrap: wrap;
+  .${CLASS}__error-label {
+    color: red;
+    text-align: right;
+    margin: 1.25em 0 0 0;
+  }
 
-  .Button {
-    margin-left: 1em;
-    margin-top: 1.25em;
+  .${CLASS}__button-section {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+
+    .Button {
+      margin-left: 1em;
+      margin-top: 1.25em;
+    }
   }
 `

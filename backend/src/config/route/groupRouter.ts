@@ -8,4 +8,5 @@ export default function(app: Express, baseURI: string) {
   app.get(`${baseURI}/:groupId/member`, memberCtrl.getMembersOfGroup.validator, memberCtrl.getMembersOfGroup.controller);
   app.put(`${baseURI}/:groupId`, groupCtrl.putGroup.uploader, groupCtrl.putGroup.validator, groupCtrl.putGroup.controller);
   app.post(`${baseURI}`, groupCtrl.postGroup.uploader, groupCtrl.postGroup.validator, groupCtrl.postGroup.controller);
+  app.delete(`${baseURI}/:groupId`, groupCtrl.deleteGroup.validator, groupCtrl.deleteGroup.controller);
 };
