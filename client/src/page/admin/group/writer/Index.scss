@@ -1,0 +1,25 @@
+.GroupWriterPage {
+  padding: 5em 1.5em;
+
+  .Card {
+    .label { margin: 0 0 1em 0; }
+  }
+
+  .logo-card { max-width: 25rem; }
+
+  .button-section {
+    display: flex;
+    justify-content: right;
+
+    .Button { margin-right: 1em; }
+  }
+
+  @media screen and (max-width: 15rem) {
+    .button-section {
+      display: block;
+      text-align: center;
+
+      .Button { margin-bottom: 1em; }
+    }
+  }
+}

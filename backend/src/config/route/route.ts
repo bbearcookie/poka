@@ -1,6 +1,10 @@
 import { Express } from 'express';
-import TestRouter from '@config/route/testRouter';
+import testRouter from '@config/route/testRouter';
+import groupRouter from '@config/route/groupRouter';
+import memberRouter from '@config/route/memberRouter';
 
 export default function(app: Express) {
-  TestRouter(app, '/api/test');
+  testRouter(app, '/api/test');
+  groupRouter(app, '/api/group');
+  memberRouter(app, '/api/member');
 };

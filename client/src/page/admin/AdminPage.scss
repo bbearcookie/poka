@@ -5,22 +5,6 @@
     padding-left: 15rem; // 사이드 바 크기만큼 패딩
     min-height: 100vh;
     background-color: #F9FAFC;
-
-    .title-label {
-      margin: 0 0 1em 0;
-      font-size: 1.75rem;
-    }
-
-    .title-label-section {
-      margin-bottom: 1em;
-      display: flex;
-      align-items: center;
-
-      .title-label {
-        margin: 0;
-        flex-grow: 1;
-      }
-    }
   }
 
   // 화면이 작아지면 사이드바 ON/OFF 기능 사용 가능
@@ -29,9 +13,7 @@
       width: 100%;
       height: 100%;
 
-      .Sidebar {
-        transition: 0.25s transform;
-      }
+      .Sidebar { transition: 0.25s transform; }
 
       &.hide {
         width: 0;
@@ -44,13 +26,9 @@
     }
 
     .Navbar {
-      .sidebar-icon {
-        display: block;
-      }
+      .sidebar-icon { display: block; }
     }
 
-    .page-section {
-      padding-left: 0;
-    }
+    .page-section { padding-left: 0; }
   }
 }

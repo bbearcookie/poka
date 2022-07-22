@@ -1,17 +1,15 @@
 import React from 'react';
 import Router from '@app/router/Router';
-import { QueryClient, QueryClientProvider } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools';
-
-const queryClient = new QueryClient();
+import ReactQuery from '@app/ReactQuery';
+import ReactToastify from './ReactToastify';
 
 function App() {
   return (
     <div className="App">
-      <QueryClientProvider client={queryClient}>
+      <ReactQuery>
         <Router />
-        <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
-      </QueryClientProvider>
+        <ReactToastify />
+      </ReactQuery>
     </div>
   );
 }

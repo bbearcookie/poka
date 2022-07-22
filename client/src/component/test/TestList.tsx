@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from 'react-query';
-import * as testApi from '@api/testApi';
+import * as testAPI from '@api/testAPI';
 import * as queryKey from '@util/queryKey';
 import { AxiosError, AxiosResponse } from 'axios';
 
@@ -17,7 +17,7 @@ interface TestDataType {
 
 function TestList({ children }: TestListProps & typeof TestListDefaultProps) {
   const { status, data: list, error } = useQuery<AxiosResponse<TestDataType[]>>
-  (queryKey.testListKeys.all, testApi.getAllList);
+  (queryKey.testListKeys.all, testAPI.getAllList);
 
   if (status === 'loading') {
     return <span>Loading...</span>

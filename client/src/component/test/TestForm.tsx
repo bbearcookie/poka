@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import { useQueryClient, useMutation } from 'react-query';
-import * as testApi from '@api/testApi';
+import * as testAPI from '@api/testAPI';
 import * as queryKey from '@util/queryKey';
 
 interface TestFormProps {
@@ -18,9 +18,8 @@ function TestForm({ children }: TestFormProps & typeof TestFormDefaultProps) {
   const queryClient = useQueryClient();
 
   // 데이터 추가 요청
-  const postData = useMutation(testApi.postTestData, {
+  const postData = useMutation(testAPI.postTestData, {
     onSuccess: (result) => {
-      console.log(result);
       setForm(initialForm);
       queryClient.invalidateQueries(queryKey.testListKeys.all);
     },

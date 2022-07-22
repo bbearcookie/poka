@@ -1,0 +1,1 @@
+export const GROUP_IMAGE_DIR = 'public/image/group';

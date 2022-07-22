@@ -23,6 +23,8 @@ client/npm-debug.log*
 client/yarn-debug.log*
 client/yarn-error.log*
 
+# backend
 backend/build
 backend/node_modules
 backend/.env
+backend/public
