@@ -75,7 +75,7 @@ export const postGroup = {
       catch (err) { console.error(err); }
       groupService.updateImagename(insertId, newFilename);
 
-      return res.status(200).json({ message: '새로운 그룹을 등록했습니다.' });
+      return res.status(200).json({ message: '새로운 그룹을 등록했어요.' });
     } catch (err) {
       console.error(err);
       return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
