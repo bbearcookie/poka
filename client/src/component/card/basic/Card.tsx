@@ -1,7 +1,10 @@
 import React from 'react';
+import classNames from 'classnames';
 import styled from 'styled-components';
 
 interface CardProps {
+  className?: string;
+  display?: string;
   minWidth?: string;
   maxWidth?: string;
   margin?: string;
@@ -10,7 +13,6 @@ interface CardProps {
   marginLeft?: string;
   marginRight?: string;
   backgroundColor?: string;
-  className?: string;
   children?: React.ReactNode;
 }
 
@@ -20,7 +22,7 @@ const CardDefaultProps = {
 
 function Card(p: CardProps & typeof CardDefaultProps) {
   return (
-    <StyledCard className="Card" {...p}>
+    <StyledCard {...p} className={classNames("Card", p.className)}>
       {p.children}
     </StyledCard>
   );
@@ -31,6 +33,7 @@ export default Card;
 
 // 스타일 컴포넌트
 const StyledCard = styled.article<CardProps>`
+  display: ${p => p.display};
   min-width: ${p => p.minWidth};
   max-width: ${p => p.maxWidth};
   margin: ${p => p.margin};

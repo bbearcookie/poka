@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { ChildItem, ParentItem } from '@component/sidebar/admin/ListItem';
 import { useAppSelector, useAppDispatch } from '@app/reduxHooks';
 import { changeActiveURI, changeShow } from './sidebarSlice';
-import { faUser, faCommentAlt, faQuestionCircle, faArrowsSpin, faVcard, faTruck, faPeopleGroup, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faCommentAlt, faQuestionCircle, faArrowsSpin, faVcard, faTruck, faPeopleGroup, faInfoCircle, faCut } from '@fortawesome/free-solid-svg-icons';
 import './Sidebar.scss';
 
 interface SidebarProps {
@@ -63,6 +63,7 @@ function Sidebar({ children }: SidebarProps & typeof SidebarDefaultProps) {
           <ParentItem id="photo" icon={faInfoCircle} text="포토카드" iconMarginRight="0.9em">
             <ChildItem to="/admin/photo/list" text="목록" />
             <ChildItem to="/admin/photo/writer" text="추가" />
+            <ChildItem to="/admin/photo/crop" icon={faCut} text="자르기" />
           </ParentItem>
         </ul>
         <ul className="category">
