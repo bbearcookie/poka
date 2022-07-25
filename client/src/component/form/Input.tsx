@@ -8,7 +8,9 @@ const CLASS = 'Input';
 interface InputProps {
   type: React.HTMLInputTypeAttribute;
   name: string;
+  display?: string;
   width?: string;
+  maxWidth?: string;
   height?: string;
   margin?: string;
   marginTop?: string;
@@ -55,6 +57,8 @@ export default Input;
 
 // 스타일 컴포넌트
 const StyledInputWrapper = styled.div<InputProps>`
+  display: ${p => p.display};
+  width: ${p => p.width};
   margin: ${p => p.margin};
   margin-top: ${p => p.marginTop};
   margin-bottom: ${p => p.marginBottom};
@@ -63,6 +67,7 @@ const StyledInputWrapper = styled.div<InputProps>`
   
   input {
     width: ${p => p.width};
+    max-width: ${p => p.maxWidth};
     height: ${p => p.height};
     padding: 0 0.5em;
     box-sizing: border-box;

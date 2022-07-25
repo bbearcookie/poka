@@ -30,6 +30,8 @@ interface ButtonProps {
   leftIcon?: IconDefinition;
   rightIcon?: IconDefinition;
   iconMargin?: string; // 아이콘 크기가 달라서 마진을 직접 줘야하는 경우에 부여
+  borderRadius?: string;
+  fontSize?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   children?: React.ReactNode;
 }
@@ -37,7 +39,8 @@ interface ButtonProps {
 const ButtonDefaultProps = {
   type: 'button',
   padding: '1em',
-  iconMargin: '0.5em'
+  iconMargin: '0.5em',
+  borderRadius: '0.3rem'
 };
 
 function Button(p: ButtonProps & typeof ButtonDefaultProps) {
@@ -64,7 +67,8 @@ const StyledButton = styled.button<ButtonProps>`
   padding: ${p => p.padding};
   font-family: inherit;
   border: 0;
-  border-radius: 0.3rem;
+  font-size: ${p => p.fontSize};
+  border-radius: ${p => p.borderRadius};
   box-shadow: 1px 1px 0 rgb(0, 0, 0, 0.5);
   cursor: pointer;
   user-select: none;
