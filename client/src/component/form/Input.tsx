@@ -8,6 +8,7 @@ const CLASS = 'Input';
 interface InputProps {
   type: React.HTMLInputTypeAttribute;
   name: string;
+  className?: string;
   display?: string;
   width?: string;
   maxWidth?: string;
@@ -17,7 +18,13 @@ interface InputProps {
   marginBottom?: string;
   marginLeft?: string;
   marginRight?: string;
-  className?: string;
+  border?: string;
+  activeBorder?: string;
+  activeBoxShadow?: string;
+  color?: string;
+  placeholderColor?: string;
+  backgroundColor?: string;
+  textAlign?: string;
   value?: any;
   message?: string;
   autoComplete?: string;
@@ -28,6 +35,9 @@ interface InputProps {
 }
 
 const InputDefaultProps = {
+  border: '1px solid hsl(222, 9%, 78%)',
+  activeBorder: '1px solid rgb(206, 28, 73)',
+  activeBoxShadow: '0px 0px 1px 1px rgb(206, 28, 73)',
   message: '',
   autoComplete: 'on',
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => {},
@@ -71,15 +81,19 @@ const StyledInputWrapper = styled.div<InputProps>`
     height: ${p => p.height};
     padding: 0 0.5em;
     box-sizing: border-box;
-    border: 1px solid hsl(222, 9%, 78%);
+    color: ${p => p.color};
+    background-color: ${p => p.backgroundColor};
+    border: ${p => p.border};
     border-radius: 5px;
     font-family: inherit;
     font-size: 1rem;
-  
+    text-align: ${p => p.textAlign};
+
+    &::placeholder { color: ${p => p.placeholderColor} }
     &:focus {
       outline: none;
-      border: 1px solid rgb(206, 28, 73);
-      box-shadow: 0px 0px 1px 1px rgb(206, 28, 73);
+      border: ${p => p.activeBorder};
+      box-shadow: ${p => p.activeBoxShadow};
       transition: all 0.25s;
     }
   

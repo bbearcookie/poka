@@ -1,0 +1,94 @@
+.PhotoWriterPage {
+  padding: 5em 1.5em;
+
+  .Card {
+    .label { margin: 0 0 1em 0; }
+    .text { margin: 0; }
+  }
+
+  .input-line {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
+
+    .input-label { flex-shrink: 0; }
+  }
+
+  .image-line {
+    display: flex;
+    align-items: center;
+  }
+
+  .Table {
+    .action-section {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  .photo-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .PhotoInfoCard {
+
+      .name-section { margin-top: 1em; }
+
+      .CardBody {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  }
+
+  .info-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2em;
+
+    .description { margin: 0; }
+
+    .Upload {
+      margin-left: 1em;
+      padding: 1em;
+      flex-basis: 7rem;
+      flex-shrink: 0;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #65748B;
+      background-color: #E5E7EB;
+      border: 2px dashed #E5E7EB;
+      border-radius: 5px;
+      text-align: center;
+      user-select: none;
+      cursor: pointer;
+      transition: 0.1s background-color;
+
+      &.isDragging { background-color: #bfc1c6; }
+      &:hover { background-color: #dcdee1; }
+      svg { margin-bottom: 0.3em; }
+      input[type="file"] { display: none; }
+    }
+
+    .SelectCard { flex-grow: 1; }
+  }
+
+  .button-section {
+    display: flex;
+    justify-content: right;
+  }
+
+  @media screen and (max-width: 40rem) {
+    .info-section {
+      flex-direction: column;
+
+      .Upload { margin: 1em 0 0 0; }
+    }
+    
+  }
+}

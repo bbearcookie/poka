@@ -44,11 +44,9 @@ function ImageUploader({ className, value, message, onChange, children }: ImageU
   }, [onChange, value]);
 
   // 선택한 파일로 이미지 변경
-  const changeFile = useCallback((file: File | null) => {
+  const changeFile = useCallback((file: File) => {
     const reader = new FileReader();
     const acceptable = ['image/jpeg', 'image/png']; // 받을 수 있는 파일 타입 지정
-
-    if (!file) return; // 파일이 없으면 처리 안함
 
     if (acceptable.includes(file.type)) {
       reader.onloadend = () => {
@@ -91,7 +89,7 @@ function ImageUploader({ className, value, message, onChange, children }: ImageU
     e.preventDefault();
     e.stopPropagation();
     setIsDragging(false);
-    changeFile(file);
+    if (file) changeFile(file);
   }, [changeFile]);
 
   return (
@@ -116,7 +114,8 @@ function ImageUploader({ className, value, message, onChange, children }: ImageU
         onDrop={onDrop}
       >
         <FontAwesomeIcon icon={faUpload} size="2x" />
-        <p className="description">파일을 드래그해서 업로드</p>
+        <p className="description">파일 업로드</p>
+        <p className="description">Drag & Drop</p>
       </section>}
 
       <p className="ImageUploader__message-label">{message}</p>

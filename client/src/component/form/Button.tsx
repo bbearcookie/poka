@@ -20,6 +20,7 @@ interface ButtonProps {
   theme: ButtonTheme;
   className?: string;
   type?: 'button' | 'submit' | 'reset';
+  width?: string;
   height?: string;
   margin?: string;
   marginTop?: string;
@@ -58,6 +59,7 @@ export default Button;
 
 // 스타일 컴포넌트 =======================
 const StyledButton = styled.button<ButtonProps>`
+  width: ${p => p.width};
   height: ${p => p.height};
   margin: ${p => p.margin};
   margin-top: ${p => p.marginTop};
