@@ -13,6 +13,7 @@ interface SelectProps {
   marginBottom?: string;
   marginLeft?: string;
   marginRight?: string;
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   children?: React.ReactNode;
 }
 const SelectDefaultProps = {

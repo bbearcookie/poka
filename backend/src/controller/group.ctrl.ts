@@ -4,11 +4,9 @@ import fs from 'fs/promises';
 import { body, param } from 'express-validator';
 import { validate } from '@util/validator';
 import { getTimestampFilename } from '@util/multer';
-import { createUploader } from '@util/multer';
-import { GROUP_IMAGE_DIR } from '@util/fileDirectory';
 import * as groupService from '@service/group.service';
 import * as memberService from '@service/member.service';
-const groupUploader = createUploader(GROUP_IMAGE_DIR);
+import groupUploader, { GROUP_IMAGE_DIR } from '@uploader/group.uploader';
 
 // 그룹 목록 조회
 export const getGroupList = {
@@ -51,7 +49,7 @@ export const getGroupDetail = {
 
 // 그룹 데이터 추가
 export const postGroup = {
-  uploader: groupUploader.single('image'),
+  uploader: groupUploader("image"),
   validator: [
     body('name').trim()
       .not().isEmpty().withMessage('이름이 비어있어요.')
@@ -87,7 +85,7 @@ export const postGroup = {
 
 // 그룹 데이터 수정
 export const putGroup = {
-  uploader: groupUploader.single('image'),
+  uploader: groupUploader("image"),
   validator: [
     body('name').trim()
       .not().isEmpty().withMessage('이름이 비어있어요.')

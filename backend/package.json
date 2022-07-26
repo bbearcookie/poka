@@ -35,6 +35,7 @@
     "@controller/*": "src/controller/*",
     "@service/*": "src/service/*",
     "@util/*": "src/util/*",
+    "@uploader/*": "src/uploader/*",
     "@/*": "src/*"
   }
 }

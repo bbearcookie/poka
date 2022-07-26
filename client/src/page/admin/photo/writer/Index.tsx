@@ -17,21 +17,31 @@ export interface PhotoType {
   previewURL: string | ArrayBuffer | null;
 };
 
+export interface SelectType {
+  group: number;
+  member: number;
+}
+
 function PhotoWriterPage({ children }: PhotoWriterPageProps & typeof PhotoWriterPageDefaultProps) {
   const [photoList, setPhotoList] = useState<PhotoType[]>([]);
+  const [select, setSelect] = useState<SelectType>({
+    group: 0,
+    member: 0
+  });
 
   // 전송시 작동
   const onSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     console.log(photoList);
-  }, [photoList]);
+    console.log(select);
+  }, [photoList, select]);
 
   return (
     <div className="PhotoWriterPage">
       <h1 className="title-label">포토카드 등록</h1>
       <form onSubmit={onSubmit}>
         <section className="info-section">
-          <SelectCard />
+          <SelectCard select={select} setSelect={setSelect} />
           <Upload photoList={photoList} setPhotoList={setPhotoList} />
         </section>
         <PhotoList photoList={photoList} setPhotoList={setPhotoList} />

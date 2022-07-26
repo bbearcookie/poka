@@ -6,6 +6,7 @@ export const testListKeys = {
 export const groupKeys = {
   all: ['groups'] as const,
   detail: (groupId: number) => [...groupKeys.all, groupId] as const,
+  members: (groupId: number) => [...groupKeys.all, groupId, 'members'] as const
 }
 
 export const memberKeys = {
