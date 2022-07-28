@@ -13,11 +13,12 @@ interface PhotoInfoProps {
   message: string;
   changePhotoName: (idx: number, value: string) => void;
   removePhoto: (idx: number) => void;
+  setPhotoMessage: (idx: number, message: string) => void;
   children?: React.ReactNode;
 }
 const PhotoInfoDefaultProps = {};
 
-function PhotoInfo({ idx, src, message, changePhotoName, removePhoto, children }: PhotoInfoProps & typeof PhotoInfoDefaultProps) {
+function PhotoInfo({ idx, src, message, changePhotoName, removePhoto, setPhotoMessage, children }: PhotoInfoProps & typeof PhotoInfoDefaultProps) {
   return (
     <Card className="PhotoInfoCard" margin="0 1em 2em 1em">
       <CardBody>
@@ -34,11 +35,21 @@ function PhotoInfo({ idx, src, message, changePhotoName, removePhoto, children }
             placeholderColor="gray"
             backgroundColor="#242A38"
             border="1px solid #242A38"
-            activeBorder="2px solid #adafb5"
+            activeBorder="1px solid #adafb5"
             activeBoxShadow="0px 0px 1px 1px #adafb5"
             onChange={(e) => changePhotoName(idx, e.target.value)}
+            onBlur={(e) => e.target.value 
+              ? setPhotoMessage(idx, "")
+              : setPhotoMessage(idx, "포토카드 이름이 비어있어요.")
+            }
           >
-            {message && <InputMessage width="200px" textAlign="center">{message}</InputMessage>}
+            {message &&
+              <InputMessage
+                width="200px"
+                margin="1em 0 0 0"
+                textAlign="center"
+                wordBreak="keep-all"
+              >{message}</InputMessage>}
           </Input>
         </section>
         <Button

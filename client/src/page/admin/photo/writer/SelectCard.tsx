@@ -62,7 +62,7 @@ function SelectCard({ select, setSelect, selectMessage, setSelectMessage, childr
               ))}
             </Select>
           </section>
-          <InputMessage margin="0.5em 0 0 0">{selectMessage.groupId}</InputMessage>
+          {selectMessage.groupId && <InputMessage margin="0.5em 0 0 0">{selectMessage.groupId}</InputMessage>}
         </section>
 
         <section className="input-section">
@@ -75,7 +75,7 @@ function SelectCard({ select, setSelect, selectMessage, setSelectMessage, childr
               ))}
             </Select>
           </section>
-          <InputMessage margin="0.5em 0 0 0">{selectMessage.memberId}</InputMessage>
+          {selectMessage.memberId && <InputMessage margin="0.5em 0 0 0">{selectMessage.memberId}</InputMessage>}
         </section>
 
         <p className="description">등록하려는 포토카드들이 어떤 대상의 포토카드인지를 지정합니다.</p>

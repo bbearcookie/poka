@@ -52,10 +52,14 @@ function PhotoWriterPage({ children }: PhotoWriterPageProps & typeof PhotoWriter
       toast.error(message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
       console.log(err.response?.data?.errors);
 
+      // 유효성 검증 결과 메시지 설정
       if (err.response?.data?.errors) {
-        const photos = photoList.map((item) => ({ ...item, message: '' }) );
-        let messages = selectMessage;
 
+        // 기존 메시지 초기화
+        const photos = photoList.map((item) => ({ ...item, message: '' }) );
+        let messages = { groupId: '', memberId: '' };
+
+        // 오류 메시지 처리
         err.response?.data?.errors.forEach((item) => {
           if (item.param === 'groupId')
             messages = { ...messages, groupId: item.message };

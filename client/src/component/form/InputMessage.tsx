@@ -9,6 +9,7 @@ interface InputMessageProps {
   marginRight?: string;
   width?: string;
   textAlign?: string;
+  wordBreak?: string;
   children?: React.ReactNode;
 }
 const InputMessageDefaultProps = {};
@@ -34,5 +35,5 @@ const StyledLabel = styled.p<InputMessageProps>`
   width: ${p => p.width};
   text-align: ${p => p.textAlign};
   color: red;
-  word-break: break-all;
+  word-break: ${p => p.wordBreak};
 `;
