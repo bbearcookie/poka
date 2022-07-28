@@ -30,6 +30,7 @@ function PhotoInfo({ idx, src, message, changePhotoName, removePhoto, setPhotoMe
             height="2.5em"
             placeholder="포토카드 이름"
             autoComplete='off'
+            maxLength={100}
             textAlign="center"
             color="white"
             placeholderColor="gray"

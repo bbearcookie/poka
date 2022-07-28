@@ -45,7 +45,8 @@ function PhotoWriterPage({ children }: PhotoWriterPageProps & typeof PhotoWriter
   // 데이터 추가 요청
   const postMutation = useMutation(photoAPI.postPhotos.axios, {
     onSuccess: (res: AxiosResponse<typeof photoAPI.postPhotos.resType>) => {
-      console.log(res);
+      console.log(res.data);
+      toast.success(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
     },
     onError: (err: AxiosError<ErrorType>) => {
       const message = err.response?.data ? err.response?.data.message : err.message;
