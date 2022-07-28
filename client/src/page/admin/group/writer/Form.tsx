@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorType } from '@util/commonAPI';
 import Input from '@component/form/Input';
+import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';
 import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
@@ -50,7 +51,7 @@ function Form({ name, imageName, groupId, children }: FormProps & typeof FormDef
       toast.success(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
       return navigate('/admin/group/list');
     },
-    onError: (err: AxiosError<ErrorType<InputType>>) => {
+    onError: (err: AxiosError<ErrorType<keyof InputType>>) => {
       toast.error(err.response?.data.message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
 
       let message = inputMessage;
@@ -67,7 +68,7 @@ function Form({ name, imageName, groupId, children }: FormProps & typeof FormDef
       toast.success(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
       return navigate(`/admin/group/detail/${groupId}`);
     },
-    onError: (err: AxiosError<ErrorType<InputType>>) => {
+    onError: (err: AxiosError<ErrorType<keyof InputType>>) => {
       if (err.response?.data.message) toast.error(err.response?.data.message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
       else toast.error(err.message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
 
@@ -167,13 +168,14 @@ function Form({ name, imageName, groupId, children }: FormProps & typeof FormDef
             type="text"
             name="name"
             value={input.name}
-            message={inputMessage.name}
             placeholder="이름을 입력하세요"
             maxLength={20}
             autoComplete="off"
             onChange={changeInput}
             onBlur={blurInput}
-          />
+          >
+            <InputMessage margin="0.5em 0 0 0.8em">{inputMessage.name}</InputMessage>
+          </Input>
           <p className="description">아이돌 그룹의 이름을 지정합니다. 이 이름은 사용자가 포토카드를 찾거나, 관리자가 포토카드 정보를 관리할 때 사용됩니다.</p>
         </CardBody>
       </Card>

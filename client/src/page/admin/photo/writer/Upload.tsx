@@ -35,6 +35,7 @@ function Upload({ photoList, setPhotoList, children }: UploadProps & typeof Uplo
           resolve({
             idx: nextId.current++,
             name: '',
+            message: '',
             imageFile: file,
             previewURL: reader.result
           });

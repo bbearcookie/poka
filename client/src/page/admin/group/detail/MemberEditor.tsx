@@ -6,6 +6,7 @@ import * as queryKey from '@util/queryKey';
 import { ErrorType } from '@util/commonAPI';
 import { AxiosError, AxiosResponse } from 'axios';
 import Input from '@component/form/Input';
+import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';
 import TableBodyItem from '@component/table/TableBodyItem';
 
@@ -74,10 +75,11 @@ function MemberEditor({ groupId, memberId, defaultValue, closeEditor }: MemberEd
           name="name"
           value={name}
           onChange={changeInput}
-          message={message}
           autoComplete="off"
           placeholder={memberId ? '수정할 이름을 입력하세요' : '추가할 이름을 입력하세요'}
-        />
+        >
+          <InputMessage margin="0.5em 0 0 0.8em">{message}</InputMessage>
+        </Input>
       </TableBodyItem>
       <TableBodyItem></TableBodyItem>
       <TableBodyItem paddingRight="0.5em">

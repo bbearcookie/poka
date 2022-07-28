@@ -2,10 +2,10 @@ import multer from 'multer';
 import { MulterError } from 'multer';
 import { getStoarage } from '@util/multer';
 import { Request, Response, NextFunction } from 'express';
-export const GROUP_IMAGE_DIR = 'public/image/group';
+export const PHOTO_IMAGE_DIR = 'public/image/photo';
 
 const uploader = multer({
-  storage: getStoarage(GROUP_IMAGE_DIR),
+  storage: getStoarage(PHOTO_IMAGE_DIR),
   limits: {
     fileSize: 5 * 1024 * 1024
   },
@@ -22,6 +22,8 @@ export default (fieldName: string) => ({
   single: uploader.single(fieldName),
   // 다중 파일 업로더
   array: uploader.array(fieldName),
+  // 다중 파일 업로더
+  fields: uploader.fields([{ name: fieldName }]),
   // 파일 유효성 검사 실패시 에러 응답
   errorHandler: async (err: MulterError | Error, req: Request, res: Response, next: NextFunction) => {
     if (err instanceof MulterError) {
@@ -38,12 +40,8 @@ export default (fieldName: string) => ({
       }
     } else {
       return res.status(400).json({
-        message: err.message,
-        errors: [{
-          param: fieldName,
-          message: err.message
-        }]
-      })
+        message: err.message
+      });
     }
     
     next();

@@ -13,7 +13,6 @@ interface PhotoListProps {
 const PhotoListDefaultProps = {};
 
 function PhotoList({ photoList, setPhotoList, children }: PhotoListProps & typeof PhotoListDefaultProps) {
-
   // 특정 포토카드 삭제
   const removePhoto = useCallback((idx: number) => {
     setPhotoList(photoList.filter((item) => item.idx !== idx));
@@ -21,9 +20,7 @@ function PhotoList({ photoList, setPhotoList, children }: PhotoListProps & typeo
 
   // 포토카드 이름 변경
   const changePhotoName = useCallback((idx: number, value: string) => {
-    setPhotoList(
-      photoList.map((item) => item.idx === idx ? {...item, name: value } : { ...item })
-    );
+    setPhotoList(photoList.map((item) => item.idx === idx ? {...item, name: value } : { ...item }) );
   }, [photoList, setPhotoList]);
 
   return (
@@ -39,6 +36,7 @@ function PhotoList({ photoList, setPhotoList, children }: PhotoListProps & typeo
               key={item.idx}
               idx={item.idx}
               src={String(item.previewURL)}
+              message={item.message}
               changePhotoName={changePhotoName}
               removePhoto={removePhoto}
             />

@@ -6,12 +6,15 @@
     .text { margin: 0; }
   }
 
-  .input-line {
-    display: flex;
-    align-items: center;
+  .input-section {
     margin-bottom: 1em;
-
-    .input-label { flex-shrink: 0; }
+    
+    .input-line {
+      display: flex;
+      align-items: center;
+  
+      .input-label { flex-shrink: 0; }
+    }
   }
 
   .image-line {

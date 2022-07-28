@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Input from '@component/form/Input';
+import InputMessage from '@component/form/InputMessage';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
@@ -9,13 +10,14 @@ import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 interface PhotoInfoProps {
   idx: number;
   src: string;
+  message: string;
   changePhotoName: (idx: number, value: string) => void;
   removePhoto: (idx: number) => void;
   children?: React.ReactNode;
 }
 const PhotoInfoDefaultProps = {};
 
-function PhotoInfo({ idx, src, changePhotoName, removePhoto, children }: PhotoInfoProps & typeof PhotoInfoDefaultProps) {
+function PhotoInfo({ idx, src, message, changePhotoName, removePhoto, children }: PhotoInfoProps & typeof PhotoInfoDefaultProps) {
   return (
     <Card className="PhotoInfoCard" margin="0 1em 2em 1em">
       <CardBody>
@@ -24,7 +26,6 @@ function PhotoInfo({ idx, src, changePhotoName, removePhoto, children }: PhotoIn
           <Input
             type="text"
             name="name"
-            width="100%"
             height="2.5em"
             placeholder="포토카드 이름"
             autoComplete='off'
@@ -36,7 +37,9 @@ function PhotoInfo({ idx, src, changePhotoName, removePhoto, children }: PhotoIn
             activeBorder="2px solid #adafb5"
             activeBoxShadow="0px 0px 1px 1px #adafb5"
             onChange={(e) => changePhotoName(idx, e.target.value)}
-          />
+          >
+            {message && <InputMessage width="200px" textAlign="center">{message}</InputMessage>}
+          </Input>
         </section>
         <Button
           theme="danger-outlined"

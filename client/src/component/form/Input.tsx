@@ -26,19 +26,18 @@ interface InputProps {
   backgroundColor?: string;
   textAlign?: string;
   value?: any;
-  message?: string;
   autoComplete?: string;
   maxLength?: number;
   placeholder?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  children?: React.ReactNode;
 }
 
 const InputDefaultProps = {
   border: '1px solid hsl(222, 9%, 78%)',
   activeBorder: '1px solid rgb(206, 28, 73)',
   activeBoxShadow: '0px 0px 1px 1px rgb(206, 28, 73)',
-  message: '',
   autoComplete: 'on',
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => {},
   onBlur: (e: React.FocusEvent<HTMLInputElement>) => {},
@@ -57,7 +56,7 @@ function Input(p: InputProps & typeof InputDefaultProps) {
         onChange={p.onChange}
         onBlur={p.onBlur}
       />
-      {p.message && <p className={`${CLASS}__message-label`}>{p.message}</p>}
+      {p.children}
       </StyledInputWrapper>
   );
 }
@@ -106,10 +105,5 @@ const StyledInputWrapper = styled.div<InputProps>`
       -webkit-transition: background-color 9999s ease-out;
       -webkit-box-shadow: 0 0 0px 1000px white inset !important;
     }
-  }
-
-  .${CLASS}__message-label {
-    color: red;
-    margin: 0.5em 0 0 0.8em;
   }
 `;
