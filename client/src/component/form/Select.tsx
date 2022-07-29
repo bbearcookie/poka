@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const CLASS = 'Select';
 interface SelectProps {
   width?: string;
   height?: string;
@@ -23,7 +24,7 @@ const SelectDefaultProps = {
 
 function Select(p: SelectProps & typeof SelectDefaultProps) {
   return (
-    <StyledSelect {...p}>
+    <StyledSelect {...p} className={CLASS}>
       {p.children}
     </StyledSelect>
   );

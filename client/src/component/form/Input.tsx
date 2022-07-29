@@ -38,7 +38,7 @@ const InputDefaultProps = {
   border: '1px solid hsl(222, 9%, 78%)',
   activeBorder: '1px solid rgb(206, 28, 73)',
   activeBoxShadow: '0px 0px 1px 1px rgb(206, 28, 73)',
-  autoComplete: 'on',
+  autoComplete: 'off',
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => {},
   onBlur: (e: React.FocusEvent<HTMLInputElement>) => {},
 };
@@ -57,7 +57,7 @@ function Input(p: InputProps & typeof InputDefaultProps) {
         onBlur={p.onBlur}
       />
       {p.children}
-      </StyledInputWrapper>
+    </StyledInputWrapper>
   );
 }
 

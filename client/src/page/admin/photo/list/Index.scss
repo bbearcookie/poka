@@ -1,0 +1,36 @@
+.PhotoListPage {
+  padding: 5em 1.5em;
+
+  .title-label {
+    margin: 0 0 1em 0;
+    font-size: 1.75rem;
+  }
+
+  .title-label-section {
+    margin-bottom: 1em;
+    display: flex;
+    align-items: center;
+
+    .title-label {
+      margin: 0;
+      flex-grow: 1;
+    }
+  }
+
+  // .search-bar-section {
+  //   display: flex;
+  //   gap: 1em;
+
+  //   .SearchBar { flex-grow: 1; }
+  //   .Select { width: 10em; }
+  // }
+
+  @media screen and (max-width: 30rem) {
+    .search-bar-section { 
+      flex-direction: column;
+
+      .Select { width: 100%; }
+    }
+  }
+
+}
