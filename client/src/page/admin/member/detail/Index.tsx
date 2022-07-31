@@ -31,8 +31,8 @@ function MemberDetailPage({ children }: MemberDetailPageProps & typeof MemberDet
   return (
     <div className="MemberDetailPage">
       {member && member.data?.group_id ?
-        <BackLabel to={`/admin/group/detail/${member.data.group_id}`} marginBottom="2em">{member.data.group_name}</BackLabel>
-      : <BackLabel marginBottom="2em" onClick={toBackPage}>뒤로가기</BackLabel>}
+        <BackLabel to={`/admin/group/detail/${member.data.group_id}`} styles={{ marginBottom: "2em" }}>{member.data.group_name}</BackLabel>
+      : <BackLabel onClick={toBackPage} styles={{ marginBottom: "2em" }}>뒤로가기</BackLabel>}
 
       {status === 'loading' && <Skeleton />}
       {status === 'success' && <Success member={member} memberId={memberId} />}

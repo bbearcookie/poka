@@ -3,6 +3,30 @@ import styled from 'styled-components';
 
 const CLASS = 'Select';
 interface SelectProps {
+  styles: StylesProps;
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  children?: React.ReactNode;
+}
+const SelectDefaultProps = {
+  paddingLeft: '0.5em',
+  paddingRight: '0.5em'
+};
+function Select(p: SelectProps & typeof SelectDefaultProps) {
+  return (
+    <StyledSelect
+      {...StylesDefaultProps} {...p.styles} {...p}
+      className={CLASS}
+    >
+      {p.children}
+    </StyledSelect>
+  );
+}
+
+Select.defaultProps = SelectDefaultProps;
+export default Select;
+
+// 스타일 컴포넌트
+interface StylesProps {
   width?: string;
   height?: string;
   paddingTop?: string;
@@ -14,27 +38,9 @@ interface SelectProps {
   marginBottom?: string;
   marginLeft?: string;
   marginRight?: string;
-  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  children?: React.ReactNode;
 }
-const SelectDefaultProps = {
-  paddingLeft: '0.5em',
-  paddingRight: '0.5em'
-};
-
-function Select(p: SelectProps & typeof SelectDefaultProps) {
-  return (
-    <StyledSelect {...p} className={CLASS}>
-      {p.children}
-    </StyledSelect>
-  );
-}
-
-Select.defaultProps = SelectDefaultProps;
-export default Select;
-
-// 스타일 컴포넌트
-const StyledSelect = styled.select<SelectProps>`
+const StylesDefaultProps = {};
+const StyledSelect = styled.select<StylesProps & typeof StylesDefaultProps>`
   width: ${p => p.width};
   height: ${p => p.height};
   padding-top: ${p => p.paddingTop};

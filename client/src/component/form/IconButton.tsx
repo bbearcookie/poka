@@ -11,9 +11,7 @@ interface IconButtonProps {
   onClick?: () => void;
   children?: React.ReactNode;
 }
-
 const IconButtonDefaultProps = {};
-
 function IconButton(p: IconButtonProps & typeof IconButtonDefaultProps) {
   return (
     <StyledIconButton {...p} className="IconButton" onClick={p.onClick}>

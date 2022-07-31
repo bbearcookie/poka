@@ -21,11 +21,13 @@ function Form({ moveX, setMoveX, moveY, setMoveY, children }: FormProps & typeof
           value={moveX}
           placeholder="가로 이동 간격"
           onChange={(e) => setMoveX(Number(e.target.value))}
-          display="inline-block"
-          width="100%"
-          height="2em"
-          marginLeft="0.5em"
-          marginRight="1em"
+          styles={{
+            display: "inline-block",
+            width: "100%",
+            height: "2em",
+            marginLeft: "0.5em",
+            marginRight: "1em"
+          }}
         />
       </section>
       <section className="input-line">
@@ -36,11 +38,13 @@ function Form({ moveX, setMoveX, moveY, setMoveY, children }: FormProps & typeof
           value={moveY}
           placeholder="세로 이동 간격"
           onChange={(e) => setMoveY(Number(e.target.value))}
-          display="inline-block"
-          width="100%"
-          height="2em"
-          marginLeft="0.5em"
-          marginRight="1em"
+          styles={{
+            display: "inline-block",
+            width: "100%",
+            height: "2em",
+            marginLeft: "0.5em",
+            marginRight: "1em"
+          }}
         />
       </section>
     </>

@@ -27,29 +27,33 @@ function PhotoInfo({ idx, src, message, changePhotoName, removePhoto, setPhotoMe
           <Input
             type="text"
             name="name"
-            height="2.5em"
             placeholder="포토카드 이름"
             autoComplete='off'
             maxLength={100}
-            textAlign="center"
-            color="white"
-            placeholderColor="gray"
-            backgroundColor="#242A38"
-            border="1px solid #242A38"
-            activeBorder="1px solid #adafb5"
-            activeBoxShadow="0px 0px 1px 1px #adafb5"
             onChange={(e) => changePhotoName(idx, e.target.value)}
             onBlur={(e) => e.target.value 
               ? setPhotoMessage(idx, "")
               : setPhotoMessage(idx, "포토카드 이름이 비어있어요.")
             }
+            styles={{
+              height: "2.5em",
+              textAlign: "center",
+              color: "white",
+              placeholderColor: "gray",
+              backgroundColor: "#242A38",
+              border: "1px solid #242A38",
+              activeBorder: "1px solid #adafb5",
+              activeBoxShadow: "0px 0px 1px 1px #adafb5"
+            }}
           >
             {message &&
               <InputMessage
-                width="200px"
-                margin="1em 0 0 0"
-                textAlign="center"
-                wordBreak="keep-all"
+                styles={{
+                  width: "200px",
+                  margin: "1em 0 0 0",
+                  textAlign: "center",
+                  wordBreak: "keep-all"
+                }}
               >{message}</InputMessage>}
           </Input>
         </section>

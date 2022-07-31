@@ -9,43 +9,26 @@ interface InputProps {
   type: React.HTMLInputTypeAttribute;
   name: string;
   className?: string;
-  display?: string;
-  width?: string;
-  maxWidth?: string;
-  height?: string;
-  margin?: string;
-  marginTop?: string;
-  marginBottom?: string;
-  marginLeft?: string;
-  marginRight?: string;
-  border?: string;
-  activeBorder?: string;
-  activeBoxShadow?: string;
-  color?: string;
-  placeholderColor?: string;
-  backgroundColor?: string;
-  textAlign?: string;
   value?: any;
   autoComplete?: string;
   maxLength?: number;
   placeholder?: string;
+  styles?: StylesProps;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   children?: React.ReactNode;
 }
-
 const InputDefaultProps = {
-  border: '1px solid hsl(222, 9%, 78%)',
-  activeBorder: '1px solid rgb(206, 28, 73)',
-  activeBoxShadow: '0px 0px 1px 1px rgb(206, 28, 73)',
   autoComplete: 'off',
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => {},
   onBlur: (e: React.FocusEvent<HTMLInputElement>) => {},
 };
-
 function Input(p: InputProps & typeof InputDefaultProps) {  
   return (
-    <StyledInputWrapper {...p} className={classNames(CLASS, p.className)}>
+    <StyledInputWrapper
+      {...StylesDefaultProps} {...p.styles} {...p}
+      className={classNames(CLASS, p.className)}
+    >
       <input
         type={p.type}
         name={p.name}
@@ -65,7 +48,30 @@ Input.defaultProps = InputDefaultProps;
 export default Input;
 
 // 스타일 컴포넌트
-const StyledInputWrapper = styled.div<InputProps>`
+interface StylesProps {
+  display?: string;
+  width?: string;
+  maxWidth?: string;
+  height?: string;
+  margin?: string;
+  marginTop?: string;
+  marginBottom?: string;
+  marginLeft?: string;
+  marginRight?: string;
+  border?: string;
+  activeBorder?: string;
+  activeBoxShadow?: string;
+  color?: string;
+  placeholderColor?: string;
+  backgroundColor?: string;
+  textAlign?: string;
+}
+const StylesDefaultProps = {
+  border: '1px solid hsl(222, 9%, 78%)',
+  activeBorder: '1px solid rgb(206, 28, 73)',
+  activeBoxShadow: '0px 0px 1px 1px rgb(206, 28, 73)',
+};
+const StyledInputWrapper = styled.div<StylesProps & typeof StylesDefaultProps>`
   display: ${p => p.display};
   width: ${p => p.width};
   margin: ${p => p.margin};

@@ -163,8 +163,6 @@ function Form({ name, imageName, groupId, children }: FormProps & typeof FormDef
         <CardBody>
           <h3 className="label">이름</h3>
           <Input
-            width="100%" height="2.5em"
-            marginBottom="1em"
             type="text"
             name="name"
             value={input.name}
@@ -173,8 +171,13 @@ function Form({ name, imageName, groupId, children }: FormProps & typeof FormDef
             autoComplete="off"
             onChange={changeInput}
             onBlur={blurInput}
+            styles={{
+              width: "100%",
+              height: "2.5em",
+              marginBottom: "1em"
+            }}
           >
-            <InputMessage margin="0.5em 0 0 0.8em">{inputMessage.name}</InputMessage>
+            <InputMessage styles={{margin: "0.5em 0 0 0.8em"}}>{inputMessage.name}</InputMessage>
           </Input>
           <p className="description">아이돌 그룹의 이름을 지정합니다. 이 이름은 사용자가 포토카드를 찾거나, 관리자가 포토카드 정보를 관리할 때 사용됩니다.</p>
         </CardBody>

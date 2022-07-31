@@ -70,15 +70,18 @@ function MemberEditor({ groupId, memberId, defaultValue, closeEditor }: MemberEd
     <tr>
       <TableBodyItem paddingLeft="1em">
         <Input
-          width="100%" height="2.5em"
           type="text"
           name="name"
           value={name}
-          onChange={changeInput}
-          autoComplete="off"
           placeholder={memberId ? '수정할 이름을 입력하세요' : '추가할 이름을 입력하세요'}
+          autoComplete="off"
+          onChange={changeInput}
+          styles={{
+            width: "100%",
+            height: "2.5em"
+          }}
         >
-          <InputMessage margin="0.5em 0 0 0.8em">{message}</InputMessage>
+          <InputMessage styles={{margin: "0.5em 0 0 0.8em"}}>{message}</InputMessage>
         </Input>
       </TableBodyItem>
       <TableBodyItem></TableBodyItem>

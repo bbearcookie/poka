@@ -55,27 +55,41 @@ function SelectCard({ select, setSelect, selectMessage, setSelectMessage, childr
         <section className="input-section">
           <section className="input-line">
             <span className="input-label">그룹</span>
-            <Select width="100%" height="2.5rem" marginLeft="1em" onChange={onChangeGroup}>
+            <Select
+              onChange={onChangeGroup}
+              styles={{
+                width: "100%",
+                height: "2.5rem",
+                marginLeft: "1em" 
+              }}
+            >
               <option value={0}>선택</option>
               {groupQuery.data?.data?.groups.map((item) => (
                 <option key={item.group_id} value={item.group_id}>{item.name}</option>
               ))}
             </Select>
           </section>
-          {selectMessage.groupId && <InputMessage margin="0.5em 0 0 0">{selectMessage.groupId}</InputMessage>}
+          {selectMessage.groupId && <InputMessage styles={{margin: "0.5em 0 0 0"}}>{selectMessage.groupId}</InputMessage>}
         </section>
 
         <section className="input-section">
           <section className="input-line">
             <span className="input-label">멤버</span>
-            <Select width="100%" height="2.5rem" marginLeft="1em" onChange={onChangeMember}>
+            <Select
+              onChange={onChangeMember}
+              styles={{
+                width: "100%",
+                height: "2.5rem",
+                marginLeft: "1em" 
+              }}
+            >
               <option value={0}>선택</option>
               {memberQuery.data?.data?.members.map((item) => (
                 <option key={item.member_id} value={item.member_id}>{item.name}</option>
               ))}
             </Select>
           </section>
-          {selectMessage.memberId && <InputMessage margin="0.5em 0 0 0">{selectMessage.memberId}</InputMessage>}
+          {selectMessage.memberId && <InputMessage styles={{margin: "0.5em 0 0 0"}}>{selectMessage.memberId}</InputMessage>}
         </section>
 
         <p className="description">등록하려는 포토카드들이 어떤 대상의 포토카드인지를 지정합니다.</p>

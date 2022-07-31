@@ -4,14 +4,6 @@ import styled, { css } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
-export type ButtonTheme = 
-| "primary"
-| "primary-outlined"
-| "gray"
-| "gray-outlined"
-| "danger"
-| "danger-outlined"
-
 // 버튼 컴포넌트 =========================
 const CLASS = 'Button';
 interface ButtonProps {
@@ -26,7 +18,6 @@ interface ButtonProps {
 const ButtonDefaultProps = {
   type: 'button',
 };
-
 function Button(p: ButtonProps & typeof ButtonDefaultProps) {
   return (
     <StyledButton {...StylesDefaultProps} {...p.styles} {...p} className={classNames(CLASS, p.className)}>
@@ -41,6 +32,13 @@ Button.defaultProps = ButtonDefaultProps;
 export default Button;
 
 // 스타일 컴포넌트 =======================
+export type ButtonTheme = 
+| "primary"
+| "primary-outlined"
+| "gray"
+| "gray-outlined"
+| "danger"
+| "danger-outlined"
 interface StylesProps {
   theme: ButtonTheme;
   width?: string;
