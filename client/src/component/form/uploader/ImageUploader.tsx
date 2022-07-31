@@ -121,8 +121,24 @@ function ImageUploader({ className, value, message, onChange, children }: ImageU
       <p className="ImageUploader__message-label">{message}</p>
 
       <section className="ImageUploader__button-section">
-        <Button type="button" theme="primary" padding="0.5em" leftIcon={faUpload} onClick={showInput}>파일 선택</Button>
-        <Button type="button" theme="primary-outlined" padding="0.5em" leftIcon={faTrashCan} onClick={resetImage}>초기화</Button>
+        <Button
+          type="button"
+          leftIcon={faUpload}
+          onClick={showInput}
+          styles={{
+            theme: "primary",
+            padding: "0.5em"
+          }}
+        >파일 선택</Button>
+        <Button
+          type="button"
+          leftIcon={faTrashCan}
+          onClick={resetImage}
+          styles={{
+            theme: "primary-outlined",
+            padding: "0.5em"
+          }}
+        >초기화</Button>
       </section>
 
     </article>

@@ -112,8 +112,21 @@ function PhotoWriterPage({ children }: PhotoWriterPageProps & typeof PhotoWriter
         </section>
         <PhotoList photoList={photoList} setPhotoList={setPhotoList} />
         <section className="button-section">
-          <Button theme="primary-outlined" padding="1em 2em" marginLeft="1em">취소</Button>
-          <Button theme="primary" type="submit" padding="1em 2em" marginLeft="1em">작성</Button>
+          <Button
+            styles={{
+              theme: "primary-outlined",
+              padding: "1em 2em",
+              marginLeft: "1em"
+            }}
+          >취소</Button>
+          <Button
+            type="submit"
+            styles={{
+              theme: "primary",
+              padding: "1em 2em",
+              marginLeft: "1em"
+            }}
+          >작성</Button>
         </section>
       </form>
     </div>

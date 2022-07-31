@@ -54,12 +54,14 @@ function PhotoInfo({ idx, src, message, changePhotoName, removePhoto, setPhotoMe
           </Input>
         </section>
         <Button
-          theme="danger-outlined"
           leftIcon={faTrashCan}
-          width="5em"
-          padding="0.5em 0"
-          marginTop="1em"
           onClick={() => removePhoto(idx)}
+          styles={{
+            theme: "danger-outlined",
+            width: "5em",
+            padding: "0.5em 0",
+            marginTop: "1em"
+          }}
         >취소</Button>
       </CardBody>
     </Card>

@@ -27,8 +27,10 @@ function Success({ member, memberId }: SuccessProps & typeof SuccessDefaultProps
           <section className="title-section">
             <h3 className="title-label">등록된 포토카드</h3>
             <Button
-              theme="primary"
               rightIcon={faArrowRight}
+              styles={{
+                theme: "primary"
+              }}
             >목록</Button>
           </section>
         </CardHeader>

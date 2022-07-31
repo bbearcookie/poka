@@ -64,8 +64,20 @@ function ConfirmModal(p: ConfirmModalProps & typeof ConfirmModalDefaultProps) {
           <StyledFooter {...p}>
             {p.hook.errorMessage && <p className={`${CLASS}__error-label`}>{p.hook.errorMessage}</p>}
             <section className={`${CLASS}__button-section`}>
-              <Button theme={p.confirmButtonTheme} padding="0.7em" onClick={p.handleConfirm}>{p.confirmText}</Button>
-              <Button theme={p.cancelButtonTheme} padding="0.7em" onClick={p.hook.close}>{p.cancelText}</Button>
+              <Button
+                onClick={p.handleConfirm}
+                styles={{
+                  theme: p.confirmButtonTheme,
+                  padding: "0.7em"
+                }}
+                >{p.confirmText}</Button>
+              <Button
+                onClick={p.hook.close}
+                styles={{
+                  theme: p.cancelButtonTheme,
+                  padding: "0.7em"
+                }}
+              >{p.cancelText}</Button>
             </section>
           </StyledFooter>
         </CardFooter>

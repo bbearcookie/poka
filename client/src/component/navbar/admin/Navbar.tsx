@@ -26,7 +26,7 @@ function Navbar({ children }: NavbarProps & typeof NavbarDefaultProps) {
         <FontAwesomeIcon icon={faBars} />
       </div>
       <div className="grow-section"></div>
-      <Button theme="gray-outlined" rightIcon={faRightFromBracket}>로그아웃</Button>
+      <Button rightIcon={faRightFromBracket} styles={{ theme:"gray-outlined" }}>로그아웃</Button>
     </article>
   );
 }

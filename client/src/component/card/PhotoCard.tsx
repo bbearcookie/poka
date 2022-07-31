@@ -114,5 +114,6 @@ const StyledPhotoCard = styled.div<StylesProps & typeof StylesDefaultProps>`
     .${CLASS}__icon-section {
       align-self: flex-end;
       cursor: pointer;
+    }
   }
 `;

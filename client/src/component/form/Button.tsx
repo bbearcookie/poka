@@ -12,41 +12,24 @@ export type ButtonTheme =
 | "danger"
 | "danger-outlined"
 
-
 // 버튼 컴포넌트 =========================
 const CLASS = 'Button';
-
 interface ButtonProps {
-  theme: ButtonTheme;
   className?: string;
   type?: 'button' | 'submit' | 'reset';
-  width?: string;
-  height?: string;
-  margin?: string;
-  marginTop?: string;
-  marginBottom?: string;
-  marginLeft?: string;
-  marginRight?: string;
-  padding?: string;
   leftIcon?: IconDefinition;
   rightIcon?: IconDefinition;
-  iconMargin?: string; // 아이콘 크기가 달라서 마진을 직접 줘야하는 경우에 부여
-  borderRadius?: string;
-  fontSize?: string;
+  styles?: StylesProps;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   children?: React.ReactNode;
 }
-
 const ButtonDefaultProps = {
   type: 'button',
-  padding: '1em',
-  iconMargin: '0.5em',
-  borderRadius: '0.3rem'
 };
 
 function Button(p: ButtonProps & typeof ButtonDefaultProps) {
   return (
-    <StyledButton {...p} className={classNames(CLASS, p.className)}>
+    <StyledButton {...StylesDefaultProps} {...p.styles} {...p} className={classNames(CLASS, p.className)}>
       {p.leftIcon && <FontAwesomeIcon className={`${CLASS}__left-icon`} icon={p.leftIcon} /> }
       {p.children}
       {p.rightIcon && <FontAwesomeIcon className={`${CLASS}__right-icon`} icon={p.rightIcon} /> }
@@ -58,7 +41,26 @@ Button.defaultProps = ButtonDefaultProps;
 export default Button;
 
 // 스타일 컴포넌트 =======================
-const StyledButton = styled.button<ButtonProps>`
+interface StylesProps {
+  theme: ButtonTheme;
+  width?: string;
+  height?: string;
+  margin?: string;
+  marginTop?: string;
+  marginBottom?: string;
+  marginLeft?: string;
+  marginRight?: string;
+  padding?: string;
+  iconMargin?: string; // 아이콘 크기가 달라서 마진을 직접 줘야하는 경우에 부여
+  borderRadius?: string;
+  fontSize?: string;
+}
+const StylesDefaultProps = {
+  padding: '1em',
+  iconMargin: '0.5em',
+  borderRadius: '0.3rem'
+};
+const StyledButton = styled.button<StylesProps & typeof StylesDefaultProps>`
   width: ${p => p.width};
   height: ${p => p.height};
   margin: ${p => p.margin};

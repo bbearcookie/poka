@@ -21,12 +21,14 @@ function RemoveCard({ onClick, titleText, buttonText, children }: RemoveCardProp
     <CardHeader><h1>{titleText}</h1></CardHeader>
     <CardBody>
       <Button
-        theme="danger-outlined"
-        marginBottom="1em"
-        padding="0.7em 1.3em"
-        iconMargin="1em"
         leftIcon={faTrashCan}
         onClick={onClick}
+        styles={{
+          theme: "danger-outlined",
+          marginBottom: "1em",
+          padding: "0.7em 1.3em",
+          iconMargin: "1em"
+        }}
       >{buttonText}</Button>
 
       {children}

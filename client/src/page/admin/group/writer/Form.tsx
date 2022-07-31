@@ -188,8 +188,20 @@ function Form({ name, imageName, groupId, children }: FormProps & typeof FormDef
       </Card>
 
       <section className="button-section">
-        <Button theme="primary-outlined" padding="1em 2em" onClick={goBack}>취소</Button>
-        <Button theme="primary" type="submit" padding="1em 2em">작성</Button>
+        <Button
+          onClick={goBack}
+          styles={{
+            theme: "primary-outlined",
+            padding: "1em 2em"
+          }}
+        >취소</Button>
+        <Button
+          type="submit"
+          styles={{
+            theme: "primary",
+            padding:"1em 2em"
+          }}
+        >작성</Button>
       </section>
     </form>
   );

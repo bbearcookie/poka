@@ -84,8 +84,22 @@ function MemberEditor({ groupId, memberId, defaultValue, closeEditor }: MemberEd
       <TableBodyItem></TableBodyItem>
       <TableBodyItem paddingRight="0.5em">
         <section className="action-section">
-          <Button theme="primary" padding="0.7em 1em" marginRight="0.5em" onClick={onSubmit}>저장</Button>
-          <Button theme="gray-outlined" padding="0.7em 1em" marginRight="0.5em" onClick={closeEditor}>취소</Button>
+          <Button 
+            onClick={onSubmit}
+            styles={{
+              theme: "primary",
+              padding: "0.7em 1em",
+              marginRight: "0.5em"
+            }}
+          >저장</Button>
+          <Button
+            onClick={closeEditor}
+            styles={{
+              theme: "gray-outlined",
+              padding: "0.7em 1em",
+              marginRight: "0.5em"
+            }}
+           >취소</Button>
         </section>
       </TableBodyItem>
     </tr>

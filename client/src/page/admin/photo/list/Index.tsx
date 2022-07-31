@@ -20,7 +20,14 @@ function PhotoListPage({ children }: PhotoListPageProps & typeof PhotoListPageDe
       <section className="title-label-section">
         <h1 className="title-label">포토카드 목록</h1>
         <Link to="/admin/photo/writer">
-          <Button theme="primary" padding="0.7em 1.3em" iconMargin="1em" leftIcon={faPlus}>추가</Button>
+          <Button
+            leftIcon={faPlus} 
+            styles={{
+              theme: "primary",
+              padding: "0.7em 1.3em",
+              iconMargin:"1em"
+            }}
+          >추가</Button>
         </Link>
       </section>
       <Card>
