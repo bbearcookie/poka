@@ -17,13 +17,13 @@ const MemberInfoDefaultProps = {};
 function MemberInfo({ idx, memberId, name, photoCnt, startEditor, children }: MemberInfoProps & typeof MemberInfoDefaultProps) {
   return (
     <tr>
-      <TableBodyItem paddingLeft="1.5em">
+      <TableBodyItem styles={{ paddingLeft: "1.5em" }}>
         <Link to={`/admin/member/detail/${memberId}`}>
           {name}
         </Link>
       </TableBodyItem>
       <TableBodyItem>{photoCnt} 종류</TableBodyItem>
-      <TableBodyItem paddingRight="1.5em">
+      <TableBodyItem styles={{ paddingLeft: "1.5em" }}>
         <section className="action-section">
           <IconButton icon={faPenToSquare} onClick={() => startEditor(idx)} />
           <Link to={`/admin/member/detail/${memberId}`}>

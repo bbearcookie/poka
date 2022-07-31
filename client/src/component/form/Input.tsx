@@ -13,9 +13,9 @@ interface InputProps {
   autoComplete?: string;
   maxLength?: number;
   placeholder?: string;
-  styles?: StylesProps;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  styles?: StylesProps;
   children?: React.ReactNode;
 }
 const InputDefaultProps = {

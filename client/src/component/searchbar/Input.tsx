@@ -14,7 +14,6 @@ interface InputProps {
   children?: React.ReactNode;
 }
 const InputDefaultProps = {};
-
 function Input(p: InputProps & typeof InputDefaultProps) {
   return (
     <StyledInput {...p}>
@@ -26,6 +25,7 @@ function Input(p: InputProps & typeof InputDefaultProps) {
 Input.defaultProps = InputDefaultProps;
 export default Input;
 
+// 스타일 컴포넌트
 const StyledInput = styled.input<InputProps>`
   padding: 0 0.5em;
   width: 100%;

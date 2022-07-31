@@ -13,7 +13,6 @@ import { faClose } from '@fortawesome/free-solid-svg-icons';
 
 // 모달 컴포넌트 =========================
 const CLASS = 'ConfirmModal';
-
 interface ConfirmModalProps {
   titleName: string;
   hook: ModalHookType;
@@ -28,7 +27,6 @@ interface ConfirmModalProps {
   cancelButtonTheme?: ButtonTheme;
   children?: React.ReactNode;
 }
-
 const ConfirmModalDefaultProps = {
   location: 'CENTER_CENTER',
   confirmButtonTheme: 'danger',
@@ -37,7 +35,6 @@ const ConfirmModalDefaultProps = {
   cancelText: '취소',
   backdrop: 'normal'
 };
-
 function ConfirmModal(p: ConfirmModalProps & typeof ConfirmModalDefaultProps) {
   return (
     <Modal

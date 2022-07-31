@@ -30,15 +30,15 @@ function MemberList({ group, groupId }: MemberListProps & typeof MemberListDefau
     <Card marginBottom="5em">
       <CardHeader><h1>그룹의 멤버</h1></CardHeader>
       <CardBody padding="0">
-        <Table borderStyle="none" borderBottom="1px solid #E6E8F0">
-          <TableHead height="3em">
+        <Table styles={{borderStyle: "none", borderBottom: "1px solid #E6E8F0" }}>
+          <TableHead styles={{ height: "3em" }}>
             <tr>
-              <TableHeadItem width="50%" paddingLeft="1.5em">이름</TableHeadItem>
-              <TableHeadItem width="20%">등록된 포토카드</TableHeadItem>
-              <TableHeadItem width="30%" paddingRight="1.5em" textAlign="right">액션</TableHeadItem>
+              <TableHeadItem styles={{ width: "50%", paddingLeft: "1.5em" }}>이름</TableHeadItem>
+              <TableHeadItem styles={{ width: "20%" }}>등록된 포토카드</TableHeadItem>
+              <TableHeadItem styles={{ width: "30%", paddingRight:" 1.5em", textAlign: "right" }}>액션</TableHeadItem>
             </tr>
           </TableHead>
-          <TableBody height="5em">
+          <TableBody styles={{ height: "5em" }}>
             <>
               {group?.data?.members.map((item, idx) => (
                 <Fragment key={idx}>

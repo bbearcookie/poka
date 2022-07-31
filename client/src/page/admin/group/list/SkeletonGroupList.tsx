@@ -13,16 +13,16 @@ function SkeletonGroupList({ children }: SkeletonGroupListProps & typeof Skeleto
     <>
       {Array.from({length: 8}).map((_, idx) => (
         <tr key={idx}>
-          <TableBodyItem paddingLeft="1.5em">
+          <TableBodyItem styles={{ paddingLeft: "1.5em" }}>
             <section className="name-section">
-              <SkeletonItem width="60px" height="60px" marginRight="1em" />
-              <SkeletonItem width="7em" />
+              <SkeletonItem styles={{ width: "60px", height: "60px", marginRight: "1em"}} />
+              <SkeletonItem styles={{ width: "7em" }} />
             </section>
           </TableBodyItem>
-          <TableBodyItem><SkeletonItem width="5em" /></TableBodyItem>
-          <TableBodyItem paddingRight="1.5em">
+          <TableBodyItem><SkeletonItem styles={{ width: "5em" }} /></TableBodyItem>
+          <TableBodyItem styles={{ paddingLeft: "1.5em" }}>
             <section className="action-section">
-              <SkeletonItem width="2em" marginLeft="1em" />
+              <SkeletonItem styles={{ width: "2em", marginLeft: "1em" }} />
             </section>
           </TableBodyItem>
         </tr>

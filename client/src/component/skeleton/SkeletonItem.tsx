@@ -3,6 +3,20 @@ import styled from 'styled-components';
 
 interface SkeletonItemProps {
   className?: string;
+  styles?: StylesProps;
+}
+const SkeletonItemDefaultProps = {};
+function SkeletonItem(p: SkeletonItemProps & typeof SkeletonItemDefaultProps) {
+  return (
+    <StyledItem {...StylesDefaultProps} {...p.styles} {...p} />
+  );
+}
+
+SkeletonItem.defaultProps = SkeletonItemDefaultProps;
+export default SkeletonItem;
+
+// 스타일 컴포넌트
+interface StylesProps {
   width?: string;
   height?: string;
   margin?: string;
@@ -11,28 +25,11 @@ interface SkeletonItemProps {
   marginTop?: string;
   marginBottom?: string;
 }
-
-const SkeletonItemDefaultProps = {
+const StylesDefaultProps = {
   width: '5em',
   height: '1.25em'
 };
-
-function SkeletonItem
-({ className, width, height, margin, marginTop, marginBottom, marginLeft, marginRight }: 
-SkeletonItemProps & typeof SkeletonItemDefaultProps) {
-  return (
-    <StyledItem 
-      className={className} width={width} height={height}
-      margin={margin} marginTop={marginTop} marginBottom={marginBottom} marginLeft={marginLeft} marginRight={marginRight}
-    />
-  );
-}
-
-SkeletonItem.defaultProps = SkeletonItemDefaultProps;
-export default SkeletonItem;
-
-// 스타일 컴포넌트
-const StyledItem = styled.div<SkeletonItemProps>`
+const StyledItem = styled.div<StylesProps & typeof StylesDefaultProps>`
   width: ${p => p.width};
   height: ${p => p.height};
   margin: ${p => p.margin};

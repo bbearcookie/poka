@@ -7,7 +7,6 @@ interface ButtonProps {
   children?: React.ReactNode;
 }
 const ButtonDefaultProps = {};
-
 function Button(p: ButtonProps & typeof ButtonDefaultProps) {
   return (
     <StyledButton {...p}>
@@ -19,6 +18,7 @@ function Button(p: ButtonProps & typeof ButtonDefaultProps) {
 Button.defaultProps = ButtonDefaultProps;
 export default Button;
 
+// 스타일 컴포넌트
 const StyledButton = styled.button<ButtonProps>`
   padding: 0 1.25rem;
   height: 100%;

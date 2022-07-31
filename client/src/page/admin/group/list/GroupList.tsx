@@ -19,14 +19,14 @@ function GroupList({ groups, children }: GroupListProps & typeof GroupListDefaul
     <>
       {groups?.data?.groups.map((item, idx) => (
         <tr key={idx}>
-          <TableBodyItem paddingLeft="1.5em">
+          <TableBodyItem styles={{ paddingLeft: "1.5em" }}>
             <Link className="name-section" to={`/admin/group/detail/${item.group_id}`}>
               <img src={`${BACKEND}/image/group/${item.image_name}`} width="60" height="60" alt={item.name} />
               <span className="name">{item.name}</span>
             </Link>
           </TableBodyItem>
           <TableBodyItem>{item.member_cnt}명</TableBodyItem>
-          <TableBodyItem paddingRight="1.5em">
+          <TableBodyItem styles={{ paddingLeft: "1.5em" }}>
             <Link className="action-section" to={`/admin/group/detail/${item.group_id}`}>
               <IconButton icon={faArrowRight} />
             </Link>

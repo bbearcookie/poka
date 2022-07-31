@@ -8,27 +8,25 @@ const CLASS = 'SearchBar';
 interface SearchBarProps {
   type: React.HTMLInputTypeAttribute;
   name: string;
-  height?: string;
   value?: any;
   autoComplete?: string;
   maxLength?: number;
   placeholder?: string;
   handleInputChange?: React.ChangeEventHandler<HTMLInputElement>;
   onSubmit?: React.FormEventHandler;
+  styles?: StylesProps;
   children?: React.ReactNode;
 }
 const SearchBarDefaultProps = {
-  height: '3em',
   autoComplete: 'off',
   onSubmit: (e: React.FormEvent) => { e.preventDefault(); }
 };
-
 function SearchBar(p: SearchBarProps & typeof SearchBarDefaultProps) {
   const [active, setActive] = useState(false);
 
   return (
     <StyledSearchBar 
-      {...p}
+      {...StylesDefaultProps} {...p.styles} {...p}
       className={classNames(CLASS, {"active": active})}
       onSubmit={p.onSubmit}
     >
@@ -53,7 +51,13 @@ SearchBar.defaultProps = SearchBarDefaultProps;
 export default SearchBar;
 
 // 스타일 컴포넌트
-const StyledSearchBar = styled.form<SearchBarProps>`
+interface StylesProps {
+  height?: string;
+}
+const StylesDefaultProps = {
+  height: '3em',
+};
+const StyledSearchBar = styled.form<StylesProps & typeof StylesDefaultProps>`
   height: ${p => p.height};
   display: flex;
   align-items: center;

@@ -68,7 +68,7 @@ function MemberEditor({ groupId, memberId, defaultValue, closeEditor }: MemberEd
 
   return (
     <tr>
-      <TableBodyItem paddingLeft="1em">
+      <TableBodyItem styles={{ paddingLeft: "1em" }}>
         <Input
           type="text"
           name="name"
@@ -85,7 +85,7 @@ function MemberEditor({ groupId, memberId, defaultValue, closeEditor }: MemberEd
         </Input>
       </TableBodyItem>
       <TableBodyItem></TableBodyItem>
-      <TableBodyItem paddingRight="0.5em">
+      <TableBodyItem styles={{ paddingLeft: "0.5em" }}>
         <section className="action-section">
           <Button 
             onClick={onSubmit}

@@ -13,8 +13,8 @@ function Skeleton({ children }: SkeletonProps & typeof SkeletonDefaultProps) {
   return (
     <>
       <section className="name-section">
-        <SkeletonItem height="2em" marginBottom="0.5em" />
-        <SkeletonItem height="1.2em" />
+        <SkeletonItem styles={{ height: "2em", marginBottom: "0.5em" }} />
+        <SkeletonItem styles={{ height: "1.2em" }} />
 
         <Card marginTop="2.3em" marginBottom="5em">
           <CardHeader>
@@ -23,7 +23,7 @@ function Skeleton({ children }: SkeletonProps & typeof SkeletonDefaultProps) {
             </section>
           </CardHeader>
           <CardBody>
-            <SkeletonItem height="1.4em" />
+            <SkeletonItem styles={{ height: "1.4em" }} />
           </CardBody>
         </Card>
 
@@ -34,7 +34,7 @@ function Skeleton({ children }: SkeletonProps & typeof SkeletonDefaultProps) {
             </section>
           </CardHeader>
           <CardBody>
-            <SkeletonItem height="2em" marginBottom="1.15em" />
+            <SkeletonItem styles={{ height: "2em", marginBottom: "1.15em" }} />
             <p className="description">해당 멤버를 삭제하면 연관된 포토카드도 모두 지워지니 신중히 삭제해주세요.</p>
           </CardBody>
         </Card>

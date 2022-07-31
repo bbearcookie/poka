@@ -43,14 +43,14 @@ function GroupListPage({ children }: GroupListPageProps & typeof GroupListPageDe
       </div>
 
       <Table>
-        <TableHead height="3rem">
+        <TableHead styles={{ height: "3rem" }}>
           <tr>
-            <TableHeadItem width="60%" paddingLeft="1.5em">이름</TableHeadItem>
-            <TableHeadItem width="30%">멤버</TableHeadItem>
-            <TableHeadItem width="10%" paddingRight="1.5em" textAlign="right">액션</TableHeadItem>
+            <TableHeadItem styles={{ width: "60%", paddingLeft: "1.5em" }}>이름</TableHeadItem>
+            <TableHeadItem styles={{ width: "30%" }}>멤버</TableHeadItem>
+            <TableHeadItem styles={{ width: "10%", paddingRight: "1.5em", textAlign: "right" }}>액션</TableHeadItem>
           </tr>
         </TableHead>
-        <TableBody height="5rem">
+        <TableBody styles={{ height: "5rem" }}>
           {status === 'loading' && <SkeletonGroupList />}
           {status === 'success' && <GroupList groups={groups} />}
           {status === 'error' && <tr><td>{getErrorMessage(error)}</td><td/><td/></tr>}
