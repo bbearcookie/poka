@@ -13,3 +13,7 @@ export const memberKeys = {
   all: ['members'] as const,
   detail: (memberId: number) => [...memberKeys.all, memberId] as const
 }
+
+export const photoKeys = {
+  all: ['photos'] as const
+}

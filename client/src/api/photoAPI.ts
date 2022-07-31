@@ -1,6 +1,26 @@
 import axios from "axios";
 import { BACKEND, options } from "@util/commonAPI";
 
+export const getAllPhotoList = {
+  axios: () => axios({
+    ...options,
+    method: 'get',
+    url: `${BACKEND}/api/photo`
+  }),
+  resType: undefined as undefined | {
+    message: string;
+    photos: {
+      photocard_id: number,
+      member_id: number,
+      group_id: number,
+      name: string,
+      group_name: string,
+      member_name: string,
+      image_name: string
+    }[];
+  }
+}
+
 export const postPhotos = {
   axios: (data: object) => axios({
     ...options,

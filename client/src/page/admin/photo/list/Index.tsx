@@ -6,6 +6,7 @@ import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Search from './Search';
+import PhotoList from './PhotoList';
 import './Index.scss';
 
 interface PhotoListPageProps {
@@ -27,7 +28,7 @@ function PhotoListPage({ children }: PhotoListPageProps & typeof PhotoListPageDe
           <Search />
         </CardHeader>
         <CardBody>
-          포토카드 목록 보여주기
+          <PhotoList />
         </CardBody>
       </Card>
     </section>

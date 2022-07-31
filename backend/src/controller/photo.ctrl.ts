@@ -7,6 +7,21 @@ import photoUploader, { PHOTO_IMAGE_DIR } from '@uploader/photo.uploader';
 import * as photoService from '@service/photo.service';
 import { getTimestampFilename } from '@util/multer';
 
+// 포토카드 목록 조회
+export const getPhotoList = {
+  controller: async (req: Request, res: Response) => {
+    try {
+      const [photos] = await photoService.selectPhotoList();
+      return res.status(200).json({ message: '포토카드 목록을 조회했습니다.', photos });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
+    }
+    
+    return res.status(501).json({ message: 'Not Implemented' });
+  }
+}
+
 // 포토카드 추가
 export const postPhotos = {
   uploader: photoUploader('image[]'),

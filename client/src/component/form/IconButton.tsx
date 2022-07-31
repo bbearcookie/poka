@@ -3,9 +3,11 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { SizeProp } from '@fortawesome/fontawesome-svg-core';
 
 interface IconButtonProps {
   icon: IconDefinition;
+  size?: SizeProp;
   onClick?: () => void;
   children?: React.ReactNode;
 }
@@ -15,7 +17,7 @@ const IconButtonDefaultProps = {};
 function IconButton(p: IconButtonProps & typeof IconButtonDefaultProps) {
   return (
     <StyledIconButton {...p} className="IconButton" onClick={p.onClick}>
-      <FontAwesomeIcon icon={p.icon} />
+      <FontAwesomeIcon icon={p.icon} size={p.size} />
     </StyledIconButton>
   );
 }

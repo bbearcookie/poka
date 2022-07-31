@@ -17,13 +17,11 @@
     }
   }
 
-  // .search-bar-section {
-  //   display: flex;
-  //   gap: 1em;
-
-  //   .SearchBar { flex-grow: 1; }
-  //   .Select { width: 10em; }
-  // }
+  .photo-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3em;
+  }
 
   @media screen and (max-width: 30rem) {
     .search-bar-section { 
