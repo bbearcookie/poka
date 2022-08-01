@@ -23,7 +23,7 @@ function MemberInfo({ idx, memberId, name, photoCnt, startEditor, children }: Me
         </Link>
       </TableBodyItem>
       <TableBodyItem>{photoCnt} 종류</TableBodyItem>
-      <TableBodyItem styles={{ paddingLeft: "1.5em" }}>
+      <TableBodyItem styles={{ paddingRight: "1.5em" }}>
         <section className="action-section">
           <IconButton icon={faPenToSquare} onClick={() => startEditor(idx)} />
           <Link to={`/admin/member/detail/${memberId}`}>

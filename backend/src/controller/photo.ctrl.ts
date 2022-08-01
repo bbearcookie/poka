@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { body } from 'express-validator';
+import { body, param } from 'express-validator';
 import fs from 'fs/promises';
 import path from 'path';
 import { validate, removeFiles } from '@util/validator';
@@ -13,6 +13,29 @@ export const getPhotoList = {
     try {
       const [photos] = await photoService.selectPhotoList();
       return res.status(200).json({ message: '포토카드 목록을 조회했습니다.', photos });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
+    }
+    
+    return res.status(501).json({ message: 'Not Implemented' });
+  }
+}
+
+// 포토카드 상세 조회
+export const getPhotoDetail = {
+  validator: [
+    param('photocardId').isNumeric().withMessage('포토카드 ID는 숫자여야 해요.'),
+    validate
+  ],
+  controller: async (req: Request, res: Response) => {
+    const photocardId = Number(req.params.photocardId);
+
+    try {
+      const [[photo]] = await photoService.selectPhotoDetail(photocardId);
+      if (!photo) return res.status(404).json({ message: '해당 포토카드의 데이터가 서버에 존재하지 않아요.' });
+
+      return res.status(200).json({ message: `${photocardId}번 포토카드의 상세 정보를 조회했습니다.`, ...photo });
     } catch (err) {
       console.error(err);
       return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });

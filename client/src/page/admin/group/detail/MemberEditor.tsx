@@ -85,7 +85,7 @@ function MemberEditor({ groupId, memberId, defaultValue, closeEditor }: MemberEd
         </Input>
       </TableBodyItem>
       <TableBodyItem></TableBodyItem>
-      <TableBodyItem styles={{ paddingLeft: "0.5em" }}>
+      <TableBodyItem styles={{ paddingRight: "0.5em" }}>
         <section className="action-section">
           <Button 
             onClick={onSubmit}

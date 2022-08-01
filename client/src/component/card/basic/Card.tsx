@@ -5,6 +5,7 @@ import styled from 'styled-components';
 interface CardProps {
   className?: string;
   display?: string;
+  width?: string;
   minWidth?: string;
   maxWidth?: string;
   margin?: string;
@@ -35,6 +36,7 @@ export default Card;
 // 스타일 컴포넌트
 const StyledCard = styled.article<CardProps>`
   display: ${p => p.display};
+  width: ${p => p.width};
   min-width: ${p => p.minWidth};
   max-width: ${p => p.maxWidth};
   margin: ${p => p.margin};

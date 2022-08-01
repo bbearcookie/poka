@@ -26,7 +26,7 @@ function GroupList({ groups, children }: GroupListProps & typeof GroupListDefaul
             </Link>
           </TableBodyItem>
           <TableBodyItem>{item.member_cnt}명</TableBodyItem>
-          <TableBodyItem styles={{ paddingLeft: "1.5em" }}>
+          <TableBodyItem styles={{ paddingRight: "1.5em" }}>
             <Link className="action-section" to={`/admin/group/detail/${item.group_id}`}>
               <IconButton icon={faArrowRight} />
             </Link>

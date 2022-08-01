@@ -15,5 +15,6 @@ export const memberKeys = {
 }
 
 export const photoKeys = {
-  all: ['photos'] as const
+  all: ['photos'] as const,
+  detail: (photocardId: number) => [...photoKeys.all, photocardId] as const
 }

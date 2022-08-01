@@ -16,8 +16,6 @@ function PhotoList({ children }: PhotoListProps & typeof PhotoListDefaultProps) 
   useQuery<AxiosResponse<typeof photoAPI.getAllPhotoList.resType>, AxiosError<ErrorType>>
   (queryKey.photoKeys.all, photoAPI.getAllPhotoList.axios);
 
-  // console.log(photos);
-
   return (
     <section className="photo-section">
       {photos?.data?.photos.map((item) => (

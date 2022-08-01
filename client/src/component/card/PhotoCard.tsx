@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { BACKEND } from '@util/commonAPI';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
@@ -30,7 +31,7 @@ function PhotoCard(p: PhotoCardProps & typeof PhotoCardDefaultProps) {
           <img
             width="150" height="224"
             src={`${BACKEND}/image/photo/${p.photo.image_name}`}
-            alt={p.photo.name} />
+            alt="이미지" />
           <div className={`${CLASS}__photocard-name`}><p>{p.photo.name}</p></div>
           <section className={`${CLASS}__content-section`}>
             <section className={`${CLASS}__name-section`}>
@@ -38,7 +39,9 @@ function PhotoCard(p: PhotoCardProps & typeof PhotoCardDefaultProps) {
               <p className={`${CLASS}__group-name`}>{p.photo.group_name}</p>
             </section>
             <section className={`${CLASS}__icon-section`}>
-              <IconButton icon={faArrowRight} size='lg'></IconButton>
+              <Link to={`/admin/photo/detail/${p.photo.photocard_id}`}>
+                <IconButton icon={faArrowRight} size="lg"/>
+              </Link>
             </section>
           </section>
         </CardBody>
@@ -49,7 +52,6 @@ function PhotoCard(p: PhotoCardProps & typeof PhotoCardDefaultProps) {
 
 PhotoCard.defaultProps = PhotoCardDefaultProps;
 export default PhotoCard;
-
 
 // 스타일 컴포넌트
 interface StylesProps {}
@@ -114,6 +116,10 @@ const StyledPhotoCard = styled.div<StylesProps & typeof StylesDefaultProps>`
     .${CLASS}__icon-section {
       align-self: flex-end;
       cursor: pointer;
+
+      a {
+        color: inherit;
+      }
     }
   }
 `;

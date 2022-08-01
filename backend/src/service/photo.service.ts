@@ -1,5 +1,5 @@
 import db from '@config/database';
-import { ResultSetHeader } from 'mysql2';
+import { ResultSetHeader, RowDataPacket } from 'mysql2';
 
 // 포토카드 목록 조회
 export const selectPhotoList = async () => {
@@ -17,6 +17,36 @@ export const selectPhotoList = async () => {
     return await con.query(sql);
   } catch (err) {
     con.rollback();
+    throw err;
+  } finally {
+    con.release();
+  }
+}
+
+// 포토카드 상세 조회
+export const selectPhotoDetail = async (photocardId: number) => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `
+    SELECT P.photocard_id, P.member_id, P.name, P.image_name,
+    G.group_id, G.name as group_name, M.name as member_name
+    FROM Photocard as P
+    INNER JOIN MemberData as M ON P.member_id=M.member_id
+    INNER JOIN GroupData as G ON M.group_id=G.group_id
+    WHERE photocard_id=${con.escape(photocardId)}`;
+
+    interface DataType extends RowDataPacket {
+      photocard_id: number;
+      group_id: number;
+      name: string;
+      group_name: string;
+      member_name: string;
+      image_name: string;
+    }
+
+    return await con.query<DataType[]>(sql);
+  } catch (err) {
     throw err;
   } finally {
     con.release();

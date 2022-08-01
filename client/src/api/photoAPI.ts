@@ -21,6 +21,23 @@ export const getAllPhotoList = {
   }
 }
 
+export const getPhotoDetail = {
+  axios: (photocardId: number) => () => axios({
+    ...options,
+    method: 'get',
+    url: `${BACKEND}/api/photo/${photocardId}`
+  }),
+  resType: undefined as undefined | {
+    message: string;
+    photocard_id: number;
+    group_id: number;
+    name: string;
+    group_name: string;
+    member_name: string;
+    image_name: string;
+  }
+}
+
 export const postPhotos = {
   axios: (data: object) => axios({
     ...options,
