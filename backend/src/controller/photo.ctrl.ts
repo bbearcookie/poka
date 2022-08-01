@@ -96,3 +96,33 @@ export const postPhotos = {
     return res.status(501).json({ message: 'Not Implemented' });
   }
 }
+
+// 포토카드 데이터 삭제
+export const deletePhoto = {
+  validator: [
+    param('photocardId').isNumeric().withMessage('포토카드 ID는 숫자여야 해요.'),
+    validate
+  ],
+  controller: async (req: Request, res: Response) => {
+    const photocardId = Number(req.params.photocardId);
+
+    try {
+      const [[photo]] = await photoService.selectPhotoDetail(photocardId);
+      if (!photo) return res.status(404).json({ message: '해당 포토카드의 데이터가 서버에 존재하지 않아요.' });
+
+      // 기존의 이미지 파일 삭제
+      if (process.env.INIT_CWD) {
+        try { fs.rm(path.join(process.env.INIT_CWD, PHOTO_IMAGE_DIR, photo.image_name)) }
+        catch (err) { console.error(err); }
+      }
+
+      await photoService.deletePhoto(photocardId);
+      return res.status(200).json({ message: `포토카드 ${photo.name} 을(를) 삭제했어요.` });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
+    }
+    
+    return res.status(501).json({ message: 'Not Implemented' });
+  }
+}

@@ -1,23 +1,44 @@
 import React, { useCallback } from 'react';
-import { AxiosResponse } from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useMutation, useQueryClient } from 'react-query';
+import { toast } from 'react-toastify';
+import { AxiosError, AxiosResponse } from 'axios';
+import { ErrorType, getErrorMessage } from '@util/commonAPI';
 import * as photoAPI from '@api/photoAPI';
+import * as queryKey from '@util/queryKey';
 import useModal from '@hook/useModal';
 import ConfirmModal from '@component/modal/ConfirmModal';
 import RemoveCard from '@component/card/RemoveCard';
 
 interface PhotoRemoveProps {
   photo: AxiosResponse<typeof photoAPI.getPhotoDetail.resType>;
+  photocardId: number;
   children?: React.ReactNode;
 }
 const PhotoRemoveDefaultProps = {};
 
-function PhotoRemove({ photo, children }: PhotoRemoveProps & typeof PhotoRemoveDefaultProps) {
+function PhotoRemove({ photo, photocardId, children }: PhotoRemoveProps & typeof PhotoRemoveDefaultProps) {
   const removeModal = useModal();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  // 데이터 삭제 요청
+  const deleteMutation = useMutation(photoAPI.deletePhoto.axios, {
+    onSuccess: (res: AxiosResponse<typeof photoAPI.deletePhoto.resType>) => {
+      toast.success(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
+      queryClient.invalidateQueries(queryKey.photoKeys.all);
+      queryClient.invalidateQueries(queryKey.photoKeys.detail(photocardId));
+      return navigate('/admin/photo/list');
+    },
+    onError: (err: AxiosError<ErrorType>) => {
+      removeModal.setErrorMessage(getErrorMessage(err));
+    }
+  });
 
   // 포토카드 삭제
   const removePhotocard = useCallback(() => {
-
-  }, []);
+    deleteMutation.mutate(photocardId);
+  }, [deleteMutation, photocardId]);
 
   return (
     <>

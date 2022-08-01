@@ -50,3 +50,14 @@ export const postPhotos = {
     message: string;
   }
 }
+
+export const deletePhoto = {
+  axios: (photocardId: number) => axios({
+    ...options,
+    method: 'delete',
+    url: `${BACKEND}/api/photo/${photocardId}`
+  }),
+  resType: undefined as undefined | {
+    message: string;
+  }
+}

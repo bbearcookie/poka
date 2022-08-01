@@ -51,7 +51,7 @@ function Success({ photo, photocardId, children }: SuccessProps & typeof Success
         </CardBody>
       </Card>
 
-      <PhotoRemove photo={photo} />
+      <PhotoRemove photo={photo} photocardId={photocardId} />
     </>
   );
 }
