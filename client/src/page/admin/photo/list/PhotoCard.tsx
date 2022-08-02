@@ -7,7 +7,7 @@ import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 import IconButton from '@component/form/IconButton';
 
-const CLASS = 'PhotoCard';
+export const CLASS = 'PhotoCard';
 interface PhotoCardProps {
   photo: {
     photocard_id: number;
@@ -26,7 +26,7 @@ const PhotoCardDefaultProps = {};
 function PhotoCard(p: PhotoCardProps & typeof PhotoCardDefaultProps) {
   return (
     <StyledPhotoCard {...StylesDefaultProps} {...p.styles} className={CLASS}>
-      <Card boxShadow='0px 0px 10px 0px #C0C0C0'>
+      <Card boxShadow="0px 0px 10px 0px #C0C0C0">
         <CardBody>
           <img
             width="150" height="224"
@@ -56,7 +56,7 @@ export default PhotoCard;
 // 스타일 컴포넌트
 interface StylesProps {}
 const StylesDefaultProps = {};
-const StyledPhotoCard = styled.div<StylesProps & typeof StylesDefaultProps>`
+export const StyledPhotoCard = styled.div<StylesProps & typeof StylesDefaultProps>`
   width: calc(150px + 3em);
 
   .${CLASS}__photocard-name {

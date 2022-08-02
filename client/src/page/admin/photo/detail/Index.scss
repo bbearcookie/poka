@@ -26,16 +26,6 @@
         align-self: flex-end;
       }
 
-      // .input-line {
-      //   display: flex;
-      //   margin-bottom: 1em;
-
-      //   span { margin-right: 1em; }
-      //   .Input {
-      //     flex-grow: 1;
-      //   }
-      // }
-
       .photo-name-section {
         flex-grow: 1;
 
@@ -62,57 +52,5 @@
       }
     }
   }
-
-  // .PhotoInfo {
-
-  //   .photo-section {
-  //     display: flex;
-  //     flex-wrap: wrap;
-  //     gap: 1em;
-
-  //     .description-section {
-  //       display: flex;
-  //       flex-direction: column;
-  //       flex-grow: 1;
-
-  //       p { margin: 0.4em 0; word-break: break-all; }
-
-  //       .photo-name-section {
-  //         flex-grow: 1;
-
-  //         .photo-name {
-  //           padding: 1em;
-  //           color: white;
-  //           background-color: #242A38;
-  //           border-radius: 5px;
-  //         }
-  //       }
-
-  //       .label-section {
-  //         .member-name {
-  //           font-size: 1.5rem;
-  //           font-weight: bold;
-  //         }
-  
-  //         .group-name {
-  //           padding: 0 0.4em;
-  //           background-color: #E5E7EB;
-  //           border-radius: 5px;
-  //           word-break: keep-all;
-  //         }
-  //       }
-  //     }
-  //   }
-
-  // }
-  
-  // .PhotoEditor {
-
-  //   .photo-section {
-  //     display: flex;
-  //     flex-wrap: wrap;
-  //     gap: 1em;
-  //   }
-  // }
 
 }

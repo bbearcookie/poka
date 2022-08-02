@@ -24,10 +24,12 @@ interface StylesProps {
   marginRight?: string;
   marginTop?: string;
   marginBottom?: string;
+  backgroundColor?: string;
 }
 const StylesDefaultProps = {
   width: '5em',
-  height: '1.25em'
+  height: '1.25em',
+  backgroundColor: 'gainsboro'
 };
 const StyledItem = styled.div<StylesProps & typeof StylesDefaultProps>`
   width: ${p => p.width};
@@ -37,6 +39,6 @@ const StyledItem = styled.div<StylesProps & typeof StylesDefaultProps>`
   margin-bottom: ${p => p.marginBottom};
   margin-left: ${p => p.marginLeft};
   margin-right: ${p => p.marginRight};
-  background-color: gainsboro;
+  background-color: ${p => p.backgroundColor};
   border-radius: 10px;
 `;
