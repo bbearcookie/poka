@@ -2,25 +2,27 @@ import db from '@config/database';
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
 
 // 포토카드 목록 조회
-export const selectPhotoList = async () => {
-  const con = await db.getConnection();
+export const selectPhotoList = 
+  async (limit: number, pageParam: number) => {
+    const con = await db.getConnection();
 
-  try {
-    let sql = `
-    SELECT P.photocard_id, P.member_id, P.name, P.image_name,
-    G.group_id, G.name as group_name, M.name as member_name
-    FROM Photocard as P
-    INNER JOIN MemberData as M ON P.member_id=M.member_id
-    INNER JOIN GroupData as G ON M.group_id=G.group_id
-    ORDER BY photocard_id`;
+    try {
+      let sql = `
+      SELECT P.photocard_id, P.member_id, P.name, P.image_name,
+      G.group_id, G.name as group_name, M.name as member_name
+      FROM Photocard as P
+      INNER JOIN MemberData as M ON P.member_id=M.member_id
+      INNER JOIN GroupData as G ON M.group_id=G.group_id
+      ORDER BY photocard_id `;
+      if (limit) sql += `LIMIT ${con.escape(limit)} OFFSET ${con.escape(pageParam)}`;
 
-    return await con.query(sql);
-  } catch (err) {
-    con.rollback();
-    throw err;
-  } finally {
-    con.release();
-  }
+      return await con.query(sql);
+    } catch (err) {
+      con.rollback();
+      throw err;
+    } finally {
+      con.release();
+    }
 }
 
 // 포토카드 상세 조회

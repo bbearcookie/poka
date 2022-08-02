@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { body, param } from 'express-validator';
+import { query, body, param, oneOf } from 'express-validator';
 import fs from 'fs/promises';
 import path from 'path';
 import { validate, removeFiles } from '@util/validator';
@@ -9,10 +9,21 @@ import { getTimestampFilename } from '@util/multer';
 
 // 포토카드 목록 조회
 export const getPhotoList = {
+  validator: [
+    // pageParam은 undefined이거나 숫자여야 함.
+    oneOf([
+      query("pageParam").not().exists(),
+      query("pageParam").isNumeric()
+    ]),
+    validate
+  ],
   controller: async (req: Request, res: Response) => {
+    const limit = req.query.limit ? Number(req.query.limit) : 0;
+    const pageParam = req.query.pageParam ? Number(req.query.pageParam) : 0;
+
     try {
-      const [photos] = await photoService.selectPhotoList();
-      return res.status(200).json({ message: '포토카드 목록을 조회했습니다.', photos });
+      const [photos] = await photoService.selectPhotoList(limit, pageParam);
+      return res.status(200).json({ message: '포토카드 목록을 조회했습니다.', photos, pageParam });
     } catch (err) {
       console.error(err);
       return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
