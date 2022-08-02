@@ -186,7 +186,12 @@ function Form({ name, imageName, groupId, children }: FormProps & typeof FormDef
       <Card className="logo-card">
         <CardBody>
           <h3 className="label">로고 이미지</h3>
-          <ImageUploader value={input.image} onChange={changeImage} message={inputMessage.image} />
+          <ImageUploader
+            value={input.image}
+            onChange={changeImage}
+            message={inputMessage.image}
+            imageStyles={{ maxWidth: "100%"  }}
+          />
         </CardBody>
       </Card>
 

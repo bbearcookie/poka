@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
-import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorType } from '@util/commonAPI';
@@ -41,12 +42,17 @@ function PhotoWriterPage({ children }: PhotoWriterPageProps & typeof PhotoWriter
     groupId: '',
     memberId: ''
   });
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   // 데이터 추가 요청
   const postMutation = useMutation(photoAPI.postPhotos.axios, {
     onSuccess: (res: AxiosResponse<typeof photoAPI.postPhotos.resType>) => {
       console.log(res.data);
       toast.success(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
+      queryClient.invalidateQueries(queryKey.photoKeys.all);
+      return navigate('/admin/photo/list');
+      
     },
     onError: (err: AxiosError<ErrorType>) => {
       const message = err.response?.data ? err.response?.data.message : err.message;

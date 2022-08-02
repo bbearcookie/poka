@@ -1,45 +1,118 @@
 .PhotoDetailPage {
   padding: 5em 10%;
 
-  .photo-card {
-    p { margin: 0.4em 0; word-break: break-all; }
+  .photo-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
 
-    .photo-section {
+    .description-section {
       display: flex;
-      flex-wrap: wrap;
-      gap: 1em;
+      flex-direction: column;
+      flex-grow: 1;
 
-      .description-section {
-        display: flex;
-        flex-direction: column;
+      p { margin: 0.4em 0; word-break: break-all; }
+
+      .input-section {
+        margin-bottom: 1em;
+
+        .label {
+          margin: 0 0 0.5em 0;
+          font-weight: bold;
+        }
+      }
+
+      .button-section {
+        align-self: flex-end;
+      }
+
+      // .input-line {
+      //   display: flex;
+      //   margin-bottom: 1em;
+
+      //   span { margin-right: 1em; }
+      //   .Input {
+      //     flex-grow: 1;
+      //   }
+      // }
+
+      .photo-name-section {
         flex-grow: 1;
 
-        .photo-name-section {
-          flex-grow: 1;
+        .photo-name {
+          padding: 1em;
+          color: white;
+          background-color: #242A38;
+          border-radius: 5px;
+        }
+      }
 
-          .photo-name {
-            padding: 1em;
-            color: white;
-            background-color: #242A38;
-            border-radius: 5px;
-          }
+      .label-section {
+        .member-name {
+          font-size: 1.5rem;
+          font-weight: bold;
         }
 
-        .label-section {
-          .member-name {
-            font-size: 1.5rem;
-            font-weight: bold;
-          }
-  
-          .group-name {
-            padding: 0 0.4em;
-            background-color: #E5E7EB;
-            border-radius: 5px;
-            word-break: keep-all;
-          }
+        .group-name {
+          padding: 0 0.4em;
+          background-color: #E5E7EB;
+          border-radius: 5px;
+          word-break: keep-all;
         }
       }
     }
-
   }
+
+  // .PhotoInfo {
+
+  //   .photo-section {
+  //     display: flex;
+  //     flex-wrap: wrap;
+  //     gap: 1em;
+
+  //     .description-section {
+  //       display: flex;
+  //       flex-direction: column;
+  //       flex-grow: 1;
+
+  //       p { margin: 0.4em 0; word-break: break-all; }
+
+  //       .photo-name-section {
+  //         flex-grow: 1;
+
+  //         .photo-name {
+  //           padding: 1em;
+  //           color: white;
+  //           background-color: #242A38;
+  //           border-radius: 5px;
+  //         }
+  //       }
+
+  //       .label-section {
+  //         .member-name {
+  //           font-size: 1.5rem;
+  //           font-weight: bold;
+  //         }
+  
+  //         .group-name {
+  //           padding: 0 0.4em;
+  //           background-color: #E5E7EB;
+  //           border-radius: 5px;
+  //           word-break: keep-all;
+  //         }
+  //       }
+  //     }
+  //   }
+
+  // }
+  
+  // .PhotoEditor {
+
+  //   .photo-section {
+  //     display: flex;
+  //     flex-wrap: wrap;
+  //     gap: 1em;
+  //   }
+  // }
+
 }

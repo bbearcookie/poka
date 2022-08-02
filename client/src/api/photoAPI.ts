@@ -30,9 +30,10 @@ export const getPhotoDetail = {
   resType: undefined as undefined | {
     message: string;
     photocard_id: number;
-    group_id: number;
     name: string;
+    group_id: number;
     group_name: string;
+    member_id: number;
     member_name: string;
     image_name: string;
   }
@@ -44,6 +45,19 @@ export const postPhotos = {
     headers: { 'Content-Type': 'multipart/form-data' },
     method: 'post',
     url: `${BACKEND}/api/photo/multiple`,
+    data
+  }),
+  resType: undefined as undefined | {
+    message: string;
+  }
+}
+
+export const putPhoto = {
+  axios: (data: { photocardId: number; [key: string]: any }) => axios({
+    ...options,
+    headers: { 'Content-Type': 'multipart/form-data' },
+    method: 'put',
+    url: `${BACKEND}/api/photo/${data.photocardId}`,
     data
   }),
   resType: undefined as undefined | {

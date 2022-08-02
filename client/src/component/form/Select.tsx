@@ -3,8 +3,9 @@ import styled from 'styled-components';
 
 const CLASS = 'Select';
 interface SelectProps {
-  styles: StylesProps;
+  value?: string | number | readonly string[] | undefined;
   onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  styles?: StylesProps;
   children?: React.ReactNode;
 }
 const SelectDefaultProps = {
@@ -16,6 +17,7 @@ function Select(p: SelectProps & typeof SelectDefaultProps) {
     <StyledSelect
       {...StylesDefaultProps} {...p.styles} {...p}
       className={CLASS}
+      value={p.value}
     >
       {p.children}
     </StyledSelect>

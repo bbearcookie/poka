@@ -10,5 +10,11 @@ export default function(app: Express, baseURI: string) {
     photoCtrl.postPhotos.validator,
     photoCtrl.postPhotos.controller
   );
+  app.put(`${baseURI}/:photocardId`,
+    photoCtrl.putPhoto.uploader.single,
+    photoCtrl.putPhoto.uploader.errorHandler,
+    photoCtrl.putPhoto.validator,
+    photoCtrl.putPhoto.controller
+  );
   app.delete(`${baseURI}/:photocardId`, photoCtrl.deletePhoto.validator, photoCtrl.deletePhoto.controller);
 };

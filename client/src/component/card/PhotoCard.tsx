@@ -75,6 +75,7 @@ const StyledPhotoCard = styled.div<StylesProps & typeof StylesDefaultProps>`
     p {
       margin: 0;
       overflow: hidden;
+      text-align: center;
       text-overflow: ellipsis;
       display: -webkit-box;
       -webkit-line-clamp: 2;
