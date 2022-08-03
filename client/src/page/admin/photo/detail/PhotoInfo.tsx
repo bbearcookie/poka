@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react';
-import { AxiosResponse } from 'axios';
 import { BACKEND } from '@util/commonAPI';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import * as photoAPI from '@api/photoAPI';
@@ -8,7 +7,7 @@ import CardBody from '@component/card/basic/CardBody';
 import Button from '@component/form/Button';
 
 interface PhotoInfoProps {
-  photo: AxiosResponse<typeof photoAPI.getPhotoDetail.resType>;
+  photo: typeof photoAPI.getPhotoDetail.resType;
   startEditor: () => void;
   children?: React.ReactNode;
 }
@@ -22,18 +21,18 @@ function PhotoInfo({ photo, startEditor, children }: PhotoInfoProps & typeof Pho
 
           <img
             width="150" height="224"
-            src={`${BACKEND}/image/photo/${photo.data?.image_name}`}
+            src={`${BACKEND}/image/photo/${photo?.image_name}`}
             alt="이미지"
           />
 
           <section className="description-section">
             <section className="photo-name-section">
-              <p className="photo-name">{photo.data?.name}</p>
+              <p className="photo-name">{photo?.name}</p>
             </section>
 
             <section className="label-section">
-              <p className="member-name">{photo.data?.member_name}</p>
-              <p>그룹: <span className="group-name">{photo.data?.group_name}</span></p>
+              <p className="member-name">{photo?.member_name}</p>
+              <p>그룹: <span className="group-name">{photo?.group_name}</span></p>
             </section>
 
             <Button

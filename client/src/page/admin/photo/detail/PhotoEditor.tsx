@@ -18,7 +18,7 @@ import Select from '@component/form/Select';
 import ImageUploader, { Image } from '@component/form/uploader/ImageUploader';
 
 interface PhotoEditorProps {
-  photo: AxiosResponse<typeof photoAPI.getPhotoDetail.resType>;
+  photo: typeof photoAPI.getPhotoDetail.resType;
   photocardId: number;
   closeEditor: () => void;
   children?: React.ReactNode;
@@ -33,14 +33,14 @@ function PhotoEditor({ photo, photocardId, closeEditor, children }: PhotoEditorP
     image: Image;
   };
   const [form, setForm] = useState<FormType>({
-    name: photo.data ? photo.data.name : '',
+    name: photo?.name ? photo.name : '',
     image: {
       file: null,
-      previewURL: photo.data ? `${BACKEND}/image/photo/${photo.data.image_name}` : '',
-      initialURL: photo.data ? `${BACKEND}/image/photo/${photo.data.image_name}` : ''
+      previewURL: photo?.image_name ? `${BACKEND}/image/photo/${photo.image_name}` : '',
+      initialURL: photo?.image_name ? `${BACKEND}/image/photo/${photo.image_name}` : ''
     },
-    groupId: photo.data ? photo.data.group_id : 0,
-    memberId: photo.data ? photo.data.member_id : 0
+    groupId: photo?.group_id ? photo.group_id : 0,
+    memberId: photo?.group_id ? photo.member_id : 0
   });
   const [formMessage, setFormMessage] = useState<{
     [k in keyof FormType]: string;
@@ -119,10 +119,12 @@ function PhotoEditor({ photo, photocardId, closeEditor, children }: PhotoEditorP
   // 전송 이벤트
   const onSubmit = useCallback(() => {
     putMutation.mutate({
-      ...form,
       photocardId,
-      image: form.image.file
-    })
+      data: {
+        ...form,
+        image: form.image.file
+      }
+    });
   }, [form, photocardId, putMutation]);
 
   return (

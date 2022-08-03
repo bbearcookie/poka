@@ -11,7 +11,7 @@ import ConfirmModal from '@component/modal/ConfirmModal';
 import RemoveCard from '@component/card/RemoveCard';
 
 interface PhotoRemoveProps {
-  photo: AxiosResponse<typeof photoAPI.getPhotoDetail.resType>;
+  photo: typeof photoAPI.getPhotoDetail.resType;
   photocardId: number;
   children?: React.ReactNode;
 }
@@ -37,7 +37,7 @@ function PhotoRemove({ photo, photocardId, children }: PhotoRemoveProps & typeof
 
   // 포토카드 삭제
   const removePhotocard = useCallback(() => {
-    deleteMutation.mutate(photocardId);
+    deleteMutation.mutate({ photocardId });
   }, [deleteMutation, photocardId]);
 
   return (
@@ -58,7 +58,7 @@ function PhotoRemove({ photo, photocardId, children }: PhotoRemoveProps & typeof
         handleConfirm={removePhotocard}
       >
         <p className="text">이 그룹을 삭제하면 연관된 사용자의 소유권도 함께 지워져요.</p>
-        <p className="text">정말로 {photo.data?.name} 그룹을 삭제하시겠어요?</p>
+        <p className="text">정말로 {photo?.name} 그룹을 삭제하시겠어요?</p>
       </ConfirmModal>
     </>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { ErrorType } from '@util/commonAPI';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError } from 'axios';
 import * as photoAPI from '@api/photoAPI';
 import * as queryKey from '@util/queryKey';
 import BackLabel from '@component/label/BackLabel';
@@ -16,9 +16,10 @@ const PhotoDetailPageDefaultProps = {};
 
 function PhotoDetailPage({ children }: PhotoDetailPageProps & typeof PhotoDetailPageDefaultProps) {
   const { photocardId } = useParams() as any;
+
   const { status, data: photo, error } = 
-  useQuery<AxiosResponse<typeof photoAPI.getPhotoDetail.resType>, AxiosError<ErrorType>>
-  (queryKey.photoKeys.detail(photocardId), photoAPI.getPhotoDetail.axios(photocardId));
+  useQuery<typeof photoAPI.getPhotoDetail.resType, AxiosError<ErrorType>>
+  (queryKey.photoKeys.detail(photocardId), () => photoAPI.getPhotoDetail.axios(photocardId));
   
   return (
     <div className="PhotoDetailPage">

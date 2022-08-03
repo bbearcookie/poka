@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { useInView } from 'react-intersection-observer';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError } from 'axios';
 import { ErrorType } from '@util/commonAPI';
 import * as queryKey from '@util/queryKey';
 import * as photoAPI from '@api/photoAPI';
@@ -19,13 +19,14 @@ function PhotoList({ children }: PhotoListProps & typeof PhotoListDefaultProps) 
 
   // 데이터 가져오기
   const { data: photos, error, isFetching, fetchNextPage, hasNextPage } = 
-    useInfiniteQuery<AxiosResponse<typeof photoAPI.getPhotoList.resType>, AxiosError<ErrorType>>
-    (queryKey.photoKeys.all, ({ pageParam = 0 }) => photoAPI.getPhotoList.axios(limit, pageParam),
-    {
-      getNextPageParam: (lastPage, pages) => {
-        return lastPage.data?.photos.length === limit && lastPage.data.pageParam + limit;
-      }
-    });
+  useInfiniteQuery<typeof photoAPI.getPhotoList.resType, AxiosError<ErrorType>>
+  (queryKey.photoKeys.all,
+  ({ pageParam = 0 }) => photoAPI.getPhotoList.axios(limit, pageParam),
+  {
+    getNextPageParam: (lastPage, pages) => {
+      return lastPage?.photos.length === limit && lastPage.pageParam + limit;
+    }
+  });
 
   // 다음 페이지 가져오기
   useEffect(() => {
@@ -42,7 +43,7 @@ function PhotoList({ children }: PhotoListProps & typeof PhotoListDefaultProps) 
       <section className="photo-section">
         {photos?.pages.map((page, pageIdx) => 
           <Fragment key={pageIdx}>
-            {page?.data?.photos.map((item) => (
+            {page?.photos.map((item) => (
               <PhotoCard key={item.photocard_id} photo={item} />
             ))}
           </Fragment>
