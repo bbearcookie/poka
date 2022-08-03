@@ -23,7 +23,7 @@ const GroupListPageDefaultProps = {};
 
 function GroupListPage({ children }: GroupListPageProps & typeof GroupListPageDefaultProps) {
   const { status, data: groups, error } = 
-  useQuery<AxiosResponse<typeof groupAPI.getAllGroupList.resType>, AxiosError<ErrorType>>
+  useQuery<typeof groupAPI.getAllGroupList.resType, AxiosError<ErrorType>>
   (queryKey.groupKeys.all, groupAPI.getAllGroupList.axios);
 
   return (

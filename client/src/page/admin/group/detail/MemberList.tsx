@@ -1,5 +1,4 @@
 import React, { useState, useCallback, Fragment } from 'react';
-import { AxiosResponse } from 'axios';
 import * as groupAPI from '@api/groupAPI';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
@@ -13,7 +12,7 @@ import MemberInfo from './MemberInfo';
 import MemberAddButton from './MemberAddButton';
 
 interface MemberListProps {
-  group: AxiosResponse<typeof groupAPI.getGroupDetail.resType>;
+  group: typeof groupAPI.getGroupDetail.resType;
   groupId: number;
 }
 
@@ -40,7 +39,7 @@ function MemberList({ group, groupId }: MemberListProps & typeof MemberListDefau
           </TableHead>
           <TableBody styles={{ height: "5em" }}>
             <>
-              {group?.data?.members.map((item, idx) => (
+              {group?.members.map((item, idx) => (
                 <Fragment key={idx}>
                   {editorTarget === idx && <MemberEditor groupId={groupId} memberId={item.member_id} defaultValue={item.name} closeEditor={closeEditor} />}
                   {editorTarget !== idx && <MemberInfo idx={idx} memberId={item.member_id} name={item.name} photoCnt={item.photo_cnt} startEditor={() => startEditor(idx)} />}

@@ -25,7 +25,7 @@ function PhotoRemove({ photo, photocardId, children }: PhotoRemoveProps & typeof
   // 데이터 삭제 요청
   const deleteMutation = useMutation(photoAPI.deletePhoto.axios, {
     onSuccess: (res: AxiosResponse<typeof photoAPI.deletePhoto.resType>) => {
-      toast.success(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
+      toast.warning(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
       queryClient.invalidateQueries(queryKey.photoKeys.all);
       queryClient.invalidateQueries(queryKey.photoKeys.detail(photocardId));
       return navigate('/admin/photo/list');

@@ -1,13 +1,14 @@
 import axios from "axios";
 import { BACKEND, options } from "@util/commonAPI";
+import { client } from "@util/commonAPI";
 
-export const getAllGroupList = {
-  axios: () => axios({
-    ...options,
-    method: 'get',
-    url: `${BACKEND}/api/group`
-  }),
-  resType: undefined as undefined | {
+export class getAllGroupList {
+  static axios = async () => {
+    const url = `/api/group`;
+    const res = await client.get<typeof this.resType>(url);
+    return res.data;
+  }
+  static resType = undefined as undefined | {
     message: string;
     groups: {
       group_id: number;
@@ -18,13 +19,13 @@ export const getAllGroupList = {
   }
 }
 
-export const getGroupDetail = {
-  axios: (groupId: number) => () => axios({
-    ...options,
-    method: 'get',
-    url: `${BACKEND}/api/group/${groupId}`
-  }),
-  resType: undefined as undefined | {
+export class getGroupDetail {
+  static axios = async (groupId: number) => {
+    const url = `/api/group/${groupId}`;
+    const res = await client.get<typeof this.resType>(url);
+    return res.data;
+  }
+  static resType = undefined as undefined | {
     message: string;
     group_id: number;
     name: string;
@@ -38,39 +39,37 @@ export const getGroupDetail = {
   }
 }
 
-export const postGroup = {
-  axios: (data: object) => axios({
-    ...options,
-    headers: { 'Content-Type': 'multipart/form-data' },
-    method: 'post',
-    url: `${BACKEND}/api/group`,
-    data
-  }),
-  resType: undefined as undefined | {
+export class postGroup {
+  static axios = async ({ data }: { data: object }) => {
+    const url = `/api/group`;
+    const option = { headers: { 'Content-Type': 'multipart/form-data' } };
+    const res = await client.post<typeof this.resType>(url, data, option);
+    return res;
+  }
+  static resType = undefined as undefined | {
     message: string;
   }
 }
 
-export const putGroup = {
-  axios: (data: { groupId: number; [key: string]: any }) => axios({
-    ...options,
-    headers: { 'Content-Type': 'multipart/form-data' },
-    method: 'put',
-    url: `${BACKEND}/api/group/${data.groupId}`,
-    data
-  }),
-  resType: undefined as undefined | {
+export class putGroup {
+  static axios = async ({ groupId, data }: { groupId: number; data: object }) => {
+    const url = `/api/group/${groupId}`;
+    const option = { headers: { 'Content-Type': 'multipart/form-data' } };
+    const res = await client.put<typeof this.resType>(url, data, option);
+    return res;
+  }
+  static resType = undefined as undefined | {
     message: string;
   }
 }
 
-export const deleteGroup = {
-  axios: (groupId: number) => axios({
-    ...options,
-    method: 'delete',
-    url: `${BACKEND}/api/group/${groupId}`
-  }),
-  resType: undefined as undefined | {
+export class deleteGroup {
+  static axios = async ({ groupId }: { groupId: number; }) => {
+    const url = `/api/group/${groupId}`;
+    const res = await client.delete<typeof this.resType>(url);
+    return res;
+  }
+  static resType = undefined as undefined | {
     message: string;
   }
 }

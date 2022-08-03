@@ -11,7 +11,7 @@ import ConfirmModal from '@component/modal/ConfirmModal';
 import RemoveCard from '@component/card/RemoveCard';
 
 interface MemberRemoveProps {
-  member: AxiosResponse<typeof memberAPI.getMemberDetail.resType>;
+  member: typeof memberAPI.getMemberDetail.resType;
   memberId: number;
 }
 const MemberRemoveDefaultProps = {};
@@ -28,8 +28,8 @@ function MemberRemove({ member, memberId }: MemberRemoveProps & typeof MemberRem
       queryClient.invalidateQueries(queryKey.memberKeys.all);
       queryClient.invalidateQueries(queryKey.memberKeys.detail(memberId));
       queryClient.invalidateQueries(queryKey.groupKeys.all);
-      if (member.data?.group_id) queryClient.invalidateQueries(queryKey.groupKeys.detail(member.data?.group_id));
-      return navigate(`/admin/group/detail/${member.data?.group_id}`);
+      if (member?.group_id) queryClient.invalidateQueries(queryKey.groupKeys.detail(member.group_id));
+      return navigate(`/admin/group/detail/${member?.group_id}`);
     },
     onError: (err: AxiosError<ErrorType>) => {
       removeModal.setErrorMessage(getErrorMessage(err));
@@ -38,7 +38,7 @@ function MemberRemove({ member, memberId }: MemberRemoveProps & typeof MemberRem
 
   // 멤버 삭제
   const removeMember = useCallback(() => {
-    deleteMutation.mutate(memberId);
+    deleteMutation.mutate({ memberId });
   }, [deleteMutation, memberId]);
 
   return (
@@ -58,7 +58,7 @@ function MemberRemove({ member, memberId }: MemberRemoveProps & typeof MemberRem
         handleConfirm={removeMember}
       >
         <p className="text">이 멤버를 삭제하면 연관된 포토카드도 함께 지워져요.</p>
-        <p className="text">정말로 {member.data?.name} 멤버를 삭제하시겠어요?</p>
+        <p className="text">정말로 {member?.name} 멤버를 삭제하시겠어요?</p>
       </ConfirmModal>
     </>
   );

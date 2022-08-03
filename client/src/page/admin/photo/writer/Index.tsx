@@ -99,7 +99,7 @@ function PhotoWriterPage({ children }: PhotoWriterPageProps & typeof PhotoWriter
       formData.append('name[]', item.name);
       formData.append('image[]', item.imageFile);
     });
-    postMutation.mutate(formData);
+    postMutation.mutate({data: formData});
 
   }, [select, photoList, postMutation]);
 

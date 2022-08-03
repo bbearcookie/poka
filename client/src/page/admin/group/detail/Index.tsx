@@ -20,8 +20,8 @@ const GroupDetailPageDefaultProps = {};
 function GroupDetailPage({ children }: GroupDetailPageProps & typeof GroupDetailPageDefaultProps) {
   const { groupId } = useParams() as any;
   const { status, data: group, error } =
-  useQuery<AxiosResponse<typeof groupAPI.getGroupDetail.resType>, AxiosError<ErrorType>>
-  (queryKey.groupKeys.detail(groupId), groupAPI.getGroupDetail.axios(groupId));
+  useQuery<typeof groupAPI.getGroupDetail.resType, AxiosError<ErrorType>>
+  (queryKey.groupKeys.detail(groupId), () => groupAPI.getGroupDetail.axios(groupId));
 
   return (
     <div className="GroupDetailPage">

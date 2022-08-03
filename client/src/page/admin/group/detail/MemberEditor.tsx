@@ -62,8 +62,13 @@ function MemberEditor({ groupId, memberId, defaultValue, closeEditor }: MemberEd
 
   // 전송 이벤트
   const onSubmit = useCallback(() => {
-    if (memberId) modifyMutation.mutate({ memberId, name }); // 수정 요청
-    else addMutation.mutate({ groupId, name }); // 추가 요청
+    if (memberId) modifyMutation.mutate({
+      memberId,
+      data: { name }
+    }); // 수정 요청
+    else addMutation.mutate({
+      data: { groupId, name }
+    }); // 추가 요청
   }, [name, groupId, memberId, addMutation, modifyMutation]);
 
   return (

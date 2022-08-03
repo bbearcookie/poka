@@ -61,7 +61,7 @@ export class getPhotoDetail {
 }
 
 export class postPhotos {
-  static axios = async (data: object) => {
+  static axios = async ({ data }: { data: object }) => {
     const url = `/api/photo/multiple`;
     const option = { headers: { 'Content-Type': 'multipart/form-data' } };
     const res = await client.post<typeof this.resType>(url, data, option);

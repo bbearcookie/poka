@@ -138,14 +138,18 @@ function Form({ name, imageName, groupId, children }: FormProps & typeof FormDef
 
     if (groupId) {
       putMutation.mutate({
-        ...input,
         groupId,
-        image: input.image.file
+        data: {
+          ...input,
+          image: input.image.file
+        }
       });
     } else {
       postMutation.mutate({
-        ...input,
-        image: input.image.file
+        data: {
+          ...input,
+          image: input.image.file
+        }
       });
     }
 

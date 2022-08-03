@@ -22,12 +22,12 @@ const SelectCardDefaultProps = {};
 
 function SelectCard({ select, setSelect, selectMessage, setSelectMessage, children }: SelectCardProps & typeof SelectCardDefaultProps) {
   const groupQuery =
-  useQuery<AxiosResponse<typeof groupAPI.getAllGroupList.resType>, AxiosError<ErrorType>>
+  useQuery<typeof groupAPI.getAllGroupList.resType, AxiosError<ErrorType>>
   (queryKey.groupKeys.all, groupAPI.getAllGroupList.axios);
 
   const memberQuery = 
-  useQuery<AxiosResponse<typeof memberAPI.getMembersOfGroup.resType>, AxiosError<ErrorType>>
-  (queryKey.groupKeys.members(select.groupId), memberAPI.getMembersOfGroup.axios(select.groupId));
+  useQuery<typeof memberAPI.getMembersOfGroup.resType, AxiosError<ErrorType>>
+  (queryKey.groupKeys.members(select.groupId), () => memberAPI.getMembersOfGroup.axios(select.groupId));
 
   // 그룹 선택 변경
   const onChangeGroup = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -64,7 +64,7 @@ function SelectCard({ select, setSelect, selectMessage, setSelectMessage, childr
               }}
             >
               <option value={0}>선택</option>
-              {groupQuery.data?.data?.groups.map((item) => (
+              {groupQuery.data?.groups.map((item) => (
                 <option key={item.group_id} value={item.group_id}>{item.name}</option>
               ))}
             </Select>
@@ -84,7 +84,7 @@ function SelectCard({ select, setSelect, selectMessage, setSelectMessage, childr
               }}
             >
               <option value={0}>선택</option>
-              {memberQuery.data?.data?.members.map((item) => (
+              {memberQuery.data?.members.map((item) => (
                 <option key={item.member_id} value={item.member_id}>{item.name}</option>
               ))}
             </Select>
