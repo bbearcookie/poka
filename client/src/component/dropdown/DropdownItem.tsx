@@ -5,7 +5,8 @@ import classNames from 'classnames';
 const CLASS = 'DropdownItem';
 interface DropdownItemProps {
   className?: string;
-  onClick?: () => void;
+  data?: unknown;
+  onClick?: (e: React.MouseEvent) => void;
   children?: React.ReactNode;
 }
 const DropdownItemDefaultProps = {
