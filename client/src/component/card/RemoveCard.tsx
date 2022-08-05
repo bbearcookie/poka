@@ -18,22 +18,22 @@ const RemoveCardDefaultProps = {
 function RemoveCard({ onClick, titleText, buttonText, children }: RemoveCardProps & typeof RemoveCardDefaultProps) {
   return (
     <Card>
-    <CardHeader><h1>{titleText}</h1></CardHeader>
-    <CardBody>
-      <Button
-        leftIcon={faTrashCan}
-        onClick={onClick}
-        styles={{
-          theme: "danger-outlined",
-          marginBottom: "1em",
-          padding: "0.7em 1.3em",
-          iconMargin: "1em"
-        }}
-      >{buttonText}</Button>
+      <CardHeader><h1>{titleText}</h1></CardHeader>
+      <CardBody>
+        <Button
+          leftIcon={faTrashCan}
+          onClick={onClick}
+          styles={{
+            theme: "danger-outlined",
+            marginBottom: "1em",
+            padding: "0.7em 1.3em",
+            iconMargin: "1em"
+          }}
+        >{buttonText}</Button>
 
-      {children}
-    </CardBody>
-  </Card>
+        {children}
+      </CardBody>
+    </Card>
   );
 }
 

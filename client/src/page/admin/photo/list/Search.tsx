@@ -1,4 +1,6 @@
 import React, { useState, useCallback } from 'react';
+import { useAppSelector, useAppDispatch } from '@app/reduxHooks';
+import { setPhotoName } from './searchSlice';
 import CardHeader from '@component/card/basic/CardHeader';
 import SearchBar from '@component/searchbar/SearchBar';
 import Select from '@component/form/Select';
@@ -9,8 +11,10 @@ interface SearchProps {
 const SearchDefaultProps = {};
 
 function Search({ children }: SearchProps & typeof SearchDefaultProps) {
+  const keywords = useAppSelector((state) => state.adminPhotoSearch.keywords);
   const [input, setInput] = useState('');
   const [select, setSelect] = useState('');
+  const dispatch = useAppDispatch();
 
   // 검색 인풋 값 변경
   const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,9 +24,11 @@ function Search({ children }: SearchProps & typeof SearchDefaultProps) {
   // 검색
   const handleSearch = useCallback((e: React.FormEvent) => {
     e.preventDefault();
-    console.log(input);
+    dispatch(setPhotoName(input));
+    console.log(keywords);
+
     setInput('');
-  }, [input]);
+  }, [input, dispatch, keywords]);
 
   return (
     <>

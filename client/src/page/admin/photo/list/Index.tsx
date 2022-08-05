@@ -7,6 +7,7 @@ import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Search from './Search';
 import PhotoList from './PhotoList';
+import FilterCheck from './FilterCheck';
 import './Index.scss';
 
 interface PhotoListPageProps {
@@ -35,6 +36,7 @@ function PhotoListPage({ children }: PhotoListPageProps & typeof PhotoListPageDe
           <Search />
         </CardHeader>
         <CardBody>
+          <FilterCheck />
           <PhotoList />
         </CardBody>
       </Card>

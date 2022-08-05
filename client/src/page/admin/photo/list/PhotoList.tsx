@@ -35,8 +35,7 @@ function PhotoList({ children }: PhotoListProps & typeof PhotoListDefaultProps) 
     if (!hasNextPage) return;
 
     fetchNextPage();
-    console.log(inView);
-  }, [inView]);
+  }, [inView, photos, hasNextPage, fetchNextPage]);
 
   return (
     <>
@@ -49,7 +48,7 @@ function PhotoList({ children }: PhotoListProps & typeof PhotoListDefaultProps) 
           </Fragment>
         )}
 
-        {isFetching && Array.from({length: limit}).map((_, idx) => (
+        {hasNextPage && isFetching && Array.from({length: limit}).map((_, idx) => (
           <SkeletonPhotoCard key={idx} />
         ))}
       </section>

@@ -17,6 +17,29 @@
     }
   }
 
+  .check-section {
+    display: flex;
+    margin-bottom: 1em;
+
+    .DropdownButton .icon { margin-left: 0.5em; }
+
+    .DropdownItem {
+      display: flex;
+      flex-wrap: wrap;
+
+      input[type="checkbox"] {
+        margin-right: 0.4em;
+        transform: scale(1.25);
+        cursor: pointer;
+      }
+
+      label {
+        flex-grow: 1;
+        cursor: pointer;
+      }
+    }
+  }
+
   .photo-section {
     display: flex;
     // justify-content: center;
