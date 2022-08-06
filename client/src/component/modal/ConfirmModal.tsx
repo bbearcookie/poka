@@ -28,7 +28,10 @@ interface ConfirmModalProps {
   children?: React.ReactNode;
 }
 const ConfirmModalDefaultProps = {
-  location: 'CENTER_CENTER',
+  location: {
+    horizontal: 'CENTER',
+    vertical: 'CENTER'
+  },
   confirmButtonTheme: 'danger',
   cancelButtonTheme: 'gray',
   confirmText: '확인',
@@ -89,8 +92,8 @@ export default ConfirmModal;
 // 스타일 컴포넌트 =========================
 const StyledHeader = styled.header<ConfirmModalProps>`
   display: flex;
-  font-size: 1.75em;
   align-items: center;
+  font-size: 1.75em;
 
   .${CLASS}__title-label {
     margin: 0;

@@ -41,14 +41,6 @@ function Search({ children }: SearchProps & typeof SearchDefaultProps) {
           handleInputChange={changeInput}
           onSubmit={handleSearch}
         />
-        {/* <section className="search-bar-section">
-          <SearchBar />
-          <Select height="3em">
-            <option>포토카드 이름</option>
-            <option>ㅎㅎ</option>
-            <option>ㅁㅁ</option>
-          </Select>
-        </section> */}
       </CardHeader>
       <CardHeader>
         라벨 컴포넌트. overflow-x를 auto로 준다.
