@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { body, param } from 'express-validator';
+import { param, query, body } from 'express-validator';
 import { validate } from '@util/validator';
 import * as groupService from '@service/group.service';
 import * as memberService from '@service/member.service';
@@ -12,10 +12,27 @@ export const getMembersOfGroup = {
   ],
   controller: async (req: Request, res: Response) => {
     const groupId = Number(req.params.groupId);
+    console.log(req.params.groupId);
+    console.log(groupId);
 
     try {
       const [members] = await memberService.selectAllMembersOfGroup(groupId);
       return res.status(200).json({ message: `${groupId}번 그룹의 멤버 목록을 조회했습니다.`, members });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
+    }
+
+    return res.status(501).json({ message: 'Not Implemented' });
+  }
+}
+
+// 모든 멤버 목록 조회
+export const getAllMemberList = {
+  controller: async (req: Request, res: Response) => {
+    try {
+      const [members] = await memberService.selectAllMemberList();
+      return res.status(200).json({ message: `모든 멤버 목록을 조회했습니다.`, members });
     } catch (err) {
       console.error(err);
       return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });

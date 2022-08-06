@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { DropdownHookType } from '@hook/useDropdown';
 import classNames from 'classnames';
@@ -13,11 +13,14 @@ interface DropdownProps {
 const DropdownDefaultProps = {};
 
 function Dropdown(p: DropdownProps & typeof DropdownDefaultProps) {
+  const ref = useRef<HTMLInputElement>(null);
 
   // 드롭다운의 바깥 영역이 클릭되면 드롭다운 닫음
   useEffect(() => {
     const closeDropdown = (e: MouseEvent) => {
-      p.hook.close();
+      if (!ref.current?.contains(e.target as unknown as Node)) {
+        p.hook.close();
+      }
     }
 
     document.body.addEventListener('click', closeDropdown);
@@ -28,8 +31,14 @@ function Dropdown(p: DropdownProps & typeof DropdownDefaultProps) {
     <StyledDropdown
       {...StylesDefaultProps} {...p.styles} {...p}
       className={classNames(CLASS, p.className)}
+      ref={ref}
     >
-      {p.children}
+      {React.Children.map(p.children, (child) => {
+        // hook props 전달
+        return React.cloneElement(child as React.ReactElement, {
+          hook: p.hook
+        });
+      })}
     </StyledDropdown>
   );
 }

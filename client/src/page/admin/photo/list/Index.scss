@@ -20,6 +20,8 @@
   .check-section {
     display: flex;
     margin-bottom: 1em;
+    flex-wrap: wrap;
+    gap: 2em;
 
     .DropdownButton .icon {
       margin-left: 0.7em;

@@ -26,8 +26,8 @@ function SelectCard({ select, setSelect, selectMessage, setSelectMessage, childr
   (queryKey.groupKeys.all, groupAPI.getAllGroupList.axios);
 
   const memberQuery = 
-  useQuery<typeof memberAPI.getMembersOfGroup.resType, AxiosError<ErrorType>>
-  (queryKey.groupKeys.members(select.groupId), () => memberAPI.getMembersOfGroup.axios(select.groupId));
+  useQuery<typeof groupAPI.getMembersOfGroup.resType, AxiosError<ErrorType>>
+  (queryKey.groupKeys.members(select.groupId), () => groupAPI.getMembersOfGroup.axios(select.groupId));
 
   // 그룹 선택 변경
   const onChangeGroup = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {

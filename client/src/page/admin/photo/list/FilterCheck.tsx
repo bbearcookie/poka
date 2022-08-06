@@ -2,7 +2,7 @@ import React, { Fragment, useState, useCallback, useRef } from 'react';
 import { useQuery } from 'react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useAppSelector, useAppDispatch } from '@app/reduxHooks';
-import { setGroupId } from './searchSlice';
+import { setGroupId, setMemberId } from './searchSlice';
 import { ErrorType } from '@util/commonAPI';
 import * as queryKey from '@util/queryKey';
 import * as groupAPI from '@api/groupAPI';
@@ -21,43 +21,73 @@ interface FilterCheckProps {
 const FilterCheckDefaultProps = {};
 
 function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultProps) {
-  const { groupIdList } = useAppSelector((state) => state.adminPhotoSearch);
+  const { keywords, groupIdList, memberIdList } = useAppSelector((state) => state.adminPhotoSearch);
   const dispatch = useAppDispatch();
-  const dropdown = useDropdown();
-
-  console.log(groupIdList);
+  const groupDropdown = useDropdown();
+  const memberDropdown = useDropdown();
 
   const groupQuery =
   useQuery<typeof groupAPI.getAllGroupList.resType, AxiosError<ErrorType>>
   (queryKey.groupKeys.all, groupAPI.getAllGroupList.axios);
 
+  const memberQuery =
+  useQuery<typeof memberAPI.getAllMemberList.resType, AxiosError<ErrorType>>
+  (queryKey.memberKeys.all, memberAPI.getAllMemberList.axios);
+
   // 그룹 아이템 선택시
   const onClickGroupItem = useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
     const groupId = e.currentTarget.getAttribute("data");
     if (groupId) dispatch(setGroupId(Number(groupId)));
+  }, [dispatch]);
+
+  // 멤버 아이템 선택시
+  const onClickMemberItem = useCallback((e: React.MouseEvent) => {
+    const memberId = e.currentTarget.getAttribute("data");
+    if (memberId) dispatch(setMemberId(Number(memberId)));
   }, [dispatch]);
 
   return (
     <section className="check-section">
 
-      <Dropdown hook={dropdown}>
-        <DropdownButton hook={dropdown} styles={{ padding: "0.25em" }}>
+      <Dropdown hook={groupDropdown}>
+        <DropdownButton styles={{ padding: "0.25em" }}>
           <b>그룹</b>
           <FontAwesomeIcon className="icon" icon={faChevronDown} />
         </DropdownButton>
-        <DropdownMenu hook={dropdown} styles={{ width: '10em' }}>
-          {groupQuery.data?.groups.map((item, idx) => (
-            <DropdownItem key={item.group_id} data={item.group_id} onClick={onClickGroupItem}>
+        <DropdownMenu styles={{ width: '10em' }}>
+          {groupQuery.data?.groups.map((group) => (
+            <DropdownItem key={group.group_id} data={group.group_id} onClick={onClickGroupItem}>
               <input 
                 type="checkbox" 
-                value={item.group_id} 
-                checked={groupIdList.includes(item.group_id) ? true : false} 
+                value={group.group_id}
+                checked={groupIdList.includes(group.group_id) ? true : false}
                 onChange={() => {}}
               />
-              <span>{item.name}</span>
+              <span>{group.name}</span>
             </DropdownItem>
           ))}
+        </DropdownMenu>
+      </Dropdown>
+
+      <Dropdown hook={memberDropdown}>
+        <DropdownButton styles={{ padding: "0.25em" }}>
+          <b>멤버</b>
+          <FontAwesomeIcon className="icon" icon={faChevronDown} />
+        </DropdownButton>
+        <DropdownMenu styles={{ width: '10em' }}>
+          {groupIdList.length > 0 && memberQuery.data?.members.map((member) => groupIdList.includes(member.group_id) && (
+            <DropdownItem key={member.member_id} data={member.member_id} onClick={onClickMemberItem}>
+              <input 
+                type="checkbox" 
+                value={member.member_id}
+                checked={memberIdList.includes(member.member_id) ? true : false}
+                onChange={() => {}}
+              />
+              <span>{member.name}</span>
+            </DropdownItem>
+          ))}
+
+          {groupIdList.length === 0 && <DropdownItem>전체</DropdownItem>} 
         </DropdownMenu>
       </Dropdown>
 

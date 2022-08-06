@@ -20,6 +20,20 @@ export const selectAllMembersOfGroup = async (groupId: number) => {
   }
 }
 
+// 모든 멤버 목록 조회
+export const selectAllMemberList = async () => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `SELECT member_id, group_id, name FROM MemberData`;
+    return await con.query(sql);
+  } catch (err) {
+    throw err;
+  } finally {
+    con.release();
+  }
+}
+
 // 특정 멤버 상세 정보 확인
 export const selectMemberDetail = async (memberId: number) => {
   const con = await db.getConnection();

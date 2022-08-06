@@ -5,7 +5,7 @@ import { DropdownHookType } from '@hook/useDropdown';
 
 const CLASS = 'DropdownButton';
 interface DropdownButtonProps {
-  hook: DropdownHookType;
+  hook?: DropdownHookType;
   className?: string;
   type?: 'hover' | 'click';
   styles?: StylesProps;
@@ -16,18 +16,11 @@ const DropdownButtonDefaultProps = {
 };
 
 function DropdownButton(p: DropdownButtonProps & typeof DropdownButtonDefaultProps) {
-
-  const open = useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (p.type === 'click') p.hook.toggle();
-
-  }, [p.hook, p.type]);
-
   return (
     <StyledDropdownButton
       {...StylesDefaultProps} {...p.styles} {...p}
       className={classNames(CLASS, p.className)}
-      onClick={open}
+      onClick={p.type === 'click' ? () => p.hook?.toggle() : undefined}
     >
       {p.children}
     </StyledDropdownButton>

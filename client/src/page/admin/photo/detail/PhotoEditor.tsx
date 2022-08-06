@@ -57,8 +57,8 @@ function PhotoEditor({ photo, photocardId, closeEditor, children }: PhotoEditorP
   (queryKey.groupKeys.all, groupAPI.getAllGroupList.axios);
 
   const memberQuery = 
-  useQuery<typeof memberAPI.getMembersOfGroup.resType, AxiosError<ErrorType>>
-  (queryKey.groupKeys.members(form.groupId), () => memberAPI.getMembersOfGroup.axios(form.groupId));
+  useQuery<typeof groupAPI.getMembersOfGroup.resType, AxiosError<ErrorType>>
+  (queryKey.groupKeys.members(form.groupId), () => groupAPI.getMembersOfGroup.axios(form.groupId));
 
   // 데이터 수정 요청
   const putMutation = useMutation(photoAPI.putPhoto.axios, {
