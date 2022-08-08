@@ -23,7 +23,7 @@ const GroupListPageDefaultProps = {};
 
 function GroupListPage({ children }: GroupListPageProps & typeof GroupListPageDefaultProps) {
   const { status, data: groups, error } = 
-  useQuery<AxiosResponse<typeof groupAPI.getAllGroupList.resType>, AxiosError<ErrorType>>
+  useQuery<typeof groupAPI.getAllGroupList.resType, AxiosError<ErrorType>>
   (queryKey.groupKeys.all, groupAPI.getAllGroupList.axios);
 
   return (
@@ -31,19 +31,26 @@ function GroupListPage({ children }: GroupListPageProps & typeof GroupListPageDe
       <div className="title-label-section">
         <h1 className="title-label">그룹 목록</h1>
         <Link to="/admin/group/writer">
-          <Button theme="primary" padding="0.7em 1.3em" iconMargin="1em" leftIcon={faPlus}>추가</Button>
+          <Button
+            leftIcon={faPlus}
+            styles={{
+              theme: "primary",
+              padding: "0.7em 1.3em",
+              iconMargin: "1em"
+            }}
+          >추가</Button>
         </Link>
       </div>
 
       <Table>
-        <TableHead height="3rem">
+        <TableHead styles={{ height: "3rem" }}>
           <tr>
-            <TableHeadItem width="60%" paddingLeft="1.5em">이름</TableHeadItem>
-            <TableHeadItem width="30%">멤버</TableHeadItem>
-            <TableHeadItem width="10%" paddingRight="1.5em" textAlign="right">액션</TableHeadItem>
+            <TableHeadItem styles={{ width: "60%", paddingLeft: "1.5em" }}>이름</TableHeadItem>
+            <TableHeadItem styles={{ width: "30%" }}>멤버</TableHeadItem>
+            <TableHeadItem styles={{ width: "10%", paddingRight: "1.5em", textAlign: "right" }}>액션</TableHeadItem>
           </tr>
         </TableHead>
-        <TableBody height="5rem">
+        <TableBody styles={{ height: "5rem" }}>
           {status === 'loading' && <SkeletonGroupList />}
           {status === 'success' && <GroupList groups={groups} />}
           {status === 'error' && <tr><td>{getErrorMessage(error)}</td><td/><td/></tr>}

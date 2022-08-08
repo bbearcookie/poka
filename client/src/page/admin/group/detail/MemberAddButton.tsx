@@ -14,10 +14,12 @@ function MemberAddButton({ startEditor, children }: MemberAddButtonProps & typeo
   return (
     <section className="f-right">
       <Button
-        theme="primary"
-        margin="1.57em"
-        padding="0.7em 1em"
-        iconMargin="1em"
+        styles={{
+          theme: "primary",
+          margin: "1.57em",
+          padding: "0.7em 1em",
+          iconMargin: "1em",
+        }}
         leftIcon={faPlus}
         onClick={startEditor}
       >추가</Button>

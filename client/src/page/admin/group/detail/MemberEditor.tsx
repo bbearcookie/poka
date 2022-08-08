@@ -6,6 +6,7 @@ import * as queryKey from '@util/queryKey';
 import { ErrorType } from '@util/commonAPI';
 import { AxiosError, AxiosResponse } from 'axios';
 import Input from '@component/form/Input';
+import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';
 import TableBodyItem from '@component/table/TableBodyItem';
 
@@ -61,29 +62,52 @@ function MemberEditor({ groupId, memberId, defaultValue, closeEditor }: MemberEd
 
   // 전송 이벤트
   const onSubmit = useCallback(() => {
-    if (memberId) modifyMutation.mutate({ memberId, name }); // 수정 요청
-    else addMutation.mutate({ groupId, name }); // 추가 요청
+    if (memberId) modifyMutation.mutate({
+      memberId,
+      data: { name }
+    }); // 수정 요청
+    else addMutation.mutate({
+      data: { groupId, name }
+    }); // 추가 요청
   }, [name, groupId, memberId, addMutation, modifyMutation]);
 
   return (
     <tr>
-      <TableBodyItem paddingLeft="1em">
+      <TableBodyItem styles={{ paddingLeft: "1em" }}>
         <Input
-          width="100%" height="2.5em"
           type="text"
           name="name"
           value={name}
-          onChange={changeInput}
-          message={message}
-          autoComplete="off"
           placeholder={memberId ? '수정할 이름을 입력하세요' : '추가할 이름을 입력하세요'}
-        />
+          autoComplete="off"
+          onChange={changeInput}
+          styles={{
+            width: "100%",
+            height: "2.5em"
+          }}
+        >
+          <InputMessage styles={{margin: "0.5em 0 0 0.8em"}}>{message}</InputMessage>
+        </Input>
       </TableBodyItem>
       <TableBodyItem></TableBodyItem>
-      <TableBodyItem paddingRight="0.5em">
+      <TableBodyItem styles={{ paddingRight: "0.5em" }}>
         <section className="action-section">
-          <Button theme="primary" padding="0.7em 1em" marginRight="0.5em" onClick={onSubmit}>저장</Button>
-          <Button theme="gray-outlined" padding="0.7em 1em" marginRight="0.5em" onClick={closeEditor}>취소</Button>
+          <Button 
+            onClick={onSubmit}
+            styles={{
+              theme: "primary",
+              padding: "0.7em 1em",
+              marginRight: "0.5em"
+            }}
+          >저장</Button>
+          <Button
+            onClick={closeEditor}
+            styles={{
+              theme: "gray-outlined",
+              padding: "0.7em 1em",
+              marginRight: "0.5em"
+            }}
+           >취소</Button>
         </section>
       </TableBodyItem>
     </tr>

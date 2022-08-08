@@ -8,6 +8,9 @@ import GroupEditorPage from "@page/admin/group/writer/EditorIndex";
 import GroupDetailPage from "@page/admin/group/detail/Index";
 import MemberDetailPage from "@page/admin/member/detail/Index";
 import CropPage from "@page/admin/photo/crop/Index";
+import PhotoWriterPage from "@page/admin/photo/writer/Index";
+import PhotoListPage from "@page/admin/photo/list/Index";
+import PhotoDetailPage from "@page/admin/photo/detail/Index";
 
 // /admin 하위 라우팅 내용
 function AdminRouter() {
@@ -22,12 +25,15 @@ function AdminRouter() {
       } />
       <Route path="/first" element={<FirstPage />} />
       <Route path="/second" element={<SecondPage />} />
-      <Route path="/photo/crop" element={<CropPage />} />
       <Route path="/group/list" element={<GroupListPage />} />
       <Route path="/group/writer" element={<GroupWriterPage />} />
       <Route path="/group/editor/:groupId" element={<GroupEditorPage />} />
       <Route path="/group/detail/:groupId" element={<GroupDetailPage />} />
       <Route path="/member/detail/:memberId" element={<MemberDetailPage />} />
+      <Route path="/photo/list" element={<PhotoListPage />} />
+      <Route path="/photo/crop" element={<CropPage />} />
+      <Route path="/photo/writer" element={<PhotoWriterPage />} />
+      <Route path="/photo/detail/:photocardId" element={<PhotoDetailPage />} />
     </Routes>
   );
 }

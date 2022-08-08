@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 interface CardBodyProps {
   padding?: string;
-  height?: string;  
+  width?: string;
+  height?: string;
   children?: React.ReactNode;
 }
 
@@ -23,6 +24,7 @@ export default CardBody;
 
 // 스타일 컴포넌트
 const StyledCardBody = styled.section<CardBodyProps>`
+  width: ${p => p.width};
   height: ${p => p.height};
   padding: ${p => p.padding};
 `

@@ -1,30 +1,12 @@
-import axios from "axios";
-import { BACKEND, options } from "@util/commonAPI";
+import { client } from "@util/commonAPI";
 
-export const getMembersOfGroup = {
-  axios: (groupId: number) => () => axios({
-    ...options,
-    method: 'get',
-    url: `${BACKEND}/api/group/${groupId}/member`
-  }),
-  resType: undefined as undefined | {
-    message: string;
-    members: {
-      group_id: number;
-      member_id: number;
-      name: string;
-      photo_cnt: number;
-    }[];
+export class getMemberDetail {
+  static axios = async (memberId: number) => {
+    const url = `/api/member/${memberId}`;
+    const res = await client.get<typeof this.resType>(url);
+    return res.data;
   }
-}
-
-export const getMemberDetail = {
-  axios: (memberId: number) => () => axios({
-    ...options,
-    method: 'get',
-    url: `${BACKEND}/api/member/${memberId}`
-  }),
-  resType: undefined as undefined | {
+  static resType = undefined as undefined | {
     message: string;
     group_id: number;
     group_name: string;
@@ -34,38 +16,52 @@ export const getMemberDetail = {
   }
 }
 
-export const postMember = {
-  axios: (data: object) => axios({
-    ...options,
-    method: 'post',
-    url: `${BACKEND}/api/member`,
-    data
-  }),
-  resType: undefined as undefined | {
+export class getAllMemberList {
+  static axios = async () => {
+    const url = `/api/member`;
+    const res = await client.get<typeof this.resType>(url);
+    return res.data;
+  }
+  static resType = undefined as undefined | {
+    message: string;
+    members: {
+      member_id: number;
+      group_id: number;
+      name: string;
+    }[];
+  }
+}
+
+export class postMember {
+  static axios = async ({ data }: { data: object }) => {
+    const url = `/api/member`;
+    const res = await client.post<typeof this.resType>(url, data);
+    return res;
+  }
+  static resType = undefined as undefined | {
     message: string;
     memberId: number;
   }
 }
 
-export const putMember = {
-  axios: (data: { memberId: number; [key: string]: any }) => axios({
-    ...options,
-    method: 'put',
-    url: `${BACKEND}/api/member/${data.memberId}`,
-    data
-  }),
-  resType: undefined as undefined | {
+export class putMember {
+  static axios = async ({ memberId, data }: { memberId: number; data: object; }) => {
+    const url = `/api/member/${memberId}`;
+    const res = await client.put<typeof this.resType>(url, data);
+    return res;
+  }
+  static resType = undefined as undefined | {
     message: string;
   }
 }
 
-export const deleteMember = {
-  axios: (memberId: number) => axios({
-    ...options,
-    method: 'delete',
-    url: `${BACKEND}/api/member/${memberId}`
-  }),
-  resType: undefined as undefined | {
+export class deleteMember {
+  static axios = async ({ memberId }: { memberId: number }) => {
+    const url = `/api/member/${memberId}`;
+    const res = await client.delete<typeof this.resType>(url);
+    return res;
+  }
+  static resType = undefined as undefined | {
     message: string;
   }
 }

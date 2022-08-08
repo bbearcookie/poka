@@ -2,11 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface CardHeaderProps {
+  borderBottom?: string;
   padding?: string;
   children?: React.ReactNode;
 }
 
 const CardHeaderDefaultProps = {
+  borderBottom: '1px solid #E5E7EB',
   padding: '1.5em'
 };
 
@@ -23,5 +25,5 @@ export default CardHeader;
 // 스타일 컴포넌트
 const StyledCardHeader = styled.header<CardHeaderProps>`
   padding: ${p => p.padding};
-  border-bottom: 1px solid #E5E7EB;
+  border-bottom: ${p => p.borderBottom};
 `;

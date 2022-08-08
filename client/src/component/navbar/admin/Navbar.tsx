@@ -9,9 +9,7 @@ import './Navbar.scss';
 interface NavbarProps {
   children?: React.ReactNode;
 }
-
 const NavbarDefaultProps = {}
-
 function Navbar({ children }: NavbarProps & typeof NavbarDefaultProps) {
   const show = useAppSelector((state) => state.adminSidebar.show);
   const dispatch = useAppDispatch();
@@ -26,11 +24,10 @@ function Navbar({ children }: NavbarProps & typeof NavbarDefaultProps) {
         <FontAwesomeIcon icon={faBars} />
       </div>
       <div className="grow-section"></div>
-      <Button theme="gray-outlined" rightIcon={faRightFromBracket}>로그아웃</Button>
+      <Button rightIcon={faRightFromBracket} styles={{ theme:"gray-outlined" }}>로그아웃</Button>
     </article>
   );
 }
 
 Navbar.defaultProps = NavbarDefaultProps;
-
 export default Navbar;

@@ -2,15 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface TableBodyProps {
-  height?: string;
+  styles?: StylesProps;
   children?: React.ReactNode;
 }
-
 const TableBodyDefaultProps = {};
-
 function TableBody(p: TableBodyProps & typeof TableBodyDefaultProps) {
   return (
-    <StyledTableBody {...p}>
+    <StyledTableBody {...StylesDefaultProps} {...p.styles} {...p}>
       {p.children}
     </StyledTableBody>
   );
@@ -19,7 +17,12 @@ function TableBody(p: TableBodyProps & typeof TableBodyDefaultProps) {
 TableBody.defaultProps = TableBodyDefaultProps;
 export default TableBody;
 
-const StyledTableBody = styled.tbody<TableBodyProps>`
+// 스타일 컴포넌트
+interface StylesProps {
+  height?: string;
+}
+const StylesDefaultProps = {};
+const StyledTableBody = styled.tbody<StylesProps & typeof StylesDefaultProps>`
   background-color: white;
 
   th, td {

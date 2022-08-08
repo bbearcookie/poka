@@ -8,35 +8,27 @@ const CLASS = 'Input';
 interface InputProps {
   type: React.HTMLInputTypeAttribute;
   name: string;
-  display?: string;
-  width?: string;
-  maxWidth?: string;
-  height?: string;
-  margin?: string;
-  marginTop?: string;
-  marginBottom?: string;
-  marginLeft?: string;
-  marginRight?: string;
   className?: string;
   value?: any;
-  message?: string;
   autoComplete?: string;
   maxLength?: number;
   placeholder?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  styles?: StylesProps;
+  children?: React.ReactNode;
 }
-
 const InputDefaultProps = {
-  message: '',
-  autoComplete: 'on',
+  autoComplete: 'off',
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => {},
   onBlur: (e: React.FocusEvent<HTMLInputElement>) => {},
 };
-
 function Input(p: InputProps & typeof InputDefaultProps) {  
   return (
-    <StyledInputWrapper {...p} className={classNames(CLASS, p.className)}>
+    <StyledInputWrapper
+      {...StylesDefaultProps} {...p.styles} {...p}
+      className={classNames(CLASS, p.className)}
+    >
       <input
         type={p.type}
         name={p.name}
@@ -47,8 +39,8 @@ function Input(p: InputProps & typeof InputDefaultProps) {
         onChange={p.onChange}
         onBlur={p.onBlur}
       />
-      {p.message && <p className={`${CLASS}__message-label`}>{p.message}</p>}
-      </StyledInputWrapper>
+      {p.children}
+    </StyledInputWrapper>
   );
 }
 
@@ -56,7 +48,30 @@ Input.defaultProps = InputDefaultProps;
 export default Input;
 
 // 스타일 컴포넌트
-const StyledInputWrapper = styled.div<InputProps>`
+interface StylesProps {
+  display?: string;
+  width?: string;
+  maxWidth?: string;
+  height?: string;
+  margin?: string;
+  marginTop?: string;
+  marginBottom?: string;
+  marginLeft?: string;
+  marginRight?: string;
+  border?: string;
+  activeBorder?: string;
+  activeBoxShadow?: string;
+  color?: string;
+  placeholderColor?: string;
+  backgroundColor?: string;
+  textAlign?: string;
+}
+const StylesDefaultProps = {
+  border: '1px solid hsl(222, 9%, 78%)',
+  activeBorder: '1px solid rgb(206, 28, 73)',
+  activeBoxShadow: '0px 0px 1px 1px rgb(206, 28, 73)',
+};
+const StyledInputWrapper = styled.div<StylesProps & typeof StylesDefaultProps>`
   display: ${p => p.display};
   width: ${p => p.width};
   margin: ${p => p.margin};
@@ -71,15 +86,19 @@ const StyledInputWrapper = styled.div<InputProps>`
     height: ${p => p.height};
     padding: 0 0.5em;
     box-sizing: border-box;
-    border: 1px solid hsl(222, 9%, 78%);
+    color: ${p => p.color};
+    background-color: ${p => p.backgroundColor};
+    border: ${p => p.border};
     border-radius: 5px;
     font-family: inherit;
     font-size: 1rem;
-  
+    text-align: ${p => p.textAlign};
+
+    &::placeholder { color: ${p => p.placeholderColor} }
     &:focus {
       outline: none;
-      border: 1px solid rgb(206, 28, 73);
-      box-shadow: 0px 0px 1px 1px rgb(206, 28, 73);
+      border: ${p => p.activeBorder};
+      box-shadow: ${p => p.activeBoxShadow};
       transition: all 0.25s;
     }
   
@@ -92,10 +111,5 @@ const StyledInputWrapper = styled.div<InputProps>`
       -webkit-transition: background-color 9999s ease-out;
       -webkit-box-shadow: 0 0 0px 1000px white inset !important;
     }
-  }
-
-  .${CLASS}__message-label {
-    color: red;
-    margin: 0.5em 0 0 0.8em;
   }
 `;

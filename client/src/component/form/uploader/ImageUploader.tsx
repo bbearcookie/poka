@@ -1,30 +1,31 @@
 import React, { useState, useCallback, useRef } from 'react';
+import styled from 'styled-components';
 import classNames from 'classnames';
 import Button from '@component/form/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import './ImageUploader.scss';
 
 // 이미지 업로더 컴포넌트 =================
+const CLASS = "ImageUploader";
 export interface Image {
   file: File | null;
   previewURL: string | ArrayBuffer | null;
   initialURL: string;
 }
-
 interface ImageUploaderProps {
-  className?: string;
   value: Image;
-  message?: string;
   onChange: (img: Image) => void;
+  className?: string;
+  message?: string;
+  styles?: StyledImageUploaderProps;
+  imageStyles?: ImageStylesProps;
   children?: React.ReactNode;
 }
-
 const ImageUploaderDefaultProps = {
   message: ''
 };
 
-function ImageUploader({ className, value, message, onChange, children }: ImageUploaderProps & typeof ImageUploaderDefaultProps) {
+function ImageUploader({ className, value, message, onChange, styles, imageStyles, children }: ImageUploaderProps & typeof ImageUploaderDefaultProps) {
   const [isDragging, setIsDragging] = useState(false);
   const imageRef = useRef<HTMLInputElement>(null);
 
@@ -44,11 +45,9 @@ function ImageUploader({ className, value, message, onChange, children }: ImageU
   }, [onChange, value]);
 
   // 선택한 파일로 이미지 변경
-  const changeFile = useCallback((file: File | null) => {
+  const changeFile = useCallback((file: File) => {
     const reader = new FileReader();
     const acceptable = ['image/jpeg', 'image/png']; // 받을 수 있는 파일 타입 지정
-
-    if (!file) return; // 파일이 없으면 처리 안함
 
     if (acceptable.includes(file.type)) {
       reader.onloadend = () => {
@@ -91,45 +90,132 @@ function ImageUploader({ className, value, message, onChange, children }: ImageU
     e.preventDefault();
     e.stopPropagation();
     setIsDragging(false);
-    changeFile(file);
+    if (file) changeFile(file);
   }, [changeFile]);
 
   return (
-    <article className={classNames("ImageUploader", className)}>
-      <input type="file" accept=".jpg, .png" ref={imageRef} onChange={onChangeInput} />
+    <StyledImageUploader
+      {...StyledImageUploaderDefaultProps} {...styles}
+      className={classNames(CLASS, className)}
+    >
+      <input type="file" accept=".jpg, .png" ref={imageRef} onChange={onChangeInput} style={{ display: "none" }} />
 
-      {value.previewURL &&
-      <img
-        src={String(value.previewURL)}
-        alt="업로드"
-        onDragOver={onDragOver}
-        onDragLeave={onDragLeave}
-        onDrop={onDrop}
-      />}
+      <section className={`${CLASS}__content-section`}>
+        {value.previewURL &&
+        <StyledImage
+          {...ImageStylesDefaultProps} {...imageStyles}
+          src={String(value.previewURL)}
+          alt="업로드"
+          onDragOver={onDragOver}
+          onDragLeave={onDragLeave}
+          onDrop={onDrop}
+        />}
 
-      {!value.previewURL && 
-      <section
-        className={classNames("ImageUploader__upload-section", {"isDragging": isDragging})}
-        onClick={showInput}
-        onDragOver={onDragOver}
-        onDragLeave={onDragLeave}
-        onDrop={onDrop}
-      >
-        <FontAwesomeIcon icon={faUpload} size="2x" />
-        <p className="description">파일을 드래그해서 업로드</p>
-      </section>}
-
-      <p className="ImageUploader__message-label">{message}</p>
-
-      <section className="ImageUploader__button-section">
-        <Button type="button" theme="primary" padding="0.5em" leftIcon={faUpload} onClick={showInput}>파일 선택</Button>
-        <Button type="button" theme="primary-outlined" padding="0.5em" leftIcon={faTrashCan} onClick={resetImage}>초기화</Button>
+        {!value.previewURL &&
+        <section
+          className={classNames(`${CLASS}__upload-section`, {"isDragging": isDragging})}
+          onClick={showInput}
+          onDragOver={onDragOver}
+          onDragLeave={onDragLeave}
+          onDrop={onDrop}
+        >
+          <FontAwesomeIcon icon={faUpload} size="2x" />
+          <p className="description">파일 업로드</p>
+          <p className="description">Drag & Drop</p>
+        </section>}
       </section>
 
-    </article>
+      <p className={`${CLASS}__message-label`}>{message}</p>
+
+      <section className={`${CLASS}__button-section`}>
+        <Button
+          type="button"
+          leftIcon={faUpload}
+          onClick={showInput}
+          styles={{
+            theme: "primary",
+            padding: "0.5em"
+          }}
+        >파일 선택</Button>
+        <Button
+          type="button"
+          leftIcon={faTrashCan}
+          onClick={resetImage}
+          styles={{
+            theme: "primary-outlined",
+            padding: "0.5em"
+          }}
+        >초기화</Button>
+      </section>
+
+    </StyledImageUploader>
   );
 }
 
 ImageUploader.defaultProps = ImageUploaderDefaultProps;
-
 export default ImageUploader;
+
+// 스타일 컴포넌트
+interface StyledImageUploaderProps {
+  width?: string;
+  height?: string;
+}
+const StyledImageUploaderDefaultProps = {};
+const StyledImageUploader = styled.article<StyledImageUploaderProps & typeof StyledImageUploaderDefaultProps>`
+  width: ${p => p.width};
+
+  .${CLASS}__upload-section {
+    margin-bottom: 1em; padding: 1em;
+    width: ${p => p.width};
+    height: ${p => p.height};
+    min-height: 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: #E5E7EB;
+    color: #65748B;
+    border: 2px dashed #E5E7EB;
+    border-radius: 5px;
+    text-align: center;
+    user-select: none;
+    cursor: pointer;
+    transition: 0.1s all;
+
+    &.isDragging { background-color: #bfc1c6; }
+    &:hover { background-color: #dcdee1; }
+    svg { margin-bottom: 0.3em; }
+  }
+
+  .${CLASS}__message-label {
+    margin: 0.5em 0 0.5em 0.8em;
+    color: red;
+  }
+
+  .${CLASS}__button-section {
+    margin-top: 1em;
+    
+    .Button {
+      width: 100%;
+      border-radius: 50px;
+      margin-bottom: 1em;
+    }
+  }
+`;
+
+interface ImageStylesProps {
+  width?: string;
+  minWidth?: string;
+  maxWidth?: string;
+  height?: string;
+}
+const ImageStylesDefaultProps = {}
+const StyledImage = styled.img<ImageStylesProps & typeof ImageStylesDefaultProps>`
+  margin-left: auto;
+  margin-right: auto;
+  width: ${p => p.width};
+  max-width: ${p => p.maxWidth};
+  min-width: ${p => p.minWidth};
+  height: ${p => p.height};
+`;

@@ -13,7 +13,6 @@ import { faClose } from '@fortawesome/free-solid-svg-icons';
 
 // 모달 컴포넌트 =========================
 const CLASS = 'ConfirmModal';
-
 interface ConfirmModalProps {
   titleName: string;
   hook: ModalHookType;
@@ -28,16 +27,17 @@ interface ConfirmModalProps {
   cancelButtonTheme?: ButtonTheme;
   children?: React.ReactNode;
 }
-
 const ConfirmModalDefaultProps = {
-  location: 'CENTER_CENTER',
+  location: {
+    horizontal: 'CENTER',
+    vertical: 'CENTER'
+  },
   confirmButtonTheme: 'danger',
   cancelButtonTheme: 'gray',
   confirmText: '확인',
   cancelText: '취소',
   backdrop: 'normal'
 };
-
 function ConfirmModal(p: ConfirmModalProps & typeof ConfirmModalDefaultProps) {
   return (
     <Modal
@@ -64,8 +64,20 @@ function ConfirmModal(p: ConfirmModalProps & typeof ConfirmModalDefaultProps) {
           <StyledFooter {...p}>
             {p.hook.errorMessage && <p className={`${CLASS}__error-label`}>{p.hook.errorMessage}</p>}
             <section className={`${CLASS}__button-section`}>
-              <Button theme={p.confirmButtonTheme} padding="0.7em" onClick={p.handleConfirm}>{p.confirmText}</Button>
-              <Button theme={p.cancelButtonTheme} padding="0.7em" onClick={p.hook.close}>{p.cancelText}</Button>
+              <Button
+                onClick={p.handleConfirm}
+                styles={{
+                  theme: p.confirmButtonTheme,
+                  padding: "0.7em"
+                }}
+                >{p.confirmText}</Button>
+              <Button
+                onClick={p.hook.close}
+                styles={{
+                  theme: p.cancelButtonTheme,
+                  padding: "0.7em"
+                }}
+              >{p.cancelText}</Button>
             </section>
           </StyledFooter>
         </CardFooter>
@@ -80,8 +92,8 @@ export default ConfirmModal;
 // 스타일 컴포넌트 =========================
 const StyledHeader = styled.header<ConfirmModalProps>`
   display: flex;
-  font-size: 1.75em;
   align-items: center;
+  font-size: 1.75em;
 
   .${CLASS}__title-label {
     margin: 0;

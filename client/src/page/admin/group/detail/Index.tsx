@@ -20,12 +20,12 @@ const GroupDetailPageDefaultProps = {};
 function GroupDetailPage({ children }: GroupDetailPageProps & typeof GroupDetailPageDefaultProps) {
   const { groupId } = useParams() as any;
   const { status, data: group, error } =
-  useQuery<AxiosResponse<typeof groupAPI.getGroupDetail.resType>, AxiosError<ErrorType>>
-  (queryKey.groupKeys.detail(groupId), groupAPI.getGroupDetail.axios(groupId));
+  useQuery<typeof groupAPI.getGroupDetail.resType, AxiosError<ErrorType>>
+  (queryKey.groupKeys.detail(groupId), () => groupAPI.getGroupDetail.axios(groupId));
 
   return (
     <div className="GroupDetailPage">
-      <BackLabel to="/admin/group/list" marginBottom="2em">그룹 목록</BackLabel>
+      <BackLabel to="/admin/group/list" styles={{ marginBottom: "2em" }}>그룹 목록</BackLabel>
       {status === 'error' && <ErrorCard error={error} /> }
       {status === 'loading' && <Skeleton /> }
       {status === 'success' && <Success group={group} groupId={groupId} /> }

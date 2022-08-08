@@ -28,11 +28,13 @@ function DownloadCard({ cropList, setCropList, children }: DownloadCardProps & t
             value={download}
             placeholder="파일명"
             onChange={(e) => setDownload(e.target.value)}
-            display="inline-block"
-            width="100%"
-            height="2em"
-            marginLeft="0.5em"
-            marginRight="1em"
+            styles={{
+              display: "inline-block",
+              width: "100%",
+              height: "2em",
+              marginLeft: "0.5em",
+              marginRight: "1em"
+            }}
           />
         </section>
       </CardBody>

@@ -1,5 +1,4 @@
 import React from 'react';
-import { AxiosResponse } from 'axios';
 import * as memberAPI from '@api/memberAPI';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import Button from '@component/form/Button';
@@ -9,7 +8,7 @@ import CardBody from '@component/card/basic/CardBody';
 import MemberRemove from './MemberRemove';
 
 interface SuccessProps {
-  member: AxiosResponse<typeof memberAPI.getMemberDetail.resType>;
+  member: typeof memberAPI.getMemberDetail.resType;
   memberId: number;
 }
 const SuccessDefaultProps = {};
@@ -18,8 +17,8 @@ function Success({ member, memberId }: SuccessProps & typeof SuccessDefaultProps
   return (
     <>
       <section className="name-section">
-        <p className="name-label">{member.data?.name}</p>
-        <p>그룹: <span className="group-name-label">{member.data?.group_name}</span></p>
+        <p className="name-label">{member?.name}</p>
+        <p>그룹: <span className="group-name-label">{member?.group_name}</span></p>
       </section>
 
       <Card marginBottom="5em">
@@ -27,13 +26,15 @@ function Success({ member, memberId }: SuccessProps & typeof SuccessDefaultProps
           <section className="title-section">
             <h3 className="title-label">등록된 포토카드</h3>
             <Button
-              theme="primary"
               rightIcon={faArrowRight}
+              styles={{
+                theme: "primary"
+              }}
             >목록</Button>
           </section>
         </CardHeader>
         <CardBody>
-          <p className="text">{member.data?.photo_cnt} 종류</p>
+          <p className="text">{member?.photo_cnt} 종류</p>
         </CardBody>
       </Card>
 

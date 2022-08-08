@@ -5,6 +5,7 @@ import styled from 'styled-components';
 interface CardProps {
   className?: string;
   display?: string;
+  width?: string;
   minWidth?: string;
   maxWidth?: string;
   margin?: string;
@@ -13,6 +14,7 @@ interface CardProps {
   marginLeft?: string;
   marginRight?: string;
   backgroundColor?: string;
+  boxShadow?: string;
   children?: React.ReactNode;
 }
 
@@ -34,6 +36,7 @@ export default Card;
 // 스타일 컴포넌트
 const StyledCard = styled.article<CardProps>`
   display: ${p => p.display};
+  width: ${p => p.width};
   min-width: ${p => p.minWidth};
   max-width: ${p => p.maxWidth};
   margin: ${p => p.margin};
@@ -42,6 +45,7 @@ const StyledCard = styled.article<CardProps>`
   margin-left: ${p => p.marginLeft};
   margin-right: ${p => p.marginRight};
   background-color: ${p => p.backgroundColor};
+  box-shadow: ${p => p.boxShadow};
   border: 1px solid #E5E7EB;
   border-radius: 10px;
 

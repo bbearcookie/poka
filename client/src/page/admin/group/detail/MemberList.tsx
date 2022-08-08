@@ -1,5 +1,4 @@
 import React, { useState, useCallback, Fragment } from 'react';
-import { AxiosResponse } from 'axios';
 import * as groupAPI from '@api/groupAPI';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
@@ -13,7 +12,7 @@ import MemberInfo from './MemberInfo';
 import MemberAddButton from './MemberAddButton';
 
 interface MemberListProps {
-  group: AxiosResponse<typeof groupAPI.getGroupDetail.resType>;
+  group: typeof groupAPI.getGroupDetail.resType;
   groupId: number;
 }
 
@@ -30,17 +29,17 @@ function MemberList({ group, groupId }: MemberListProps & typeof MemberListDefau
     <Card marginBottom="5em">
       <CardHeader><h1>그룹의 멤버</h1></CardHeader>
       <CardBody padding="0">
-        <Table borderStyle="none" borderBottom="1px solid #E6E8F0">
-          <TableHead height="3em">
+        <Table styles={{borderStyle: "none", borderBottom: "1px solid #E6E8F0" }}>
+          <TableHead styles={{ height: "3em" }}>
             <tr>
-              <TableHeadItem width="50%" paddingLeft="1.5em">이름</TableHeadItem>
-              <TableHeadItem width="20%">등록된 포토카드</TableHeadItem>
-              <TableHeadItem width="30%" paddingRight="1.5em" textAlign="right">액션</TableHeadItem>
+              <TableHeadItem styles={{ width: "50%", paddingLeft: "1.5em" }}>이름</TableHeadItem>
+              <TableHeadItem styles={{ width: "20%" }}>등록된 포토카드</TableHeadItem>
+              <TableHeadItem styles={{ width: "30%", paddingRight:" 1.5em", textAlign: "right" }}>액션</TableHeadItem>
             </tr>
           </TableHead>
-          <TableBody height="5em">
+          <TableBody styles={{ height: "5em" }}>
             <>
-              {group?.data?.members.map((item, idx) => (
+              {group?.members.map((item, idx) => (
                 <Fragment key={idx}>
                   {editorTarget === idx && <MemberEditor groupId={groupId} memberId={item.member_id} defaultValue={item.name} closeEditor={closeEditor} />}
                   {editorTarget !== idx && <MemberInfo idx={idx} memberId={item.member_id} name={item.name} photoCnt={item.photo_cnt} startEditor={() => startEditor(idx)} />}

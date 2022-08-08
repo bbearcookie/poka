@@ -2,15 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface TableHeadProps {
-  height?: string;
+  styles?: StylesProps;
   children?: React.ReactNode;
 }
-
 const TableHeadDefaultProps = {};
-
 function TableHead(p: TableHeadProps & typeof TableHeadDefaultProps) {
   return (
-    <StyledTableHead {...p}>
+    <StyledTableHead {...StylesDefaultProps} {...p.styles} {...p}>
       {p.children}
     </StyledTableHead>
   );
@@ -18,8 +16,11 @@ function TableHead(p: TableHeadProps & typeof TableHeadDefaultProps) {
 
 TableHead.defaultProps = TableHeadDefaultProps;
 export default TableHead;
-
-const StyledTableHead = styled.thead<TableHeadProps>`
+interface StylesProps {
+  height?: string;
+}
+const StylesDefaultProps = {};
+const StyledTableHead = styled.thead<StylesProps & typeof StylesDefaultProps>`
   height: ${p => p.height};
   background-color: #F3F4F6;
   color: #374151;

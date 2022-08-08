@@ -6,7 +6,19 @@ export default function(app: Express, baseURI: string) {
   app.get(`${baseURI}`, groupCtrl.getGroupList.controller);
   app.get(`${baseURI}/:groupId`, groupCtrl.getGroupDetail.validator, groupCtrl.getGroupDetail.controller);
   app.get(`${baseURI}/:groupId/member`, memberCtrl.getMembersOfGroup.validator, memberCtrl.getMembersOfGroup.controller);
-  app.put(`${baseURI}/:groupId`, groupCtrl.putGroup.uploader, groupCtrl.putGroup.validator, groupCtrl.putGroup.controller);
-  app.post(`${baseURI}`, groupCtrl.postGroup.uploader, groupCtrl.postGroup.validator, groupCtrl.postGroup.controller);
+  app.put(
+    `${baseURI}/:groupId`,
+    groupCtrl.putGroup.uploader.single,
+    groupCtrl.putGroup.uploader.errorHandler,
+    groupCtrl.putGroup.validator,
+    groupCtrl.putGroup.controller
+  );
+  app.post(
+    `${baseURI}`,
+    groupCtrl.postGroup.uploader.single,
+    groupCtrl.postGroup.uploader.errorHandler,
+    groupCtrl.postGroup.validator,
+    groupCtrl.postGroup.controller
+  );
   app.delete(`${baseURI}/:groupId`, groupCtrl.deleteGroup.validator, groupCtrl.deleteGroup.controller);
 };

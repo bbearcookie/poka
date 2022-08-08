@@ -51,7 +51,14 @@ function Upload({ setCropper, children }: UploadProps & typeof UploadDefaultProp
         <section className="title-section">
           <h1 className="title-label">이미지 자르기</h1>
           <input type="file" accept=".jpg, .png" onChange={onChangeImageInput} ref={fileRef} />
-          <Button theme="primary" padding="0.75em 1em" leftIcon={faUpload} onClick={showInput}>파일 선택</Button>
+          <Button
+            leftIcon={faUpload}
+            onClick={showInput}
+            styles={{
+              theme:"primary",
+              padding: "0.75em 1em"
+            }}
+          >파일 선택</Button>
         </section>
       </CardHeader>
       <CardBody>

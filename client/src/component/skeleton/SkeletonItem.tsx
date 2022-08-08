@@ -3,28 +3,12 @@ import styled from 'styled-components';
 
 interface SkeletonItemProps {
   className?: string;
-  width?: string;
-  height?: string;
-  margin?: string;
-  marginLeft?: string;
-  marginRight?: string;
-  marginTop?: string;
-  marginBottom?: string;
+  styles?: StylesProps;
 }
-
-const SkeletonItemDefaultProps = {
-  width: '5em',
-  height: '1.25em'
-};
-
-function SkeletonItem
-({ className, width, height, margin, marginTop, marginBottom, marginLeft, marginRight }: 
-SkeletonItemProps & typeof SkeletonItemDefaultProps) {
+const SkeletonItemDefaultProps = {};
+function SkeletonItem(p: SkeletonItemProps & typeof SkeletonItemDefaultProps) {
   return (
-    <StyledItem 
-      className={className} width={width} height={height}
-      margin={margin} marginTop={marginTop} marginBottom={marginBottom} marginLeft={marginLeft} marginRight={marginRight}
-    />
+    <StyledItem {...StylesDefaultProps} {...p.styles} {...p} />
   );
 }
 
@@ -32,7 +16,22 @@ SkeletonItem.defaultProps = SkeletonItemDefaultProps;
 export default SkeletonItem;
 
 // 스타일 컴포넌트
-const StyledItem = styled.div<SkeletonItemProps>`
+interface StylesProps {
+  width?: string;
+  height?: string;
+  margin?: string;
+  marginLeft?: string;
+  marginRight?: string;
+  marginTop?: string;
+  marginBottom?: string;
+  backgroundColor?: string;
+}
+const StylesDefaultProps = {
+  width: '5em',
+  height: '1.25em',
+  backgroundColor: 'gainsboro'
+};
+const StyledItem = styled.div<StylesProps & typeof StylesDefaultProps>`
   width: ${p => p.width};
   height: ${p => p.height};
   margin: ${p => p.margin};
@@ -40,6 +39,6 @@ const StyledItem = styled.div<SkeletonItemProps>`
   margin-bottom: ${p => p.marginBottom};
   margin-left: ${p => p.marginLeft};
   margin-right: ${p => p.marginRight};
-  background-color: gainsboro;
+  background-color: ${p => p.backgroundColor};
   border-radius: 10px;
 `;

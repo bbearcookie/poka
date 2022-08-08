@@ -11,6 +11,8 @@
       "@service/*": ["src/service/*"],
       "@util": ["/src/util"],
       "@util/*": ["src/util/*"],
+      "@uploader": ["/src/uploader"],
+      "@uploader/*": ["src/uploader/*"],
       "@": ["src"],
       "@/*": ["src/*"],
     },

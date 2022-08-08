@@ -11,7 +11,7 @@ import ConfirmModal from '@component/modal/ConfirmModal';
 import RemoveCard from '@component/card/RemoveCard';
 
 interface GroupRemoveProps {
-  group: AxiosResponse<typeof groupAPI.getGroupDetail.resType>;
+  group: typeof groupAPI.getGroupDetail.resType;
   groupId: number;
 }
 const GroupRemoveDefaultProps = {};
@@ -24,7 +24,7 @@ function GroupRemove({ group, groupId }: GroupRemoveProps & typeof GroupRemoveDe
   // 데이터 삭제 요청
   const deleteMutation = useMutation(groupAPI.deleteGroup.axios, {
     onSuccess: (res: AxiosResponse<typeof groupAPI.deleteGroup.resType>) => {
-      toast.success(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
+      toast.warning(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
       queryClient.invalidateQueries(queryKey.groupKeys.all);
       queryClient.invalidateQueries(queryKey.groupKeys.detail(groupId));
       return navigate('/admin/group/list');
@@ -36,7 +36,7 @@ function GroupRemove({ group, groupId }: GroupRemoveProps & typeof GroupRemoveDe
 
   // 그룹 삭제
   const removeGroup = useCallback(() => {
-    deleteMutation.mutate(groupId);
+    deleteMutation.mutate({groupId});
   }, [deleteMutation, groupId]);
 
   return (
@@ -51,13 +51,13 @@ function GroupRemove({ group, groupId }: GroupRemoveProps & typeof GroupRemoveDe
       <ConfirmModal
         hook={removeModal}
         maxWidth="100vh"
-        location="CENTER_CENTER"
+        location={{ vertical: 'CENTER', horizontal: 'CENTER' }}
         titleName="그룹 삭제"
         confirmText="삭제"
         handleConfirm={removeGroup}
       >
         <p className="text">이 그룹을 삭제하면 연관된 멤버와 포토카드도 함께 지워져요.</p>
-        <p className="text">정말로 {group.data?.name} 그룹을 삭제하시겠어요?</p>
+        <p className="text">정말로 {group?.name} 그룹을 삭제하시겠어요?</p>
       </ConfirmModal>
     </>
   );

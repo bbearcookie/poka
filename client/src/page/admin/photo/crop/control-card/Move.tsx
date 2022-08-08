@@ -61,32 +61,40 @@ function Move({ cropper, moveX, moveY, children }: MoveProps & typeof MoveDefaul
   return (
     <>
       <Button
-        theme="primary"
-        padding="0.3em"
-        marginRight="0.5em"
-        fontSize="1rem"
         onClick={() => handleMove('LEFT')}
+        styles={{
+          theme: "primary",
+          padding: "0.3em",
+          marginRight: "0.5em",
+          fontSize: "1rem"
+        }}
       >←</Button>
       <Button
-        theme="primary"
-        padding="0.3em"
-        marginRight="0.5em"
-        fontSize="1rem"
         onClick={() => handleMove('RIGHT')}
+        styles={{
+          theme: "primary",
+          padding: "0.3em",
+          marginRight: "0.5em",
+          fontSize: "1rem"
+        }}
       >→</Button>
       <Button
-        theme="primary"
-        padding="0.3em 0.5em"
-        marginRight="0.5em"
-        fontSize="1rem"
         onClick={() => handleMove('UP')}
+        styles={{
+          theme: "primary",
+          padding: "0.3em 0.5em",
+          marginRight: "0.5em",
+          fontSize: "1rem"
+        }}
       >↑</Button>
       <Button
-        theme="primary"
-        padding="0.3em 0.5em"
-        marginRight="0.5em"
-        fontSize="1rem"
         onClick={() => handleMove('DOWN')}
+        styles={{
+          theme: "primary",
+          padding: "0.3em 0.5em",
+          marginRight: "0.5em",
+          fontSize: "1rem"
+        }}
       >↓</Button>
     </>
   );

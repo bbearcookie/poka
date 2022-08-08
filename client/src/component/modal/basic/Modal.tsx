@@ -1,10 +1,10 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-export type LocationType =
-  | 'TOP_LEFT' | 'TOP_CENTER' | 'TOP_RIGHT'
-  | 'CENTER_LEFT' | 'CENTER_CENTER' | 'CENTER_RIGHT'
-  | 'BOTTOM_LEFT' | 'BOTTOM_CENTER' | 'BOTTOM_RIGHT';
+export type LocationType = {
+  horizontal: 'LEFT' | 'CENTER' | 'RIGHT';
+  vertical: 'TOP' | 'CENTER' | 'BOTTOM';
+}
 
 interface ModalProps {
   show: boolean;
@@ -12,11 +12,12 @@ interface ModalProps {
   onClick?: () => void;
   children?: React.ReactNode;
 }
-
 const ModalDefaultProps = {
-  location: 'CENTER_CENTER',
+  location: {
+    horizontal: 'CENTER',
+    vertical: 'CENTER'
+  }
 };
-
 function Modal(p: ModalProps & typeof ModalDefaultProps) {
   return (
     <StyledModal show={p.show} onClick={p.onClick}>
@@ -31,8 +32,13 @@ Modal.defaultProps = ModalDefaultProps;
 export default Modal;
 
 // 스타일 컴포넌트
+const exceedHeight = '3em'; // 모달 열고 닫을때 height 변화 애니메이션만큼 요소 보정하기 위한 변수
 const StyledModal = styled.section<ModalProps>`
-  width: 100%; height: calc(100% + 3em);
+  padding: 1em;
+  padding-bottom: calc(1em + ${exceedHeight});
+  box-sizing: border-box;
+  width: 100%; height: calc(100% + ${exceedHeight});
+  display: flex;
   position: fixed;
   top: 0; left: 0;
   background-color: rgba(0, 0, 0, 0.4);
@@ -54,16 +60,14 @@ const StyledModal = styled.section<ModalProps>`
       return css`
         opacity: 0;
         visibility: hidden;
-        transform: translateY(-3em);
+        transform: translateY(calc(-1 * ${exceedHeight}));
       `;
     }
   }}
 `;
 
-const StyledModalContent = styled.section<{location: string}>`
-  margin: 1em;
-  width: fit-content; height: fit-content;
-  position: absolute;
+const StyledModalContent = styled.section<{location: LocationType}>`
+  width: fit-content;
   max-height: 90%;
   overflow: auto;
 
@@ -81,71 +85,34 @@ const StyledModalContent = styled.section<{location: string}>`
     }
   }
 
-  // 모달 위치 지정
+  // 모달 세로 위치 조정
   ${(p) => {
-    switch (p.location) {
-      case "TOP_LEFT":
+    switch (p.location.vertical) {
+      case 'TOP':
+        return;
+      case 'CENTER':
         return css`
-          & {
-            left: 0; top: 0;
-            transform: translateX(0) translateY(0);
-          }
+          & { margin-top: auto; margin-bottom: auto; }
         `
-      case "TOP_CENTER":
+      case 'BOTTOM':
         return css`
-          & {
-            left: calc(50% - 1em); top: 0;
-            transform: translateX(-50%) translateY(0);
-          }
+          & { margin-top: auto; }
         `
-      case "TOP_RIGHT":
+    }
+  }}
+
+  // 모달 가로 위치 조정
+  ${(p) => {
+    switch (p.location.horizontal) {
+      case 'LEFT':
+        return;
+      case 'CENTER':
         return css`
-          & {
-            right: 0; top: 0;
-            transform: translateX(0) translateY(0);
-          }
+          & { margin-left: auto; margin-right: auto; }
         `
-      case "CENTER_LEFT":
+      case 'RIGHT':
         return css`
-          & {
-            left: 0; top: calc(50% - 3em);
-            transform: translateX(0) translateY(-50%);
-          }
-        `
-      case "CENTER_CENTER":
-        return css`
-          & {
-            left: calc(50% - 1em); top: calc(50% - 3em);
-            transform: translateX(-50%) translateY(-50%);
-          }
-        `
-      case "CENTER_RIGHT":
-        return css`
-          & {
-            right: 0; top: calc(50% - 3em);
-            transform: translateX(0) translateY(-50%);
-          }
-        `
-      case "BOTTOM_LEFT":
-        return css`
-          & {
-            left: 0; bottom: 0;
-            transform: translateX(0) translateY(-3em);
-          }
-        `
-      case "BOTTOM_CENTER":
-        return css`
-          & {
-            left: calc(50% - 1em); bottom: 0;
-            transform: translateX(-50%) translateY(-3em);
-          }
-        `
-      case "BOTTOM_RIGHT":
-        return css`
-          & {
-            right: 0; bottom: 0;
-            transform: translateX(0) translateY(-3em);
-          }
+          & { margin-left: auto; }
         `
     }
   }}

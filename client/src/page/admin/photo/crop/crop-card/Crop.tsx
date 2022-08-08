@@ -41,18 +41,22 @@ function Crop({ cropper, cropList, setCropList, children }: CropProps & typeof C
   return (
     <>
       <Button
-        theme="primary"
         leftIcon={faCut}
-        padding="0.65em 0.5em"
-        marginRight="1em"
         onClick={handleCrop}
+        styles={{
+          theme: "primary",
+          padding: "0.65em 0.5em",
+          marginRight: "1em"
+        }}
       >자르기</Button>
       <Button
-        theme="primary-outlined"
         leftIcon={faTrashCan}
-        padding="0.65em 0.5em"
-        marginRight="1em"
         onClick={handleReset}
+        styles={{
+          theme: "primary-outlined",
+          padding: "0.65em 0.5em",
+          marginRight: "1em"
+        }}
       >초기화</Button>
     </>
   );

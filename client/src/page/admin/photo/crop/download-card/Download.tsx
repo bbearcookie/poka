@@ -23,9 +23,11 @@ function Download({ cropList, setCropList, downloadName, children }: DownloadPro
   return (
     <>
       <Button
-        theme="primary"
-        padding="0.65em 0.5em"
         onClick={handleDownload}
+        styles={{
+          theme: "primary",
+          padding: "0.65em 0.5em"
+        }}
       >다운로드</Button>
       {cropList.map((item, idx) => (
         <Fragment key={idx}>
