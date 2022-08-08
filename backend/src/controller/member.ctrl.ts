@@ -12,8 +12,6 @@ export const getMembersOfGroup = {
   ],
   controller: async (req: Request, res: Response) => {
     const groupId = Number(req.params.groupId);
-    console.log(req.params.groupId);
-    console.log(groupId);
 
     try {
       const [members] = await memberService.selectAllMembersOfGroup(groupId);

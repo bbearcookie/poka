@@ -10,7 +10,6 @@ interface SearchInputProps {
 const SearchInputDefaultProps = {};
 
 function SearchInput({ children }: SearchInputProps & typeof SearchInputDefaultProps) {
-  const { labels } = useAppSelector((state) => state.adminPhotoSearch);
   const [input, setInput] = useState('');
   const dispatch = useAppDispatch();
 

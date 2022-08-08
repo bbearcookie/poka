@@ -1,4 +1,5 @@
 import { client } from "@util/commonAPI";
+import { LabelType } from '@page/admin/photo/list/searchSlice';
 
 export class getAllPhotoList {
   static axios = async () => {
@@ -21,9 +22,12 @@ export class getAllPhotoList {
 }
 
 export class getPhotoList {
-  static axios = async (limit: number, pageParam: number) => {
+  static axios = async (limit: number, pageParam: number, labels: LabelType[]) => {
+    const filters = labels.map((item) => ({ ...item.data }));
+    // console.log("-------api-------");
+    // console.log(filters);
     const url = `/api/photo`;
-    const params = { limit, pageParam }
+    const params = { limit, pageParam, filters: JSON.stringify(filters) };
     const res = await client.get<typeof this.resType>(url, { params });
     return res.data;
   };

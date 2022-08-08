@@ -8,6 +8,12 @@ type LabelDataType =
 { type: 'GROUP_ID'; value: number; } |
 { type: 'MEMBER_ID'; value: number; };
 
+export type LabelType = {
+  id: number;
+  text: string;
+  data: LabelDataType;
+}
+
 export const category = {
   'PHOTO_NAME': '포토카드 이름',
   'GROUP_ID': '그룹',
@@ -15,11 +21,7 @@ export const category = {
 }
 
 interface State {
-  labels: {
-    id: number;
-    text: string;
-    data: LabelDataType;
-  }[];
+  labels: LabelType[];
 }
 
 const initialState: State = {
