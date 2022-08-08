@@ -29,10 +29,14 @@ export default DropdownMenu;
 interface StylesProps {
   show?: boolean;
   width?: string;
+  minWidth?: string;
+  maxWidth?: string;
 }
 const StylesDefaultProps = {};
 const StyledDropdownMenu = styled.div<StylesProps & typeof StylesDefaultProps>`
   width: ${p => p.width};
+  min-width: ${p => p.minWidth};
+  max-width: ${p => p.maxWidth};
   padding: 0.5em 0;
   background-color: white;
   position: absolute;

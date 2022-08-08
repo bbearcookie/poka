@@ -34,7 +34,7 @@ function Dropdown(p: DropdownProps & typeof DropdownDefaultProps) {
       ref={ref}
     >
       {React.Children.map(p.children, (child) => {
-        // hook props 전달
+        // 자식 컴포넌트들에 필요한 hook props 전달
         return React.cloneElement(child as React.ReactElement, {
           hook: p.hook
         });

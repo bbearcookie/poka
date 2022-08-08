@@ -2,7 +2,7 @@ import React, { Fragment, useState, useCallback, useRef } from 'react';
 import { useQuery } from 'react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useAppSelector, useAppDispatch } from '@app/reduxHooks';
-import { setGroupId, setMemberId } from './searchSlice';
+import { toggleLabel } from './searchSlice';
 import { ErrorType } from '@util/commonAPI';
 import * as queryKey from '@util/queryKey';
 import * as groupAPI from '@api/groupAPI';
@@ -21,7 +21,7 @@ interface FilterCheckProps {
 const FilterCheckDefaultProps = {};
 
 function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultProps) {
-  const { keywords, groupIdList, memberIdList } = useAppSelector((state) => state.adminPhotoSearch);
+  const { labels } = useAppSelector((state) => state.adminPhotoSearch);
   const dispatch = useAppDispatch();
   const groupDropdown = useDropdown();
   const memberDropdown = useDropdown();
@@ -36,15 +36,33 @@ function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultP
 
   // 그룹 아이템 선택시
   const onClickGroupItem = useCallback((e: React.MouseEvent) => {
-    const groupId = e.currentTarget.getAttribute("data");
-    if (groupId) dispatch(setGroupId(Number(groupId)));
-  }, [dispatch]);
+    const groupId = Number(e.currentTarget.getAttribute("data"));
+    const name = groupQuery.data?.groups.find((item) => item.group_id === groupId)?.name;
+    if (groupId) {
+      dispatch(toggleLabel({
+        text: name ? name : '',
+        data: {
+          type: 'GROUP_ID',
+          value: groupId
+        }
+      }));
+    }
+  }, [dispatch, groupQuery]);
 
   // 멤버 아이템 선택시
   const onClickMemberItem = useCallback((e: React.MouseEvent) => {
-    const memberId = e.currentTarget.getAttribute("data");
-    if (memberId) dispatch(setMemberId(Number(memberId)));
-  }, [dispatch]);
+    const memberId = Number(e.currentTarget.getAttribute("data"));
+    const name = memberQuery.data?.members.find((item) => item.member_id === memberId)?.name;
+    if (memberId) {
+      dispatch(toggleLabel({
+        text: name ? name : '',
+        data: {
+          type: 'MEMBER_ID',
+          value: memberId
+        }
+      }));
+    }
+  }, [dispatch, memberQuery]);
 
   return (
     <section className="check-section">
@@ -60,7 +78,7 @@ function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultP
               <input 
                 type="checkbox" 
                 value={group.group_id}
-                checked={groupIdList.includes(group.group_id) ? true : false}
+                checked={labels.find((item) => item.data.type === 'GROUP_ID' && item.data.value === group.group_id) ? true : false}
                 onChange={() => {}}
               />
               <span>{group.name}</span>
@@ -75,19 +93,19 @@ function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultP
           <FontAwesomeIcon className="icon" icon={faChevronDown} />
         </DropdownButton>
         <DropdownMenu styles={{ width: '10em' }}>
-          {groupIdList.length > 0 && memberQuery.data?.members.map((member) => groupIdList.includes(member.group_id) && (
+          {memberQuery.data?.members.map((member) => labels.find((item) => item.data.type === 'GROUP_ID' && item.data.value === member.group_id) && (
             <DropdownItem key={member.member_id} data={member.member_id} onClick={onClickMemberItem}>
               <input 
                 type="checkbox" 
                 value={member.member_id}
-                checked={memberIdList.includes(member.member_id) ? true : false}
+                checked={labels.find((item) => item.data.type === 'MEMBER_ID' && item.data.value === member.member_id) ? true : false}
                 onChange={() => {}}
               />
               <span>{member.name}</span>
             </DropdownItem>
           ))}
 
-          {groupIdList.length === 0 && <DropdownItem>전체</DropdownItem>} 
+          {!labels.find((item) => item.data.type === 'GROUP_ID') && <DropdownItem>전체</DropdownItem>} 
         </DropdownMenu>
       </Dropdown>
 

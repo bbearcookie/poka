@@ -17,6 +17,12 @@
     }
   }
 
+  .search-label-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+  }
+
   .check-section {
     display: flex;
     margin-bottom: 1em;

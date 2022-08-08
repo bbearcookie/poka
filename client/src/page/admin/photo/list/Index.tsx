@@ -5,7 +5,8 @@ import Button from '@component/form/Button';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
-import Search from './Search';
+import SearchInput from './SearchInput';
+import SearchLabelList from './SearchLabelList';
 import PhotoList from './PhotoList';
 import FilterCheck from './FilterCheck';
 import './Index.scss';
@@ -33,7 +34,8 @@ function PhotoListPage({ children }: PhotoListPageProps & typeof PhotoListPageDe
       </section>
       <Card>
         <CardHeader padding="0" borderBottom="0">
-          <Search />
+          <SearchInput />
+          <SearchLabelList />
         </CardHeader>
         <CardBody>
           <FilterCheck />

@@ -2,70 +2,65 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const name = 'adminPhotoSearch';
 let nextId = 0;
+
+type LabelDataType =
+{ type: 'PHOTO_NAME'; value: string; } |
+{ type: 'GROUP_ID'; value: number; } |
+{ type: 'MEMBER_ID'; value: number; };
+
+export const category = {
+  'PHOTO_NAME': '포토카드 이름',
+  'GROUP_ID': '그룹',
+  'MEMBER_ID': '멤버'
+}
+
 interface State {
-  keywords: {
+  labels: {
     id: number;
-    data: {
-      type: 'PHOTO_NAME';
-      value: string;
-    }
-    // | {
-    //   type: 'GROUP_ID';
-    //   value: number;
-    // } | {
-    //   type: 'MEMBER_ID';
-    //   value: number;
-    //   groupId: number;
-    // }
+    text: string;
+    data: LabelDataType;
   }[];
-  groupIdList: number[];
-  memberIdList: number[];
 }
 
 const initialState: State = {
-  keywords: [],
-  groupIdList: [],
-  memberIdList: []
+  labels: [],
 }
 
 export const slice = createSlice({
   name,
   initialState,
   reducers: {
-    setPhotoName: (state, { payload: value }: PayloadAction<string>) => {
-      const keywords = state.keywords.filter((item) => item.data.type !== 'PHOTO_NAME');
-
-      state.keywords = keywords.concat({
+    // 새로운 라벨 추가하는 함수
+    addLabel: (state, { payload }: PayloadAction<{ text: string; data: LabelDataType }>) => {
+      state.labels = state.labels.concat({
         id: nextId++,
-        data: {
-          type: 'PHOTO_NAME',
-          value
-        }
+        text: payload.text,
+        data: payload.data
       });
     },
 
-    setGroupId: (state, { payload: groupId }: PayloadAction<number>) => {
-      // 이미 선택된 그룹이면 필터에서 제거
-      if (state.groupIdList.includes(groupId)) {
-        state.groupIdList = state.groupIdList.filter(item => item !== groupId);
-      // 아직 선택되지 않은 그룹이면 필터에 추가
-      } else {
-        state.groupIdList = state.groupIdList.concat(groupId);
-      }
+    // 라벨 제거하는 함수
+    removeLabel: (state, { payload: id }: PayloadAction<number>) => {
+      state.labels = state.labels.filter((item) => item.id !== id);
     },
 
-    setMemberId: (state, { payload: memberId }: PayloadAction<number>) => {
-      // 이미 선택된 멤버이면 필터에서 제거
-      if (state.memberIdList.includes(memberId)) {
-        state.memberIdList = state.memberIdList.filter(item => item !== memberId);
-      // 아직 선택되지 않은 그룹이면 필터에 추가
+    // 라벨이 이미 있으면 제거하고, 아직 없으면 추가하는 함수
+    toggleLabel: (state, { payload }: PayloadAction<{ text: string; data: LabelDataType; }>) => {
+      // 이미 들어있는 내용이면 라벨에서 제거
+      if (state.labels.find((item) => item.data.type === payload.data.type && item.data.value === payload.data.value)) {
+        state.labels = state.labels.filter((item) => !(item.data.type === payload.data.type && item.data.value === payload.data.value));
+      // 들어있지 않은 내용이면 라벨에 추가
       } else {
-        state.memberIdList = state.memberIdList.concat(memberId);
+        state.labels = state.labels.concat({
+          id: nextId++,
+          text: payload.text,
+          data: payload.data
+        });
       }
-    }
+    },
 
   }
 });
 
-export const { setPhotoName, setGroupId, setMemberId } = slice.actions
+export const { addLabel, removeLabel, toggleLabel } = slice.actions;
 export default slice.reducer;
