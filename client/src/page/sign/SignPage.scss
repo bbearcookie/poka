@@ -1,0 +1,38 @@
+.SignPage {
+  padding: 1rem;
+  min-height: calc(100% - 2rem);
+  color: #121828;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #F9FAFC;
+  
+
+  .title-section {
+    text-align: center;
+
+    .input-section {
+      margin-bottom: 1em;
+      .label { text-align: start; }
+    }
+
+    .title-label { margin: 0.35em 0; font-size: 2rem; }
+    img { border-radius: 20rem; }
+  }
+
+  .content-section {
+    .title-label { margin: 0.35em 0; font-size: 2rem; text-align: center; }
+  }
+
+  .link-section {
+    text-align: start;
+    a {
+      color: #65748b;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
