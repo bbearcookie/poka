@@ -1,4 +1,6 @@
 import React from 'react';
+import { useAppSelector, useAppDispatch } from '@app/reduxHooks';
+import { login, logout } from '@util/auth/authSlice';
 import '../PageTemplate.scss';
 
 interface UserPageProps {
@@ -7,9 +9,15 @@ interface UserPageProps {
 const UserPageDefaultProps = {};
 
 function UserPage({ children }: UserPageProps & typeof UserPageDefaultProps) {
+  const { username, strategy, role } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+
   return (
     <div className="PageTemplate">
-      유저 페이지
+      <div>유저 페이지</div>
+      <div>{username}</div>
+      <div>{strategy}</div>
+      <div>{role}</div>
     </div>
   );
 }

@@ -1,4 +1,7 @@
 import React, { useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '@app/reduxHooks';
+import { login, logout } from '@util/auth/authSlice';
 import { useMutation } from 'react-query';
 import { toast } from 'react-toastify';
 import * as authAPI from '@api/authAPI';
@@ -28,11 +31,18 @@ function Form({ children }: FormProps & typeof FormDefaultProps) {
     username: '',
     password: '',
   });
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   // 로그인 요청
   const postMutation = useMutation(authAPI.postLogin.axios, {
     onSuccess: (res: AxiosResponse<typeof authAPI.postLogin.resType>) => {
-      console.log(res);
+      if (!res.data) return console.error('비정상적인 응답');
+      console.log(res.data);
+      toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
+      dispatch(login(res.data.user));
+      if (res.data.user.role === 'admin') return navigate('/admin');
+      else return navigate('/');
     },
     onError: (err: AxiosError<ErrorType<keyof InputType>>) => {
       if (err.response?.data.message) toast.error(err.response?.data.message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });

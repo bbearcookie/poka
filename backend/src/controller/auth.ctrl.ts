@@ -63,16 +63,17 @@ export const postLogin = {
       const encryptedPassword = encryptText(password, user.salt);
       if (user.password !== encryptedPassword) return res.status(409).json(createResponseMessage("password", "비밀번호가 일치하지 않아요."));
 
-      const accessToken = createLoginToken({
+      const payload = {
         username: user.username,
         role: user.role,
         strategy: user.strategy
-      });
+      };
+      const accessToken = createLoginToken(payload);
       res.cookie('accessToken', accessToken, { httpOnly: true });
       // const result = verifyToken(accessToken);
       // console.log(result);
 
-      return res.status(200).json({ message: 'TODO: 로그인 성공!' });
+      return res.status(200).json({ message: 'TODO: 로그인 성공!', user: payload });
     } catch (err) {
       console.error(err);
       return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });

@@ -19,5 +19,10 @@ export class postLogin {
   }
   static resType = undefined as undefined | {
     message: string;
+    user: {
+      username: string;
+      role: string;
+      strategy: string;
+    }
   }
 }
