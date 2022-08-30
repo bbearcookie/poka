@@ -32,7 +32,7 @@ function Form({ children }: FormProps & typeof FormDefaultProps) {
   // 로그인 요청
   const postMutation = useMutation(authAPI.postLogin.axios, {
     onSuccess: (res: AxiosResponse<typeof authAPI.postLogin.resType>) => {
-
+      console.log(res);
     },
     onError: (err: AxiosError<ErrorType<keyof InputType>>) => {
       if (err.response?.data.message) toast.error(err.response?.data.message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });

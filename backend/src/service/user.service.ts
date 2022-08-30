@@ -8,7 +8,7 @@ export const selectUserDetailByUsername = async (username: string) => {
 
   try {
     let sql = `
-    SELECT user_id, username, nickname, password, salt, strategy, registered_time
+    SELECT user_id, username, nickname, password, salt, role, strategy, registered_time
     FROM User
     WHERE username=${con.escape(username)}`;
 
@@ -18,6 +18,7 @@ export const selectUserDetailByUsername = async (username: string) => {
       nickname: string;
       password: string;
       salt: string;
+      role: string;
       strategy: string;
       registered_time: string;
     }

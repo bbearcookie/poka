@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { body, param } from 'express-validator';
 import { validate, createResponseMessage } from '@util/validator';
 import { encryptText } from '@util/encrypt';
+import { createLoginToken, verifyToken } from '@util/jwt';
 import * as userService from '@service/user.service';
 
 // 회원가입
@@ -62,6 +63,16 @@ export const postLogin = {
       const encryptedPassword = encryptText(password, user.salt);
       if (user.password !== encryptedPassword) return res.status(409).json(createResponseMessage("password", "비밀번호가 일치하지 않아요."));
 
+      const accessToken = createLoginToken({
+        username: user.username,
+        role: user.role,
+        strategy: user.strategy
+      });
+      res.cookie('accessToken', accessToken, { httpOnly: true });
+      // const result = verifyToken(accessToken);
+      // console.log(result);
+
+      return res.status(200).json({ message: 'TODO: 로그인 성공!' });
     } catch (err) {
       console.error(err);
       return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
