@@ -13,6 +13,7 @@ export function createLoginToken(payload: object) {
 // 토큰 검증
 export function verifyToken(token: string) {
   if (!process.env.TOKEN_SECRET_KEY) throw new Error("TOKEN_SECRET_KEY is undefined");
+  if (!token) throw new Error("Token is missing");
   
   return jwt.verify(token, process.env.TOKEN_SECRET_KEY);
 }

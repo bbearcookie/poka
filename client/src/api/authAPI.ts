@@ -26,3 +26,19 @@ export class postLogin {
     }
   }
 }
+
+export class postVerify {
+  static axios = async () => {
+    const url = `/api/auth/verify`;
+    const res = await client.post<typeof this.resType>(url);
+    return res;
+  }
+  static resType = undefined as undefined | {
+    message: string;
+    user: {
+      username: string;
+      role: string;
+      strategy: string;
+    }
+  }
+}

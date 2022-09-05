@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Button from '@component/form/Button';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAppSelector, useAppDispatch } from '@app/reduxHooks';
-import { changeShow } from '@component/sidebar/admin/sidebarSlice';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { changeShow } from '@component/sidebar/sidebarSlice';
 import './Navbar.scss';
 
 interface NavbarProps {
@@ -11,7 +11,7 @@ interface NavbarProps {
 }
 const NavbarDefaultProps = {}
 function Navbar({ children }: NavbarProps & typeof NavbarDefaultProps) {
-  const show = useAppSelector((state) => state.adminSidebar.show);
+  const show = useAppSelector((state) => state.sidebar.show);
   const dispatch = useAppDispatch();
 
   const onClickSidebarIcon = (e: React.MouseEvent) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import AdminRouter from '@app/router/AdminRouter';
-import Sidebar from '@component/sidebar/admin/Sidebar';
-import Navbar from '@component/navbar/admin/Navbar';
+import Sidebar from '@component/sidebar/Sidebar';
+import Navbar from '@component/navbar/Navbar';
 import '../PageTemplate.scss';
 
 interface AdminPageProps {
@@ -12,7 +12,7 @@ const AdminPageDefaultProps = {};
 function AdminPage({ children }: AdminPageProps & typeof AdminPageDefaultProps) {
   return (
     <div className="PageTemplate">
-      <Sidebar />
+      <Sidebar mode="ADMIN" />
       <section className="page-section">
         <Navbar />
         <AdminRouter />

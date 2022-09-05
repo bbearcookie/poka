@@ -35,7 +35,7 @@ export function ParentItem(
   { id, icon, text, iconMarginRight, children }
   : ParentItemProps & typeof ParentItemDefaultProps) {
   const [show, setShow] = useState(false);
-  const parentActiveId = useAppSelector((state) => state.adminSidebar.parentActiveId);
+  const parentActiveId = useAppSelector((state) => state.sidebar.parentActiveId);
   const length = React.Children.count(children); // 하위 아이템 개수
 
   const onClick = useCallback((e: React.MouseEvent) => {
@@ -94,7 +94,7 @@ export function ChildItem(
   { showParent, parentId, to, icon, iconMarginRight, text }
   : ChildItemProps & typeof ChildItemDefaultProps) {
   const URI = window.location.pathname;
-  const activeURI = useAppSelector((state) => state.adminSidebar.activeURI);
+  const activeURI = useAppSelector((state) => state.sidebar.activeURI);
   const dispatch = useAppDispatch();
 
   // 첫 렌더시 URI 내용 가지고 부모의 액티브 설정

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const name = 'adminSidebar';
+const name = 'sidebar';
 
 interface State {
   activeURI: string;

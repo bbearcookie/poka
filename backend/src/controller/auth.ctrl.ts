@@ -82,3 +82,19 @@ export const postLogin = {
     return res.status(501).json({ message: 'Not Implemented' });
   }
 }
+
+// 토큰 검증
+export const postVerify = {
+  controller: async (req: Request, res: Response) => {
+    const accessToken = req.cookies.accessToken;
+
+    try {
+      const payload = verifyToken(accessToken);
+      return res.status(200).json({ message: '로그인 인증 성공', user: payload });
+    } catch (err) {
+      return res.status(401).json({ message: '로그인 인증 실패' });
+    }
+    
+    return res.status(501).json({ message: 'Not Implemented' });
+  }
+}
