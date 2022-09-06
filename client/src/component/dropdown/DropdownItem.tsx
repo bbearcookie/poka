@@ -1,11 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import classNames from 'classnames';
 
-const CLASS = 'DropdownItem';
 interface DropdownItemProps {
-  className?: string;
-  data?: unknown;
+  data?: unknown; // HTML 요소에 넣은 값을 자바스크립트로 가져와 써야할 때 사용
   onClick?: (e: React.MouseEvent) => void;
   children?: React.ReactNode;
 }
@@ -13,13 +10,10 @@ const DropdownItemDefaultProps = {
   onClick: (e: React.MouseEvent) => e.stopPropagation()
 };
 
-function DropdownItem(p: DropdownItemProps & typeof DropdownItemDefaultProps) {
+function DropdownItem({ data, onClick, children }: DropdownItemProps & typeof DropdownItemDefaultProps) {
   return (
-    <StyledItem
-      {...p}
-      className={classNames(CLASS, p.className)}
-    >
-      {p.children}
+    <StyledItem data-data={data} onClick={onClick}>
+      {children}
     </StyledItem>
   );
 }

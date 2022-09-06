@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useCallback, useRef } from 'react';
+import { usePopper } from 'react-popper';
 import { useQuery } from 'react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useAppSelector, useAppDispatch } from '@app/reduxHooks';
@@ -25,6 +26,8 @@ function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultP
   const dispatch = useAppDispatch();
   const groupDropdown = useDropdown();
   const memberDropdown = useDropdown();
+  const groupPopper = usePopper(groupDropdown.buttonElement, groupDropdown.menuElement, {});
+  const memberPopper = usePopper(memberDropdown.buttonElement, memberDropdown.menuElement, {});
 
   const groupQuery =
   useQuery<typeof groupAPI.getAllGroupList.resType, AxiosError<ErrorType>>
@@ -36,7 +39,7 @@ function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultP
 
   // 그룹 아이템 선택시
   const onClickGroupItem = useCallback((e: React.MouseEvent) => {
-    const groupId = Number(e.currentTarget.getAttribute("data"));
+    const groupId = Number(e.currentTarget.getAttribute("data-data"));
     const name = groupQuery.data?.groups.find((item) => item.group_id === groupId)?.name;
     if (groupId) {
       dispatch(toggleLabel({
@@ -51,7 +54,7 @@ function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultP
 
   // 멤버 아이템 선택시
   const onClickMemberItem = useCallback((e: React.MouseEvent) => {
-    const memberId = Number(e.currentTarget.getAttribute("data"));
+    const memberId = Number(e.currentTarget.getAttribute("data-data"));
     const name = memberQuery.data?.members.find((item) => item.member_id === memberId)?.name;
     if (memberId) {
       dispatch(toggleLabel({
@@ -68,11 +71,17 @@ function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultP
     <section className="check-section">
 
       <Dropdown hook={groupDropdown}>
-        <DropdownButton styles={{ padding: "0.25em" }}>
+        <DropdownButton
+          styles={{ padding: "0.25em" }}
+          buttonRef={groupDropdown.buttonRef}
+          onClick={() => groupDropdown.toggle()}
+        >
           <b>그룹</b>
           <FontAwesomeIcon className="icon" icon={faChevronDown} />
         </DropdownButton>
-        <DropdownMenu styles={{ width: '10em' }}>
+
+        {groupDropdown.show && 
+        <DropdownMenu popper={groupPopper} menuRef={groupDropdown.menuRef}>
           {groupQuery.data?.groups.map((group) => (
             <DropdownItem key={group.group_id} data={group.group_id} onClick={onClickGroupItem}>
               <input 
@@ -84,15 +93,21 @@ function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultP
               <span>{group.name}</span>
             </DropdownItem>
           ))}
-        </DropdownMenu>
+        </DropdownMenu>}
       </Dropdown>
 
       <Dropdown hook={memberDropdown}>
-        <DropdownButton styles={{ padding: "0.25em" }}>
+        <DropdownButton
+          styles={{ padding: "0.25em" }}
+          buttonRef={memberDropdown.buttonRef}
+          onClick={() => memberDropdown.toggle()}
+        >
           <b>멤버</b>
           <FontAwesomeIcon className="icon" icon={faChevronDown} />
         </DropdownButton>
-        <DropdownMenu styles={{ width: '10em' }}>
+
+        {memberDropdown.show &&
+        <DropdownMenu popper={memberPopper} menuRef={memberDropdown.menuRef}>
           {memberQuery.data?.members.map((member) => labels.find((item) => item.data.type === 'GROUP_ID' && item.data.value === member.group_id) && (
             <DropdownItem key={member.member_id} data={member.member_id} onClick={onClickMemberItem}>
               <input 
@@ -106,7 +121,7 @@ function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultP
           ))}
 
           {!labels.find((item) => item.data.type === 'GROUP_ID') && <DropdownItem>전체</DropdownItem>} 
-        </DropdownMenu>
+        </DropdownMenu>}
       </Dropdown>
 
     </section>

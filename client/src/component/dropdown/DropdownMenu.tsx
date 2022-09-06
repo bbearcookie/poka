@@ -1,23 +1,36 @@
-import React, { useEffect } from 'react';
-import styled, { css } from 'styled-components';
-import { DropdownHookType } from '@hook/useDropdown';
+import React from 'react';
+import styled from 'styled-components';
+import * as PopperJS from '@popperjs/core';
 
 interface DropdownMenuProps {
-  hook?: DropdownHookType;
-  className?: string;
+  menuRef?: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
+  popper?: {
+    styles: {
+        [key: string]: React.CSSProperties;
+    };
+    attributes: {
+        [key: string]: {
+            [key: string]: string;
+        } | undefined;
+    };
+    state: PopperJS.State | null;
+    update: (() => Promise<Partial<PopperJS.State>>) | null;
+    forceUpdate: (() => void) | null;
+  }
   styles?: StylesProps;
   children?: React.ReactNode;
 }
 const DropdownMenuDefaultProps = {};
 
-function DropdownMenu(p: DropdownMenuProps & typeof DropdownMenuDefaultProps) {
+function DropdownMenu({ menuRef, popper, styles, children }: DropdownMenuProps & typeof DropdownMenuDefaultProps) {
   return (
     <StyledDropdownMenu
-      {...StylesDefaultProps} {...p.styles}
-      {...p}
-      show={p.hook?.show}
+      {...StylesDefaultProps} {...styles}
+      ref={menuRef}
+      style={popper?.styles.popper}
+      {...popper?.attributes.popper}
     >
-      {p.children}
+      {children}
     </StyledDropdownMenu>
   );
 }
@@ -26,36 +39,12 @@ DropdownMenu.defaultProps = DropdownMenuDefaultProps;
 export default DropdownMenu;
 
 // 스타일 컴포넌트
-interface StylesProps {
-  show?: boolean;
-  width?: string;
-  minWidth?: string;
-  maxWidth?: string;
-}
+interface StylesProps {}
 const StylesDefaultProps = {};
 const StyledDropdownMenu = styled.div<StylesProps & typeof StylesDefaultProps>`
-  width: ${p => p.width};
-  min-width: ${p => p.minWidth};
-  max-width: ${p => p.maxWidth};
   padding: 0.5em 0;
   background-color: white;
-  position: absolute;
   z-index: 10;
   border: 2px solid #E5E7EB;
   border-radius: 10px;
-  overflow: hidden;
-
-  ${(p) => {
-    if (p.show) {
-      return css`
-        opacity: 1;
-        visibility: visible;
-      `;
-    } else {
-      return css`
-        opacity: 0;
-        visibility: hidden;
-      `;
-    }
-  }}
 `
