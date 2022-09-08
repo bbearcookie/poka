@@ -21,6 +21,7 @@ export class postLogin {
     message: string;
     user: {
       username: string;
+      nickname: string;
       role: string;
       strategy: string;
     }
@@ -37,6 +38,7 @@ export class postVerify {
     message: string;
     user: {
       username: string;
+      nickname: string;
       role: string;
       strategy: string;
     }

@@ -70,6 +70,7 @@ function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultP
   return (
     <section className="check-section">
 
+      {/* 그룹 선택 드롭다운 */}
       <Dropdown hook={groupDropdown}>
         <DropdownButton
           styles={{ padding: "0.25em" }}
@@ -96,6 +97,7 @@ function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultP
         </DropdownMenu>}
       </Dropdown>
 
+      {/* 멤버 선택 드롭다운 */}
       <Dropdown hook={memberDropdown}>
         <DropdownButton
           styles={{ padding: "0.25em" }}
