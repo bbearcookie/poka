@@ -1,5 +1,5 @@
 import { client } from "@util/commonAPI";
-import { LabelType } from '@page/admin/photo/list/searchSlice';
+import { LabelType } from '@component/photo-list/content/searchSlice';
 
 export class getAllPhotoList {
   static axios = async () => {

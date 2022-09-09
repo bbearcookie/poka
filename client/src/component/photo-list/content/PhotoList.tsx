@@ -7,8 +7,8 @@ import { AxiosError } from 'axios';
 import { ErrorType } from '@util/commonAPI';
 import * as queryKey from '@util/queryKey';
 import * as photoAPI from '@api/photoAPI';
-import PhotoCard from './PhotoCard';
-import SkeletonPhotoCard from './SkeletonPhotoCard';
+import PhotoCard from '../basic/PhotoCard';
+import SkeletonPhotoCard from '../basic/SkeletonPhotoCard';
 
 interface PhotoListProps {
   children?: React.ReactNode;

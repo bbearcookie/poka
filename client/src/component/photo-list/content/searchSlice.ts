@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const name = 'adminPhotoSearch';
+const name = 'photoSearch';
 let nextId = 0;
 
 type LabelDataType =
