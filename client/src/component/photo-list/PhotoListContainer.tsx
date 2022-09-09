@@ -6,6 +6,7 @@ import SearchInput from './content/SearchInput';
 import SearchLabelList from './content/SearchLabelList';
 import FilterCheck from './content/FilterCheck';
 import PhotoList from './content/PhotoList';
+import './PhotoListContainer.scss';
 
 interface PhotoListContainerProps {
   children?: React.ReactNode;
@@ -14,7 +15,7 @@ const PhotoListContainerDefaultProps = {};
 
 function PhotoListContainer({ children }: PhotoListContainerProps & typeof PhotoListContainerDefaultProps) {
   return (
-    <Card>
+    <Card className="PhotoListContainer">
       <CardHeader padding="0" borderBottom="0">
         <SearchInput />
         <SearchLabelList />

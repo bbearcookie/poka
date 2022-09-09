@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppSelector, useAppDispatch } from '@app/reduxHooks';
+import UserRouter from '@app/router/UserRouter';
 import Sidebar from '@component/sidebar/Sidebar';
 import Navbar from '@component/navbar/Navbar';
 import '../PageTemplate.scss';
@@ -10,17 +10,13 @@ interface UserPageProps {
 const UserPageDefaultProps = {};
 
 function UserPage({ children }: UserPageProps & typeof UserPageDefaultProps) {
-  const { username, strategy, role } = useAppSelector((state) => state.auth);
 
   return (
     <div className="PageTemplate">
       <Sidebar mode="USER" />
       <section className="page-section">
         <Navbar />
-        <div>유저 페이지</div>
-        <div>{username}</div>
-        <div>{strategy}</div>
-        <div>{role}</div>
+        <UserRouter />
       </section>
     </div>
   );

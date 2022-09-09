@@ -1,5 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '@app/reduxHooks';
 import styled from 'styled-components';
 import { BACKEND } from '@util/commonAPI';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
@@ -23,25 +24,38 @@ interface PhotoCardProps {
 }
 const PhotoCardDefaultProps = {};
 
-function PhotoCard(p: PhotoCardProps & typeof PhotoCardDefaultProps) {
+function PhotoCard({ photo, styles, children }: PhotoCardProps & typeof PhotoCardDefaultProps) {
+  const user = useAppSelector((state) => state.auth);
+  const navigate = useNavigate();
+
+  // 상세 페이지로 이동
+  const onClickLink = useCallback(() => {
+    if (user.role === 'admin') {
+      return navigate(`/admin/photo/detail/${photo.photocard_id}`);
+    } else {
+      console.log('TODO: 사용자 전용 포토카드 상세 페이지로 이동')
+    }
+  }, [user, photo, navigate]);
+
   return (
-    <StyledPhotoCard {...StylesDefaultProps} {...p.styles} className={CLASS}>
+    <StyledPhotoCard {...StylesDefaultProps} {...styles} className={CLASS}>
       <Card boxShadow="0px 0px 10px 0px #C0C0C0">
         <CardBody>
           <img
             width="150" height="224"
-            src={`${BACKEND}/image/photo/${p.photo.image_name}`}
+            src={`${BACKEND}/image/photo/${photo.image_name}`}
             alt="이미지" />
-          <div className={`${CLASS}__photocard-name`}><p>{p.photo.name}</p></div>
+          <div className={`${CLASS}__photocard-name`}><p>{photo.name}</p></div>
           <section className={`${CLASS}__content-section`}>
             <section className={`${CLASS}__name-section`}>
-              <p className={`${CLASS}__member-name`}>{p.photo.member_name}</p>
-              <p className={`${CLASS}__group-name`}>{p.photo.group_name}</p>
+              <p className={`${CLASS}__member-name`}>{photo.member_name}</p>
+              <p className={`${CLASS}__group-name`}>{photo.group_name}</p>
             </section>
             <section className={`${CLASS}__icon-section`}>
-              <Link to={`/admin/photo/detail/${p.photo.photocard_id}`}>
+              <IconButton icon={faArrowRight} size="lg" onClick={onClickLink}/>
+              {/* <Link to={`/admin/photo/detail/${p.photo.photocard_id}`}>
                 <IconButton icon={faArrowRight} size="lg"/>
-              </Link>
+              </Link> */}
             </section>
           </section>
         </CardBody>
