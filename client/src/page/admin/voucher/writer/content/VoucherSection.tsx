@@ -31,7 +31,7 @@ function VoucherSection({ children }: VoucherSectionProps & typeof VoucherSectio
                 padding: "0.7em 1.3em",
                 iconMargin: "1em"
               }}
-              onClick={() => addModal.open()}
+              onClick={(e) => { e.stopPropagation(); addModal.open() }}
             >추가</Button>
           </section>
         </CardHeader>
@@ -40,7 +40,7 @@ function VoucherSection({ children }: VoucherSectionProps & typeof VoucherSectio
         </CardBody>
       </Card>
 
-      <Modal show={addModal.show} onClick={() => addModal.close()}>
+      <Modal hook={addModal} styles={{ width: '75%' }}>
         <Card>
           <CardBody>
             <PhotoListContainer />

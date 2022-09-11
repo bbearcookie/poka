@@ -42,7 +42,7 @@ function ConfirmModal(p: ConfirmModalProps & typeof ConfirmModalDefaultProps) {
   return (
     <Modal
       // 모달 보여주기 / 안보여주기
-      show={p.hook.show}
+      hook={p.hook}
       // 모달 위치 지정
       location={p.location}
       // backdrop이 normal일 때만 바깥 영역 클릭시 모달 닫기

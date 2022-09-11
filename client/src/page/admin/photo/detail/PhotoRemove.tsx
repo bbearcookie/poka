@@ -44,7 +44,7 @@ function PhotoRemove({ photo, photocardId, children }: PhotoRemoveProps & typeof
     <>
       <RemoveCard
         titleText="포토카드 삭제"
-        onClick={removeModal.open}
+        onClick={(e) => { e.stopPropagation(); removeModal.open(); }}
       >
         <p className="description">해당 포토카드를 삭제하면 연관된 사용자의 소유권도 모두 지워지니 신중히 삭제해주세요.</p>
       </RemoveCard>

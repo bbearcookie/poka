@@ -8,7 +8,7 @@ import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 interface RemoveCardProps {
   titleText?: string;
   buttonText?: string;
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler;
   children?: React.ReactNode;
 }
 const RemoveCardDefaultProps = {
