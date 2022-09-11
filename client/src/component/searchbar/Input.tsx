@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
 interface InputProps {
@@ -11,6 +11,7 @@ interface InputProps {
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
   children?: React.ReactNode;
 }
 const InputDefaultProps = {};

@@ -19,8 +19,9 @@ function SearchInput({ children }: SearchInputProps & typeof SearchInputDefaultP
   }, []);
 
   // 검색 키워드 추가
-  const handleSearch = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSearch = useCallback(() => {
+    if (!input) return;
+    
     dispatch(addLabel({
       text: input,
       data: {
@@ -39,7 +40,7 @@ function SearchInput({ children }: SearchInputProps & typeof SearchInputDefaultP
         value={input}
         placeholder="포토카드 이름으로 검색"
         handleInputChange={changeInput}
-        onSubmit={handleSearch}
+        handleAddKeyword={handleSearch}
       />
     </CardHeader>
   );

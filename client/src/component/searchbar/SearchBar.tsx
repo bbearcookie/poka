@@ -13,13 +13,12 @@ interface SearchBarProps {
   maxLength?: number;
   placeholder?: string;
   handleInputChange?: React.ChangeEventHandler<HTMLInputElement>;
-  onSubmit?: React.FormEventHandler;
+  handleAddKeyword?: () => void;
   styles?: StylesProps;
   children?: React.ReactNode;
 }
 const SearchBarDefaultProps = {
   autoComplete: 'off',
-  onSubmit: (e: React.FormEvent) => { e.preventDefault(); }
 };
 function SearchBar(p: SearchBarProps & typeof SearchBarDefaultProps) {
   const [active, setActive] = useState(false);
@@ -28,7 +27,6 @@ function SearchBar(p: SearchBarProps & typeof SearchBarDefaultProps) {
     <StyledSearchBar 
       {...StylesDefaultProps} {...p.styles} {...p}
       className={classNames(CLASS, {"active": active})}
-      onSubmit={p.onSubmit}
     >
       <Input
         type={p.type}
@@ -40,9 +38,10 @@ function SearchBar(p: SearchBarProps & typeof SearchBarDefaultProps) {
         onChange={p.handleInputChange}
         onFocus={(e) => setActive(true)}
         onBlur={(e) => setActive(false)}
+        onKeyDown={(e) => e.key === 'Enter' && p.handleAddKeyword && p.handleAddKeyword()}
       />
       {p.children}
-      <Button />
+      <Button onClick={p.handleAddKeyword} />
     </StyledSearchBar>
   );
 }
@@ -57,7 +56,7 @@ interface StylesProps {
 const StylesDefaultProps = {
   height: '3em',
 };
-const StyledSearchBar = styled.form<StylesProps & typeof StylesDefaultProps>`
+const StyledSearchBar = styled.div<StylesProps & typeof StylesDefaultProps>`
   height: ${p => p.height};
   display: flex;
   align-items: center;

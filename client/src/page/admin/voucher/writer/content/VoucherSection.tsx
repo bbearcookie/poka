@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import useModal from '@hook/useModal';
+import PhotoListContainer from '@component/photo-list/PhotoListContainer';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
@@ -21,7 +22,7 @@ function VoucherSection({ children }: VoucherSectionProps & typeof VoucherSectio
       <Card marginBottom="2em">
         <CardHeader>
           <section className="title-label-section">
-            <h3 className="title-label">소유권</h3>
+            <h3 className="title-label">소유권 선택</h3>
             <Button
               leftIcon={faPlus}
               styles={{
@@ -42,6 +43,7 @@ function VoucherSection({ children }: VoucherSectionProps & typeof VoucherSectio
       <Modal show={addModal.show} onClick={() => addModal.close()}>
         <Card>
           <CardBody>
+            <PhotoListContainer />
             <p>TODO: 포토카드 선택할 수 있는 영역</p>
           </CardBody>
         </Card>
