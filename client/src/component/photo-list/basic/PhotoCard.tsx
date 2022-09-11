@@ -33,7 +33,7 @@ function PhotoCard({ photo, styles, children }: PhotoCardProps & typeof PhotoCar
     if (user.role === 'admin') {
       return navigate(`/admin/photo/detail/${photo.photocard_id}`);
     } else {
-      console.log('TODO: 사용자 전용 포토카드 상세 페이지로 이동')
+      console.log('TODO: 사용자 전용 포토카드 상세 페이지로 이동');
     }
   }, [user, photo, navigate]);
 

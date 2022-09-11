@@ -1,16 +1,17 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import FirstPage from "@page/admin/first/FirstPage";
-import SecondPage from "@page/admin/second/SecondPage";
-import GroupListPage from "@page/admin/group/list/Index";
-import GroupWriterPage from "@page/admin/group/writer/WriterIndex";
-import GroupEditorPage from "@page/admin/group/writer/EditorIndex";
-import GroupDetailPage from "@page/admin/group/detail/Index";
-import MemberDetailPage from "@page/admin/member/detail/Index";
-import CropPage from "@page/admin/photo/crop/Index";
-import PhotoWriterPage from "@page/admin/photo/writer/Index";
-import PhotoListPage from "@page/admin/photo/list/Index";
-import PhotoDetailPage from "@page/admin/photo/detail/Index";
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import FirstPage from '@page/admin/first/FirstPage';
+import SecondPage from '@page/admin/second/SecondPage';
+import GroupListPage from '@page/admin/group/list/Index';
+import GroupWriterPage from '@page/admin/group/writer/WriterIndex';
+import GroupEditorPage from '@page/admin/group/writer/EditorIndex';
+import GroupDetailPage from '@page/admin/group/detail/Index';
+import MemberDetailPage from '@page/admin/member/detail/Index';
+import CropPage from '@page/admin/photo/crop/Index';
+import PhotoWriterPage from '@page/admin/photo/writer/Index';
+import PhotoListPage from '@page/admin/photo/list/Index';
+import PhotoDetailPage from '@page/admin/photo/detail/Index';
+import VoucherWriterPage from '@page/admin/voucher/writer/Index';
 
 // /admin 하위 라우팅 내용
 function AdminRouter() {
@@ -34,6 +35,7 @@ function AdminRouter() {
       <Route path="/photo/crop" element={<CropPage />} />
       <Route path="/photo/writer" element={<PhotoWriterPage />} />
       <Route path="/photo/detail/:photocardId" element={<PhotoDetailPage />} />
+      <Route path="/voucher/writer" element={<VoucherWriterPage />} />
     </Routes>
   );
 }
