@@ -1,42 +1,31 @@
-import React, { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '@app/reduxHooks';
+import React from 'react';
 import styled from 'styled-components';
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { BACKEND } from '@util/commonAPI';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 import IconButton from '@component/form/IconButton';
 
 export const CLASS = 'PhotoCard';
+export type PhotoType = {
+  photocard_id: number;
+  member_id: number;
+  group_id: number;
+  name: string;
+  group_name: string;
+  member_name: string;
+  image_name: string;
+};
 interface PhotoCardProps {
-  photo: {
-    photocard_id: number;
-    member_id: number;
-    group_id: number;
-    name: string;
-    group_name: string;
-    member_name: string;
-    image_name: string;
-  }
+  photo: PhotoType;
+  icon?: IconDefinition;
+  handleClickIcon?: (photo: PhotoType) => void;
   styles?: StylesProps,
   children?: React.ReactNode;
 }
 const PhotoCardDefaultProps = {};
 
-function PhotoCard({ photo, styles, children }: PhotoCardProps & typeof PhotoCardDefaultProps) {
-  const user = useAppSelector((state) => state.auth);
-  const navigate = useNavigate();
-
-  // 상세 페이지로 이동
-  const onClickLink = useCallback(() => {
-    if (user.role === 'admin') {
-      return navigate(`/admin/photo/detail/${photo.photocard_id}`);
-    } else {
-      console.log('TODO: 사용자 전용 포토카드 상세 페이지로 이동');
-    }
-  }, [user, photo, navigate]);
-
+function PhotoCard({ photo, icon, handleClickIcon, styles, children }: PhotoCardProps & typeof PhotoCardDefaultProps) {
   return (
     <StyledPhotoCard {...StylesDefaultProps} {...styles} className={CLASS}>
       <Card boxShadow="0px 0px 10px 0px #C0C0C0">
@@ -51,11 +40,9 @@ function PhotoCard({ photo, styles, children }: PhotoCardProps & typeof PhotoCar
               <p className={`${CLASS}__member-name`}>{photo.member_name}</p>
               <p className={`${CLASS}__group-name`}>{photo.group_name}</p>
             </section>
+
             <section className={`${CLASS}__icon-section`}>
-              <IconButton icon={faArrowRight} size="lg" onClick={onClickLink}/>
-              {/* <Link to={`/admin/photo/detail/${p.photo.photocard_id}`}>
-                <IconButton icon={faArrowRight} size="lg"/>
-              </Link> */}
+              {icon && <IconButton icon={icon} size="lg" onClick={() => handleClickIcon && handleClickIcon(photo)} />}
             </section>
           </section>
         </CardBody>

@@ -1,21 +1,25 @@
-import React, { Fragment, useEffect, useCallback } from 'react';
+import React, { Fragment, useCallback } from 'react';
 import { useUpdateEffect } from 'react-use';
-import { useAppSelector, useAppDispatch } from '@app/reduxHooks';
+import { useAppSelector } from '@app/reduxHooks';
 import { useInfiniteQuery, useQueryClient } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 import { AxiosError } from 'axios';
 import { ErrorType } from '@util/commonAPI';
 import * as queryKey from '@util/queryKey';
 import * as photoAPI from '@api/photoAPI';
+import { PhotoType } from '../basic/PhotoCard';
 import PhotoCard from '../basic/PhotoCard';
 import SkeletonPhotoCard from '../basic/SkeletonPhotoCard';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 interface PhotoListProps {
+  icon?: IconDefinition;
+  handleClickIcon?: (photo: PhotoType) => void;
   children?: React.ReactNode;
 }
 const PhotoListDefaultProps = {};
 
-function PhotoList({ children }: PhotoListProps & typeof PhotoListDefaultProps) {
+function PhotoList({ icon, handleClickIcon, children }: PhotoListProps & typeof PhotoListDefaultProps) {
   const { labels } = useAppSelector((state) => state.adminPhotoSearch);
   const [viewRef, inView] = useInView();
   const limit = 20; // 한 페이지에 보여줄 아이템 갯수
@@ -60,7 +64,7 @@ function PhotoList({ children }: PhotoListProps & typeof PhotoListDefaultProps) 
         {photos?.pages.map((page, pageIdx) => 
           <Fragment key={pageIdx}>
             {page?.photos.map((item) => (
-              <PhotoCard key={item.photocard_id} photo={item} />
+              <PhotoCard key={item.photocard_id} photo={item} icon={icon} handleClickIcon={handleClickIcon} />
             ))}
           </Fragment>
         )}

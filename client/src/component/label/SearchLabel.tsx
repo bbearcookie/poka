@@ -17,7 +17,11 @@ function SearchLabel({ id, category, text, handleRemove, children }: SearchLabel
   return (
     <StyledLabel className={CLASS}>
       <b>{category}: </b> <span>{text}</span>
-      <FontAwesomeIcon className={`${CLASS}__close-icon`} icon={faCircleXmark} size="lg" onClick={() => handleRemove(id)} />
+      <FontAwesomeIcon
+        className={`${CLASS}__close-icon`}
+        icon={faCircleXmark} size="lg"
+        onClick={(e) => { e.stopPropagation(); handleRemove(id) }}
+      />
     </StyledLabel>
   );
 }

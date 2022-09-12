@@ -25,7 +25,6 @@ function Modal({ hook, location, styles, children }: ModalProps & typeof ModalDe
   // 모달의 바깥 영역이 클릭되면 모달 닫음
   useEffect(() => {
     const closeModal = (e: MouseEvent) => {
-
       if (!ref.current?.contains(e.target as unknown as Node)) {
         hook.close();
       }

@@ -4,7 +4,10 @@ const name = 'voucherWriter';
 
 interface State {
   username: string;
-  vouchers: object[];
+  vouchers: {
+    photocardId: number;
+    amount: number;
+  }[];
 }
 
 const initialState: State = {

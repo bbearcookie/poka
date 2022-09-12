@@ -8,7 +8,7 @@ import { SizeProp } from '@fortawesome/fontawesome-svg-core';
 interface IconButtonProps {
   icon: IconDefinition;
   size?: SizeProp;
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler;
   children?: React.ReactNode;
 }
 const IconButtonDefaultProps = {};

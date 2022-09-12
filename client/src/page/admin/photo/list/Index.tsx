@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import Button from '@component/form/Button';
 import PhotoListContainer from '@component/photo-list/PhotoListContainer';
+import { PhotoType } from '@component/photo-list/basic/PhotoCard';
 import './Index.scss';
 
 interface PhotoListPageProps {
@@ -11,6 +13,13 @@ interface PhotoListPageProps {
 const PhotoListPageDefaultProps = {};
 
 function PhotoListPage({ children }: PhotoListPageProps & typeof PhotoListPageDefaultProps) {
+  const navigate = useNavigate();
+
+  // 관리자용 상세 페이지로 이동
+  const handleClickDetailIcon = useCallback((photo: PhotoType) => {
+    navigate(`/admin/photo/detail/${photo.photocard_id}`);
+  }, [navigate]);
+
   return (
     <section className="PhotoListPage">
       <section className="title-label-section">
@@ -26,7 +35,7 @@ function PhotoListPage({ children }: PhotoListPageProps & typeof PhotoListPageDe
           >추가</Button>
         </Link>
       </section>
-      <PhotoListContainer />
+      <PhotoListContainer icon={faArrowRight} handleClickIcon={handleClickDetailIcon} />
     </section>
   );
 }

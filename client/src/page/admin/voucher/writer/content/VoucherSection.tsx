@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faPlus } from '@fortawesome/free-solid-svg-icons';
 import useModal from '@hook/useModal';
 import PhotoListContainer from '@component/photo-list/PhotoListContainer';
 import Card from '@component/card/basic/Card';
@@ -7,6 +7,8 @@ import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Modal from '@component/modal/basic/Modal';
 import Input from '@component/form/Input';
+import IconButton from '@component/form/IconButton';
+import { PhotoType } from '@component/photo-list/basic/PhotoCard';
 import Button from '@component/form/Button';
 
 interface VoucherSectionProps {
@@ -16,6 +18,12 @@ const VoucherSectionDefaultProps = {};
 
 function VoucherSection({ children }: VoucherSectionProps & typeof VoucherSectionDefaultProps) {
   const addModal = useModal();
+
+  // TODO: 모달 닫고 상태값에 클릭된 포토카드 추가
+  const handleAddVoucher = useCallback((photo: PhotoType) => {
+    console.log(`${photo.photocard_id} 를 추가하면 된다.`);
+    addModal.close();
+  }, [addModal]);
 
   return (
     <>
@@ -43,8 +51,7 @@ function VoucherSection({ children }: VoucherSectionProps & typeof VoucherSectio
       <Modal hook={addModal} styles={{ width: '75%' }}>
         <Card>
           <CardBody>
-            <PhotoListContainer />
-            <p>TODO: 포토카드 선택할 수 있는 영역</p>
+            <PhotoListContainer icon={faArrowRight} handleClickIcon={handleAddVoucher} />
           </CardBody>
         </Card>
       </Modal>
