@@ -1,15 +1,16 @@
 import React, { useCallback } from 'react';
-import { faArrowRight, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { useAppDispatch } from '@app/reduxHooks';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { PhotoType } from '@component/photo-list/basic/PhotoCard';
 import useModal from '@hook/useModal';
-import PhotoListContainer from '@component/photo-list/PhotoListContainer';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Modal from '@component/modal/basic/Modal';
-import Input from '@component/form/Input';
-import IconButton from '@component/form/IconButton';
-import { PhotoType } from '@component/photo-list/basic/PhotoCard';
+import PhotoListContainer from '@component/photo-list/PhotoListContainer';
 import Button from '@component/form/Button';
+import { addVoucher } from '../voucherWriterSlice';
+import PhotoList from './PhotoList';
 
 interface VoucherSectionProps {
   children?: React.ReactNode;
@@ -18,15 +19,16 @@ const VoucherSectionDefaultProps = {};
 
 function VoucherSection({ children }: VoucherSectionProps & typeof VoucherSectionDefaultProps) {
   const addModal = useModal();
+  const dispatch = useAppDispatch();
 
-  // TODO: 모달 닫고 상태값에 클릭된 포토카드 추가
+  // 소유권 선택 공간에 포토카드 추가
   const handleAddVoucher = useCallback((photo: PhotoType) => {
-    console.log(`${photo.photocard_id} 를 추가하면 된다.`);
+    dispatch(addVoucher(photo.photocard_id));
     addModal.close();
-  }, [addModal]);
+  }, [addModal, dispatch]);
 
   return (
-    <>
+    <section className="VoucherSection">
       <Card marginBottom="2em">
         <CardHeader>
           <section className="title-label-section">
@@ -39,23 +41,24 @@ function VoucherSection({ children }: VoucherSectionProps & typeof VoucherSectio
                 padding: "0.7em 1.3em",
                 iconMargin: "1em"
               }}
-              onClick={(e) => { e.stopPropagation(); addModal.open() }}
+              onClick={(e) => { e.stopPropagation(); addModal.open(); }}
             >추가</Button>
           </section>
         </CardHeader>
         <CardBody>
           <p className="description">사용자에게 발급하려는 소유권의 종류와 수량을 지정합니다.</p>
+          <PhotoList />
         </CardBody>
       </Card>
 
       <Modal hook={addModal} styles={{ width: '75%' }}>
         <Card>
           <CardBody>
-            <PhotoListContainer icon={faArrowRight} handleClickIcon={handleAddVoucher} />
+            <PhotoListContainer icon={faPlus} handleClickIcon={handleAddVoucher} />
           </CardBody>
         </Card>
       </Modal>
-    </>
+    </section>
   );
 }
 

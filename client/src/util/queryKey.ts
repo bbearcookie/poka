@@ -18,3 +18,8 @@ export const photoKeys = {
   all: ['photos'] as const,
   detail: (photocardId: number) => [...photoKeys.all, photocardId] as const
 }
+
+export const voucherKeys = {
+  list: ['vouchers'] as const,
+  select: ['vouchers', 'select'] as const
+}

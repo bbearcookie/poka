@@ -5,6 +5,7 @@ import { BACKEND } from '@util/commonAPI';
 import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 import IconButton from '@component/form/IconButton';
+import CardFooter from '@component/card/basic/CardFooter';
 
 export const CLASS = 'PhotoCard';
 export type PhotoType = {
@@ -46,6 +47,7 @@ function PhotoCard({ photo, icon, handleClickIcon, styles, children }: PhotoCard
             </section>
           </section>
         </CardBody>
+        {children && <CardFooter>{children}</CardFooter>}
       </Card>
     </StyledPhotoCard>
   );

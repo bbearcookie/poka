@@ -47,6 +47,7 @@ export class getPhotoList {
 }
 
 export class getPhotoDetail {
+  // 함수 호출할 때 클라이언트에서만 쓰이는 고유한 ID 값이 있다면 넘겨받을 수 있도록 지정.
   static axios = async (photocardId: number) => {
     const url = `/api/photo/${photocardId}`;
     const res = await client.get<typeof this.resType>(url);

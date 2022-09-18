@@ -3,6 +3,7 @@ import { useAppSelector, useAppDispatch } from '@app/reduxHooks';
 import { initialize } from './voucherWriterSlice';
 import UsernameSection from './content/UsernameSection';
 import VoucherSection from './content/VoucherSection';
+import SubmitSection from './content/SubmitSection';
 import './Index.scss';
 
 interface IndexProps {
@@ -32,7 +33,7 @@ function Index({ children }: IndexProps & typeof IndexDefaultProps) {
       <form onSubmit={onSubmit}>
         <UsernameSection />
         <VoucherSection />
-        <button type='submit'>전송</button>
+        <SubmitSection />
       </form>
     </div>
   );
