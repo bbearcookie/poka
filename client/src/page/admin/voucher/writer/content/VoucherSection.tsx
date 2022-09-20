@@ -1,15 +1,16 @@
 import React, { useCallback } from 'react';
-import { useAppDispatch } from '@app/reduxHooks';
+import { useAppSelector, useAppDispatch } from '@app/reduxHooks';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { PhotoType } from '@component/photo-list/basic/PhotoCard';
+import InputMessage from '@component/form/InputMessage';
 import useModal from '@hook/useModal';
+import Modal from '@component/modal/basic/Modal';
+import Button from '@component/form/Button';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
-import Modal from '@component/modal/basic/Modal';
 import PhotoListContainer from '@component/photo-list/PhotoListContainer';
-import Button from '@component/form/Button';
-import { addVoucher } from '../voucherWriterSlice';
+import { addVoucher, setMessage } from '../voucherWriterSlice';
 import PhotoList from './PhotoList';
 
 interface VoucherSectionProps {
@@ -18,12 +19,14 @@ interface VoucherSectionProps {
 const VoucherSectionDefaultProps = {};
 
 function VoucherSection({ children }: VoucherSectionProps & typeof VoucherSectionDefaultProps) {
+  const { vouchers } = useAppSelector((state) => state.voucherWriter);
   const addModal = useModal();
   const dispatch = useAppDispatch();
 
   // 소유권 선택 공간에 포토카드 추가
   const handleAddVoucher = useCallback((photo: PhotoType) => {
     dispatch(addVoucher(photo.photocard_id));
+    dispatch(setMessage({ type: 'vouchers', message: '' }));
     addModal.close();
   }, [addModal, dispatch]);
 
@@ -47,7 +50,8 @@ function VoucherSection({ children }: VoucherSectionProps & typeof VoucherSectio
         </CardHeader>
         <CardBody>
           <p className="description">사용자에게 발급하려는 소유권의 종류와 수량을 지정합니다.</p>
-          <PhotoList />
+          {vouchers.value.length > 0 && <PhotoList />}
+          {vouchers.message && <InputMessage styles={{ margin: '1em 0 0 0' }}>{vouchers.message}</InputMessage>}
         </CardBody>
       </Card>
 

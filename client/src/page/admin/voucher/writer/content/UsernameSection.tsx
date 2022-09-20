@@ -1,10 +1,11 @@
 import React, { useCallback } from 'react';
 import { useAppSelector, useAppDispatch } from '@app/reduxHooks';
-import { setUsername } from '../voucherWriterSlice';
+import { setUsername, setMessage } from '../voucherWriterSlice';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Input from '@component/form/Input';
+import InputMessage from '@component/form/InputMessage';
 
 interface UsernameSectionProps {
   children?: React.ReactNode;
@@ -25,8 +26,9 @@ function UsernameSection({ children }: UsernameSectionProps & typeof UsernameSec
         <Input
           type="text"
           name="username"
-          value={username}
+          value={username.value}
           onChange={(e) => dispatch(setUsername(e.target.value))}
+          onBlur={(e) => dispatch(setMessage({ type: 'username', message: '' }))}
           placeholder="아이디를 입력하세요"
           autoComplete="off"
           styles={{
@@ -34,7 +36,9 @@ function UsernameSection({ children }: UsernameSectionProps & typeof UsernameSec
             height: "2.5em",
             margin: "1em 0 0.5em 0"
           }}
-        />
+        >
+          <InputMessage styles={{ margin: '1em 0 0 0' }}>{username.message}</InputMessage>
+        </Input>
       </CardBody>
     </Card>
   );

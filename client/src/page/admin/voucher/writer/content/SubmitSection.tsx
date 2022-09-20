@@ -23,7 +23,7 @@ function SubmitSection({ children }: SubmitSectionProps & typeof SubmitSectionDe
           padding: "1em 2em",
           marginLeft: "1em"
         }}
-      >작성</Button>
+      >발급</Button>
     </section>
   );
 }
