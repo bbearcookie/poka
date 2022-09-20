@@ -1,8 +1,9 @@
 import React, { useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import { toast } from 'react-toastify';
 import { useAppSelector, useAppDispatch } from '@app/reduxHooks';
-import { initialize, setMessage, setVoucherMessage } from './voucherWriterSlice';
+import { initialize, clearMessage, setMessage, setVoucherMessage } from './voucherWriterSlice';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorType } from '@util/commonAPI';
 import * as voucherAPI from '@api/voucherAPI';
@@ -19,11 +20,13 @@ const IndexDefaultProps = {};
 function Index({ children }: IndexProps & typeof IndexDefaultProps) {
   const form = useAppSelector((state) => state.voucherWriter);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   // 소유권 발급 요청
   const postMutation = useMutation(voucherAPI.postVoucher.axios, {
     onSuccess: (res: AxiosResponse<typeof voucherAPI.postVoucher.resType>) => {
-
+      toast.success(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
+      return navigate('/admin/voucher/list');
     },
     onError: (err: AxiosError<ErrorType>) => {
       if (err.response?.data.message) toast.error(err.response?.data.message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
@@ -56,13 +59,14 @@ function Index({ children }: IndexProps & typeof IndexDefaultProps) {
   const onSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
 
+    dispatch(clearMessage());
     postMutation.mutate({
       data: {
         username: form.username.value,
         vouchers: form.vouchers.value.map((item) => ({ photocardId: item.photocardId, amount: item.amount }))
       }
     });
-  }, [form, postMutation]);
+  }, [form, dispatch, postMutation]);
 
   return (
     <div className="VoucherWriterPage">

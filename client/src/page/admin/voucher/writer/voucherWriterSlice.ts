@@ -42,6 +42,15 @@ export const slice = createSlice({
       state.vouchers = initialState.vouchers;
     },
 
+    // 유효성 검사 메시지 초기화
+    clearMessage: (state) => {
+      state.username = { ...state.username, message: '' };
+      state.vouchers = {
+        message: '',
+        value: state.vouchers.value.map((item) => ({ ...item, message: '' }))
+      }
+    },
+
     // 유효성 메시지 변경
     setMessage: (state, { payload }: PayloadAction<{type: keyof State; message: string;}>) => {
       state[payload.type].message = payload.message;
@@ -58,7 +67,7 @@ export const slice = createSlice({
         state.vouchers.value = state.vouchers.value.concat({
           id: nextId++,
           photocardId,
-          amount: 0,
+          amount: 1,
           message: ''
         });
       }
@@ -88,5 +97,5 @@ export const slice = createSlice({
   }
 });
 
-export const { initialize, setMessage, setUsername, addVoucher, setVoucherMessage, removeVoucher, changeVoucherAmount } = slice.actions;
+export const { initialize, clearMessage, setMessage, setUsername, addVoucher, setVoucherMessage, removeVoucher, changeVoucherAmount } = slice.actions;
 export default slice.reducer;
