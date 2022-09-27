@@ -1,17 +1,22 @@
 .VoucherWriterPage {
   padding: 5em 1.5em;
-  
+
   .title-label {
+    margin: 0 0 1em 0;
+    font-size: 1.75rem;
+  }
+  
+  .label {
     margin: 0.5em 0;
   }
 
-  .title-label-section {
+  .label-section {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 1em;
 
-    .title-label { flex-grow: 1; }
+    .label { flex-grow: 1; }
   }
   
   .PhotoList {

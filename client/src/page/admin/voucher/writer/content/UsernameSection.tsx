@@ -19,7 +19,7 @@ function UsernameSection({ children }: UsernameSectionProps & typeof UsernameSec
   return (
     <Card marginBottom="2em">
       <CardHeader>
-        <h3 className="title-label">사용자 아이디</h3>
+        <h3 className="label">사용자 아이디</h3>
       </CardHeader>
       <CardBody>
         <p className="description">소유권을 발급하려는 대상 사용자의 아이디를 지정합니다.</p>

@@ -70,7 +70,7 @@ function Index({ children }: IndexProps & typeof IndexDefaultProps) {
 
   return (
     <div className="VoucherWriterPage">
-      <h1>소유권 발급</h1>
+      <h1 className="title-label">소유권 발급</h1>
       <form onSubmit={onSubmit}>
         <UsernameSection />
         <VoucherSection />

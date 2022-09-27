@@ -33,3 +33,12 @@ export const postVoucher = {
     return res.status(501).json({ message: 'Not Implemented' });
   }
 }
+
+// 전체 소유권 목록 조회
+export const getAllVoucherList = {
+}
+
+// 사용자 개인의 소유권 목록 조회
+export const getMineVoucherList = {
+  
+}

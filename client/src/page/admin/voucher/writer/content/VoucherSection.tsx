@@ -34,8 +34,8 @@ function VoucherSection({ children }: VoucherSectionProps & typeof VoucherSectio
     <section className="VoucherSection">
       <Card marginBottom="2em">
         <CardHeader>
-          <section className="title-label-section">
-            <h3 className="title-label">소유권 선택</h3>
+          <section className="label-section">
+            <h3 className="label">소유권 선택</h3>
             <Button
               leftIcon={faPlus}
               styles={{
