@@ -14,7 +14,7 @@ import DropdownMenu from '@component/dropdown/DropdownMenu';
 import DropdownItem from '@component/dropdown/DropdownItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
-import { setGroups, setMembers, toggleGroup, toggleMember } from '../voucherListSlice';
+import { VoucherStateName, VoucherStateType, setGroups, setMembers, toggleGroup, toggleMember, changeVoucherFilter } from '../voucherListSlice';
 
 interface FilterCheckProps {
   children?: React.ReactNode;
@@ -26,8 +26,10 @@ function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultP
   const dispatch = useAppDispatch();
   const groupDropdown = useDropdown();
   const memberDropdown = useDropdown();
+  const stateDropdown = useDropdown();
   const groupPopper = usePopper(groupDropdown.buttonElement, groupDropdown.menuElement, {});
   const memberPopper = usePopper(memberDropdown.buttonElement, memberDropdown.menuElement, {});
+  const statePopper = usePopper(stateDropdown.buttonElement, stateDropdown.menuElement, {});
 
   const groupQuery =
   useQuery<typeof groupAPI.getAllGroupList.resType, AxiosError<ErrorType>>
@@ -59,7 +61,7 @@ function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultP
         name: member.name
       }))
     ));
-  }, [memberQuery.data])
+  }, [memberQuery.data]);
 
   return (
     <section className="check-section">
@@ -124,6 +126,27 @@ function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultP
             </DropdownItem>
           ))}
 
+        </DropdownMenu>}
+      </Dropdown>
+
+      {/* 소유권 상태 선택 드롭다운 */}
+      <Dropdown hook={stateDropdown}>
+        <DropdownButton
+          styles={{ padding: "0.25em" }}
+          buttonRef={stateDropdown.buttonRef}
+          onClick={() => stateDropdown.toggle()}
+        >
+          <b>상태</b>
+          <FontAwesomeIcon className="icon" icon={faChevronDown} />
+        </DropdownButton>
+
+        {stateDropdown.show &&
+        <DropdownMenu popper={statePopper} menuRef={stateDropdown.menuRef}>
+          {Object.entries(VoucherStateName).map((element) => (
+          <DropdownItem key={element[0]} onClick={(e) => dispatch(changeVoucherFilter(element[0] as VoucherStateType))}>
+            <input type="radio" checked={filter.state === element[0]} readOnly/>
+            <span>{element[1]}</span>
+          </DropdownItem>))}
         </DropdownMenu>}
       </Dropdown>
     </section>

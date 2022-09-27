@@ -1,6 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const name = 'voucherList';
+export type VoucherStateType = 'ALL' | 'AVAILABLE' | 'TRADING' | 'SHIPPING' | 'SHIPPED';
+export const VoucherStateName: {
+  [k in VoucherStateType]: string;
+} = {
+    'ALL': '전체',
+    'AVAILABLE': '교환가능',
+    'TRADING': '교환중',
+    'SHIPPING': '배송대기중',
+    'SHIPPED': '배송완료'
+}
 let nextId = 0;
 interface State {
   filter: {
@@ -18,7 +28,7 @@ interface State {
       name: string;
       checked: boolean;
     }[];
-    state: 'ALL' | 'AVAILABLE' | 'TRADING' | 'SHIPPING' | 'SHIPPED'
+    state: VoucherStateType; // 소유권 상태
   }
 }
 
@@ -72,6 +82,11 @@ export const slice = createSlice({
         { ...element, checked: !element.checked }:
         { ...element }
       )
+    },
+
+    // 소유권 상태 필터 선택
+    changeVoucherFilter: (state, { payload }: PayloadAction<VoucherStateType>) => {
+      state.filter.state = payload;
     }
 
     // 포토카드 이름 필터 추가
@@ -80,5 +95,5 @@ export const slice = createSlice({
   }
 });
 
-export const { initialize, setGroups, setMembers, toggleGroup, toggleMember } = slice.actions;
+export const { initialize, setGroups, setMembers, toggleGroup, toggleMember, changeVoucherFilter } = slice.actions;
 export default slice.reducer;

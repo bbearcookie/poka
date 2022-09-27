@@ -5,13 +5,16 @@ import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
 const CLASS = 'SearchLabel';
 interface SearchLabelProps {
-  id: number;
-  handleRemove: (id: number) => void;
+  id?: number;
+  handleRemove?: (id: number) => void;
   category?: string;
   text?: string;
   children?: React.ReactNode;
 }
-const SearchLabelDefaultProps = {};
+const SearchLabelDefaultProps = {
+  id: -1,
+  handleRemove: (id: number) => {}
+};
 
 function SearchLabel({ id, category, text, handleRemove, children }: SearchLabelProps & typeof SearchLabelDefaultProps) {
   return (
