@@ -11,7 +11,7 @@ export const VoucherStateName: {
     'SHIPPING': '배송대기중',
     'SHIPPED': '배송완료'
 }
-let nextId = 0;
+let nextId = 0; // names 추가/삭제에 사용되는 변수
 interface State {
   filter: {
     names: {
@@ -69,31 +69,43 @@ export const slice = createSlice({
     // 그룹 선택 토글
     toggleGroup: (state, { payload: groupId }: PayloadAction<number>) => {
       state.filter.groups = state.filter.groups.map(
-        (element) => element.groupId === groupId ?
-        { ...element, checked: !element.checked }:
-        { ...element }
+        (item) => item.groupId === groupId ?
+        { ...item, checked: !item.checked }:
+        { ...item }
       )
     },
 
     // 멤버 선택 토글
     toggleMember: (state, { payload: memberId }: PayloadAction<number>) => {
       state.filter.members = state.filter.members.map(
-        (element) => element.memberId === memberId ?
-        { ...element, checked: !element.checked }:
-        { ...element }
+        (item) => item.memberId === memberId ?
+        { ...item, checked: !item.checked }:
+        { ...item }
       )
     },
 
     // 소유권 상태 필터 선택
     changeVoucherFilter: (state, { payload }: PayloadAction<VoucherStateType>) => {
       state.filter.state = payload;
-    }
+    },
 
     // 포토카드 이름 필터 추가
+    addName: (state, { payload }: PayloadAction<string>) => {
+      if (!payload) return;
+      if (state.filter.names.find((item) => item.value === payload)) return;
+
+      state.filter.names = state.filter.names.concat({
+        id: nextId++,
+        value: payload.trim()
+      });
+    },
 
     // 포토카드 이름 필터 제거
+    removeName: (state, { payload: id }: PayloadAction<number>) => {
+      state.filter.names = state.filter.names.filter((item) => item.id !== id);
+    }
   }
 });
 
-export const { initialize, setGroups, setMembers, toggleGroup, toggleMember, changeVoucherFilter } = slice.actions;
+export const { initialize, setGroups, setMembers, toggleGroup, toggleMember, changeVoucherFilter, addName, removeName } = slice.actions;
 export default slice.reducer;

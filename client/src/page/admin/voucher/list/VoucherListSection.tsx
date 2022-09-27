@@ -6,6 +6,7 @@ import CardBody from '@component/card/basic/CardBody';
 import SearchInput from './content/SearchInput';
 import SearchLabelList from './content/SearchLabelList';
 import FilterCheck from './content/FilterCheck';
+import VoucherList from './content/VoucherList';
 import { initialize } from './voucherListSlice';
 
 interface VoucherListSectionProps {
@@ -31,7 +32,7 @@ function VoucherListSection({ children }: VoucherListSectionProps & typeof Vouch
       </CardHeader>
       <CardBody>
         <FilterCheck />
-        <span>여기엔 아이템 목록들 나옴</span>
+        <VoucherList />
       </CardBody>
     </Card>
   );
