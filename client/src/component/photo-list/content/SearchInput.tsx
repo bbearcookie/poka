@@ -1,8 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
-import { addLabel } from './searchSlice';
 import SearchBar from '@component/searchbar/SearchBar';
 import CardHeader from '@component/card/basic/CardHeader';
+import { addName } from '../photoListCardSlice';
+
 
 interface SearchInputProps {
   children?: React.ReactNode;
@@ -19,16 +20,8 @@ function SearchInput({ children }: SearchInputProps & typeof SearchInputDefaultP
   }, []);
 
   // 검색 키워드 추가
-  const handleSearch = useCallback(() => {
-    if (!input) return;
-    
-    dispatch(addLabel({
-      text: input,
-      data: {
-        type: 'PHOTO_NAME',
-        value: input
-      }
-    }));
+  const handleAddKeyword = useCallback(() => {
+    dispatch(addName(input));
     setInput('');
   }, [input, dispatch]);
 
@@ -40,7 +33,7 @@ function SearchInput({ children }: SearchInputProps & typeof SearchInputDefaultP
         value={input}
         placeholder="포토카드 이름으로 검색"
         handleInputChange={changeInput}
-        handleAddKeyword={handleSearch}
+        handleAddKeyword={handleAddKeyword}
       />
     </CardHeader>
   );

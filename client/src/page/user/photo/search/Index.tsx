@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { PhotoType } from '@component/photo-list/basic/PhotoCard';
-import PhotoListContainer from '@component/photo-list/PhotoListContainer';
+import PhotoListCard from '@component/photo-list/PhotoListCard';
 import './Index.scss';
 
 interface IndexProps {
@@ -18,7 +18,8 @@ function Index({ children }: IndexProps & typeof IndexDefaultProps) {
   return (
     <section className="PhotoSearchPage">
       <h1 className="title-label">포토카드 찾기</h1>
-      <PhotoListContainer icon={faArrowRight} handleClickIcon={handleClickDetailIcon} />
+      {/* <PhotoListContainer icon={faArrowRight} handleClickIcon={handleClickDetailIcon} /> */}
+      <PhotoListCard icon={faArrowRight} handleClickIcon={handleClickDetailIcon} />
     </section>
   );
 }

@@ -9,7 +9,7 @@ import Button from '@component/form/Button';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
-import PhotoListContainer from '@component/photo-list/PhotoListContainer';
+import PhotoListCard from '@component/photo-list/PhotoListCard';
 import { addVoucher, setMessage } from '../voucherWriterSlice';
 import PhotoList from './PhotoList';
 
@@ -58,7 +58,8 @@ function VoucherSection({ children }: VoucherSectionProps & typeof VoucherSectio
       <Modal hook={addModal} styles={{ width: '75%' }}>
         <Card>
           <CardBody>
-            <PhotoListContainer icon={faPlus} handleClickIcon={handleAddVoucher} />
+            {/* <PhotoListContainer icon={faPlus} handleClickIcon={handleAddVoucher} /> */}
+            <PhotoListCard icon={faPlus} handleClickIcon={handleAddVoucher} />
           </CardBody>
         </Card>
       </Modal>

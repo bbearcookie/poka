@@ -1,8 +1,10 @@
-.PhotoListContainer {
+.PhotoListCard {
   .search-label-section {
     display: flex;
     flex-wrap: wrap;
     gap: 1em;
+    
+    &:empty { display: none; }
   }
 
   .check-section {

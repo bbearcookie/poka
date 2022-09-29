@@ -1,9 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
-import SearchLabel from '@component/label/SearchLabel';
 import CardHeader from '@component/card/basic/CardHeader';
-import { category } from './searchSlice';
-import { removeLabel } from './searchSlice';
+import SearchLabel from '@component/label/SearchLabel';
+import { removeName, toggleGroup, toggleMember } from '../photoListCardSlice';
 
 interface SearchLabelListProps {
   children?: React.ReactNode;
@@ -11,32 +10,41 @@ interface SearchLabelListProps {
 const SearchLabelListDefaultProps = {};
 
 function SearchLabelList({ children }: SearchLabelListProps & typeof SearchLabelListDefaultProps) {
-  const { labels } = useAppSelector((state) => state.adminPhotoSearch);
+  const filter = useAppSelector((state) => state.photoListCard.filter);
   const dispatch = useAppDispatch();
 
-  // 검색 라벨 삭제
-  const onRemove = useCallback((id: number) => {
-    dispatch(removeLabel(id));
-  }, [dispatch]);
-
   return (
-    <>
-    {labels.length > 0 && (
-      <CardHeader>
-        <section className="search-label-section">
-          {labels.map((item) => (
-            <SearchLabel
-              id={item.id}
-              key={item.id}
-              category={category[item.data.type]}
-              text={item.text}
-              handleRemove={onRemove}
-            />
-          ))}
-        </section>
-      </CardHeader>
-    )}
-    </>
+    <CardHeader className="search-label-section">
+      {/* 포토카드 이름 관련 필터 */}
+      {filter.names.map((name) => (
+      <SearchLabel
+        key={name.id}
+        category="포토카드 이름"
+        text={name.value}
+        handleRemove={() => dispatch(removeName(name.id))}
+      />
+      ))}
+
+      {/* 그룹 관련 필터 */}
+      {filter.groups.map((group) => group.checked && (
+      <SearchLabel
+        key={group.groupId}
+        category="그룹"
+        text={group.name}
+        handleRemove={() => dispatch(toggleGroup(group.groupId))}
+      />
+      ))}
+
+      {/* 멤버 관련 필터 */}
+      {filter.members.map((member) => member.checked && (
+      <SearchLabel
+        key={member.memberId}
+        category="멤버"
+        text={member.name}
+        handleRemove={() => dispatch(toggleMember(member.memberId))}
+      />
+      ))}
+    </CardHeader>
   );
 }
 

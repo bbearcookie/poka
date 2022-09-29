@@ -7,11 +7,7 @@ import photoUploader, { PHOTO_IMAGE_DIR } from '@uploader/photo.uploader';
 import * as photoService from '@service/photo.service';
 import { getTimestampFilename } from '@util/multer';
 
-export type FilterType = 
-{ type: 'PHOTO_NAME'; value: string; } |
-{ type: 'GROUP_ID'; value: number; } |
-{ type: 'MEMBER_ID'; value: number; };
-export type RefinedFilterType = {
+export type FilterType = {
   'PHOTO_NAME': string[];
   'GROUP_ID': number[];
   'MEMBER_ID': number[];
@@ -34,25 +30,10 @@ export const getPhotoList = {
     const pageParam = req.query.pageParam ? Number(req.query.pageParam) : 0;
 
     // 검색 조건
-    const filters = JSON.parse(String(req.query.filters)) as FilterType[];
-    const refinedFilter: RefinedFilterType = {
-      'PHOTO_NAME': [],
-      'GROUP_ID': [],
-      'MEMBER_ID': [],
-    }
-    filters.map((item) => {
-      switch (item.type) {
-        case 'PHOTO_NAME':
-          refinedFilter[item.type].push(item.value);
-          break;
-        default:
-          refinedFilter[item.type].push(item.value);
-          break;
-      }
-    });
+    const filters = JSON.parse(String(req.query.filters)) as FilterType;
 
     try {
-      const [photos] = await photoService.selectPhotoList(limit, pageParam, refinedFilter);
+      const [photos] = await photoService.selectPhotoList(limit, pageParam, filters);
       return res.status(200).json({ message: '포토카드 목록을 조회했습니다.', photos, pageParam });
     } catch (err) {
       console.error(err);

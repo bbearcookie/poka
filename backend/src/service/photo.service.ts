@@ -1,11 +1,11 @@
 import db from '@config/database';
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
-import { RefinedFilterType } from '@controller/photo.ctrl';
+import { FilterType } from '@controller/photo.ctrl';
 import { WhereSQL } from '@util/database';
 
 // 포토카드 목록 조회
 export const selectPhotoList = 
-  async (limit: number, pageParam: number, filters: RefinedFilterType) => {
+  async (limit: number, pageParam: number, filters: FilterType) => {
     const con = await db.getConnection();
 
     try {

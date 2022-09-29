@@ -8,18 +8,18 @@ import SearchLabelList from './content/SearchLabelList';
 import FilterCheck from './content/FilterCheck';
 import PhotoList from './content/PhotoList';
 import { PhotoType } from './basic/PhotoCard';
-import './PhotoListContainer.scss';
+import './PhotoListCard.scss';
 
-interface PhotoListContainerProps {
+interface PhotoListCardProps {
   icon?: IconDefinition;
   handleClickIcon?: (photo: PhotoType) => void;
   children?: React.ReactNode;
 }
-const PhotoListContainerDefaultProps = {};
+const PhotoListCardDefaultProps = {};
 
-function PhotoListContainer({ icon, handleClickIcon, children }: PhotoListContainerProps & typeof PhotoListContainerDefaultProps) {
+function PhotoListCard({ icon, handleClickIcon, children }: PhotoListCardProps & typeof PhotoListCardDefaultProps) {
   return (
-    <Card className="PhotoListContainer">
+    <Card className="PhotoListCard">
       <CardHeader padding="0" borderBottom="0">
         <SearchInput />
         <SearchLabelList />
@@ -32,5 +32,5 @@ function PhotoListContainer({ icon, handleClickIcon, children }: PhotoListContai
   );
 }
 
-PhotoListContainer.defaultProps = PhotoListContainerDefaultProps;
-export default PhotoListContainer;
+PhotoListCard.defaultProps = PhotoListCardDefaultProps;
+export default PhotoListCard;

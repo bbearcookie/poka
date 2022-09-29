@@ -13,7 +13,7 @@ import DropdownButton from '@component/dropdown/DropdownButton';
 import DropdownMenu from '@component/dropdown/DropdownMenu';
 import DropdownItem from '@component/dropdown/DropdownItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { VoucherStateName, VoucherStateType, setGroups, setMembers, toggleGroup, toggleMember, changeVoucherFilter } from '../voucherListSlice';
 
 interface FilterCheckProps {
