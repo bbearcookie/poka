@@ -2,7 +2,7 @@ import React, { Fragment, useState, useCallback, useRef } from 'react';
 import { usePopper } from 'react-popper';
 import { useQuery } from 'react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import { useAppSelector, useAppDispatch } from '@app/reduxHooks';
+import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import { toggleLabel } from './searchSlice';
 import { ErrorType } from '@util/commonAPI';
 import * as queryKey from '@util/queryKey';

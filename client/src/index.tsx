@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
 import App from '@app/App';
-import { store } from '@app/store';
+import { store } from '@app/redux/store';
 import './index.css';
 
 // StrictMode 상태에는 기본적으로 렌더링이 두 번씩 된다!

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useAppSelector, useAppDispatch } from '@app/reduxHooks';
+import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { PhotoType } from '@component/photo-list/basic/PhotoCard';
 import InputMessage from '@component/form/InputMessage';

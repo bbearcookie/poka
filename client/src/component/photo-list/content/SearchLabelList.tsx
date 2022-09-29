@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { useAppSelector, useAppDispatch } from '@app/reduxHooks';
+import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import SearchLabel from '@component/label/SearchLabel';
 import CardHeader from '@component/card/basic/CardHeader';
 import { category } from './searchSlice';

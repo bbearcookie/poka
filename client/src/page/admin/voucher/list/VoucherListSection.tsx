@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useAppDispatch } from '@app/reduxHooks';
+import { useAppDispatch } from '@app/redux/reduxHooks';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';

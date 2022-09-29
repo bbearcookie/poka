@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useMutation } from 'react-query';
 import { toast } from 'react-toastify';
-import { useAppDispatch } from './reduxHooks';
+import { useAppDispatch } from '@app/redux/reduxHooks';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorType } from '@util/commonAPI';
 import * as authAPI from '@api/authAPI';

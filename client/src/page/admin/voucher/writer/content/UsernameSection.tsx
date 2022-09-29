@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useAppSelector, useAppDispatch } from '@app/reduxHooks';
+import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import { setUsername, setMessage } from '../voucherWriterSlice';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';

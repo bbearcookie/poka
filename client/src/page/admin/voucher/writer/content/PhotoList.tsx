@@ -1,6 +1,6 @@
 import React, { Fragment, useCallback } from 'react';
 import { useQueries } from 'react-query';
-import { useAppSelector, useAppDispatch } from '@app/reduxHooks';
+import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import { PhotoType } from '@component/photo-list/basic/PhotoCard';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import * as photoAPI from '@api/photoAPI';

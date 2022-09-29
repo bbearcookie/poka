@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useUpdateEffect } from 'react-use';
-import { useAppSelector } from '@app/reduxHooks';
+import { useAppSelector } from '@app/redux/reduxHooks';
 
 interface VoucherListProps {
   children?: React.ReactNode;

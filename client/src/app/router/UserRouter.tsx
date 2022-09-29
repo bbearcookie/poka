@@ -1,5 +1,5 @@
 import React from "react";
-import { useAppSelector } from "@app/reduxHooks";
+import { useAppSelector } from "@app/redux/reduxHooks";
 import { Route, Routes } from "react-router-dom";
 import PhotoSearchPage from "@page/user/photo/search/Index";
 

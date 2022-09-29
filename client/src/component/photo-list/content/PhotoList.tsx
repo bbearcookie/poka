@@ -1,6 +1,6 @@
 import React, { Fragment, useCallback } from 'react';
 import { useUpdateEffect } from 'react-use';
-import { useAppSelector } from '@app/reduxHooks';
+import { useAppSelector } from '@app/redux/reduxHooks';
 import { useInfiniteQuery, useQueryClient } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 import { AxiosError } from 'axios';

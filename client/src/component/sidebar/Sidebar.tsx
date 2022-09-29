@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import classNames from 'classnames';
-import { useAppSelector, useAppDispatch } from '@app/reduxHooks';
+import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import { changeActiveURI, changeShow } from './sidebarSlice';
 import AdminContent from './content/AdminContent';
 import UserContent from './content/UserContent';
