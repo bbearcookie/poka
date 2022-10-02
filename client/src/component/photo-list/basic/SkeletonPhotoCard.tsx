@@ -1,5 +1,5 @@
 import React from 'react';
-import { CLASS, StyledPhotoCard } from './PhotoCard';
+import { StyledPhotoCard, PhotoNameDiv, ContentSection, NameSection } from './PhotoCard';
 import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 import SkeletonItem from '@component/skeleton/SkeletonItem';
@@ -11,22 +11,23 @@ const SkeletonPhotoCardDefaultProps = {};
 
 function SkeletonPhotoCard({ children }: SkeletonPhotoCardProps & typeof SkeletonPhotoCardDefaultProps) {
   return (
-    <StyledPhotoCard className={CLASS}>
+    <StyledPhotoCard>
       <Card boxShadow="0px 0px 10px 0px #C0C0C0">
         <CardBody>
           <SkeletonItem
             styles={{
               width: "150px",
-              height: "224px"
+              height: "224px",
+              marginBottom: "1.27em"
             }}
           />
-          <SkeletonItem className={`${CLASS}__photocard-name`} />
-          <section className={`${CLASS}__content-section`}>
-            <section className={`${CLASS}__name-section`}>
+          <PhotoNameDiv />
+          <ContentSection>
+            <NameSection>
               <SkeletonItem />
               <SkeletonItem styles={{ marginTop: "0.5em" }} />
-            </section>
-          </section>
+            </NameSection>
+          </ContentSection>
         </CardBody>
       </Card>
     </StyledPhotoCard>

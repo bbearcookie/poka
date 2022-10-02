@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const name = 'voucherList';
+
 export type VoucherStateType = 'ALL' | 'AVAILABLE' | 'TRADING' | 'SHIPPING' | 'SHIPPED';
 export const VoucherStateName: {
   [k in VoucherStateType]: string;
@@ -11,25 +12,27 @@ export const VoucherStateName: {
     'SHIPPING': '배송대기중',
     'SHIPPED': '배송완료'
 }
+export interface FilterType {
+  names: {
+    id: number;
+    value: string;
+  }[];
+  groups: {
+    groupId: number;
+    name: string;
+    checked: boolean;
+  }[];
+  members: {
+    memberId: number;
+    name: string;
+    checked: boolean;
+  }[];
+  state: VoucherStateType; // 소유권 상태
+}
+
 let nextId = 0; // names 추가/삭제에 사용되는 변수
 interface State {
-  filter: {
-    names: {
-      id: number;
-      value: string;
-    }[];
-    groups: {
-      groupId: number;
-      name: string;
-      checked: boolean;
-    }[];
-    members: {
-      memberId: number;
-      name: string;
-      checked: boolean;
-    }[];
-    state: VoucherStateType; // 소유권 상태
-  }
+  filter: FilterType;
 }
 
 const initialState: State = {

@@ -10,8 +10,7 @@ import { getTimestampFilename } from '@util/multer';
 // 포토카드 목록 조회
 export const getPhotoList = {
   validator: [
-    // pageParam은 undefined이거나 숫자여야 함.
-    oneOf([
+    oneOf([ // pageParam은 undefined이거나 숫자여야 함.
       query('pageParam').not().exists(),
       query('pageParam').isNumeric()
     ]),
@@ -30,18 +29,18 @@ export const getPhotoList = {
     'MEMBER_ID': [] as number[]
   },
   controller: async (req: Request, res: Response) => {
-    const limit = 20; // 페이지당 보여줄 내용 갯수
+    const itemPerPage = 20; // 페이지당 보여줄 내용 갯수
     const pageParam = req.query.pageParam ? Number(req.query.pageParam) : 0; // 페이지 번호
     const filter = JSON.parse(String(req.query.filter)) as typeof getPhotoList.filterType; // 검색 조건
 
     try {
-      const [photos] = await photoService.selectPhotoList(limit, pageParam, filter);
+      const [photos] = await photoService.selectPhotoList(itemPerPage, pageParam, filter);
       return res.status(200).json({
         message: '포토카드 목록을 조회했습니다.',
         photos,
         paging: {
           pageParam,
-          hasNextPage: photos.length === limit
+          hasNextPage: photos.length === itemPerPage
         }
       });
     } catch (err) {

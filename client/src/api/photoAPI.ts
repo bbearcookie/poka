@@ -1,26 +1,6 @@
 import { client } from "@util/commonAPI";
 import { FilterType } from '@component/photo-list/photoListCardSlice';
 
-export class getAllPhotoList {
-  static axios = async () => {
-    const url = `/api/photo`;
-    const res = await client.get<typeof this.resType>(url);
-    return res.data;
-  }
-  static resType = undefined as undefined | {
-    message: string;
-    photos: {
-      photocard_id: number,
-      member_id: number,
-      group_id: number,
-      name: string,
-      group_name: string,
-      member_name: string,
-      image_name: string
-    }[];
-  }
-}
-
 export class getPhotoList {
   static axios = async (pageParam: number, filter: FilterType) => {
     const url = `/api/photo`;

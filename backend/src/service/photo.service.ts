@@ -5,7 +5,7 @@ import * as photoCtrl from '@controller/photo.ctrl';
 
 // 포토카드 목록 조회
 export const selectPhotoList = 
-  async (limit: number = 20, pageParam: number, filter: typeof photoCtrl.getPhotoList.filterType) => {
+  async (itemPerPage: number = 20, pageParam: number, filter: typeof photoCtrl.getPhotoList.filterType) => {
     const con = await db.getConnection();
 
     try {
@@ -52,7 +52,7 @@ export const selectPhotoList =
       sql += `ORDER BY photocard_id `;
 
       // 페이지 조건
-      sql += `LIMIT ${con.escape(limit)} OFFSET ${con.escape(pageParam * limit)}`;
+      sql += `LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
 
       interface DataType extends RowDataPacket {
         photocard_id: number;

@@ -1,4 +1,5 @@
 import { client } from "@util/commonAPI";
+import { FilterType } from "@page/admin/voucher/list/voucherListSlice";
 
 export class postVoucher {
   static axios = async ({ data }: { data: object }) => {
@@ -9,4 +10,16 @@ export class postVoucher {
   static resType = undefined as undefined | {
     message: string;
   }
+}
+
+export class getAllVoucherList {
+  static axios = async (pageParam: number, filter: FilterType) => {
+    const url = `/api/voucher`
+    const params = { };
+    const res = await client.get<typeof this.resType>(url, { params });
+    return res.data;
+  };
+  static resType = undefined as undefined | {
+    message: string;
+  };
 }

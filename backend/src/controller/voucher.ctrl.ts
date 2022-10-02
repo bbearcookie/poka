@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import * as VoucherService from '@service/voucher.service';
 import * as UserService from '@service/user.service';
-import { body, param } from 'express-validator';
+import { query, body, param, oneOf } from 'express-validator';
 import { validate, createResponseMessage } from '@util/validator';
 
 // 소유권 발급
@@ -36,6 +36,27 @@ export const postVoucher = {
 
 // 전체 소유권 목록 조회
 export const getAllVoucherList = {
+  validator: [
+    oneOf([ // pageParam은 undefined이거나 숫자여야 함.
+      query('pageParam').not().exists(),
+      query('pageParam').isNumeric()
+    ]),
+    validate
+  ],
+  controller: async (req: Request, res: Response) => {
+    const itemPerPage = 20;
+    const pageParam = req.query.pageParam ? Number(req.query.pageParam) : 0;
+    
+
+    try {
+
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
+    }
+    
+    return res.status(501).json({ message: 'Not Implemented' });
+  }
 }
 
 // 사용자 개인의 소유권 목록 조회
