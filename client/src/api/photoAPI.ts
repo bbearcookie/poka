@@ -22,10 +22,10 @@ export class getAllPhotoList {
 }
 
 export class getPhotoList {
-  static axios = async (limit: number, pageParam: number, filter: FilterType) => {
+  static axios = async (pageParam: number, filter: FilterType) => {
     const url = `/api/photo`;
 
-    const filters = {
+    let refinedFilter = {
       'GROUP_ID': filter.groups
         .filter(item => item.checked)
         .map(item => item.groupId),
@@ -35,13 +35,12 @@ export class getPhotoList {
       'PHOTO_NAME': filter.names.map(item => item.value)
     }
 
-    const params = { limit, pageParam, filters };
+    const params = { pageParam, filter: refinedFilter };
     const res = await client.get<typeof this.resType>(url, { params });
     return res.data;
   };
   static resType = undefined as undefined | {
     message: string;
-    pageParam: number;
     photos: {
       photocard_id: number,
       member_id: number,
@@ -51,6 +50,10 @@ export class getPhotoList {
       member_name: string,
       image_name: string
     }[];
+    paging: {
+      pageParam: number;
+      hasNextPage: boolean;
+    };
   }
 }
 

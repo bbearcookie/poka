@@ -7,34 +7,43 @@ import photoUploader, { PHOTO_IMAGE_DIR } from '@uploader/photo.uploader';
 import * as photoService from '@service/photo.service';
 import { getTimestampFilename } from '@util/multer';
 
-export type FilterType = {
-  'PHOTO_NAME': string[];
-  'GROUP_ID': number[];
-  'MEMBER_ID': number[];
-}
 // 포토카드 목록 조회
 export const getPhotoList = {
   validator: [
     // pageParam은 undefined이거나 숫자여야 함.
     oneOf([
-      query("pageParam").not().exists(),
-      query("pageParam").isNumeric()
+      query('pageParam').not().exists(),
+      query('pageParam').isNumeric()
     ]),
+    query('filter').custom((value, { req }) => {
+      const filter = JSON.parse(value);
+      if (!Array.isArray(filter['PHOTO_NAME'])) return false;
+      if (!Array.isArray(filter['GROUP_ID'])) return false;
+      if (!Array.isArray(filter['MEMBER_ID'])) return false;
+      return true;
+    }).withMessage("검색 필터는 배열이어야 해요."),
     validate
   ],
+  filterType: {
+    'PHOTO_NAME': [] as string[],
+    'GROUP_ID': [] as number[],
+    'MEMBER_ID': [] as number[]
+  },
   controller: async (req: Request, res: Response) => {
-    // 페이지당 보여줄 내용 갯수
-    const limit = req.query.limit ? Number(req.query.limit) : 0;
-
-    // 페이지 번호
-    const pageParam = req.query.pageParam ? Number(req.query.pageParam) : 0;
-
-    // 검색 조건
-    const filters = JSON.parse(String(req.query.filters)) as FilterType;
+    const limit = 20; // 페이지당 보여줄 내용 갯수
+    const pageParam = req.query.pageParam ? Number(req.query.pageParam) : 0; // 페이지 번호
+    const filter = JSON.parse(String(req.query.filter)) as typeof getPhotoList.filterType; // 검색 조건
 
     try {
-      const [photos] = await photoService.selectPhotoList(limit, pageParam, filters);
-      return res.status(200).json({ message: '포토카드 목록을 조회했습니다.', photos, pageParam });
+      const [photos] = await photoService.selectPhotoList(limit, pageParam, filter);
+      return res.status(200).json({
+        message: '포토카드 목록을 조회했습니다.',
+        photos,
+        paging: {
+          pageParam,
+          hasNextPage: photos.length === limit
+        }
+      });
     } catch (err) {
       console.error(err);
       return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });

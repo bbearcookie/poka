@@ -30,10 +30,10 @@ function PhotoList({ icon, handleClickIcon, children }: PhotoListProps & typeof 
   const { data: photos, error, refetch, isFetching, fetchNextPage, hasNextPage } = 
   useInfiniteQuery<typeof photoAPI.getPhotoList.resType, AxiosError<ErrorType>>
   (queryKey.photoKeys.all,
-  ({ pageParam = 0 }) => photoAPI.getPhotoList.axios(limit, pageParam, filter as FilterType),
+  ({ pageParam = 0 }) => photoAPI.getPhotoList.axios(pageParam, filter as FilterType),
   {
     getNextPageParam: (lastPage, pages) => {
-      return lastPage?.photos.length === limit && lastPage.pageParam + limit;
+      return lastPage?.paging.hasNextPage && lastPage?.paging.pageParam + 1;
     },
     refetchOnWindowFocus: false,
   });
