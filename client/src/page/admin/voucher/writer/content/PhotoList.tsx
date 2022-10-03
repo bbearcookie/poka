@@ -1,14 +1,14 @@
 import React, { Fragment, useCallback } from 'react';
 import { useQueries } from 'react-query';
 import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
-import { PhotoType } from '@component/photo-list/basic/PhotoCard';
+import { PhotoType } from '@component/photocard/PhotoCard';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import * as photoAPI from '@api/photoAPI';
 import * as queryKey from '@util/queryKey';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
-import PhotoCard from '@component/photo-list/basic/PhotoCard';
-import SkeletonPhotoCard from '@component/photo-list/basic/SkeletonPhotoCard';
+import PhotoCard from '@component/photocard/PhotoCard';
+import SkeletonPhotoCard from '@component/photocard/SkeletonPhotoCard';
 import { changeVoucherAmount, removeVoucher, setVoucherMessage } from '../voucherWriterSlice';
 
 interface PhotoListProps {

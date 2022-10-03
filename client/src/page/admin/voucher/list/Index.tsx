@@ -1,5 +1,5 @@
 import React from 'react';
-import VoucherListSection from './VoucherListSection';
+import VoucherListSection from '@component/list/voucher/VoucherListSection';
 import './Index.scss';
 
 interface IndexProps {

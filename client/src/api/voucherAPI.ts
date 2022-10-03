@@ -1,5 +1,5 @@
 import { client } from "@util/commonAPI";
-import { FilterType } from "@page/admin/voucher/list/voucherListSlice";
+import { FilterType } from "@component/list/voucher/voucherListSlice";
 
 export class postVoucher {
   static axios = async ({ data }: { data: object }) => {

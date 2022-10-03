@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { PhotoType } from '@component/photo-list/basic/PhotoCard';
+import { PhotoType } from '@component/photocard/PhotoCard';
 import InputMessage from '@component/form/InputMessage';
 import useModal from '@hook/useModal';
 import Modal from '@component/modal/basic/Modal';
@@ -9,7 +9,7 @@ import Button from '@component/form/Button';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
-import PhotoListCard from '@component/photo-list/PhotoListCard';
+import PhotoListCard from '@component/list/photo/PhotoListCard';
 import { addVoucher, setMessage } from '../voucherWriterSlice';
 import PhotoList from './PhotoList';
 

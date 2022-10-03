@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import Button from '@component/form/Button';
-import PhotoListCard from '@component/photo-list/PhotoListCard';
-import { PhotoType } from '@component/photo-list/basic/PhotoCard';
+import PhotoListCard from '@component/list/photo/PhotoListCard';
+import { PhotoType } from '@component/photocard/PhotoCard';
 import './Index.scss';
 
 interface PhotoListPageProps {
@@ -35,7 +35,6 @@ function PhotoListPage({ children }: PhotoListPageProps & typeof PhotoListPageDe
           >추가</Button>
         </Link>
       </section>
-      {/* <PhotoListContainer icon={faArrowRight} handleClickIcon={handleClickDetailIcon} /> */}
       <PhotoListCard icon={faArrowRight} handleClickIcon={handleClickDetailIcon} />
     </section>
   );

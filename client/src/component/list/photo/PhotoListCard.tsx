@@ -7,7 +7,7 @@ import SearchInput from './content/SearchInput';
 import SearchLabelList from './content/SearchLabelList';
 import FilterCheck from './content/FilterCheck';
 import PhotoList from './content/PhotoList';
-import { PhotoType } from './basic/PhotoCard';
+import { PhotoType } from '@component/photocard/PhotoCard';
 import './PhotoListCard.scss';
 
 interface PhotoListCardProps {

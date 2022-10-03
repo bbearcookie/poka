@@ -8,9 +8,9 @@ import { AxiosError } from 'axios';
 import { ErrorType } from '@util/commonAPI';
 import * as queryKey from '@util/queryKey';
 import * as photoAPI from '@api/photoAPI';
-import { PhotoType } from '../basic/PhotoCard';
-import PhotoCard from '../basic/PhotoCard';
-import SkeletonPhotoCard from '../basic/SkeletonPhotoCard';
+import { PhotoType } from '@component/photocard/PhotoCard';
+import PhotoCard from '@component/photocard/PhotoCard';
+import SkeletonPhotoCard from '@component/photocard/SkeletonPhotoCard';
 import { FilterType } from '../photoListCardSlice';
 
 interface PhotoListProps {

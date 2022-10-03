@@ -1,5 +1,5 @@
 import { client } from "@util/commonAPI";
-import { FilterType } from '@component/photo-list/photoListCardSlice';
+import { FilterType } from '@component/list/photo/photoListCardSlice';
 
 export class getPhotoList {
   static axios = async (pageParam: number, filter: FilterType) => {
