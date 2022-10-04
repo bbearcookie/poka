@@ -1,6 +1,16 @@
 import { client } from "@util/commonAPI";
 import { FilterType } from '@component/list/photo/photoListCardSlice';
 
+export type PhotoType = {
+  photocard_id: number;
+  member_id: number;
+  group_id: number;
+  name: string;
+  group_name: string;
+  member_name: string;
+  image_name: string;
+};
+
 export class getPhotoList {
   static axios = async (pageParam: number, filter: FilterType) => {
     const url = `/api/photo`;
@@ -21,15 +31,7 @@ export class getPhotoList {
   };
   static resType = undefined as undefined | {
     message: string;
-    photos: {
-      photocard_id: number,
-      member_id: number,
-      group_id: number,
-      name: string,
-      group_name: string,
-      member_name: string,
-      image_name: string
-    }[];
+    photos: PhotoType[];
     paging: {
       pageParam: number;
       hasNextPage: boolean;

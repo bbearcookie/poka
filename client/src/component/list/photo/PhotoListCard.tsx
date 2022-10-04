@@ -7,7 +7,7 @@ import SearchInput from './content/SearchInput';
 import SearchLabelList from './content/SearchLabelList';
 import FilterCheck from './content/FilterCheck';
 import PhotoList from './content/PhotoList';
-import { PhotoType } from '@component/photocard/PhotoCard';
+import { PhotoType } from '@api/photoAPI';
 import './PhotoListCard.scss';
 
 interface PhotoListCardProps {
@@ -19,7 +19,7 @@ const PhotoListCardDefaultProps = {};
 
 function PhotoListCard({ icon, handleClickIcon, children }: PhotoListCardProps & typeof PhotoListCardDefaultProps) {
   return (
-    <Card className="PhotoListCard">
+    <Card>
       <CardHeader padding="0" borderBottom="0">
         <SearchInput />
         <SearchLabelList />

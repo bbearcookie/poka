@@ -8,13 +8,14 @@ import SearchLabelList from './content/SearchLabelList';
 import FilterCheck from './content/FilterCheck';
 import VoucherList from './content/VoucherList';
 import { initialize } from './voucherListSlice';
+import '../photo/PhotoListCard.scss';
 
-interface VoucherListSectionProps {
+interface VoucherListCardProps {
   children?: React.ReactNode;
 }
-const VoucherListSectionDefaultProps = {};
+const VoucherListCardDefaultProps = {};
 
-function VoucherListSection({ children }: VoucherListSectionProps & typeof VoucherListSectionDefaultProps) {
+function VoucherListCard({ children }: VoucherListCardProps & typeof VoucherListCardDefaultProps) {
   const dispatch = useAppDispatch();
 
   // 언마운트시 리덕스 상태 초기화
@@ -38,5 +39,5 @@ function VoucherListSection({ children }: VoucherListSectionProps & typeof Vouch
   );
 }
 
-VoucherListSection.defaultProps = VoucherListSectionDefaultProps;
-export default VoucherListSection;
+VoucherListCard.defaultProps = VoucherListCardDefaultProps;
+export default VoucherListCard;

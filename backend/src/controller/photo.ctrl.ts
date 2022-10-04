@@ -20,7 +20,7 @@ export const getPhotoList = {
       if (!Array.isArray(filter['GROUP_ID'])) return false;
       if (!Array.isArray(filter['MEMBER_ID'])) return false;
       return true;
-    }).withMessage("검색 필터는 배열이어야 해요."),
+    }).withMessage("검색 필터가 잘못되었어요."),
     validate
   ],
   filterType: {

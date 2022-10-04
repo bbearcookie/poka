@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { PhotoType } from '@component/photocard/PhotoCard';
+import { PhotoType } from '@api/photoAPI';
 import InputMessage from '@component/form/InputMessage';
 import useModal from '@hook/useModal';
 import Modal from '@component/modal/basic/Modal';

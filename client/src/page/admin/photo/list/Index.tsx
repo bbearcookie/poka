@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import Button from '@component/form/Button';
 import PhotoListCard from '@component/list/photo/PhotoListCard';
-import { PhotoType } from '@component/photocard/PhotoCard';
+import { PhotoType } from '@api/photoAPI';
 import './Index.scss';
 
 interface PhotoListPageProps {

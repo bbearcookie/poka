@@ -20,6 +20,7 @@ export const photoKeys = {
 }
 
 export const voucherKeys = {
-  list: ['vouchers'] as const,
+  all: ['vouchers'] as const, // 전체 소유권 목록
+  mine: ['vouchers', 'mine'] as const, // 자신의 소유권 목록
   select: ['vouchers', 'select'] as const
 }

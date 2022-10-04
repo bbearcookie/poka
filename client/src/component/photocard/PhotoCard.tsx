@@ -6,16 +6,8 @@ import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 import IconButton from '@component/form/IconButton';
 import CardFooter from '@component/card/basic/CardFooter';
+import { PhotoType } from '@api/photoAPI';
 
-export type PhotoType = {
-  photocard_id: number;
-  member_id: number;
-  group_id: number;
-  name: string;
-  group_name: string;
-  member_name: string;
-  image_name: string;
-};
 interface PhotoCardProps {
   photo: PhotoType;
   icon?: IconDefinition;
@@ -26,7 +18,7 @@ const PhotoCardDefaultProps = {};
 
 function PhotoCard({ photo, icon, handleClickIcon, children }: PhotoCardProps & typeof PhotoCardDefaultProps) {
   return (
-    <StyledPhotoCard>
+    <StyledPhotoCard className="PhotoCard">
       <Card boxShadow="0px 0px 10px 0px #C0C0C0">
         <CardBody>
           <img
@@ -55,6 +47,10 @@ function PhotoCard({ photo, icon, handleClickIcon, children }: PhotoCardProps & 
 
 PhotoCard.defaultProps = PhotoCardDefaultProps;
 export default PhotoCard;
+
+export const StyledPhotoCard = styled.div`
+  width: calc(150px + 3em);
+`;
 
 export const PhotoNameDiv = styled.div`
   margin-top: 1em;
@@ -120,7 +116,3 @@ const GroupNameLabel = styled.p`
   text-overflow: ellipsis;
   white-space: nowrap;
 `
-
-export const StyledPhotoCard = styled.div`
-  width: calc(150px + 3em);
-`;

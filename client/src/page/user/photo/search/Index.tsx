@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { PhotoType } from '@component/photocard/PhotoCard';
+import { PhotoType } from '@api/photoAPI';
 import PhotoListCard from '@component/list/photo/PhotoListCard';
 import './Index.scss';
 

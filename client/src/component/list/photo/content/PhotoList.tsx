@@ -8,10 +8,9 @@ import { AxiosError } from 'axios';
 import { ErrorType } from '@util/commonAPI';
 import * as queryKey from '@util/queryKey';
 import * as photoAPI from '@api/photoAPI';
-import { PhotoType } from '@component/photocard/PhotoCard';
+import { PhotoType } from '@api/photoAPI';
 import PhotoCard from '@component/photocard/PhotoCard';
-import SkeletonPhotoCard from '@component/photocard/SkeletonPhotoCard';
-import { FilterType } from '../photoListCardSlice';
+import SkeletonPhotoCard from '@component/photocard/skeleton/SkeletonPhotoCard';
 
 interface PhotoListProps {
   icon?: IconDefinition;
@@ -23,14 +22,13 @@ const PhotoListDefaultProps = {};
 function PhotoList({ icon, handleClickIcon, children }: PhotoListProps & typeof PhotoListDefaultProps) {
   const filter = useAppSelector((state) => state.photoListCard.filter);
   const [viewRef, inView] = useInView();
-  const limit = 20; // 한 페이지에 보여줄 아이템 갯수
   const queryClient = useQueryClient();
 
   // 데이터 가져오기
   const { data: photos, error, refetch, isFetching, fetchNextPage, hasNextPage } = 
   useInfiniteQuery<typeof photoAPI.getPhotoList.resType, AxiosError<ErrorType>>
   (queryKey.photoKeys.all,
-  ({ pageParam = 0 }) => photoAPI.getPhotoList.axios(pageParam, filter as FilterType),
+  ({ pageParam = 0 }) => photoAPI.getPhotoList.axios(pageParam, filter),
   {
     getNextPageParam: (lastPage, pages) => {
       return lastPage?.paging.hasNextPage && lastPage?.paging.pageParam + 1;
@@ -60,7 +58,7 @@ function PhotoList({ icon, handleClickIcon, children }: PhotoListProps & typeof 
   }, [filter]);
 
   return (
-    <section className="photo-section">
+    <section className="item-section">
       {photos?.pages.map((page, pageIdx) => 
         <Fragment key={pageIdx}>
           {page?.photos.map((item) => (
@@ -69,7 +67,7 @@ function PhotoList({ icon, handleClickIcon, children }: PhotoListProps & typeof 
         </Fragment>
       )}
 
-      {isFetching && Array.from({length: limit}).map((_, idx) => (
+      {isFetching && Array.from({length: 20}).map((_, idx) => (
         <SkeletonPhotoCard key={idx} />
       ))}
 

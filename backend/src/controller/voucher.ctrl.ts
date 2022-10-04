@@ -41,15 +41,37 @@ export const getAllVoucherList = {
       query('pageParam').not().exists(),
       query('pageParam').isNumeric()
     ]),
+    query('filter').custom((value, { req }) => {
+      const filter = JSON.parse(value);
+      if (!Array.isArray(filter['PHOTO_NAME'])) return false;
+      if (!Array.isArray(filter['GROUP_ID'])) return false;
+      if (!Array.isArray(filter['MEMBER_ID'])) return false;
+      if (!['', 'ALL', 'AVAILABLE', 'TRADING', 'SHIPPING', 'SHIPPED'].includes(filter["VOUCHER_STATE"])) return false;
+      return true;
+    }).withMessage("검색 필터가 잘못되었어요."),
     validate
   ],
+  filterType: {
+    'PHOTO_NAME': [] as string[],
+    'GROUP_ID': [] as number[],
+    'MEMBER_ID': [] as number[],
+    'VOUCHER_STATE': '' as '' | 'ALL' | 'AVAILABLE' | 'TRADING' | 'SHIPPING' | 'SHIPPED'
+  },
   controller: async (req: Request, res: Response) => {
     const itemPerPage = 20;
     const pageParam = req.query.pageParam ? Number(req.query.pageParam) : 0;
-    
+    const filter = JSON.parse(String(req.query.filter));
 
     try {
-
+      const [vouchers] = await VoucherService.selectVoucherList(itemPerPage, pageParam, filter);
+      return res.status(200).json({
+        message: '소유권 목록을 조회했습니다.',
+        vouchers,
+        paging: {
+          pageParam,
+          hasNextPage: vouchers.length === itemPerPage
+        }
+      });
     } catch (err) {
       console.error(err);
       return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });

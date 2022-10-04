@@ -48,6 +48,8 @@ export const selectPhotoList =
           operator: 'AND'
         })
       }
+
+      // 조건 처리
       sql += where.toString();
       sql += `ORDER BY photocard_id `;
 

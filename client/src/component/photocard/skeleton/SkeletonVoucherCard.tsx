@@ -1,15 +1,16 @@
 import React from 'react';
-import { StyledPhotoCard, PhotoNameDiv, ContentSection, NameSection } from './PhotoCard';
+import { StyledPhotoCard, PhotoNameDiv, ContentSection, NameSection } from '../PhotoCard';
 import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
+import CardFooter from '@component/card/basic/CardFooter';
 import SkeletonItem from '@component/skeleton/SkeletonItem';
 
-interface SkeletonPhotoCardProps {
+interface SkeletonVoucherCardProps {
   children?: React.ReactNode;
 }
-const SkeletonPhotoCardDefaultProps = {};
+const SkeletonVoucherCardDefaultProps = {};
 
-function SkeletonPhotoCard({ children }: SkeletonPhotoCardProps & typeof SkeletonPhotoCardDefaultProps) {
+function SkeletonVoucherCard({ children }: SkeletonVoucherCardProps & typeof SkeletonVoucherCardDefaultProps) {
   return (
     <StyledPhotoCard>
       <Card boxShadow="0px 0px 10px 0px #C0C0C0">
@@ -25,14 +26,18 @@ function SkeletonPhotoCard({ children }: SkeletonPhotoCardProps & typeof Skeleto
           <ContentSection>
             <NameSection>
               <SkeletonItem />
-              <SkeletonItem styles={{ marginTop: "0.5em" }} />
+              <SkeletonItem styles={{ marginTop: '0.5em' }} />
             </NameSection>
           </ContentSection>
         </CardBody>
+        <CardFooter>
+          <SkeletonItem styles={{ height: '1.6em', marginBottom: '0.5em' }} />
+          <SkeletonItem />
+        </CardFooter>
       </Card>
     </StyledPhotoCard>
   );
 }
 
-SkeletonPhotoCard.defaultProps = SkeletonPhotoCardDefaultProps;
-export default SkeletonPhotoCard;
+SkeletonVoucherCard.defaultProps = SkeletonVoucherCardDefaultProps;
+export default SkeletonVoucherCard;
