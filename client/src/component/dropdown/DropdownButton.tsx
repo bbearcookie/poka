@@ -6,8 +6,8 @@ const CLASS = 'DropdownButton';
 interface DropdownButtonProps {
   buttonRef: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
   className?: string;
-  styles?: StylesProps;
   onClick?: (e: React.MouseEvent) => void;
+  styles?: StylesProps;
   children?: React.ReactNode;
 }
 const DropdownButtonDefaultProps = {};
@@ -30,15 +30,23 @@ export default DropdownButton;
 
 // 스타일 컴포넌트
 interface StylesProps {
+  minWidth?: string;
+  height?: string;
+  cursor?: string;
   padding?: string;
 }
-const StylesDefaultProps = {};
+const StylesDefaultProps = {
+  cursor: 'pointer'
+};
 const StyledDropdownButton = styled.div<StylesProps & typeof StylesDefaultProps>`
   padding: ${p => p.padding};
   width: fit-content;
+  min-width: ${p => p.minWidth};
+  height: ${p => p.height};
   user-select: none;
-  cursor: pointer;
+  cursor: ${p => p.cursor};
   border-radius: 5px;
+  text-align: center;
 
   &:hover {
     background-color: rgb(249, 249, 250);

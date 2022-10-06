@@ -39,10 +39,14 @@ DropdownMenu.defaultProps = DropdownMenuDefaultProps;
 export default DropdownMenu;
 
 // 스타일 컴포넌트
-interface StylesProps {}
+interface StylesProps {
+  width?: string;
+}
 const StylesDefaultProps = {};
 const StyledDropdownMenu = styled.div<StylesProps & typeof StylesDefaultProps>`
   padding: 0.5em 0;
+  width: ${p => p.width};
+  text-align: center;
   background-color: white;
   z-index: 10;
   border: 2px solid #E5E7EB;

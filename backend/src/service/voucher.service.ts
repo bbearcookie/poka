@@ -49,6 +49,21 @@ export const selectVoucherList = async (
       });
     }
 
+    // 사용자 아이디 조건
+    if (filter['USER_NAME'].length > 0) {
+      where.pushString('(');
+      filter['USER_NAME'].forEach((item, idx) => {
+        where.push({
+          query: `U.username = ${con.escape(item)}`,
+          operator: idx < filter['USER_NAME'].length - 1 ? 'OR' : ''
+        });
+      });
+      where.push({
+        query: ')',
+        operator: 'AND'
+      });
+    }
+
     // 그룹ID 조건
     if (filter['GROUP_ID'].length > 0) {
       where.push({

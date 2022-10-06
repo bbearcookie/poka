@@ -33,7 +33,7 @@ function SearchInput({ children }: SearchInputProps & typeof SearchInputDefaultP
         value={input}
         placeholder="포토카드 이름으로 검색"
         handleInputChange={changeInput}
-        handleAddKeyword={handleAddKeyword}
+        handleSubmit={handleAddKeyword}
       />
     </CardHeader>
   );

@@ -4,8 +4,7 @@ import classNames from 'classnames';
 import Input from './Input';
 import Button from './Button';
 
-const CLASS = 'SearchBar';
-interface SearchBarProps {
+export interface CommonSearchBarProps {
   type: React.HTMLInputTypeAttribute;
   name: string;
   value?: any;
@@ -13,7 +12,10 @@ interface SearchBarProps {
   maxLength?: number;
   placeholder?: string;
   handleInputChange?: React.ChangeEventHandler<HTMLInputElement>;
-  handleAddKeyword?: () => void;
+  handleSubmit?: () => void;
+}
+
+interface SearchBarProps extends CommonSearchBarProps {
   styles?: StylesProps;
   children?: React.ReactNode;
 }
@@ -26,7 +28,7 @@ function SearchBar(p: SearchBarProps & typeof SearchBarDefaultProps) {
   return (
     <StyledSearchBar 
       {...StylesDefaultProps} {...p.styles} {...p}
-      className={classNames(CLASS, {"active": active})}
+      className={classNames("SearchBar", {"active": active})}
     >
       <Input
         type={p.type}
@@ -38,10 +40,10 @@ function SearchBar(p: SearchBarProps & typeof SearchBarDefaultProps) {
         onChange={p.handleInputChange}
         onFocus={(e) => setActive(true)}
         onBlur={(e) => setActive(false)}
-        onKeyDown={(e) => e.key === 'Enter' && p.handleAddKeyword && p.handleAddKeyword()}
+        onKeyDown={(e) => e.key === 'Enter' && p.handleSubmit && p.handleSubmit()}
       />
       {p.children}
-      <Button onClick={p.handleAddKeyword} />
+      <Button onClick={p.handleSubmit} />
     </StyledSearchBar>
   );
 }
@@ -51,12 +53,14 @@ export default SearchBar;
 
 // 스타일 컴포넌트
 interface StylesProps {
+  width?: string;
   height?: string;
 }
 const StylesDefaultProps = {
   height: '3em',
 };
 const StyledSearchBar = styled.div<StylesProps & typeof StylesDefaultProps>`
+  width: ${p => p.width};
   height: ${p => p.height};
   display: flex;
   align-items: center;

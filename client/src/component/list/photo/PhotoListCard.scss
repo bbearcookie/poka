@@ -6,6 +6,11 @@
   &:empty { display: none; }
 }
 
+.search-bar-section {
+  display: flex;
+  gap: 1em;
+}
+
 .check-section {
   display: flex;
   margin-bottom: 1em;
@@ -43,7 +48,7 @@
   .PhotoCard { margin: 1.5em; }
 }
 
-@media screen and (max-width: 30rem) {
+@media screen and (max-width: 25rem) {
   .search-bar-section { 
     flex-direction: column;
 

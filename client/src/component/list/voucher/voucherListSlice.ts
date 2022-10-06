@@ -17,6 +17,10 @@ export interface FilterType {
     id: number;
     value: string;
   }[];
+  usernames: {
+    id: number;
+    value: string;
+  }[];
   groups: {
     groupId: number;
     name: string;
@@ -38,6 +42,7 @@ interface State {
 const initialState: State = {
   filter: {
     names: [],
+    usernames: [],
     groups: [],
     members: [],
     state: 'ALL'
@@ -103,12 +108,31 @@ export const slice = createSlice({
       });
     },
 
+    // 사용자 이름 필터 추가
+    addUsername: (state, { payload }: PayloadAction<string>) => {
+      if (!payload) return;
+      if (state.filter.usernames.find((item) => item.value === payload)) return;
+
+      state.filter.usernames = state.filter.usernames.concat({
+        id: nextId++,
+        value: payload.trim()
+      });
+    },
+
     // 포토카드 이름 필터 제거
     removeName: (state, { payload: id }: PayloadAction<number>) => {
       state.filter.names = state.filter.names.filter((item) => item.id !== id);
-    }
+    },
+
+    // 사용자 이름 필터 제거
+    removeUsername: (state, { payload: id }: PayloadAction<number>) => {
+      state.filter.usernames = state.filter.usernames.filter((item) => item.id !== id);
+    },
+
   }
 });
 
-export const { initialize, setGroups, setMembers, toggleGroup, toggleMember, changeVoucherFilter, addName, removeName } = slice.actions;
+export const {
+  initialize, setGroups, setMembers, toggleGroup, toggleMember, changeVoucherFilter,
+  addName, addUsername, removeName, removeUsername } = slice.actions;
 export default slice.reducer;

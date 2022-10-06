@@ -2,7 +2,7 @@ import React from 'react';
 import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import CardHeader from '@component/card/basic/CardHeader';
 import SearchLabel from '@component/label/SearchLabel';
-import { VoucherStateName, toggleGroup, toggleMember, changeVoucherFilter, removeName } from '../voucherListSlice';
+import { VoucherStateName, toggleGroup, toggleMember, changeVoucherFilter, removeName, removeUsername } from '../voucherListSlice';
 
 interface SearchLabelListProps {
   children?: React.ReactNode;
@@ -23,11 +23,21 @@ function SearchLabelList({ children }: SearchLabelListProps & typeof SearchLabel
         handleRemove={() => dispatch(changeVoucherFilter('ALL'))}
       />}
 
+      {/* 사용자 아이디 관련 필터 */}
+      {filter.usernames.map((username) => (
+      <SearchLabel
+        key={username.id}
+        category="아이디"
+        text={username.value}
+        handleRemove={() => dispatch(removeUsername(username.id))}
+      />
+      ))}
+
       {/* 포토카드 이름 관련 필터 */}
       {filter.names.map((name) => (
       <SearchLabel
         key={name.id}
-        category="포토카드 이름"
+        category="포토카드"
         text={name.value}
         handleRemove={() => dispatch(removeName(name.id))}
       />

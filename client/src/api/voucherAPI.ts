@@ -32,6 +32,7 @@ export class getAllVoucherList {
         .filter(item => item.checked)
         .map(item => item.memberId),
       'PHOTO_NAME': filter.names.map(item => item.value),
+      'USER_NAME': filter.usernames.map(item => item.value),
       'VOUCHER_STATE': filter.state
     }
 
