@@ -13,6 +13,7 @@ interface CardProps {
   marginBottom?: string;
   marginLeft?: string;
   marginRight?: string;
+  textAlign?: string;
   backgroundColor?: string;
   boxShadow?: string;
   children?: React.ReactNode;
@@ -46,6 +47,7 @@ const StyledCard = styled.article<CardProps>`
   margin-right: ${p => p.marginRight};
   background-color: ${p => p.backgroundColor};
   box-shadow: ${p => p.boxShadow};
+  text-align: ${p => p.textAlign};
   border: 1px solid #E5E7EB;
   border-radius: 10px;
 

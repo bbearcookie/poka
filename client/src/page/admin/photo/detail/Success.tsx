@@ -22,7 +22,7 @@ function Success({ photo, photocardId, children }: SuccessProps & typeof Success
     <>
       {editMode ?
         <PhotoEditor photo={photo} photocardId={photocardId} closeEditor={closeEditor} /> :
-        <PhotoInfo photo={photo} startEditor={startEditor} />
+        photo && <PhotoInfo photo={photo} startEditor={startEditor} />
       }
       <PhotoRemove photo={photo} photocardId={photocardId} />
     </>

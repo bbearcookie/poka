@@ -46,15 +46,15 @@ export class getPhotoDetail {
     const res = await client.get<typeof this.resType>(url);
     return res.data;
   };
-  static resType = undefined as undefined | {
+  static resType = undefined as undefined | PhotoType & {
     message: string;
-    photocard_id: number;
-    name: string;
-    image_name: string;
-    group_id: number;
-    group_name: string;
-    member_id: number;
-    member_name: string;
+    // photocard_id: number;
+    // name: string;
+    // image_name: string;
+    // group_id: number;
+    // group_name: string;
+    // member_id: number;
+    // member_name: string;
   }
 }
 

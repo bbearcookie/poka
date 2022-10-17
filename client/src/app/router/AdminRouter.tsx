@@ -13,6 +13,7 @@ import PhotoListPage from '@page/admin/photo/list/Index';
 import PhotoDetailPage from '@page/admin/photo/detail/Index';
 import VoucherWriterPage from '@page/admin/voucher/writer/Index';
 import VoucherListPage from '@page/admin/voucher/list/Index';
+import VoucherDetailPage from '@page/admin/voucher/detail/Index';
 
 // /admin 하위 라우팅 내용
 function AdminRouter() {
@@ -38,6 +39,7 @@ function AdminRouter() {
       <Route path="/photo/detail/:photocardId" element={<PhotoDetailPage />} />
       <Route path="/voucher/writer" element={<VoucherWriterPage />} />
       <Route path="/voucher/list" element={<VoucherListPage />} />
+      <Route path="/voucher/detail/:voucherId" element={<VoucherDetailPage />} />
     </Routes>
   );
 }

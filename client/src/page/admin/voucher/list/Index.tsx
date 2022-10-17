@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import VoucherListCard from '@component/list/voucher/VoucherListCard';
 import './Index.scss';
@@ -9,9 +10,12 @@ interface IndexProps {
 const IndexDefaultProps = {};
 
 function Index({ children }: IndexProps & typeof IndexDefaultProps) {
+  const navigate = useNavigate();
+
+  // 관리자용 상세 페이지로 이동
   const handleClickDetailicon = useCallback((voucherId: number) => {
-    console.log(`TODO: ${voucherId} 소유권 상세 페이지로 이동`);
-  }, []);
+    navigate(`/admin/voucher/detail/${voucherId}`);
+  }, [navigate]);
 
   return (
     <div className="VoucherListPage">
