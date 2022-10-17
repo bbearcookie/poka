@@ -1,23 +1,33 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import PhotoCard from '@component/photocard/PhotoCard';
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import IconButton from '@component/form/IconButton';
 import { VoucherType } from '@api/voucherAPI';
 import { VoucherStateType, VoucherStateName } from '@component/list/voucher/voucherListSlice';
+import PhotoCardTemplate from '@component/photocard/PhotoCardTemplate';
 
 interface VoucherCardProps {
   voucher: VoucherType;
+  icon?: IconDefinition;
+  handleClickIcon?: (voucherId: number) => void;
   children?: React.ReactNode;
 }
-const VoucherCardDefaultProps = {};
+const VoucherCardDefaultProps = {
+  handleClickIcon: (voucherId: number) => {}
+};
 
-function VoucherCard({ voucher, children }: VoucherCardProps & typeof VoucherCardDefaultProps) {
+function VoucherCard({ voucher, icon, handleClickIcon, children }: VoucherCardProps & typeof VoucherCardDefaultProps) {
   return (
-    <PhotoCard photo={voucher}>
+    <PhotoCardTemplate
+      className="VoucherCard"
+      photo={voucher}
+      iconNode={icon && <IconButton icon={icon} size="lg" onClick={() => handleClickIcon(voucher.voucher_id)} />}
+    >
       <VoucherStateLabel voucherState={voucher.state}>
         {VoucherStateName[voucher.state.toUpperCase() as VoucherStateType]}
       </VoucherStateLabel>
       <UserNameLabel><b>{voucher.username}</b></UserNameLabel>
-    </PhotoCard>
+    </PhotoCardTemplate>
   );
 }
 

@@ -1,118 +1,30 @@
 import React from 'react';
-import styled from 'styled-components';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { BACKEND } from '@util/commonAPI';
-import Card from '@component/card/basic/Card';
-import CardBody from '@component/card/basic/CardBody';
-import IconButton from '@component/form/IconButton';
-import CardFooter from '@component/card/basic/CardFooter';
 import { PhotoType } from '@api/photoAPI';
+import IconButton from '@component/form/IconButton';
+import PhotoCardTemplate from '@component/photocard/PhotoCardTemplate';
 
 interface PhotoCardProps {
   photo: PhotoType;
   icon?: IconDefinition;
-  handleClickIcon?: (photo: PhotoType) => void;
+  handleClickIcon?: (photocardId: number) => void;
   children?: React.ReactNode;
 }
-const PhotoCardDefaultProps = {};
+const PhotoCardDefaultProps = {
+  handleClickIcon: (photocardId: number) => {}
+};
 
 function PhotoCard({ photo, icon, handleClickIcon, children }: PhotoCardProps & typeof PhotoCardDefaultProps) {
   return (
-    <StyledPhotoCard className="PhotoCard">
-      <Card boxShadow="0px 0px 10px 0px #C0C0C0">
-        <CardBody>
-          <img
-            width="150" height="224"
-            src={`${BACKEND}/image/photo/${photo.image_name}`}
-            alt="이미지" />
-          <PhotoNameDiv><p>{photo.name}</p></PhotoNameDiv>
-
-          <ContentSection>
-            <NameSection>
-              <MemberNameLabel>{photo.member_name}</MemberNameLabel>
-              <GroupNameLabel>{photo.group_name}</GroupNameLabel>
-            </NameSection>
-
-            <IconSection>
-              {icon && <IconButton icon={icon} size="lg" onClick={() => handleClickIcon && handleClickIcon(photo)} />}
-            </IconSection>
-          </ContentSection>
-
-        </CardBody>
-        {children && <CardFooter>{children}</CardFooter>}
-      </Card>
-    </StyledPhotoCard>
+    <PhotoCardTemplate
+      className="PhotoCard"
+      photo={photo}
+      iconNode={icon && <IconButton icon={icon} size="lg" onClick={() => handleClickIcon(photo.photocard_id)} />}
+    >
+      {children}
+    </PhotoCardTemplate>
   );
 }
 
 PhotoCard.defaultProps = PhotoCardDefaultProps;
 export default PhotoCard;
-
-export const StyledPhotoCard = styled.div`
-  width: calc(150px + 3em);
-`;
-
-export const PhotoNameDiv = styled.div`
-  margin-top: 1em;
-  padding: 0 0.5em;
-  width: 100%;
-  height: 3.5em;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #242A38;
-  color: white;
-  border-radius: 5px;
-
-  p {
-    margin: 0;
-    overflow: hidden;
-    text-align: center;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
-`
-
-export const ContentSection = styled.section`
-  width: 100%;
-  display: flex;
-`
-
-export const NameSection = styled.section`
-  width: 80%;
-  margin-top: 1em;
-  flex-grow: 1;
-`
-
-const IconSection = styled.section`
-  align-self: flex-end;
-  cursor: pointer;
-
-  a {
-    color: inherit;
-  }
-`
-
-const MemberNameLabel = styled.p`
-  width: 100%;
-  margin: 0;
-  font-weight: bold;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`
-
-const GroupNameLabel = styled.p`
-  width: fit-content;
-  max-width: 80%;
-  margin: 0.5em 0 0 0;
-  padding: 0 0.4em;
-  background-color: #E5E7EB;
-  border-radius: 5px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`

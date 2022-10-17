@@ -8,13 +8,12 @@ import { AxiosError } from 'axios';
 import { ErrorType } from '@util/commonAPI';
 import * as queryKey from '@util/queryKey';
 import * as photoAPI from '@api/photoAPI';
-import { PhotoType } from '@api/photoAPI';
 import PhotoCard from '@component/photocard/PhotoCard';
 import SkeletonPhotoCard from '@component/photocard/skeleton/SkeletonPhotoCard';
 
 interface PhotoListProps {
   icon?: IconDefinition;
-  handleClickIcon?: (photo: PhotoType) => void;
+  handleClickIcon?: (photocardId: number) => void;
   children?: React.ReactNode;
 }
 const PhotoListDefaultProps = {};

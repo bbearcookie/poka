@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { PhotoType } from '@api/photoAPI';
 import PhotoListCard from '@component/list/photo/PhotoListCard';
 import './Index.scss';
 
@@ -11,7 +10,7 @@ const IndexDefaultProps = {};
 
 function Index({ children }: IndexProps & typeof IndexDefaultProps) {
   // 사용자용 상세 페이지로 이동
-  const handleClickDetailIcon = useCallback((photo: PhotoType) => {
+  const handleClickDetailIcon = useCallback((photocardId: number) => {
     console.log('TODO: 사용자용 상세 페이지로 이동');
   }, []);
 

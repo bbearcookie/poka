@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { PhotoType } from '@api/photoAPI';
 import InputMessage from '@component/form/InputMessage';
 import useModal from '@hook/useModal';
 import Modal from '@component/modal/basic/Modal';
@@ -24,8 +23,8 @@ function VoucherSection({ children }: VoucherSectionProps & typeof VoucherSectio
   const dispatch = useAppDispatch();
 
   // 소유권 선택 공간에 포토카드 추가
-  const handleAddVoucher = useCallback((photo: PhotoType) => {
-    dispatch(addVoucher(photo.photocard_id));
+  const handleAddVoucher = useCallback((photocardId: number) => {
+    dispatch(addVoucher(photocardId));
     dispatch(setMessage({ type: 'vouchers', message: '' }));
     addModal.close();
   }, [addModal, dispatch]);
@@ -58,7 +57,6 @@ function VoucherSection({ children }: VoucherSectionProps & typeof VoucherSectio
       <Modal hook={addModal} styles={{ width: '75%' }}>
         <Card>
           <CardBody>
-            {/* <PhotoListContainer icon={faPlus} handleClickIcon={handleAddVoucher} /> */}
             <PhotoListCard icon={faPlus} handleClickIcon={handleAddVoucher} />
           </CardBody>
         </Card>

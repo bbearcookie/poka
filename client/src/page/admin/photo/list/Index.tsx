@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import Button from '@component/form/Button';
 import PhotoListCard from '@component/list/photo/PhotoListCard';
-import { PhotoType } from '@api/photoAPI';
 import './Index.scss';
 
 interface PhotoListPageProps {
@@ -16,8 +15,8 @@ function PhotoListPage({ children }: PhotoListPageProps & typeof PhotoListPageDe
   const navigate = useNavigate();
 
   // 관리자용 상세 페이지로 이동
-  const handleClickDetailIcon = useCallback((photo: PhotoType) => {
-    navigate(`/admin/photo/detail/${photo.photocard_id}`);
+  const handleClickDetailIcon = useCallback((photocardId: number) => {
+    navigate(`/admin/photo/detail/${photocardId}`);
   }, [navigate]);
 
   return (
@@ -35,7 +34,10 @@ function PhotoListPage({ children }: PhotoListPageProps & typeof PhotoListPageDe
           >추가</Button>
         </Link>
       </section>
-      <PhotoListCard icon={faArrowRight} handleClickIcon={handleClickDetailIcon} />
+      <PhotoListCard
+        icon={faArrowRight}
+        handleClickIcon={handleClickDetailIcon}
+      />
     </section>
   );
 }

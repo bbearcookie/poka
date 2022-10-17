@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyledPhotoCard, PhotoNameDiv, ContentSection, NameSection } from '../PhotoCard';
+import { StyledPhotoCard, PhotoNameDiv, ContentSection, NameSection } from '../PhotoCardTemplate';
 import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 import CardFooter from '@component/card/basic/CardFooter';

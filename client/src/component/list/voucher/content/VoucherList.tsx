@@ -3,6 +3,7 @@ import { useUpdateEffect } from 'react-use';
 import { useInfiniteQuery, useQueryClient } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 import { useAppSelector } from '@app/redux/reduxHooks';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { AxiosError } from 'axios';
 import { ErrorType } from '@util/commonAPI';
 import * as queryKey from '@util/queryKey';
@@ -11,11 +12,13 @@ import VoucherCard from '@component/photocard/VoucherCard';
 import SkeletonVoucherCard from '@component/photocard/skeleton/SkeletonVoucherCard';
 
 interface VoucherListProps {
+  icon?: IconDefinition;
+  handleClickIcon?: (photocardId: number) => void;
   children?: React.ReactNode;
 }
 const VoucherListDefaultProps = {};
 
-function VoucherList({ children }: VoucherListProps & typeof VoucherListDefaultProps) {
+function VoucherList({ icon, handleClickIcon, children }: VoucherListProps & typeof VoucherListDefaultProps) {
   const filter = useAppSelector((state) => state.voucherList.filter);
   const [viewRef, inView] = useInView();
   const queryClient = useQueryClient();
@@ -57,7 +60,7 @@ function VoucherList({ children }: VoucherListProps & typeof VoucherListDefaultP
     <section className="item-section">
       {vouchers?.pages.map((page, pageIdx) => 
       <Fragment key={pageIdx}>
-        {page?.vouchers.map(item => <VoucherCard key={item.voucher_id} voucher={item} />)}
+        {page?.vouchers.map(item => <VoucherCard key={item.voucher_id} voucher={item} icon={icon} handleClickIcon={handleClickIcon} />)}
       </Fragment>)}
 
       {isFetching && Array.from({length: 20}).map((_, idx) => 
