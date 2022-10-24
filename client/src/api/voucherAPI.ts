@@ -20,6 +20,19 @@ export class postVoucher {
   }
 }
 
+export class getVoucherDetail {
+  static axios = async (voucherId: number) => {
+    const url = `/api/voucher/${voucherId}`;
+    const res = await client.get<typeof this.resType>(url);
+    return res.data;
+  };
+  static resType = undefined as undefined | VoucherType & {
+    message: string;
+    user_id: number;
+  }
+  // static resType = undefined as undefined | VoucherType;
+}
+
 export class getAllVoucherList {
   static axios = async (pageParam: number, filter: FilterType) => {
     const url = `/api/voucher`

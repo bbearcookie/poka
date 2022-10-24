@@ -1,3 +1,58 @@
 .VoucherDetailPage {
   padding: 5em 10%;
+
+  .VoucherInfo {
+    .info-section {
+      ul { margin: 0; padding: 0; }
+
+      .info {
+        display: flex;
+        border-bottom: 1px solid #E5E7EB;
+        padding: 1.5em;
+
+        .subtitle {
+          flex-basis: 30%;
+        }
+
+        .body {
+          flex-basis: 70%;
+          color: #65748b;
+        }
+
+        .user-section {
+          display: flex;
+          color: #121828;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 1em;
+
+          .body-section {
+            p { margin: 0; }
+
+            .nickname-label {
+              margin-bottom: 0.2em;
+              font-weight: bold;
+              font-size: 1.3rem;
+            }
+
+            .username {
+              padding: 0 0.4em;
+              background-color: #E5E7EB;
+              border-radius: 5px;
+              word-break: keep-all;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 65rem) {
+    .info-section {
+      .info {
+        flex-direction: column;
+        gap: 0.5em;
+      }
+    }
+  }
 }

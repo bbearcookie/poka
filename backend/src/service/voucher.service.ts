@@ -110,6 +110,31 @@ export const selectVoucherList = async (
   }
 };
 
+// 소유권 상세 조회
+export const selectVoucherDetail = async (voucherId: number) => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `
+    SELECT voucher_id, photocard_id, user_id, state
+    FROM Voucher
+    WHERE voucher_id=${con.escape(voucherId)}`;
+
+    interface DataType extends RowDataPacket {
+      voucher_id: number;
+      photocard_id: number;
+      user_id: number;
+      state: string;
+    }
+
+    return await con.query<DataType[]>(sql);
+  } catch (err) {
+    throw err;
+  } finally {
+    con.release();
+  }
+}
+
 // 사용자에게 소유권 발급
 export const insertVouchers = async (
   userId: number,
