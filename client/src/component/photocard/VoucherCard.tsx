@@ -34,7 +34,7 @@ function VoucherCard({ voucher, icon, handleClickIcon, children }: VoucherCardPr
 VoucherCard.defaultProps = VoucherCardDefaultProps;
 export default VoucherCard;
 
-export const VoucherStateLabel = styled.p<{voucherState: string}>`
+export const VoucherStateLabel = styled.p<{voucherState: string;}>`
   display: inline-block;
   margin: 0 0 0.2em 0;
   padding: 0.2em;

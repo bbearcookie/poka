@@ -2,6 +2,11 @@
   padding: 5em 10%;
 
   .VoucherInfo {
+    .state-label {
+      width: 5em;
+      text-align: center;
+    }
+
     .info-section {
       ul { margin: 0; padding: 0; }
 
@@ -45,6 +50,17 @@
         }
       }
     }
+
+    .description-section {
+      color: #65748b;
+
+      .state-description {
+        display: flex;
+        margin-bottom: 0.5em;
+
+        .state-label { margin-right: 0.5em; }
+      }
+    }
   }
 
   @media screen and (max-width: 65rem) {
@@ -52,6 +68,12 @@
       .info {
         flex-direction: column;
         gap: 0.5em;
+      }
+    }
+
+    .description-section {
+      .state-description {
+        flex-direction: column;
       }
     }
   }

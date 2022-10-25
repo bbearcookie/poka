@@ -62,3 +62,14 @@ export class getAllVoucherList {
     }
   };
 }
+
+export class deleteVoucher {
+  static axios = async ({ voucherId }: { voucherId: number; }) => {
+    const url = `/api/voucher/${voucherId}`;
+    const res = await client.delete<typeof this.resType>(url);
+    return res;
+  }
+  static resType = undefined as undefined | {
+    message: string;
+  }
+}

@@ -120,3 +120,30 @@ export const postVoucher = {
     return res.status(501).json({ message: 'Not Implemented' });
   }
 }
+
+// 소유권 삭제
+export const deleteVoucher = {
+  validator: [
+    param('voucherId').isNumeric().withMessage('소유권 ID는 숫자여야 해요.'),
+    validate
+  ],
+  controller: async (req: Request, res: Response) => {
+    const voucherId = Number(req.params.voucherId);
+
+    try {
+      const [[voucher]] = await voucherService.selectVoucherDetail(voucherId);
+      if (!voucher) return res.status(404).json({ message: '해당 소유권의 데이터가 서버에 존재하지 않아요.' });
+
+      const [[user]] = await userService.selectUserDetailByUserID(voucher.user_id);
+      const [[photo]] = await photoService.selectPhotoDetail(voucher.photocard_id);
+
+      await voucherService.deleteVoucher(voucherId);
+      return res.status(200).json({ message: `${user.username} 회원의 ${photo.name} 소유권을 삭제했어요.` });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
+    }
+
+    return res.status(501).json({ message: 'Not Implemented' });
+  }
+}
