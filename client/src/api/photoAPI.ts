@@ -1,66 +1,60 @@
 import { client } from "@util/commonAPI";
-import { LabelType } from '@page/admin/photo/list/searchSlice';
+import { FilterType } from '@component/list/photo/photoListCardSlice';
 
-export class getAllPhotoList {
-  static axios = async () => {
-    const url = `/api/photo`;
-    const res = await client.get<typeof this.resType>(url);
-    return res.data;
-  }
-  static resType = undefined as undefined | {
-    message: string;
-    photos: {
-      photocard_id: number,
-      member_id: number,
-      group_id: number,
-      name: string,
-      group_name: string,
-      member_name: string,
-      image_name: string
-    }[];
-  }
-}
+export type PhotoType = {
+  photocard_id: number;
+  member_id: number;
+  group_id: number;
+  name: string;
+  group_name: string;
+  member_name: string;
+  image_name: string;
+};
 
 export class getPhotoList {
-  static axios = async (limit: number, pageParam: number, labels: LabelType[]) => {
-    const filters = labels.map((item) => ({ ...item.data }));
-    // console.log("-------api-------");
-    // console.log(filters);
+  static axios = async (pageParam: number, filter: FilterType) => {
     const url = `/api/photo`;
-    const params = { limit, pageParam, filters: JSON.stringify(filters) };
+
+    let refinedFilter = {
+      'GROUP_ID': filter.groups
+        .filter(item => item.checked)
+        .map(item => item.groupId),
+      'MEMBER_ID': filter.members
+        .filter(item => item.checked)
+        .map(item => item.memberId),
+      'PHOTO_NAME': filter.names.map(item => item.value)
+    }
+
+    const params = { pageParam, filter: refinedFilter };
     const res = await client.get<typeof this.resType>(url, { params });
     return res.data;
   };
   static resType = undefined as undefined | {
     message: string;
-    pageParam: number;
-    photos: {
-      photocard_id: number,
-      member_id: number,
-      group_id: number,
-      name: string,
-      group_name: string,
-      member_name: string,
-      image_name: string
-    }[];
+    photos: PhotoType[];
+    paging: {
+      pageParam: number;
+      hasNextPage: boolean;
+    };
   }
 }
 
 export class getPhotoDetail {
+  // 함수 호출할 때 클라이언트에서만 쓰이는 고유한 ID 값이 있다면 넘겨받을 수 있도록 지정.
   static axios = async (photocardId: number) => {
     const url = `/api/photo/${photocardId}`;
     const res = await client.get<typeof this.resType>(url);
     return res.data;
   };
-  static resType = undefined as undefined | {
+  static resType = undefined as undefined | PhotoType & {
     message: string;
-    photocard_id: number;
-    name: string;
-    image_name: string;
-    group_id: number;
-    group_name: string;
-    member_id: number;
-    member_name: string;
+    // photocard_id: number;
+    // name: string;
+    // image_name: string;
+    // group_id: number;
+    // group_name: string;
+    // member_id: number;
+    // member_name: string;
   }
 }
 

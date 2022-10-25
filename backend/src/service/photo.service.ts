@@ -1,11 +1,11 @@
 import db from '@config/database';
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
-import { RefinedFilterType } from '@controller/photo.ctrl';
 import { WhereSQL } from '@util/database';
+import * as photoCtrl from '@controller/photo.ctrl';
 
 // 포토카드 목록 조회
 export const selectPhotoList = 
-  async (limit: number, pageParam: number, filters: RefinedFilterType) => {
+  async (itemPerPage: number = 20, pageParam: number, filter: typeof photoCtrl.getPhotoList.filterType) => {
     const con = await db.getConnection();
 
     try {
@@ -19,12 +19,12 @@ export const selectPhotoList =
       INNER JOIN GroupData as G ON M.group_id=G.group_id `;
 
       // 포토카드 이름 조건
-      if (filters['PHOTO_NAME'].length > 0) {
+      if (filter['PHOTO_NAME'].length > 0) {
         where.pushString('(');
-        filters['PHOTO_NAME'].forEach((item, idx) => {
+        filter['PHOTO_NAME'].forEach((item, idx) => {
           where.push({
             query: `P.name LIKE ${con.escape(`%${item}%`)}`,
-            operator: idx < filters['PHOTO_NAME'].length - 1 ? 'OR' : ''
+            operator: idx < filter['PHOTO_NAME'].length - 1 ? 'OR' : ''
           });
         });
         where.push({
@@ -34,27 +34,39 @@ export const selectPhotoList =
       }
 
       // 그룹ID 조건
-      if (filters['GROUP_ID'].length > 0) {
+      if (filter['GROUP_ID'].length > 0) {
         where.push({
-          query: `G.group_id IN (${con.escape(filters['GROUP_ID'])})`,
+          query: `G.group_id IN (${con.escape(filter['GROUP_ID'])})`,
           operator: 'AND'
         });
       }
 
       // 멤버ID 조건
-      if (filters['MEMBER_ID'].length > 0) {
+      if (filter['MEMBER_ID'].length > 0) {
         where.push({
-          query: `M.member_id IN (${con.escape(filters['MEMBER_ID'])})`,
+          query: `M.member_id IN (${con.escape(filter['MEMBER_ID'])})`,
           operator: 'AND'
         })
       }
+
+      // 조건 처리
       sql += where.toString();
       sql += `ORDER BY photocard_id `;
 
       // 페이지 조건
-      if (limit) sql += `LIMIT ${con.escape(limit)} OFFSET ${con.escape(pageParam)}`;
+      sql += `LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
 
-      return await con.query(sql);
+      interface DataType extends RowDataPacket {
+        photocard_id: number;
+        member_id: number;
+        name: string;
+        image_name: string;
+        group_id: number;
+        group_name: string;
+        member_name: string;
+      }
+
+      return await con.query<DataType[]>(sql);
     } catch (err) {
       con.rollback();
       throw err;

@@ -1,14 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import Button from '@component/form/Button';
-import Card from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
-import CardBody from '@component/card/basic/CardBody';
-import SearchInput from './SearchInput';
-import SearchLabelList from './SearchLabelList';
-import PhotoList from './PhotoList';
-import FilterCheck from './FilterCheck';
+import PhotoListCard from '@component/list/photo/PhotoListCard';
 import './Index.scss';
 
 interface PhotoListPageProps {
@@ -17,6 +12,13 @@ interface PhotoListPageProps {
 const PhotoListPageDefaultProps = {};
 
 function PhotoListPage({ children }: PhotoListPageProps & typeof PhotoListPageDefaultProps) {
+  const navigate = useNavigate();
+
+  // 관리자용 상세 페이지로 이동
+  const handleClickDetailIcon = useCallback((photocardId: number) => {
+    navigate(`/admin/photo/detail/${photocardId}`);
+  }, [navigate]);
+
   return (
     <section className="PhotoListPage">
       <section className="title-label-section">
@@ -32,16 +34,10 @@ function PhotoListPage({ children }: PhotoListPageProps & typeof PhotoListPageDe
           >추가</Button>
         </Link>
       </section>
-      <Card>
-        <CardHeader padding="0" borderBottom="0">
-          <SearchInput />
-          <SearchLabelList />
-        </CardHeader>
-        <CardBody>
-          <FilterCheck />
-          <PhotoList />
-        </CardBody>
-      </Card>
+      <PhotoListCard
+        icon={faArrowRight}
+        handleClickIcon={handleClickDetailIcon}
+      />
     </section>
   );
 }

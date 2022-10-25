@@ -1,7 +1,9 @@
 import React from 'react';
+import classNames from 'classnames';
 import styled from 'styled-components';
 
 interface CardBodyProps {
+  className?: string;
   padding?: string;
   width?: string;
   height?: string;
@@ -14,7 +16,7 @@ const CardBodyDefaultProps = {
 
 export function CardBody(p: CardBodyProps & typeof CardBodyDefaultProps) {
   return (
-    <StyledCardBody className="CardBody" {...p}>
+    <StyledCardBody className={classNames("CardBody", p.className)} {...p}>
       {p.children}
     </StyledCardBody>
   );

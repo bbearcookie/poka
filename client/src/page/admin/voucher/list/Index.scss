@@ -1,0 +1,42 @@
+.VoucherListPage {
+  padding: 5em 1.5em;
+
+  .title-label {
+    margin: 0 0 1em 0;
+    font-size: 1.75rem;
+  }
+
+  // .search-label-section {
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   gap: 1em;
+
+  //   &:empty { display: none; }
+  // }
+
+  // .check-section {
+  //   display: flex;
+  //   margin-bottom: 1em;
+  //   flex-wrap: wrap;
+  //   gap: 2em;
+
+  //   .DropdownButton .icon { margin-left: 0.7em; }
+
+  //   .DropdownItem {
+  //     display: flex;
+  //     flex-wrap: wrap;
+
+  //     input[type="checkbox"], input[type="radio"] {
+  //       margin-right: 0.4em;
+  //       transform: scale(1.25);
+  //       cursor: pointer;
+  //     }
+
+  //     label {
+  //       flex-grow: 1;
+  //       cursor: pointer;
+  //     }
+  //   }
+  // }
+
+}

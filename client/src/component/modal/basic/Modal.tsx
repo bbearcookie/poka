@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
+import { ModalHookType } from '@hook/useModal';
 
 export type LocationType = {
   horizontal: 'LEFT' | 'CENTER' | 'RIGHT';
@@ -7,9 +8,9 @@ export type LocationType = {
 }
 
 interface ModalProps {
-  show: boolean;
+  hook: ModalHookType;
   location?: LocationType;
-  onClick?: () => void;
+  styles?: StylesProps;
   children?: React.ReactNode;
 }
 const ModalDefaultProps = {
@@ -18,13 +19,31 @@ const ModalDefaultProps = {
     vertical: 'CENTER'
   }
 };
-function Modal(p: ModalProps & typeof ModalDefaultProps) {
+function Modal({ hook, location, styles, children }: ModalProps & typeof ModalDefaultProps) {
+  const ref = useRef<HTMLElement>(null);
+
+  // 모달의 바깥 영역이 클릭되면 모달 닫음
+  useEffect(() => {
+    const closeModal = (e: MouseEvent) => {
+      if (!ref.current?.contains(e.target as unknown as Node)) {
+        hook.close();
+      }
+    }
+
+    document.body.addEventListener('click', closeModal);
+    return () => document.body.removeEventListener('click', closeModal);
+  }, [hook]);
+
   return (
-    <StyledModal show={p.show} onClick={p.onClick}>
-      <StyledModalContent {...p} onClick={(e) => { e.stopPropagation() } }>
-        {p.children}
+    <StyledModalWrapper show={hook.show}>
+      <StyledModalContent
+        {...StylesDefaultProps} {...styles}
+        location={location}
+        ref={ref}
+      >
+        {children}
       </StyledModalContent>
-    </StyledModal>
+    </StyledModalWrapper>
   );
 }
 
@@ -33,7 +52,7 @@ export default Modal;
 
 // 스타일 컴포넌트
 const exceedHeight = '3em'; // 모달 열고 닫을때 height 변화 애니메이션만큼 요소 보정하기 위한 변수
-const StyledModal = styled.section<ModalProps>`
+const StyledModalWrapper = styled.section<{show: boolean}>`
   padding: 1em;
   padding-bottom: calc(1em + ${exceedHeight});
   box-sizing: border-box;
@@ -66,8 +85,17 @@ const StyledModal = styled.section<ModalProps>`
   }}
 `;
 
-const StyledModalContent = styled.section<{location: LocationType}>`
-  width: fit-content;
+interface StylesProps {
+  width?: string;
+  maxWidth?: string;
+  minWidth?: string;
+  location?: LocationType;
+}
+const StylesDefaultProps = {};
+const StyledModalContent = styled.section<StylesProps & typeof StylesDefaultProps>`
+  width: ${p => p.width};
+  max-width: ${p => p.maxWidth};
+  min-width: ${p => p.minWidth};
   max-height: 90%;
   overflow: auto;
 
@@ -87,7 +115,7 @@ const StyledModalContent = styled.section<{location: LocationType}>`
 
   // 모달 세로 위치 조정
   ${(p) => {
-    switch (p.location.vertical) {
+    switch (p.location?.vertical) {
       case 'TOP':
         return;
       case 'CENTER':
@@ -103,7 +131,7 @@ const StyledModalContent = styled.section<{location: LocationType}>`
 
   // 모달 가로 위치 조정
   ${(p) => {
-    switch (p.location.horizontal) {
+    switch (p.location?.horizontal) {
       case 'LEFT':
         return;
       case 'CENTER':

@@ -1,0 +1,34 @@
+.PageTemplate {
+  color: #121828;
+  
+  .page-section {
+    padding-left: 15rem; // 사이드 바 크기만큼 패딩
+    min-height: 100vh;
+    background-color: #F9FAFC;
+  }
+
+  // 화면이 작아지면 사이드바 ON/OFF 기능 사용 가능
+  @media screen and (max-width: 65rem) {
+    .Sidebar_wrapper {
+      width: 100%;
+      height: 100%;
+
+      .Sidebar { transition: 0.25s transform; }
+
+      &.hide {
+        width: 0;
+
+        .Sidebar {
+          transform: translateX(-15rem);
+          transition: 0.25s transform;
+        }
+      }
+    }
+
+    .Navbar {
+      .sidebar-icon { display: block; }
+    }
+
+    .page-section { padding-left: 0; }
+  }
+}

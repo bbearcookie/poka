@@ -1,28 +1,26 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import classNames from 'classnames';
-import { DropdownHookType } from '@hook/useDropdown';
 
 const CLASS = 'DropdownButton';
 interface DropdownButtonProps {
-  hook?: DropdownHookType;
+  buttonRef: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
   className?: string;
-  type?: 'hover' | 'click';
+  onClick?: (e: React.MouseEvent) => void;
   styles?: StylesProps;
   children?: React.ReactNode;
 }
-const DropdownButtonDefaultProps = {
-  type: 'click'
-};
+const DropdownButtonDefaultProps = {};
 
-function DropdownButton(p: DropdownButtonProps & typeof DropdownButtonDefaultProps) {
+function DropdownButton({ className, buttonRef, styles, onClick, children }: DropdownButtonProps & typeof DropdownButtonDefaultProps) {
   return (
     <StyledDropdownButton
-      {...StylesDefaultProps} {...p.styles} {...p}
-      className={classNames(CLASS, p.className)}
-      onClick={p.type === 'click' ? () => p.hook?.toggle() : undefined}
+      {...StylesDefaultProps} {...styles}
+      className={classNames(CLASS, className)}
+      onClick={onClick}
+      ref={buttonRef}
     >
-      {p.children}
+      {children}
     </StyledDropdownButton>
   );
 }
@@ -32,15 +30,23 @@ export default DropdownButton;
 
 // 스타일 컴포넌트
 interface StylesProps {
+  minWidth?: string;
+  height?: string;
+  cursor?: string;
   padding?: string;
 }
-const StylesDefaultProps = {};
+const StylesDefaultProps = {
+  cursor: 'pointer'
+};
 const StyledDropdownButton = styled.div<StylesProps & typeof StylesDefaultProps>`
   padding: ${p => p.padding};
   width: fit-content;
+  min-width: ${p => p.minWidth};
+  height: ${p => p.height};
   user-select: none;
-  cursor: pointer;
+  cursor: ${p => p.cursor};
   border-radius: 5px;
+  text-align: center;
 
   &:hover {
     background-color: rgb(249, 249, 250);

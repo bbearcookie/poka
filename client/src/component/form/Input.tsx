@@ -9,7 +9,7 @@ interface InputProps {
   type: React.HTMLInputTypeAttribute;
   name: string;
   className?: string;
-  value?: any;
+  value?: string | number | readonly string[] | undefined;
   autoComplete?: string;
   maxLength?: number;
   placeholder?: string;

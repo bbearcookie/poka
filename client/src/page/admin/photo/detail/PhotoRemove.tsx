@@ -44,7 +44,7 @@ function PhotoRemove({ photo, photocardId, children }: PhotoRemoveProps & typeof
     <>
       <RemoveCard
         titleText="포토카드 삭제"
-        onClick={removeModal.open}
+        onClick={(e) => { e.stopPropagation(); removeModal.open(); }}
       >
         <p className="description">해당 포토카드를 삭제하면 연관된 사용자의 소유권도 모두 지워지니 신중히 삭제해주세요.</p>
       </RemoveCard>
@@ -57,7 +57,7 @@ function PhotoRemove({ photo, photocardId, children }: PhotoRemoveProps & typeof
         handleConfirm={removePhotocard}
       >
         <p className="text">이 그룹을 삭제하면 연관된 사용자의 소유권도 함께 지워져요.</p>
-        <p className="text">정말로 {photo?.name} 그룹을 삭제하시겠어요?</p>
+        <p className="text">정말로 {photo?.name} 카드를 삭제하시겠어요?</p>
       </ConfirmModal>
     </>
   );

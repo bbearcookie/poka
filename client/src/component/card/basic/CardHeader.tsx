@@ -1,7 +1,9 @@
 import React from 'react';
+import classNames from 'classnames';
 import styled from 'styled-components';
 
 interface CardHeaderProps {
+  className?: string;
   borderBottom?: string;
   padding?: string;
   children?: React.ReactNode;
@@ -14,7 +16,7 @@ const CardHeaderDefaultProps = {
 
 export function CardHeader(p: CardHeaderProps & typeof CardHeaderDefaultProps) {
   return (
-    <StyledCardHeader className="CardHeader" {...p}>
+    <StyledCardHeader className={classNames("CardHeader", p.className)} {...p}>
       {p.children}
     </StyledCardHeader>
   );
