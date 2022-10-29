@@ -3,7 +3,7 @@ import * as voucherService from '@service/voucher.service';
 import * as userService from '@service/user.service';
 import * as photoService from '@service/photo.service';
 import { query, body, param, oneOf } from 'express-validator';
-import { validate, createResponseMessage } from '@util/validator';
+import { isAdmin, validate, createResponseMessage } from '@util/validator';
 
 // 전체 소유권 목록 조회
 export const getAllVoucherList = {
@@ -94,6 +94,7 @@ export const getVoucherDetail = {
 // 소유권 발급
 export const postVoucher = {
   validator: [
+    isAdmin,
     body('username').trim().toLowerCase()
       .not().isEmpty().withMessage('아이디가 비어있어요.').bail(),
     body('vouchers').isArray({ min: 1 }).withMessage('발급할 소유권을 선택해주세요.'),
@@ -124,6 +125,7 @@ export const postVoucher = {
 // 소유권 삭제
 export const deleteVoucher = {
   validator: [
+    isAdmin,
     param('voucherId').isNumeric().withMessage('소유권 ID는 숫자여야 해요.'),
     validate
   ],

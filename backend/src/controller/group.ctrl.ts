@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import path from 'path';
 import fs from 'fs/promises';
 import { body, param } from 'express-validator';
-import { validate } from '@util/validator';
+import { isAdmin, validate } from '@util/validator';
 import { getTimestampFilename } from '@util/multer';
 import * as groupService from '@service/group.service';
 import * as memberService from '@service/member.service';
@@ -51,6 +51,7 @@ export const getGroupDetail = {
 export const postGroup = {
   uploader: groupUploader("image"),
   validator: [
+    isAdmin,
     body('name').trim()
       .not().isEmpty().withMessage('이름이 비어있어요.')
       .isLength({ max: 20 }).withMessage('이름은 최대 20글자까지 입력할 수 있어요.'),
@@ -87,6 +88,7 @@ export const postGroup = {
 export const putGroup = {
   uploader: groupUploader("image"),
   validator: [
+    isAdmin,
     body('name').trim()
       .not().isEmpty().withMessage('이름이 비어있어요.')
       .isLength({ max: 20 }).withMessage('이름은 최대 20글자까지 입력할 수 있어요.'),
@@ -130,6 +132,7 @@ export const putGroup = {
 // 그룹 데이터 삭제
 export const deleteGroup = {
   validator: [
+    isAdmin,
     param('groupId').isNumeric().withMessage('그룹 ID는 숫자여야 해요.'),
     validate
   ],

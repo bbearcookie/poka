@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { query, body, param, oneOf } from 'express-validator';
 import fs from 'fs/promises';
 import path from 'path';
-import { validate, removeFiles } from '@util/validator';
+import { isAdmin, validate, removeFiles } from '@util/validator';
 import photoUploader, { PHOTO_IMAGE_DIR } from '@uploader/photo.uploader';
 import * as photoService from '@service/photo.service';
 import { getTimestampFilename } from '@util/multer';
@@ -79,6 +79,7 @@ export const getPhotoDetail = {
 export const postPhotos = {
   uploader: photoUploader('image[]'),
   validator: [
+    isAdmin,
     body('groupId')
       .isNumeric().withMessage("그룹 ID는 숫자여야 해요.").bail()
       .custom((value: number, { req }) => value != 0).withMessage("그룹을 선택해주세요.").bail(),
@@ -131,6 +132,7 @@ export const postPhotos = {
 export const putPhoto = {
   uploader: photoUploader("image"),
   validator: [
+    isAdmin,
     param('photocardId').isNumeric().withMessage('포토카드 ID는 숫자여야 해요.'),
     body('groupId')
       .isNumeric().withMessage("그룹 ID는 숫자여야 해요.").bail()
@@ -183,6 +185,7 @@ export const putPhoto = {
 // 포토카드 데이터 삭제
 export const deletePhoto = {
   validator: [
+    isAdmin,
     param('photocardId').isNumeric().withMessage('포토카드 ID는 숫자여야 해요.'),
     validate
   ],

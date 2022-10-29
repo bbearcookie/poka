@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import fs from 'fs/promises';
 import { body, validationResult } from 'express-validator';
+import { verifyToken } from '@util/jwt';
+import jwt from 'jsonwebtoken';
 
 // 유효성 검사 실패시 업로드 된 임시 파일을 삭제하기 위한 함수
 export function removeFile(file: Express.Multer.File) {
@@ -43,6 +45,27 @@ export function validate(req: Request, res: Response, next: NextFunction) {
 
     // 다중 에러
     return res.status(400).json({ message: '올바른 정보를 입력해주세요!', errors: result });
+  }
+
+  next();
+}
+
+// 관리자 권한을 확인하는 미들웨어
+export function isAdmin(req: Request, res: Response, next: NextFunction) {
+  const accessToken = req.cookies.accessToken;
+
+  try {
+    const payload = verifyToken(accessToken);
+    if (payload.role !== 'admin') return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
+  } catch (err) {
+    const error = (err as jwt.VerifyErrors);
+
+    switch (error.name) {
+      case 'TokenExpiredError':
+        return res.status(400).json({ message: '로그인 토큰이 만료되었어요.' });
+      default:
+        return res.status(400).json({ message: error.message });
+    }
   }
 
   next();

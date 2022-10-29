@@ -71,6 +71,7 @@ export const postLogin = {
       };
       const accessToken = createLoginToken(payload);
       res.cookie('accessToken', accessToken, { httpOnly: true });
+      // console.log(accessToken);
       // const result = verifyToken(accessToken);
       // console.log(result);
 

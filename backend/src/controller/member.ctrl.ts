@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { param, query, body } from 'express-validator';
-import { validate } from '@util/validator';
+import { isAdmin, validate } from '@util/validator';
 import * as groupService from '@service/group.service';
 import * as memberService from '@service/member.service';
 
@@ -72,6 +72,7 @@ export const getMemberDetail = {
 // 특정 그룹에 새 멤버 추가
 export const postMember = {
   validator: [
+    isAdmin,
     body('groupId')
       .isNumeric().withMessage('그룹 ID는 숫자여야 해요.'),
     body('name').trim()
@@ -101,6 +102,7 @@ export const postMember = {
 // 특정 멤버의 정보 수정
 export const putMember = {
   validator: [
+    isAdmin,
     param('memberId').isNumeric().withMessage('멤버 ID는 숫자여야 해요.'),
     body('name').trim()
       .not().isEmpty().withMessage('이름이 비어있어요.')
@@ -129,6 +131,7 @@ export const putMember = {
 // 멤버 데이터 삭제
 export const deleteMember = {
   validator: [
+    isAdmin,
     param('memberId').isNumeric().withMessage('멤버 ID는 숫자여야 해요.'),
     validate
   ],
