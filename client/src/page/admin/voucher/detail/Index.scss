@@ -23,31 +23,6 @@
           flex-basis: 70%;
           color: #65748b;
         }
-
-        .user-section {
-          display: flex;
-          color: #121828;
-          align-items: center;
-          flex-wrap: wrap;
-          gap: 1em;
-
-          .body-section {
-            p { margin: 0; }
-
-            .nickname-label {
-              margin-bottom: 0.2em;
-              font-weight: bold;
-              font-size: 1.3rem;
-            }
-
-            .username {
-              padding: 0 0.4em;
-              background-color: #E5E7EB;
-              border-radius: 5px;
-              word-break: keep-all;
-            }
-          }
-        }
       }
     }
 

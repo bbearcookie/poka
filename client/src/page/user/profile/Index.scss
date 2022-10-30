@@ -1,0 +1,31 @@
+.ProfilePage {
+  padding: 5em 10%;
+  
+  .title-label {
+    margin: 0 0 1em 0;
+    font-size: 1.75rem;
+  }
+
+  .editor-section {
+    display: flex;
+    gap: 1em;
+
+    .description-section {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      
+      p { margin: 0.4em 0; word-break: break-all; }
+      .space { flex-grow: 1; }
+
+      .label {
+        margin: 0 0 0.5em 0;
+        font-weight: bold;
+      }
+
+      .button-section {
+        align-self: flex-end;
+      }
+    }
+  }
+}
