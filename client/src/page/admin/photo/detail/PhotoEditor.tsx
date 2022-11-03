@@ -134,10 +134,10 @@ function PhotoEditor({ photo, photocardId, closeEditor, children }: PhotoEditorP
           <section className="image-section">
             <ImageUploader
               value={form.image}
-              message={formMessage.image}
+              errorMessage={formMessage.image}
+              description={<p className="description">파일 업로드<br/>Drag & Drop</p>}
               onChange={changeImage}
               styles={{ width: '150px', height: "224px" }}
-              imageStyles={{ width: '150px', height: "224px" }}
             />
           </section>
           <section className="description-section">

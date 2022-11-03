@@ -193,8 +193,9 @@ function Form({ name, imageName, groupId, children }: FormProps & typeof FormDef
           <ImageUploader
             value={input.image}
             onChange={changeImage}
-            message={inputMessage.image}
-            imageStyles={{ maxWidth: "100%"  }}
+            errorMessage={inputMessage.image}
+            description={<p className="description">파일 업로드<br/>Drag & Drop</p>}
+            styles={{ height: "20em" }}
           />
         </CardBody>
       </Card>

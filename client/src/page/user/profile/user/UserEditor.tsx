@@ -59,10 +59,13 @@ function UserEditor({ closeEditor, children }: UserEditorProps & typeof UserEdit
           <section className="image-section">
             <ImageUploader
               value={form.image}
-              message={formMessage.image}
+              errorMessage={formMessage.image}
               onChange={changeImage}
-              styles={{ width: "100px", height: "100px" }}
-              imageStyles={{ width: "100px", height: "100px" }}
+              styles={{
+                width: "75px",
+                height: "75px",
+                borderRadius: "50px",
+              }}
             />
           </section>
 

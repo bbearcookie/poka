@@ -21,8 +21,6 @@ function Index({ children }: IndexProps & typeof IndexDefaultProps) {
       {editMode ?
       <UserEditor closeEditor={closeEditor} /> :
       <UserInfo startEditor={startEditor} />}
-      
-      
     </div>
   );
 }

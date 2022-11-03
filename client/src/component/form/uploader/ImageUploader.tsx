@@ -6,26 +6,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 // 이미지 업로더 컴포넌트 =================
-const CLASS = "ImageUploader";
 export interface Image {
   file: File | null;
   previewURL: string | ArrayBuffer | null;
   initialURL: string;
 }
 interface ImageUploaderProps {
+  className?: string;
   value: Image;
   onChange: (img: Image) => void;
-  className?: string;
-  message?: string;
+  errorMessage?: string;
+  description?: React.ReactNode;
   styles?: StyledImageUploaderProps;
-  imageStyles?: ImageStylesProps;
   children?: React.ReactNode;
 }
 const ImageUploaderDefaultProps = {
-  message: ''
+  errorMessage: ''
 };
 
-function ImageUploader({ className, value, message, onChange, styles, imageStyles, children }: ImageUploaderProps & typeof ImageUploaderDefaultProps) {
+function ImageUploader({ className, value, errorMessage, description, onChange, styles, children }: ImageUploaderProps & typeof ImageUploaderDefaultProps) {
   const [isDragging, setIsDragging] = useState(false);
   const imageRef = useRef<HTMLInputElement>(null);
 
@@ -60,7 +59,7 @@ function ImageUploader({ className, value, message, onChange, styles, imageStyle
 
       reader.readAsDataURL(file);
     } else {
-      alert('받을 수 없는 타입');
+      alert('이미지 파일만 업로드할 수 있어요.');
     }
   }, [onChange, value]);
 
@@ -94,16 +93,12 @@ function ImageUploader({ className, value, message, onChange, styles, imageStyle
   }, [changeFile]);
 
   return (
-    <StyledImageUploader
-      {...StyledImageUploaderDefaultProps} {...styles}
-      className={classNames(CLASS, className)}
-    >
+    <article className={classNames("ImageUploader", className)}>
       <input type="file" accept=".jpg, .png" ref={imageRef} onChange={onChangeInput} style={{ display: "none" }} />
 
-      <section className={`${CLASS}__content-section`}>
+      <StyledImageUploader {...styles}>
         {value.previewURL &&
-        <StyledImage
-          {...ImageStylesDefaultProps} {...imageStyles}
+        <StyledImage {...styles}
           src={String(value.previewURL)}
           alt="업로드"
           onDragOver={onDragOver}
@@ -112,22 +107,22 @@ function ImageUploader({ className, value, message, onChange, styles, imageStyle
         />}
 
         {!value.previewURL &&
-        <section
-          className={classNames(`${CLASS}__upload-section`, {"isDragging": isDragging})}
+        <UploadSection
+          {...styles}
+          className={classNames({"isDragging": isDragging})}
           onClick={showInput}
           onDragOver={onDragOver}
           onDragLeave={onDragLeave}
           onDrop={onDrop}
         >
           <FontAwesomeIcon icon={faUpload} size="2x" />
-          <p className="description">파일 업로드</p>
-          <p className="description">Drag & Drop</p>
-        </section>}
-      </section>
+          {description && description}
+        </UploadSection>}
+      </StyledImageUploader>
 
-      <p className={`${CLASS}__message-label`}>{message}</p>
+      <ErrorMessageLabel>{errorMessage}</ErrorMessageLabel>
 
-      <section className={`${CLASS}__button-section`}>
+      <ButtonSection>
         <Button
           type="button"
           leftIcon={faUpload}
@@ -146,9 +141,9 @@ function ImageUploader({ className, value, message, onChange, styles, imageStyle
             padding: "0.5em"
           }}
         >초기화</Button>
-      </section>
+      </ButtonSection>
 
-    </StyledImageUploader>
+    </article>
   );
 }
 
@@ -159,63 +154,54 @@ export default ImageUploader;
 interface StyledImageUploaderProps {
   width?: string;
   height?: string;
+  borderRadius?: string;
 }
-const StyledImageUploaderDefaultProps = {};
-const StyledImageUploader = styled.article<StyledImageUploaderProps & typeof StyledImageUploaderDefaultProps>`
+
+const StyledImageUploader = styled.article<StyledImageUploaderProps>`
+  margin: 0 auto;
   width: ${p => p.width};
+`
 
-  .${CLASS}__upload-section {
-    margin-bottom: 1em; padding: 1em;
-    width: ${p => p.width};
-    height: ${p => p.height};
-    min-height: 10rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    background-color: #E5E7EB;
-    color: #65748B;
-    border: 2px dashed #E5E7EB;
-    border-radius: 5px;
-    text-align: center;
-    user-select: none;
-    cursor: pointer;
-    transition: 0.1s all;
+const UploadSection = styled.section<StyledImageUploaderProps>`
+  margin-bottom: 1em; padding: 1em;
+  height: ${p => p.height};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  background-color: #E5E7EB;
+  color: #65748B;
+  border: 2px dashed #E5E7EB;
+  border-radius: ${p => p.borderRadius ? p.borderRadius : '5px'};
+  text-align: center;
+  user-select: none;
+  cursor: pointer;
+  transition: 0.1s all;
 
-    &.isDragging { background-color: #bfc1c6; }
-    &:hover { background-color: #dcdee1; }
-    svg { margin-bottom: 0.3em; }
-  }
+  &.isDragging { background-color: #bfc1c6; }
+  &:hover { background-color: #dcdee1; }
+  svg { margin-bottom: 0.3em; }
+`
 
-  .${CLASS}__message-label {
-    margin: 0.5em 0 0.5em 0.8em;
-    color: red;
-  }
-
-  .${CLASS}__button-section {
-    margin-top: 1em;
-    
-    .Button {
-      width: 100%;
-      border-radius: 50px;
-      margin-bottom: 1em;
-    }
-  }
-`;
-
-interface ImageStylesProps {
-  width?: string;
-  minWidth?: string;
-  maxWidth?: string;
-  height?: string;
-}
-const ImageStylesDefaultProps = {}
-const StyledImage = styled.img<ImageStylesProps & typeof ImageStylesDefaultProps>`
+const StyledImage = styled.img<StyledImageUploaderProps>`
   margin-left: auto;
   margin-right: auto;
-  width: ${p => p.width};
-  max-width: ${p => p.maxWidth};
-  min-width: ${p => p.minWidth};
+  width: 100%;
   height: ${p => p.height};
-`;
+  border-radius: ${p => p.borderRadius};
+`
+
+const ButtonSection = styled.section`
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+
+  .Button { border-radius: 50px; }
+`
+
+const ErrorMessageLabel = styled.p`
+  margin: 0.5em 0 0.5em 0.8em;
+  color: red;
+`
