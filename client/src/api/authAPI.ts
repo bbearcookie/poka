@@ -28,6 +28,17 @@ export class postLogin {
   }
 }
 
+export class postLogout {
+  static axios = async () => {
+    const url = `/api/auth/logout`;
+    const res = await client.post<typeof this.resType>(url);
+    return res;
+  }
+  static resType = undefined as undefined | {
+    message: string;
+  }
+}
+
 export class postVerify {
   static axios = async () => {
     const url = `/api/auth/verify`;

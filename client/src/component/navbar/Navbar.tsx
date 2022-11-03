@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { changeShow } from '@component/sidebar/sidebarSlice';
 import { logout } from '@util/auth/authSlice';
+import * as authAPI from '@api/authAPI';
 import useDropdown from '@hook/useDropdown';
 import Dropdown from '@component/dropdown/Dropdown';
 import DropdownButton from '@component/dropdown/DropdownButton';
@@ -40,6 +41,7 @@ function Navbar({ children }: NavbarProps & typeof NavbarDefaultProps) {
   const handleLogout = useCallback((e: React.MouseEvent) => {
     dispatch(logout());
     userDropdown.close();
+    authAPI.postLogout.axios();
     return navigate('/login');
   }, [dispatch, navigate, userDropdown]);
 

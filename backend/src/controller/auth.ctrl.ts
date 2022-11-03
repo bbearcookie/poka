@@ -71,11 +71,42 @@ export const postLogin = {
       };
       const accessToken = createLoginToken(payload);
       res.cookie('accessToken', accessToken, { httpOnly: true });
-      // console.log(accessToken);
-      // const result = verifyToken(accessToken);
-      // console.log(result);
 
-      return res.status(200).json({ message: 'TODO: 로그인 성공!', user: payload });
+      return res.status(200).json({ message: '로그인 성공!', user: payload });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
+    }
+
+    return res.status(501).json({ message: 'Not Implemented' });
+  }
+}
+
+// 로그아웃
+export const postLogout = {
+  controller: (req: Request, res: Response) => {
+    res.clearCookie('accessToken');
+    return res.status(200).json({ message: "로그아웃 완료" });
+  }
+}
+
+// 자신의 사용자 상세 정보 조회
+export const getMyUserDetail = {
+  validator: [
+    validate
+  ],
+  controller: async (req: Request, res: Response) => {
+    const accessToken = req.cookies.accessToken;
+    
+    try {
+      const payload = verifyToken(accessToken);
+      
+    } catch (err) {
+      return res.status(401).json({ message: '로그인 인증 실패' });
+    }
+
+    try {
+
     } catch (err) {
       console.error(err);
       return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });

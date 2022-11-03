@@ -55,7 +55,7 @@ export const getAllVoucherList = {
 }
 
 // 사용자 개인의 소유권 목록 조회
-export const getMineVoucherList = {
+export const getMyVoucherList = {
   
 }
 
