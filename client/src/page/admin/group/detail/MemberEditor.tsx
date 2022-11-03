@@ -5,6 +5,7 @@ import * as memberAPI from '@api/memberAPI';
 import * as queryKey from '@util/queryKey';
 import { ErrorType } from '@util/commonAPI';
 import { AxiosError, AxiosResponse } from 'axios';
+import { getErrorMessage } from '@util/commonAPI';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';
@@ -35,10 +36,9 @@ function MemberEditor({ groupId, memberId, defaultValue, closeEditor }: MemberEd
       closeEditor();
     },
     onError: (err: AxiosError<ErrorType>) => {
-      if (err.response?.data.message) {
-        toast.error(err.response?.data.message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-        setMessage(err.response?.data.message);
-      }
+      const message = getErrorMessage(err);
+      toast.error(message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
+      setMessage(message);
     }
   });
 
@@ -50,10 +50,9 @@ function MemberEditor({ groupId, memberId, defaultValue, closeEditor }: MemberEd
       closeEditor();
     },
     onError: (err: AxiosError<ErrorType>) => {
-      if (err.response?.data.message) {
-        toast.error(err.response?.data.message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-        setMessage(err.response?.data.message);
-      }
+      const message = getErrorMessage(err);
+      toast.error(message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
+      setMessage(message);
     }
   });
 

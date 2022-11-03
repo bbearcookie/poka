@@ -2,7 +2,6 @@ import React from 'react';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Button from '@component/form/Button';
 
-
 interface MemberAddButtonProps {
   children?: React.ReactNode;
   startEditor: () => void;

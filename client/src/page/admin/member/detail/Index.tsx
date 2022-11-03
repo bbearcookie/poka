@@ -27,7 +27,6 @@ function MemberDetailPage({ children }: MemberDetailPageProps & typeof MemberDet
     return navigate(-1);
   }, [navigate]);
 
-
   return (
     <div className="MemberDetailPage">
       {member && member.group_id ?

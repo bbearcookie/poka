@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType } from '@util/commonAPI';
+import { ErrorType, getErrorMessage } from '@util/commonAPI';
 import * as photoAPI from '@api/photoAPI';
 import * as queryKey from '@util/queryKey';
 import Button from '@component/form/Button';
@@ -55,9 +55,7 @@ function PhotoWriterPage({ children }: PhotoWriterPageProps & typeof PhotoWriter
       
     },
     onError: (err: AxiosError<ErrorType>) => {
-      const message = err.response?.data ? err.response?.data.message : err.message;
-      toast.error(message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-      console.log(err.response?.data?.errors);
+      toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
 
       // 유효성 검증 결과 메시지 설정
       if (err.response?.data?.errors) {
@@ -79,7 +77,6 @@ function PhotoWriterPage({ children }: PhotoWriterPageProps & typeof PhotoWriter
             const index = Number(pattern.exec(item.param)?.at(1));
             photos[index] = { ...photos[index], message: item.message };
           }
-
         });
 
         setPhotoList(photos);
