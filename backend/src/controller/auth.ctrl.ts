@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { body, param } from 'express-validator';
-import { validate, createResponseMessage } from '@util/validator';
+import { validate, createResponseMessage, isLoggedIn } from '@util/validator';
 import { encryptText } from '@util/encrypt';
 import { createLoginToken, verifyToken } from '@util/jwt';
 import * as userService from '@service/user.service';
@@ -64,6 +64,7 @@ export const postLogin = {
       if (user.password !== encryptedPassword) return res.status(409).json(createResponseMessage("password", "비밀번호가 일치하지 않아요."));
 
       const payload = {
+        user_id: user.user_id,
         username: user.username,
         nickname: user.nickname,
         role: user.role,
@@ -87,32 +88,6 @@ export const postLogout = {
   controller: (req: Request, res: Response) => {
     res.clearCookie('accessToken');
     return res.status(200).json({ message: "로그아웃 완료" });
-  }
-}
-
-// 자신의 사용자 상세 정보 조회
-export const getMyUserDetail = {
-  validator: [
-    validate
-  ],
-  controller: async (req: Request, res: Response) => {
-    const accessToken = req.cookies.accessToken;
-    
-    try {
-      const payload = verifyToken(accessToken);
-      
-    } catch (err) {
-      return res.status(401).json({ message: '로그인 인증 실패' });
-    }
-
-    try {
-
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
-    }
-
-    return res.status(501).json({ message: 'Not Implemented' });
   }
 }
 

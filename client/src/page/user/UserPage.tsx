@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useAppSelector } from '@app/redux/reduxHooks';
 import UserRouter from '@app/router/UserRouter';
 import Sidebar from '@component/sidebar/Sidebar';
 import Navbar from '@component/navbar/Navbar';
@@ -10,6 +11,11 @@ interface UserPageProps {
 const UserPageDefaultProps = {};
 
 function UserPage({ children }: UserPageProps & typeof UserPageDefaultProps) {
+  // const auth = useAppSelector((state) => state.auth);
+
+  // useEffect(() => {
+  //   console.log(auth);
+  // }, []);
 
   return (
     <div className="PageTemplate">

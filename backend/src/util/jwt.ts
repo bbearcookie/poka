@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken';
 
 // 토큰에 들어갈 페이로드 타입
-export type PayloadType = {
+export type UserType = {
+  user_id: number;
   username: string;
   nickname: string;
   role: string;
@@ -9,13 +10,13 @@ export type PayloadType = {
 }
 
 // 액세스 토큰 타입
-export type TokenType = PayloadType & {
+export type TokenType = UserType & {
   iat: number;
   exp: number;
 }
 
 // 로그인 토큰 생성
-export function createLoginToken(payload: PayloadType) {
+export function createLoginToken(payload: UserType) {
   if (!process.env.TOKEN_SECRET_KEY) throw new Error("TOKEN_SECRET_KEY is undefined");
   if (!process.env.ACCESS_TOKEN_EXPIRES) throw new Error("ACCESS_TOKEN_EXPIRES is undefined");
 

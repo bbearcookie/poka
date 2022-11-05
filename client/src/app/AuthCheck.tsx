@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useMutation } from 'react-query';
-import { toast } from 'react-toastify';
 import { useAppDispatch } from '@app/redux/reduxHooks';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorType } from '@util/commonAPI';

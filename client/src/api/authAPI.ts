@@ -48,6 +48,7 @@ export class postVerify {
   static resType = undefined as undefined | {
     message: string;
     user: {
+      user_id: number;
       username: string;
       nickname: string;
       role: string;
