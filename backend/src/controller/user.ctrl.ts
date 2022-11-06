@@ -4,10 +4,10 @@ import path from 'path';
 import { body, param } from 'express-validator';
 import { validate, isLoggedIn } from '@util/validator';
 import { UserType } from '@util/jwt';
-import { removeFile } from '@util/validator';
+import { removeFile } from '@util/multer';
 import { getTimestampFilename } from '@util/multer';
 import * as userService from '@service/user.service';
-import userUploader, { USER_IMAGE_DIR } from '@uploader/user.uploader';
+import imageUploader, { USER_IMAGE_DIR } from '@uploader/image.uploader';
 
 // 사용자 상세 정보 조회
 export const getUserDetail = {
@@ -48,7 +48,7 @@ export const getUserDetail = {
 
 // 사용자 프로필 수정
 export const putUserProfile = {
-  uploader: userUploader('image'),
+  uploader: imageUploader('image', USER_IMAGE_DIR),
   validator: [
     isLoggedIn,
     param('userId')

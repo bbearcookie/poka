@@ -6,7 +6,7 @@ import { isAdmin, validate } from '@util/validator';
 import { getTimestampFilename } from '@util/multer';
 import * as groupService from '@service/group.service';
 import * as memberService from '@service/member.service';
-import groupUploader, { GROUP_IMAGE_DIR } from '@uploader/group.uploader';
+import imageUploader, { GROUP_IMAGE_DIR } from '@uploader/image.uploader';
 
 // 그룹 목록 조회
 export const getGroupList = {
@@ -49,7 +49,7 @@ export const getGroupDetail = {
 
 // 그룹 데이터 추가
 export const postGroup = {
-  uploader: groupUploader("image"),
+  uploader: imageUploader('image', GROUP_IMAGE_DIR),
   validator: [
     isAdmin,
     body('name').trim()
@@ -86,7 +86,7 @@ export const postGroup = {
 
 // 그룹 데이터 수정
 export const putGroup = {
-  uploader: groupUploader('image'),
+  uploader: imageUploader('image', GROUP_IMAGE_DIR),
   validator: [
     isAdmin,
     body('name').trim()

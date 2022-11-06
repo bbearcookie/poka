@@ -1,7 +1,6 @@
 import multer, { MulterError } from 'multer';
 import fs from 'fs/promises';
 import fsAsync from 'fs';
-
 export const GROUP_IMAGE_DIR = 'public/image/group';
 
 // 파일의 mimetype에 따른 확장자를 반환하는 함수
@@ -18,11 +17,33 @@ export function getTimestampFilename(filename: string, mimetype: string) {
 }
 
 // 다운 받은 임시 파일을 삭제할 때 사용하는 함수
-export function removeFile(path: string | undefined) {
-  if (typeof path === 'undefined') return;
+export function removeFile(
+  file: string | 
+  Express.Multer.File | 
+  Express.Multer.File[] | 
+  undefined
+) {
+  // 아무것도 없는 경우
+  if (typeof file === 'undefined') {
+    return;
 
-  try { fs.rm(path); }
-  catch (err) { throw err; }
+  // 문자열 경로인 경우
+  } else if (typeof file === 'string') {
+    try { fs.rm(file); }
+    catch (err) { throw err; }
+
+  // Multer 다중 파일인 경우
+  } else if (Array.isArray(file)) {
+    file.forEach(f => {
+      try { fs.rm(f.path); }
+      catch (err) { throw err; }
+    });
+
+  // Multer 단일 파일인 경우
+  } else {
+    try { fs.rm(file.path); }
+    catch (err) { throw err; }
+  }
 }
 
 // 특정 디렉터리에 파일을 저장하는 stoarage 속성을 반환하는 함수

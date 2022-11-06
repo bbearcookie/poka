@@ -3,9 +3,11 @@ import { MulterError } from 'multer';
 import { getStoarage } from '@util/multer';
 import { Request, Response, NextFunction } from 'express';
 export const GROUP_IMAGE_DIR = 'public/image/group';
+export const PHOTO_IMAGE_DIR = 'public/image/photo';
+export const USER_IMAGE_DIR = 'public/image/user';
 
-const uploader = multer({
-  storage: getStoarage(GROUP_IMAGE_DIR),
+const uploader = (dir: string) => multer({
+  storage: getStoarage(dir),
   limits: {
     fileSize: 5 * 1024 * 1024
   },
@@ -17,11 +19,13 @@ const uploader = multer({
   }
 });
 
-export default (fieldName: string) => ({
+export default (fieldName: string, dir: string) => ({
   // 싱글 파일 업로더
-  single: uploader.single(fieldName),
+  single: uploader(dir).single(fieldName),
   // 다중 파일 업로더
-  array: uploader.array(fieldName),
+  array: uploader(dir).array(fieldName),
+  // 다중 파일 업로더
+  fields: uploader(dir).fields([{ name: fieldName }]),
   // 파일 유효성 검사 실패시 에러 응답
   errorHandler: async (err: MulterError | Error, req: Request, res: Response, next: NextFunction) => {
     if (err instanceof MulterError) {
@@ -38,12 +42,8 @@ export default (fieldName: string) => ({
       }
     } else {
       return res.status(400).json({
-        message: err.message,
-        errors: [{
-          param: fieldName,
-          message: err.message
-        }]
-      })
+        message: err.message
+      });
     }
     
     next();

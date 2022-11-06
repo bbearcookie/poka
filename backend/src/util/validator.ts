@@ -1,25 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import fs from 'fs/promises';
-import { body, validationResult } from 'express-validator';
+import { validationResult } from 'express-validator';
 import { UserType, verifyToken } from '@util/jwt';
+import { removeFile } from './multer';
 import jwt from 'jsonwebtoken';
-
-// 유효성 검사 실패시 업로드 된 임시 파일을 삭제하기 위한 함수
-export function removeFile(file: Express.Multer.File | undefined) {
-  if (!file) return;
-  
-  try { fs.rm(file.path) }
-  catch (err) { console.error(err); }
-}
-
-// 유효성 검사 실패시 업로드 된 임시 파일을 삭제하기 위한 함수
-export function removeFiles(files: Express.Multer.File[]) {
-  if (files) {
-    files.forEach((file) => {
-      removeFile(file);
-    })
-  }
-}
 
 // validate-chain으로 등록된 유효성 검사 조건을 모두 수행하는 미들웨어
 export function validate(req: Request, res: Response, next: NextFunction) {
@@ -28,7 +11,7 @@ export function validate(req: Request, res: Response, next: NextFunction) {
   if (!errors.isEmpty()) {
      // 업로드 된 파일이 있다면 삭제
     if (req.file) removeFile(req.file);
-    if (req.files) removeFiles(req.files as Express.Multer.File[]);
+    if (req.files) removeFile(req.files as Express.Multer.File[]);
 
     const result = Object.entries(errors.mapped()).map(([_, err]) => {
       return { param: err.param, message: err.msg }

@@ -2,8 +2,9 @@ import { Request, Response } from 'express';
 import { query, body, param, oneOf } from 'express-validator';
 import fs from 'fs/promises';
 import path from 'path';
-import { isAdmin, validate, removeFiles } from '@util/validator';
-import photoUploader, { PHOTO_IMAGE_DIR } from '@uploader/photo.uploader';
+import { isAdmin, validate, } from '@util/validator';
+import { removeFile } from '@util/multer';
+import imageUploader, { PHOTO_IMAGE_DIR } from '@uploader/image.uploader';
 import * as photoService from '@service/photo.service';
 import { getTimestampFilename } from '@util/multer';
 
@@ -77,7 +78,7 @@ export const getPhotoDetail = {
 
 // 포토카드 추가
 export const postPhotos = {
-  uploader: photoUploader('image[]'),
+  uploader: imageUploader('image[]', PHOTO_IMAGE_DIR),
   validator: [
     isAdmin,
     body('groupId')
@@ -105,7 +106,7 @@ export const postPhotos = {
       try {
         insertIds = await photoService.insertPhotos(memberId, name);
       } catch (err) {
-        removeFiles(files); // 데이터 추가 트랜잭션 처리중 에러 발생시 임시 파일 제거
+        removeFile(files); // 데이터 추가 트랜잭션 처리중 에러 발생시 임시 파일 제거
         throw err;
       }
 
@@ -130,7 +131,7 @@ export const postPhotos = {
 
 // 포토카드 데이터 수정
 export const putPhoto = {
-  uploader: photoUploader("image"),
+  uploader: imageUploader('image', PHOTO_IMAGE_DIR),
   validator: [
     isAdmin,
     param('photocardId').isNumeric().withMessage('포토카드 ID는 숫자여야 해요.'),
