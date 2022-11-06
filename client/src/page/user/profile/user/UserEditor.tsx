@@ -1,4 +1,11 @@
 import React, { useState, useCallback } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
+import { toast } from 'react-toastify';
+import * as userAPI from '@api/userAPI';
+import * as queryKey from '@util/queryKey';
+import { ErrorType } from '@util/commonAPI';
+import { AxiosError, AxiosResponse } from 'axios';
+import { getErrorMessage } from '@util/commonAPI';
 import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 import ImageUploader, { Image } from '@component/form/uploader/ImageUploader';
@@ -7,30 +14,56 @@ import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 
 interface UserEditorProps {
+  userId?: number;
+  nickname?: string;
+  imageName?: string;
   closeEditor: () => void;
   children?: React.ReactNode;
 }
-const UserEditorDefaultProps = {};
+const UserEditorDefaultProps = {
+  userId: 0,
+  nickname: '',
+  imageName: ''
+};
 
-function UserEditor({ closeEditor, children }: UserEditorProps & typeof UserEditorDefaultProps) {
+function UserEditor({ userId, nickname, imageName, closeEditor, children }: UserEditorProps & typeof UserEditorDefaultProps) {
   interface FormType {
-    image: Image;
     nickname: string;
+    image: Image;
   }
   const [form, setForm] = useState<FormType>({
+    nickname,
     image: {
       file: null,
-      previewURL: null,
-      initialURL: ''
+      previewURL: imageName,
+      initialURL: imageName
     },
-    nickname: ''
   });
   const [formMessage, setFormMessage] = useState<{
     [k in keyof FormType]: string;
   }>({
-    image: '',
-    nickname: ''
+    nickname: '',
+    image: ''
   });
+  const queryClient = useQueryClient();
+
+  // 데이터 수정 요청
+  const putMutation = useMutation(userAPI.putUserProfile.axios, {
+    onSuccess: (res: AxiosResponse<typeof userAPI.putUserProfile.resType>) => {
+      toast.success(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
+      queryClient.invalidateQueries(queryKey.userKeys.detail(userId));
+      closeEditor();
+    },
+    onError: (err: AxiosError<ErrorType<keyof FormType>>) => {
+      toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
+
+      let message = formMessage;
+      err.response?.data.errors.forEach((e) => {
+        message[e.param] = e.message;
+      });
+      setFormMessage({ ...formMessage, ...message });
+    }
+  })
 
   // input 상태 값 변경
   const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,8 +82,14 @@ function UserEditor({ closeEditor, children }: UserEditorProps & typeof UserEdit
   
   // 전송 이벤트
   const onSubmit = useCallback(() => {
-    console.log(form);
-  }, [form]);
+    putMutation.mutate({
+      userId: userId,
+      data: {
+        ...form,
+        image: form.image.file
+      }
+    });
+  }, [form, putMutation, userId]);
 
   return (
     <Card marginBottom="5em">
@@ -75,6 +114,7 @@ function UserEditor({ closeEditor, children }: UserEditorProps & typeof UserEdit
               type="text"
               name="nickname"
               value={form.nickname}
+              placeholder='수정할 닉네임을 입력해주세요'
               styles={{
                 width: "100%",
                 height: "2.5em"

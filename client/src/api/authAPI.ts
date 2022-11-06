@@ -1,5 +1,13 @@
 import { client } from "@util/commonAPI";
 
+export type UserType = {
+  user_id: number;
+  username: string;
+  nickname: string;
+  role: string;
+  strategy: string;
+};
+
 export class postSignup {
   static axios = async ({ data }: { data: object }) => {
     const url = `/api/auth/signup`;
@@ -19,12 +27,7 @@ export class postLogin {
   }
   static resType = undefined as undefined | {
     message: string;
-    user: {
-      username: string;
-      nickname: string;
-      role: string;
-      strategy: string;
-    }
+    user: UserType;
   }
 }
 
@@ -47,12 +50,6 @@ export class postVerify {
   }
   static resType = undefined as undefined | {
     message: string;
-    user: {
-      user_id: number;
-      username: string;
-      nickname: string;
-      role: string;
-      strategy: string;
-    }
+    user: UserType;
   }
 }

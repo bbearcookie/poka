@@ -1,18 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
-import classNames from 'classnames';
+import { BACKEND } from '@util/commonAPI';
 
 interface UserProfileProps {
   nickname?: string;
   username?: string;
+  imageName?: string;
   children?: React.ReactNode;
 }
 const UserProfileDefaultProps = {};
 
-function UserProfile({ nickname, username, children }: UserProfileProps & typeof UserProfileDefaultProps) {
+function UserProfile({ nickname, username, imageName, children }: UserProfileProps & typeof UserProfileDefaultProps) {
   return (
     <Profile>
-      <img src="/user.png" alt="사용자" width="75" height="75" />
+      <img
+        width="75"
+        height="75"
+        src={imageName}
+        alt="사용자"
+        onError={e => e.currentTarget.src = "/user.png"}
+      />
       <UserSection>
         <NicknameLabel>{nickname}</NicknameLabel>
         <UsernameLabel>아이디: <UsernameText>{username}</UsernameText></UsernameLabel>

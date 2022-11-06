@@ -25,3 +25,8 @@ export const voucherKeys = {
   detail: (voucherId: number) => [...voucherKeys.all, voucherId] as const,
   select: ['vouchers', 'select'] as const
 }
+
+export const userKeys = {
+  all: ['users'] as const,
+  detail: (userId: number) => [...userKeys.all, userId] as const
+}

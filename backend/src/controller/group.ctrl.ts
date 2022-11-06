@@ -86,7 +86,7 @@ export const postGroup = {
 
 // 그룹 데이터 수정
 export const putGroup = {
-  uploader: groupUploader("image"),
+  uploader: groupUploader('image'),
   validator: [
     isAdmin,
     body('name').trim()

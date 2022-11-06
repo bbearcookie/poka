@@ -1,6 +1,11 @@
-import React, { useState, useCallback } from 'react';
-import UserInfo from './user/UserInfo';
-import UserEditor from './user/UserEditor';
+import React from 'react';
+import { useAppSelector } from '@app/redux/reduxHooks';
+import { useQuery } from 'react-query';
+import * as userAPI from '@api/userAPI';
+import * as queryKey from '@util/queryKey';
+import { ErrorType } from '@util/commonAPI';
+import { AxiosError, AxiosResponse } from 'axios';
+import Success from './Success';
 import './Index.scss';
 
 interface IndexProps {
@@ -9,18 +14,16 @@ interface IndexProps {
 const IndexDefaultProps = {};
 
 function Index({ children }: IndexProps & typeof IndexDefaultProps) {
-  const [editMode, setEditMode] = useState(false);
-  
-  // 편집 모드 ON / OFF
-  const startEditor = useCallback(() => setEditMode(true), []);
-  const closeEditor = useCallback(() => setEditMode(false), []);
+  const userId = useAppSelector(state => state.auth.user_id);
+
+  const { status, data: user, error } =
+  useQuery<typeof userAPI.getUserDetail.resType, AxiosError<ErrorType>>
+  (queryKey.userKeys.detail(userId), () => userAPI.getUserDetail.axios(userId));
   
   return (
     <div className="ProfilePage">
       <h1 className="title-label">마이페이지</h1>
-      {editMode ?
-      <UserEditor closeEditor={closeEditor} /> :
-      <UserInfo startEditor={startEditor} />}
+      {status === 'success' && <Success user={user} />}
     </div>
   );
 }

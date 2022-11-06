@@ -5,7 +5,9 @@ import { UserType, verifyToken } from '@util/jwt';
 import jwt from 'jsonwebtoken';
 
 // 유효성 검사 실패시 업로드 된 임시 파일을 삭제하기 위한 함수
-export function removeFile(file: Express.Multer.File) {
+export function removeFile(file: Express.Multer.File | undefined) {
+  if (!file) return;
+  
   try { fs.rm(file.path) }
   catch (err) { console.error(err); }
 }
