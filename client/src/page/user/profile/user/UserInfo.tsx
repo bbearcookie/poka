@@ -4,7 +4,6 @@ import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import Button from '@component/form/Button';
 import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
-import { BACKEND } from '@util/commonAPI';
 
 interface UserInfoProps {
   username?: string;

@@ -96,6 +96,7 @@ function UserEditor({ userId, nickname, imageName, closeEditor, children }: User
       <CardBody>
         <section className="editor-section">
           <section className="image-section">
+            <p className="label">이미지</p>
             <ImageUploader
               value={form.image}
               errorMessage={formMessage.image}

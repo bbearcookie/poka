@@ -13,7 +13,7 @@ const UserProfileDefaultProps = {};
 function UserProfile({ nickname, username, imageName, children }: UserProfileProps & typeof UserProfileDefaultProps) {
   return (
     <Profile>
-      <img
+      <Img
         width="75"
         height="75"
         src={imageName}
@@ -42,6 +42,10 @@ const Profile = styled.section`
 
 const UserSection = styled.section`
   flex-grow: 1;
+`
+
+const Img = styled.img`
+  border-radius: 50px;
 `
 
 const NicknameLabel = styled.p`

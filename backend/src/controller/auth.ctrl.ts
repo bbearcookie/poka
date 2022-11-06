@@ -66,7 +66,6 @@ export const postLogin = {
       const payload = {
         user_id: user.user_id,
         username: user.username,
-        nickname: user.nickname,
         role: user.role,
         strategy: user.strategy
       };

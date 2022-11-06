@@ -6,26 +6,36 @@
     font-size: 1.75rem;
   }
 
+  .label {
+    margin: 0 0 0.5em 0;
+    font-weight: bold;
+  }
+
   .editor-section {
     display: flex;
     gap: 1em;
+
+    .image-section {
+      text-align: center;
+    }
 
     .description-section {
       display: flex;
       flex-direction: column;
       flex-grow: 1;
       
-      p { margin: 0.4em 0; word-break: break-all; }
+      // p { margin: 0.4em 0; word-break: break-all; }
       .space { flex-grow: 1; }
-
-      .label {
-        margin: 0 0 0.5em 0;
-        font-weight: bold;
-      }
 
       .button-section {
         align-self: flex-end;
       }
+    }
+  }
+
+  @media screen and (max-width: 30rem) {
+    .editor-section {
+      flex-direction: column;
     }
   }
 }

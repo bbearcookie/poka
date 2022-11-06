@@ -11,7 +11,7 @@ interface UserRouterProps {
 const UserRouterDefaultProps = {};
 
 function UserRouter({ children }: UserRouterProps & typeof UserRouterDefaultProps) {
-  const { username, strategy, role, nickname } = useAppSelector((state) => state.auth);
+  const { username, strategy, role } = useAppSelector((state) => state.auth);
   const user = getUser();
 
   return (
@@ -24,7 +24,6 @@ function UserRouter({ children }: UserRouterProps & typeof UserRouterDefaultProp
             <div>{username}</div>
             <div>{strategy}</div>
             <div>{role}</div>
-            <div>{username}</div>
           </>
         } />
         <Route path="/trade/search" element={<PhotoSearchPage />} />

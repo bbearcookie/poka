@@ -6,7 +6,6 @@ const name = 'auth';
 export interface User {
   user_id: number;
   username: string;
-  nickname: string;
   role: string;
   strategy: string;
 };
@@ -16,7 +15,6 @@ interface State extends User {}
 const initialState: State = {
   user_id: 0,
   username: '',
-  nickname: '',
   role: '',
   strategy: ''
 }
@@ -29,7 +27,6 @@ export const slice = createSlice({
     login: (state, { payload }: PayloadAction<User>) => {
       state.user_id = payload.user_id;
       state.username = payload.username;
-      state.nickname = payload.nickname;
       state.role = payload.role;
       state.strategy = payload.strategy;
       saveUser(payload);
