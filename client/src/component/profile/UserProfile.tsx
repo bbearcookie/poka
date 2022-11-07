@@ -32,7 +32,7 @@ function UserProfile({ nickname, username, imageName, children }: UserProfilePro
 UserProfile.defaultProps = UserProfileDefaultProps;
 export default UserProfile;
 
-const Profile = styled.section`
+export const Profile = styled.section`
   display: flex;
   color: #121828;
   align-items: center;

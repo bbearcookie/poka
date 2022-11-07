@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useQuery } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { usePopper } from 'react-popper';
 import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -47,12 +47,6 @@ function Navbar({ children }: NavbarProps & typeof NavbarDefaultProps) {
   useQuery<typeof userAPI.getUserDetail.resType, AxiosError<ErrorType>>
   (queryKey.userKeys.detail(user_id), () => userAPI.getUserDetail.axios(user_id));
 
-  // 마이페이지 이동 로직
-  const handleToMypage = useCallback(() => {
-    userDropdown.close();
-    return navigate('/profile');
-  }, [userDropdown, navigate]);
-
   // 로그아웃 로직
   const handleLogout = useCallback((e: React.MouseEvent) => {
     dispatch(logout());
@@ -90,7 +84,7 @@ function Navbar({ children }: NavbarProps & typeof NavbarDefaultProps) {
           <DropdownMenu popper={popper} menuRef={userDropdown.menuRef}>
             <DropdownItem><b>{user?.nickname}</b></DropdownItem>
             <hr />
-            <DropdownItem onClick={handleToMypage}>마이페이지</DropdownItem>
+            <Link to="/profile"><DropdownItem>마이페이지</DropdownItem></Link>
             <DropdownItem onClick={handleLogout}>로그아웃</DropdownItem>
           </DropdownMenu>}
         </Dropdown>

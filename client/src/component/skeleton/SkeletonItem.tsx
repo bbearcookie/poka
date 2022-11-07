@@ -25,11 +25,13 @@ interface StylesProps {
   marginTop?: string;
   marginBottom?: string;
   backgroundColor?: string;
+  borderRadius?: string;
 }
 const StylesDefaultProps = {
   width: '5em',
   height: '1.25em',
-  backgroundColor: 'gainsboro'
+  backgroundColor: 'gainsboro',
+  borderRadius: "10px",
 };
 const StyledItem = styled.div<StylesProps & typeof StylesDefaultProps>`
   width: ${p => p.width};
@@ -40,5 +42,5 @@ const StyledItem = styled.div<StylesProps & typeof StylesDefaultProps>`
   margin-left: ${p => p.marginLeft};
   margin-right: ${p => p.marginRight};
   background-color: ${p => p.backgroundColor};
-  border-radius: 10px;
+  border-radius: ${p => p.borderRadius};
 `;

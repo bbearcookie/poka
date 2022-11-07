@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import * as userAPI from '@api/userAPI';
 import { BACKEND } from '@util/commonAPI';
-import UserInfo from './user/UserInfo';
-import UserEditor from './user/UserEditor';
+import UserInfo from './UserInfo';
+import UserEditor from './UserEditor';
 
 interface SuccessProps {
   user: typeof userAPI.getUserDetail.resType;
