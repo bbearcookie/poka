@@ -4,6 +4,7 @@ import * as userAPI from '@api/userAPI';
 import * as queryKey from '@util/queryKey';
 import { ErrorType } from '@util/commonAPI';
 import { AxiosError, AxiosResponse } from 'axios';
+import ErrorCard from '@component/card/ErrorCard';
 import Success from './Success';
 import Loading from './Loading';
 
@@ -19,10 +20,11 @@ function Profile({ userId, children }: ProfileProps & typeof ProfileDefaultProps
   (queryKey.userKeys.detail(userId), () => userAPI.getUserDetail.axios(userId));
 
   return (
-    <>
+    <section className="profile-section">
       {status === 'success' && <Success user={user} />}
       {status === 'loading' && <Loading />}
-    </>
+      {status === 'error' && <ErrorCard error={error} styles={{ marginBottom: "5em" }} />}
+    </section>
   );
 }
 

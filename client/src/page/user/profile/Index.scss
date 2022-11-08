@@ -6,36 +6,78 @@
     font-size: 1.75rem;
   }
 
+  .subtitle-label {
+    margin: 0.5em 0;
+    font-size: 1.25rem;
+  }
+
   .label {
     margin: 0 0 0.5em 0;
     font-weight: bold;
   }
 
-  .editor-section {
+  .button-section {
     display: flex;
-    gap: 1em;
+    justify-content: flex-end;
+  }
 
-    .image-section {
-      text-align: center;
-    }
-
-    .description-section {
+  .profile-section {
+    .editor-section {
       display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-      
-      // p { margin: 0.4em 0; word-break: break-all; }
-      .space { flex-grow: 1; }
-
-      .button-section {
-        align-self: flex-end;
+      gap: 1em;
+  
+      .image-section { text-align: center; }
+  
+      .description-section {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        
+        .space { flex-grow: 1; }
+        .button-section { align-self: flex-end; }
       }
     }
   }
 
-  @media screen and (max-width: 30rem) {
-    .editor-section {
+  .shipping-section {
+    .recipient-section {
+      display: flex;
       flex-direction: column;
+      flex-wrap: wrap;
+
+      .name { margin: 0 0 1em 0; }
+      .text { display: inline-block; margin: 0 0 0.5em 0; }
+      .content-section {
+        display: flex;
+        gap: 0.5em;
+      }
+      .icon-section {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+
+    .editor-section {
+      display: flex;
+      flex-direction: column;
+
+      .label-section {
+        margin: 0.5em 0;
+
+        .icon { margin-right: 0.25em; }
+      }
+
+      .button-section { margin-top: 1em; }
+    }
+  }
+
+  @media screen and (max-width: 30rem) {
+    .profile-section {
+      .editor-section { flex-direction: column; }
+    }
+
+    .shipping-section {
+      .content-section { flex-direction: column; }
     }
   }
 }
