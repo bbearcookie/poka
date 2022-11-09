@@ -4,7 +4,7 @@ import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Recipient from './Recipient';
 import AddButton from './AddButton';
-import Editor from './Editor';
+import Editor from './editor/Index';
 
 interface IndexProps {
   userId: number;

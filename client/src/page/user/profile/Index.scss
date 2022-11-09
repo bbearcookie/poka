@@ -61,10 +61,39 @@
       display: flex;
       flex-direction: column;
 
-      .label-section {
-        margin: 0.5em 0;
+      .input-line {
+        display: flex;
+        margin-bottom: 0.5em;
 
-        .icon { margin-right: 0.25em; }
+        .label-section {
+          width: 9.5em;
+          height: 2.5em;
+          line-height: 2em;
+          flex-shrink: 0;
+
+          .icon { margin-right: 0.25em; }
+        }
+
+        .input-section {
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+
+          .address-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5em;
+            margin-bottom: 0.5em;
+          }
+
+          .detail-address-section {
+            display: flex;
+            gap: 0.5em;
+
+            .Input { flex-basis: 50%; }
+          }
+        }
       }
 
       .button-section { margin-top: 1em; }
@@ -78,6 +107,15 @@
 
     .shipping-section {
       .content-section { flex-direction: column; }
+    }
+  }
+
+  @media screen and (max-width: 50rem) {
+    .shipping-section {
+      .editor-section {
+        .input-line { flex-direction: column; }
+        .detail-address-section { flex-direction: column; }
+      }
     }
   }
 }
