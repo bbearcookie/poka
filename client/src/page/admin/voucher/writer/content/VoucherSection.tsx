@@ -3,6 +3,7 @@ import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import InputMessage from '@component/form/InputMessage';
 import useModal from '@hook/useModal';
+import TitleModal from '@component/modal/TitleModal';
 import Modal from '@component/modal/basic/Modal';
 import Button from '@component/form/Button';
 import Card from '@component/card/basic/Card';
@@ -54,13 +55,13 @@ function VoucherSection({ children }: VoucherSectionProps & typeof VoucherSectio
         </CardBody>
       </Card>
 
-      <Modal hook={addModal} styles={{ width: '75%' }}>
+      <TitleModal hook={addModal} titleName="소유권 선택" styles={{ width: '75%' }}>
         <Card>
           <CardBody>
             <PhotoListCard icon={faPlus} handleClickIcon={handleAddVoucher} />
           </CardBody>
         </Card>
-      </Modal>
+      </TitleModal>
     </section>
   );
 }

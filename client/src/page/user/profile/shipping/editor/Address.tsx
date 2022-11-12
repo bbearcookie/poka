@@ -2,13 +2,10 @@ import React, { useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import DaumPostcodeEmbed from 'react-daum-postcode';
-import Modal from '@component/modal/basic/Modal';
-import Card from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
-import CardBody from '@component/card/basic/CardBody';
 import useModal from '@hook/useModal';
 import Input from '@component/form/Input';
 import Button from '@component/form/Button';
+import TitleModal from '@component/modal/TitleModal';
 
 interface AddressProps {
   children?: React.ReactNode;
@@ -71,16 +68,15 @@ function Address({ children }: AddressProps & typeof AddressDefaultProps) {
           />
         </div>
 
-        <Modal hook={addressModal}>
-          <Card>
-            <CardHeader>
-              어케줄래
-            </CardHeader>
-            <CardBody>
-              <DaumPostcodeEmbed />
-            </CardBody>
-          </Card>
-        </Modal>
+        <TitleModal 
+          hook={addressModal}
+          titleName='주소 찾기'
+          styles={{
+            width: "80vh"
+          }}
+        >
+          <DaumPostcodeEmbed style={{ minHeight: "50vh" }} />
+        </TitleModal>
 
       </section>
     </section>

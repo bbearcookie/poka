@@ -85,7 +85,7 @@ const StyledModalWrapper = styled.section<{show: boolean}>`
   }}
 `;
 
-interface StylesProps {
+export interface StylesProps {
   width?: string;
   maxWidth?: string;
   minWidth?: string;
