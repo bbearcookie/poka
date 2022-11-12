@@ -15,9 +15,11 @@ function PhotoInfoCard({ photo, children }: PhotoInfoCardProps & typeof PhotoInf
   return (
     <Card
       className="PhotoInfoCard"
-      width="fit-content"
-      margin="0 auto 5em auto"
-      textAlign="center"
+      styles={{
+        width: "fit-content",
+        margin: "0 auto 5em auto",
+        textAlign: "center"
+      }}
     >
       <CardBody>
         <PhotoSection>

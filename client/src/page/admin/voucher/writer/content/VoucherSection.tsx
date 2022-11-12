@@ -32,7 +32,7 @@ function VoucherSection({ children }: VoucherSectionProps & typeof VoucherSectio
 
   return (
     <section className="VoucherSection">
-      <Card marginBottom="2em">
+      <Card styles={{ marginBottom: "2em" }}>
         <CardHeader>
           <section className="label-section">
             <h3 className="label">소유권 선택</h3>

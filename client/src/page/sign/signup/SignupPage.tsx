@@ -15,7 +15,7 @@ const SignupPageDefaultProps = {};
 function SignupPage({ children }: SignupPageProps & typeof SignupPageDefaultProps) {
   return (
     <div className="SignPage">
-      <Card width="40rem">
+      <Card styles={{ width: "40rem" }}>
         <CardHeader>
           <section className="title-section">
             <img src="/poka_logo.png" alt="아이콘" />

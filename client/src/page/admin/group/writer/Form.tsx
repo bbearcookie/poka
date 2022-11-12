@@ -163,7 +163,7 @@ function Form({ name, imageName, groupId, children }: FormProps & typeof FormDef
 
   return (
     <form onSubmit={onSubmit}>
-      <Card marginBottom="2em">
+      <Card styles={{ marginBottom: "2em" }}>
         <CardBody>
           <h3 className="label">이름</h3>
           <Input

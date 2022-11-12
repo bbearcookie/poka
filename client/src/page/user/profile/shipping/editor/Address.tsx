@@ -70,7 +70,7 @@ function Address({ children }: AddressProps & typeof AddressDefaultProps) {
 
         <TitleModal 
           hook={addressModal}
-          titleName='주소 찾기'
+          titleName="주소 찾기"
           styles={{
             width: "80vh"
           }}

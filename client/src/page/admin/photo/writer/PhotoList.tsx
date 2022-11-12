@@ -29,7 +29,7 @@ function PhotoList({ photoList, setPhotoList, children }: PhotoListProps & typeo
   }, [photoList, setPhotoList]);
 
   return (
-    <Card marginBottom="2em">
+    <Card styles={{ marginBottom: "2em" }}>
       <CardHeader>
         <h3 className="text">등록하려는 포토카드 목록</h3>
       </CardHeader>

@@ -1,16 +1,12 @@
 import React from 'react';
-import Modal, { LocationType, StylesProps } from '@component/modal/basic/Modal';
+import Modal, { ModalProps } from '@component/modal/basic/Modal';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
-import { ModalHookType } from '@hook/useModal';
 import ModalHeader from './basic/ModalHeader';
 
-interface TitleModalProps {
-  hook: ModalHookType;
+interface TitleModalProps extends ModalProps {
   titleName?: string;
-  location?: LocationType;
-  styles?: StylesProps;
   children?: React.ReactNode;
 }
 const TitleModalDefaultProps = {
@@ -25,10 +21,10 @@ function TitleModal({ hook, titleName, location, styles, children }: TitleModalP
       styles={styles}
     >
       <Card>
-        <CardHeader padding="1.25em">
+        <CardHeader styles={{ padding: "1.25em" }}>
           <ModalHeader titleName={titleName} handleClose={hook.close} />
         </CardHeader>
-        <CardBody padding="1.25em">
+        <CardBody styles={{ padding: "1.25em" }}>
           {children}
         </CardBody>
       </Card>

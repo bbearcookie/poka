@@ -20,7 +20,7 @@ const UserInfoDefaultProps = {
 
 function UserInfo({ username, nickname, imageName, startEditor, children }: UserInfoProps & typeof UserInfoDefaultProps) {
   return (
-    <Card marginBottom="5em">
+    <Card styles={{ marginBottom: "5em" }}>
       <CardBody>
         <UserProfile nickname={nickname} username={username} imageName={imageName}>
           <Button

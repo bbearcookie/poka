@@ -10,7 +10,7 @@ const LoadingDefaultProps = {};
 
 function Loading({ children }: LoadingProps & typeof LoadingDefaultProps) {
   return (
-    <Card marginBottom="5em">
+    <Card styles={{ marginBottom: "5em" }}>
       <CardBody>
         <SkeletonUserProfile />
       </CardBody>

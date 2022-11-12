@@ -12,7 +12,7 @@ const CropListDefaultProps = {};
 
 function CropList({ cropList, children }: CropListProps & typeof CropListDefaultProps) {
   return (
-    <Card marginTop="2em">
+    <Card styles={{ marginTop: "2em" }}>
       <CardHeader>
         <section className="title-section">
           <h1 className="title-label">부분 이미지 목록</h1>

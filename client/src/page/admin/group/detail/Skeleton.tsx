@@ -31,7 +31,7 @@ function Skeleton({ children }: SkeletonProps & typeof SkeletonDefaultProps) {
       </section>
       <Card>
         <CardHeader><h1>그룹의 멤버</h1></CardHeader>
-        <CardBody padding="0">
+        <CardBody styles={{ padding: "5em" }}>
           <Table styles={{ borderStyle: "none" }}>
           <TableHead styles={{ height: "3em" }}>
               <tr>

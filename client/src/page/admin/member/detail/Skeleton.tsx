@@ -16,7 +16,7 @@ function Skeleton({ children }: SkeletonProps & typeof SkeletonDefaultProps) {
         <SkeletonItem styles={{ height: "2em", marginBottom: "0.5em" }} />
         <SkeletonItem styles={{ height: "1.2em" }} />
 
-        <Card marginTop="2.3em" marginBottom="5em">
+        <Card styles={{ marginTop: "2.3em", marginBottom: "5em" }}>
           <CardHeader>
             <section className="title-section">
               <h3 className="title-label">등록된 포토카드</h3>
@@ -27,7 +27,7 @@ function Skeleton({ children }: SkeletonProps & typeof SkeletonDefaultProps) {
           </CardBody>
         </Card>
 
-        <Card marginTop="2.3em" marginBottom="5em">
+        <Card styles={{ marginTop: "2.3em", marginBottom: "5em" }}>
           <CardHeader>
             <section className="title-section">
               <h3 className="title-label">멤버 삭제</h3>

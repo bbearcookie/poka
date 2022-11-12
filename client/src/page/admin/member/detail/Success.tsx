@@ -21,7 +21,7 @@ function Success({ member, memberId }: SuccessProps & typeof SuccessDefaultProps
         <p>그룹: <span className="group-name-label">{member?.group_name}</span></p>
       </section>
 
-      <Card marginBottom="5em">
+      <Card styles={{ marginBottom: "5em" }}>
         <CardHeader>
           <section className="title-section">
             <h3 className="title-label">등록된 포토카드</h3>

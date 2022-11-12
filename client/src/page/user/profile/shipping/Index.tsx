@@ -24,7 +24,7 @@ function Index({ userId, children }: IndexProps & typeof IndexDefaultProps) {
       <CardHeader>
         <h1 className="subtitle-label">배송 정보</h1>
       </CardHeader>
-      <CardBody padding="0">
+      <CardBody styles={{ padding: "0" }}>
         <Recipient />
         <Recipient />
         <Recipient />

@@ -52,7 +52,7 @@ function MemberRemove({ member, memberId }: MemberRemoveProps & typeof MemberRem
 
       <ConfirmModal
         hook={removeModal}
-        maxWidth="100vh"
+        cardStyles={{ maxWidth: "100vh" }}
         titleName="멤버 삭제"
         confirmText="삭제"
         handleConfirm={removeMember}

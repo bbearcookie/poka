@@ -92,7 +92,7 @@ function UserEditor({ userId, nickname, imageName, closeEditor, children }: User
   }, [form, putMutation, userId]);
 
   return (
-    <Card marginBottom="5em">
+    <Card styles={{ marginBottom: "5em" }}>
       <CardBody>
         <section className="editor-section">
           <section className="image-section">

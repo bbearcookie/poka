@@ -21,7 +21,7 @@ const PhotoCardTemplateDefaultProps = {
 function PhotoCardTemplate({ className, photo, iconNode, children }: PhotoCardTemplateProps & typeof PhotoCardTemplateDefaultProps) {
   return (
     <StyledPhotoCard className={className}>
-      <Card boxShadow="0px 0px 10px 0px #C0C0C0">
+      <Card styles={{ boxShadow: "0px 0px 10px 0px #C0C0C0"}}>
         <CardBody>
           <img
             width="150" height="224"

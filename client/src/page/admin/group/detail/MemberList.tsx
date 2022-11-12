@@ -26,9 +26,9 @@ function MemberList({ group, groupId }: MemberListProps & typeof MemberListDefau
   const closeEditor = useCallback(() => setEditorTarget(false), []);
 
   return (
-    <Card marginBottom="5em">
+    <Card styles={{ marginBottom: "5em" }}>
       <CardHeader><h1>그룹의 멤버</h1></CardHeader>
-      <CardBody padding="0">
+      <CardBody styles={{ padding: "0" }}>
         <Table styles={{borderStyle: "none", borderBottom: "1px solid #E6E8F0" }}>
           <TableHead styles={{ height: "3em" }}>
             <tr>

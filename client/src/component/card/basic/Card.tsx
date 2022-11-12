@@ -4,6 +4,27 @@ import styled from 'styled-components';
 
 interface CardProps {
   className?: string;
+  styles?: StylesProps;
+  children?: React.ReactNode;
+}
+const CardDefaultProps = {};
+
+function Card({ className, styles, children }: CardProps & typeof CardDefaultProps) {
+  return (
+    <StyledCard
+      className={classNames("Card", className)}
+      {...StylesDefaultProps} {...styles}
+    >
+      {children}
+    </StyledCard>
+  );
+}
+
+Card.defaultProps = CardDefaultProps;
+export default Card;
+
+// 스타일 컴포넌트
+export interface StylesProps {
   display?: string;
   width?: string;
   minWidth?: string;
@@ -16,26 +37,11 @@ interface CardProps {
   textAlign?: string;
   backgroundColor?: string;
   boxShadow?: string;
-  children?: React.ReactNode;
 }
-
-const CardDefaultProps = {
+const StylesDefaultProps = {
   backgroundColor: 'white'
-};
-
-function Card(p: CardProps & typeof CardDefaultProps) {
-  return (
-    <StyledCard {...p} className={classNames("Card", p.className)}>
-      {p.children}
-    </StyledCard>
-  );
 }
-
-Card.defaultProps = CardDefaultProps;
-export default Card;
-
-// 스타일 컴포넌트
-const StyledCard = styled.article<CardProps>`
+const StyledCard = styled.article<StylesProps & typeof StylesDefaultProps>`
   display: ${p => p.display};
   width: ${p => p.width};
   min-width: ${p => p.minWidth};

@@ -17,10 +17,10 @@ const VoucherInfoDefaultProps = {};
 
 function VoucherInfo({ voucher, children }: VoucherInfoProps & typeof VoucherInfoDefaultProps) {
   return (
-    <Card className="VoucherInfo" marginBottom="5em">
+    <Card className="VoucherInfo" styles={{ marginBottom: "5em" }}>
       <CardHeader><h1>소유권 정보</h1></CardHeader>
 
-      <CardBody className="info-section" padding="0">
+      <CardBody className="info-section" styles={{ padding: "0" }}>
         <ul>
           <li className="info">
             <div className="subtitle">소유권ID</div>

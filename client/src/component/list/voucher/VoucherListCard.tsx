@@ -30,7 +30,7 @@ function VoucherListCard({ icon, handleClickIcon, children }: VoucherListCardPro
 
   return (
     <Card>
-      <CardHeader padding="0" borderBottom="0">
+      <CardHeader styles={{ padding: "0", borderBottom: "0" }}>
         <SearchInput />
         <SearchLabelList />
       </CardHeader>

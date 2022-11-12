@@ -1,28 +1,23 @@
 import React from 'react';
 import styled from 'styled-components'
-import Modal, { LocationType, StylesProps } from '@component/modal/basic/Modal';
+import Modal, { ModalProps, StylesProps as ModalStyles } from '@component/modal/basic/Modal';
 import Button from '@component/form/Button';
-import Card from '@component/card/basic/Card';
+import Card, { StylesProps as CardStyles } from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import CardFooter from '@component/card/basic/CardFooter';
 import { ButtonTheme } from '@component/form/Button';
-import { ModalHookType } from '@hook/useModal';
 import ModalHeader from './basic/ModalHeader';
 
-// 모달 컴포넌트 =========================
-interface ConfirmModalProps {
-  hook: ModalHookType;
+interface ConfirmModalProps extends ModalProps {
   titleName?: string;
   confirmText?: string;
-  cancelText?: string;
-  minWidth?: string;
-  maxWidth?: string;
-  location?: LocationType;
-  handleConfirm?: () => void;
   confirmButtonTheme?: ButtonTheme;
+  handleConfirm?: () => void;
+  cancelText?: string;
   cancelButtonTheme?: ButtonTheme;
-  styles?: StylesProps;
+  cardStyles?: CardStyles;
+  modalStyles?: ModalStyles;
   children?: React.ReactNode;
 }
 const ConfirmModalDefaultProps = {
@@ -32,37 +27,43 @@ const ConfirmModalDefaultProps = {
   confirmText: '확인',
   cancelText: '취소'
 };
-function ConfirmModal(p: ConfirmModalProps & typeof ConfirmModalDefaultProps) {
+function ConfirmModal({
+  hook, location, titleName,
+  confirmText, confirmButtonTheme, handleConfirm,
+  cancelText, cancelButtonTheme, 
+  cardStyles, modalStyles, children 
+}: ConfirmModalProps & typeof ConfirmModalDefaultProps) {
+
   return (
     <Modal
-      hook={p.hook}
-      location={p.location}
-      styles={p.styles}
+      hook={hook}
+      location={location}
+      styles={modalStyles}
     >
-      <Card minWidth={p.minWidth} maxWidth={p.maxWidth}>
-        <CardHeader padding="1.25em">
-          <ModalHeader titleName={p.titleName} handleClose={p.hook.close} />
+      <Card styles={cardStyles}>
+        <CardHeader styles={{ padding: "1.25em" }}>
+          <ModalHeader titleName={titleName} handleClose={hook.close} />
         </CardHeader>
-        <CardBody padding="1.25em">
-          {p.children}
+        <CardBody styles={{ padding: "1.25em" }}>
+          {children}
         </CardBody>
-        <CardFooter padding="0 1.25em 1.25em 1.25em">
-          {p.hook.errorMessage && <ErrorLabel>{p.hook.errorMessage}</ErrorLabel>}
+        <CardFooter styles={{ padding: "0 1.25em 1.25em 1.25em"}}>
+          {hook.errorMessage && <ErrorLabel>{hook.errorMessage}</ErrorLabel>}
           <ButtonSection>
             <Button
-              onClick={p.handleConfirm}
+              onClick={handleConfirm}
               styles={{
-                theme: p.confirmButtonTheme,
+                theme: confirmButtonTheme,
                 padding: "0.7em"
               }}
-              >{p.confirmText}</Button>
+              >{confirmText}</Button>
             <Button
-              onClick={p.hook.close}
+              onClick={hook.close}
               styles={{
-                theme: p.cancelButtonTheme,
+                theme: cancelButtonTheme,
                 padding: "0.7em"
               }}
-            >{p.cancelText}</Button>
+            >{cancelText}</Button>
           </ButtonSection>
         </CardFooter>
       </Card>

@@ -125,7 +125,7 @@ function PhotoEditor({ photo, photocardId, closeEditor, children }: PhotoEditorP
   }, [form, photocardId, putMutation]);
 
   return (
-    <Card className="PhotoEditor" marginBottom="5em">
+    <Card className="PhotoEditor" styles={{ marginBottom: "5em" }}>
       <CardBody>
         <section className="photo-section">
           <section className="image-section">
