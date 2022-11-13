@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { param, query, body } from 'express-validator';
 import { isAdmin, isLoggedIn, validate } from '@util/validator';
 import * as groupService from '@service/group.service';
@@ -10,33 +10,21 @@ export const getMembersOfGroup = {
     param('groupId').isNumeric().withMessage('그룹 ID는 숫자여야 해요.'),
     validate
   ],
-  controller: async (req: Request, res: Response) => {
+  controller: async (req: Request, res: Response, next: NextFunction) => {
     const groupId = Number(req.params.groupId);
 
-    try {
-      const [members] = await memberService.selectAllMembersOfGroup(groupId);
-      return res.status(200).json({ message: `${groupId}번 그룹의 멤버 목록을 조회했습니다.`, members });
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
-    }
-
-    return res.status(501).json({ message: 'Not Implemented' });
+    const [members] = await memberService.selectAllMembersOfGroup(groupId);
+    return res.status(200).json({ message: `${groupId}번 그룹의 멤버 목록을 조회했습니다.`, members });
+    next();
   }
 }
 
 // 모든 멤버 목록 조회
 export const getAllMemberList = {
-  controller: async (req: Request, res: Response) => {
-    try {
-      const [members] = await memberService.selectAllMemberList();
-      return res.status(200).json({ message: `모든 멤버 목록을 조회했습니다.`, members });
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
-    }
-
-    return res.status(501).json({ message: 'Not Implemented' });
+  controller: async (req: Request, res: Response, next: NextFunction) => {
+    const [members] = await memberService.selectAllMemberList();
+    return res.status(200).json({ message: `모든 멤버 목록을 조회했습니다.`, members });
+    next();
   }
 }
 
@@ -46,26 +34,20 @@ export const getMemberDetail = {
     param('memberId').isNumeric().withMessage('멤버 ID는 숫자여야 해요.'),
     validate
   ],
-  controller: async (req: Request, res: Response) => {
+  controller: async (req: Request, res: Response, next: NextFunction) => {
     const memberId = Number(req.params.memberId);
 
-    try {
-      const [[member]] = await memberService.selectMemberDetail(memberId);
-      if (!member) return res.status(404).json({ message: '해당 멤버의 데이터가 서버에 존재하지 않아요.' });
+    const [[member]] = await memberService.selectMemberDetail(memberId);
+    if (!member) return res.status(404).json({ message: '해당 멤버의 데이터가 서버에 존재하지 않아요.' });
 
-      const [[group]] = await groupService.selectGroupDetail(member.group_id);
+    const [[group]] = await groupService.selectGroupDetail(member.group_id);
 
-      return res.status(200).json({
-        message: `${memberId}번 멤버의 상세 정보를 조회했습니다.`,
-        group_name: group?.name,
-        ...member
-      });
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
-    }
-    
-    return res.status(501).json({ message: 'Not Implemented' });
+    return res.status(200).json({
+      message: `${memberId}번 멤버의 상세 정보를 조회했습니다.`,
+      group_name: group?.name,
+      ...member
+    });
+    next();
   }
 }
 
@@ -80,22 +62,16 @@ export const postMember = {
       .isLength({ max: 20 }).withMessage('이름은 최대 20글자까지 입력할 수 있어요.'),
     validate
   ],
-  controller: async (req: Request, res: Response) => {
+  controller: async (req: Request, res: Response, next: NextFunction) => {
     const groupId = Number(req.body.groupId);
     const name = req.body.name as unknown as string;
 
-    try {
-      const [[group]] = await groupService.selectGroupDetail(groupId);
-      if (!group) return res.status(404).json({ message: '추가하려는 그룹을 찾지 못했어요.' });
+    const [[group]] = await groupService.selectGroupDetail(groupId);
+    if (!group) return res.status(404).json({ message: '추가하려는 그룹을 찾지 못했어요.' });
 
-      const memberId = await memberService.insertMember(groupId, name);
-      return res.status(200).json({ message: `${group.name} 그룹에 새로운 멤버 ${name}을(를) 추가했어요.`, memberId });
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
-    }
-
-    return res.status(501).json({ message: 'Not Implemented' });
+    const memberId = await memberService.insertMember(groupId, name);
+    return res.status(200).json({ message: `${group.name} 그룹에 새로운 멤버 ${name}을(를) 추가했어요.`, memberId });
+    next();
   }
 }
 
@@ -109,22 +85,16 @@ export const putMember = {
       .isLength({ max: 20 }).withMessage('이름은 최대 20글자까지 입력할 수 있어요.'),
     validate
   ],
-  controller: async (req: Request, res: Response) => {
+  controller: async (req: Request, res: Response, next: NextFunction) => {
     const memberId = Number(req.params.memberId);
     const name = req.body.name as unknown as string;
 
-    try {
-      const [[member]] = await memberService.selectMemberDetail(memberId);
-      if (!member) return res.status(404).json({ message: '수정하려는 멤버를 찾지 못했어요.' });
+    const [[member]] = await memberService.selectMemberDetail(memberId);
+    if (!member) return res.status(404).json({ message: '수정하려는 멤버를 찾지 못했어요.' });
 
-      await memberService.updateMember(memberId, name);
-      return res.status(200).json({ message: `멤버 ${member.name}의 이름을 ${name}(으)로 변경했어요.` });
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
-    }
-
-    return res.status(501).json({ message: 'Not Implemented' });
+    await memberService.updateMember(memberId, name);
+    return res.status(200).json({ message: `멤버 ${member.name}의 이름을 ${name}(으)로 변경했어요.` });
+    next();
   }
 }
 
@@ -135,20 +105,14 @@ export const deleteMember = {
     param('memberId').isNumeric().withMessage('멤버 ID는 숫자여야 해요.'),
     validate
   ],
-  controller: async (req: Request, res: Response) => {
+  controller: async (req: Request, res: Response, next: NextFunction) => {
     const memberId = Number(req.params.memberId);
 
-    try {
-      const [[member]] = await memberService.selectMemberDetail(memberId);
-      if (!member) return res.status(404).json({ message: '삭제하려는 멤버를 찾지 못했어요.' });
+    const [[member]] = await memberService.selectMemberDetail(memberId);
+    if (!member) return res.status(404).json({ message: '삭제하려는 멤버를 찾지 못했어요.' });
 
-      await memberService.deleteMember(memberId);
-      return res.status(200).json({ message: `멤버 ${member.name} 을(를) 삭제했어요.` });
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
-    }
-    
-    return res.status(501).json({ message: 'Not Implemented' });
+    await memberService.deleteMember(memberId);
+    return res.status(200).json({ message: `멤버 ${member.name} 을(를) 삭제했어요.` });
+    next();
   }
 }

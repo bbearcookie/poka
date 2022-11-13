@@ -1,7 +1,12 @@
 import React, { useState, useCallback } from 'react';
+import { useMutation } from 'react-query';
+import { toast } from 'react-toastify';
 import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faPhone, faInfoCircle, faUser } from '@fortawesome/free-solid-svg-icons';
+import * as userAPI from '@api/userAPI';
+import { AxiosError, AxiosResponse } from 'axios';
+import { ErrorType, getErrorMessage } from '@util/commonAPI';
 import CardBody from '@component/card/basic/CardBody';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
@@ -19,7 +24,18 @@ const EditorDefaultProps = {};
 function Editor({ closeEditor, children }: EditorProps & typeof EditorDefaultProps) {
   const { form, inputMessage } = useAppSelector(state => state.addressEditor);
   const [showRequirement, setShowRequirement] = useState(false);
+  const userId = useAppSelector(state => state.auth.user_id);
   const dispatch = useAppDispatch();
+
+  // 데이터 추가 요청
+  const postMutation = useMutation(userAPI.postShippingAddress.axios, {
+    onSuccess: (res) => {
+      console.log(res);
+    },
+    onError: (err: AxiosError<ErrorType<keyof FormType>>) => {
+      toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
+    }
+  })
 
   // input 상태 값 변경
   const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,8 +60,8 @@ function Editor({ closeEditor, children }: EditorProps & typeof EditorDefaultPro
   // 폼 전송 이벤트
   const onSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
-    console.log(form);
-  }, [form]);
+    postMutation.mutate({ userId, data: form });
+  }, [form, userId, postMutation]);
 
   return (
     <CardBody className="editor-section">

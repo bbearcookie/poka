@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAppSelector } from '@app/redux/reduxHooks';
 import { useQuery } from 'react-query';
 import * as userAPI from '@api/userAPI';
 import * as queryKey from '@util/queryKey';
@@ -9,12 +10,13 @@ import Success from './Success';
 import Loading from './Loading';
 
 interface ProfileProps {
-  userId: number
   children?: React.ReactNode;
 }
 const ProfileDefaultProps = {};
 
-function Profile({ userId, children }: ProfileProps & typeof ProfileDefaultProps) {
+function Profile({ children }: ProfileProps & typeof ProfileDefaultProps) {
+  const userId = useAppSelector(state => state.auth.user_id);
+
   const { status, data: user, error } =
   useQuery<typeof userAPI.getUserDetail.resType, AxiosError<ErrorType>>
   (queryKey.userKeys.detail(userId), () => userAPI.getUserDetail.axios(userId));

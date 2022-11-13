@@ -8,6 +8,7 @@ import jwt from 'jsonwebtoken';
 export function validate(req: Request, res: Response, next: NextFunction) {
   const errors = validationResult(req);
   
+  // 유효성 에러 발견시 처리
   if (!errors.isEmpty()) {
      // 업로드 된 파일이 있다면 삭제
     if (req.file) removeFile(req.file);

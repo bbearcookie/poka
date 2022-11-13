@@ -1,37 +1,26 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import * as TestService from '@service/test.service';
 
-export const getOne = async (req: Request, res: Response) => {
+export const getOne = async (req: Request, res: Response, next: NextFunction) => {
   res.json({message: "one!"});
+  next();
 };
 
-export const getTwo = async (req: Request, res: Response) => {
+export const getTwo = async (req: Request, res: Response, next: NextFunction) => {
   res.json({message: "two!"});
+  next();
 }
 
-export const postTestData = async (req: Request, res: Response) => {
+export const postTestData = async (req: Request, res: Response, next: NextFunction) => {
   const { author, content } = req.body;
 
-  try {
-    const result = await TestService.saveData(author, content);
-    return res.send(result);
-  } catch (err) {
-    console.error(err);
-    return res.send(err);
-  }
-
-  return res.status(501).json({ message: 'Not Implemented' });
+  const result = await TestService.saveData(author, content);
+  return res.send(result);
+  next();
 }
 
-export const getAllTestData = async (req: Request, res: Response) => {
-
-  try {
-    const list = await TestService.selectAllData();
-    return res.send(list);
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json("서버 문제로 오류가 발생했습니다.");
-  }
-
-  return res.status(501).json({ message: 'Not Implemented' });
+export const getAllTestData = async (req: Request, res: Response, next: NextFunction) => {
+  const list = await TestService.selectAllData();
+  return res.send(list);
+  next();
 };

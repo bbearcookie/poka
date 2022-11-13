@@ -88,3 +88,18 @@ export const updateUserProfile = async (userId: number, nickname: string, imageN
     con.release();
   }
 }
+
+// 사용자 배송정보 추가
+export const insertShippingAddress = async () => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `SELECT ASDFLPASDFLPASDF`;
+
+    return await con.query(sql);
+  } catch (err) {
+    throw err;
+  } finally {
+    con.release();
+  }
+}

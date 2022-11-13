@@ -1,4 +1,4 @@
-import { Express } from 'express';
+import { Express, NextFunction, Request, Response } from 'express';
 import testRouter from '@config/route/test.router';
 import groupRouter from '@config/route/group.router';
 import memberRouter from '@config/route/member.router';
@@ -15,4 +15,15 @@ export default function(app: Express) {
   authRouter(app, '/api/auth');
   userRouter(app, '/api/user');
   voucherRouter(app, '/api/voucher');
+
+  // 미들웨어가 response 응답을 하지 않으면 실행
+  app.use('*', (req: Request, res: Response) => {
+    return res.status(501).json({ message: 'Not Implemented' });
+  });
+
+  // 미들웨어에서 에러를 발생시키면 실행
+  app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    console.error(err);
+    return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
+  });
 };

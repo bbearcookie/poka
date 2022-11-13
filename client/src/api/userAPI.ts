@@ -26,3 +26,14 @@ export class putUserProfile {
     message: string;
   }
 }
+
+export class postShippingAddress {
+  static axios = async ({ userId, data }: { userId: number; data: object }) => {
+    const url = `/api/user/${userId}/shipping-address`;
+    const res = await client.post<typeof this.resType>(url, data);
+    return res;
+  }
+  static resType = undefined as undefined | {
+    message: string;
+  }
+}

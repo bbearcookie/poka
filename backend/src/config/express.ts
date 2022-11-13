@@ -14,6 +14,7 @@ declare global {
 }
 
 export const app = express();
+require('express-async-errors'); // 비동기로 발생한 오류를 express가 잡을 수 있게 하여 공통 에러 핸들러에서 처리하도록 함.
 export const router = express.Router();
 
 // 기본 설정 함수

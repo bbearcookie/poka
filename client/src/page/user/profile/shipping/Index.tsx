@@ -7,12 +7,11 @@ import AddButton from './AddButton';
 import Editor from './editor/Index';
 
 interface IndexProps {
-  userId: number;
   children?: React.ReactNode;
 }
 const IndexDefaultProps = {};
 
-function Index({ userId, children }: IndexProps & typeof IndexDefaultProps) {
+function Index({ children }: IndexProps & typeof IndexDefaultProps) {
   const [editorTarget, setEditorTarget] = useState<number | boolean>(false); // 수정 모드일 경우 현재 수정중인 memberId를 나타낸다.
 
   // 편집 모드 ON / OFF
