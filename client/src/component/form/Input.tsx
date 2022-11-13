@@ -11,6 +11,7 @@ interface InputProps {
   className?: string;
   value?: string | number | readonly string[] | undefined;
   autoComplete?: string;
+  readOnly?: boolean;
   maxLength?: number;
   placeholder?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -38,6 +39,7 @@ function Input(p: InputProps & typeof InputDefaultProps) {
         autoComplete={p.autoComplete}
         onChange={p.onChange}
         onBlur={p.onBlur}
+        readOnly={p.readOnly}
       />
       {p.children}
     </StyledInputWrapper>
