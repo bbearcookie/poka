@@ -13,7 +13,7 @@ import InputMessage from '@component/form/InputMessage';
 import Select from '@component/form/Select';
 import Button from '@component/form/Button';
 import Address from './Address';
-import { setInput, FormType } from './addressEditorSlice';
+import { initialize, setInput, setInputMessage, FormType } from './addressEditorSlice';
 
 interface EditorProps {
   closeEditor: () => void;
@@ -30,10 +30,16 @@ function Editor({ closeEditor, children }: EditorProps & typeof EditorDefaultPro
   // 데이터 추가 요청
   const postMutation = useMutation(userAPI.postShippingAddress.axios, {
     onSuccess: (res) => {
-      console.log(res);
+      toast.success(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
+      dispatch(initialize());
+      closeEditor();
     },
     onError: (err: AxiosError<ErrorType<keyof FormType>>) => {
       toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
+
+      err.response?.data.errors.forEach((e) => {
+        dispatch(setInputMessage({ name: e.param, value: e.message }));
+      });
     }
   })
 
@@ -42,7 +48,28 @@ function Editor({ closeEditor, children }: EditorProps & typeof EditorDefaultPro
     dispatch(setInput({
       name: e.target.name as keyof FormType,
       value: e.target.value
-    }))
+    }));
+  }, [dispatch]);
+
+  // input 포커스 해제시 유효성 검사
+  const blurInput = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
+    dispatch(setInputMessage({
+      name: e.target.name as keyof FormType,
+      value: ''
+    }));
+  }, [dispatch]);
+
+  // 연락처 상태 값 변경
+  const changeContact = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    // 숫자가 아닌 값 필터링 후 전화번호 형태로 하이픈 추가
+    const value = e.target.value
+      .replace(/[^0-9]/g, '')
+      .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+
+    dispatch(setInput({
+      name: 'contact',
+      value
+    }));
   }, [dispatch]);
 
   // 배송 요청사항 선택 변경
@@ -60,7 +87,18 @@ function Editor({ closeEditor, children }: EditorProps & typeof EditorDefaultPro
   // 폼 전송 이벤트
   const onSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
-    postMutation.mutate({ userId, data: form });
+    postMutation.mutate({
+      userId,
+      data: {
+        name: form.name,
+        recipient: form.recipient,
+        contact: form.contact,
+        postcode: form.postcode,
+        address: form.address,
+        address_detail: form.address_detail,
+        requirement: form.requirement === 'DEFAULT_VALUE' ? '' : form.requirement
+      }
+    });
   }, [form, userId, postMutation]);
 
   return (
@@ -76,8 +114,10 @@ function Editor({ closeEditor, children }: EditorProps & typeof EditorDefaultPro
             type="text"
             name="name"
             placeholder="배송지 이름을 입력해주세요"
+            maxLength={20}
             value={form.name}
             onChange={changeInput}
+            onBlur={blurInput}
             styles={{
               width: "100%",
               height: "2.5em"
@@ -97,8 +137,10 @@ function Editor({ closeEditor, children }: EditorProps & typeof EditorDefaultPro
               type="text"
               name="recipient"
               placeholder="수령인 성함을 입력해주세요"
+              maxLength={20}
               value={form.recipient}
               onChange={changeInput}
+              onBlur={blurInput}
               styles={{
                 width: "100%",
                 height: "2.5em"
@@ -118,9 +160,11 @@ function Editor({ closeEditor, children }: EditorProps & typeof EditorDefaultPro
             <Input
               type="tel"
               name="contact"
-              placeholder="- 없이 숫자만 입력해주세요"
+              placeholder="하이픈(-) 없이 숫자만 입력해주세요"
+              maxLength={13}
               value={form.contact}
-              onChange={changeInput}
+              onChange={changeContact}
+              onBlur={blurInput}
               styles={{
                 width: "100%",
                 height: "2.5em"
@@ -147,7 +191,7 @@ function Editor({ closeEditor, children }: EditorProps & typeof EditorDefaultPro
                 height: "2.5em"
               }}
             >
-              <option value={0}>배송시 요청사항을 선택해주세요.</option>
+              <option value="DEFAULT_VALUE">배송시 요청사항을 선택해주세요.</option>
               <option>직접 수령하겠습니다.</option>
               <option>배송 전 연락 바랍니다.</option>
               <option>부재 시 경비실에 맡겨주세요.</option>
@@ -160,8 +204,11 @@ function Editor({ closeEditor, children }: EditorProps & typeof EditorDefaultPro
             <Input
               type="text"
               name="requirement"
+              placeholder="직접 입력"
+              maxLength={50}
               value={form.requirement}
               onChange={changeInput}
+              onBlur={blurInput}
               styles={{
                 width: "100%",
                 height: "2.5em",

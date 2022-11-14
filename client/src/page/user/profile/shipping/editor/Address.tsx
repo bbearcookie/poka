@@ -6,7 +6,7 @@ import { useDaumPostcodePopup } from 'react-daum-postcode';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';
-import { setInput, FormType } from './addressEditorSlice';
+import { setInput, setInputMessage, FormType } from './addressEditorSlice';
 
 interface AddressProps {
   children?: React.ReactNode;
@@ -26,17 +26,31 @@ function Address({ children }: AddressProps & typeof AddressDefaultProps) {
     }))
   }, [dispatch]);
 
+  // input 포커스 해제시 유효성 검사
+  const blurInput = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
+    dispatch(setInputMessage({
+      name: e.target.name as keyof FormType,
+      value: ''
+    }));
+  }, [dispatch]);
+
   // 다음 주소 API 팝업 열기
   const openAddressPopup = useCallback(() => {
     daumPostcode({ onComplete: (data) => {
-      console.log(data);
+      let address = data.roadAddress;
+      if (data.buildingName) address += ` (${data.buildingName})`
+      
       dispatch(setInput({
         name: 'address',
-        value: `${data.roadAddress} (${data.buildingName})`
+        value: address
       }));
       dispatch(setInput({
         name: 'postcode',
         value: data.zonecode
+      }));
+      dispatch(setInputMessage({
+        name: 'address',
+        value: ''
       }));
     }});
   }, [daumPostcode, dispatch]);
@@ -93,13 +107,17 @@ function Address({ children }: AddressProps & typeof AddressDefaultProps) {
             name="address_detail"
             value={form.address_detail}
             placeholder="상세주소"
+            maxLength={50}
             onChange={changeInput}
+            onBlur={blurInput}
             styles={{
               display: "inline-block",
               width: "100%",
               height: "2.5em"
             }}
-          />
+          >
+            {inputMessage.address_detail && <InputMessage styles={{ margin: "0.5em 0 0 0" }}>{inputMessage.address_detail}</InputMessage>}
+          </Input>
         </div>
 
       </section>

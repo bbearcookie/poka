@@ -86,7 +86,7 @@ const StyledInputWrapper = styled.div<StylesProps & typeof StylesDefaultProps>`
     width: ${p => p.width};
     max-width: ${p => p.maxWidth};
     height: ${p => p.height};
-    padding: 0 0.5em;
+    padding: 0 0.7em;
     box-sizing: border-box;
     color: ${p => p.color};
     background-color: ${p => p.backgroundColor};
