@@ -51,7 +51,7 @@ function UserEditor({ userId, nickname, imageName, closeEditor, children }: User
   const putMutation = useMutation(userAPI.putUserProfile.axios, {
     onSuccess: (res: AxiosResponse<typeof userAPI.putUserProfile.resType>) => {
       toast.success(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-      queryClient.invalidateQueries(queryKey.userKeys.detail(userId));
+      queryClient.invalidateQueries(queryKey.userKeys.profile(userId));
       closeEditor();
     },
     onError: (err: AxiosError<ErrorType<keyof FormType>>) => {

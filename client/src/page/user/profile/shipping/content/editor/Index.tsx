@@ -1,10 +1,11 @@
 import React, { useState, useCallback } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faPhone, faInfoCircle, faUser } from '@fortawesome/free-solid-svg-icons';
 import * as userAPI from '@api/userAPI';
+import * as queryKey from '@util/queryKey';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorType, getErrorMessage } from '@util/commonAPI';
 import CardBody from '@component/card/basic/CardBody';
@@ -26,12 +27,14 @@ function Editor({ closeEditor, children }: EditorProps & typeof EditorDefaultPro
   const [showRequirement, setShowRequirement] = useState(false);
   const userId = useAppSelector(state => state.auth.user_id);
   const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
 
   // 데이터 추가 요청
   const postMutation = useMutation(userAPI.postShippingAddress.axios, {
     onSuccess: (res) => {
       toast.success(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
       dispatch(initialize());
+      queryClient.invalidateQueries(queryKey.userKeys.address(userId));
       closeEditor();
     },
     onError: (err: AxiosError<ErrorType<keyof FormType>>) => {

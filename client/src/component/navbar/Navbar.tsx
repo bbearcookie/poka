@@ -45,7 +45,7 @@ function Navbar({ children }: NavbarProps & typeof NavbarDefaultProps) {
 
   const { status, data: user, error } =
   useQuery<typeof userAPI.getUserDetail.resType, AxiosError<ErrorType>>
-  (queryKey.userKeys.detail(user_id), () => userAPI.getUserDetail.axios(user_id));
+  (queryKey.userKeys.profile(user_id), () => userAPI.getUserDetail.axios(user_id));
 
   // 로그아웃 로직
   const handleLogout = useCallback((e: React.MouseEvent) => {

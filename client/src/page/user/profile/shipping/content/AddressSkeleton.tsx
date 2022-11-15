@@ -1,33 +1,34 @@
 import React from 'react';
-import CardHeader from '@component/card/basic/CardHeader';
+import SkeletonItem from '@component/skeleton/SkeletonItem';
 import IconButton from '@component/form/IconButton';
+import CardHeader from '@component/card/basic/CardHeader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faPhone, faInfoCircle, faEdit, faClose, faUser, faHouse } from '@fortawesome/free-solid-svg-icons';
 
-interface RecipientProps {
+interface AddressSkeletonProps {
   children?: React.ReactNode;
 }
-const RecipientDefaultProps = {};
+const AddressSkeletonDefaultProps = {};
 
-function Recipient({ children }: RecipientProps & typeof RecipientDefaultProps) {
+function AddressSkeleton({ children }: AddressSkeletonProps & typeof AddressSkeletonDefaultProps) {
   return (
     <CardHeader className="recipient-section">
-      <h4 className="name">지하철</h4>
+      <SkeletonItem styles={{ height: "1.35em", margin: "0 0 1em 0" }} />
       <div className="content-section">
         <FontAwesomeIcon icon={faLocationDot} width="1.5em" height="1.5em" color="#2678F3" />
-        <span className="text">경기도 뭐뭐시 머머동 머머머머의 머머아파트 301호</span>
+        <SkeletonItem styles={{ width: "min(18em, 100%)", height: "1.35em", marginBottom: "0.5em" }} />
       </div>
       <div className="content-section">
         <FontAwesomeIcon icon={faUser} width="1.5em" height="1.5em" color="#EC1B5A" />
-        <span className="text">이상훈</span>
+        <SkeletonItem styles={{ width: "min(6em, 100%)", height: "1.35em", marginBottom: "0.5em" }} />
       </div>
       <div className="content-section">
         <FontAwesomeIcon icon={faPhone} width="1.5em" height="1.5em" color="#459A10" />
-        <span className="text">010-1234-1234</span>
+        <SkeletonItem styles={{ width: "min(9em, 100%)", height: "1.35em", marginBottom: "0.5em" }} />
       </div>
       <div className="content-section">
         <FontAwesomeIcon icon={faInfoCircle} width="1.5em" height="1.5em" color="#F3E079" />
-        <span className="text">직접 받고 부재시 문 앞</span>
+        <SkeletonItem styles={{ width: "min(13em, 100%)", height: "1.35em", marginBottom: "0.5em" }} />
       </div>
       <div className="icon-section">
         <IconButton width="1em" height="1em" icon={faHouse} tooltip="기본 배송지로 설정" styles={{ display: 'inline' }} />
@@ -38,5 +39,5 @@ function Recipient({ children }: RecipientProps & typeof RecipientDefaultProps) 
   );
 }
 
-Recipient.defaultProps = RecipientDefaultProps;
-export default Recipient;
+AddressSkeleton.defaultProps = AddressSkeletonDefaultProps;
+export default AddressSkeleton;

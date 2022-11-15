@@ -10,5 +10,6 @@ export default function(app: Express, baseURI: string) {
     userCtrl.putUserProfile.validator,
     userCtrl.putUserProfile.controller
   );
+  app.get(`${baseURI}/:userId/shipping-address`, userCtrl.getUserShippingAddress.validator, userCtrl.getUserShippingAddress.controller);
   app.post(`${baseURI}/:userId/shipping-address`, userCtrl.postShippingAddress.validator, userCtrl.postShippingAddress.controller);
 }

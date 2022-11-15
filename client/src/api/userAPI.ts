@@ -1,5 +1,17 @@
 import { client } from "@util/commonAPI";
 
+export interface AddressType {
+  id: number;
+  user_id: number;
+  name: string;
+  recipient: string;
+  contact: string;
+  postcode: string;
+  address: string;
+  address_detail: string;
+  requirement: string;
+}
+
 export class getUserDetail {
   static axios = async (userId: number) => {
     const url = `/api/user/${userId}`;
@@ -24,6 +36,18 @@ export class putUserProfile {
   }
   static resType = undefined as undefined | {
     message: string;
+  }
+}
+
+export class getUserShippingAddress {
+  static axios = async (userId: number) => {
+    const url = `/api/user/${userId}/shipping-address`;
+    const res = await client.get<typeof this.resType>(url);
+    return res.data;
+  }
+  static resType = undefined as undefined | {
+    message: string;
+    addresses: AddressType[];
   }
 }
 

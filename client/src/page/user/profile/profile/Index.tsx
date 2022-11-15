@@ -19,7 +19,7 @@ function Profile({ children }: ProfileProps & typeof ProfileDefaultProps) {
 
   const { status, data: user, error } =
   useQuery<typeof userAPI.getUserDetail.resType, AxiosError<ErrorType>>
-  (queryKey.userKeys.detail(userId), () => userAPI.getUserDetail.axios(userId));
+  (queryKey.userKeys.profile(userId), () => userAPI.getUserDetail.axios(userId));
 
   return (
     <section className="profile-section">

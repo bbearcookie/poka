@@ -97,7 +97,8 @@ export const selectUserShippingAddressList = async (userId: number) => {
     let sql = `
     SELECT id, user_id, name, recipient, contact, postcode, address, address_detail, requirement
     FROM ShippingAddress
-    WHERE user_id = ${con.escape(userId)}`;
+    WHERE user_id=${con.escape(userId)}
+    ORDER BY id`;
 
     interface DataType extends RowDataPacket {
       id: number;

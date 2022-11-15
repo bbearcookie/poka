@@ -28,5 +28,6 @@ export const voucherKeys = {
 
 export const userKeys = {
   all: ['users'] as const,
-  detail: (userId: number) => [...userKeys.all, userId] as const
+  profile: (userId: number) => [...userKeys.all, 'profile', userId] as const,
+  address: (userId: number) => [...userKeys.all, 'address', userId] as const
 }
