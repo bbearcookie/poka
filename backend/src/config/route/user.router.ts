@@ -1,5 +1,6 @@
 import { Express } from 'express';
 import * as userCtrl from '@controller/user.ctrl';
+import * as shippingAddressCtrl from '@controller/shipping-address.ctrl';
 
 export default function(app: Express, baseURI: string) {
   app.get(`${baseURI}/:userId`, userCtrl.getUserDetail.validator, userCtrl.getUserDetail.controller);
@@ -10,6 +11,6 @@ export default function(app: Express, baseURI: string) {
     userCtrl.putUserProfile.validator,
     userCtrl.putUserProfile.controller
   );
-  app.get(`${baseURI}/:userId/shipping-address`, userCtrl.getUserShippingAddress.validator, userCtrl.getUserShippingAddress.controller);
-  app.post(`${baseURI}/:userId/shipping-address`, userCtrl.postShippingAddress.validator, userCtrl.postShippingAddress.controller);
+  app.get(`${baseURI}/:userId/shipping-address`, shippingAddressCtrl.getUserShippingAddress.validator, shippingAddressCtrl.getUserShippingAddress.controller);
+  app.post(`${baseURI}/:userId/shipping-address`, shippingAddressCtrl.postShippingAddress.validator, shippingAddressCtrl.postShippingAddress.controller);
 }

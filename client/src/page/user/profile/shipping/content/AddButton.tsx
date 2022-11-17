@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Button from '@component/form/Button';
-import { AddressType } from '@api/userAPI';
 
 interface AddButtonProps {
   addressLength: number;

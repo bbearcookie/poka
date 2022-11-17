@@ -3,7 +3,8 @@ import CardHeader from '@component/card/basic/CardHeader';
 import IconButton from '@component/form/IconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faPhone, faInfoCircle, faEdit, faClose, faUser, faHouse } from '@fortawesome/free-solid-svg-icons';
-import { AddressType } from '@api/userAPI';
+import { AddressType } from '@api/shippingAddressAPI';
+import AddressRemove from './AddressRemove';
 
 interface AddressProps {
   address: AddressType;
@@ -35,7 +36,8 @@ function Address({ address, children }: AddressProps & typeof AddressDefaultProp
       <div className="icon-section">
         <IconButton width="1em" height="1em" icon={faHouse} tooltip="기본 배송지로 설정" styles={{ display: 'inline' }} />
         <IconButton width="1em" height="1em" icon={faEdit} tooltip="수정" styles={{ display: 'inline' }} />
-        <IconButton width="1em" height="1em" icon={faClose} tooltip="삭제" styles={{ display: 'inline' }} />
+        <AddressRemove address={address} />
+        {/* <IconButton width="1em" height="1em" icon={faClose} tooltip="삭제" styles={{ display: 'inline' }} /> */}
       </div>
     </CardHeader>
   );

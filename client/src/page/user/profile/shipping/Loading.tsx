@@ -16,7 +16,7 @@ function Loading({ children }: LoadingProps & typeof LoadingDefaultProps) {
         <h1 className="subtitle-label">배송 정보</h1>
       </CardHeader>
       <CardBody styles={{ padding: "0" }}>
-        {Array.from({ length: 5 }).map(item => <AddressSkeleton />)}
+        {Array.from({ length: 5 }).map((_, idx) => <AddressSkeleton key={idx} />)}
       </CardBody>
     </Card>
   );

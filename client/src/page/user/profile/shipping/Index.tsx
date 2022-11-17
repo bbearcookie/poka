@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, Fragment } from 'react';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import { useQuery } from 'react-query';
 import * as userAPI from '@api/userAPI';
@@ -39,7 +39,7 @@ function Index({ children }: IndexProps & typeof IndexDefaultProps) {
           <h1 className="subtitle-label">배송 정보</h1>
         </CardHeader>
         <CardBody styles={{ padding: "0" }}>
-          {addresses?.addresses.map((address) => <Address address={address} />)}
+          {addresses?.addresses.map((address) => <Address key={address.id} address={address} />)}
           {editorTarget === true && <Editor closeEditor={closeEditor} />}
           {editorTarget !== true && <AddButton addressLength={addresses?.addresses.length ? addresses.addresses.length : 0} startEditor={() => startEditor(true)} />}
         </CardBody>

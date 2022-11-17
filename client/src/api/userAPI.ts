@@ -1,16 +1,5 @@
-import { client } from "@util/commonAPI";
-
-export interface AddressType {
-  id: number;
-  user_id: number;
-  name: string;
-  recipient: string;
-  contact: string;
-  postcode: string;
-  address: string;
-  address_detail: string;
-  requirement: string;
-}
+import { client } from '@util/commonAPI';
+import { AddressType } from '@api/shippingAddressAPI';
 
 export class getUserDetail {
   static axios = async (userId: number) => {
