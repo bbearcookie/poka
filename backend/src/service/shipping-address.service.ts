@@ -1,8 +1,9 @@
 import db from '@config/database';
 import { RowDataPacket } from 'mysql2';
+import { AddressForm } from '@controller/shipping-address.ctrl';
 
 interface ShippingAddressType extends RowDataPacket {
-  id: number;
+  address_id: number;
   user_id: number;
   name: string;
   recipient: string;
@@ -19,10 +20,10 @@ export const selectUserShippingAddressList = async (userId: number) => {
 
   try {
     let sql = `
-    SELECT id, user_id, name, recipient, contact, postcode, address, address_detail, requirement
+    SELECT address_id, user_id, name, recipient, contact, postcode, address, address_detail, requirement
     FROM ShippingAddress
     WHERE user_id=${con.escape(userId)}
-    ORDER BY id`;
+    ORDER BY address_id`;
 
     return await con.query<ShippingAddressType[]>(sql);
   } catch (err) {
@@ -33,14 +34,14 @@ export const selectUserShippingAddressList = async (userId: number) => {
 }
 
 // 사용자 배송지 정보 상세 조회
-export const selectUserShippingAddressDetail = async (id: number) => {
+export const selectUserShippingAddressDetail = async (addressId: number) => {
   const con = await db.getConnection();
 
   try {
     let sql = `
-    SELECT id, user_id, name, recipient, contact, postcode, address, address_detail, requirement
+    SELECT address_id, user_id, name, recipient, contact, postcode, address, address_detail, requirement
     FROM ShippingAddress
-    WHERE id=${con.escape(id)}`;
+    WHERE address_id=${con.escape(addressId)}`;
 
     return await con.query<ShippingAddressType[]>(sql);
   } catch (err) {
@@ -53,14 +54,16 @@ export const selectUserShippingAddressDetail = async (id: number) => {
 // 사용자 배송지 추가
 export const insertShippingAddress = async (
   userId: number,
-  name: string,
-  recipient: string,
-  contact: string,
-  postcode: string,
-  address: string,
-  address_detail: string,
-  requirement: string
-) => {
+  { form }: { form: {
+    name: string;
+    recipient: string;
+    contact: string;
+    postcode: string;
+    address: string;
+    addressDetail: string;
+    requirement: string;
+  }
+}) => {
   const con = await db.getConnection();
 
   try {
@@ -69,13 +72,13 @@ export const insertShippingAddress = async (
     (user_id, name, recipient, contact, postcode, address, address_detail, requirement)
     VALUES (
       ${con.escape(userId)}, 
-      ${con.escape(name)}, 
-      ${con.escape(recipient)}, 
-      ${con.escape(contact)}, 
-      ${con.escape(postcode)}, 
-      ${con.escape(address)}, 
-      ${con.escape(address_detail)}, 
-      ${con.escape(requirement)}
+      ${con.escape(form.name)}, 
+      ${con.escape(form.recipient)}, 
+      ${con.escape(form.contact)}, 
+      ${con.escape(form.postcode)}, 
+      ${con.escape(form.address)}, 
+      ${con.escape(form.addressDetail)}, 
+      ${con.escape(form.requirement)}
     )`;
 
     return await con.execute(sql);
@@ -86,12 +89,47 @@ export const insertShippingAddress = async (
   }
 }
 
-// 사용자 배송지 삭제
-export const deleteShippingAddress = async (id: number) => {
+// 사용자 배송지 수정
+export const updateShippingAddress = async (
+  addressId: number,
+  { form }: { form: {
+    name: string;
+    recipient: string;
+    contact: string;
+    postcode: string;
+    address: string;
+    addressDetail: string;
+    requirement: string;
+  }
+}) => {
   const con = await db.getConnection();
 
   try {
-    let sql = `DELETE FROM ShippingAddress WHERE id=${con.escape(id)}`;
+    let sql = `
+    UPDATE ShippingAddress
+    SET name=${con.escape(form.name)},
+    recipient=${con.escape(form.recipient)},
+    contact=${con.escape(form.contact)},
+    postcode=${con.escape(form.postcode)},
+    address=${con.escape(form.address)},
+    address_detail=${con.escape(form.addressDetail)},
+    requirement=${con.escape(form.requirement)}
+    WHERE address_id=${con.escape(addressId)}`;
+    
+    return await con.execute(sql);
+  } catch (err) {
+    throw err;
+  } finally {
+    con.release();
+  }
+}
+
+// 사용자 배송지 삭제
+export const deleteShippingAddress = async (addressId: number) => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `DELETE FROM ShippingAddress WHERE address_id=${con.escape(addressId)}`;
     return await con.execute(sql);
   } catch (err) {
     throw err;

@@ -8,11 +8,12 @@ import AddressRemove from './AddressRemove';
 
 interface AddressProps {
   address: AddressType;
+  startEditor: () => void;
   children?: React.ReactNode;
 }
 const AddressDefaultProps = {};
 
-function Address({ address, children }: AddressProps & typeof AddressDefaultProps) {
+function Address({ address, startEditor, children }: AddressProps & typeof AddressDefaultProps) {
   return (
     <CardHeader className="recipient-section">
       <h4 className="name">{address.name}</h4>
@@ -35,9 +36,15 @@ function Address({ address, children }: AddressProps & typeof AddressDefaultProp
       </div>}
       <div className="icon-section">
         <IconButton width="1em" height="1em" icon={faHouse} tooltip="기본 배송지로 설정" styles={{ display: 'inline' }} />
-        <IconButton width="1em" height="1em" icon={faEdit} tooltip="수정" styles={{ display: 'inline' }} />
+        <IconButton
+          width="1em"
+          height="1em"
+          icon={faEdit}
+          tooltip="수정"
+          styles={{ display: 'inline' }}
+          onClick={startEditor}
+        />
         <AddressRemove address={address} />
-        {/* <IconButton width="1em" height="1em" icon={faClose} tooltip="삭제" styles={{ display: 'inline' }} /> */}
       </div>
     </CardHeader>
   );

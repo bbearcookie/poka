@@ -1,7 +1,7 @@
 import { client } from "@util/commonAPI";
 
 export interface AddressType {
-  id: number;
+  address_id: number;
   user_id: number;
   name: string;
   recipient: string;
@@ -12,9 +12,20 @@ export interface AddressType {
   requirement: string;
 }
 
+export class putShippingAddress {
+  static axios = async ({ addressId, data }: { addressId: number; data: object }) => {
+    const url = `/api/shipping-address/${addressId}`;
+    const res = await client.put<typeof this.resType>(url, data);
+    return res;
+  }
+  static resType = undefined as undefined | {
+    message: string;
+  }
+}
+
 export class deleteShippingAddress {
-  static axios = async ({ id }: { id: number; }) => {
-    const url = `/api/shipping-address/${id}`;
+  static axios = async (addressId: number) => {
+    const url = `/api/shipping-address/${addressId}`;
     const res = await client.delete<typeof this.resType>(url);
     return res;
   }

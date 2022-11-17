@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError } from 'axios';
 import { ErrorType, getErrorMessage } from '@util/commonAPI';
 import * as shippingAddressAPI from '@api/shippingAddressAPI';
 import * as queryKey from '@util/queryKey';
@@ -34,7 +34,7 @@ function AddressRemove({ address, children }: AddressRemoveProps & typeof Addres
 
   // 삭제 이벤트
   const handleRemove = useCallback(() => {
-    deleteMutation.mutate({id: address.id});
+    deleteMutation.mutate(address.address_id);
   }, [address, deleteMutation]);
 
   return (

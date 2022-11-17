@@ -6,33 +6,19 @@ import { useDaumPostcodePopup } from 'react-daum-postcode';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';
-import { setInput, setInputMessage, FormType } from './addressEditorSlice';
+import { setInput, setInputMessage } from './addressEditorSlice';
 
-interface AddressProps {
+interface AddressSectionProps {
+  changeInput: React.ChangeEventHandler<HTMLInputElement>;
+  blurInput: React.FocusEventHandler<HTMLInputElement>;
   children?: React.ReactNode;
 }
-const AddressDefaultProps = {};
+const AddressSectionDefaultProps = {};
 
-function Address({ children }: AddressProps & typeof AddressDefaultProps) {
+function AddressSection({ changeInput, blurInput, children }: AddressSectionProps & typeof AddressSectionDefaultProps) {
   const { form, inputMessage } = useAppSelector(state => state.addressEditor);
   const dispatch = useAppDispatch();
   const daumPostcode = useDaumPostcodePopup();
-
-  // input 상태 값 변경
-  const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setInput({
-      name: e.target.name as keyof FormType,
-      value: e.target.value
-    }))
-  }, [dispatch]);
-
-  // input 포커스 해제시 유효성 검사
-  const blurInput = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
-    dispatch(setInputMessage({
-      name: e.target.name as keyof FormType,
-      value: ''
-    }));
-  }, [dispatch]);
 
   // 다음 주소 API 팝업 열기
   const openAddressPopup = useCallback(() => {
@@ -125,5 +111,5 @@ function Address({ children }: AddressProps & typeof AddressDefaultProps) {
   );
 }
 
-Address.defaultProps = AddressDefaultProps;
-export default Address;
+AddressSection.defaultProps = AddressSectionDefaultProps;
+export default AddressSection;

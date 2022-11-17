@@ -46,6 +46,9 @@ export const slice = createSlice({
       state.form = initialState.form;
       state.inputMessage = initialState.inputMessage;
     },
+    setDefaultState: (state, { payload }: PayloadAction<FormType>) => {
+      state.form = payload;
+    },
     setInput: (state, { payload }: PayloadAction<{ name: keyof FormType; value: string; }>) => {
       state.form[payload.name] = payload.value;
     },
@@ -55,5 +58,5 @@ export const slice = createSlice({
   }
 });
 
-export const { initialize, setInput, setInputMessage } = slice.actions;
+export const { initialize, setDefaultState, setInput, setInputMessage } = slice.actions;
 export default slice.reducer;
