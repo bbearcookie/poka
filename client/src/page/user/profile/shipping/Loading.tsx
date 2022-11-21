@@ -2,7 +2,7 @@ import React from 'react';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
-import AddressSkeleton from './content/AddressSkeleton';
+import AddressSkeleton from './content/address/AddressSkeleton';
 
 interface LoadingProps {
   children?: React.ReactNode;

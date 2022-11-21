@@ -9,12 +9,12 @@ import { AddressType } from '@api/shippingAddressAPI';
 import { AxiosError } from 'axios';
 import { ErrorType, getErrorMessage } from '@util/commonAPI';
 import CardHeader from '@component/card/basic/CardHeader';
-import NameSection from './NameSection';
-import ContactSection from './ContactSection';
-import AddressSection from './AddressSection';
-import RequirementSection from './RequirementSection';
-import RecipientSection from './RecipientSection';
-import ButtonSection from './ButtonSection';
+import NameSection from './content/NameSection';
+import ContactSection from './content/ContactSection';
+import AddressSection from './content/AddressSection';
+import RequirementSection from './content/RequirementSection';
+import RecipientSection from './content/RecipientSection';
+import ButtonSection from './content/ButtonSection';
 import { initialize, setDefaultState, setInput, setInputMessage, FormType } from './addressEditorSlice';
 
 interface EditorProps {

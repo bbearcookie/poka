@@ -5,7 +5,7 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 import Select from '@component/form/Select';
-import { setInput, FormType } from './addressEditorSlice';
+import { setInput, FormType } from '../addressEditorSlice';
 
 interface RequirementSectionProps {
   defaultShow?: boolean; // 직접 입력 input 창을 기본적으로 보여줄지 안보여줄지 설정. 수정 모드에서는 기본적으로 보여줘야 함.

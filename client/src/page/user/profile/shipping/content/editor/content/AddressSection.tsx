@@ -6,7 +6,7 @@ import { useDaumPostcodePopup } from 'react-daum-postcode';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';
-import { setInput, setInputMessage } from './addressEditorSlice';
+import { setInput, setInputMessage } from '../addressEditorSlice';
 
 interface AddressSectionProps {
   changeInput: React.ChangeEventHandler<HTMLInputElement>;

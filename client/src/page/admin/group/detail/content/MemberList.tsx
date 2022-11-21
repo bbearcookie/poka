@@ -42,7 +42,7 @@ function MemberList({ group, groupId }: MemberListProps & typeof MemberListDefau
               {group?.members.map((item, idx) => (
                 <Fragment key={idx}>
                   {editorTarget === idx && <MemberEditor groupId={groupId} memberId={item.member_id} defaultValue={item.name} closeEditor={closeEditor} />}
-                  {editorTarget !== idx && <MemberInfo idx={idx} memberId={item.member_id} name={item.name} photoCnt={item.photo_cnt} startEditor={() => startEditor(idx)} />}
+                  {editorTarget !== idx && <MemberInfo memberId={item.member_id} name={item.name} photoCnt={item.photo_cnt} startEditor={() => startEditor(idx)} />}
                 </Fragment>
               ))}
 

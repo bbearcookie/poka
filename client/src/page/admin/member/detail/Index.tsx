@@ -8,7 +8,7 @@ import * as queryKey from '@util/queryKey';
 import BackLabel from '@component/label/BackLabel';
 import ErrorCard from '@component/card/ErrorCard';
 import Success from './Success';
-import Skeleton from './Skeleton';
+import Loading from './Loading';
 import './Index.scss';
 
 interface MemberDetailPageProps {
@@ -33,8 +33,8 @@ function MemberDetailPage({ children }: MemberDetailPageProps & typeof MemberDet
         <BackLabel to={`/admin/group/detail/${member.group_id}`} styles={{ marginBottom: "2em" }}>{member.group_name}</BackLabel>
       : <BackLabel onClick={toBackPage} styles={{ marginBottom: "2em" }}>뒤로가기</BackLabel>}
 
-      {status === 'loading' && <Skeleton />}
       {status === 'success' && <Success member={member} memberId={memberId} />}
+      {status === 'loading' && <Loading />}
       {status === 'error' && <ErrorCard error={error} />}
     </div>
   );

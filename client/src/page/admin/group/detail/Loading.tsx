@@ -9,13 +9,12 @@ import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 
-interface SkeletonProps {
+interface LoadingProps {
   children?: React.ReactNode;
 }
+const LoadingDefaultProps = {};
 
-const SkeletonDefaultProps = {};
-
-function Skeleton({ children }: SkeletonProps & typeof SkeletonDefaultProps) {
+function Loading({ children }: LoadingProps & typeof LoadingDefaultProps) {
   return (
     <>
       <section className="group-section">
@@ -65,6 +64,5 @@ function Skeleton({ children }: SkeletonProps & typeof SkeletonDefaultProps) {
   );
 }
 
-Skeleton.defaultProps = SkeletonDefaultProps;
-
-export default Skeleton;
+Loading.defaultProps = LoadingDefaultProps;
+export default Loading;

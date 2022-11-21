@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
-import { setInput } from './addressEditorSlice';
+import { setInput } from '../addressEditorSlice';
 
 interface ContactSectionProps {
   changeInput: React.ChangeEventHandler<HTMLInputElement>;

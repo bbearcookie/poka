@@ -43,7 +43,6 @@ function Index({ children }: IndexProps & typeof IndexDefaultProps) {
             const pattern = /vouchers\[([\d]+)\]/g;
             const index = Number(pattern.exec(item.param)?.at(1));
             dispatch(setVoucherMessage({idx: index, message: item.message}));
-            console.log(index);
           }
       });
     }
