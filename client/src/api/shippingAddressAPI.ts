@@ -10,12 +10,24 @@ export interface AddressType {
   address: string;
   address_detail: string;
   requirement: string;
+  prime: string;
 }
 
 export class putShippingAddress {
   static axios = async ({ addressId, data }: { addressId: number; data: object }) => {
     const url = `/api/shipping-address/${addressId}`;
     const res = await client.put<typeof this.resType>(url, data);
+    return res;
+  }
+  static resType = undefined as undefined | {
+    message: string;
+  }
+}
+
+export class patchShippingAddressPrime {
+  static axios = async (addressId: number) => {
+    const url = `/api/shipping-address/${addressId}/prime`;
+    const res = await client.patch<typeof this.resType>(url);
     return res;
   }
   static resType = undefined as undefined | {

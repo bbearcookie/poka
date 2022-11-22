@@ -12,6 +12,7 @@ interface ShippingAddressType extends RowDataPacket {
   address: string;
   address_detail: string;
   requirement: string;
+  prime: string;
 }
 
 // 해당 사용자의 모든 배송지 조회
@@ -20,7 +21,7 @@ export const selectUserShippingAddressList = async (userId: number) => {
 
   try {
     let sql = `
-    SELECT address_id, user_id, name, recipient, contact, postcode, address, address_detail, requirement
+    SELECT address_id, user_id, name, recipient, contact, postcode, address, address_detail, requirement, prime
     FROM ShippingAddress
     WHERE user_id=${con.escape(userId)}
     ORDER BY address_id`;
@@ -39,7 +40,7 @@ export const selectUserShippingAddressDetail = async (addressId: number) => {
 
   try {
     let sql = `
-    SELECT address_id, user_id, name, recipient, contact, postcode, address, address_detail, requirement
+    SELECT address_id, user_id, name, recipient, contact, postcode, address, address_detail, requirement, prime
     FROM ShippingAddress
     WHERE address_id=${con.escape(addressId)}`;
 
@@ -62,6 +63,7 @@ export const insertShippingAddress = async (
     address: string;
     addressDetail: string;
     requirement: string;
+    prime: string;
   }
 }) => {
   const con = await db.getConnection();
@@ -69,7 +71,7 @@ export const insertShippingAddress = async (
   try {
     let sql = `
     INSERT INTO ShippingAddress 
-    (user_id, name, recipient, contact, postcode, address, address_detail, requirement)
+    (user_id, name, recipient, contact, postcode, address, address_detail, requirement, prime)
     VALUES (
       ${con.escape(userId)}, 
       ${con.escape(form.name)}, 
@@ -78,7 +80,8 @@ export const insertShippingAddress = async (
       ${con.escape(form.postcode)}, 
       ${con.escape(form.address)}, 
       ${con.escape(form.addressDetail)}, 
-      ${con.escape(form.requirement)}
+      ${con.escape(form.requirement)}, 
+      ${con.escape(form.prime)}
     )`;
 
     return await con.execute(sql);
@@ -116,6 +119,42 @@ export const updateShippingAddress = async (
     requirement=${con.escape(form.requirement)}
     WHERE address_id=${con.escape(addressId)}`;
     
+    return await con.execute(sql);
+  } catch (err) {
+    throw err;
+  } finally {
+    con.release();
+  }
+}
+
+// 특정 사용자의 기본 배송지 모두 해제
+export const updateUserShippingAddressPrimeFalse = async (userId: number) => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `
+    UPDATE ShippingAddress
+    SET prime='false'
+    WHERE user_id=${con.escape(userId)}`;
+
+    return await con.execute(sql);
+  } catch (err) {
+    throw err;
+  } finally {
+    con.release();
+  }
+}
+
+// 사용자 기본 배송지 정보 변경
+export const updateShippingAddressPrime = async (addressId: number, prime: string) => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `
+    UPDATE ShippingAddress
+    SET prime=${con.escape(prime)}
+    WHERE address_id=${con.escape(addressId)}`;
+
     return await con.execute(sql);
   } catch (err) {
     throw err;

@@ -32,10 +32,15 @@ function Success({ addresses, children }: SuccessProps & typeof SuccessDefaultPr
         <h1 className="subtitle-label">배송 정보</h1>
       </CardHeader>
       <CardBody styles={{ padding: "0" }}>
-        {addresses?.addresses.map((address, idx) => 
-          <Fragment key={idx}>
-            {editorTarget === idx && <Editor address={address} closeEditor={closeEditor} />}
-            {editorTarget !== idx && <Address address={address} startEditor={() => startEditor(idx)} />}
+          {addresses?.addresses.filter((address) => address.prime === "true").map((address) =>
+          <Fragment key={address.address_id}>
+            {editorTarget === address.address_id && <Editor address={address} closeEditor={closeEditor} />}
+            {editorTarget !== address.address_id && <Address address={address} startEditor={() => startEditor(address.address_id)} />}
+          </Fragment>)}
+          {addresses?.addresses.filter((address) => address.prime === "false").map((address) =>
+          <Fragment key={address.address_id}>
+            {editorTarget === address.address_id && <Editor address={address} closeEditor={closeEditor} />}
+            {editorTarget !== address.address_id && <Address address={address} startEditor={() => startEditor(address.address_id)} />}
           </Fragment>)}
         {editorTarget === true && <Editor closeEditor={closeEditor} />}
         {editorTarget !== true && <AddButton addressLength={addresses?.addresses.length ? addresses.addresses.length : 0} startEditor={() => startEditor(true)} />}
