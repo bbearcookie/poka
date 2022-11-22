@@ -19,7 +19,7 @@ const PhotoListCardDefaultProps = {};
 function PhotoListCard({ icon, handleClickIcon, children }: PhotoListCardProps & typeof PhotoListCardDefaultProps) {
   return (
     <Card>
-      <CardHeader padding="0" borderBottom="0">
+      <CardHeader styles={{ padding: "0", borderBottom: "0" }}>
         <SearchInput />
         <SearchLabelList />
       </CardHeader>

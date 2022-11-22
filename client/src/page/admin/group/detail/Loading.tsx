@@ -9,13 +9,12 @@ import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 
-interface SkeletonProps {
+interface LoadingProps {
   children?: React.ReactNode;
 }
+const LoadingDefaultProps = {};
 
-const SkeletonDefaultProps = {};
-
-function Skeleton({ children }: SkeletonProps & typeof SkeletonDefaultProps) {
+function Loading({ children }: LoadingProps & typeof LoadingDefaultProps) {
   return (
     <>
       <section className="group-section">
@@ -31,7 +30,7 @@ function Skeleton({ children }: SkeletonProps & typeof SkeletonDefaultProps) {
       </section>
       <Card>
         <CardHeader><h1>그룹의 멤버</h1></CardHeader>
-        <CardBody padding="0">
+        <CardBody styles={{ padding: "5em" }}>
           <Table styles={{ borderStyle: "none" }}>
           <TableHead styles={{ height: "3em" }}>
               <tr>
@@ -65,6 +64,5 @@ function Skeleton({ children }: SkeletonProps & typeof SkeletonDefaultProps) {
   );
 }
 
-Skeleton.defaultProps = SkeletonDefaultProps;
-
-export default Skeleton;
+Loading.defaultProps = LoadingDefaultProps;
+export default Loading;

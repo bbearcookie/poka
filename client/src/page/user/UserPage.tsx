@@ -10,7 +10,6 @@ interface UserPageProps {
 const UserPageDefaultProps = {};
 
 function UserPage({ children }: UserPageProps & typeof UserPageDefaultProps) {
-
   return (
     <div className="PageTemplate">
       <Sidebar mode="USER" />

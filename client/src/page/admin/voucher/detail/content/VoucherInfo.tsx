@@ -3,6 +3,7 @@ import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Button from '@component/form/Button';
+import UserProfile from '@component/profile/UserProfile';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { VoucherStateLabel } from '@component/photocard/VoucherCard';
 import { VoucherStateType, VoucherStateName } from '@component/list/voucher/voucherListSlice';
@@ -16,10 +17,10 @@ const VoucherInfoDefaultProps = {};
 
 function VoucherInfo({ voucher, children }: VoucherInfoProps & typeof VoucherInfoDefaultProps) {
   return (
-    <Card className="VoucherInfo" marginBottom="5em">
+    <Card className="VoucherInfo" styles={{ marginBottom: "5em" }}>
       <CardHeader><h1>소유권 정보</h1></CardHeader>
 
-      <CardBody className="info-section" padding="0">
+      <CardBody className="info-section" styles={{ padding: "0" }}>
         <ul>
           <li className="info">
             <div className="subtitle">소유권ID</div>
@@ -29,11 +30,7 @@ function VoucherInfo({ voucher, children }: VoucherInfoProps & typeof VoucherInf
             <div className="subtitle">소유자</div>
             <div className="body">
               <section className="user-section">
-                <img src="/user.png" alt="사용자" width="75" height="75" />
-                <section className="body-section">
-                  <p className="nickname-label">{voucher.nickname}</p>
-                  <p className="username-label">아이디: <span className="username">{voucher.username}</span></p>
-                </section>
+                <UserProfile nickname={voucher.nickname} username={voucher.username} />
               </section>
             </div>
           </li>

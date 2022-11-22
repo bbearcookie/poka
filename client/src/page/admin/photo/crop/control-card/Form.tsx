@@ -3,8 +3,8 @@ import Input from '@component/form/Input';
 
 interface FormProps {
   moveX: number;
-  setMoveX: React.Dispatch<React.SetStateAction<number>>;
   moveY: number;
+  setMoveX: React.Dispatch<React.SetStateAction<number>>;
   setMoveY: React.Dispatch<React.SetStateAction<number>>;
   children?: React.ReactNode;
 }

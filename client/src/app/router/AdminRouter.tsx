@@ -1,5 +1,6 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { getUser } from '@util/auth/auth';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import FirstPage from '@page/admin/first/FirstPage';
 import SecondPage from '@page/admin/second/SecondPage';
 import GroupListPage from '@page/admin/group/list/Index';
@@ -17,30 +18,35 @@ import VoucherDetailPage from '@page/admin/voucher/detail/Index';
 
 // /admin 하위 라우팅 내용
 function AdminRouter() {
+  const user = getUser();
+
   return (
-    <Routes>
-      <Route index element={
-        <>
-          <div>ㅎㅇ</div>
-          <div>ㅎㅇ</div>
-          {Array.from({length: 150}).map((_, idx) => (<div key={idx}>길이가 무지막지길다면</div>))}
-        </>
-      } />
-      <Route path="/first" element={<FirstPage />} />
-      <Route path="/second" element={<SecondPage />} />
-      <Route path="/group/list" element={<GroupListPage />} />
-      <Route path="/group/writer" element={<GroupWriterPage />} />
-      <Route path="/group/editor/:groupId" element={<GroupEditorPage />} />
-      <Route path="/group/detail/:groupId" element={<GroupDetailPage />} />
-      <Route path="/member/detail/:memberId" element={<MemberDetailPage />} />
-      <Route path="/photo/list" element={<PhotoListPage />} />
-      <Route path="/photo/crop" element={<CropPage />} />
-      <Route path="/photo/writer" element={<PhotoWriterPage />} />
-      <Route path="/photo/detail/:photocardId" element={<PhotoDetailPage />} />
-      <Route path="/voucher/writer" element={<VoucherWriterPage />} />
-      <Route path="/voucher/list" element={<VoucherListPage />} />
-      <Route path="/voucher/detail/:voucherId" element={<VoucherDetailPage />} />
-    </Routes>
+    <>
+      {user?.role !== 'admin' && <Navigate to="/" />}
+      <Routes>
+        <Route index element={
+          <>
+            <div>ㅎㅇ</div>
+            <div>ㅎㅇ</div>
+            {Array.from({length: 150}).map((_, idx) => (<div key={idx}>길이가 무지막지길다면</div>))}
+          </>
+        } />
+        <Route path="/first" element={<FirstPage />} />
+        <Route path="/second" element={<SecondPage />} />
+        <Route path="/group/list" element={<GroupListPage />} />
+        <Route path="/group/writer" element={<GroupWriterPage />} />
+        <Route path="/group/editor/:groupId" element={<GroupEditorPage />} />
+        <Route path="/group/detail/:groupId" element={<GroupDetailPage />} />
+        <Route path="/member/detail/:memberId" element={<MemberDetailPage />} />
+        <Route path="/photo/list" element={<PhotoListPage />} />
+        <Route path="/photo/crop" element={<CropPage />} />
+        <Route path="/photo/writer" element={<PhotoWriterPage />} />
+        <Route path="/photo/detail/:photocardId" element={<PhotoDetailPage />} />
+        <Route path="/voucher/writer" element={<VoucherWriterPage />} />
+        <Route path="/voucher/list" element={<VoucherListPage />} />
+        <Route path="/voucher/detail/:voucherId" element={<VoucherDetailPage />} />
+      </Routes>
+    </>
   );
 }
 

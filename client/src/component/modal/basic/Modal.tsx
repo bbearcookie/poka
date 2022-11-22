@@ -7,7 +7,7 @@ export type LocationType = {
   vertical: 'TOP' | 'CENTER' | 'BOTTOM';
 }
 
-interface ModalProps {
+export interface ModalProps {
   hook: ModalHookType;
   location?: LocationType;
   styles?: StylesProps;
@@ -85,7 +85,7 @@ const StyledModalWrapper = styled.section<{show: boolean}>`
   }}
 `;
 
-interface StylesProps {
+export interface StylesProps {
   width?: string;
   maxWidth?: string;
   minWidth?: string;

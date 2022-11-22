@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import { initialize, clearMessage, setMessage, setVoucherMessage } from './voucherWriterSlice';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType } from '@util/commonAPI';
+import { ErrorType, getErrorMessage } from '@util/commonAPI';
 import * as voucherAPI from '@api/voucherAPI';
 import UsernameSection from './content/UsernameSection';
 import VoucherSection from './content/VoucherSection';
@@ -29,8 +29,7 @@ function Index({ children }: IndexProps & typeof IndexDefaultProps) {
       return navigate('/admin/voucher/list');
     },
     onError: (err: AxiosError<ErrorType>) => {
-      if (err.response?.data.message) toast.error(err.response?.data.message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-      else toast.error(err.message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
+      toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
 
       // 유효성 검증 결과 메시지 설정
       err.response?.data.errors.forEach((item) => {
@@ -44,7 +43,6 @@ function Index({ children }: IndexProps & typeof IndexDefaultProps) {
             const pattern = /vouchers\[([\d]+)\]/g;
             const index = Number(pattern.exec(item.param)?.at(1));
             dispatch(setVoucherMessage({idx: index, message: item.message}));
-            console.log(index);
           }
       });
     }

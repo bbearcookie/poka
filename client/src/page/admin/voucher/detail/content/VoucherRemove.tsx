@@ -52,7 +52,7 @@ function VoucherRemove({ voucher, voucherId, children }: VoucherRemoveProps & ty
 
       <ConfirmModal
         hook={removeModal}
-        maxWidth="100vh"
+        cardStyles={{ maxWidth: "100vh" }}
         titleName="소유권 삭제"
         confirmText="삭제"
         handleConfirm={handleRemove}

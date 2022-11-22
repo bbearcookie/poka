@@ -46,7 +46,7 @@ function Upload({ setCropper, children }: UploadProps & typeof UploadDefaultProp
   }, [changeFile]);
 
   return (
-    <Card marginBottom="2em">
+    <Card styles={{ marginBottom: "2em" }}>
       <CardHeader>
         <section className="title-section">
           <h1 className="title-label">이미지 자르기</h1>

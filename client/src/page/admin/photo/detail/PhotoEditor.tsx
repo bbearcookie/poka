@@ -5,11 +5,10 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorType } from '@util/commonAPI';
 import * as queryKey from '@util/queryKey';
 import * as groupAPI from '@api/groupAPI';
-import * as memberAPI from '@api/memberAPI';
 import * as photoAPI from '@api/photoAPI';
 import { BACKEND } from '@util/commonAPI';
+import { getErrorMessage } from '@util/commonAPI';
 import Card from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Button from '@component/form/Button';
 import Input from '@component/form/Input';
@@ -69,9 +68,7 @@ function PhotoEditor({ photo, photocardId, closeEditor, children }: PhotoEditorP
       closeEditor();
     },
     onError: (err: AxiosError<ErrorType<keyof FormType>>) => {
-      console.log(err);
-      if (err.response?.data.message) toast.error(err.response?.data.message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-      else toast.error(err.message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
+      toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
 
       let message = formMessage;
       err.response?.data.errors.forEach((e) => {
@@ -128,16 +125,16 @@ function PhotoEditor({ photo, photocardId, closeEditor, children }: PhotoEditorP
   }, [form, photocardId, putMutation]);
 
   return (
-    <Card className="PhotoEditor" marginBottom="5em">
+    <Card className="PhotoEditor" styles={{ marginBottom: "5em" }}>
       <CardBody>
         <section className="photo-section">
           <section className="image-section">
             <ImageUploader
               value={form.image}
-              message={formMessage.image}
+              errorMessage={formMessage.image}
+              description={<p className="description">파일 업로드<br/>Drag & Drop</p>}
               onChange={changeImage}
               styles={{ width: '150px', height: "224px" }}
-              imageStyles={{ width: '150px', height: "224px" }}
             />
           </section>
           <section className="description-section">

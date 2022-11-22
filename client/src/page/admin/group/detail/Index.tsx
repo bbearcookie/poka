@@ -4,17 +4,16 @@ import { useQuery } from 'react-query';
 import * as groupAPI from '@api/groupAPI';
 import * as queryKey from '@util/queryKey';
 import { ErrorType } from '@util/commonAPI';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError } from 'axios';
 import BackLabel from '@component/label/BackLabel';
 import ErrorCard from '@component/card/ErrorCard';
 import Success from './Success';
-import Skeleton from './Skeleton';
+import Loading from './Loading';
 import './Index.scss';
 
 interface GroupDetailPageProps {
   children?: React.ReactNode;
 }
-
 const GroupDetailPageDefaultProps = {};
 
 function GroupDetailPage({ children }: GroupDetailPageProps & typeof GroupDetailPageDefaultProps) {
@@ -26,13 +25,12 @@ function GroupDetailPage({ children }: GroupDetailPageProps & typeof GroupDetail
   return (
     <div className="GroupDetailPage">
       <BackLabel to="/admin/group/list" styles={{ marginBottom: "2em" }}>그룹 목록</BackLabel>
-      {status === 'error' && <ErrorCard error={error} /> }
-      {status === 'loading' && <Skeleton /> }
       {status === 'success' && <Success group={group} groupId={groupId} /> }
+      {status === 'error' && <ErrorCard error={error} /> }
+      {status === 'loading' && <Loading /> }
     </div>
   );
 }
 
 GroupDetailPage.defaultProps = GroupDetailPageDefaultProps;
-
 export default GroupDetailPage;

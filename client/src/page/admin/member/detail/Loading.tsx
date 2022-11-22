@@ -4,19 +4,19 @@ import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 
-interface SkeletonProps {
+interface LoadingProps {
   children?: React.ReactNode;
 }
-const SkeletonDefaultProps = {};
+const LoadingDefaultProps = {};
 
-function Skeleton({ children }: SkeletonProps & typeof SkeletonDefaultProps) {
+function Loading({ children }: LoadingProps & typeof LoadingDefaultProps) {
   return (
     <>
       <section className="name-section">
         <SkeletonItem styles={{ height: "2em", marginBottom: "0.5em" }} />
         <SkeletonItem styles={{ height: "1.2em" }} />
 
-        <Card marginTop="2.3em" marginBottom="5em">
+        <Card styles={{ marginTop: "2.3em", marginBottom: "5em" }}>
           <CardHeader>
             <section className="title-section">
               <h3 className="title-label">등록된 포토카드</h3>
@@ -27,7 +27,7 @@ function Skeleton({ children }: SkeletonProps & typeof SkeletonDefaultProps) {
           </CardBody>
         </Card>
 
-        <Card marginTop="2.3em" marginBottom="5em">
+        <Card styles={{ marginTop: "2.3em", marginBottom: "5em" }}>
           <CardHeader>
             <section className="title-section">
               <h3 className="title-label">멤버 삭제</h3>
@@ -43,5 +43,5 @@ function Skeleton({ children }: SkeletonProps & typeof SkeletonDefaultProps) {
   );
 }
 
-Skeleton.defaultProps = SkeletonDefaultProps;
-export default Skeleton;
+Loading.defaultProps = LoadingDefaultProps;
+export default Loading;

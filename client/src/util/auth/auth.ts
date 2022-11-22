@@ -9,8 +9,8 @@ export function saveUser(user: User) {
 // 로컬 스토리지에서 로그인 정보 확인
 export function getUser() {
   const user = localStorage.getItem(STORAGE_KEY_NAME);
-  if (user) return JSON.parse(user);
-  else return null;
+  if (user) return JSON.parse(user) as User;
+  else return undefined;
 }
 
 // 로컬 스토리지에서 로그인 정보 제거

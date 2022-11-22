@@ -1,8 +1,8 @@
 import React from 'react';
 import * as voucherAPI from '@api/voucherAPI';
 import PhotoInfoCard from '@component/photocard/detail/PhotoInfoCard';
-import VoucherInfo from './VoucherInfo';
-import VoucherRemove from './VoucherRemove';
+import VoucherInfo from './content/VoucherInfo';
+import VoucherRemove from './content/VoucherRemove';
 
 interface SuccessProps {
   voucher: typeof voucherAPI.getVoucherDetail.resType;

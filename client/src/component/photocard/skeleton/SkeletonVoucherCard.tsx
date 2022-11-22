@@ -13,7 +13,7 @@ const SkeletonVoucherCardDefaultProps = {};
 function SkeletonVoucherCard({ children }: SkeletonVoucherCardProps & typeof SkeletonVoucherCardDefaultProps) {
   return (
     <StyledPhotoCard className="PhotoCard">
-      <Card boxShadow="0px 0px 10px 0px #C0C0C0">
+      <Card styles={{ boxShadow: "0px 0px 10px 0px #C0C0C0"}}>
         <CardBody>
           <SkeletonItem
             styles={{

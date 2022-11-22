@@ -17,7 +17,7 @@ function UsernameSection({ children }: UsernameSectionProps & typeof UsernameSec
   const dispatch = useAppDispatch();
 
   return (
-    <Card marginBottom="2em">
+    <Card styles={{ marginBottom: "2em" }}>
       <CardHeader>
         <h3 className="label">사용자 아이디</h3>
       </CardHeader>

@@ -1,6 +1,6 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { body, param } from 'express-validator';
-import { validate, createResponseMessage } from '@util/validator';
+import { validate, createResponseMessage, isLoggedIn } from '@util/validator';
 import { encryptText } from '@util/encrypt';
 import { createLoginToken, verifyToken } from '@util/jwt';
 import * as userService from '@service/user.service';
@@ -22,24 +22,18 @@ export const postSignup = {
       .custom((value, { req }) => value === req.body.password).withMessage('비밀번호 확인이 일치하지 않아요.').bail(),
     validate
   ],
-  controller: async (req: Request, res: Response) => {
+  controller: async (req: Request, res: Response, next: NextFunction) => {
     const username = req.body.username as unknown as string;
     const nickname = req.body.nickname as unknown as string;
     const password = req.body.password as unknown as string;
     const passwordCheck = req.body.passwordCheck as unknown as string;
 
-    try {
-      const [[user]] = await userService.selectUserDetailByUsername(username);
-      if (user) return res.status(409).json(createResponseMessage("username", "이미 사용중인 아이디에요."));
+    const [[user]] = await userService.selectUserDetailByUsername(username);
+    if (user) return res.status(409).json(createResponseMessage("username", "이미 사용중인 아이디에요."));
 
-      await userService.insertUser(username, nickname, password);
-      return res.status(200).json({ message: `${username} 아이디로 가입 성공했어요!` });
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
-    }
-
-    return res.status(501).json({ message: 'Not Implemented' });
+    await userService.insertUser(username, nickname, password);
+    return res.status(200).json({ message: `${username} 아이디로 가입 성공했어요!` });
+    next();
   }
 }
 
@@ -52,41 +46,42 @@ export const postLogin = {
       .not().isEmpty().withMessage('비밀번호가 비어있어요.').bail(),
     validate
   ],
-  controller: async (req: Request, res: Response) => {
+  controller: async (req: Request, res: Response, next: NextFunction) => {
     const username = req.body.username as unknown as string;
     const password = req.body.password as unknown as string;
 
-    try {
-      const [[user]] = await userService.selectUserDetailByUsername(username);
-      if (!user) return res.status(409).json(createResponseMessage("username", "가입되지 않은 아이디에요."));
+    const [[user]] = await userService.selectUserDetailByUsername(username);
+    if (!user) return res.status(409).json(createResponseMessage("username", "가입되지 않은 아이디에요."));
 
-      const encryptedPassword = encryptText(password, user.salt);
-      if (user.password !== encryptedPassword) return res.status(409).json(createResponseMessage("password", "비밀번호가 일치하지 않아요."));
+    const encryptedPassword = encryptText(password, user.salt);
+    if (user.password !== encryptedPassword) return res.status(409).json(createResponseMessage("password", "비밀번호가 일치하지 않아요."));
 
-      const payload = {
-        username: user.username,
-        nickname: user.nickname,
-        role: user.role,
-        strategy: user.strategy
-      };
-      const accessToken = createLoginToken(payload);
-      res.cookie('accessToken', accessToken, { httpOnly: true });
-      // const result = verifyToken(accessToken);
-      // console.log(result);
+    const payload = {
+      user_id: user.user_id,
+      username: user.username,
+      role: user.role,
+      strategy: user.strategy
+    };
+    const accessToken = createLoginToken(payload);
+    res.cookie('accessToken', accessToken, { httpOnly: true });
 
-      return res.status(200).json({ message: 'TODO: 로그인 성공!', user: payload });
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
-    }
+    return res.status(200).json({ message: '로그인 성공!', user: payload });
+    next();
+  }
+}
 
-    return res.status(501).json({ message: 'Not Implemented' });
+// 로그아웃
+export const postLogout = {
+  controller: (req: Request, res: Response, next: NextFunction) => {
+    res.clearCookie('accessToken');
+    return res.status(200).json({ message: "로그아웃 완료" });
+    next();
   }
 }
 
 // 토큰 검증
 export const postVerify = {
-  controller: async (req: Request, res: Response) => {
+  controller: async (req: Request, res: Response, next: NextFunction) => {
     const accessToken = req.cookies.accessToken;
 
     try {
@@ -96,6 +91,6 @@ export const postVerify = {
       return res.status(401).json({ message: '로그인 인증 실패' });
     }
     
-    return res.status(501).json({ message: 'Not Implemented' });
+    next();
   }
 }

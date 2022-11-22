@@ -4,8 +4,8 @@ import { BACKEND } from '@util/commonAPI';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import * as groupAPI from '@api/groupAPI';
 import Button from '@component/form/Button';
-import MemberList from './MemberList';
-import GroupRemove from './GroupRemove';
+import MemberList from './content/MemberList';
+import GroupRemove from './content/GroupRemove';
 
 interface SuccessProps {
   group: typeof groupAPI.getGroupDetail.resType;

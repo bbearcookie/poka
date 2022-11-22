@@ -25,3 +25,14 @@ export const voucherKeys = {
   detail: (voucherId: number) => [...voucherKeys.all, voucherId] as const,
   select: ['vouchers', 'select'] as const
 }
+
+export const userKeys = {
+  all: ['users'] as const,
+  profile: (userId: number) => [...userKeys.all, 'profile', userId] as const,
+  address: (userId: number) => [...userKeys.all, ...addressKeys.all, userId] as const
+}
+
+export const addressKeys = {
+  all: ['address'] as const,
+  detail: (addressId: number) => [...addressKeys.all, addressId] as const
+}

@@ -8,7 +8,7 @@ interface SkeletonItemProps {
 const SkeletonItemDefaultProps = {};
 function SkeletonItem(p: SkeletonItemProps & typeof SkeletonItemDefaultProps) {
   return (
-    <StyledItem {...StylesDefaultProps} {...p.styles} {...p} />
+    <StyledItem className="SkeletonItem" {...StylesDefaultProps} {...p.styles} {...p} />
   );
 }
 
@@ -18,6 +18,7 @@ export default SkeletonItem;
 // 스타일 컴포넌트
 interface StylesProps {
   width?: string;
+  maxWidth?: string;
   height?: string;
   margin?: string;
   marginLeft?: string;
@@ -25,14 +26,17 @@ interface StylesProps {
   marginTop?: string;
   marginBottom?: string;
   backgroundColor?: string;
+  borderRadius?: string;
 }
 const StylesDefaultProps = {
   width: '5em',
   height: '1.25em',
-  backgroundColor: 'gainsboro'
+  backgroundColor: 'gainsboro',
+  borderRadius: "10px",
 };
 const StyledItem = styled.div<StylesProps & typeof StylesDefaultProps>`
   width: ${p => p.width};
+  max-width: ${p => p.maxWidth};
   height: ${p => p.height};
   margin: ${p => p.margin};
   margin-top: ${p => p.marginTop};
@@ -40,5 +44,5 @@ const StyledItem = styled.div<StylesProps & typeof StylesDefaultProps>`
   margin-left: ${p => p.marginLeft};
   margin-right: ${p => p.marginRight};
   background-color: ${p => p.backgroundColor};
-  border-radius: 10px;
+  border-radius: ${p => p.borderRadius};
 `;

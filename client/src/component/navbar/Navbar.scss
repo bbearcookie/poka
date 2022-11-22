@@ -1,4 +1,5 @@
 .Navbar {
+  height: 3rem;
   padding: 1em;
   display: flex;
   align-items: center;
@@ -6,6 +7,8 @@
   gap: 1em;
   background-color: white;
   box-shadow: rgb(100 116 139 / 12%) 0px 1px 4px;
+
+  a { color: inherit; text-decoration: none; }
 
   .sidebar-icon {
     display: none; // 미디어 쿼리로 스크린 사이즈가 작을 때만 보여줌
@@ -22,11 +25,7 @@
     }
   }
 
-  .grow-section {
-    flex-grow: 1;
-  }
-
-  .Dropdown {
-    text-align: center;
-  }
+  .profile-img { border-radius: 50px; }
+  .space { flex-grow: 1; }
+  .Dropdown { text-align: center; }
 }

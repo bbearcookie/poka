@@ -5,16 +5,15 @@ import { faPenToSquare, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import TableBodyItem from '@component/table/TableBodyItem';
 
 interface MemberInfoProps {
-  idx: number;
   memberId: number;
   name: string;
   photoCnt: number;
-  startEditor: (idx: number | boolean) => void;
+  startEditor: () => void;
   children?: React.ReactNode;
 }
 const MemberInfoDefaultProps = {};
 
-function MemberInfo({ idx, memberId, name, photoCnt, startEditor, children }: MemberInfoProps & typeof MemberInfoDefaultProps) {
+function MemberInfo({ memberId, name, photoCnt, startEditor, children }: MemberInfoProps & typeof MemberInfoDefaultProps) {
   return (
     <tr>
       <TableBodyItem styles={{ paddingLeft: "1.5em" }}>
@@ -25,7 +24,7 @@ function MemberInfo({ idx, memberId, name, photoCnt, startEditor, children }: Me
       <TableBodyItem>{photoCnt} 종류</TableBodyItem>
       <TableBodyItem styles={{ paddingRight: "1.5em" }}>
         <section className="action-section">
-          <IconButton icon={faPenToSquare} onClick={() => startEditor(idx)} />
+          <IconButton icon={faPenToSquare} onClick={startEditor} />
           <Link to={`/admin/member/detail/${memberId}`}>
             <IconButton icon={faArrowRight} />
           </Link>

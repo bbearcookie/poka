@@ -1,12 +1,20 @@
-import React, { useState, useCallback, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useCallback } from 'react';
+import { useQuery } from 'react-query';
+import { useNavigate, Link } from 'react-router-dom';
 import { usePopper } from 'react-popper';
-import Button from '@component/form/Button';
 import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { changeShow } from '@component/sidebar/sidebarSlice';
 import { logout } from '@util/auth/authSlice';
+import { BACKEND } from '@util/commonAPI';
+import { ErrorType } from '@util/commonAPI';
+import { AxiosError, AxiosResponse } from 'axios';
+import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
+import Button from '@component/form/Button';
+import * as authAPI from '@api/authAPI';
+import * as userAPI from '@api/userAPI';
+import * as queryKey from '@util/queryKey';
 import useDropdown from '@hook/useDropdown';
 import Dropdown from '@component/dropdown/Dropdown';
 import DropdownButton from '@component/dropdown/DropdownButton';
@@ -20,10 +28,9 @@ interface NavbarProps {
 const NavbarDefaultProps = {}
 function Navbar({ children }: NavbarProps & typeof NavbarDefaultProps) {
   const show = useAppSelector((state) => state.sidebar.show);
-  const user = useAppSelector((state) => state.auth);
+  const { user_id } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
   const userDropdown = useDropdown();
   const popper = usePopper(userDropdown.buttonElement, userDropdown.menuElement, {
     modifiers: [
@@ -36,43 +43,62 @@ function Navbar({ children }: NavbarProps & typeof NavbarDefaultProps) {
     ]
   });
 
+  const { status, data: user, error } =
+  useQuery<typeof userAPI.getUserDetail.resType, AxiosError<ErrorType>>
+  (queryKey.userKeys.profile(user_id), () => userAPI.getUserDetail.axios(user_id));
+
   // 로그아웃 로직
   const handleLogout = useCallback((e: React.MouseEvent) => {
     dispatch(logout());
     userDropdown.close();
+    authAPI.postLogout.axios();
     return navigate('/login');
   }, [dispatch, navigate, userDropdown]);
 
   return (
     <article className="Navbar">
-      <div className="sidebar-icon" onClick={() => dispatch(changeShow(!show))}>
-        <FontAwesomeIcon icon={faBars} />
-      </div>
-      <div className="grow-section"></div>
+      
+      {status === 'success' ?
+      <>
+        <div className="sidebar-icon" onClick={() => dispatch(changeShow(!show))}>
+          <FontAwesomeIcon icon={faBars} />
+        </div>
+        <div className="space" />
 
-      <Dropdown hook={userDropdown}>
-        <DropdownButton
-          buttonRef={userDropdown.buttonRef}
-          onClick={() => userDropdown.toggle()}
-        >
-          <img
-            src="/user.png"
-            width="50"
-            height="50"
-            alt="사용자"
-          />
-        </DropdownButton>
+        <Dropdown hook={userDropdown}>
+          <DropdownButton
+            buttonRef={userDropdown.buttonRef}
+            onClick={() => userDropdown.toggle()}
+          >
+            <img
+              className="profile-img"
+              src={`${BACKEND}/image/user/${user?.image_name}`}
+              width="50"
+              height="50"
+              alt="사용자"
+              onError={e => e.currentTarget.src = "/user.png"}
+            />
+          </DropdownButton>
 
-        {userDropdown.show &&
-        <DropdownMenu popper={popper} menuRef={userDropdown.menuRef}>
-          <DropdownItem><b>{user.nickname}</b></DropdownItem>
-          <hr />
-          <DropdownItem>마이페이지</DropdownItem>
-          <DropdownItem onClick={handleLogout}>로그아웃</DropdownItem>
-        </DropdownMenu>}
-      </Dropdown>
-
-      {/* <Button rightIcon={faRightFromBracket} styles={{ theme:"gray-outlined" }}>로그아웃</Button> */}
+          {userDropdown.show &&
+          <DropdownMenu popper={popper} menuRef={userDropdown.menuRef}>
+            <DropdownItem><b>{user?.nickname}</b></DropdownItem>
+            <hr />
+            <Link to="/profile"><DropdownItem>마이페이지</DropdownItem></Link>
+            <DropdownItem onClick={handleLogout}>로그아웃</DropdownItem>
+          </DropdownMenu>}
+        </Dropdown>
+      </> :
+      <>
+        <div className="space" />
+        <Button
+          rightIcon={faArrowRightToBracket}
+          styles={{
+            theme: 'primary-outlined'
+          }}
+          onClick={() => navigate('/login')}
+        >로그인</Button>
+      </>}
     </article>
   );
 }

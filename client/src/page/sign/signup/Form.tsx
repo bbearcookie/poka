@@ -4,7 +4,7 @@ import { useMutation } from 'react-query';
 import { toast } from 'react-toastify';
 import * as authAPI from '@api/authAPI';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType } from '@util/commonAPI';
+import { ErrorType, getErrorMessage } from '@util/commonAPI';
 import Input from '@component/form/Input';
 import Button from '@component/form/Button';
 import InputMessage from '@component/form/InputMessage';
@@ -44,8 +44,7 @@ function Form({ children }: FormProps & typeof FormDefaultProps) {
       return navigate('/login');
     },
     onError: (err: AxiosError<ErrorType<keyof InputType>>) => {
-      if (err.response?.data.message) toast.error(err.response?.data.message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-      else toast.error(err.message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
+      toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
 
       let message = inputMessage;
       err.response?.data.errors.forEach((e) => {

@@ -20,7 +20,7 @@ const PhotoInfoDefaultProps = {};
 
 function PhotoInfo({ idx, src, message, changePhotoName, removePhoto, setPhotoMessage, children }: PhotoInfoProps & typeof PhotoInfoDefaultProps) {
   return (
-    <Card className="PhotoInfoCard" margin="0 1em 2em 1em">
+    <Card className="PhotoInfoCard" styles={{ margin: "0 1em 2em 1em" }}>
       <CardBody>
         <img width="215" height="320" src={src} alt="포토카드" />
         <section className="name-section">

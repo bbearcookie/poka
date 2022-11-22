@@ -16,6 +16,10 @@
       "@": ["src"],
       "@/*": ["src/*"],
     },
+    "typeRoots": [
+      // "./node_modules/@types",
+      "./src/config/express.ts"
+    ],
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
     /* Projects */

@@ -5,7 +5,7 @@ import Button from '@component/form/Button';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
-import MemberRemove from './MemberRemove';
+import MemberRemove from './content/MemberRemove';
 
 interface SuccessProps {
   member: typeof memberAPI.getMemberDetail.resType;
@@ -21,7 +21,7 @@ function Success({ member, memberId }: SuccessProps & typeof SuccessDefaultProps
         <p>그룹: <span className="group-name-label">{member?.group_name}</span></p>
       </section>
 
-      <Card marginBottom="5em">
+      <Card styles={{ marginBottom: "5em" }}>
         <CardHeader>
           <section className="title-section">
             <h3 className="title-label">등록된 포토카드</h3>

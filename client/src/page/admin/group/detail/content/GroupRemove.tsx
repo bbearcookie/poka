@@ -50,7 +50,7 @@ function GroupRemove({ group, groupId }: GroupRemoveProps & typeof GroupRemoveDe
 
       <ConfirmModal
         hook={removeModal}
-        maxWidth="100vh"
+        cardStyles={{ maxWidth: "100vh" }}
         location={{ vertical: 'CENTER', horizontal: 'CENTER' }}
         titleName="그룹 삭제"
         confirmText="삭제"

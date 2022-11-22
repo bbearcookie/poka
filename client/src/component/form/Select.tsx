@@ -1,22 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const CLASS = 'Select';
 interface SelectProps {
+  name?: string;
   value?: string | number | readonly string[] | undefined;
   onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   styles?: StylesProps;
   children?: React.ReactNode;
 }
 const SelectDefaultProps = {};
-function Select(p: SelectProps & typeof SelectDefaultProps) {
+function Select({ name, value, onChange, styles, children }: SelectProps & typeof SelectDefaultProps) {
   return (
     <StyledSelect
-      {...StylesDefaultProps} {...p.styles} {...p}
-      className={CLASS}
-      value={p.value}
+      {...StylesDefaultProps} {...styles}
+      className="Select"
+      name={name}
+      value={value}
+      onChange={onChange}
     >
-      {p.children}
+      {children}
     </StyledSelect>
   );
 }
