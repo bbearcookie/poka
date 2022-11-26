@@ -21,7 +21,7 @@ function AdminContent({ children }: AdminContentProps & typeof AdminContentDefau
       </ul>
       <ul className="category">
         <li className="subheader-label">교환 관리</li>
-        <ChildItem to="/admin/trade" icon={faArrowsSpin} text="교환글" iconMarginRight="0.8em" />
+        <ChildItem to="/admin/trade" icon={faArrowsSpin} text="교환글" />
         <ParentItem id="voucher" icon={faVcard} text="소유권">
           <ChildItem to="/admin/voucher/list" text="목록" />
           <ChildItem to="/admin/voucher/writer" text="발급" />
@@ -34,7 +34,7 @@ function AdminContent({ children }: AdminContentProps & typeof AdminContentDefau
           <ChildItem to="/admin/group/list" text="목록" />
           <ChildItem to="/admin/group/writer" text="추가" />
         </ParentItem>
-        <ParentItem id="photo" icon={faInfoCircle} text="포토카드" iconMarginRight="0.9em">
+        <ParentItem id="photo" icon={faInfoCircle} text="포토카드">
           <ChildItem to="/admin/photo/list" text="목록" />
           <ChildItem to="/admin/photo/writer" text="추가" />
           <ChildItem to="/admin/photo/crop" icon={faCut} text="자르기" />

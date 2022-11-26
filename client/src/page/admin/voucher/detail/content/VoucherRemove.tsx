@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
-import { ErrorType, getErrorMessage } from '@util/commonAPI';
+import { ErrorType, getErrorMessage } from '@util/request';
 import * as queryKey from '@util/queryKey';
 import * as voucherAPI from '@api/voucherAPI';
 import useModal from '@hook/useModal';

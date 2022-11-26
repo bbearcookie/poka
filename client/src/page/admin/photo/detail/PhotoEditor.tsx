@@ -2,12 +2,12 @@ import React, { useState, useCallback } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType } from '@util/commonAPI';
+import { ErrorType } from '@util/request';
 import * as queryKey from '@util/queryKey';
 import * as groupAPI from '@api/groupAPI';
 import * as photoAPI from '@api/photoAPI';
-import { BACKEND } from '@util/commonAPI';
-import { getErrorMessage } from '@util/commonAPI';
+import { photoImage } from '@api/resource';
+import { getErrorMessage } from '@util/request';
 import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 import Button from '@component/form/Button';
@@ -35,8 +35,8 @@ function PhotoEditor({ photo, photocardId, closeEditor, children }: PhotoEditorP
     name: photo?.name ? photo.name : '',
     image: {
       file: null,
-      previewURL: photo?.image_name ? `${BACKEND}/image/photo/${photo.image_name}` : '',
-      initialURL: photo?.image_name ? `${BACKEND}/image/photo/${photo.image_name}` : ''
+      previewURL: photo?.image_name ? photoImage(photo.image_name) : '',
+      initialURL: photo?.image_name ? photoImage(photo.image_name) : ''
     },
     groupId: photo?.group_id ? photo.group_id : 0,
     memberId: photo?.group_id ? photo.member_id : 0

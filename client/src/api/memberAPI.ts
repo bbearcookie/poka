@@ -1,4 +1,4 @@
-import { client } from "@util/commonAPI";
+import { client } from "@util/request";
 
 export class getMemberDetail {
   static axios = async (memberId: number) => {

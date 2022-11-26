@@ -1,8 +1,3 @@
-export const testListKeys = {
-  all: ['todos'] as const,
-  detail: (id: number) => [...testListKeys.all, id] as const
-}
-
 export const groupKeys = {
   all: ['groups'] as const,
   detail: (groupId: number) => [...groupKeys.all, groupId] as const,

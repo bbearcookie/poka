@@ -4,7 +4,8 @@ import * as groupAPI from '@api/groupAPI';
 import * as queryKey from '@util/queryKey';
 import { useParams } from 'react-router-dom';
 import { AxiosError } from 'axios';
-import { ErrorType, BACKEND } from '@util/commonAPI';
+import { ErrorType } from '@util/request';
+import { groupImage } from '@api/resource';
 import Form from './Form';
 import './Index.scss';
 
@@ -23,7 +24,7 @@ function GroupEditorPage({ children }: GroupEditorPageProps & typeof GroupEditor
   return (
     <div className="GroupWriterPage">
       <h1 className="title-label">그룹 수정</h1>
-      {status === 'success' && <Form groupId={groupId} name={group?.name} imageName={`${BACKEND}/image/group/${group?.image_name}`} />}
+      {status === 'success' && <Form groupId={groupId} name={group?.name} imageName={groupImage(group?.image_name)} />}
     </div>
   );
 }

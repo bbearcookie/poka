@@ -1,4 +1,4 @@
-import { client } from '@util/commonAPI';
+import { client } from '@util/request';
 import { AddressType } from '@api/shippingAddressAPI';
 
 export class getUserDetail {

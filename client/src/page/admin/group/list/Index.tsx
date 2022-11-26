@@ -7,8 +7,8 @@ import TableHead from '@component/table/TableHead';
 import TableBody from '@component/table/TableBody';
 import TableHeadItem from '@component/table/TableHeadItem';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType, getErrorMessage, BACKEND } from '@util/commonAPI';
+import { AxiosError } from 'axios';
+import { ErrorType, getErrorMessage } from '@util/request';
 import * as queryKey from '@util/queryKey';
 import * as groupAPI from '@api/groupAPI';
 import GroupList from './GroupList';
@@ -18,7 +18,6 @@ import './Index.scss';
 interface GroupListPageProps {
   children?: React.ReactNode;
 }
-
 const GroupListPageDefaultProps = {};
 
 function GroupListPage({ children }: GroupListPageProps & typeof GroupListPageDefaultProps) {

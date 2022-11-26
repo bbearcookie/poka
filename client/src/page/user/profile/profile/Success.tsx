@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import * as userAPI from '@api/userAPI';
-import { BACKEND } from '@util/commonAPI';
+import { userImage } from '@api/resource';
 import UserInfo from './UserInfo';
 import UserEditor from './UserEditor';
 
@@ -23,13 +23,13 @@ function Success({ user, children }: SuccessProps & typeof SuccessDefaultProps) 
       <UserEditor
         userId={user?.user_id}
         nickname={user?.nickname}
-        imageName={`${BACKEND}/image/user/${user?.image_name}`}
+        imageName={userImage(user?.image_name)}
         closeEditor={closeEditor}
       /> :
       <UserInfo
         username={user?.username}
         nickname={user?.nickname}
-        imageName={`${BACKEND}/image/user/${user?.image_name}`}
+        imageName={userImage(user?.image_name)}
         startEditor={startEditor}
       />}
     </>

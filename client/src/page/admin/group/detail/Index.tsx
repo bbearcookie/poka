@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import * as groupAPI from '@api/groupAPI';
 import * as queryKey from '@util/queryKey';
-import { ErrorType } from '@util/commonAPI';
+import { ErrorType } from '@util/request';
 import { AxiosError } from 'axios';
 import BackLabel from '@component/label/BackLabel';
 import ErrorCard from '@component/card/ErrorCard';

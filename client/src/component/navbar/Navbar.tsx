@@ -7,8 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { changeShow } from '@component/sidebar/sidebarSlice';
 import { logout } from '@util/auth/authSlice';
-import { BACKEND } from '@util/commonAPI';
-import { ErrorType } from '@util/commonAPI';
+import { userImage } from '@api/resource';
+import { ErrorType } from '@util/request';
 import { AxiosError, AxiosResponse } from 'axios';
 import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import Button from '@component/form/Button';
@@ -72,7 +72,7 @@ function Navbar({ children }: NavbarProps & typeof NavbarDefaultProps) {
           >
             <img
               className="profile-img"
-              src={`${BACKEND}/image/user/${user?.image_name}`}
+              src={userImage(user?.image_name)}
               width="50"
               height="50"
               alt="사용자"

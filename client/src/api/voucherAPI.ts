@@ -1,4 +1,4 @@
-import { client } from "@util/commonAPI";
+import { client } from "@util/request";
 import { FilterType } from "@component/list/voucher/voucherListSlice";
 import { PhotoType } from "@api/photoAPI";
 
@@ -29,8 +29,8 @@ export class getVoucherDetail {
   static resType = undefined as undefined | VoucherType & {
     message: string;
     user_id: number;
+    user_image_name: string;
   }
-  // static resType = undefined as undefined | VoucherType;
 }
 
 export class getAllVoucherList {

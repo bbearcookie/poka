@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '@component/form/Button';
 
 interface SubmitSectionProps {
@@ -7,6 +8,8 @@ interface SubmitSectionProps {
 const SubmitSectionDefaultProps = {};
 
 function SubmitSection({ children }: SubmitSectionProps & typeof SubmitSectionDefaultProps) {
+  const navigate = useNavigate();
+
   return (
     <section className="button-section">
       <Button
@@ -15,6 +18,7 @@ function SubmitSection({ children }: SubmitSectionProps & typeof SubmitSectionDe
           padding: "1em 2em",
           marginLeft: "1em"
         }}
+        onClick={() => navigate(-1)}
       >취소</Button>
       <Button
         type="submit"

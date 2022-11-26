@@ -4,13 +4,14 @@ import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Button from '@component/form/Button';
 import UserProfile from '@component/profile/UserProfile';
+import * as voucherAPI from '@api/voucherAPI';
+import { userImage } from '@api/resource';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { VoucherStateLabel } from '@component/photocard/VoucherCard';
 import { VoucherStateType, VoucherStateName } from '@component/list/voucher/voucherListSlice';
-import { VoucherType } from '@api/voucherAPI';
 
 interface VoucherInfoProps {
-  voucher: VoucherType;
+  voucher: typeof voucherAPI.getVoucherDetail.resType;
   children?: React.ReactNode;
 }
 const VoucherInfoDefaultProps = {};
@@ -24,21 +25,21 @@ function VoucherInfo({ voucher, children }: VoucherInfoProps & typeof VoucherInf
         <ul>
           <li className="info">
             <div className="subtitle">소유권ID</div>
-            <div className="body">{voucher.voucher_id}</div>
+            <div className="body">{voucher?.voucher_id}</div>
           </li>
           <li className="info">
             <div className="subtitle">소유자</div>
             <div className="body">
               <section className="user-section">
-                <UserProfile nickname={voucher.nickname} username={voucher.username} />
+                <UserProfile nickname={voucher?.nickname} username={voucher?.username} imageName={userImage(voucher?.user_image_name)} />
               </section>
             </div>
           </li>
           <li className="info">
             <div className="subtitle">상태</div>
             <div className="body">
-              <VoucherStateLabel className="state-label" voucherState={voucher.state}>
-                {VoucherStateName[voucher.state.toUpperCase() as VoucherStateType]}
+              <VoucherStateLabel className="state-label" voucherState={voucher?.state || ''}>
+                {VoucherStateName[voucher?.state.toUpperCase() as VoucherStateType]}
               </VoucherStateLabel>
             </div>
           </li>

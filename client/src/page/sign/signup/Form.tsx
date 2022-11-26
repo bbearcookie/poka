@@ -4,7 +4,7 @@ import { useMutation } from 'react-query';
 import { toast } from 'react-toastify';
 import * as authAPI from '@api/authAPI';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType, getErrorMessage } from '@util/commonAPI';
+import { ErrorType, getErrorMessage } from '@util/request';
 import Input from '@component/form/Input';
 import Button from '@component/form/Button';
 import InputMessage from '@component/form/InputMessage';

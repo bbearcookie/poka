@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BACKEND } from '@util/commonAPI';
+import { groupImage } from '@api/resource';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import IconButton from '@component/form/IconButton';
 import TableBodyItem from '@component/table/TableBodyItem';
@@ -20,7 +20,7 @@ function GroupList({ groups, children }: GroupListProps & typeof GroupListDefaul
         <tr key={idx}>
           <TableBodyItem styles={{ paddingLeft: "1.5em" }}>
             <Link className="name-section" to={`/admin/group/detail/${item.group_id}`}>
-              <img src={`${BACKEND}/image/group/${item.image_name}`} width="60" height="60" alt={item.name} />
+              <img src={groupImage(item.image_name)} width="60" height="60" alt={item.name} />
               <span className="name">{item.name}</span>
             </Link>
           </TableBodyItem>

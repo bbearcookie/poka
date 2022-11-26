@@ -1,7 +1,5 @@
 import axios, { AxiosError } from "axios";
-
-export const BACKEND = 'http://localhost:5000';
-export const options = { withCredentials: true }; // 여러 API 요청들이 공통적으로 사용할만한 옵션
+import { BACKEND } from "@api/resource";
 
 // 공통적으로 사용할만한 옵션이 적용된 axios 클라이언트
 export const client = axios.create({

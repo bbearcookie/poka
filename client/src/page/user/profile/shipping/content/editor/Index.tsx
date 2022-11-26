@@ -7,7 +7,7 @@ import * as shippingAddressAPI from '@api/shippingAddressAPI';
 import * as queryKey from '@util/queryKey';
 import { AddressType } from '@api/shippingAddressAPI';
 import { AxiosError } from 'axios';
-import { ErrorType, getErrorMessage } from '@util/commonAPI';
+import { ErrorType, getErrorMessage } from '@util/request';
 import CardHeader from '@component/card/basic/CardHeader';
 import NameSection from './content/NameSection';
 import ContactSection from './content/ContactSection';

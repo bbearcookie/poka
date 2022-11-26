@@ -1,11 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { BACKEND } from '@util/commonAPI';
+import { photoImage } from '@api/resource';
 import { PhotoType } from '@api/photoAPI';
 import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
-import IconButton from '@component/form/IconButton';
 import CardFooter from '@component/card/basic/CardFooter';
 
 interface PhotoCardTemplateProps {
@@ -25,7 +23,7 @@ function PhotoCardTemplate({ className, photo, iconNode, children }: PhotoCardTe
         <CardBody>
           <img
             width="150" height="224"
-            src={`${BACKEND}/image/photo/${photo.image_name}`}
+            src={photoImage(photo.image_name)}
             alt="이미지" />
           <PhotoNameDiv><p>{photo.name}</p></PhotoNameDiv>
 

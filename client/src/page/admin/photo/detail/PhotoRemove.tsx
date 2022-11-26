@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType, getErrorMessage } from '@util/commonAPI';
+import { ErrorType, getErrorMessage } from '@util/request';
 import * as photoAPI from '@api/photoAPI';
 import * as queryKey from '@util/queryKey';
 import useModal from '@hook/useModal';

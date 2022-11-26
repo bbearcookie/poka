@@ -3,7 +3,7 @@ import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import { AxiosError } from 'axios';
-import { ErrorType, getErrorMessage } from '@util/commonAPI';
+import { ErrorType, getErrorMessage } from '@util/request';
 import { StylesProps as CardStyles } from '@component/card/basic/Card';
 
 interface ErrorCardProps {

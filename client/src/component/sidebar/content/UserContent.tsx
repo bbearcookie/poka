@@ -16,16 +16,16 @@ function UserContent({ children }: UserContentProps & typeof UserContentDefaultP
       </ul>
       <ul className="category">
         <li className="subheader-label">포토카드 교환</li>
-        <ParentItem id="trade" icon={faShareNodes} text="교환" iconMarginRight="0.95em">
+        <ParentItem id="trade" icon={faShareNodes} text="교환">
           <ChildItem to="/trade/search" text="포토카드 찾기" />
           <ChildItem to="/trade/writer" text="교환글 등록" />
           <ChildItem to="/trade/matching" text="교환 매칭" />
         </ParentItem>
-        <ChildItem to="/trade/history" icon={faTimeline} text="내역" iconMarginRight="0.6em"/>
+        <ChildItem to="/trade/history" icon={faTimeline} text="내역" />
       </ul>
       <ul className="category">
         <li className="subheader-label">포토카드 보관함</li>
-        <ChildItem to="/inventory" icon={faBagShopping} text="소유권" iconMarginRight="0.95em"/>
+        <ChildItem to="/inventory" icon={faBagShopping} text="소유권" />
         <ChildItem to="/shipping" icon={faTruckFast} text="배송" />
       </ul>
       <ul className="category">

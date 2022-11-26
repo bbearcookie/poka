@@ -73,7 +73,8 @@ export const getVoucherDetail = {
       ...photo,
       user_id: user.user_id,
       username: user.username,
-      nickname: user.nickname
+      nickname: user.nickname,
+      user_image_name: user.image_name
     });
     next();
   }

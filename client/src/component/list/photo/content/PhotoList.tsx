@@ -5,7 +5,7 @@ import { useInfiniteQuery, useQueryClient } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { AxiosError } from 'axios';
-import { ErrorType } from '@util/commonAPI';
+import { ErrorType } from '@util/request';
 import * as queryKey from '@util/queryKey';
 import * as photoAPI from '@api/photoAPI';
 import PhotoCard from '@component/photocard/PhotoCard';

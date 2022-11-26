@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useMutation } from 'react-query';
 import { useAppDispatch } from '@app/redux/reduxHooks';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType } from '@util/commonAPI';
+import { ErrorType } from '@util/request';
 import * as authAPI from '@api/authAPI';
 import { login } from '@util/auth/authSlice';
 import { getUser, removeUser } from '@util/auth/auth';

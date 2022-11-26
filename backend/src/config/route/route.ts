@@ -1,5 +1,4 @@
 import { Express, NextFunction, Request, Response } from 'express';
-import testRouter from '@config/route/test.router';
 import groupRouter from '@config/route/group.router';
 import memberRouter from '@config/route/member.router';
 import photoRouter from '@config/route/photo.router';
@@ -9,7 +8,6 @@ import voucherRouter from '@config/route/voucher.router';
 import shippingAddressRouter from './shipping-address.router';
 
 export default function(app: Express) {
-  testRouter(app, '/api/test');
   groupRouter(app, '/api/group');
   memberRouter(app, '/api/member');
   photoRouter(app, '/api/photo');

@@ -1,4 +1,4 @@
-import { client } from "@util/commonAPI";
+import { client } from "@util/request";
 import { FilterType } from '@component/list/photo/photoListCardSlice';
 
 export type PhotoType = {

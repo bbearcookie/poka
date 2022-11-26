@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { ErrorType } from '@util/commonAPI';
+import { ErrorType } from '@util/request';
 import { AxiosError } from 'axios';
 import * as photoAPI from '@api/photoAPI';
 import * as queryKey from '@util/queryKey';

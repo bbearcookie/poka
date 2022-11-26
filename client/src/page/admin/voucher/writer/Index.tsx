@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import { initialize, clearMessage, setMessage, setVoucherMessage } from './voucherWriterSlice';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType, getErrorMessage } from '@util/commonAPI';
+import { ErrorType, getErrorMessage } from '@util/request';
 import * as voucherAPI from '@api/voucherAPI';
 import UsernameSection from './content/UsernameSection';
 import VoucherSection from './content/VoucherSection';

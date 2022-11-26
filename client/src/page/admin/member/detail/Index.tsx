@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType } from '@util/commonAPI';
+import { ErrorType } from '@util/request';
 import * as memberAPI from '@api/memberAPI';
 import * as queryKey from '@util/queryKey';
 import BackLabel from '@component/label/BackLabel';

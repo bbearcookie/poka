@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType, getErrorMessage } from '@util/commonAPI';
+import { ErrorType, getErrorMessage } from '@util/request';
 import * as photoAPI from '@api/photoAPI';
 import * as queryKey from '@util/queryKey';
 import Button from '@component/form/Button';
@@ -121,6 +121,7 @@ function PhotoWriterPage({ children }: PhotoWriterPageProps & typeof PhotoWriter
               padding: "1em 2em",
               marginLeft: "1em"
             }}
+            onClick={() => navigate('/admin/photo/list')}
           >취소</Button>
           <Button
             type="submit"

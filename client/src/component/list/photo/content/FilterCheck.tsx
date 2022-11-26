@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { usePopper } from 'react-popper';
 import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType } from '@util/commonAPI';
+import { ErrorType } from '@util/request';
 import * as queryKey from '@util/queryKey';
 import * as groupAPI from '@api/groupAPI';
 import * as memberAPI from '@api/memberAPI';
