@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
@@ -46,14 +47,16 @@ function VoucherInfo({ voucher, children }: VoucherInfoProps & typeof VoucherInf
           <li className="info">
             <div className="subtitle">기록</div>
             <div className="body">
-              <Button
-                rightIcon={faArrowRight}
-                styles={{
-                  theme: "primary",
-                  padding: "0.7em 1.3em",
-                  iconMargin: "1em"
-                }}
-              >조회</Button>
+              <Link to={`/admin/voucher/log/${voucher?.voucher_id}`}>
+                <Button
+                  rightIcon={faArrowRight}
+                  styles={{
+                    theme: "primary",
+                    padding: "0.7em 1.3em",
+                    iconMargin: "1em"
+                  }}
+                >조회</Button>
+              </Link>
             </div>
           </li>
         </ul>

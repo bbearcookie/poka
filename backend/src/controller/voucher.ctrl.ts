@@ -80,6 +80,39 @@ export const getVoucherDetail = {
   }
 }
 
+// 소유권 기록 조회
+export const getVoucherLogDetail = {
+  validator: [
+    isAdmin,
+    param('voucherId').isNumeric().withMessage('소유권 ID는 숫자여야 해요.'),
+    oneOf([ // pageParam은 undefined이거나 숫자여야 함.
+      query('pageParam').not().exists(),
+      query('pageParam').isNumeric()
+    ]),
+    validate
+  ],
+  controller: async (req: Request, res: Response, next: NextFunction) => {
+    const voucherId = Number(req.params.voucherId);
+    const itemPerPage = 5; // 페이지당 보여줄 내용 갯수
+    const pageParam = req.query.pageParam ? Number(req.query.pageParam) : 0; // 페이지 번호
+
+    const [[voucher]] = await voucherService.selectVoucherDetail(voucherId);
+    if (!voucher) return res.status(404).json({ message: '해당 소유권의 데이터가 서버에 존재하지 않아요.' });
+
+    // TODO: 소유권 기록 조회 후 반환
+    const [logs] = await voucherService.selectVoucherLogDetail(voucherId, itemPerPage, pageParam);
+    return res.status(200).json({
+      message: '소유권의 기록을 조회했습니다.',
+      logs,
+      paging: {
+        pageParam,
+        hasNextPage: logs.length === itemPerPage
+      }
+    });
+    next();
+  }
+}
+
 // 소유권 발급
 export const postVoucher = {
   validator: [

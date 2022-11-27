@@ -9,6 +9,15 @@ export type VoucherType = PhotoType & {
   nickname: string;
 }
 
+export type LogType = {
+  log_id: number;
+  voucher_id: number;
+  origin_user_id: number;
+  dest_user_id: number;
+  type: 'issued' | 'traded' | 'shipped';
+  logged_time: string;
+}
+
 export class postVoucher {
   static axios = async ({ data }: { data: object }) => {
     const url = `/api/voucher`;
@@ -30,6 +39,23 @@ export class getVoucherDetail {
     message: string;
     user_id: number;
     user_image_name: string;
+  }
+}
+
+export class getVoucherLogDetail {
+  static axios = async (voucherId: number, pageParam: number) => {
+    const url = `/api/voucher/${voucherId}/log`;
+    const params = { pageParam }
+    const res = await client.get<typeof this.resType>(url, { params });
+    return res.data;
+  }
+  static resType = undefined as undefined | {
+    message: string;
+    logs: LogType[];
+    paging: {
+      pageParam: number;
+      hasNextPage: boolean;
+    }
   }
 }
 

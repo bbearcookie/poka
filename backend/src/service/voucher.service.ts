@@ -135,6 +135,39 @@ export const selectVoucherDetail = async (voucherId: number) => {
   }
 }
 
+// 소유권 기록 상세 조회
+export const selectVoucherLogDetail = async (
+  voucherId: number,
+  itemPerPage: number,
+  pageParam: number
+) => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `
+    SELECT log_id, voucher_id, origin_user_id, dest_user_id, type, logged_time
+    FROM VoucherLog
+    WHERE voucher_id=${con.escape(voucherId)}
+    ORDER BY logged_time DESC
+    LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
+
+    interface DataType extends RowDataPacket {
+      log_id: number;
+      voucher_id: number;
+      origin_user_id: number;
+      dest_user_id: number;
+      type: string;
+      logged_time: string;
+    }
+
+    return await con.query<DataType[]>(sql);
+  } catch (err) {
+    throw err;
+  } finally {
+    con.release();
+  }
+}
+
 // 사용자에게 소유권 발급
 export const insertVouchers = async (
   userId: number,
@@ -146,6 +179,7 @@ export const insertVouchers = async (
 
   try {
     await con.beginTransaction();
+    const insertIds = [];
 
     // 각 소유권의 발급 수량만큼 발급함
     for (let voucher of vouchers) {
@@ -153,8 +187,19 @@ export const insertVouchers = async (
         let sql = `
         INSERT INTO Voucher (user_id, photocard_id)
         VALUES (${con.escape(userId)}, ${con.escape(voucher.photocardId)})`;
-        await con.execute(sql);
+
+        let [result] = await con.execute(sql);
+        insertIds.push((result as ResultSetHeader).insertId);
       }
+    }
+
+    // 발급 로그 작성
+    for (let id of insertIds) {
+      let sql = `
+      INSERT INTO VoucherLog (type, voucher_id, origin_user_id)
+      VALUES (${con.escape('issued')}, ${con.escape(id)}, ${con.escape(userId)})`;
+
+      await con.execute(sql);
     }
 
     con.commit();

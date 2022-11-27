@@ -1,0 +1,45 @@
+.VoucherLogPage {
+  padding: 5em 10%;
+
+  .label { margin: 0.5em 0; }
+
+  .LogListCard {
+    .log-section {
+      ul { margin: 0; padding: 0; list-style-type: none; }
+
+      .log {
+        padding: 1.5em;
+        border-bottom: 1px solid #E5E7EB;
+
+        .line {
+          min-height: 1em;
+          margin-bottom: 1em;
+          display: flex;
+
+          .subtitle {
+            flex-basis: 30%;
+          }
+  
+          .body {
+            flex-basis: 70%;
+            color: #65748b;
+          }
+        }
+
+      }
+    }
+  }
+
+  @media screen and (max-width: 65rem) {
+    .LogListCard {
+      .log-section {
+        .log {
+          .line {
+            flex-direction: column;
+            gap: 0.5em;
+          }
+        }
+      }
+    }
+  }
+}
