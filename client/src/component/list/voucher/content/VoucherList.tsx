@@ -12,13 +12,14 @@ import VoucherCard from '@component/photocard/VoucherCard';
 import SkeletonVoucherCard from '@component/photocard/skeleton/SkeletonVoucherCard';
 
 interface VoucherListProps {
+  owner: 'all' | 'mine';
   icon?: IconDefinition;
   handleClickIcon?: (photocardId: number) => void;
   children?: React.ReactNode;
 }
 const VoucherListDefaultProps = {};
 
-function VoucherList({ icon, handleClickIcon, children }: VoucherListProps & typeof VoucherListDefaultProps) {
+function VoucherList({ owner, icon, handleClickIcon, children }: VoucherListProps & typeof VoucherListDefaultProps) {
   const filter = useAppSelector((state) => state.voucherList.filter);
   const [viewRef, inView] = useInView();
   const queryClient = useQueryClient();
@@ -60,7 +61,15 @@ function VoucherList({ icon, handleClickIcon, children }: VoucherListProps & typ
     <section className="item-section">
       {vouchers?.pages.map((page, pageIdx) => 
       <Fragment key={pageIdx}>
-        {page?.vouchers.map(item => <VoucherCard key={item.voucher_id} voucher={item} icon={icon} handleClickIcon={handleClickIcon} />)}
+        {page?.vouchers.map(item => 
+          <VoucherCard
+            showOwner={owner === 'all' ? true : false}
+            key={item.voucher_id}
+            voucher={item}
+            icon={icon}
+            handleClickIcon={handleClickIcon}
+          />
+        )}
       </Fragment>)}
 
       {isFetching && Array.from({length: 20}).map((_, idx) => 

@@ -2,8 +2,7 @@ import React from 'react';
 import * as voucherAPI from '@api/voucherAPI';
 import VoucherInfoCard from '@component/card/VoucherInfoCard';
 import PhotoInfoCard from '@component/photocard/detail/PhotoInfoCard';
-import VoucherInfo from './content/VoucherInfo';
-import VoucherRemove from './content/VoucherRemove';
+import Button from '@component/form/Button';
 
 interface SuccessProps {
   voucher: typeof voucherAPI.getVoucherDetail.resType;
@@ -17,8 +16,11 @@ function Success({ voucher, children }: SuccessProps & typeof SuccessDefaultProp
   return (
     <>
       <PhotoInfoCard photo={voucher} />
-      <VoucherInfoCard voucher={voucher} showAdminInfo={true} />
-      <VoucherRemove voucher={voucher} voucherId={voucher.voucher_id} />
+      <VoucherInfoCard voucher={voucher} showAdminInfo={false} />
+      <section className="button-section">
+        
+      </section>
+      <Button>하하버튼</Button>
     </>
   );
 }

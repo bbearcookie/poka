@@ -7,16 +7,19 @@ import { VoucherStateType, VoucherStateName } from '@component/list/voucher/vouc
 import PhotoCardTemplate from '@component/photocard/PhotoCardTemplate';
 
 interface VoucherCardProps {
+  showOwner: boolean;
   voucher: VoucherType;
   icon?: IconDefinition;
   handleClickIcon?: (voucherId: number) => void;
+  styles?: StylesProps;
   children?: React.ReactNode;
 }
 const VoucherCardDefaultProps = {
+  showOwner: false,
   handleClickIcon: (voucherId: number) => {}
 };
 
-function VoucherCard({ voucher, icon, handleClickIcon, children }: VoucherCardProps & typeof VoucherCardDefaultProps) {
+function VoucherCard({ showOwner, voucher, icon, handleClickIcon, children }: VoucherCardProps & typeof VoucherCardDefaultProps) {
   return (
     <PhotoCardTemplate
       className="VoucherCard"
@@ -26,7 +29,7 @@ function VoucherCard({ voucher, icon, handleClickIcon, children }: VoucherCardPr
       <VoucherStateLabel voucherState={voucher.state}>
         {VoucherStateName[voucher.state.toUpperCase() as VoucherStateType]}
       </VoucherStateLabel>
-      <UserNameLabel><b>{voucher.username}</b></UserNameLabel>
+      {showOwner && <UserNameLabel><b>{voucher.username}</b></UserNameLabel>}
     </PhotoCardTemplate>
   );
 }
@@ -34,9 +37,17 @@ function VoucherCard({ voucher, icon, handleClickIcon, children }: VoucherCardPr
 VoucherCard.defaultProps = VoucherCardDefaultProps;
 export default VoucherCard;
 
-export const VoucherStateLabel = styled.p<{voucherState: string;}>`
+interface StylesProps {
+  voucherState: string;
+  width?: string;
+  margin?: string;
+  textAlign?: string;
+}
+export const VoucherStateLabel = styled.p<StylesProps>`
+  width: ${p => p.width};
+  margin: ${p => p.margin ? p.margin : '0 0 0.2em 0'};
+  text-align: ${p => p.textAlign};
   display: inline-block;
-  margin: 0 0 0.2em 0;
   padding: 0.2em;
   border-radius: 5px;
 

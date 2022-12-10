@@ -14,8 +14,7 @@ function Index({ children }: IndexProps & typeof IndexDefaultProps) {
 
   // 상세 페이지로 이동
   const handleClickDetailicon = useCallback((voucherId: number) => {
-    // navigate(`/admin/voucher/detail/${voucherId}`);
-    console.log(`${voucherId} 상세 페이지로`);
+    navigate(`/voucher/detail/${voucherId}`);
   }, [navigate]);
 
   return (

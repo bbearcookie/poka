@@ -25,10 +25,11 @@ function VoucherListCard({ owner, icon, handleClickIcon, children }: VoucherList
 
   // 언마운트시 리덕스 상태 초기화
   useEffect(() => {
+    // 자신의 소유권만 보여줘야 할 경우 렌더시 자신의 아이디를 검색 필터에 추가
     if (owner === 'mine') dispatch(addUsername(username));
 
     return () => {
-      dispatch(initialize())
+      dispatch(initialize());
     }
   }, [username]);
 
@@ -40,7 +41,7 @@ function VoucherListCard({ owner, icon, handleClickIcon, children }: VoucherList
       </CardHeader>
       <CardBody>
         <FilterCheck />
-        <VoucherList icon={icon} handleClickIcon={handleClickIcon} />
+        <VoucherList owner={owner} icon={icon} handleClickIcon={handleClickIcon} />
       </CardBody>
     </Card>
   );

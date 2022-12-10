@@ -26,7 +26,7 @@ function UserContent({ children }: UserContentProps & typeof UserContentDefaultP
       </ul>
       <ul className="category">
         <li className="subheader-label">포토카드 보관함</li>
-        <ChildItem to="/inventory" icon={faBagShopping} text="소유권" />
+        <ChildItem to="/voucher/list" icon={faBagShopping} text="소유권" />
         <ChildItem to="/shipping" icon={faTruckFast} text="배송" />
       </ul>
       <ul className="category">
