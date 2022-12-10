@@ -6,14 +6,11 @@ interface TableProps {
   children?: React.ReactNode;
 }
 const TableDefaultProps = {};
-function Table(p: TableProps & typeof TableDefaultProps) {
+function Table({ styles, children }: TableProps & typeof TableDefaultProps) {
   return (
     <StyledTableWrapper>
-      <StyledTable
-        {...StylesDefaultProps} {...p.styles} {...p}
-        className="Table"
-      >
-        {p.children}
+      <StyledTable className="Table" {...styles}>
+        {children}
       </StyledTable>
     </StyledTableWrapper>
   );
@@ -50,16 +47,11 @@ interface StylesProps {
   borderLeft?: string;
   borderRight?: string;
 }
-const StylesDefaultProps = {
-  width: '100%',
-  minWidth: '40rem',
-  borderStyle: '1px solid #E6E8F0'
-};
-const StyledTable = styled.table<StylesProps & typeof StylesDefaultProps>`
-  width: ${p => p.width};
-  min-width: ${p => p.minWidth};
+const StyledTable = styled.table<StylesProps>`
+  width: ${p => p.width ? p.width : '100%'};
+  min-width: ${p => p.minWidth ? p.minWidth : '40rem'};
   border-collapse: collapse;
-  border: ${p => p.borderStyle};
+  border: ${p => p.borderStyle ? p.borderStyle : '1px solid #E6E8F0'};
   border-top: ${p => p.borderTop};
   border-bottom: ${p => p.borderBottom};
   border-left: ${p => p.borderLeft};

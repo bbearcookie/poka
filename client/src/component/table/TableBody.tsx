@@ -6,10 +6,10 @@ interface TableBodyProps {
   children?: React.ReactNode;
 }
 const TableBodyDefaultProps = {};
-function TableBody(p: TableBodyProps & typeof TableBodyDefaultProps) {
+function TableBody({ styles, children }: TableBodyProps & typeof TableBodyDefaultProps) {
   return (
-    <StyledTableBody {...StylesDefaultProps} {...p.styles} {...p}>
-      {p.children}
+    <StyledTableBody {...styles}>
+      {children}
     </StyledTableBody>
   );
 }
@@ -21,8 +21,7 @@ export default TableBody;
 interface StylesProps {
   height?: string;
 }
-const StylesDefaultProps = {};
-const StyledTableBody = styled.tbody<StylesProps & typeof StylesDefaultProps>`
+const StyledTableBody = styled.tbody<StylesProps>`
   background-color: white;
 
   th, td {

@@ -11,7 +11,6 @@ interface ErrorCardProps {
   error: AxiosError<ErrorType, any> | null
   children?: React.ReactNode;
 }
-
 const ErrorCardDefaultProps = {};
 
 function ErrorCard({ styles, error, children }: ErrorCardProps & typeof ErrorCardDefaultProps) {

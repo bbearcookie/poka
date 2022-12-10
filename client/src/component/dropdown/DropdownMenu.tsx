@@ -25,7 +25,7 @@ const DropdownMenuDefaultProps = {};
 function DropdownMenu({ menuRef, popper, styles, children }: DropdownMenuProps & typeof DropdownMenuDefaultProps) {
   return (
     <StyledDropdownMenu
-      {...StylesDefaultProps} {...styles}
+      {...styles}
       ref={menuRef}
       style={popper?.styles.popper}
       {...popper?.attributes.popper}
@@ -42,8 +42,7 @@ export default DropdownMenu;
 interface StylesProps {
   width?: string;
 }
-const StylesDefaultProps = {};
-const StyledDropdownMenu = styled.div<StylesProps & typeof StylesDefaultProps>`
+const StyledDropdownMenu = styled.div<StylesProps>`
   padding: 0.5em 0;
   width: ${p => p.width};
   text-align: center;

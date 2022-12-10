@@ -18,7 +18,6 @@ interface FormProps {
   groupId?: number;
   children?: React.ReactNode;
 }
-
 const FormDefaultProps = {
   name: '',
   imageName: ''
@@ -221,5 +220,4 @@ function Form({ name, imageName, groupId, children }: FormProps & typeof FormDef
 }
 
 Form.defaultProps = FormDefaultProps;
-
 export default Form;

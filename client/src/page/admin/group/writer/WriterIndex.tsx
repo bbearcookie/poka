@@ -5,7 +5,6 @@ import './Index.scss';
 interface GroupWriterPageProps {
   children?: React.ReactNode;
 }
-
 const GroupWriterPageDefaultProps = {};
 
 function GroupWriterPage({ children }: GroupWriterPageProps & typeof GroupWriterPageDefaultProps) {
@@ -18,5 +17,4 @@ function GroupWriterPage({ children }: GroupWriterPageProps & typeof GroupWriter
 }
 
 GroupWriterPage.defaultProps = GroupWriterPageDefaultProps;
-
 export default GroupWriterPage;

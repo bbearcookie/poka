@@ -13,10 +13,7 @@ const CardFooterDefaultProps = {};
 
 function CardFooter({ className, styles, children }: CardFooterProps & typeof CardFooterDefaultProps) {
   return (
-    <StyledCardFooter
-      className={classNames("CardFooter", className)}
-      {...StylesDefaultProps} {...styles}
-    >
+    <StyledCardFooter className={classNames("CardFooter", className)} {...styles}>
       {children}
     </StyledCardFooter>
   );
@@ -29,10 +26,7 @@ export default CardFooter;
 export interface StylesProps {
   padding?: string;
 }
-const StylesDefaultProps = {
-  padding: '1.5em'
-}
-const StyledCardFooter = styled.footer<StylesProps & typeof StylesDefaultProps>`
-  padding: ${p => p.padding};
+const StyledCardFooter = styled.footer<StylesProps>`
+  padding: ${p => p.padding ? p.padding : '1.5em'};
   border-top: 1px solid #E5E7EB;
 `

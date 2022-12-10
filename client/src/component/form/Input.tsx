@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import classNames from 'classnames';
 
 // 인풋 컴포넌트
-const CLASS = 'Input';
-
 interface InputProps {
   type: React.HTMLInputTypeAttribute;
   name: string;
@@ -24,24 +22,21 @@ const InputDefaultProps = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => {},
   onBlur: (e: React.FocusEvent<HTMLInputElement>) => {},
 };
-function Input(p: InputProps & typeof InputDefaultProps) {  
+function Input({ type, name, className, value, autoComplete, readOnly, maxLength, placeholder, onChange, onBlur, styles, children }: InputProps & typeof InputDefaultProps) {  
   return (
-    <StyledInputWrapper
-      {...StylesDefaultProps} {...p.styles} {...p}
-      className={classNames(CLASS, p.className)}
-    >
+    <StyledInputWrapper className={classNames('Input', className)} {...styles}>
       <input
-        type={p.type}
-        name={p.name}
-        value={p.value}
-        placeholder={p.placeholder}
-        maxLength={p.maxLength}
-        autoComplete={p.autoComplete}
-        onChange={p.onChange}
-        onBlur={p.onBlur}
-        readOnly={p.readOnly}
+        type={type}
+        name={name}
+        value={value}
+        placeholder={placeholder}
+        maxLength={maxLength}
+        autoComplete={autoComplete}
+        onChange={onChange}
+        onBlur={onBlur}
+        readOnly={readOnly}
       />
-      {p.children}
+      {children}
     </StyledInputWrapper>
   );
 }
@@ -68,12 +63,7 @@ interface StylesProps {
   backgroundColor?: string;
   textAlign?: string;
 }
-const StylesDefaultProps = {
-  border: '1px solid hsl(222, 9%, 78%)',
-  activeBorder: '1px solid rgb(206, 28, 73)',
-  activeBoxShadow: '0px 0px 1px 1px rgb(206, 28, 73)',
-};
-const StyledInputWrapper = styled.div<StylesProps & typeof StylesDefaultProps>`
+const StyledInputWrapper = styled.div<StylesProps>`
   display: ${p => p.display};
   width: ${p => p.width};
   margin: ${p => p.margin};
@@ -90,7 +80,7 @@ const StyledInputWrapper = styled.div<StylesProps & typeof StylesDefaultProps>`
     box-sizing: border-box;
     color: ${p => p.color};
     background-color: ${p => p.backgroundColor};
-    border: ${p => p.border};
+    border: ${p => p.border ? p.border : '1px solid hsl(222, 9%, 78%)'};
     border-radius: 5px;
     font-family: inherit;
     font-size: 1rem;
@@ -99,8 +89,8 @@ const StyledInputWrapper = styled.div<StylesProps & typeof StylesDefaultProps>`
     &::placeholder { color: ${p => p.placeholderColor} }
     &:focus {
       outline: none;
-      border: ${p => p.activeBorder};
-      box-shadow: ${p => p.activeBoxShadow};
+      border: ${p => p.activeBorder ? p.activeBorder : '1px solid rgb(206, 28, 73)'};
+      box-shadow: ${p => p.activeBoxShadow ? p.activeBoxShadow : '0px 0px 1px 1px rgb(206, 28, 73)'};
       transition: all 0.25s;
     }
   

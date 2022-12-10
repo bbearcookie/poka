@@ -18,12 +18,17 @@ interface ButtonProps {
 const ButtonDefaultProps = {
   type: 'button',
 };
-function Button(p: ButtonProps & typeof ButtonDefaultProps) {
+function Button({ className, type, leftIcon, rightIcon, styles, onClick, children }: ButtonProps & typeof ButtonDefaultProps) {
   return (
-    <StyledButton {...StylesDefaultProps} {...p.styles} {...p} className={classNames(CLASS, p.className)}>
-      {p.leftIcon && <FontAwesomeIcon className={`${CLASS}__left-icon`} icon={p.leftIcon} /> }
-      {p.children}
-      {p.rightIcon && <FontAwesomeIcon className={`${CLASS}__right-icon`} icon={p.rightIcon} /> }
+    <StyledButton
+      className={classNames(CLASS, className)}
+      type={type}
+      onClick={onClick}
+      {...styles}
+    >
+      {leftIcon && <FontAwesomeIcon className={`${CLASS}__left-icon`} icon={leftIcon} /> }
+      {children}
+      {rightIcon && <FontAwesomeIcon className={`${CLASS}__right-icon`} icon={rightIcon} /> }
     </StyledButton>
   );
 }
@@ -53,12 +58,7 @@ interface StylesProps {
   borderRadius?: string;
   fontSize?: string;
 }
-const StylesDefaultProps = {
-  padding: '1em',
-  iconMargin: '0.5em',
-  borderRadius: '0.3rem'
-};
-const StyledButton = styled.button<StylesProps & typeof StylesDefaultProps>`
+const StyledButton = styled.button<StylesProps>`
   width: ${p => p.width};
   height: ${p => p.height};
   margin: ${p => p.margin};
@@ -66,11 +66,11 @@ const StyledButton = styled.button<StylesProps & typeof StylesDefaultProps>`
   margin-bottom: ${p => p.marginBottom};
   margin-left: ${p => p.marginLeft};
   margin-right: ${p => p.marginRight};
-  padding: ${p => p.padding};
+  padding: ${p => p.padding ? p.padding : '1em'};
   font-family: inherit;
   border: 0;
   font-size: ${p => p.fontSize};
-  border-radius: ${p => p.borderRadius};
+  border-radius: ${p => p.borderRadius ? p.borderRadius : '0.3rem'};
   box-shadow: 1px 1px 0 rgb(0, 0, 0, 0.5);
   cursor: pointer;
   user-select: none;
@@ -83,8 +83,8 @@ const StyledButton = styled.button<StylesProps & typeof StylesDefaultProps>`
     transition: box-shadow 0.1s;
   }
 
-  .${CLASS}__left-icon { margin-right: ${p => p.iconMargin}; }
-  .${CLASS}__right-icon { margin-left: ${p => p.iconMargin}; }
+  .${CLASS}__left-icon { margin-right: ${p => p.iconMargin ? p.iconMargin : '0.5em'}; }
+  .${CLASS}__right-icon { margin-left: ${p => p.iconMargin ? p.iconMargin : '0.5em'}; }
 
   ${(p) => {
     switch (p.theme) {

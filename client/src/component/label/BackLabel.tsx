@@ -9,18 +9,18 @@ interface BackLabelProps {
   className?: string;
   to?: string;
   onClick?: () => void;
-  styles: StylesProps;
+  styles?: StylesProps;
   children?: React.ReactNode;
 }
 const BackLabelDefaultProps = {
   to: '#'
 };
-function BackLabel(p: BackLabelProps & typeof BackLabelDefaultProps) {
+function BackLabel({className, to, onClick, styles, children}: BackLabelProps & typeof BackLabelDefaultProps) {
   return (
-    <StyledLabel {...StylesDefaultProps} {...p.styles} {...p}>
-      <Link to={p.to}>
+    <StyledLabel {...styles}>
+      <Link to={to}>
         <FontAwesomeIcon className={`${CLASS}__icon`} icon={faArrowLeft} />
-        {p.children}
+        {children}
       </Link>
     </StyledLabel>
   );
@@ -37,8 +37,7 @@ interface StylesProps {
   marginLeft?: string;
   marginRight?: string;
 }
-const StylesDefaultProps = {};
-const StyledLabel = styled.div<StylesProps & typeof StylesDefaultProps>`
+const StyledLabel = styled.div<StylesProps>`
   width: fit-content;
   padding: 0.5em;
   margin: ${p => p.margin};

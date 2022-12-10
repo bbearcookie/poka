@@ -61,5 +61,4 @@ function GroupListPage({ children }: GroupListPageProps & typeof GroupListPageDe
 }
 
 GroupListPage.defaultProps = GroupListPageDefaultProps;
-
 export default GroupListPage;

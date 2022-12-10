@@ -15,7 +15,7 @@ const DropdownButtonDefaultProps = {};
 function DropdownButton({ className, buttonRef, styles, onClick, children }: DropdownButtonProps & typeof DropdownButtonDefaultProps) {
   return (
     <StyledDropdownButton
-      {...StylesDefaultProps} {...styles}
+      {...styles}
       className={classNames(CLASS, className)}
       onClick={onClick}
       ref={buttonRef}
@@ -35,16 +35,13 @@ interface StylesProps {
   cursor?: string;
   padding?: string;
 }
-const StylesDefaultProps = {
-  cursor: 'pointer'
-};
-const StyledDropdownButton = styled.div<StylesProps & typeof StylesDefaultProps>`
+const StyledDropdownButton = styled.div<StylesProps>`
   padding: ${p => p.padding};
   width: fit-content;
   min-width: ${p => p.minWidth};
   height: ${p => p.height};
   user-select: none;
-  cursor: ${p => p.cursor};
+  cursor: ${p => p.cursor ? p.cursor : 'pointer'};
   border-radius: 5px;
   text-align: center;
 

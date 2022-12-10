@@ -26,9 +26,9 @@ function SearchBar(p: SearchBarProps & typeof SearchBarDefaultProps) {
   const [active, setActive] = useState(false);
 
   return (
-    <StyledSearchBar 
-      {...StylesDefaultProps} {...p.styles} {...p}
+    <StyledSearchBar
       className={classNames("SearchBar", {"active": active})}
+      {...p.styles} {...p}
     >
       <Input
         type={p.type}
@@ -56,12 +56,9 @@ interface StylesProps {
   width?: string;
   height?: string;
 }
-const StylesDefaultProps = {
-  height: '3em',
-};
-const StyledSearchBar = styled.div<StylesProps & typeof StylesDefaultProps>`
+const StyledSearchBar = styled.div<StylesProps>`
   width: ${p => p.width};
-  height: ${p => p.height};
+  height: ${p => p.height ? p.height : '3em'};
   display: flex;
   align-items: center;
   border-radius: 10px;

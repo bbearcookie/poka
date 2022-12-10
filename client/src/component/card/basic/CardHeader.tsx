@@ -12,10 +12,7 @@ const CardHeaderDefaultProps = {};
 
 export function CardHeader({ className, styles, children }: CardHeaderProps & typeof CardHeaderDefaultProps) {
   return (
-    <StyledCardHeader
-      className={classNames("CardHeader", className)}
-      {...StylesDefaultProps} {...styles}
-    >
+    <StyledCardHeader className={classNames("CardHeader", className)} {...styles}>
       {children}
     </StyledCardHeader>
   );
@@ -28,11 +25,7 @@ export interface StylesProps {
   padding?: string;
   borderBottom?: string;
 }
-const StylesDefaultProps = {
-  padding: '1.5em',
-  borderBottom: '1px solid #E5E7EB'
-}
-const StyledCardHeader = styled.header<StylesProps & typeof StylesDefaultProps>`
-  padding: ${p => p.padding};
-  border-bottom: ${p => p.borderBottom};
+const StyledCardHeader = styled.header<StylesProps>`
+  padding: ${p => p.padding ? p.padding : '1.5em'};
+  border-bottom: ${p => p.borderBottom ? p.borderBottom : '1px solid #E5E7EB'};
 `;

@@ -11,7 +11,6 @@ interface SuccessProps {
   group: typeof groupAPI.getGroupDetail.resType;
   groupId: number;
 }
-
 const SuccessDefaultProps = {};
 
 function Success({ group, groupId }: SuccessProps & typeof SuccessDefaultProps) {

@@ -6,7 +6,6 @@ interface MemberAddButtonProps {
   children?: React.ReactNode;
   startEditor: () => void;
 }
-
 const MemberAddButtonDefaultProps = {};
 
 function MemberAddButton({ startEditor, children }: MemberAddButtonProps & typeof MemberAddButtonDefaultProps) {
@@ -27,5 +26,4 @@ function MemberAddButton({ startEditor, children }: MemberAddButtonProps & typeo
 }
 
 MemberAddButton.defaultProps = MemberAddButtonDefaultProps;
-
 export default MemberAddButton;

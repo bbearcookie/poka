@@ -6,10 +6,10 @@ interface InputMessageProps {
   children?: React.ReactNode;
 }
 const InputMessageDefaultProps = {};
-function InputMessage(p: InputMessageProps & typeof InputMessageDefaultProps) {
+function InputMessage({ styles, children}: InputMessageProps & typeof InputMessageDefaultProps) {
   return (
-    <StyledLabel {...StylesDefaultProps} {...p.styles} {...p}>
-      {p.children}
+    <StyledLabel {...styles}>
+      {children}
     </StyledLabel>
   );
 }
@@ -28,8 +28,7 @@ interface StylesProps {
   textAlign?: string;
   wordBreak?: string;
 }
-const StylesDefaultProps = {};
-const StyledLabel = styled.p<StylesProps & typeof StylesDefaultProps>`
+const StyledLabel = styled.p<StylesProps>`
   margin: ${p => p.margin};
   margin-top: ${p => p.marginTop};
   margin-bottom: ${p => p.marginBottom};

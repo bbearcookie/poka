@@ -12,11 +12,7 @@ const CardBodyDefaultProps = {};
 
 export function CardBody({ className, styles, children }: CardBodyProps & typeof CardBodyDefaultProps) {
   return (
-    <StyledCardBody
-      className={classNames("CardBody", className)}
-      {...StylesDefaultProps}
-      {...styles}
-    >
+    <StyledCardBody className={classNames("CardBody", className)} {...styles}>
       {children}
     </StyledCardBody>
   );
@@ -30,11 +26,8 @@ export interface StylesProps {
   width?: string;
   height?: string;
 }
-const StylesDefaultProps = {
-  padding: '1.5em'
-}
-const StyledCardBody = styled.section<StylesProps & typeof StylesDefaultProps>`
-  padding: ${p => p.padding};
+const StyledCardBody = styled.section<StylesProps>`
+  padding: ${p => p.padding ? p.padding : '1.5em'};
   width: ${p => p.width};
   height: ${p => p.height};
 `

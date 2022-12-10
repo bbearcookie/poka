@@ -17,7 +17,6 @@ interface MemberEditorProps {
   defaultValue?: string;
   closeEditor: () => void;
 }
-
 const MemberEditorDefaultProps = {
   defaultValue: ''
 };
@@ -114,5 +113,4 @@ function MemberEditor({ groupId, memberId, defaultValue, closeEditor }: MemberEd
 }
 
 MemberEditor.defaultProps = MemberEditorDefaultProps;
-
 export default MemberEditor;

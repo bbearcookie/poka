@@ -12,11 +12,6 @@ import Upload from './Upload';
 import PhotoList from './PhotoList';
 import './Index.scss';
 
-interface PhotoWriterPageProps {
-  children?: React.ReactNode;
-}
-const PhotoWriterPageDefaultProps = {};
-
 export interface PhotoType {
   idx: number;
   name: string;
@@ -29,6 +24,11 @@ export interface SelectType {
   groupId: number;
   memberId: number;
 }
+
+interface PhotoWriterPageProps {
+  children?: React.ReactNode;
+}
+const PhotoWriterPageDefaultProps = {};
 
 function PhotoWriterPage({ children }: PhotoWriterPageProps & typeof PhotoWriterPageDefaultProps) {
   const [photoList, setPhotoList] = useState<PhotoType[]>([]);

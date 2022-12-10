@@ -6,10 +6,10 @@ interface TableBodyItemProps {
   children?: React.ReactNode;
 }
 const TableBodyItemDefaultProps = {};
-function TableBodyItem(p: TableBodyItemProps & typeof TableBodyItemDefaultProps) {
+function TableBodyItem({ styles, children }: TableBodyItemProps & typeof TableBodyItemDefaultProps) {
   return (
-    <StyledTD {...StylesDefaultProps} {...p.styles} {...p}>
-      {p.children}
+    <StyledTD {...styles}>
+      {children}
     </StyledTD>
   );
 }
@@ -25,8 +25,7 @@ interface StylesProps {
   paddingLeft?: string;
   paddingRight?: string;
 }
-const StylesDefaultProps = {};
-const StyledTD = styled.td<StylesProps & typeof StylesDefaultProps>`
+const StyledTD = styled.td<StylesProps>`
   padding: ${p => p.padding};
   padding-top: ${p => p.paddingTop};
   padding-bottom: ${p => p.paddingBottom};

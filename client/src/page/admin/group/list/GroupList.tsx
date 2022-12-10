@@ -10,7 +10,6 @@ interface GroupListProps {
   groups: typeof groupAPI.getAllGroupList.resType;
   children?: React.ReactNode;
 }
-
 const GroupListDefaultProps = {};
 
 function GroupList({ groups, children }: GroupListProps & typeof GroupListDefaultProps) {
@@ -37,5 +36,4 @@ function GroupList({ groups, children }: GroupListProps & typeof GroupListDefaul
 }
 
 GroupList.defaultProps = GroupListDefaultProps;
-
 export default GroupList;

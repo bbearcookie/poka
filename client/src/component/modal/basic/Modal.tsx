@@ -37,9 +37,9 @@ function Modal({ hook, location, styles, children }: ModalProps & typeof ModalDe
   return (
     <StyledModalWrapper show={hook.show}>
       <StyledModalContent
-        {...StylesDefaultProps} {...styles}
         location={location}
         ref={ref}
+        {...styles}
       >
         {children}
       </StyledModalContent>
@@ -91,8 +91,7 @@ export interface StylesProps {
   minWidth?: string;
   location?: LocationType;
 }
-const StylesDefaultProps = {};
-const StyledModalContent = styled.section<StylesProps & typeof StylesDefaultProps>`
+const StyledModalContent = styled.section<StylesProps>`
   width: ${p => p.width};
   max-width: ${p => p.maxWidth};
   min-width: ${p => p.minWidth};

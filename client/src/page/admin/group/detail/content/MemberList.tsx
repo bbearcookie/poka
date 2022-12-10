@@ -15,7 +15,6 @@ interface MemberListProps {
   group: typeof groupAPI.getGroupDetail.resType;
   groupId: number;
 }
-
 const MemberListDefaultProps = {};
 
 function MemberList({ group, groupId }: MemberListProps & typeof MemberListDefaultProps) {
@@ -58,5 +57,4 @@ function MemberList({ group, groupId }: MemberListProps & typeof MemberListDefau
 }
 
 MemberList.defaultProps = MemberListDefaultProps;
-
 export default MemberList;

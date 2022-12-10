@@ -5,7 +5,6 @@ import TableBodyItem from '@component/table/TableBodyItem';
 interface SkeletonGroupListProps {
   children?: React.ReactNode;
 }
-
 const SkeletonGroupListDefaultProps = {};
 
 function SkeletonGroupList({ children }: SkeletonGroupListProps & typeof SkeletonGroupListDefaultProps) {
@@ -32,5 +31,4 @@ function SkeletonGroupList({ children }: SkeletonGroupListProps & typeof Skeleto
 }
 
 SkeletonGroupList.defaultProps = SkeletonGroupListDefaultProps;
-
 export default SkeletonGroupList;

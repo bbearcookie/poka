@@ -11,10 +11,7 @@ const CardDefaultProps = {};
 
 function Card({ className, styles, children }: CardProps & typeof CardDefaultProps) {
   return (
-    <StyledCard
-      className={classNames("Card", className)}
-      {...StylesDefaultProps} {...styles}
-    >
+    <StyledCard className={classNames("Card", className)} {...styles}>
       {children}
     </StyledCard>
   );
@@ -38,10 +35,7 @@ export interface StylesProps {
   backgroundColor?: string;
   boxShadow?: string;
 }
-const StylesDefaultProps = {
-  backgroundColor: 'white'
-}
-const StyledCard = styled.article<StylesProps & typeof StylesDefaultProps>`
+const StyledCard = styled.article<StylesProps>`
   display: ${p => p.display};
   width: ${p => p.width};
   min-width: ${p => p.minWidth};
@@ -51,7 +45,7 @@ const StyledCard = styled.article<StylesProps & typeof StylesDefaultProps>`
   margin-bottom: ${p => p.marginBottom};
   margin-left: ${p => p.marginLeft};
   margin-right: ${p => p.marginRight};
-  background-color: ${p => p.backgroundColor};
+  background-color: ${p => p.backgroundColor ? p.backgroundColor : 'white'};
   box-shadow: ${p => p.boxShadow};
   text-align: ${p => p.textAlign};
   border: 1px solid #E5E7EB;

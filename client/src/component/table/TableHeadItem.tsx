@@ -5,13 +5,12 @@ interface TableHeadItemProps {
   styles?: StylesProps;
   children?: React.ReactNode;
 }
-
 const TableHeadItemDefaultProps = {};
 
-function TableHeadItem(p: TableHeadItemProps & typeof TableHeadItemDefaultProps) {
+function TableHeadItem({ styles, children }: TableHeadItemProps & typeof TableHeadItemDefaultProps) {
   return (
-    <StyledTH {...StylesDefaultProps} {...p.styles} {...p}>
-      {p.children}
+    <StyledTH {...styles}>
+      {children}
     </StyledTH>
   );
 }
@@ -29,8 +28,7 @@ interface StylesProps {
   paddingRight?: string;
   textAlign?: string;
 }
-const StylesDefaultProps = {};
-const StyledTH = styled.th<StylesProps & typeof StylesDefaultProps>`
+const StyledTH = styled.th<StylesProps>`
   width: ${p => p.width};
   padding: ${p => p.padding};
   padding-top: ${p => p.paddingTop};

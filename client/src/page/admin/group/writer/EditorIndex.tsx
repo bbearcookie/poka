@@ -12,7 +12,6 @@ import './Index.scss';
 interface GroupEditorPageProps {
   children?: React.ReactNode;
 }
-
 const GroupEditorPageDefaultProps = {};
 
 function GroupEditorPage({ children }: GroupEditorPageProps & typeof GroupEditorPageDefaultProps) {
@@ -30,5 +29,4 @@ function GroupEditorPage({ children }: GroupEditorPageProps & typeof GroupEditor
 }
 
 GroupEditorPage.defaultProps = GroupEditorPageDefaultProps;
-
 export default GroupEditorPage;

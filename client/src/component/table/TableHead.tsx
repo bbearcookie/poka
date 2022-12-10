@@ -6,10 +6,10 @@ interface TableHeadProps {
   children?: React.ReactNode;
 }
 const TableHeadDefaultProps = {};
-function TableHead(p: TableHeadProps & typeof TableHeadDefaultProps) {
+function TableHead({ styles, children }: TableHeadProps & typeof TableHeadDefaultProps) {
   return (
-    <StyledTableHead {...StylesDefaultProps} {...p.styles} {...p}>
-      {p.children}
+    <StyledTableHead {...styles}>
+      {children}
     </StyledTableHead>
   );
 }
@@ -19,8 +19,7 @@ export default TableHead;
 interface StylesProps {
   height?: string;
 }
-const StylesDefaultProps = {};
-const StyledTableHead = styled.thead<StylesProps & typeof StylesDefaultProps>`
+const StyledTableHead = styled.thead<StylesProps>`
   height: ${p => p.height};
   background-color: #F3F4F6;
   color: #374151;
