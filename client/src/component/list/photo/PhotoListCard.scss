@@ -41,12 +41,15 @@
 .item-section {
   display: flex;
   width: 100%;
-  justify-content: center;
   flex-wrap: wrap;
-  // gap: 3em;
 
-  .PhotoCard { margin: 1.5em; }
-  .VoucherCard { margin: 1.5em; }
+  .PhotoCard, .VoucherCard {
+    margin: 1em;
+
+    @media screen and (max-width: 80rem) {
+      margin: 1em auto;
+    }
+  }
 }
 
 @media screen and (max-width: 25rem) {

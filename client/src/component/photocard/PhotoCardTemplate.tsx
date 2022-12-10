@@ -71,6 +71,7 @@ export const PhotoNameDiv = styled.div`
     text-align: center;
     text-overflow: ellipsis;
     display: -webkit-box;
+    word-break: keep-all;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
   }

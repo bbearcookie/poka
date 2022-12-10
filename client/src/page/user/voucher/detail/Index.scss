@@ -2,6 +2,9 @@
   padding: 5em 10%;
 
   .button-section {
-    background-color: red;
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 2em;
+    flex-wrap: wrap;
   }
 }

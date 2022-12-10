@@ -52,6 +52,7 @@ const PhotoSection = styled.section`
 const PhotoNameLabel = styled.p`
   margin: 1.5em 0 0 0;
   padding: 1em;
+  width: 8em;
   color: white;
   background-color: #242A38;
   border-radius: 5px;

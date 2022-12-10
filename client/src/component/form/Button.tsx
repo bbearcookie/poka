@@ -44,6 +44,8 @@ export type ButtonTheme =
 | "gray-outlined"
 | "danger"
 | "danger-outlined"
+| "pink"
+| "pink-outlined"
 interface StylesProps {
   theme: ButtonTheme;
   width?: string;
@@ -164,6 +166,19 @@ const StyledButton = styled.button<StylesProps>`
 
           &:hover {
             background-color: rgb(248, 248, 254);
+          }
+        `;
+      case "pink":
+        return css`
+          & {
+            color: white;
+            background-color: #E95188;
+            border: 1px solid #E95188;
+          }
+
+          &:hover {
+            background-color: #d14377;
+            border: 1px solid #d14377;
           }
         `;
     }
