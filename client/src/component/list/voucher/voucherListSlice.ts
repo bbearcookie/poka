@@ -55,7 +55,7 @@ export const slice = createSlice({
   reducers: {
     // 상태 초기화
     initialize: (state) => {
-      state = initialState
+      state = initialState;
     },
 
     // 그룹 정보 설정

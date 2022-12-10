@@ -48,11 +48,6 @@ export const getAllVoucherList = {
   }
 }
 
-// 사용자 개인의 소유권 목록 조회
-export const getMyVoucherList = {
-  
-}
-
 // 소유권 상세 조회
 export const getVoucherDetail = {
   validator: [

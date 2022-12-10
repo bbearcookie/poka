@@ -38,27 +38,35 @@ function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultP
   (queryKey.memberKeys.all, memberAPI.getAllMemberList.axios);
 
   // 그룹 정보 초기화
-  useEffect(() => {
+  const initGroup = useCallback(() => {
     if (!groupQuery.data) return;
 
-    dispatch(setGroups(
-      groupQuery.data.groups.map((group) => ({
-        groupId: group.group_id,
-        name: group.name
-      }))
-    ));
+    let newGroups = groupQuery.data.groups.map((group) => ({
+      groupId: group.group_id,
+      name: group.name,
+      checked: filter.groups.find(item => item.groupId === group.group_id && item.checked) ? true : false
+    }));
+
+    dispatch(setGroups(newGroups));
+  }, [dispatch, groupQuery.data, filter.groups]);
+  useEffect(() => {
+    initGroup();
   }, [groupQuery.data]);
 
   // 멤버 정보 초기화
-  useEffect(() => {
+  const initMember = useCallback(() => {
     if (!memberQuery.data) return;
 
-    dispatch(setMembers(
-      memberQuery.data.members.map((member) => ({
-        memberId: member.member_id,
-        name: member.name
-      }))
-    ));
+    let newMembers = memberQuery.data.members.map((member) => ({
+      memberId: member.member_id,
+      name: member.name,
+      checked: filter.members.find(item => item.memberId === member.member_id && item.checked) ? true : false
+    }));
+
+    dispatch(setMembers(newMembers));
+  }, [dispatch, memberQuery.data, filter.members]);
+  useEffect(() => {
+    initMember();
   }, [memberQuery.data]);
 
 

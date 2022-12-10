@@ -4,6 +4,7 @@ import { useAppSelector } from "@app/redux/reduxHooks";
 import { Route, Routes, Navigate } from "react-router-dom";
 import PhotoSearchPage from "@page/user/photo/search/Index";
 import ProfilePage from '@page/user/profile/Index';
+import InventoryPage from '@page/user/inventory/Index';
 
 interface UserRouterProps {
   children?: React.ReactNode;
@@ -28,6 +29,7 @@ function UserRouter({ children }: UserRouterProps & typeof UserRouterDefaultProp
         } />
         <Route path="/trade/search" element={<PhotoSearchPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/inventory" element={<InventoryPage />} />
       </Routes>
     </>
   );

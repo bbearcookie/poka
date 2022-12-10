@@ -34,10 +34,7 @@ function PhotoListPage({ children }: PhotoListPageProps & typeof PhotoListPageDe
           >추가</Button>
         </Link>
       </section>
-      <PhotoListCard
-        icon={faArrowRight}
-        handleClickIcon={handleClickDetailIcon}
-      />
+      <PhotoListCard icon={faArrowRight} handleClickIcon={handleClickDetailIcon} />
     </section>
   );
 }

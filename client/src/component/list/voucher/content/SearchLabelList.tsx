@@ -5,11 +5,12 @@ import SearchLabel from '@component/label/SearchLabel';
 import { VoucherStateName, toggleGroup, toggleMember, changeVoucherFilter, removeName, removeUsername } from '../voucherListSlice';
 
 interface SearchLabelListProps {
+  owner: 'all' | 'mine';
   children?: React.ReactNode;
 }
 const SearchLabelListDefaultProps = {};
 
-function SearchLabelList({ children }: SearchLabelListProps & typeof SearchLabelListDefaultProps) {
+function SearchLabelList({ owner, children }: SearchLabelListProps & typeof SearchLabelListDefaultProps) {
   const filter = useAppSelector((state) => state.voucherList.filter);
   const dispatch = useAppDispatch();
 
@@ -24,14 +25,13 @@ function SearchLabelList({ children }: SearchLabelListProps & typeof SearchLabel
       />}
 
       {/* 사용자 아이디 관련 필터 */}
-      {filter.usernames.map((username) => (
+      {owner === 'all' && filter.usernames.map((username) => (
       <SearchLabel
         key={username.id}
         category="아이디"
         text={username.value}
         handleRemove={() => dispatch(removeUsername(username.id))}
-      />
-      ))}
+      />))}
 
       {/* 포토카드 이름 관련 필터 */}
       {filter.names.map((name) => (
@@ -40,8 +40,7 @@ function SearchLabelList({ children }: SearchLabelListProps & typeof SearchLabel
         category="포토카드"
         text={name.value}
         handleRemove={() => dispatch(removeName(name.id))}
-      />
-      ))}
+      />))}
 
       {/* 그룹 관련 필터 */}
       {filter.groups.map((group) => group.checked && (
@@ -50,8 +49,7 @@ function SearchLabelList({ children }: SearchLabelListProps & typeof SearchLabel
         category="그룹"
         text={group.name}
         handleRemove={() => dispatch(toggleGroup(group.groupId))}
-      />
-      ))}
+      />))}
 
       {/* 멤버 관련 필터 */}
       {filter.members.map((member) => member.checked && (
@@ -60,8 +58,7 @@ function SearchLabelList({ children }: SearchLabelListProps & typeof SearchLabel
         category="멤버"
         text={member.name}
         handleRemove={() => dispatch(toggleMember(member.memberId))}
-      />
-      ))}
+      />))}
     </CardHeader>
   );
 }

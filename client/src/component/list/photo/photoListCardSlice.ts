@@ -44,16 +44,18 @@ export const slice = createSlice({
     setGroups: (state, { payload }: PayloadAction<{
       groupId: number;
       name: string;
+      checked: boolean;
     }[]>) => {
-      state.filter.groups = payload.map((data) => ({ ...data, checked: false }));
+      state.filter.groups = payload;
     },
 
     // 멤버 정보 설정
     setMembers: (state, { payload }: PayloadAction<{
       memberId: number;
       name: string;
+      checked: boolean;
     }[]>) => {
-      state.filter.members = payload.map((data) => ({ ...data, checked: false }));
+      state.filter.members = payload;
     },
 
     // 그룹 선택 토글

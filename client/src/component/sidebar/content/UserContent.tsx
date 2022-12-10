@@ -17,9 +17,10 @@ function UserContent({ children }: UserContentProps & typeof UserContentDefaultP
       <ul className="category">
         <li className="subheader-label">포토카드 교환</li>
         <ParentItem id="trade" icon={faShareNodes} text="교환">
-          <ChildItem to="/trade/search" text="포토카드 찾기" />
-          <ChildItem to="/trade/writer" text="교환글 등록" />
-          <ChildItem to="/trade/matching" text="교환 매칭" />
+          <ChildItem to="/trade/search" text="포토카드 찾기(X)" />
+          <ChildItem to="/trade/writer" text="교환글 등록(X)" />
+          <ChildItem to="/trade/list" text="교환하기" />
+          <ChildItem to="/trade/matching" text="매칭하기" />
         </ParentItem>
         <ChildItem to="/trade/history" icon={faTimeline} text="내역" />
       </ul>
