@@ -56,11 +56,11 @@ function VoucherSection({ children }: VoucherSectionProps & typeof VoucherSectio
       </Card>
 
       <TitleModal hook={addModal} titleName="소유권 선택" styles={{ width: '75%' }}>
-        <Card>
-          <CardBody>
-            <PhotoListCard icon={faPlus} handleClickIcon={handleAddVoucher} />
-          </CardBody>
-        </Card>
+        <PhotoListCard
+          icon={faPlus}
+          handleClickIcon={handleAddVoucher}
+          cardStyles={{ border: "none" }}
+        />
       </TitleModal>
     </section>
   );

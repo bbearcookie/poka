@@ -34,6 +34,7 @@ export interface StylesProps {
   textAlign?: string;
   backgroundColor?: string;
   boxShadow?: string;
+  border?: string;
 }
 const StyledCard = styled.article<StylesProps>`
   display: ${p => p.display};
@@ -48,7 +49,7 @@ const StyledCard = styled.article<StylesProps>`
   background-color: ${p => p.backgroundColor ? p.backgroundColor : 'white'};
   box-shadow: ${p => p.boxShadow};
   text-align: ${p => p.textAlign};
-  border: 1px solid #E5E7EB;
+  border: ${p => p.border ? p.border : '1px solid #E5E7EB'};
   border-radius: 10px;
 
   .text { margin: 0; }

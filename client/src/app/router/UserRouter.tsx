@@ -6,6 +6,7 @@ import PhotoSearchPage from "@page/user/photo/search/Index";
 import ProfilePage from '@page/user/profile/Index';
 import VoucherListPage from '@page/user/voucher/list/Index';
 import VoucherDetailPage from '@page/user/voucher/detail/Index';
+import TradeWriterPage from '@page/user/trade/writer/Index';
 
 interface UserRouterProps {
   children?: React.ReactNode;
@@ -32,6 +33,7 @@ function UserRouter({ children }: UserRouterProps & typeof UserRouterDefaultProp
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/voucher/list" element={<VoucherListPage />} />
         <Route path="/voucher/detail/:voucherId" element={<VoucherDetailPage />} />
+        <Route path="/trade/writer" element={<TradeWriterPage />} />
       </Routes>
     </>
   );

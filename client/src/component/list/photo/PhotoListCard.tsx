@@ -1,6 +1,6 @@
 import React from 'react';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import Card from '@component/card/basic/Card';
+import Card, { StylesProps as CardStyle } from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import SearchInput from './content/SearchInput';
@@ -12,13 +12,14 @@ import './PhotoListCard.scss';
 interface PhotoListCardProps {
   icon?: IconDefinition;
   handleClickIcon?: (photocardId: number) => void;
+  cardStyles?: CardStyle;
   children?: React.ReactNode;
 }
 const PhotoListCardDefaultProps = {};
 
-function PhotoListCard({ icon, handleClickIcon, children }: PhotoListCardProps & typeof PhotoListCardDefaultProps) {
+function PhotoListCard({ icon, handleClickIcon, cardStyles, children }: PhotoListCardProps & typeof PhotoListCardDefaultProps) {
   return (
-    <Card>
+    <Card styles={cardStyles}>
       <CardHeader styles={{ padding: "0", borderBottom: "0" }}>
         <SearchInput />
         <SearchLabelList />

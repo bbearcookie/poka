@@ -15,10 +15,10 @@ interface BackLabelProps {
 const BackLabelDefaultProps = {
   to: '#'
 };
-function BackLabel({className, to, onClick, styles, children}: BackLabelProps & typeof BackLabelDefaultProps) {
+function BackLabel({ className, to, onClick, styles, children}: BackLabelProps & typeof BackLabelDefaultProps) {
   return (
     <StyledLabel {...styles}>
-      <Link to={to}>
+      <Link to={to} onClick={onClick}>
         <FontAwesomeIcon className={`${CLASS}__icon`} icon={faArrowLeft} />
         {children}
       </Link>

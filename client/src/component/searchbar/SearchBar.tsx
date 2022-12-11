@@ -25,6 +25,15 @@ const SearchBarDefaultProps = {
 function SearchBar(p: SearchBarProps & typeof SearchBarDefaultProps) {
   const [active, setActive] = useState(false);
 
+  // 엔터 입력시 submit 동작
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (!p.handleSubmit) return;
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      p.handleSubmit();
+    }
+  }, [p]);
+
   return (
     <StyledSearchBar
       className={classNames("SearchBar", {"active": active})}
@@ -40,7 +49,7 @@ function SearchBar(p: SearchBarProps & typeof SearchBarDefaultProps) {
         onChange={p.handleInputChange}
         onFocus={(e) => setActive(true)}
         onBlur={(e) => setActive(false)}
-        onKeyDown={(e) => e.key === 'Enter' && p.handleSubmit && p.handleSubmit()}
+        onKeyDown={handleKeyDown}
       />
       {p.children}
       <Button onClick={p.handleSubmit} />

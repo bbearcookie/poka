@@ -2,23 +2,25 @@ import React from 'react';
 import styled from 'styled-components';
 import { photoImage } from '@api/resource';
 import { PhotoType } from '@api/photoAPI';
-import Card from '@component/card/basic/Card';
+import Card, { StylesProps as CardStyles } from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 
 interface PhotoInfoCardProps {
   photo: PhotoType;
+  cardStyles?: CardStyles;
   children?: React.ReactNode;
 }
 const PhotoInfoCardDefaultProps = {};
 
-function PhotoInfoCard({ photo, children }: PhotoInfoCardProps & typeof PhotoInfoCardDefaultProps) {
+function PhotoInfoCard({ photo, cardStyles, children }: PhotoInfoCardProps & typeof PhotoInfoCardDefaultProps) {
   return (
     <Card
       className="PhotoInfoCard"
       styles={{
         width: "fit-content",
         margin: "0 auto 5em auto",
-        textAlign: "center"
+        textAlign: "center",
+        ...cardStyles
       }}
     >
       <CardBody>
