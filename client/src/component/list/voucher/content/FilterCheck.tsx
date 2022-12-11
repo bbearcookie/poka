@@ -78,7 +78,7 @@ function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultP
         </DropdownButton>
 
         {groupDropdown.show &&
-        <DropdownMenu popper={groupPopper} menuRef={groupDropdown.menuRef}>
+        <DropdownMenu popper={groupPopper} menuRef={groupDropdown.menuRef} styles={{ minWidth: "10em", maxHeight: "20em" }}>
           {groupQuery.data?.groups.map((group, idx) => (
             <DropdownItem
               key={group.group_id}
@@ -107,7 +107,7 @@ function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultP
         </DropdownButton>
 
         {memberDropdown.show &&
-        <DropdownMenu popper={memberPopper} menuRef={memberDropdown.menuRef}>
+        <DropdownMenu popper={memberPopper} menuRef={memberDropdown.menuRef} styles={{ minWidth: "10em", maxHeight: "20em" }}>
           {!filter.groups.find(group => group.checked) && <DropdownItem>전체</DropdownItem>}
 
           {memberQuery.data?.members.map((member, idx) =>
@@ -141,7 +141,7 @@ function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultP
         </DropdownButton>
 
         {stateDropdown.show &&
-        <DropdownMenu popper={statePopper} menuRef={stateDropdown.menuRef}>
+        <DropdownMenu popper={statePopper} menuRef={stateDropdown.menuRef} styles={{ minWidth: "10em", maxHeight: "20em" }}>
           {Object.entries(VoucherStateName).map((element) => (
           <DropdownItem key={element[0]} onClick={(e) => dispatch(changeVoucherFilter(element[0] as VoucherStateType))}>
             <input type="radio" checked={filter.state === element[0]} readOnly/>
