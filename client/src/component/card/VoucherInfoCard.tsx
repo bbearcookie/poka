@@ -10,7 +10,7 @@ import * as voucherAPI from '@api/voucherAPI';
 import { userImage } from '@api/resource';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { VoucherStateLabel } from '@component/photocard/VoucherCard';
-import { VoucherStateType, VoucherStateName } from '@component/list/voucher/voucherListSlice';
+import { VoucherStateType, VoucherStateName } from '@component/list/common/filter/DataType';
 
 interface VoucherInfoCardProps {
   voucher: typeof voucherAPI.getVoucherDetail.resType;

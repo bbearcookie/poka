@@ -8,7 +8,8 @@ import SearchInput from '@component/list/common/SearchInput';
 import SearchLabelList from './content/SearchLabelList';
 import FilterCheck from './content/FilterCheck';
 import VoucherList from './content/VoucherList';
-import { initialize, addUsername, VoucherStateType, SearchKeywords, addKeyword, SearchKeywordsType } from './voucherListSlice';
+import { initialize, addUsername, SearchKeywords, addKeyword, SearchKeywordsType } from './voucherListSlice';
+import { VoucherStateType } from '@component/list/common/filter/DataType';
 import '../photo/PhotoListCard.scss';
 
 // 검색 필터에 기본적으로 적용할 값. 기본 값이 있으면 그 값에 대한 필터 변경은 불가능함.

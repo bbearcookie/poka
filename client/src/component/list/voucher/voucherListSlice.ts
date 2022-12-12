@@ -1,17 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
+import { GroupType, MemberType } from "@component/list/common/filter/DataType";
+import { VoucherStateType } from "@component/list/common/filter/DataType";
 const name = 'voucherList';
 
-export type VoucherStateType = 'ALL' | 'AVAILABLE' | 'TRADING' | 'SHIPPING' | 'SHIPPED';
-export const VoucherStateName: {
-  [k in VoucherStateType]: string;
-} = {
-    'ALL': '전체',
-    'AVAILABLE': '교환가능',
-    'TRADING': '교환중',
-    'SHIPPING': '배송대기중',
-    'SHIPPED': '배송완료'
-}
 export type SearchKeywordsType = 'PHOTO_NAME' | 'USER_NAME';
 export const SearchKeywords: {
   [k in SearchKeywordsType]: string;
@@ -28,16 +19,8 @@ export interface FilterType {
     id: number;
     value: string;
   }[];
-  groups: {
-    groupId: number;
-    name: string;
-    checked: boolean;
-  }[];
-  members: {
-    memberId: number;
-    name: string;
-    checked: boolean;
-  }[];
+  groups: GroupType[];
+  members: MemberType[];
   state: VoucherStateType; // 소유권 상태
 }
 
@@ -102,7 +85,7 @@ export const slice = createSlice({
     },
 
     // 소유권 상태 필터 선택
-    changeVoucherFilter: (state, { payload }: PayloadAction<VoucherStateType>) => {
+    setVoucherState: (state, { payload }: PayloadAction<VoucherStateType>) => {
       state.filter.state = payload;
     },
 
@@ -163,6 +146,6 @@ export const slice = createSlice({
 });
 
 export const {
-  initialize, setGroups, setMembers, toggleGroup, toggleMember, changeVoucherFilter,
+  initialize, setGroups, setMembers, toggleGroup, toggleMember, setVoucherState,
   addName, addUsername, removeName, removeUsername, addKeyword } = slice.actions;
 export default slice.reducer;

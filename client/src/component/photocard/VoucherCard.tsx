@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import IconButton from '@component/form/IconButton';
 import { VoucherType } from '@api/voucherAPI';
-import { VoucherStateType, VoucherStateName } from '@component/list/voucher/voucherListSlice';
+import { VoucherStateName, VoucherStateType } from '@component/list/common/filter/DataType';
 import PhotoCardTemplate from '@component/photocard/PhotoCardTemplate';
 
 interface VoucherCardProps {

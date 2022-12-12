@@ -6,7 +6,6 @@ import CardHeader from '@component/card/basic/CardHeader';
 interface Props {
   keywords?: { [name: string]: string; };
   handleAddKeyword?: (type: string, value: string) => void;
-  children?: React.ReactNode;
 }
 const DefaultProps = {
   keywords: { 'DEFAULT': '키워드' },
@@ -15,8 +14,7 @@ const DefaultProps = {
 
 function SearchInput({
   keywords = DefaultProps.keywords,
-  handleAddKeyword = DefaultProps.handleAddKeyword,
-  children
+  handleAddKeyword = DefaultProps.handleAddKeyword
 }: Props) {
   const keywordsEntries = Object.entries(keywords);
   const [input, setInput] = useState('');

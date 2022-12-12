@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
+import { GroupType, MemberType } from "@component/list/common/filter/DataType";
 const name = 'photoListCard';
 
 let nextId = 0; // names 추가/삭제에 사용되는 변수
@@ -8,16 +8,8 @@ export interface FilterType {
     id: number;
     value: string;
   }[];
-  groups: {
-    groupId: number;
-    name: string;
-    checked: boolean;
-  }[];
-  members: {
-    memberId: number;
-    name: string;
-    checked: boolean;
-  }[];
+  groups: GroupType[];
+  members: MemberType[];
 }
 interface State {
   filter: FilterType
