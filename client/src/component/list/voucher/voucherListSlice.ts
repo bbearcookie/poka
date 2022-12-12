@@ -12,6 +12,13 @@ export const VoucherStateName: {
     'SHIPPING': '배송대기중',
     'SHIPPED': '배송완료'
 }
+export type SearchKeywordsType = 'PHOTO_NAME' | 'USER_NAME';
+export const SearchKeywords: {
+  [k in SearchKeywordsType]: string;
+} = {
+  'PHOTO_NAME': '포토카드 이름',
+  'USER_NAME': '사용자 아이디'
+}
 export interface FilterType {
   names: {
     id: number;
@@ -131,10 +138,31 @@ export const slice = createSlice({
       state.filter.usernames = state.filter.usernames.filter((item) => item.id !== id);
     },
 
+    // 키워드 필터 추가
+    addKeyword: (state, { payload }: PayloadAction<{
+      type: SearchKeywordsType,
+      value: string
+    }>) => {
+      const keyword = { id: nextId, value: payload.value };
+
+      switch (payload.type) {
+        case 'PHOTO_NAME':
+          state.filter.names = state.filter.names.concat(keyword);
+          nextId++;
+          break;
+        case 'USER_NAME':
+          state.filter.usernames = state.filter.usernames.concat(keyword);
+          nextId++;
+          break;
+        default:
+          break;
+      }
+    },
+
   }
 });
 
 export const {
   initialize, setGroups, setMembers, toggleGroup, toggleMember, changeVoucherFilter,
-  addName, addUsername, removeName, removeUsername } = slice.actions;
+  addName, addUsername, removeName, removeUsername, addKeyword } = slice.actions;
 export default slice.reducer;

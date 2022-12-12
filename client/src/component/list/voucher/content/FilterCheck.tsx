@@ -45,14 +45,11 @@ function FilterCheck({ defaultFilter, children }: FilterCheckProps & typeof Filt
   const initGroup = useCallback(() => {
     if (!groupQuery.data) return;
 
-
     let newGroups = groupQuery.data.groups.map((group) => ({
       groupId: group.group_id,
       name: group.name,
       checked: filter.groups.find(item => item.groupId === group.group_id && item.checked) ? true : false
     }));
-
-    console.log(newGroups);
 
     dispatch(setGroups(newGroups));
   }, [dispatch, groupQuery, filter.groups]);

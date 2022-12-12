@@ -69,7 +69,6 @@ function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultP
     initMember();
   }, [memberQuery.data]);
 
-
   return (
     <section className="check-section">
 

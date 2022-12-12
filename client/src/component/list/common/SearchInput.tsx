@@ -1,26 +1,32 @@
 import React, { useState, useCallback } from 'react';
-import styled from 'styled-components';
-import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import Select from '@component/form/Select';
 import SearchBar from '@component/searchbar/SearchBar';
 import CardHeader from '@component/card/basic/CardHeader';
-import { addName, addUsername } from '../voucherListSlice';
 
-interface SearchInputProps {
+interface Props {
+  keywords?: { [name: string]: string; };
+  handleAddKeyword?: (type: string, value: string) => void;
   children?: React.ReactNode;
 }
-const SearchInputDefaultProps = {};
+const DefaultProps = {
+  keywords: { 'DEFAULT': '키워드' },
+  handleAddKeyword: (type: string, value: string) => {}
+};
 
-function SearchInput({ children }: SearchInputProps & typeof SearchInputDefaultProps) {
-  const dispatch = useAppDispatch();
+function SearchInput({
+  keywords = DefaultProps.keywords,
+  handleAddKeyword = DefaultProps.handleAddKeyword,
+  children
+}: Props) {
+  const keywordsEntries = Object.entries(keywords);
   const [input, setInput] = useState('');
-  const [searchSelect, setSearchSelect] = useState<'PHOTO_NAME' | 'USER_NAME'>('PHOTO_NAME'); // 검색 타입
+  const [select, setSelect] = useState(keywordsEntries[0][0]);
 
   // 검색 타입 값 변경
   const changeSelect = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
-    if (value === 'PHOTO_NAME' || value === 'USER_NAME') setSearchSelect(value);
-  }, []);
+    if (keywords[value]) setSelect(value);
+  }, [keywords]);
 
   // 검색 인풋 값 변경
   const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,14 +34,16 @@ function SearchInput({ children }: SearchInputProps & typeof SearchInputDefaultP
   }, []);
 
   // 검색 키워드 추가
-  const handleAddKeyword = useCallback(() => {
-    if (searchSelect === 'PHOTO_NAME') dispatch(addName(input));
-    else if (searchSelect === 'USER_NAME') dispatch(addUsername(input));
+  const onSubmit = useCallback(() => {
+    const value = input.trim();
+    if (!value) return;
+    handleAddKeyword(select, value);
     setInput('');
-  }, [input, dispatch, searchSelect]);
+  }, [select, input, handleAddKeyword]);
 
   return (
     <CardHeader className="search-bar-section">
+      {keywordsEntries.length > 1 &&
       <Select
         styles={{
           width: "10em",
@@ -43,16 +51,15 @@ function SearchInput({ children }: SearchInputProps & typeof SearchInputDefaultP
         }}
         onChange={changeSelect}
       >
-        <option value="PHOTO_NAME">포토카드 이름</option>
-        <option value="USER_NAME">사용자 아이디</option>
-      </Select>
+        {keywordsEntries.map((item, idx) => <option key={idx} value={item[0]}>{item[1]}</option>)}
+      </Select>}
       <SearchBar
         type="text"
         name="search"
         value={input}
-        placeholder="키워드로 검색"
+        placeholder={`${keywords[select]}(으)로 검색`}
         handleInputChange={changeInput}
-        handleSubmit={handleAddKeyword}
+        handleSubmit={onSubmit}
         styles={{
           width: "100%"
         }}
@@ -62,5 +69,4 @@ function SearchInput({ children }: SearchInputProps & typeof SearchInputDefaultP
   );
 }
 
-SearchInput.defaultProps = SearchInputDefaultProps;
 export default SearchInput;
