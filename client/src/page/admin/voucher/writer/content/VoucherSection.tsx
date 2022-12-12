@@ -4,7 +4,6 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import InputMessage from '@component/form/InputMessage';
 import useModal from '@hook/useModal';
 import TitleModal from '@component/modal/TitleModal';
-import Modal from '@component/modal/basic/Modal';
 import Button from '@component/form/Button';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';

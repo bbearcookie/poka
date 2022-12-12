@@ -3,21 +3,22 @@ import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import CardHeader from '@component/card/basic/CardHeader';
 import SearchLabel from '@component/label/SearchLabel';
 import { VoucherStateName, toggleGroup, toggleMember, changeVoucherFilter, removeName, removeUsername } from '../voucherListSlice';
+import { DefaultFilterType } from '../VoucherListCard';
 
 interface SearchLabelListProps {
-  owner: 'all' | 'mine';
+  defaultFilter: DefaultFilterType;
   children?: React.ReactNode;
 }
 const SearchLabelListDefaultProps = {};
 
-function SearchLabelList({ owner, children }: SearchLabelListProps & typeof SearchLabelListDefaultProps) {
+function SearchLabelList({ defaultFilter, children }: SearchLabelListProps & typeof SearchLabelListDefaultProps) {
   const filter = useAppSelector((state) => state.voucherList.filter);
   const dispatch = useAppDispatch();
 
   return (
     <CardHeader className="search-label-section">
       {/* 상태 관련 필터 */}
-      {filter.state !== 'ALL' &&
+      {defaultFilter.state === 'ALL' && filter.state !== 'ALL' &&
       <SearchLabel
         category="상태"
         text={VoucherStateName[filter.state]}
@@ -25,7 +26,7 @@ function SearchLabelList({ owner, children }: SearchLabelListProps & typeof Sear
       />}
 
       {/* 사용자 아이디 관련 필터 */}
-      {owner === 'all' && filter.usernames.map((username) => (
+      {defaultFilter.owner === 'ALL' && filter.usernames.map((username) => (
       <SearchLabel
         key={username.id}
         category="아이디"

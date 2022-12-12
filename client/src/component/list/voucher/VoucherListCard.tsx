@@ -1,47 +1,59 @@
 import React, { useEffect } from 'react';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { useAppDispatch, useAppSelector } from '@app/redux/reduxHooks';
-import Card from '@component/card/basic/Card';
+import Card, { StylesProps as CardStyle } from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import SearchInput from './content/SearchInput';
 import SearchLabelList from './content/SearchLabelList';
 import FilterCheck from './content/FilterCheck';
 import VoucherList from './content/VoucherList';
-import { initialize, addUsername } from './voucherListSlice';
+import { initialize, addUsername, VoucherStateType } from './voucherListSlice';
 import '../photo/PhotoListCard.scss';
 
+// 검색 필터에 기본적으로 적용할 값. 기본 값이 있으면 그 값에 대한 필터 변경은 불가능함.
+export type DefaultFilterType = {
+  owner: 'ALL' | 'MINE'; // (ALL) 모든 사용자의 소유권 출력 (MINE) 자신의 소유권만 출력
+  state: VoucherStateType; // 특정 상태의 소유권만 보여주도록 지정
+}
+
 interface VoucherListCardProps {
-  owner: 'all' | 'mine'; // all: 모든 소유권 출력. mine: 자신의 소유권만 출력.
+  defaultFilter?: DefaultFilterType;
   icon?: IconDefinition;
   handleClickIcon?: (voucherId: number) => void;
+  cardStyles?: CardStyle;
   children?: React.ReactNode;
 }
-const VoucherListCardDefaultProps = {};
+const VoucherListCardDefaultProps = {
+  defaultFilter: {
+    owner: 'ALL',
+    state: 'ALL'
+  }
+};
 
-function VoucherListCard({ owner, icon, handleClickIcon, children }: VoucherListCardProps & typeof VoucherListCardDefaultProps) {
+function VoucherListCard({ defaultFilter, icon, handleClickIcon, cardStyles, children }: VoucherListCardProps & typeof VoucherListCardDefaultProps) {
   const dispatch = useAppDispatch();
   const username = useAppSelector(state => state.auth.username);
 
-  // 언마운트시 리덕스 상태 초기화
   useEffect(() => {
     // 자신의 소유권만 보여줘야 할 경우 렌더시 자신의 아이디를 검색 필터에 추가
-    if (owner === 'mine') dispatch(addUsername(username));
+    if (defaultFilter.owner === 'MINE') dispatch(addUsername(username));
 
+    // 언마운트시 리덕스 상태 초기화
     return () => {
       dispatch(initialize());
     }
   }, [username]);
 
   return (
-    <Card>
+    <Card styles={cardStyles}>
       <CardHeader styles={{ padding: "0", borderBottom: "0" }}>
-        {owner === 'all' && <SearchInput />}
-        <SearchLabelList owner={owner} />
+        {defaultFilter.owner === 'ALL' && <SearchInput />}
+        <SearchLabelList defaultFilter={defaultFilter} />
       </CardHeader>
       <CardBody>
-        <FilterCheck />
-        <VoucherList owner={owner} icon={icon} handleClickIcon={handleClickIcon} />
+        <FilterCheck defaultFilter={defaultFilter} />
+        <VoucherList defaultFilter={defaultFilter} icon={icon} handleClickIcon={handleClickIcon} />
       </CardBody>
     </Card>
   );

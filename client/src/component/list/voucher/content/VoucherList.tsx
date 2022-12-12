@@ -10,16 +10,17 @@ import * as queryKey from '@util/queryKey';
 import * as voucherAPI from '@api/voucherAPI';
 import VoucherCard from '@component/photocard/VoucherCard';
 import SkeletonVoucherCard from '@component/photocard/skeleton/SkeletonVoucherCard';
+import { DefaultFilterType } from '../VoucherListCard';
 
 interface VoucherListProps {
-  owner: 'all' | 'mine';
+  defaultFilter: DefaultFilterType
   icon?: IconDefinition;
   handleClickIcon?: (photocardId: number) => void;
   children?: React.ReactNode;
 }
 const VoucherListDefaultProps = {};
 
-function VoucherList({ owner, icon, handleClickIcon, children }: VoucherListProps & typeof VoucherListDefaultProps) {
+function VoucherList({ defaultFilter, icon, handleClickIcon, children }: VoucherListProps & typeof VoucherListDefaultProps) {
   const filter = useAppSelector((state) => state.voucherList.filter);
   const [viewRef, inView] = useInView();
   const queryClient = useQueryClient();
@@ -63,7 +64,7 @@ function VoucherList({ owner, icon, handleClickIcon, children }: VoucherListProp
       <Fragment key={pageIdx}>
         {page?.vouchers.map(item => 
           <VoucherCard
-            showOwner={owner === 'all' ? true : false}
+            showOwner={defaultFilter.owner === 'ALL' ? true : false}
             key={item.voucher_id}
             voucher={item}
             icon={icon}

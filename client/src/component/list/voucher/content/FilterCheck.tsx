@@ -15,13 +15,15 @@ import DropdownItem from '@component/dropdown/DropdownItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { VoucherStateName, VoucherStateType, setGroups, setMembers, toggleGroup, toggleMember, changeVoucherFilter } from '../voucherListSlice';
+import { DefaultFilterType } from '../VoucherListCard';
 
 interface FilterCheckProps {
+  defaultFilter: DefaultFilterType;
   children?: React.ReactNode;
 }
 const FilterCheckDefaultProps = {};
 
-function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultProps) {
+function FilterCheck({ defaultFilter, children }: FilterCheckProps & typeof FilterCheckDefaultProps) {
   const filter = useAppSelector((state) => state.voucherList.filter);
   const dispatch = useAppDispatch();
   const groupDropdown = useDropdown();
@@ -40,27 +42,39 @@ function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultP
   (queryKey.memberKeys.all, memberAPI.getAllMemberList.axios);
 
   // 그룹 정보 초기화
-  useEffect(() => {
+  const initGroup = useCallback(() => {
     if (!groupQuery.data) return;
 
-    dispatch(setGroups(
-      groupQuery.data.groups.map((group) => ({
-        groupId: group.group_id,
-        name: group.name
-      }))
-    ));
+
+    let newGroups = groupQuery.data.groups.map((group) => ({
+      groupId: group.group_id,
+      name: group.name,
+      checked: filter.groups.find(item => item.groupId === group.group_id && item.checked) ? true : false
+    }));
+
+    console.log(newGroups);
+
+    dispatch(setGroups(newGroups));
+  }, [dispatch, groupQuery, filter.groups]);
+  useEffect(() => {
+    initGroup();
   }, [groupQuery.data]);
 
   // 멤버 정보 초기화
-  useEffect(() => {
+  const initMember = useCallback(() => {
     if (!memberQuery.data) return;
 
-    dispatch(setMembers(
-      memberQuery.data.members.map((member) => ({
-        memberId: member.member_id,
-        name: member.name
-      }))
-    ));
+    let newMembers = memberQuery.data.members.map((member) => ({
+      memberId: member.member_id,
+      name: member.name,
+      checked: filter.members.find(item => item.memberId === member.member_id && item.checked) ? true : false
+    }));
+
+    dispatch(setMembers(newMembers));
+  }, [dispatch, memberQuery, filter.members]);
+
+  useEffect(() => {
+    initMember();
   }, [memberQuery.data]);
 
   return (
@@ -130,6 +144,7 @@ function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultP
       </Dropdown>
 
       {/* 소유권 상태 선택 드롭다운 */}
+      {defaultFilter.state === 'ALL' && 
       <Dropdown hook={stateDropdown}>
         <DropdownButton
           styles={{ padding: "0.25em" }}
@@ -148,7 +163,7 @@ function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultP
             <span>{element[1]}</span>
           </DropdownItem>))}
         </DropdownMenu>}
-      </Dropdown>
+      </Dropdown>}
     </section>
   );
 }

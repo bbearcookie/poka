@@ -55,23 +55,25 @@ export const slice = createSlice({
   reducers: {
     // 상태 초기화
     initialize: (state) => {
-      state = initialState;
+      state.filter = initialState.filter;
     },
 
     // 그룹 정보 설정
     setGroups: (state, { payload }: PayloadAction<{
       groupId: number;
       name: string;
+      checked: boolean;
     }[]>) => {
-      state.filter.groups = payload.map((data) => ({ ...data, checked: false }));
+      state.filter.groups = payload.map((data) => ({ ...data }));
     },
 
     // 멤버 정보 설정
     setMembers: (state, { payload }: PayloadAction<{
       memberId: number;
       name: string;
+      checked: boolean;
     }[]>) => {
-      state.filter.members = payload.map((data) => ({ ...data, checked: false }));
+      state.filter.members = payload.map((data) => ({ ...data }));
     },
 
     // 그룹 선택 토글

@@ -20,7 +20,14 @@ function Index({ children }: IndexProps & typeof IndexDefaultProps) {
   return (
     <div className="InventoryPage">
     <h1 className="title-label">소유권 보관함</h1>
-      <VoucherListCard owner='mine' icon={faArrowRight} handleClickIcon={handleClickDetailicon} />
+      <VoucherListCard
+        icon={faArrowRight}
+        handleClickIcon={handleClickDetailicon}
+        defaultFilter={{
+          owner: 'MINE',
+          state: 'ALL'
+        }}
+      />
     </div>
   );
 }
