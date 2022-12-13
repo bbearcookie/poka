@@ -2,12 +2,10 @@ import React from 'react';
 import SkeletonItem from '@component/skeleton/SkeletonItem';
 import SkeletonUserProfile from '@component/profile/SkeletonUserProfile';
 
-interface SkeletonLogProps {
-  children?: React.ReactNode;
-}
-const SkeletonLogDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function SkeletonLog({ children }: SkeletonLogProps & typeof SkeletonLogDefaultProps) {
+function SkeletonLog({  }: Props) {
   return (
     <li className="log">
       <div className="line">
@@ -30,5 +28,4 @@ function SkeletonLog({ children }: SkeletonLogProps & typeof SkeletonLogDefaultP
   );
 }
 
-SkeletonLog.defaultProps = SkeletonLogDefaultProps;
 export default SkeletonLog;

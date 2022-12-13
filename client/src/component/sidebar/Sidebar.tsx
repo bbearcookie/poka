@@ -7,13 +7,12 @@ import AdminContent from './content/AdminContent';
 import UserContent from './content/UserContent';
 import './Sidebar.scss';
 
-interface SidebarProps {
+interface Props {
   mode: 'USER' | 'ADMIN';
-  children?: React.ReactNode;
 }
-const SidebarDefaultProps = {};
+const DefaultProps = {};
 
-function Sidebar({ mode, children }: SidebarProps & typeof SidebarDefaultProps) {
+function Sidebar({ mode }: Props) {
   const show = useAppSelector((state) => state.sidebar.show);
   const dispatch = useAppDispatch();
   const location = useLocation();
@@ -43,5 +42,4 @@ function Sidebar({ mode, children }: SidebarProps & typeof SidebarDefaultProps) 
   );
 }
 
-Sidebar.defaultProps = SidebarDefaultProps;
 export default Sidebar;

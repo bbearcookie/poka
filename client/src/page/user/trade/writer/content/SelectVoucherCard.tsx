@@ -2,19 +2,16 @@ import React, { useCallback } from 'react';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import useModal from '@hook/useModal';
 import TitleModal from '@component/modal/TitleModal';
-import PhotoListCard from '@component/list/photo/PhotoListCard';
 import VoucherListCard from '@component/list/voucher/VoucherListCard';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Button from '@component/form/Button';
 
-interface SelectVoucherCardProps {
-  children?: React.ReactNode;
-}
-const SelectVoucherCardDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function SelectVoucherCard({ children }: SelectVoucherCardProps & typeof SelectVoucherCardDefaultProps) {
+function SelectVoucherCard({  }: Props) {
   const addModal = useModal();
 
   return (
@@ -55,5 +52,4 @@ function SelectVoucherCard({ children }: SelectVoucherCardProps & typeof SelectV
   );
 }
 
-SelectVoucherCard.defaultProps = SelectVoucherCardDefaultProps;
 export default SelectVoucherCard;

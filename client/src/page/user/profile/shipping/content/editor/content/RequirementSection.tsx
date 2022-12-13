@@ -7,17 +7,16 @@ import InputMessage from '@component/form/InputMessage';
 import Select from '@component/form/Select';
 import { setInput, FormType } from '../addressEditorSlice';
 
-interface RequirementSectionProps {
+interface Props {
   defaultShow?: boolean; // 직접 입력 input 창을 기본적으로 보여줄지 안보여줄지 설정. 수정 모드에서는 기본적으로 보여줘야 함.
   changeInput: React.ChangeEventHandler<HTMLInputElement>;
   blurInput: React.FocusEventHandler<HTMLInputElement>;
-  children?: React.ReactNode;
 }
-const RequirementSectionDefaultProps = {
+const DefaultProps = {
   defaultShow: false
 };
 
-function RequirementSection({ defaultShow, changeInput, blurInput, children }: RequirementSectionProps & typeof RequirementSectionDefaultProps) {
+function RequirementSection({ defaultShow = DefaultProps.defaultShow, changeInput, blurInput }: Props) {
   const { form, inputMessage } = useAppSelector(state => state.addressEditor);
   const [showRequirement, setShowRequirement] = useState(defaultShow);
   const dispatch = useAppDispatch();
@@ -86,5 +85,4 @@ function RequirementSection({ defaultShow, changeInput, blurInput, children }: R
   );
 }
 
-RequirementSection.defaultProps = RequirementSectionDefaultProps;
 export default RequirementSection;

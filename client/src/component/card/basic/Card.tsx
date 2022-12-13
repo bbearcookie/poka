@@ -2,14 +2,14 @@ import React from 'react';
 import classNames from 'classnames';
 import styled from 'styled-components';
 
-interface CardProps {
+interface Props {
   className?: string;
   styles?: StylesProps;
   children?: React.ReactNode;
 }
-const CardDefaultProps = {};
+const DefaultProps = {};
 
-function Card({ className, styles, children }: CardProps & typeof CardDefaultProps) {
+function Card({ className, styles, children }: Props) {
   return (
     <StyledCard className={classNames("Card", className)} {...styles}>
       {children}
@@ -17,7 +17,6 @@ function Card({ className, styles, children }: CardProps & typeof CardDefaultPro
   );
 }
 
-Card.defaultProps = CardDefaultProps;
 export default Card;
 
 // 스타일 컴포넌트

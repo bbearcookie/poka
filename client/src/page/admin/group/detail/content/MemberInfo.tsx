@@ -4,16 +4,16 @@ import IconButton from '@component/form/IconButton';
 import { faPenToSquare, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import TableBodyItem from '@component/table/TableBodyItem';
 
-interface MemberInfoProps {
+interface Props {
   memberId: number;
   name: string;
   photoCnt: number;
   startEditor: () => void;
   children?: React.ReactNode;
 }
-const MemberInfoDefaultProps = {};
+const DefaultProps = {};
 
-function MemberInfo({ memberId, name, photoCnt, startEditor, children }: MemberInfoProps & typeof MemberInfoDefaultProps) {
+function MemberInfo({ memberId, name, photoCnt, startEditor, children }: Props) {
   return (
     <tr>
       <TableBodyItem styles={{ paddingLeft: "1.5em" }}>
@@ -34,5 +34,4 @@ function MemberInfo({ memberId, name, photoCnt, startEditor, children }: MemberI
   );
 }
 
-MemberInfo.defaultProps = MemberInfoDefaultProps;
 export default MemberInfo;

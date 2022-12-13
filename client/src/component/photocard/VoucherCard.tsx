@@ -6,20 +6,19 @@ import { VoucherType } from '@api/voucherAPI';
 import { VoucherStateName, VoucherStateType } from '@component/list/common/filter/DataType';
 import PhotoCardTemplate from '@component/photocard/PhotoCardTemplate';
 
-interface VoucherCardProps {
+interface Props {
   showOwner: boolean;
   voucher: VoucherType;
   icon?: IconDefinition;
   handleClickIcon?: (voucherId: number) => void;
   styles?: StylesProps;
-  children?: React.ReactNode;
 }
-const VoucherCardDefaultProps = {
+const DefaultProps = {
   showOwner: false,
   handleClickIcon: (voucherId: number) => {}
 };
 
-function VoucherCard({ showOwner, voucher, icon, handleClickIcon, children }: VoucherCardProps & typeof VoucherCardDefaultProps) {
+function VoucherCard({ showOwner = DefaultProps.showOwner, voucher, icon, handleClickIcon = DefaultProps.handleClickIcon }: Props) {
   return (
     <PhotoCardTemplate
       className="VoucherCard"
@@ -34,7 +33,6 @@ function VoucherCard({ showOwner, voucher, icon, handleClickIcon, children }: Vo
   );
 }
 
-VoucherCard.defaultProps = VoucherCardDefaultProps;
 export default VoucherCard;
 
 interface StylesProps {

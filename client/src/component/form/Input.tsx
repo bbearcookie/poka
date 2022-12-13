@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import classNames from 'classnames';
 
 // 인풋 컴포넌트
-interface InputProps {
+interface Props {
   type: React.HTMLInputTypeAttribute;
   name: string;
   className?: string;
@@ -17,12 +17,18 @@ interface InputProps {
   styles?: StylesProps;
   children?: React.ReactNode;
 }
-const InputDefaultProps = {
+const DefaultProps = {
   autoComplete: 'off',
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => {},
   onBlur: (e: React.FocusEvent<HTMLInputElement>) => {},
 };
-function Input({ type, name, className, value, autoComplete, readOnly, maxLength, placeholder, onChange, onBlur, styles, children }: InputProps & typeof InputDefaultProps) {  
+function Input({
+  type, name, className, value,
+  autoComplete = DefaultProps.autoComplete,
+  readOnly, maxLength, placeholder,
+  onChange = DefaultProps.onChange,
+  onBlur = DefaultProps.onBlur,
+  styles, children }: Props) {  
   return (
     <StyledInputWrapper className={classNames('Input', className)} {...styles}>
       <input
@@ -41,7 +47,6 @@ function Input({ type, name, className, value, autoComplete, readOnly, maxLength
   );
 }
 
-Input.defaultProps = InputDefaultProps;
 export default Input;
 
 // 스타일 컴포넌트

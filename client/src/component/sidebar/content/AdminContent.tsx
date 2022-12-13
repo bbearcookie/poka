@@ -2,12 +2,11 @@ import React from 'react';
 import { ChildItem, ParentItem } from '@component/sidebar/ListItem';
 import { faUser, faCommentAlt, faQuestionCircle, faArrowsSpin, faVcard, faTruckFast, faPeopleGroup, faInfoCircle, faCut } from '@fortawesome/free-solid-svg-icons';
 
-interface AdminContentProps {
-  children?: React.ReactNode;
+interface Props {
 }
-const AdminContentDefaultProps = {};
+const DefaultProps = {};
 
-function AdminContent({ children }: AdminContentProps & typeof AdminContentDefaultProps) {
+function AdminContent({  }: Props) {
   return (
     <>
       <ul className="category">
@@ -47,5 +46,4 @@ function AdminContent({ children }: AdminContentProps & typeof AdminContentDefau
   );
 }
 
-AdminContent.defaultProps = AdminContentDefaultProps;
 export default AdminContent;

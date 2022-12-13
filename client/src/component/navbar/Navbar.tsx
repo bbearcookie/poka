@@ -22,11 +22,10 @@ import DropdownMenu from '@component/dropdown/DropdownMenu';
 import DropdownItem from '@component/dropdown/DropdownItem';
 import './Navbar.scss';
 
-interface NavbarProps {
-  children?: React.ReactNode;
+interface Props {
 }
-const NavbarDefaultProps = {}
-function Navbar({ children }: NavbarProps & typeof NavbarDefaultProps) {
+const DefaultProps = {}
+function Navbar({  }: Props) {
   const show = useAppSelector((state) => state.sidebar.show);
   const { user_id } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
@@ -103,5 +102,4 @@ function Navbar({ children }: NavbarProps & typeof NavbarDefaultProps) {
   );
 }
 
-Navbar.defaultProps = NavbarDefaultProps;
 export default Navbar;

@@ -11,13 +11,12 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { VoucherStateLabel } from '@component/photocard/VoucherCard';
 import { VoucherStateType, VoucherStateName } from '@component/list/common/filter/DataType';
 
-interface VoucherInfoProps {
+interface Props {
   voucher: typeof voucherAPI.getVoucherDetail.resType;
-  children?: React.ReactNode;
 }
-const VoucherInfoDefaultProps = {};
+const DefaultProps = {};
 
-function VoucherInfo({ voucher, children }: VoucherInfoProps & typeof VoucherInfoDefaultProps) {
+function VoucherInfo({ voucher }: Props) {
   return (
     <Card className="VoucherInfo" styles={{ marginBottom: "5em" }}>
       <CardHeader><h1>소유권 정보</h1></CardHeader>
@@ -87,5 +86,4 @@ function VoucherInfo({ voucher, children }: VoucherInfoProps & typeof VoucherInf
   );
 }
 
-VoucherInfo.defaultProps = VoucherInfoDefaultProps;
 export default VoucherInfo;

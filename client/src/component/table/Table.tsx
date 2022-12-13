@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface TableProps {
+interface Props {
   styles?: StylesProps;
   children?: React.ReactNode;
 }
-const TableDefaultProps = {};
-function Table({ styles, children }: TableProps & typeof TableDefaultProps) {
+const DefaultProps = {};
+function Table({ styles, children }: Props) {
   return (
     <StyledTableWrapper>
       <StyledTable className="Table" {...styles}>
@@ -16,7 +16,6 @@ function Table({ styles, children }: TableProps & typeof TableDefaultProps) {
   );
 }
 
-Table.defaultProps = TableDefaultProps;
 export default Table;
 
 // 스타일 컴포넌트

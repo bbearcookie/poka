@@ -25,12 +25,10 @@ export interface SelectType {
   memberId: number;
 }
 
-interface PhotoWriterPageProps {
-  children?: React.ReactNode;
-}
-const PhotoWriterPageDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function PhotoWriterPage({ children }: PhotoWriterPageProps & typeof PhotoWriterPageDefaultProps) {
+function PhotoWriterPage({  }: Props) {
   const [photoList, setPhotoList] = useState<PhotoType[]>([]);
   const [select, setSelect] = useState<SelectType>({
     groupId: 0,
@@ -137,5 +135,4 @@ function PhotoWriterPage({ children }: PhotoWriterPageProps & typeof PhotoWriter
   );
 }
 
-PhotoWriterPage.defaultProps = PhotoWriterPageDefaultProps;
 export default PhotoWriterPage;

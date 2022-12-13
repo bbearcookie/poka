@@ -2,22 +2,21 @@ import React from 'react';
 import classNames from 'classnames';
 import styled from 'styled-components';
 
-interface CardBodyProps {
+interface Props {
   className?: string;
   styles?: StylesProps;
   children?: React.ReactNode;
 }
+const DefaultProps = {};
 
-const CardBodyDefaultProps = {};
-
-export function CardBody({ className, styles, children }: CardBodyProps & typeof CardBodyDefaultProps) {
+export function CardBody({ className, styles, children }: Props) {
   return (
     <StyledCardBody className={classNames("CardBody", className)} {...styles}>
       {children}
     </StyledCardBody>
   );
 }
-CardBody.defaultProps = CardBodyDefaultProps;
+
 export default CardBody;
 
 // 스타일 컴포넌트

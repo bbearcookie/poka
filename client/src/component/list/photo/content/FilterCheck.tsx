@@ -4,12 +4,11 @@ import { setGroups, setMembers, toggleGroup, toggleMember } from '../photoListCa
 import GroupFilter from '@component/list/common/filter/GroupFilter';
 import MemberFilter from '@component/list/common/filter/MemberFilter';
 
-interface FilterCheckProps {
-  children?: React.ReactNode;
+interface Props {
 }
-const FilterCheckDefaultProps = {};
+const DefaultProps = {};
 
-function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultProps) {
+function FilterCheck({  }: Props) {
   const filter = useAppSelector((state) => state.photoListCard.filter);
   const dispatch = useAppDispatch();
 
@@ -31,5 +30,4 @@ function FilterCheck({ children }: FilterCheckProps & typeof FilterCheckDefaultP
   );
 }
 
-FilterCheck.defaultProps = FilterCheckDefaultProps;
 export default FilterCheck;

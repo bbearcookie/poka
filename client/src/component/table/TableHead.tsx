@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface TableHeadProps {
+interface Props {
   styles?: StylesProps;
   children?: React.ReactNode;
 }
-const TableHeadDefaultProps = {};
-function TableHead({ styles, children }: TableHeadProps & typeof TableHeadDefaultProps) {
+const DefaultProps = {};
+function TableHead({ styles, children }: Props) {
   return (
     <StyledTableHead {...styles}>
       {children}
@@ -14,7 +14,6 @@ function TableHead({ styles, children }: TableHeadProps & typeof TableHeadDefaul
   );
 }
 
-TableHead.defaultProps = TableHeadDefaultProps;
 export default TableHead;
 interface StylesProps {
   height?: string;

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import * as PopperJS from '@popperjs/core';
 
-interface DropdownMenuProps {
+interface Props {
   menuRef?: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
   popper?: {
     styles: {
@@ -20,9 +20,9 @@ interface DropdownMenuProps {
   styles?: StylesProps;
   children?: React.ReactNode;
 }
-const DropdownMenuDefaultProps = {};
+const DefaultProps = {};
 
-function DropdownMenu({ menuRef, popper, styles, children }: DropdownMenuProps & typeof DropdownMenuDefaultProps) {
+function DropdownMenu({ menuRef, popper, styles, children }: Props) {
   return (
     <StyledDropdownMenu
       {...styles}
@@ -35,7 +35,6 @@ function DropdownMenu({ menuRef, popper, styles, children }: DropdownMenuProps &
   );
 }
 
-DropdownMenu.defaultProps = DropdownMenuDefaultProps;
 export default DropdownMenu;
 
 // 스타일 컴포넌트

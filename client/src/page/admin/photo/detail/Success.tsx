@@ -4,14 +4,13 @@ import PhotoInfo from './PhotoInfo';
 import PhotoEditor from './PhotoEditor';
 import PhotoRemove from './PhotoRemove';
 
-interface SuccessProps {
+interface Props {
   photo: typeof photoAPI.getPhotoDetail.resType;
   photocardId: number;
-  children?: React.ReactNode;
 }
-const SuccessDefaultProps = {};
+const DefaultProps = {};
 
-function Success({ photo, photocardId, children }: SuccessProps & typeof SuccessDefaultProps) {
+function Success({ photo, photocardId }: Props) {
   const [editMode, setEditMode] = useState(false);
 
   // 편집 모드 ON / OFF
@@ -29,5 +28,4 @@ function Success({ photo, photocardId, children }: SuccessProps & typeof Success
   );
 }
 
-Success.defaultProps = SuccessDefaultProps;
 export default Success;

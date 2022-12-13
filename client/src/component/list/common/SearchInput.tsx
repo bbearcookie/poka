@@ -55,6 +55,7 @@ function SearchInput({
         type="text"
         name="search"
         value={input}
+        autoComplete="off"
         placeholder={`${keywords[select]}(으)로 검색`}
         handleInputChange={changeInput}
         handleSubmit={onSubmit}

@@ -5,17 +5,17 @@ import CardBody from '@component/card/basic/CardBody';
 import Button from '@component/form/Button';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
-interface RemoveCardProps {
+interface Props {
   titleText?: string;
   buttonText?: string;
   onClick?: React.MouseEventHandler;
   children?: React.ReactNode;
 }
-const RemoveCardDefaultProps = {
+const DefaultProps = {
   buttonText: '삭제'
 };
 
-function RemoveCard({ onClick, titleText, buttonText, children }: RemoveCardProps & typeof RemoveCardDefaultProps) {
+function RemoveCard({ onClick, titleText, buttonText = DefaultProps.buttonText, children }: Props) {
   return (
     <Card>
       <CardHeader><h1>{titleText}</h1></CardHeader>
@@ -37,5 +37,4 @@ function RemoveCard({ onClick, titleText, buttonText, children }: RemoveCardProp
   );
 }
 
-RemoveCard.defaultProps = RemoveCardDefaultProps;
 export default RemoveCard;

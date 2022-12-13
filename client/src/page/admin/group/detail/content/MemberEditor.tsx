@@ -11,18 +11,18 @@ import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';
 import TableBodyItem from '@component/table/TableBodyItem';
 
-interface MemberEditorProps {
+interface Props {
   groupId: number;
   memberId?: number | undefined;
   defaultValue?: string;
   closeEditor: () => void;
 }
-const MemberEditorDefaultProps = {
+const DefaultProps = {
   defaultValue: ''
 };
 
 // 멤버 추가 or 수정 모드에 보여줄 컴포넌트
-function MemberEditor({ groupId, memberId, defaultValue, closeEditor }: MemberEditorProps & typeof MemberEditorDefaultProps) {
+function MemberEditor({ groupId, memberId, defaultValue = DefaultProps.defaultValue, closeEditor }: Props) {
   const [name, setName] = useState(defaultValue);
   const [message, setMessage] = useState('');
   const queryClient = useQueryClient();
@@ -112,5 +112,4 @@ function MemberEditor({ groupId, memberId, defaultValue, closeEditor }: MemberEd
   );
 }
 
-MemberEditor.defaultProps = MemberEditorDefaultProps;
 export default MemberEditor;

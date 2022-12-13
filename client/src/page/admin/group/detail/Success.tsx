@@ -7,13 +7,13 @@ import Button from '@component/form/Button';
 import MemberList from './content/MemberList';
 import GroupRemove from './content/GroupRemove';
 
-interface SuccessProps {
+interface Props {
   group: typeof groupAPI.getGroupDetail.resType;
   groupId: number;
 }
-const SuccessDefaultProps = {};
+const DefaultProps = {};
 
-function Success({ group, groupId }: SuccessProps & typeof SuccessDefaultProps) {
+function Success({ group, groupId }: Props) {
   return (
     <>
       <section className="group-section">
@@ -37,5 +37,4 @@ function Success({ group, groupId }: SuccessProps & typeof SuccessDefaultProps) 
   );
 }
 
-Success.defaultProps = SuccessDefaultProps;
 export default Success;

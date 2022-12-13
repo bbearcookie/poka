@@ -29,7 +29,7 @@ interface ParentItemProps {
 }
 const ParentItemDefaultProps = {};
 
-export function ParentItem({ id, icon, text, children }: ParentItemProps & typeof ParentItemDefaultProps) {
+export function ParentItem({ id, icon, text, children }: ParentItemProps) {
   const [show, setShow] = useState(false);
   const parentActiveId = useAppSelector((state) => state.sidebar.parentActiveId);
   const length = React.Children.count(children); // 하위 아이템 개수
@@ -71,8 +71,6 @@ export function ParentItem({ id, icon, text, children }: ParentItemProps & typeo
   );
 }
 
-ParentItem.defaultProps = ParentItemDefaultProps;
-
 // 자식 아이템 컴포넌트 =========================================================================
 interface ChildItemProps {
   showParent?: () => {}, // 부모 내용을 보여주는 함수
@@ -86,8 +84,8 @@ const ChildItemDefaultProps = {
 };
 
 export function ChildItem(
-  { showParent, parentId, to, icon, text }
-  : ChildItemProps & typeof ChildItemDefaultProps) {
+  { showParent, parentId, to = ChildItemDefaultProps.to, icon, text }
+  : ChildItemProps) {
   const URI = window.location.pathname;
   const activeURI = useAppSelector((state) => state.sidebar.activeURI);
   const dispatch = useAppDispatch();
@@ -132,5 +130,3 @@ export function ChildItem(
     </Link>
   );
 }
-
-ChildItem.defaultProps = ChildItemDefaultProps;

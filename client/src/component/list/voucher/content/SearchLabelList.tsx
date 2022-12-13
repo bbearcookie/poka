@@ -2,17 +2,16 @@ import React from 'react';
 import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import CardHeader from '@component/card/basic/CardHeader';
 import SearchLabel from '@component/label/SearchLabel';
-import { toggleGroup, toggleMember, setVoucherState, removeName, removeUsername } from '../voucherListSlice';
+import { toggleGroup, toggleMember, setVoucherState, removeKeyword } from '../voucherListSlice';
 import { VoucherStateName } from '@component/list/common/filter/DataType';
 import { DefaultFilterType } from '../VoucherListCard';
 
-interface SearchLabelListProps {
+interface Props {
   defaultFilter: DefaultFilterType;
-  children?: React.ReactNode;
 }
-const SearchLabelListDefaultProps = {};
+const DefaultProps = {};
 
-function SearchLabelList({ defaultFilter, children }: SearchLabelListProps & typeof SearchLabelListDefaultProps) {
+function SearchLabelList({ defaultFilter }: Props) {
   const filter = useAppSelector((state) => state.voucherList.filter);
   const dispatch = useAppDispatch();
 
@@ -32,7 +31,7 @@ function SearchLabelList({ defaultFilter, children }: SearchLabelListProps & typ
         key={username.id}
         category="아이디"
         text={username.value}
-        handleRemove={() => dispatch(removeUsername(username.id))}
+        handleRemove={() => dispatch(removeKeyword({ type: 'USER_NAME', id: username.id }))}
       />))}
 
       {/* 포토카드 이름 관련 필터 */}
@@ -41,7 +40,7 @@ function SearchLabelList({ defaultFilter, children }: SearchLabelListProps & typ
         key={name.id}
         category="포토카드"
         text={name.value}
-        handleRemove={() => dispatch(removeName(name.id))}
+        handleRemove={() => dispatch(removeKeyword({type: 'PHOTO_NAME', id: name.id }))}
       />))}
 
       {/* 그룹 관련 필터 */}
@@ -65,5 +64,4 @@ function SearchLabelList({ defaultFilter, children }: SearchLabelListProps & typ
   );
 }
 
-SearchLabelList.defaultProps = SearchLabelListDefaultProps;
 export default SearchLabelList;

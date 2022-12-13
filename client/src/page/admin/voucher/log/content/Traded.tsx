@@ -9,14 +9,13 @@ import { userImage } from '@api/resource';
 import UserProfile from '@component/profile/UserProfile';
 import SkeletonUserProfile from '@component/profile/SkeletonUserProfile';
 
-interface TradedProps {
+interface Props {
   log: LogType;
   originUser: typeof userAPI.getUserDetail.resType;
-  children?: React.ReactNode;
 }
-const TradedDefaultProps = {};
+const DefaultProps = {};
 
-function Traded({ originUser, log, children }: TradedProps & typeof TradedDefaultProps) {
+function Traded({ originUser, log }: Props) {
   const { data: destUser } =
   useQuery<typeof userAPI.getUserDetail.resType, AxiosError<ErrorType>>
   (queryKey.userKeys.profile(log.dest_user_id), () => userAPI.getUserDetail.axios(log.dest_user_id));
@@ -47,5 +46,4 @@ function Traded({ originUser, log, children }: TradedProps & typeof TradedDefaul
   );
 }
 
-Traded.defaultProps = TradedDefaultProps;
 export default Traded;

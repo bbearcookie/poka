@@ -2,22 +2,21 @@ import React from 'react';
 import classNames from 'classnames';
 import styled from 'styled-components';
 
-interface CardHeaderProps {
+interface Props {
   className?: string;
   styles?: StylesProps;
   children?: React.ReactNode;
 }
+const DefaultProps = {};
 
-const CardHeaderDefaultProps = {};
-
-export function CardHeader({ className, styles, children }: CardHeaderProps & typeof CardHeaderDefaultProps) {
+export function CardHeader({ className, styles, children }: Props) {
   return (
     <StyledCardHeader className={classNames("CardHeader", className)} {...styles}>
       {children}
     </StyledCardHeader>
   );
 }
-CardHeader.defaultProps = CardHeaderDefaultProps;
+
 export default CardHeader;
 
 // 스타일 컴포넌트

@@ -5,14 +5,13 @@ import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 
-interface NameSectionProps {
+interface Props {
   changeInput: React.ChangeEventHandler<HTMLInputElement>;
   blurInput: React.FocusEventHandler<HTMLInputElement>;
-  children?: React.ReactNode;
 }
-const NameSectionDefaultProps = {};
+const DefaultProps = {};
 
-function NameSection({ changeInput, blurInput, children }: NameSectionProps & typeof NameSectionDefaultProps) {
+function NameSection({ changeInput, blurInput }: Props) {
   const { form, inputMessage } = useAppSelector(state => state.addressEditor);
 
   return (
@@ -40,5 +39,4 @@ function NameSection({ changeInput, blurInput, children }: NameSectionProps & ty
   );
 }
 
-NameSection.defaultProps = NameSectionDefaultProps;
 export default NameSection;

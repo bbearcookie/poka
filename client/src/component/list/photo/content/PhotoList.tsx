@@ -11,14 +11,13 @@ import * as photoAPI from '@api/photoAPI';
 import PhotoCard from '@component/photocard/PhotoCard';
 import SkeletonPhotoCard from '@component/photocard/skeleton/SkeletonPhotoCard';
 
-interface PhotoListProps {
+interface Props {
   icon?: IconDefinition;
   handleClickIcon?: (photocardId: number) => void;
-  children?: React.ReactNode;
 }
-const PhotoListDefaultProps = {};
+const DefaultProps = {};
 
-function PhotoList({ icon, handleClickIcon, children }: PhotoListProps & typeof PhotoListDefaultProps) {
+function PhotoList({ icon, handleClickIcon }: Props) {
   const filter = useAppSelector((state) => state.photoListCard.filter);
   const [viewRef, inView] = useInView();
   const queryClient = useQueryClient();
@@ -75,5 +74,4 @@ function PhotoList({ icon, handleClickIcon, children }: PhotoListProps & typeof 
   );
 }
 
-PhotoList.defaultProps = PhotoListDefaultProps;
 export default PhotoList;

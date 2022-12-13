@@ -11,13 +11,12 @@ import IconButton from '@component/form/IconButton';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { AddressType } from '@api/shippingAddressAPI';
 
-interface AddressRemoveProps {
+interface Props {
   address: AddressType;
-  children?: React.ReactNode;
 }
-const AddressRemoveDefaultProps = {};
+const DefaultProps = {};
 
-function AddressRemove({ address, children }: AddressRemoveProps & typeof AddressRemoveDefaultProps) {
+function AddressRemove({ address }: Props) {
   const removeModal = useModal();
   const queryClient = useQueryClient();
 
@@ -61,5 +60,4 @@ function AddressRemove({ address, children }: AddressRemoveProps & typeof Addres
   );
 }
 
-AddressRemove.defaultProps = AddressRemoveDefaultProps;
 export default AddressRemove;

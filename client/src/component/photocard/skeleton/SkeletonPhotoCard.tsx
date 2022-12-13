@@ -4,12 +4,11 @@ import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 import SkeletonItem from '@component/skeleton/SkeletonItem';
 
-interface SkeletonPhotoCardProps {
-  children?: React.ReactNode;
+interface Props {
 }
-const SkeletonPhotoCardDefaultProps = {};
+const DefaultProps = {};
 
-function SkeletonPhotoCard({ children }: SkeletonPhotoCardProps & typeof SkeletonPhotoCardDefaultProps) {
+function SkeletonPhotoCard({  }: Props) {
   return (
     <StyledPhotoCard className="PhotoCard">
       <Card styles={{ boxShadow: "0px 0px 10px 0px #C0C0C0"}}>
@@ -34,5 +33,4 @@ function SkeletonPhotoCard({ children }: SkeletonPhotoCardProps & typeof Skeleto
   );
 }
 
-SkeletonPhotoCard.defaultProps = SkeletonPhotoCardDefaultProps;
 export default SkeletonPhotoCard;

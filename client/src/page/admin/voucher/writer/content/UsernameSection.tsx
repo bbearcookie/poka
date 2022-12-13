@@ -7,12 +7,10 @@ import CardBody from '@component/card/basic/CardBody';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 
-interface UsernameSectionProps {
-  children?: React.ReactNode;
-}
-const UsernameSectionDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function UsernameSection({ children }: UsernameSectionProps & typeof UsernameSectionDefaultProps) {
+function UsernameSection({  }: Props) {
   const { username } = useAppSelector((state) => state.voucherWriter);
   const dispatch = useAppDispatch();
 
@@ -44,5 +42,4 @@ function UsernameSection({ children }: UsernameSectionProps & typeof UsernameSec
   );
 }
 
-UsernameSection.defaultProps = UsernameSectionDefaultProps;
 export default UsernameSection;

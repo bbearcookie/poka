@@ -11,7 +11,7 @@ export interface Image {
   previewURL: string | ArrayBuffer | null;
   initialURL: string;
 }
-interface ImageUploaderProps {
+interface Props {
   className?: string;
   value: Image;
   onChange: (img: Image) => void;
@@ -20,11 +20,11 @@ interface ImageUploaderProps {
   styles?: StyledImageUploaderProps;
   children?: React.ReactNode;
 }
-const ImageUploaderDefaultProps = {
+const DefaultProps = {
   errorMessage: ''
 };
 
-function ImageUploader({ className, value, errorMessage, description, onChange, styles, children }: ImageUploaderProps & typeof ImageUploaderDefaultProps) {
+function ImageUploader({ className, value, errorMessage = DefaultProps.errorMessage, description, onChange, styles, children }: Props) {
   const [isDragging, setIsDragging] = useState(false);
   const imageRef = useRef<HTMLInputElement>(null);
 
@@ -147,7 +147,6 @@ function ImageUploader({ className, value, errorMessage, description, onChange, 
   );
 }
 
-ImageUploader.defaultProps = ImageUploaderDefaultProps;
 export default ImageUploader;
 
 // 스타일 컴포넌트

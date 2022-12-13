@@ -2,14 +2,13 @@ import React from 'react';
 import Button from '@component/form/Button';
 import { AddressType } from '@api/shippingAddressAPI';
 
-interface ButtonSectionProps {
+interface Props {
   address?: AddressType;
   closeEditor: () => void;
-  children?: React.ReactNode;
 }
-const ButtonSectionDefaultProps = {};
+const DefaultProps = {};
 
-function ButtonSection({ address, closeEditor, children }: ButtonSectionProps & typeof ButtonSectionDefaultProps) {
+function ButtonSection({ address, closeEditor }: Props) {
   return (
     <section className="button-section">
       <Button 
@@ -32,5 +31,4 @@ function ButtonSection({ address, closeEditor, children }: ButtonSectionProps & 
   );
 }
 
-ButtonSection.defaultProps = ButtonSectionDefaultProps;
 export default ButtonSection;

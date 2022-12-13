@@ -4,14 +4,13 @@ import { PhotoType } from '@api/photoAPI';
 import Button from '@component/form/Button';
 import PhotoInfoCard from '@component/photocard/detail/PhotoInfoCard';
 
-interface PhotoInfoProps {
+interface Props {
   photo: PhotoType;
   startEditor: () => void;
-  children?: React.ReactNode;
 }
-const PhotoInfoDefaultProps = {};
+const DefaultProps = {};
 
-function PhotoInfo({ photo, startEditor, children }: PhotoInfoProps & typeof PhotoInfoDefaultProps) {
+function PhotoInfo({ photo, startEditor }: Props) {
   return (
     <PhotoInfoCard photo={photo}>
       <Button
@@ -29,5 +28,4 @@ function PhotoInfo({ photo, startEditor, children }: PhotoInfoProps & typeof Pho
   );
 }
 
-PhotoInfo.defaultProps = PhotoInfoDefaultProps;
 export default PhotoInfo;

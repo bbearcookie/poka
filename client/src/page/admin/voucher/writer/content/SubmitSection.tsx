@@ -2,12 +2,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@component/form/Button';
 
-interface SubmitSectionProps {
-  children?: React.ReactNode;
-}
-const SubmitSectionDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function SubmitSection({ children }: SubmitSectionProps & typeof SubmitSectionDefaultProps) {
+function SubmitSection({  }: Props) {
   const navigate = useNavigate();
 
   return (
@@ -32,5 +30,4 @@ function SubmitSection({ children }: SubmitSectionProps & typeof SubmitSectionDe
   );
 }
 
-SubmitSection.defaultProps = SubmitSectionDefaultProps;
 export default SubmitSection;

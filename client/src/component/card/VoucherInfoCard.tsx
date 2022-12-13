@@ -12,16 +12,15 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { VoucherStateLabel } from '@component/photocard/VoucherCard';
 import { VoucherStateType, VoucherStateName } from '@component/list/common/filter/DataType';
 
-interface VoucherInfoCardProps {
+interface Props {
   voucher: typeof voucherAPI.getVoucherDetail.resType;
   showAdminInfo: boolean; // 관리자에게만 보여줄 정보를 출력할지의 여부
-  children?: React.ReactNode;
 }
-const VoucherInfoCardDefaultProps = {
+const DefaultProps = {
   showAdminInfo: false
 };
 
-function VoucherInfoCard({ voucher, showAdminInfo, children }: VoucherInfoCardProps & typeof VoucherInfoCardDefaultProps) {
+function VoucherInfoCard({ voucher, showAdminInfo = DefaultProps.showAdminInfo }: Props) {
   return (
     <Card styles={{ marginBottom: "5em" }}>
       <CardHeader><h1>소유권 정보</h1></CardHeader>
@@ -125,7 +124,6 @@ function VoucherInfoCard({ voucher, showAdminInfo, children }: VoucherInfoCardPr
   );
 }
 
-VoucherInfoCard.defaultProps = VoucherInfoCardDefaultProps;
 export default VoucherInfoCard;
 
 const Ul = styled.ul`

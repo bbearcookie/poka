@@ -10,14 +10,12 @@ import useModal from '@hook/useModal';
 import RemoveCard from '@component/card/RemoveCard';
 import ConfirmModal from '@component/modal/ConfirmModal';
 
-interface VoucherRemoveProps {
-  voucher: typeof voucherAPI.getVoucherDetail.resType;
+interface Props {
   voucherId: number;
-  children?: React.ReactNode;
 }
-const VoucherRemoveDefaultProps = {};
+const DefaultProps = {};
 
-function VoucherRemove({ voucher, voucherId, children }: VoucherRemoveProps & typeof VoucherRemoveDefaultProps) {
+function VoucherRemove({ voucherId }: Props) {
   const removeModal = useModal();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -64,5 +62,4 @@ function VoucherRemove({ voucher, voucherId, children }: VoucherRemoveProps & ty
   );
 }
 
-VoucherRemove.defaultProps = VoucherRemoveDefaultProps;
 export default VoucherRemove;

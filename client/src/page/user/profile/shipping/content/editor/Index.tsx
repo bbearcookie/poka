@@ -17,14 +17,13 @@ import RecipientSection from './content/RecipientSection';
 import ButtonSection from './content/ButtonSection';
 import { initialize, setDefaultState, setInput, setInputMessage, FormType } from './addressEditorSlice';
 
-interface EditorProps {
+interface Props {
   address?: AddressType;
   closeEditor: () => void;
-  children?: React.ReactNode;
 }
-const EditorDefaultProps = {};
+const DefaultProps = {};
 
-function Editor({ address, closeEditor, children }: EditorProps & typeof EditorDefaultProps) {
+function Editor({ address, closeEditor }: Props) {
   const { form } = useAppSelector(state => state.addressEditor);
   const userId = useAppSelector(state => state.auth.user_id);
   const dispatch = useAppDispatch();
@@ -114,7 +113,7 @@ function Editor({ address, closeEditor, children }: EditorProps & typeof EditorD
       <form onSubmit={onSubmit}>
         <NameSection changeInput={changeInput} blurInput={blurInput} />
         <RecipientSection changeInput={changeInput} blurInput={blurInput} />
-        <ContactSection changeInput={changeInput} blurInput={blurInput} />
+        <ContactSection blurInput={blurInput} />
         <AddressSection changeInput={changeInput} blurInput={blurInput} />
         <RequirementSection defaultShow={address ? true : false} changeInput={changeInput} blurInput={blurInput} />
         <ButtonSection address={address} closeEditor={closeEditor} />
@@ -123,5 +122,4 @@ function Editor({ address, closeEditor, children }: EditorProps & typeof EditorD
   );
 }
 
-Editor.defaultProps = EditorDefaultProps;
 export default Editor;

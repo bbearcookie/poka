@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface TableBodyItemProps {
+interface Props {
   styles?: StylesProps;
   children?: React.ReactNode;
 }
-const TableBodyItemDefaultProps = {};
-function TableBodyItem({ styles, children }: TableBodyItemProps & typeof TableBodyItemDefaultProps) {
+const DefaultProps = {};
+function TableBodyItem({ styles, children }: Props) {
   return (
     <StyledTD {...styles}>
       {children}
@@ -14,7 +14,6 @@ function TableBodyItem({ styles, children }: TableBodyItemProps & typeof TableBo
   );
 }
 
-TableBodyItem.defaultProps = TableBodyItemDefaultProps;
 export default TableBodyItem;
 
 // 스타일 컴포넌트

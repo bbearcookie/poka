@@ -11,13 +11,13 @@ import MemberEditor from './MemberEditor';
 import MemberInfo from './MemberInfo';
 import MemberAddButton from './MemberAddButton';
 
-interface MemberListProps {
+interface Props {
   group: typeof groupAPI.getGroupDetail.resType;
   groupId: number;
 }
-const MemberListDefaultProps = {};
+const DefaultProps = {};
 
-function MemberList({ group, groupId }: MemberListProps & typeof MemberListDefaultProps) {
+function MemberList({ group, groupId }: Props) {
   const [editorTarget, setEditorTarget] = useState<number | boolean>(false); // 수정 모드일 경우 현재 수정중인 memberId를 나타낸다.
 
   // 편집 모드 ON / OFF
@@ -56,5 +56,4 @@ function MemberList({ group, groupId }: MemberListProps & typeof MemberListDefau
   );
 }
 
-MemberList.defaultProps = MemberListDefaultProps;
 export default MemberList;

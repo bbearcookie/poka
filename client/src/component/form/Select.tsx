@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface SelectProps {
+interface Props {
   name?: string;
   value?: string | number | readonly string[] | undefined;
   onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   styles?: StylesProps;
   children?: React.ReactNode;
 }
-const SelectDefaultProps = {};
-function Select({ name, value, onChange, styles, children }: SelectProps & typeof SelectDefaultProps) {
+const DefaultProps = {};
+function Select({ name, value, onChange, styles, children }: Props) {
   return (
     <StyledSelect
       className="Select"
@@ -23,7 +23,6 @@ function Select({ name, value, onChange, styles, children }: SelectProps & typeo
   );
 }
 
-Select.defaultProps = SelectDefaultProps;
 export default Select;
 
 // 스타일 컴포넌트

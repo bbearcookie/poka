@@ -1,17 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface SkeletonItemProps {
+interface Props {
   styles?: StylesProps;
 }
-const SkeletonItemDefaultProps = {};
-function SkeletonItem({ styles }: SkeletonItemProps & typeof SkeletonItemDefaultProps) {
+const DefaultProps = {};
+
+function SkeletonItem({ styles }: Props) {
   return (
     <StyledItem className="SkeletonItem" {...styles} />
   );
 }
 
-SkeletonItem.defaultProps = SkeletonItemDefaultProps;
 export default SkeletonItem;
 
 // 스타일 컴포넌트

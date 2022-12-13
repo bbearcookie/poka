@@ -5,14 +5,14 @@ import { PhotoType } from '@api/photoAPI';
 import Card, { StylesProps as CardStyles } from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 
-interface PhotoInfoCardProps {
+interface Props {
   photo: PhotoType;
   cardStyles?: CardStyles;
   children?: React.ReactNode;
 }
-const PhotoInfoCardDefaultProps = {};
+const DefaultProps = {};
 
-function PhotoInfoCard({ photo, cardStyles, children }: PhotoInfoCardProps & typeof PhotoInfoCardDefaultProps) {
+function PhotoInfoCard({ photo, cardStyles, children }: Props) {
   return (
     <Card
       className="PhotoInfoCard"
@@ -41,7 +41,6 @@ function PhotoInfoCard({ photo, cardStyles, children }: PhotoInfoCardProps & typ
   );
 }
 
-PhotoInfoCard.defaultProps = PhotoInfoCardDefaultProps;
 export default PhotoInfoCard;
 
 const PhotoSection = styled.section`

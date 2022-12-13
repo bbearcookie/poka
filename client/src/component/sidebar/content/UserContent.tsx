@@ -2,12 +2,12 @@ import React from 'react';
 import { ChildItem, ParentItem } from '@component/sidebar/ListItem';
 import { faHome, faShareNodes, faTimeline, faBagShopping, faTruckFast, faIdCard, faPersonCircleQuestion } from '@fortawesome/free-solid-svg-icons';
 
-interface UserContentProps {
+interface Props {
   children?: React.ReactNode;
 }
-const UserContentDefaultProps = {};
+const DefaultProps = {};
 
-function UserContent({ children }: UserContentProps & typeof UserContentDefaultProps) {
+function UserContent({  }: Props) {
   return (
     <>
       <ul className="category">
@@ -38,5 +38,4 @@ function UserContent({ children }: UserContentProps & typeof UserContentDefaultP
   );
 }
 
-UserContent.defaultProps = UserContentDefaultProps;
 export default UserContent;

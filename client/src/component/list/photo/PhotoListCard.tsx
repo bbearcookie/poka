@@ -11,15 +11,14 @@ import PhotoList from './content/PhotoList';
 import { addName } from './photoListCardSlice';
 import './PhotoListCard.scss';
 
-interface PhotoListCardProps {
+interface Props {
   icon?: IconDefinition;
   handleClickIcon?: (photocardId: number) => void;
   cardStyles?: CardStyle;
-  children?: React.ReactNode;
 }
-const PhotoListCardDefaultProps = {};
+const DefaultProps = {};
 
-function PhotoListCard({ icon, handleClickIcon, cardStyles, children }: PhotoListCardProps & typeof PhotoListCardDefaultProps) {
+function PhotoListCard({ icon, handleClickIcon, cardStyles }: Props) {
   const dispatch = useAppDispatch();
 
   // 검색 필터 키워드 추가
@@ -41,5 +40,4 @@ function PhotoListCard({ icon, handleClickIcon, cardStyles, children }: PhotoLis
   );
 }
 
-PhotoListCard.defaultProps = PhotoListCardDefaultProps;
 export default PhotoListCard;

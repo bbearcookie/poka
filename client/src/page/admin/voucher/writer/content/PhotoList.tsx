@@ -11,12 +11,10 @@ import PhotoCard from '@component/photocard/PhotoCard';
 import SkeletonPhotoCard from '@component/photocard/skeleton/SkeletonPhotoCard';
 import { changeVoucherAmount, removeVoucher, setVoucherMessage } from '../voucherWriterSlice';
 
-interface PhotoListProps {
-  children?: React.ReactNode;
-}
-const PhotoListDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function PhotoList({ children }: PhotoListProps & typeof PhotoListDefaultProps) {
+function PhotoList({  }: Props) {
   const { vouchers } = useAppSelector((state) => state.voucherWriter);
   const photos = useQueries(vouchers.value.map((element) => ({
     queryKey: queryKey.groupKeys.detail(element.photocardId),
@@ -69,5 +67,4 @@ function PhotoList({ children }: PhotoListProps & typeof PhotoListDefaultProps) 
   );
 }
 
-PhotoList.defaultProps = PhotoListDefaultProps;
 export default PhotoList;

@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface InputMessageProps {
+interface Props {
   styles?: StylesProps;
   children?: React.ReactNode;
 }
-const InputMessageDefaultProps = {};
-function InputMessage({ styles, children}: InputMessageProps & typeof InputMessageDefaultProps) {
+const DefaultProps = {};
+function InputMessage({ styles, children }: Props) {
   return (
     <StyledLabel {...styles}>
       {children}
@@ -14,7 +14,6 @@ function InputMessage({ styles, children}: InputMessageProps & typeof InputMessa
   );
 }
 
-InputMessage.defaultProps = InputMessageDefaultProps;
 export default InputMessage;
 
 // 스타일 컴포넌트

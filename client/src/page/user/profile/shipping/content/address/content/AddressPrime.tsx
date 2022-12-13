@@ -9,13 +9,12 @@ import IconButton from '@component/form/IconButton';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
 import { AddressType } from '@api/shippingAddressAPI';
 
-interface AddressPrimeProps {
+interface Props {
   address: AddressType;
-  children?: React.ReactNode;
 }
-const AddressPrimeDefaultProps = {};
+const DefaultProps = {};
 
-function AddressPrime({ address, children }: AddressPrimeProps & typeof AddressPrimeDefaultProps) {
+function AddressPrime({ address }: Props) {
   const queryClient = useQueryClient();
 
   // 기본 배송지 수정 요청
@@ -46,5 +45,4 @@ function AddressPrime({ address, children }: AddressPrimeProps & typeof AddressP
   );
 }
 
-AddressPrime.defaultProps = AddressPrimeDefaultProps;
 export default AddressPrime;

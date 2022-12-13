@@ -12,13 +12,12 @@ import CardBody from '@component/card/basic/CardBody';
 import Log from './log/Log';
 import SkeletonLog from './log/SkeletonLog';
 
-interface LogListProps {
+interface Props {
   voucherId: number;
-  children?: React.ReactNode;
 }
-const LogListDefaultProps = {};
+const DefaultProps = {};
 
-function LogList({ voucherId, children }: LogListProps & typeof LogListDefaultProps) {
+function LogList({ voucherId }: Props) {
   const [viewRef, inView] = useInView();
 
   // 데이터 가져오기
@@ -73,5 +72,4 @@ function LogList({ voucherId, children }: LogListProps & typeof LogListDefaultPr
   );
 }
 
-LogList.defaultProps = LogListDefaultProps;
 export default LogList;

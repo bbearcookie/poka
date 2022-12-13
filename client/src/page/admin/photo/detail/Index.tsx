@@ -9,12 +9,10 @@ import BackLabel from '@component/label/BackLabel';
 import Success from './Success';
 import './Index.scss';
 
-interface PhotoDetailPageProps {
-  children?: React.ReactNode;
-}
-const PhotoDetailPageDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function PhotoDetailPage({ children }: PhotoDetailPageProps & typeof PhotoDetailPageDefaultProps) {
+function PhotoDetailPage({  }: Props) {
   const { photocardId } = useParams() as any;
 
   const { status, data: photo, error } = 
@@ -29,5 +27,4 @@ function PhotoDetailPage({ children }: PhotoDetailPageProps & typeof PhotoDetail
   );
 }
 
-PhotoDetailPage.defaultProps = PhotoDetailPageDefaultProps;
 export default PhotoDetailPage;

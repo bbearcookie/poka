@@ -9,12 +9,10 @@ import BackLabel from '@component/label/BackLabel';
 import Success from './Success';
 import './Index.scss';
 
-interface VoucherDetailPageProps {
-  children?: React.ReactNode;
-}
-const VoucherDetailPageDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function VoucherDetailPage({ children }: VoucherDetailPageProps & typeof VoucherDetailPageDefaultProps) {
+function VoucherDetailPage({  }: Props) {
   const { voucherId } = useParams() as any;
 
   const { status, data: voucher, error } =
@@ -29,5 +27,4 @@ function VoucherDetailPage({ children }: VoucherDetailPageProps & typeof Voucher
   );
 }
 
-VoucherDetailPage.defaultProps = VoucherDetailPageDefaultProps;
 export default VoucherDetailPage;

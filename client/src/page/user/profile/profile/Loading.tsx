@@ -3,12 +3,10 @@ import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 import SkeletonUserProfile from '@component/profile/SkeletonUserProfile';
 
-interface LoadingProps {
-  children?: React.ReactNode;
-}
-const LoadingDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function Loading({ children }: LoadingProps & typeof LoadingDefaultProps) {
+function Loading({  }: Props) {
   return (
     <Card styles={{ marginBottom: "5em" }}>
       <CardBody>
@@ -18,5 +16,4 @@ function Loading({ children }: LoadingProps & typeof LoadingDefaultProps) {
   );
 }
 
-Loading.defaultProps = LoadingDefaultProps;
 export default Loading;

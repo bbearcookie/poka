@@ -2,12 +2,11 @@ import React from 'react';
 import { Profile } from './UserProfile';
 import SkeletonItem from '@component/skeleton/SkeletonItem';
 
-interface SkeletonUserProfileProps {
-  children?: React.ReactNode;
+interface Props {
 }
-const SkeletonUserProfileDefaultProps = {};
+const DefaultProps = {};
 
-function SkeletonUserProfile({ children }: SkeletonUserProfileProps & typeof SkeletonUserProfileDefaultProps) {
+function SkeletonUserProfile({  }: Props) {
   return (
     <Profile>
       <SkeletonItem
@@ -25,5 +24,4 @@ function SkeletonUserProfile({ children }: SkeletonUserProfileProps & typeof Ske
   );
 }
 
-SkeletonUserProfile.defaultProps = SkeletonUserProfileDefaultProps;
 export default SkeletonUserProfile;

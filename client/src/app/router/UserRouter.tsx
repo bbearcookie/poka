@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { getUser } from '@util/auth/auth';
 import { useAppSelector } from "@app/redux/reduxHooks";
 import { Route, Routes, Navigate } from "react-router-dom";
@@ -8,12 +8,7 @@ import VoucherListPage from '@page/user/voucher/list/Index';
 import VoucherDetailPage from '@page/user/voucher/detail/Index';
 import TradeWriterPage from '@page/user/trade/writer/Index';
 
-interface UserRouterProps {
-  children?: React.ReactNode;
-}
-const UserRouterDefaultProps = {};
-
-function UserRouter({ children }: UserRouterProps & typeof UserRouterDefaultProps) {
+function UserRouter() {
   const { username, strategy, role } = useAppSelector((state) => state.auth);
   const user = getUser();
 
@@ -39,5 +34,4 @@ function UserRouter({ children }: UserRouterProps & typeof UserRouterDefaultProp
   );
 }
 
-UserRouter.defaultProps = UserRouterDefaultProps;
 export default UserRouter;

@@ -9,12 +9,10 @@ import ErrorCard from '@component/card/ErrorCard';
 import Loading from './Loading';
 import Success from './Success';
 
-interface IndexProps {
-  children?: React.ReactNode;
-}
-const IndexDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function Index({ children }: IndexProps & typeof IndexDefaultProps) {
+function Index({  }: Props) {
   const userId = useAppSelector(state => state.auth.user_id);
 
   const { status, data: addresses, error } =
@@ -30,5 +28,4 @@ function Index({ children }: IndexProps & typeof IndexDefaultProps) {
   );
 }
 
-Index.defaultProps = IndexDefaultProps;
 export default Index;

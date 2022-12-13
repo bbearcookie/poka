@@ -9,12 +9,10 @@ import { groupImage } from '@api/resource';
 import Form from './Form';
 import './Index.scss';
 
-interface GroupEditorPageProps {
-  children?: React.ReactNode;
-}
-const GroupEditorPageDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function GroupEditorPage({ children }: GroupEditorPageProps & typeof GroupEditorPageDefaultProps) {
+function GroupEditorPage({  }: Props) {
   const { groupId } = useParams() as any;
   const { status, data: group, error } =
   useQuery<typeof groupAPI.getGroupDetail.resType, AxiosError<ErrorType>>
@@ -28,5 +26,4 @@ function GroupEditorPage({ children }: GroupEditorPageProps & typeof GroupEditor
   );
 }
 
-GroupEditorPage.defaultProps = GroupEditorPageDefaultProps;
 export default GroupEditorPage;

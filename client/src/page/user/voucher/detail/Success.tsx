@@ -4,13 +4,12 @@ import VoucherInfoCard from '@component/card/VoucherInfoCard';
 import PhotoInfoCard from '@component/photocard/detail/PhotoInfoCard';
 import ButtonSection from './content/ButtonSection';
 
-interface SuccessProps {
+interface Props {
   voucher: typeof voucherAPI.getVoucherDetail.resType;
-  children?: React.ReactNode;
 }
-const SuccessDefaultProps = {};
+const DefaultProps = {};
 
-function Success({ voucher, children }: SuccessProps & typeof SuccessDefaultProps) {
+function Success({ voucher }: Props) {
   if (!voucher) return <></>;
 
   return (
@@ -22,5 +21,4 @@ function Success({ voucher, children }: SuccessProps & typeof SuccessDefaultProp
   );
 }
 
-Success.defaultProps = SuccessDefaultProps;
 export default Success;

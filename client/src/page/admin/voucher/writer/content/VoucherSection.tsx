@@ -12,12 +12,10 @@ import PhotoListCard from '@component/list/photo/PhotoListCard';
 import { addVoucher, setMessage } from '../voucherWriterSlice';
 import PhotoList from './PhotoList';
 
-interface VoucherSectionProps {
-  children?: React.ReactNode;
-}
-const VoucherSectionDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function VoucherSection({ children }: VoucherSectionProps & typeof VoucherSectionDefaultProps) {
+function VoucherSection({  }: Props) {
   const { vouchers } = useAppSelector((state) => state.voucherWriter);
   const addModal = useModal();
   const dispatch = useAppDispatch();
@@ -65,5 +63,4 @@ function VoucherSection({ children }: VoucherSectionProps & typeof VoucherSectio
   );
 }
 
-VoucherSection.defaultProps = VoucherSectionDefaultProps;
 export default VoucherSection;

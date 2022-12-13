@@ -5,23 +5,21 @@ import PhotoInfoCard from '@component/photocard/detail/PhotoInfoCard';
 import VoucherInfo from './content/VoucherInfo';
 import VoucherRemove from './content/VoucherRemove';
 
-interface SuccessProps {
+interface Props {
   voucher: typeof voucherAPI.getVoucherDetail.resType;
-  children?: React.ReactNode;
 }
-const SuccessDefaultProps = {};
+const DefaultProps = {};
 
-function Success({ voucher, children }: SuccessProps & typeof SuccessDefaultProps) {
+function Success({ voucher }: Props) {
   if (!voucher) return <></>;
 
   return (
     <>
       <PhotoInfoCard photo={voucher} />
       <VoucherInfoCard voucher={voucher} showAdminInfo={true} />
-      <VoucherRemove voucher={voucher} voucherId={voucher.voucher_id} />
+      <VoucherRemove voucherId={voucher.voucher_id} />
     </>
   );
 }
 
-Success.defaultProps = SuccessDefaultProps;
 export default Success;

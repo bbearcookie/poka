@@ -2,16 +2,15 @@ import React from 'react';
 import classNames from 'classnames';
 import styled from 'styled-components'
 
-interface CardFooterProps {
+interface Props {
   className?: string;
   padding?: string;
   styles?: StylesProps;
   children?: React.ReactNode;
 }
+const DefaultProps = {};
 
-const CardFooterDefaultProps = {};
-
-function CardFooter({ className, styles, children }: CardFooterProps & typeof CardFooterDefaultProps) {
+function CardFooter({ className, styles, children }: Props) {
   return (
     <StyledCardFooter className={classNames("CardFooter", className)} {...styles}>
       {children}
@@ -19,7 +18,6 @@ function CardFooter({ className, styles, children }: CardFooterProps & typeof Ca
   );
 }
 
-CardFooter.defaultProps = CardFooterDefaultProps;
 export default CardFooter;
 
 // 스타일 컴포넌트

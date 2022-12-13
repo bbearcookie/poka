@@ -1,19 +1,19 @@
 import React from 'react';
-import Modal, { ModalProps } from '@component/modal/basic/Modal';
+import Modal, { Props as ModalProps } from '@component/modal/basic/Modal';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import ModalHeader from './basic/ModalHeader';
 
-interface TitleModalProps extends ModalProps {
+interface Props extends ModalProps {
   titleName?: string;
   children?: React.ReactNode;
 }
-const TitleModalDefaultProps = {
+const DefaultProps = {
   titleName: '',
 };
 
-function TitleModal({ hook, titleName, location, styles, children }: TitleModalProps & typeof TitleModalDefaultProps) {
+function TitleModal({ hook, titleName = DefaultProps.titleName, location, styles, children }: Props) {
   return (
     <Modal
       hook={hook}
@@ -32,5 +32,4 @@ function TitleModal({ hook, titleName, location, styles, children }: TitleModalP
   );
 }
 
-TitleModal.defaultProps = TitleModalDefaultProps;
 export default TitleModal;

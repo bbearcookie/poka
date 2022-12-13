@@ -4,12 +4,10 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import VoucherListCard from '@component/list/voucher/VoucherListCard';
 import './Index.scss';
 
-interface IndexProps {
-  children?: React.ReactNode;
-}
+interface Props {}
 const IndexDefaultProps = {};
 
-function Index({ children }: IndexProps & typeof IndexDefaultProps) {
+function Index({  }: Props) {
   const navigate = useNavigate();
 
   // 상세 페이지로 이동
@@ -32,5 +30,4 @@ function Index({ children }: IndexProps & typeof IndexDefaultProps) {
   );
 }
 
-Index.defaultProps = IndexDefaultProps;
 export default Index;

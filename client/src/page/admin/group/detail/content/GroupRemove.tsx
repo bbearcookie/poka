@@ -10,13 +10,13 @@ import * as queryKey from '@util/queryKey';
 import ConfirmModal from '@component/modal/ConfirmModal';
 import RemoveCard from '@component/card/RemoveCard';
 
-interface GroupRemoveProps {
+interface Props {
   group: typeof groupAPI.getGroupDetail.resType;
   groupId: number;
 }
-const GroupRemoveDefaultProps = {};
+const DefaultProps = {};
 
-function GroupRemove({ group, groupId }: GroupRemoveProps & typeof GroupRemoveDefaultProps) {
+function GroupRemove({ group, groupId }: Props) {
   const removeModal = useModal();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -63,5 +63,4 @@ function GroupRemove({ group, groupId }: GroupRemoveProps & typeof GroupRemoveDe
   );
 }
 
-GroupRemove.defaultProps = GroupRemoveDefaultProps;
 export default GroupRemove;

@@ -7,14 +7,13 @@ import { AddressType } from '@api/shippingAddressAPI';
 import AddressRemove from './content/AddressRemove';
 import AddressPrime from './content/AddressPrime';
 
-interface AddressProps {
+interface Props {
   address: AddressType;
   startEditor: () => void;
-  children?: React.ReactNode;
 }
-const AddressDefaultProps = {};
+const DefaultProps = {};
 
-function Address({ address, startEditor, children }: AddressProps & typeof AddressDefaultProps) {
+function Address({ address, startEditor }: Props) {
   return (
     <CardHeader className="recipient-section">
       <div className="name-section content-section">
@@ -54,5 +53,4 @@ function Address({ address, startEditor, children }: AddressProps & typeof Addre
   );
 }
 
-Address.defaultProps = AddressDefaultProps;
 export default Address;

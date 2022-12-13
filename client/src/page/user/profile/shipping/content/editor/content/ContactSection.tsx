@@ -6,14 +6,12 @@ import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 import { setInput } from '../addressEditorSlice';
 
-interface ContactSectionProps {
-  changeInput: React.ChangeEventHandler<HTMLInputElement>;
+interface Props {
   blurInput: React.FocusEventHandler<HTMLInputElement>;
-  children?: React.ReactNode;
 }
-const ContactSectionDefaultProps = {};
+const DefaultProps = {};
 
-function ContactSection({ changeInput, blurInput, children }: ContactSectionProps & typeof ContactSectionDefaultProps) {
+function ContactSection({ blurInput }: Props) {
   const { form, inputMessage } = useAppSelector(state => state.addressEditor);
   const dispatch = useAppDispatch();
 
@@ -57,5 +55,4 @@ function ContactSection({ changeInput, blurInput, children }: ContactSectionProp
   );
 }
 
-ContactSection.defaultProps = ContactSectionDefaultProps;
 export default ContactSection;

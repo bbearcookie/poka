@@ -15,12 +15,10 @@ import GroupList from './GroupList';
 import SkeletonGroupList from './SkeletonGroupList';
 import './Index.scss';
 
-interface GroupListPageProps {
-  children?: React.ReactNode;
-}
-const GroupListPageDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function GroupListPage({ children }: GroupListPageProps & typeof GroupListPageDefaultProps) {
+function GroupListPage({  }: Props) {
   const { status, data: groups, error } = 
   useQuery<typeof groupAPI.getAllGroupList.resType, AxiosError<ErrorType>>
   (queryKey.groupKeys.all, groupAPI.getAllGroupList.axios);
@@ -60,5 +58,4 @@ function GroupListPage({ children }: GroupListPageProps & typeof GroupListPageDe
   );
 }
 
-GroupListPage.defaultProps = GroupListPageDefaultProps;
 export default GroupListPage;

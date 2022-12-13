@@ -5,20 +5,24 @@ import Button from '@component/form/Button';
 import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 
-interface UserInfoProps {
+interface Props {
   username?: string;
   nickname?: string;
   imageName?: string;
   startEditor: () => void;
-  children?: React.ReactNode;
 }
-const UserInfoDefaultProps = {
+const DefaultProps = {
   username: '',
   nickname: '',
   imageName: ''
 };
 
-function UserInfo({ username, nickname, imageName, startEditor, children }: UserInfoProps & typeof UserInfoDefaultProps) {
+function UserInfo({
+  username = DefaultProps.username,
+  nickname = DefaultProps.nickname,
+  imageName = DefaultProps.imageName,
+  startEditor
+}: Props) {
   return (
     <Card styles={{ marginBottom: "5em" }}>
       <CardBody>
@@ -39,5 +43,4 @@ function UserInfo({ username, nickname, imageName, startEditor, children }: User
   );
 }
 
-UserInfo.defaultProps = UserInfoDefaultProps;
 export default UserInfo;

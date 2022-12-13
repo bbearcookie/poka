@@ -6,14 +6,14 @@ import { AxiosError } from 'axios';
 import { ErrorType, getErrorMessage } from '@util/request';
 import { StylesProps as CardStyles } from '@component/card/basic/Card';
 
-interface ErrorCardProps {
+interface Props {
   styles?: CardStyles;
   error: AxiosError<ErrorType, any> | null
   children?: React.ReactNode;
 }
-const ErrorCardDefaultProps = {};
+const DefaultProps = {};
 
-function ErrorCard({ styles, error, children }: ErrorCardProps & typeof ErrorCardDefaultProps) {
+function ErrorCard({ styles, error, children }: Props) {
   return (
     <Card styles={styles}>
       <CardHeader>
@@ -27,5 +27,4 @@ function ErrorCard({ styles, error, children }: ErrorCardProps & typeof ErrorCar
   );
 }
 
-ErrorCard.defaultProps = ErrorCardDefaultProps;
 export default ErrorCard;

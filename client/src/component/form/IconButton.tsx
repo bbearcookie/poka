@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { SizeProp } from '@fortawesome/fontawesome-svg-core';
 
-interface IconButtonProps {
+interface Props {
   icon: IconDefinition;
   tooltip?: string;
   size?: SizeProp;
@@ -14,12 +14,11 @@ interface IconButtonProps {
   height?: string;
   onClick?: React.MouseEventHandler;
   styles?: StylesProps;
-  children?: React.ReactNode;
 }
-const IconButtonDefaultProps = {
+const DefaultProps = {
   onClick: (e: React.MouseEvent) => { return; }
 };
-function IconButton({ icon, tooltip, size, width, height, styles, onClick, children }: IconButtonProps & typeof IconButtonDefaultProps) {
+function IconButton({ icon, tooltip, size, width, height, styles, onClick = DefaultProps.onClick }: Props) {
   const [buttonElement, buttonRef] = useState<HTMLElement | null>(null);
   const [menuElement, menuRef] = useState<HTMLElement | null>(null);
   const [showTooltip, setShowTooltip] = useState(false);
@@ -46,7 +45,6 @@ function IconButton({ icon, tooltip, size, width, height, styles, onClick, child
   );
 }
 
-IconButton.defaultProps = IconButtonDefaultProps;
 export default IconButton;
 
 // 스타일 컴포넌트

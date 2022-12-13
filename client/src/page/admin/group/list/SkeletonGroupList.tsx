@@ -2,12 +2,10 @@ import React from 'react';
 import SkeletonItem from '@component/skeleton/SkeletonItem';
 import TableBodyItem from '@component/table/TableBodyItem';
 
-interface SkeletonGroupListProps {
-  children?: React.ReactNode;
-}
-const SkeletonGroupListDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function SkeletonGroupList({ children }: SkeletonGroupListProps & typeof SkeletonGroupListDefaultProps) {
+function SkeletonGroupList({  }: Props) {
   return (
     <>
       {Array.from({length: 8}).map((_, idx) => (
@@ -30,5 +28,4 @@ function SkeletonGroupList({ children }: SkeletonGroupListProps & typeof Skeleto
   )
 }
 
-SkeletonGroupList.defaultProps = SkeletonGroupListDefaultProps;
 export default SkeletonGroupList;

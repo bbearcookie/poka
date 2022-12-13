@@ -8,14 +8,13 @@ import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';
 import { setInput, setInputMessage } from '../addressEditorSlice';
 
-interface AddressSectionProps {
+interface Props {
   changeInput: React.ChangeEventHandler<HTMLInputElement>;
   blurInput: React.FocusEventHandler<HTMLInputElement>;
-  children?: React.ReactNode;
 }
-const AddressSectionDefaultProps = {};
+const DefaultProps = {};
 
-function AddressSection({ changeInput, blurInput, children }: AddressSectionProps & typeof AddressSectionDefaultProps) {
+function AddressSection({ changeInput, blurInput }: Props) {
   const { form, inputMessage } = useAppSelector(state => state.addressEditor);
   const dispatch = useAppDispatch();
   const daumPostcode = useDaumPostcodePopup();
@@ -111,5 +110,4 @@ function AddressSection({ changeInput, blurInput, children }: AddressSectionProp
   );
 }
 
-AddressSection.defaultProps = AddressSectionDefaultProps;
 export default AddressSection;

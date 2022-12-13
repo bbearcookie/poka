@@ -7,19 +7,19 @@ export type LocationType = {
   vertical: 'TOP' | 'CENTER' | 'BOTTOM';
 }
 
-export interface ModalProps {
+export interface Props {
   hook: ModalHookType;
   location?: LocationType;
   styles?: StylesProps;
   children?: React.ReactNode;
 }
-const ModalDefaultProps = {
+const DefaultProps = {
   location: {
     horizontal: 'CENTER',
     vertical: 'CENTER'
-  }
+  } as LocationType
 };
-function Modal({ hook, location, styles, children }: ModalProps & typeof ModalDefaultProps) {
+function Modal({ hook, location = DefaultProps.location, styles, children }: Props) {
   const ref = useRef<HTMLElement>(null);
 
   // 모달의 바깥 영역이 클릭되면 모달 닫음
@@ -47,7 +47,6 @@ function Modal({ hook, location, styles, children }: ModalProps & typeof ModalDe
   );
 }
 
-Modal.defaultProps = ModalDefaultProps;
 export default Modal;
 
 // 스타일 컴포넌트

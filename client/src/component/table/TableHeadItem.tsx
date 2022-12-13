@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface TableHeadItemProps {
+interface Props {
   styles?: StylesProps;
   children?: React.ReactNode;
 }
-const TableHeadItemDefaultProps = {};
+const DefaultProps = {};
 
-function TableHeadItem({ styles, children }: TableHeadItemProps & typeof TableHeadItemDefaultProps) {
+function TableHeadItem({ styles, children }: Props) {
   return (
     <StyledTH {...styles}>
       {children}
@@ -15,7 +15,6 @@ function TableHeadItem({ styles, children }: TableHeadItemProps & typeof TableHe
   );
 }
 
-TableHeadItem.defaultProps = TableHeadItemDefaultProps;
 export default TableHeadItem;
 
 // 스타일 컴포넌트

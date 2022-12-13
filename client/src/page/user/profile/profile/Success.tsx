@@ -4,13 +4,12 @@ import { userImage } from '@api/resource';
 import UserInfo from './UserInfo';
 import UserEditor from './UserEditor';
 
-interface SuccessProps {
+interface Props {
   user: typeof userAPI.getUserDetail.resType;
-  children?: React.ReactNode;
 }
-const SuccessDefaultProps = {};
+const DefaultProps = {};
 
-function Success({ user, children }: SuccessProps & typeof SuccessDefaultProps) {
+function Success({ user }: Props) {
   const [editMode, setEditMode] = useState(false);
 
   // 편집 모드 ON / OFF
@@ -36,5 +35,4 @@ function Success({ user, children }: SuccessProps & typeof SuccessDefaultProps) 
   );
 }
 
-Success.defaultProps = SuccessDefaultProps;
 export default Success;

@@ -4,19 +4,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
 const CLASS = 'SearchLabel';
-interface SearchLabelProps {
+interface Props {
   id?: number;
   handleRemove?: (id: number) => void;
   category?: string;
   text?: string;
   children?: React.ReactNode;
 }
-const SearchLabelDefaultProps = {
+const DefaultProps = {
   id: -1,
   handleRemove: (id: number) => {}
 };
 
-function SearchLabel({ id, category, text, handleRemove, children }: SearchLabelProps & typeof SearchLabelDefaultProps) {
+function SearchLabel({ id = DefaultProps.id, category, text, handleRemove = DefaultProps.handleRemove, children }: Props) {
   return (
     <StyledLabel className={CLASS}>
       <b>{category}: </b> <span>{text}</span>
@@ -29,7 +29,6 @@ function SearchLabel({ id, category, text, handleRemove, children }: SearchLabel
   );
 }
 
-SearchLabel.defaultProps = SearchLabelDefaultProps;
 export default SearchLabel;
 
 // 스타일 컴포넌트

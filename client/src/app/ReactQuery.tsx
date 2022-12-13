@@ -2,13 +2,11 @@ import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
-interface ReactQueryProps {
+interface Props {
   children?: React.ReactNode;
 }
 
-const ReactQueryDefaultProps = {};
-
-function ReactQuery({ children }: ReactQueryProps & typeof ReactQueryDefaultProps) {
+function ReactQuery({ children }: Props) {
   const queryClient = new QueryClient();
 
   return (
@@ -18,7 +16,5 @@ function ReactQuery({ children }: ReactQueryProps & typeof ReactQueryDefaultProp
     </QueryClientProvider>
   );
 }
-
-ReactQuery.defaultProps = ReactQueryDefaultProps;
 
 export default ReactQuery;

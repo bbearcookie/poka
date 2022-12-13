@@ -5,14 +5,13 @@ import CardBody from '@component/card/basic/CardBody';
 import PhotoInfo from './PhotoInfo';
 import { PhotoType } from './Index';
 
-interface PhotoListProps {
+interface Props {
   photoList: PhotoType[];
   setPhotoList: React.Dispatch<React.SetStateAction<PhotoType[]>>;
-  children?: React.ReactNode;
 }
-const PhotoListDefaultProps = {};
+const DefaultProps = {};
 
-function PhotoList({ photoList, setPhotoList, children }: PhotoListProps & typeof PhotoListDefaultProps) {
+function PhotoList({ photoList, setPhotoList }: Props) {
   // 포토카드 삭제
   const removePhoto = useCallback((idx: number) => {
     setPhotoList(photoList.filter((item) => item.idx !== idx));
@@ -54,5 +53,4 @@ function PhotoList({ photoList, setPhotoList, children }: PhotoListProps & typeo
   );
 }
 
-PhotoList.defaultProps = PhotoListDefaultProps;
 export default PhotoList;

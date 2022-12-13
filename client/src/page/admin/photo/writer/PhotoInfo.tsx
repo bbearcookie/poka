@@ -7,18 +7,17 @@ import CardBody from '@component/card/basic/CardBody';
 import Button from '@component/form/Button';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 
-interface PhotoInfoProps {
+interface Props {
   idx: number;
   src: string;
   message: string;
   changePhotoName: (idx: number, value: string) => void;
   removePhoto: (idx: number) => void;
   setPhotoMessage: (idx: number, message: string) => void;
-  children?: React.ReactNode;
 }
-const PhotoInfoDefaultProps = {};
+const DefaultProps = {};
 
-function PhotoInfo({ idx, src, message, changePhotoName, removePhoto, setPhotoMessage, children }: PhotoInfoProps & typeof PhotoInfoDefaultProps) {
+function PhotoInfo({ idx, src, message, changePhotoName, removePhoto, setPhotoMessage }: Props) {
   return (
     <Card className="PhotoInfoCard" styles={{ margin: "0 1em 2em 1em" }}>
       <CardBody>
@@ -72,5 +71,4 @@ function PhotoInfo({ idx, src, message, changePhotoName, removePhoto, setPhotoMe
   );
 }
 
-PhotoInfo.defaultProps = PhotoInfoDefaultProps;
 export default PhotoInfo;

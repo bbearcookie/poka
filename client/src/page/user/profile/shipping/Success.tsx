@@ -9,13 +9,12 @@ import Address from './content/address/Address';
 import AddButton from './content/AddButton';
 import { initialize } from './content/editor/addressEditorSlice';
 
-interface SuccessProps {
+interface Props {
   addresses: typeof userAPI.getUserShippingAddress.resType;
-  children?: React.ReactNode;
 }
-const SuccessDefaultProps = {};
+const DefaultProps = {};
 
-function Success({ addresses, children }: SuccessProps & typeof SuccessDefaultProps) {
+function Success({ addresses }: Props) {
   const [editorTarget, setEditorTarget] = useState<number | boolean>(false); // 수정 모드일 경우 현재 수정중인 memberId를 나타낸다.
   const dispatch = useAppDispatch();
 
@@ -49,5 +48,4 @@ function Success({ addresses, children }: SuccessProps & typeof SuccessDefaultPr
   );
 }
 
-Success.defaultProps = SuccessDefaultProps;
 export default Success;

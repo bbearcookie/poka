@@ -9,12 +9,10 @@ import ErrorCard from '@component/card/ErrorCard';
 import Success from './Success';
 import Loading from './Loading';
 
-interface ProfileProps {
-  children?: React.ReactNode;
-}
-const ProfileDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function Profile({ children }: ProfileProps & typeof ProfileDefaultProps) {
+function Profile({  }: Props) {
   const userId = useAppSelector(state => state.auth.user_id);
 
   const { status, data: user, error } =
@@ -30,5 +28,4 @@ function Profile({ children }: ProfileProps & typeof ProfileDefaultProps) {
   );
 }
 
-Profile.defaultProps = ProfileDefaultProps;
 export default Profile;

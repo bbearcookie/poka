@@ -1,23 +1,13 @@
 import React, { useCallback } from 'react';
 import qs from 'qs';
-import { useQuery } from 'react-query';
-import { ErrorType } from '@util/request';
-import { AxiosError } from 'axios';
-import * as voucherAPI from '@api/voucherAPI';
-import * as queryKey from '@util/queryKey';
-import Card from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
-import CardBody from '@component/card/basic/CardBody';
 import BackLabel from '@component/label/BackLabel';
 import SelectVoucherCard from './content/SelectVoucherCard';
 import './Index.scss';
 
-interface IndexProps {
-  children?: React.ReactNode;
-}
-const IndexDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function Index({ children }: IndexProps & typeof IndexDefaultProps) {
+function Index({  }: Props) {
   const querystring = qs.parse(window.location.search, { ignoreQueryPrefix: true });
   const voucherId = Number(querystring.voucherId) || 0;
 
@@ -41,5 +31,4 @@ function Index({ children }: IndexProps & typeof IndexDefaultProps) {
   );
 }
 
-Index.defaultProps = IndexDefaultProps;
 export default Index;

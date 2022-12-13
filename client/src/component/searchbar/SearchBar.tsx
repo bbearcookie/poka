@@ -15,14 +15,14 @@ export interface CommonSearchBarProps {
   handleSubmit?: () => void;
 }
 
-interface SearchBarProps extends CommonSearchBarProps {
+interface Props extends CommonSearchBarProps {
   styles?: StylesProps;
   children?: React.ReactNode;
 }
-const SearchBarDefaultProps = {
+const DefaultProps = {
   autoComplete: 'off',
 };
-function SearchBar(p: SearchBarProps & typeof SearchBarDefaultProps) {
+function SearchBar(p: Props & typeof DefaultProps) {
   const [active, setActive] = useState(false);
 
   // 엔터 입력시 submit 동작
@@ -57,7 +57,6 @@ function SearchBar(p: SearchBarProps & typeof SearchBarDefaultProps) {
   );
 }
 
-SearchBar.defaultProps = SearchBarDefaultProps;
 export default SearchBar;
 
 // 스타일 컴포넌트

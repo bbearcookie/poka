@@ -3,16 +3,16 @@ import styled from 'styled-components';
 import classNames from 'classnames';
 
 const CLASS = 'DropdownButton';
-interface DropdownButtonProps {
+interface Props {
   buttonRef: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
   className?: string;
   onClick?: (e: React.MouseEvent) => void;
   styles?: StylesProps;
   children?: React.ReactNode;
 }
-const DropdownButtonDefaultProps = {};
+const DefaultProps = {};
 
-function DropdownButton({ className, buttonRef, styles, onClick, children }: DropdownButtonProps & typeof DropdownButtonDefaultProps) {
+function DropdownButton({ className, buttonRef, styles, onClick, children }: Props) {
   return (
     <StyledDropdownButton
       {...styles}
@@ -25,7 +25,6 @@ function DropdownButton({ className, buttonRef, styles, onClick, children }: Dro
   );
 }
 
-DropdownButton.defaultProps = DropdownButtonDefaultProps;
 export default DropdownButton;
 
 // 스타일 컴포넌트

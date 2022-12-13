@@ -7,13 +7,13 @@ import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import MemberRemove from './content/MemberRemove';
 
-interface SuccessProps {
+interface Props {
   member: typeof memberAPI.getMemberDetail.resType;
   memberId: number;
 }
-const SuccessDefaultProps = {};
+const DefaultProps = {};
 
-function Success({ member, memberId }: SuccessProps & typeof SuccessDefaultProps) {
+function Success({ member, memberId }: Props) {
   return (
     <>
       <section className="name-section">
@@ -43,5 +43,4 @@ function Success({ member, memberId }: SuccessProps & typeof SuccessDefaultProps
   );
 }
 
-Success.defaultProps = SuccessDefaultProps;
 export default Success;

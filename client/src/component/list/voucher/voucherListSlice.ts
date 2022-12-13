@@ -66,6 +66,11 @@ export const slice = createSlice({
       state.filter.members = payload.map((data) => ({ ...data }));
     },
 
+    // 소유권 상태 필터 설정
+    setVoucherState: (state, { payload }: PayloadAction<VoucherStateType>) => {
+      state.filter.state = payload;
+    },
+
     // 그룹 선택 토글
     toggleGroup: (state, { payload: groupId }: PayloadAction<number>) => {
       state.filter.groups = state.filter.groups.map(
@@ -82,43 +87,6 @@ export const slice = createSlice({
         { ...item, checked: !item.checked }:
         { ...item }
       )
-    },
-
-    // 소유권 상태 필터 선택
-    setVoucherState: (state, { payload }: PayloadAction<VoucherStateType>) => {
-      state.filter.state = payload;
-    },
-
-    // 포토카드 이름 필터 추가
-    addName: (state, { payload }: PayloadAction<string>) => {
-      if (!payload) return;
-      if (state.filter.names.find((item) => item.value === payload)) return;
-
-      state.filter.names = state.filter.names.concat({
-        id: nextId++,
-        value: payload.trim()
-      });
-    },
-
-    // 사용자 이름 필터 추가
-    addUsername: (state, { payload }: PayloadAction<string>) => {
-      if (!payload) return;
-      if (state.filter.usernames.find((item) => item.value === payload)) return;
-
-      state.filter.usernames = state.filter.usernames.concat({
-        id: nextId++,
-        value: payload.trim()
-      });
-    },
-
-    // 포토카드 이름 필터 제거
-    removeName: (state, { payload: id }: PayloadAction<number>) => {
-      state.filter.names = state.filter.names.filter((item) => item.id !== id);
-    },
-
-    // 사용자 이름 필터 제거
-    removeUsername: (state, { payload: id }: PayloadAction<number>) => {
-      state.filter.usernames = state.filter.usernames.filter((item) => item.id !== id);
     },
 
     // 키워드 필터 추가
@@ -142,10 +110,25 @@ export const slice = createSlice({
       }
     },
 
+    // 키워드 삭제
+    removeKeyword: (state, { payload }: PayloadAction<{
+      type: SearchKeywordsType,
+      id: number
+    }>) => {
+      switch (payload.type) {
+        case 'PHOTO_NAME':
+          state.filter.names = state.filter.names.filter((item) => item.id !== payload.id);
+          break;
+        case 'USER_NAME':
+          state.filter.usernames = state.filter.usernames.filter((item) => item.id !== payload.id);
+          break;
+        default:
+          break;
+      }
+    }
+
   }
 });
 
-export const {
-  initialize, setGroups, setMembers, toggleGroup, toggleMember, setVoucherState,
-  addName, addUsername, removeName, removeUsername, addKeyword } = slice.actions;
+export const { initialize, setGroups, setMembers, setVoucherState, toggleGroup, toggleMember, addKeyword, removeKeyword } = slice.actions;
 export default slice.reducer;

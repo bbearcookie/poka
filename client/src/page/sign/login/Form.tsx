@@ -2,7 +2,6 @@ import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '@app/redux/reduxHooks';
 import { login, logout } from '@util/auth/authSlice';
-import { saveUser } from '@util/auth/auth';
 import { useMutation } from 'react-query';
 import { toast } from 'react-toastify';
 import * as authAPI from '@api/authAPI';
@@ -12,12 +11,10 @@ import Input from '@component/form/Input';
 import Button from '@component/form/Button';
 import InputMessage from '@component/form/InputMessage';
 
-interface FormProps {
-  children?: React.ReactNode;
-}
-const FormDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function Form({ children }: FormProps & typeof FormDefaultProps) {
+function Form({  }: Props) {
   interface InputType {
     username: string;
     password: string;
@@ -126,5 +123,4 @@ function Form({ children }: FormProps & typeof FormDefaultProps) {
   );
 }
 
-Form.defaultProps = FormDefaultProps;
 export default Form;

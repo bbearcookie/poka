@@ -4,17 +4,17 @@ import { PhotoType } from '@api/photoAPI';
 import IconButton from '@component/form/IconButton';
 import PhotoCardTemplate from '@component/photocard/PhotoCardTemplate';
 
-interface PhotoCardProps {
+interface Props {
   photo: PhotoType;
   icon?: IconDefinition;
   handleClickIcon?: (photocardId: number) => void;
   children?: React.ReactNode;
 }
-const PhotoCardDefaultProps = {
+const DefaultProps = {
   handleClickIcon: (photocardId: number) => {}
 };
 
-function PhotoCard({ photo, icon, handleClickIcon, children }: PhotoCardProps & typeof PhotoCardDefaultProps) {
+function PhotoCard({ photo, icon, handleClickIcon = DefaultProps.handleClickIcon, children }: Props) {
   return (
     <PhotoCardTemplate
       className="PhotoCard"
@@ -26,5 +26,4 @@ function PhotoCard({ photo, icon, handleClickIcon, children }: PhotoCardProps & 
   );
 }
 
-PhotoCard.defaultProps = PhotoCardDefaultProps;
 export default PhotoCard;

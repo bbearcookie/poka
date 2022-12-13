@@ -4,13 +4,12 @@ import { userImage } from '@api/resource';
 import UserProfile from '@component/profile/UserProfile';
 import SkeletonUserProfile from '@component/profile/SkeletonUserProfile';
 
-interface IssuedProps {
-  originUser: typeof userAPI.getUserDetail.resType
-  children?: React.ReactNode;
+interface Props {
+  originUser: typeof userAPI.getUserDetail.resType;
 }
-const IssuedDefaultProps = {};
+const DefaultProps = {};
 
-function Issued({ originUser, children }: IssuedProps & typeof IssuedDefaultProps) {
+function Issued({ originUser }: Props) {
   return (
     <div className="line">
       <div className="subtitle">소유자</div>
@@ -25,5 +24,4 @@ function Issued({ originUser, children }: IssuedProps & typeof IssuedDefaultProp
   );
 }
 
-Issued.defaultProps = IssuedDefaultProps;
 export default Issued;

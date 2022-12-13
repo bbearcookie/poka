@@ -10,14 +10,13 @@ import useModal from '@hook/useModal';
 import ConfirmModal from '@component/modal/ConfirmModal';
 import RemoveCard from '@component/card/RemoveCard';
 
-interface PhotoRemoveProps {
+interface Props {
   photo: typeof photoAPI.getPhotoDetail.resType;
   photocardId: number;
-  children?: React.ReactNode;
 }
-const PhotoRemoveDefaultProps = {};
+const DefaultProps = {};
 
-function PhotoRemove({ photo, photocardId, children }: PhotoRemoveProps & typeof PhotoRemoveDefaultProps) {
+function PhotoRemove({ photo, photocardId }: Props) {
   const removeModal = useModal();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -63,5 +62,4 @@ function PhotoRemove({ photo, photocardId, children }: PhotoRemoveProps & typeof
   );
 }
 
-PhotoRemove.defaultProps = PhotoRemoveDefaultProps;
 export default PhotoRemove;

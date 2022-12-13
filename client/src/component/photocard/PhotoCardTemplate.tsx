@@ -6,17 +6,15 @@ import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 import CardFooter from '@component/card/basic/CardFooter';
 
-interface PhotoCardTemplateProps {
+interface Props {
   photo: PhotoType;
   className?: string;
   iconNode?: React.ReactNode;
   children?: React.ReactNode;
 }
-const PhotoCardTemplateDefaultProps = {
-  handleClickIcon: (photocardId: number) => {}
-};
+const DefaultProps = {};
 
-function PhotoCardTemplate({ className, photo, iconNode, children }: PhotoCardTemplateProps & typeof PhotoCardTemplateDefaultProps) {
+function PhotoCardTemplate({ className, photo, iconNode, children }: Props) {
   return (
     <StyledPhotoCard className={className}>
       <Card styles={{ boxShadow: "0px 0px 10px 0px #C0C0C0"}}>
@@ -45,7 +43,6 @@ function PhotoCardTemplate({ className, photo, iconNode, children }: PhotoCardTe
   );
 }
 
-PhotoCardTemplate.defaultProps = PhotoCardTemplateDefaultProps;
 export default PhotoCardTemplate;
 
 export const StyledPhotoCard = styled.div`

@@ -4,12 +4,10 @@ import Sidebar from '@component/sidebar/Sidebar';
 import Navbar from '@component/navbar/Navbar';
 import '../PageTemplate.scss';
 
-interface UserPageProps {
-  children?: React.ReactNode;
-}
+interface Props {}
 const UserPageDefaultProps = {};
 
-function UserPage({ children }: UserPageProps & typeof UserPageDefaultProps) {
+function UserPage({  }: Props) {
   return (
     <div className="PageTemplate">
       <Sidebar mode="USER" />
@@ -21,5 +19,4 @@ function UserPage({ children }: UserPageProps & typeof UserPageDefaultProps) {
   );
 }
 
-UserPage.defaultProps = UserPageDefaultProps;
 export default UserPage;

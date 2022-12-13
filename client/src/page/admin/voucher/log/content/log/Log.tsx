@@ -10,13 +10,12 @@ import { getFormattedTime } from '@util/common';
 import Issued from '../Issued';
 import Traded from '../Traded';
 
-interface LogProps {
+interface Props {
   log: LogType;
-  children?: React.ReactNode;
 }
-const LogDefaultProps = {};
+const DefaultProps = {};
 
-function Log({ log, children }: LogProps & typeof LogDefaultProps) {
+function Log({ log }: Props) {
   const originUser =
   useQuery<typeof userAPI.getUserDetail.resType, AxiosError<ErrorType>>
   (queryKey.userKeys.profile(log.origin_user_id), () => userAPI.getUserDetail.axios(log.origin_user_id));
@@ -39,7 +38,6 @@ function Log({ log, children }: LogProps & typeof LogDefaultProps) {
   );
 }
 
-Log.defaultProps = LogDefaultProps;
 export default Log;
 
 const LogTypeText = {

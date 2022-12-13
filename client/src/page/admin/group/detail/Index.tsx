@@ -11,12 +11,10 @@ import Success from './Success';
 import Loading from './Loading';
 import './Index.scss';
 
-interface GroupDetailPageProps {
-  children?: React.ReactNode;
-}
-const GroupDetailPageDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function GroupDetailPage({ children }: GroupDetailPageProps & typeof GroupDetailPageDefaultProps) {
+function GroupDetailPage({  }: Props) {
   const { groupId } = useParams() as any;
   const { status, data: group, error } =
   useQuery<typeof groupAPI.getGroupDetail.resType, AxiosError<ErrorType>>
@@ -32,5 +30,4 @@ function GroupDetailPage({ children }: GroupDetailPageProps & typeof GroupDetail
   );
 }
 
-GroupDetailPage.defaultProps = GroupDetailPageDefaultProps;
 export default GroupDetailPage;

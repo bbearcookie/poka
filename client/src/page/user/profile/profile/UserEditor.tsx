@@ -13,20 +13,24 @@ import Button from '@component/form/Button';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 
-interface UserEditorProps {
+interface Props {
   userId?: number;
   nickname?: string;
   imageName?: string;
   closeEditor: () => void;
-  children?: React.ReactNode;
 }
-const UserEditorDefaultProps = {
+const DefaultProps = {
   userId: 0,
   nickname: '',
   imageName: ''
 };
 
-function UserEditor({ userId, nickname, imageName, closeEditor, children }: UserEditorProps & typeof UserEditorDefaultProps) {
+function UserEditor({
+  userId = DefaultProps.userId,
+  nickname = DefaultProps.nickname,
+  imageName = DefaultProps.imageName,
+  closeEditor
+}: Props) {
   interface FormType {
     nickname: string;
     image: Image;
@@ -156,5 +160,4 @@ function UserEditor({ userId, nickname, imageName, closeEditor, children }: User
   );
 }
 
-UserEditor.defaultProps = UserEditorDefaultProps;
 export default UserEditor;

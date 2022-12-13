@@ -6,13 +6,11 @@ import GroupFilter from '@component/list/common/filter/GroupFilter';
 import MemberFilter from '@component/list/common/filter/MemberFilter';
 import StateFilter from '@component/list/common/filter/StateFilter';
 
-interface FilterCheckProps {
-  defaultFilter: DefaultFilterType;
-  children?: React.ReactNode;
+interface Props {
 }
-const FilterCheckDefaultProps = {};
+const DefaultProps = {};
 
-function FilterCheck({ defaultFilter, children }: FilterCheckProps & typeof FilterCheckDefaultProps) {
+function FilterCheck({  }: Props) {
   const filter = useAppSelector((state) => state.voucherList.filter);
   const dispatch = useAppDispatch();
 
@@ -39,5 +37,4 @@ function FilterCheck({ defaultFilter, children }: FilterCheckProps & typeof Filt
   );
 }
 
-FilterCheck.defaultProps = FilterCheckDefaultProps;
 export default FilterCheck;

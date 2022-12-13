@@ -5,12 +5,10 @@ import CardHeader from '@component/card/basic/CardHeader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faPhone, faInfoCircle, faEdit, faClose, faUser, faHouse } from '@fortawesome/free-solid-svg-icons';
 
-interface AddressSkeletonProps {
-  children?: React.ReactNode;
-}
-const AddressSkeletonDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function AddressSkeleton({ children }: AddressSkeletonProps & typeof AddressSkeletonDefaultProps) {
+function AddressSkeleton({  }: Props) {
   return (
     <CardHeader className="recipient-section">
       <SkeletonItem styles={{ height: "1.35em", margin: "0 0 1em 0" }} />
@@ -39,5 +37,4 @@ function AddressSkeleton({ children }: AddressSkeletonProps & typeof AddressSkel
   );
 }
 
-AddressSkeleton.defaultProps = AddressSkeletonDefaultProps;
 export default AddressSkeleton;

@@ -11,16 +11,15 @@ import Select from '@component/form/Select';
 import InputMessage from '@component/form/InputMessage';
 import { SelectType } from './Index';
 
-interface SelectCardProps {
+interface Props {
   select: SelectType;
   setSelect: React.Dispatch<React.SetStateAction<SelectType>>;
   selectMessage: {[k in keyof SelectType]: string;};
   setSelectMessage: React.Dispatch<React.SetStateAction<{[k in keyof SelectType]: string;}>>
-  children?: React.ReactNode;
 }
-const SelectCardDefaultProps = {};
+const DefaultProps = {};
 
-function SelectCard({ select, setSelect, selectMessage, setSelectMessage, children }: SelectCardProps & typeof SelectCardDefaultProps) {
+function SelectCard({ select, setSelect, selectMessage, setSelectMessage }: Props) {
   const groupQuery =
   useQuery<typeof groupAPI.getAllGroupList.resType, AxiosError<ErrorType>>
   (queryKey.groupKeys.all, groupAPI.getAllGroupList.axios);
@@ -98,5 +97,4 @@ function SelectCard({ select, setSelect, selectMessage, setSelectMessage, childr
   );
 }
 
-SelectCard.defaultProps = SelectCardDefaultProps;
 export default SelectCard;

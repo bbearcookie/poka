@@ -16,15 +16,14 @@ import InputMessage from '@component/form/InputMessage';
 import Select from '@component/form/Select';
 import ImageUploader, { Image } from '@component/form/uploader/ImageUploader';
 
-interface PhotoEditorProps {
+interface Props {
   photo: typeof photoAPI.getPhotoDetail.resType;
   photocardId: number;
   closeEditor: () => void;
-  children?: React.ReactNode;
 }
-const PhotoEditorDefaultProps = {};
+const DefaultProps = {};
 
-function PhotoEditor({ photo, photocardId, closeEditor, children }: PhotoEditorProps & typeof PhotoEditorDefaultProps) {
+function PhotoEditor({ photo, photocardId, closeEditor }: Props) {
   interface FormType {
     name: string;
     groupId: number;
@@ -219,5 +218,4 @@ function PhotoEditor({ photo, photocardId, closeEditor, children }: PhotoEditorP
   );
 }
 
-PhotoEditor.defaultProps = PhotoEditorDefaultProps;
 export default PhotoEditor;

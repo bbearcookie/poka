@@ -7,12 +7,10 @@ import CardFooter from '@component/card/basic/CardFooter';
 import Form from './Form';
 import '../SignPage.scss';
 
-interface SignupPageProps {
-  children?: React.ReactNode;
-}
-const SignupPageDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function SignupPage({ children }: SignupPageProps & typeof SignupPageDefaultProps) {
+function SignupPage({  }: Props) {
   return (
     <div className="SignPage">
       <Card styles={{ width: "40rem" }}>
@@ -39,5 +37,4 @@ function SignupPage({ children }: SignupPageProps & typeof SignupPageDefaultProp
   );
 }
 
-SignupPage.defaultProps = SignupPageDefaultProps;
 export default SignupPage;

@@ -6,13 +6,12 @@ import IconButton from '@component/form/IconButton';
 import TableBodyItem from '@component/table/TableBodyItem';
 import * as groupAPI from '@api/groupAPI';
 
-interface GroupListProps {
+interface Props {
   groups: typeof groupAPI.getAllGroupList.resType;
-  children?: React.ReactNode;
 }
-const GroupListDefaultProps = {};
+const DefaultProps = {};
 
-function GroupList({ groups, children }: GroupListProps & typeof GroupListDefaultProps) {
+function GroupList({ groups }: Props) {
   return (
     <>
       {groups?.groups.map((item, idx) => (
@@ -35,5 +34,4 @@ function GroupList({ groups, children }: GroupListProps & typeof GroupListDefaul
   );
 }
 
-GroupList.defaultProps = GroupListDefaultProps;
 export default GroupList;

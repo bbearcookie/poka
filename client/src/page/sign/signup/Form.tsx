@@ -9,12 +9,10 @@ import Input from '@component/form/Input';
 import Button from '@component/form/Button';
 import InputMessage from '@component/form/InputMessage';
 
-interface FormProps {
-  children?: React.ReactNode;
-}
-const FormDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function Form({ children }: FormProps & typeof FormDefaultProps) {
+function Form({  }: Props) {
   interface InputType {
     username: string;
     nickname: string;
@@ -160,5 +158,4 @@ function Form({ children }: FormProps & typeof FormDefaultProps) {
   );
 }
 
-Form.defaultProps = FormDefaultProps;
 export default Form;

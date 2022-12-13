@@ -4,14 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { PhotoType } from './Index';
 
-interface UploadProps {
+interface Props {
   photoList: PhotoType[];
   setPhotoList: React.Dispatch<React.SetStateAction<PhotoType[]>>;
-  children?: React.ReactNode;
 }
-const UploadDefaultProps = {};
+const DefaultProps = {};
 
-function Upload({ photoList, setPhotoList, children }: UploadProps & typeof UploadDefaultProps) {
+function Upload({ photoList, setPhotoList }: Props) {
   const [isDragging, setIsDragging] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
   const nextId = useRef(0);
@@ -119,5 +118,4 @@ function Upload({ photoList, setPhotoList, children }: UploadProps & typeof Uplo
   );
 }
 
-Upload.defaultProps = UploadDefaultProps;
 export default Upload;

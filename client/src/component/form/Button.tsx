@@ -6,7 +6,7 @@ import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 // 버튼 컴포넌트 =========================
 const CLASS = 'Button';
-interface ButtonProps {
+interface Props {
   className?: string;
   type?: 'button' | 'submit' | 'reset';
   leftIcon?: IconDefinition;
@@ -15,10 +15,8 @@ interface ButtonProps {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   children?: React.ReactNode;
 }
-const ButtonDefaultProps = {
-  type: 'button',
-};
-function Button({ className, type, leftIcon, rightIcon, styles, onClick, children }: ButtonProps & typeof ButtonDefaultProps) {
+const DefaultProps = {};
+function Button({ className, type = 'button', leftIcon, rightIcon, styles, onClick, children }: Props) {
   return (
     <StyledButton
       className={classNames(CLASS, className)}
@@ -33,7 +31,6 @@ function Button({ className, type, leftIcon, rightIcon, styles, onClick, childre
   );
 }
 
-Button.defaultProps = ButtonDefaultProps;
 export default Button;
 
 // 스타일 컴포넌트 =======================

@@ -5,12 +5,11 @@ import CardBody from '@component/card/basic/CardBody';
 import CardFooter from '@component/card/basic/CardFooter';
 import SkeletonItem from '@component/skeleton/SkeletonItem';
 
-interface SkeletonVoucherCardProps {
-  children?: React.ReactNode;
+interface Props {
 }
-const SkeletonVoucherCardDefaultProps = {};
+const DefaultProps = {};
 
-function SkeletonVoucherCard({ children }: SkeletonVoucherCardProps & typeof SkeletonVoucherCardDefaultProps) {
+function SkeletonVoucherCard({  }: Props) {
   return (
     <StyledPhotoCard className="PhotoCard">
       <Card styles={{ boxShadow: "0px 0px 10px 0px #C0C0C0"}}>
@@ -39,5 +38,4 @@ function SkeletonVoucherCard({ children }: SkeletonVoucherCardProps & typeof Ske
   );
 }
 
-SkeletonVoucherCard.defaultProps = SkeletonVoucherCardDefaultProps;
 export default SkeletonVoucherCard;

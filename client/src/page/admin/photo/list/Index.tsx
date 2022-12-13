@@ -6,12 +6,10 @@ import Button from '@component/form/Button';
 import PhotoListCard from '@component/list/photo/PhotoListCard';
 import './Index.scss';
 
-interface PhotoListPageProps {
-  children?: React.ReactNode;
-}
-const PhotoListPageDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function PhotoListPage({ children }: PhotoListPageProps & typeof PhotoListPageDefaultProps) {
+function PhotoListPage({  }: Props) {
   const navigate = useNavigate();
 
   // 관리자용 상세 페이지로 이동
@@ -39,5 +37,4 @@ function PhotoListPage({ children }: PhotoListPageProps & typeof PhotoListPageDe
   );
 }
 
-PhotoListPage.defaultProps = PhotoListPageDefaultProps;
 export default PhotoListPage;

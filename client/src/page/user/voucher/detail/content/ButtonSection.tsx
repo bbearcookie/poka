@@ -3,13 +3,12 @@ import { Link } from 'react-router-dom';
 import Button from '@component/form/Button';
 import { faShareNodes, faTruckFast } from '@fortawesome/free-solid-svg-icons';
 
-interface ButtonSectionProps {
+interface Props {
   voucherId: number;
-  children?: React.ReactNode;
 }
-const ButtonSectionDefaultProps = {};
+const DefaultProps = {};
 
-function ButtonSection({ voucherId, children }: ButtonSectionProps & typeof ButtonSectionDefaultProps) {
+function ButtonSection({ voucherId }: Props) {
   return (
     <section className="button-section">
       <Link to={`/trade/writer?voucherId=${voucherId}`}>
@@ -32,5 +31,4 @@ function ButtonSection({ voucherId, children }: ButtonSectionProps & typeof Butt
   );
 }
 
-ButtonSection.defaultProps = ButtonSectionDefaultProps;
 export default ButtonSection;

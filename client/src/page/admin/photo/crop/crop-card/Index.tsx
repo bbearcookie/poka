@@ -4,15 +4,14 @@ import CardBody from '@component/card/basic/CardBody';
 import CardFooter from '@component/card/basic/CardFooter';
 import Crop from './Crop';
 
-interface CropCardProps {
+interface Props {
   cropper: Cropper;
   cropList: string[];
   setCropList: React.Dispatch<React.SetStateAction<string[]>>;
-  children?: React.ReactNode;
 }
-const CropCardDefaultProps = {};
+const DefaultProps = {};
 
-function CropCard({ cropper, cropList, setCropList, children }: CropCardProps & typeof CropCardDefaultProps) {
+function CropCard({ cropper, cropList, setCropList }: Props) {
   return (
     <Card className="CropCard">
       <CardBody>
@@ -26,5 +25,4 @@ function CropCard({ cropper, cropList, setCropList, children }: CropCardProps & 
   );
 }
 
-CropCard.defaultProps = CropCardDefaultProps;
 export default CropCard;

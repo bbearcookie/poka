@@ -5,14 +5,13 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 
-interface RecipientSectionProps {
+interface Props {
   changeInput: React.ChangeEventHandler<HTMLInputElement>;
   blurInput: React.FocusEventHandler<HTMLInputElement>;
-  children?: React.ReactNode;
 }
-const RecipientSectionDefaultProps = {};
+const DefaultProps = {};
 
-function RecipientSection({ changeInput, blurInput, children }: RecipientSectionProps & typeof RecipientSectionDefaultProps) {
+function RecipientSection({ changeInput, blurInput }: Props) {
   const { form, inputMessage } = useAppSelector(state => state.addressEditor);
   
   return (
@@ -42,5 +41,4 @@ function RecipientSection({ changeInput, blurInput, children }: RecipientSection
   );
 }
 
-RecipientSection.defaultProps = RecipientSectionDefaultProps;
 export default RecipientSection;

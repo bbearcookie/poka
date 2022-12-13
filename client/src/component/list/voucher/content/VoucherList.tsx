@@ -12,15 +12,15 @@ import VoucherCard from '@component/photocard/VoucherCard';
 import SkeletonVoucherCard from '@component/photocard/skeleton/SkeletonVoucherCard';
 import { DefaultFilterType } from '../VoucherListCard';
 
-interface VoucherListProps {
+interface Props {
   defaultFilter: DefaultFilterType
   icon?: IconDefinition;
   handleClickIcon?: (photocardId: number) => void;
   children?: React.ReactNode;
 }
-const VoucherListDefaultProps = {};
+const DefaultProps = {};
 
-function VoucherList({ defaultFilter, icon, handleClickIcon, children }: VoucherListProps & typeof VoucherListDefaultProps) {
+function VoucherList({ defaultFilter, icon, handleClickIcon }: Props) {
   const filter = useAppSelector((state) => state.voucherList.filter);
   const [viewRef, inView] = useInView();
   const queryClient = useQueryClient();
@@ -81,5 +81,4 @@ function VoucherList({ defaultFilter, icon, handleClickIcon, children }: Voucher
   );
 }
 
-VoucherList.defaultProps = VoucherListDefaultProps;
 export default VoucherList;

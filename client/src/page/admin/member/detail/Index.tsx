@@ -11,12 +11,10 @@ import Success from './Success';
 import Loading from './Loading';
 import './Index.scss';
 
-interface MemberDetailPageProps {
-  children?: React.ReactNode;
-}
-const MemberDetailPageDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function MemberDetailPage({ children }: MemberDetailPageProps & typeof MemberDetailPageDefaultProps) {
+function MemberDetailPage({  }: Props) {
   const { memberId } = useParams() as any;
   const { status, data: member, error } =
   useQuery<typeof memberAPI.getMemberDetail.resType, AxiosError<ErrorType>>
@@ -40,5 +38,4 @@ function MemberDetailPage({ children }: MemberDetailPageProps & typeof MemberDet
   );
 }
 
-MemberDetailPage.defaultProps = MemberDetailPageDefaultProps;
 export default MemberDetailPage;

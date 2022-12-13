@@ -3,12 +3,10 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import PhotoListCard from '@component/list/photo/PhotoListCard';
 import './Index.scss';
 
-interface IndexProps {
-  children?: React.ReactNode;
-}
-const IndexDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function Index({ children }: IndexProps & typeof IndexDefaultProps) {
+function Index({  }: Props) {
   // 사용자용 상세 페이지로 이동
   const handleClickDetailIcon = useCallback((photocardId: number) => {
     console.log('TODO: 사용자용 상세 페이지로 이동');
@@ -22,5 +20,4 @@ function Index({ children }: IndexProps & typeof IndexDefaultProps) {
   );
 }
 
-Index.defaultProps = IndexDefaultProps;
 export default Index;

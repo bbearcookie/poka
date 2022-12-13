@@ -10,13 +10,13 @@ import * as queryKey from '@util/queryKey';
 import ConfirmModal from '@component/modal/ConfirmModal';
 import RemoveCard from '@component/card/RemoveCard';
 
-interface MemberRemoveProps {
+interface Props {
   member: typeof memberAPI.getMemberDetail.resType;
   memberId: number;
 }
-const MemberRemoveDefaultProps = {};
+const DefaultProps = {};
 
-function MemberRemove({ member, memberId }: MemberRemoveProps & typeof MemberRemoveDefaultProps) {
+function MemberRemove({ member, memberId }: Props) {
   const removeModal = useModal();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -64,5 +64,4 @@ function MemberRemove({ member, memberId }: MemberRemoveProps & typeof MemberRem
   );
 }
 
-MemberRemove.defaultProps = MemberRemoveDefaultProps;
 export default MemberRemove;

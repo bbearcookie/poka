@@ -12,18 +12,17 @@ import CardBody from '@component/card/basic/CardBody';
 import ImageUploader, { Image } from '@component/form/uploader/ImageUploader';
 import * as groupAPI from '@api/groupAPI';
 
-interface FormProps {
+interface Props {
   name?: string;
   imageName?: string;
   groupId?: number;
-  children?: React.ReactNode;
 }
-const FormDefaultProps = {
+const DefaultProps = {
   name: '',
   imageName: ''
 };
 
-function Form({ name, imageName, groupId, children }: FormProps & typeof FormDefaultProps) {
+function Form({ name = DefaultProps.name, imageName = DefaultProps.imageName, groupId }: Props) {
   interface InputType {
     name: string;
     image: Image;
@@ -219,5 +218,4 @@ function Form({ name, imageName, groupId, children }: FormProps & typeof FormDef
   );
 }
 
-Form.defaultProps = FormDefaultProps;
 export default Form;

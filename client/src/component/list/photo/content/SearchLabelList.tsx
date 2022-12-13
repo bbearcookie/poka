@@ -4,12 +4,11 @@ import CardHeader from '@component/card/basic/CardHeader';
 import SearchLabel from '@component/label/SearchLabel';
 import { removeName, toggleGroup, toggleMember } from '../photoListCardSlice';
 
-interface SearchLabelListProps {
-  children?: React.ReactNode;
+interface Props {
 }
-const SearchLabelListDefaultProps = {};
+const DefaultProps = {};
 
-function SearchLabelList({ children }: SearchLabelListProps & typeof SearchLabelListDefaultProps) {
+function SearchLabelList({  }: Props) {
   const filter = useAppSelector((state) => state.photoListCard.filter);
   const dispatch = useAppDispatch();
 
@@ -45,5 +44,4 @@ function SearchLabelList({ children }: SearchLabelListProps & typeof SearchLabel
   );
 }
 
-SearchLabelList.defaultProps = SearchLabelListDefaultProps;
 export default SearchLabelList;

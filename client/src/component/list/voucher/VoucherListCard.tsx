@@ -8,7 +8,7 @@ import SearchInput from '@component/list/common/SearchInput';
 import SearchLabelList from './content/SearchLabelList';
 import FilterCheck from './content/FilterCheck';
 import VoucherList from './content/VoucherList';
-import { initialize, addUsername, SearchKeywords, addKeyword, SearchKeywordsType } from './voucherListSlice';
+import { initialize, SearchKeywords, addKeyword, SearchKeywordsType } from './voucherListSlice';
 import { VoucherStateType } from '@component/list/common/filter/DataType';
 import '../photo/PhotoListCard.scss';
 
@@ -18,27 +18,26 @@ export type DefaultFilterType = {
   state: VoucherStateType; // 특정 상태의 소유권만 보여주도록 지정
 }
 
-interface VoucherListCardProps {
+interface Props {
   defaultFilter?: DefaultFilterType;
   icon?: IconDefinition;
   handleClickIcon?: (voucherId: number) => void;
   cardStyles?: CardStyle;
-  children?: React.ReactNode;
 }
-const VoucherListCardDefaultProps = {
+const DefaultProps = {
   defaultFilter: {
     owner: 'ALL',
     state: 'ALL'
-  }
+  } as DefaultFilterType
 };
 
-function VoucherListCard({ defaultFilter, icon, handleClickIcon, cardStyles, children }: VoucherListCardProps & typeof VoucherListCardDefaultProps) {
+function VoucherListCard({ defaultFilter = DefaultProps.defaultFilter, icon, handleClickIcon, cardStyles }: Props) {
   const dispatch = useAppDispatch();
   const username = useAppSelector(state => state.auth.username);
 
   // 자신의 소유권만 보여줘야 할 경우 렌더시 자신의 아이디를 검색 필터에 추가
   const initFilter = useCallback(() => {
-    if (defaultFilter.owner === 'MINE') dispatch(addUsername(username));
+    if (defaultFilter.owner === 'MINE') dispatch(addKeyword({ type: 'USER_NAME', value: username }));
   }, [dispatch, defaultFilter, username]);
   useEffect(() => {
     initFilter();
@@ -61,12 +60,11 @@ function VoucherListCard({ defaultFilter, icon, handleClickIcon, cardStyles, chi
         <SearchLabelList defaultFilter={defaultFilter} />
       </CardHeader>
       <CardBody>
-        <FilterCheck defaultFilter={defaultFilter} />
+        <FilterCheck />
         <VoucherList defaultFilter={defaultFilter} icon={icon} handleClickIcon={handleClickIcon} />
       </CardBody>
     </Card>
   );
 }
 
-VoucherListCard.defaultProps = VoucherListCardDefaultProps;
 export default VoucherListCard;

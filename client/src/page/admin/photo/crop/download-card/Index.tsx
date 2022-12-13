@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import Input from '@component/form/Input';
 import Card from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import CardFooter from '@component/card/basic/CardFooter';
 import Download from './Download';
 
-interface DownloadCardProps {
+interface Props {
   cropList: string[];
   setCropList: React.Dispatch<React.SetStateAction<string[]>>;
   children?: React.ReactNode;
 }
-const DownloadCardDefaultProps = {};
+const DefaultProps = {};
 
-function DownloadCard({ cropList, setCropList, children }: DownloadCardProps & typeof DownloadCardDefaultProps) {
+function DownloadCard({ cropList, setCropList }: Props) {
   const [download, setDownload] = useState('');
 
   return (
@@ -45,5 +44,4 @@ function DownloadCard({ cropList, setCropList, children }: DownloadCardProps & t
   );
 }
 
-DownloadCard.defaultProps = DownloadCardDefaultProps;
 export default DownloadCard;
