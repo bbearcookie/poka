@@ -16,19 +16,15 @@ import { GroupType } from './DataType';
 
 interface Props {
   filter: GroupType[];
-  setGroups?: (groups: GroupType[]) => void;
-  toggleGroup?: (groupId: number) => void;
+  setGroups: (groups: GroupType[]) => void;
+  toggleGroup: (groupId: number) => void;
+  resetOnMount?: boolean;
 }
 const DefaultProps = {
-  setGroups: () => {},
-  toggleGroup: () => {}
+  resetOnMount: false
 };
 
-function GroupFilter({
-  filter,
-  setGroups = DefaultProps.setGroups,
-  toggleGroup = DefaultProps.toggleGroup
-}: Props) {
+function GroupFilter({ filter, setGroups, toggleGroup, resetOnMount = DefaultProps.resetOnMount }: Props) {
   const dropdown = useDropdown();
   const popper = usePopper(dropdown.buttonElement, dropdown.menuElement, {});
 
@@ -40,21 +36,29 @@ function GroupFilter({
   const initGroup = useCallback(() => {
     if (!groupQuery.data) return;
 
-    let newGroups = groupQuery.data.groups.map((group) => ({
-      groupId: group.group_id,
-      name: group.name,
-      checked: filter.find(item => item.groupId === group.group_id && item.checked) ? true : false
-    }));
+    let newGroups: GroupType[] = [];
+    if (resetOnMount) {
+      newGroups = groupQuery.data.groups.map((group) => ({
+        groupId: group.group_id,
+        name: group.name,
+        checked: false
+      }));
+    } else {
+      newGroups = groupQuery.data.groups.map((group) => ({
+        groupId: group.group_id,
+        name: group.name,
+        checked: filter.find(item => item.checked && item.groupId === group.group_id) ? true : false
+      }));
+    }
 
     setGroups(newGroups);
-  }, [groupQuery.data, filter, setGroups]);
+  }, [groupQuery.data, setGroups, filter, resetOnMount]);
   useEffect(() => {
     initGroup();
   }, [groupQuery.data]);
 
   return (
     <>
-      {/* 그룹 선택 드롭다운 */}
       <Dropdown hook={dropdown}>
         <DropdownButton
           styles={{ padding: "0.25em" }}
@@ -74,7 +78,7 @@ function GroupFilter({
             >
               <input
                 type="checkbox"
-                checked={filter[idx].checked}
+                checked={filter[idx] && filter[idx].checked ? filter[idx].checked : false}
                 readOnly
               />
               <span>{group.name}</span>

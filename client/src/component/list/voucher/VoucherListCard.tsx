@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useLayoutEffect, useCallback } from 'react';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { useAppDispatch, useAppSelector } from '@app/redux/reduxHooks';
 import Card, { StylesProps as CardStyle } from '@component/card/basic/Card';
@@ -8,7 +8,7 @@ import SearchInput from '@component/list/common/SearchInput';
 import SearchLabelList from './content/SearchLabelList';
 import FilterCheck from './content/FilterCheck';
 import VoucherList from './content/VoucherList';
-import { initialize, SearchKeywords, addKeyword, SearchKeywordsType } from './voucherListSlice';
+import { SearchKeywords, addKeyword, SearchKeywordsType, initialize } from './voucherListSlice';
 import { VoucherStateType } from '@component/list/common/filter/DataType';
 import '../photo/PhotoListCard.scss';
 
@@ -19,21 +19,32 @@ export type DefaultFilterType = {
 }
 
 interface Props {
+  resetOnMount?: boolean; // 컴포넌트가 렌더링될 때 상태값을 초기 상태로 리셋할지의 여부
   defaultFilter?: DefaultFilterType;
   icon?: IconDefinition;
   handleClickIcon?: (voucherId: number) => void;
   cardStyles?: CardStyle;
 }
 const DefaultProps = {
+  resetOnMount: false,
   defaultFilter: {
     owner: 'ALL',
     state: 'ALL'
   } as DefaultFilterType
 };
 
-function VoucherListCard({ defaultFilter = DefaultProps.defaultFilter, icon, handleClickIcon, cardStyles }: Props) {
+function VoucherListCard({
+  resetOnMount = DefaultProps.resetOnMount,
+  defaultFilter = DefaultProps.defaultFilter,
+  icon, handleClickIcon, cardStyles
+}: Props) {
   const dispatch = useAppDispatch();
   const username = useAppSelector(state => state.auth.username);
+
+  // 상태 초기화
+  useLayoutEffect(() => {
+    if (resetOnMount) dispatch(initialize());
+  }, []);
 
   // 자신의 소유권만 보여줘야 할 경우 렌더시 자신의 아이디를 검색 필터에 추가
   const initFilter = useCallback(() => {
@@ -41,8 +52,6 @@ function VoucherListCard({ defaultFilter = DefaultProps.defaultFilter, icon, han
   }, [dispatch, defaultFilter, username]);
   useEffect(() => {
     initFilter();
-    // 언마운트시 리덕스 상태 초기화
-    return () => { dispatch(initialize()); }
   }, [defaultFilter]);
 
   // 검색 필터 키워드 추가
@@ -60,7 +69,7 @@ function VoucherListCard({ defaultFilter = DefaultProps.defaultFilter, icon, han
         <SearchLabelList defaultFilter={defaultFilter} />
       </CardHeader>
       <CardBody>
-        <FilterCheck />
+        <FilterCheck resetOnMount={resetOnMount} defaultFilter={defaultFilter} />
         <VoucherList defaultFilter={defaultFilter} icon={icon} handleClickIcon={handleClickIcon} />
       </CardBody>
     </Card>

@@ -38,8 +38,7 @@ export const slice = createSlice({
 
     // 초기값으로 초기화
     initialize: (state) => {
-      state.username = initialState.username;
-      state.vouchers = initialState.vouchers;
+      Object.assign(state, initialState);
     },
 
     // 유효성 검사 메시지 초기화

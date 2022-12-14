@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import useModal from '@hook/useModal';
 import TitleModal from '@component/modal/TitleModal';
@@ -39,6 +39,7 @@ function SelectVoucherCard({  }: Props) {
 
       <TitleModal hook={addModal} titleName="소유권 선택" styles={{ width: '75%' }}>
         <VoucherListCard
+          // resetState={true}
           icon={faPlus}
           handleClickIcon={(voucherId) => console.log(`TODO: ${voucherId} 선택!`)}
           defaultFilter={{

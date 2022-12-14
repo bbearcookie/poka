@@ -25,7 +25,7 @@ const DefaultProps = {
   confirmButtonTheme: 'danger' as ButtonTheme,
   cancelButtonTheme: 'gray' as ButtonTheme,
   confirmText: '확인',
-  cancelText: '취소'
+  cancelText: '취소',
 };
 function ConfirmModal({
   hook, location,
@@ -34,7 +34,7 @@ function ConfirmModal({
   confirmButtonTheme = DefaultProps.confirmButtonTheme,
   handleConfirm,
   cancelText = DefaultProps.cancelText,
-  cancelButtonTheme = DefaultProps.cancelButtonTheme, 
+  cancelButtonTheme = DefaultProps.cancelButtonTheme,
   cardStyles, modalStyles, children 
 }: Props) {
 

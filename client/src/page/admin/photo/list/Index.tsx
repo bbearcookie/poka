@@ -32,7 +32,11 @@ function PhotoListPage({  }: Props) {
           >추가</Button>
         </Link>
       </section>
-      <PhotoListCard icon={faArrowRight} handleClickIcon={handleClickDetailIcon} />
+      <PhotoListCard
+        resetOnMount={false}
+        icon={faArrowRight}
+        handleClickIcon={handleClickDetailIcon}
+      />
     </section>
   );
 }

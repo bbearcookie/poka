@@ -54,6 +54,7 @@ function VoucherSection({  }: Props) {
 
       <TitleModal hook={addModal} titleName="소유권 선택" styles={{ width: '75%' }}>
         <PhotoListCard
+          resetOnMount={true}
           icon={faPlus}
           handleClickIcon={handleAddVoucher}
           cardStyles={{ border: "none" }}

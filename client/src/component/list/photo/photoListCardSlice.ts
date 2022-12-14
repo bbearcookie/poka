@@ -29,7 +29,7 @@ export const slice = createSlice({
   reducers: {
     // 상태 초기화
     initialize: (state) => {
-      state = initialState
+      Object.assign(state, initialState);
     },
 
     // 그룹 정보 설정

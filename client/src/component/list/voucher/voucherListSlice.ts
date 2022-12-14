@@ -45,7 +45,7 @@ export const slice = createSlice({
   reducers: {
     // 상태 초기화
     initialize: (state) => {
-      state.filter = initialState.filter;
+      Object.assign(state, initialState);
     },
 
     // 그룹 정보 설정
@@ -98,12 +98,16 @@ export const slice = createSlice({
 
       switch (payload.type) {
         case 'PHOTO_NAME':
-          state.filter.names = state.filter.names.concat(keyword);
-          nextId++;
+          if (!state.filter.names.find(item => item.value === keyword.value)) {
+            state.filter.names = state.filter.names.concat(keyword);
+            nextId++;
+          }
           break;
         case 'USER_NAME':
-          state.filter.usernames = state.filter.usernames.concat(keyword);
-          nextId++;
+          if (!state.filter.usernames.find(item => item.value === keyword.value)) {
+            state.filter.usernames = state.filter.usernames.concat(keyword);
+            nextId++;
+          }
           break;
         default:
           break;

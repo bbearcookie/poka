@@ -17,18 +17,17 @@ import { GroupType, MemberType } from './DataType';
 interface Props {
   groupFilter: GroupType[];
   memberFilter: MemberType[];
-  setMembers?: (members: MemberType[]) => void;
-  toggleMember?: (memberId: number) => void;
+  setMembers: (members: MemberType[]) => void;
+  toggleMember: (memberId: number) => void;
+  resetOnMount?: boolean;
 }
 const DefaultProps = {
-  setMembers: () => {},
-  toggleMember: () => {}
+  resetOnMount: false
 };
 
 function MemberFilter({
-  groupFilter, memberFilter,
-  setMembers = DefaultProps.setMembers,
-  toggleMember = DefaultProps.toggleMember
+  groupFilter, memberFilter, setMembers, toggleMember,
+  resetOnMount = DefaultProps.resetOnMount
 }: Props) {
   const dropdown = useDropdown();
   const popper = usePopper(dropdown.buttonElement, dropdown.menuElement, {});
@@ -41,14 +40,23 @@ function MemberFilter({
   const initMember = useCallback(() => {
     if (!memberQuery.data) return;
 
-    let newMembers = memberQuery.data.members.map((member) => ({
-      memberId: member.member_id,
-      name: member.name,
-      checked: memberFilter.find(item => item.memberId === member.member_id && item.checked) ? true : false
-    }));
+    let newMembers: MemberType[] = [];
+    if (resetOnMount) {
+      newMembers = memberQuery.data.members.map((member) => ({
+        memberId: member.member_id,
+        name: member.name,
+        checked: false
+      }));
+    } else {
+      newMembers = memberQuery.data.members.map((member) => ({
+        memberId: member.member_id,
+        name: member.name,
+        checked: memberFilter.find(item => item.checked && item.memberId === member.member_id) ? true : false
+      }));
+    }
 
     setMembers(newMembers);
-  }, [memberQuery.data, memberFilter]);
+  }, [memberQuery.data, memberFilter, resetOnMount, setMembers]);
   useEffect(() => {
     initMember();
   }, [memberQuery.data]);
@@ -77,7 +85,7 @@ function MemberFilter({
           >
             <input 
               type="checkbox"
-              checked={memberFilter[idx].checked}
+              checked={memberFilter[idx] && memberFilter[idx].checked ? memberFilter[idx].checked : false}
               readOnly
             />
             <span>{member.name}</span>
