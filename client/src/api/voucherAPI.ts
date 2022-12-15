@@ -31,6 +31,8 @@ export class postVoucher {
 
 export class getVoucherDetail {
   static axios = async (voucherId: number) => {
+    if (voucherId === 0) return;
+    
     const url = `/api/voucher/${voucherId}`;
     const res = await client.get<typeof this.resType>(url);
     return res.data;

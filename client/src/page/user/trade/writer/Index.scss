@@ -1,5 +1,5 @@
 .TradeWriterPage {
-  padding: 5em 1.5em;
+  padding: 5em 10%;
 
   .title-label {
     margin: 0 0 1em 0;
@@ -7,7 +7,7 @@
   }
   
   .Card {
-    .label { margin: 0; }
+    .label { margin: 0.3em 0; }
     .label-section {
       display: flex;
       flex-wrap: wrap;
@@ -17,28 +17,5 @@
       .label { flex-grow: 1; }
     }
   }
-
-  .SelectVoucherCard {
-
-  }
-
-  // .subtitle-label {
-  //   margin: 0;
-  // }
-
-  // .Card {
-  //   .label { margin: 0 0 1em 0; }
-  //   .text { margin: 0; }
-  // }
-
-  // .input-section {
-  //   margin-bottom: 1em;
-    
-  //   .input-line {
-  //     display: flex;
-  //     align-items: center;
   
-  //     .input-label { flex-shrink: 0; }
-  //   }
-  // }
 }

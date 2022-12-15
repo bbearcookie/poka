@@ -1,7 +1,9 @@
-import React, { useCallback } from 'react';
+import React, { useEffect, useReducer, useCallback } from 'react';
 import qs from 'qs';
 import BackLabel from '@component/label/BackLabel';
-import SelectVoucherCard from './content/SelectVoucherCard';
+import VoucherSection from './content/VoucherSection';
+import PhotocardSection from './content/PhotocardSection';
+import { initialState, reducer } from './reducer';
 import './Index.scss';
 
 interface Props {}
@@ -10,10 +12,11 @@ const DefaultProps = {};
 function Index({  }: Props) {
   const querystring = qs.parse(window.location.search, { ignoreQueryPrefix: true });
   const voucherId = Number(querystring.voucherId) || 0;
+  const [form, formDispatch] = useReducer(reducer, initialState);
 
-  // const { status, data: voucher, error } =
-  // useQuery<typeof voucherAPI.getVoucherDetail.resType, AxiosError<ErrorType>>
-  // (queryKey.voucherKeys.detail(voucherId), () => voucherAPI.getVoucherDetail.axios(voucherId));
+  useEffect(() => {
+    formDispatch({ type: 'SET_VOUCHER_ID', payload: voucherId });
+  }, [voucherId]);
 
   const onSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
@@ -21,11 +24,10 @@ function Index({  }: Props) {
 
   return (
     <div className="TradeWriterPage">
-      {voucherId !== 0 && <BackLabel to={`/voucher/detail/${voucherId}`} styles={{ marginBottom: "2em" }}>소유권</BackLabel>}
       <h1 className="title-label">교환글 등록</h1>
       <form onSubmit={onSubmit}>
-        {/* <SelectCard /> */}
-        <SelectVoucherCard />
+        <VoucherSection form={form} formDispatch={formDispatch} />
+        <PhotocardSection form={form} formDispatch={formDispatch} />
       </form>
     </div>
   );
