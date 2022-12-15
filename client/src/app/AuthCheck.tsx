@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useAppDispatch } from '@app/redux/reduxHooks';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorType } from '@util/request';

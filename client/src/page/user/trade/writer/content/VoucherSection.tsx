@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import * as queryKey from '@util/queryKey';
 import * as voucherAPI from '@api/voucherAPI';
 import { AxiosError } from 'axios';

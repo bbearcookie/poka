@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback } from 'react';
 import { useUpdateEffect } from 'react-use';
 import { useAppSelector } from '@app/redux/reduxHooks';
-import { useInfiniteQuery, useQueryClient } from 'react-query';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { AxiosError } from 'axios';

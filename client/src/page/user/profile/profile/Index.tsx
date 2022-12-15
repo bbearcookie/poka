@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppSelector } from '@app/redux/reduxHooks';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import * as userAPI from '@api/userAPI';
 import * as queryKey from '@util/queryKey';
 import { ErrorType } from '@util/request';

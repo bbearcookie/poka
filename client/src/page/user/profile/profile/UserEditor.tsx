@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import * as userAPI from '@api/userAPI';
 import * as queryKey from '@util/queryKey';

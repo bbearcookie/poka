@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import * as groupAPI from '@api/groupAPI';
 import * as queryKey from '@util/queryKey';
 import { useParams } from 'react-router-dom';

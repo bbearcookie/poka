@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback } from 'react';
-import { useQueries } from 'react-query';
+import { useQueries } from '@tanstack/react-query';
 import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import { PhotoType } from '@api/photoAPI';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
@@ -16,14 +16,17 @@ const DefaultProps = {};
 
 function PhotoList({  }: Props) {
   const { vouchers } = useAppSelector((state) => state.voucherWriter);
-  const photos = useQueries(vouchers.value.map((element) => ({
-    queryKey: queryKey.groupKeys.detail(element.photocardId),
-    queryFn: async () => {
-      const data = await photoAPI.getPhotoDetail.axios(element.photocardId);
-      return { ...data, id: element.id };
-    }
-  })));
   const dispatch = useAppDispatch();
+
+  const photos = useQueries({
+    queries: vouchers.value.map((element) => ({
+      queryKey: queryKey.groupKeys.detail(element.photocardId),
+      queryFn: async () => {
+        const data = await photoAPI.getPhotoDetail.axios(element.photocardId);
+        return { ...data, id: element.id };
+      }
+    }))
+  });
 
   // 수량 input 변경시 상태 값 반영
   const changeAmountInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {

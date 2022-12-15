@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { ErrorType } from '@util/request';
 import { AxiosError } from 'axios';
 import * as voucherAPI from '@api/voucherAPI';

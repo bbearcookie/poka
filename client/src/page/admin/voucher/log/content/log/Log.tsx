@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { ErrorType } from '@util/request';
 import { AxiosError } from 'axios';
 import * as userAPI from '@api/userAPI';

@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import useDropdown from '@hook/useDropdown';
 import { AxiosError } from 'axios';
 import { ErrorType } from '@util/request';

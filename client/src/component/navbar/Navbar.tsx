@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useNavigate, Link } from 'react-router-dom';
 import { usePopper } from 'react-popper';
 import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';

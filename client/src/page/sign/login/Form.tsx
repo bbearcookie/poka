@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '@app/redux/reduxHooks';
 import { login, logout } from '@util/auth/authSlice';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import * as authAPI from '@api/authAPI';
 import { AxiosError, AxiosResponse } from 'axios';

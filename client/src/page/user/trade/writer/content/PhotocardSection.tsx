@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useQueries, UseQueryResult, UseQueryOptions } from 'react-query';
+import { useQueries, UseQueryResult, UseQueryOptions } from '@tanstack/react-query';
 import { faAdd, faClose } from '@fortawesome/free-solid-svg-icons';
 import * as queryKey from '@util/queryKey';
 import * as photoAPI from '@api/photoAPI';
@@ -26,19 +26,15 @@ function PhotocardSection({ form, formDispatch }: Props) {
   const addModal = useModal();
 
   // 데이터 가져오기
-  const photos = useQueries(
-    form.data.wantPhotocardIds.map<UseQueryOptions<
-      AxiosResponse<typeof photoAPI.getPhotoDetail.resType>,
-      AxiosError<ErrorType>>
-    >((photocardId) => {
-      return {
-        queryKey: queryKey.photoKeys.detail(photocardId),
-        queryFn: () => { return axios.get(`http://localhost:5000/api/photo/${photocardId}`) }
+  const photos = useQueries({
+    queries: form.data.wantPhotocardIds.map((photocardId) => ({
+      queryKey: queryKey.groupKeys.detail(photocardId),
+      queryFn: async () => {
+        const data = await photoAPI.getPhotoDetail.axios(photocardId);
+        return data;
       }
-    })
-  );
-
-  console.log(photos);
+    }))
+  });
 
   // 받으려는 포토카드 선택
   const addWantPhotocardId = useCallback((photocardId: number) => {

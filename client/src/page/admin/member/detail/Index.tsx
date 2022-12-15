@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorType } from '@util/request';
 import * as memberAPI from '@api/memberAPI';

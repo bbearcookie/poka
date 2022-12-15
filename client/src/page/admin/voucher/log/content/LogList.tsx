@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useUpdateEffect } from 'react-use';
-import { useInfiniteQuery } from 'react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 import { AxiosError } from 'axios';
 import { ErrorType } from '@util/request';

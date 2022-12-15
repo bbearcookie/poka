@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
 import { ErrorType, getErrorMessage } from '@util/request';
