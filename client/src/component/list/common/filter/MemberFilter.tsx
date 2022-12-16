@@ -1,18 +1,14 @@
 import React, { useEffect, useCallback } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import useDropdown from '@hook/useDropdown';
-import { AxiosError } from 'axios';
-import { ErrorType } from '@util/request';
-import * as queryKey from '@api/queryKey';
-import * as memberAPI from '@api/memberAPI';
+import useMembersQuery from '@api/query/member/useMembersQuery';
+import { GroupType, MemberType } from './DataType';
 import { usePopper } from 'react-popper';
+import useDropdown from '@hook/useDropdown';
 import Dropdown from '@component/dropdown/Dropdown';
 import DropdownButton from '@component/dropdown/DropdownButton';
 import DropdownMenu from '@component/dropdown/DropdownMenu';
 import DropdownItem from '@component/dropdown/DropdownItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import { GroupType, MemberType } from './DataType';
 
 interface Props {
   groupFilter: GroupType[];
@@ -31,10 +27,7 @@ function MemberFilter({
 }: Props) {
   const dropdown = useDropdown();
   const popper = usePopper(dropdown.buttonElement, dropdown.menuElement, {});
-
-  const memberQuery =
-  useQuery<typeof memberAPI.getAllMemberList.resType, AxiosError<ErrorType>>
-  (queryKey.memberKeys.all, memberAPI.getAllMemberList.axios);
+  const memberQuery = useMembersQuery();
 
   // 멤버 정보 초기화
   const initMember = useCallback(() => {

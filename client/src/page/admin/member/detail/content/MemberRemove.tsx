@@ -1,40 +1,27 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
-import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType, getErrorMessage } from '@util/request';
+import { getErrorMessage } from '@util/request';
 import useModal from '@hook/useModal';
-import * as memberAPI from '@api/memberAPI';
-import * as queryKey from '@api/queryKey';
 import ConfirmModal from '@component/modal/ConfirmModal';
 import RemoveCard from '@component/card/RemoveCard';
+import { ResType as MemberType } from '@api/query/member/useMemberQuery';
+import useDeleteMember from '@api/mutation/member/useDeleteMember';
 
 interface Props {
-  member: typeof memberAPI.getMemberDetail.resType;
+  member: MemberType;
   memberId: number;
 }
 const DefaultProps = {};
 
 function MemberRemove({ member, memberId }: Props) {
   const removeModal = useModal();
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   // 데이터 삭제 요청
-  const deleteMutation = useMutation(memberAPI.deleteMember.axios, {
-    onSuccess: (res: AxiosResponse<typeof memberAPI.deleteMember.resType>) => {
-      toast.warning(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-      queryClient.invalidateQueries(queryKey.memberKeys.all);
-      queryClient.invalidateQueries(queryKey.memberKeys.detail(memberId));
-      queryClient.invalidateQueries(queryKey.groupKeys.all);
-      if (member?.group_id) queryClient.invalidateQueries(queryKey.groupKeys.detail(member.group_id));
-      return navigate(`/admin/group/detail/${member?.group_id}`);
-    },
-    onError: (err: AxiosError<ErrorType>) => {
-      removeModal.setErrorMessage(getErrorMessage(err));
-    }
-  })
+  const deleteMutation = useDeleteMember(
+    (res) => navigate(`/admin/group/detail/${res.data.groupId}`),
+    (err) => removeModal.setErrorMessage(getErrorMessage(err))
+  );
 
   // 멤버 삭제
   const removeMember = useCallback(() => {

@@ -40,7 +40,7 @@ export const getMemberDetail = {
 export const postMember = {
   validator: [
     isAdmin,
-    body('groupId')
+    param('groupId')
       .isNumeric().withMessage('그룹 ID는 숫자여야 해요.'),
     body('name').trim()
       .not().isEmpty().withMessage('이름이 비어있어요.')
@@ -48,7 +48,7 @@ export const postMember = {
     validate
   ],
   controller: async (req: Request, res: Response, next: NextFunction) => {
-    const groupId = Number(req.body.groupId);
+    const groupId = Number(req.params.groupId);
     const name = req.body.name as unknown as string;
 
     const [[group]] = await groupService.selectGroupDetail(groupId);
@@ -78,7 +78,11 @@ export const putMember = {
     if (!member) return res.status(404).json({ message: '수정하려는 멤버를 찾지 못했어요.' });
 
     await memberService.updateMember(memberId, name);
-    return res.status(200).json({ message: `멤버 ${member.name}의 이름을 ${name}(으)로 변경했어요.` });
+    return res.status(200).json({
+      message: `멤버 ${member.name}의 이름을 ${name}(으)로 변경했어요.`,
+      groupId: member.group_id,
+      memberId: member.member_id
+    });
     next();
   }
 }
@@ -97,7 +101,11 @@ export const deleteMember = {
     if (!member) return res.status(404).json({ message: '삭제하려는 멤버를 찾지 못했어요.' });
 
     await memberService.deleteMember(memberId);
-    return res.status(200).json({ message: `멤버 ${member.name} 을(를) 삭제했어요.` });
+    return res.status(200).json({
+      message: `멤버 ${member.name} 을(를) 삭제했어요.`,
+      groupId: member.group_id,
+      memberId: member.member_id
+    });
     next();
   }
 }

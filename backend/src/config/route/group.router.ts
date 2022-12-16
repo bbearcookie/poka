@@ -19,5 +19,6 @@ export default function(app: Express, baseURI: string) {
     groupCtrl.postGroup.validator,
     groupCtrl.postGroup.controller
   );
+  app.post(`${baseURI}/:groupId/member`, memberCtrl.postMember.validator, memberCtrl.postMember.controller);
   app.delete(`${baseURI}/:groupId`, groupCtrl.deleteGroup.validator, groupCtrl.deleteGroup.controller);
 };

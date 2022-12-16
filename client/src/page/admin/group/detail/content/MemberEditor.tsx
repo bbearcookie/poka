@@ -1,15 +1,11 @@
 import React, { useState, useCallback } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
-import * as memberAPI from '@api/memberAPI';
-import * as queryKey from '@api/queryKey';
-import { ErrorType } from '@util/request';
-import { AxiosError, AxiosResponse } from 'axios';
 import { getErrorMessage } from '@util/request';
+import useAddMember from '@api/mutation/member/useAddMember';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';
 import TableBodyItem from '@component/table/TableBodyItem';
+import useModifyMember from '@api/mutation/member/useModifyMember';
 
 interface Props {
   groupId: number;
@@ -25,48 +21,38 @@ const DefaultProps = {
 function MemberEditor({ groupId, memberId, defaultValue = DefaultProps.defaultValue, closeEditor }: Props) {
   const [name, setName] = useState(defaultValue);
   const [message, setMessage] = useState('');
-  const queryClient = useQueryClient();
 
   // 데이터 추가 요청
-  const addMutation = useMutation(memberAPI.postMember.axios, {
-    onSuccess: (res: AxiosResponse<typeof memberAPI.postMember.resType>) => {
-      toast.success('새로운 멤버를 추가했어요.', { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-      queryClient.invalidateQueries(queryKey.groupKeys.detail(groupId));
-      closeEditor();
-    },
-    onError: (err: AxiosError<ErrorType>) => {
-      const message = getErrorMessage(err);
-      toast.error(message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-      setMessage(message);
-    }
-  });
+  const addMutation = useAddMember(
+    (res) => closeEditor(),
+    (err) => setMessage(getErrorMessage(err))
+  );
 
   // 데이터 수정 요청
-  const modifyMutation = useMutation(memberAPI.putMember.axios, {
-    onSuccess: (res: AxiosResponse<typeof memberAPI.putMember.resType>) => {
-      toast.success(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-      queryClient.invalidateQueries(queryKey.groupKeys.detail(groupId));
-      closeEditor();
-    },
-    onError: (err: AxiosError<ErrorType>) => {
-      const message = getErrorMessage(err);
-      toast.error(message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-      setMessage(message);
-    }
-  });
+  const modifyMutation = useModifyMember(
+    (res) => closeEditor(),
+    (err) => setMessage(getErrorMessage(err))
+  );
 
   // input 상태 값 변경
   const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value), []);
 
   // 전송 이벤트
   const onSubmit = useCallback(() => {
-    if (memberId) modifyMutation.mutate({
-      memberId,
-      data: { name }
-    }); // 수정 요청
-    else addMutation.mutate({
-      data: { groupId, name }
-    }); // 추가 요청
+
+    // 수정 요청
+    if (memberId) {
+      modifyMutation.mutate({
+        memberId,
+        body: { name }
+      });
+    // 추가 요청
+    } else {
+      addMutation.mutate({
+        groupId,
+        body: { name }
+      });
+    }
   }, [name, groupId, memberId, addMutation, modifyMutation]);
 
   return (
