@@ -1,13 +1,14 @@
 import React, { Fragment, useCallback } from 'react';
 import { useQueries } from '@tanstack/react-query';
 import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
-import { PhotoType } from '@api/photoAPI';
+import { ResType as PhotoResType } from '@api/query/photo/usePhotoQuery';
+import { PhotoType } from '@type/photo';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
-import * as photoAPI from '@api/photoAPI';
 import * as queryKey from '@api/queryKey';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 import PhotoCard from '@component/photocard/PhotoCard';
+import { fetchPhotoDetail } from '@api/api/photo';
 import SkeletonPhotoCard from '@component/photocard/skeleton/SkeletonPhotoCard';
 import { changeVoucherAmount, removeVoucher, setVoucherMessage } from '../voucherWriterSlice';
 
@@ -19,12 +20,12 @@ function PhotoList({  }: Props) {
   const dispatch = useAppDispatch();
 
   const photos = useQueries({
-    queries: vouchers.value.map((element) => ({
-      queryKey: queryKey.groupKeys.detail(element.photocardId),
+    queries: vouchers.value.map((item) => ({
+      queryKey: queryKey.photoKeys.detail(item.photocardId),
       queryFn: async () => {
-        const data = await photoAPI.getPhotoDetail.axios(element.photocardId);
-        return { ...data, id: element.id };
-      }
+        const data = await fetchPhotoDetail(item.photocardId)
+        return { ...data, id: item.id } as Promise<PhotoResType & { id: number }>
+      } 
     }))
   });
 

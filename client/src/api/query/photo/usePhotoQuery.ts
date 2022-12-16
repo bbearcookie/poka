@@ -1,20 +1,17 @@
 import { useQuery, QueryOptions, UseQueryResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { ErrorType } from '@util/request';
-import { fetchMembers } from '@api/api/member';
+import { PhotoType } from '@type/photo';
+import { fetchPhotoDetail } from '@api/api/photo';
 import * as queryKey from '@api/queryKey';
 
-export interface ResType {
+export interface ResType extends PhotoType {
   message: string;
-  members: {
-    member_id: number;
-    group_id: number;
-    name: string;
-  }[];
 }
 
-export default function useMembersQuery(
+export default function usePhotoQuery(
+  photocardId: number,
   options?: QueryOptions<ResType, AxiosError<ErrorType>>
 ): UseQueryResult<ResType, AxiosError<ErrorType>> {
-  return useQuery(queryKey.memberKeys.all, fetchMembers, options);
+  return useQuery(queryKey.photoKeys.detail(photocardId), () => fetchPhotoDetail(photocardId), options);
 }

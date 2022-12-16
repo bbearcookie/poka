@@ -10,6 +10,7 @@
       "@page/*": ["src/page/*"],
       "@util/*": ["src/util/*"],
       "@route/*": ["src/route/*"],
+      "@type/*": ["src/type/*"],
       "@template/*": ["src/template/*"],
       "@/*": ["src/*"]
     }

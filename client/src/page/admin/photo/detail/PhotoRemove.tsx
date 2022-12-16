@@ -9,9 +9,10 @@ import * as queryKey from '@api/queryKey';
 import useModal from '@hook/useModal';
 import ConfirmModal from '@component/modal/ConfirmModal';
 import RemoveCard from '@component/card/RemoveCard';
+import { ResType as PhotoResType } from '@api/query/photo/usePhotoQuery';
 
 interface Props {
-  photo: typeof photoAPI.getPhotoDetail.resType;
+  photo: PhotoResType;
   photocardId: number;
 }
 const DefaultProps = {};

@@ -4,7 +4,7 @@ import { ErrorType } from '@util/request';
 import { fetchMemberDetail } from '@api/api/member';
 import * as queryKey from '@api/queryKey';
 
-export type ResType = {
+export interface ResType {
   message: string;
   group_id: number;
   group_name: string;

@@ -1,20 +1,17 @@
 import React, { useCallback } from 'react';
-import { useQueries, UseQueryResult, UseQueryOptions } from '@tanstack/react-query';
-import { faAdd, faClose } from '@fortawesome/free-solid-svg-icons';
+import { useQueries } from '@tanstack/react-query';
+import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import * as queryKey from '@api/queryKey';
-import * as photoAPI from '@api/photoAPI';
-import axios, { AxiosResponse, AxiosError } from 'axios';
-import { ErrorType } from '@util/request';
 import useModal from '@hook/useModal';
 import TitleModal from '@component/modal/TitleModal';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
-import Select from '@component/form/Select';
 import Button from '@component/form/Button';
 import PhotoListCard from '@component/list/photo/PhotoListCard';
 import { State as FormState, Action as FormAction } from '../reducer';
-import PhotoCard from '@component/photocard/PhotoCard';
+import { fetchPhotoDetail } from '@api/api/photo';
+import { ResType as PhotoResType } from '@api/query/photo/usePhotoQuery';
 
 interface Props {
   form: FormState;
@@ -28,11 +25,10 @@ function PhotocardSection({ form, formDispatch }: Props) {
   // 데이터 가져오기
   const photos = useQueries({
     queries: form.data.wantPhotocardIds.map((photocardId) => ({
-      queryKey: queryKey.groupKeys.detail(photocardId),
+      queryKey: queryKey.photoKeys.detail(photocardId),
       queryFn: async () => {
-        const data = await photoAPI.getPhotoDetail.axios(photocardId);
-        return data;
-      }
+        return await fetchPhotoDetail(photocardId) as Promise<PhotoResType>
+      } 
     }))
   });
 

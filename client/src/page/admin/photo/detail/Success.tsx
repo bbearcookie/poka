@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from 'react';
-import * as photoAPI from '@api/photoAPI';
+import { ResType as PhotoResType } from '@api/query/photo/usePhotoQuery';
 import PhotoInfo from './PhotoInfo';
 import PhotoEditor from './PhotoEditor';
 import PhotoRemove from './PhotoRemove';
 
 interface Props {
-  photo: typeof photoAPI.getPhotoDetail.resType;
+  photo: PhotoResType;
   photocardId: number;
 }
 const DefaultProps = {};

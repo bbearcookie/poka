@@ -16,9 +16,10 @@ import Select from '@component/form/Select';
 import ImageUploader, { Image } from '@component/form/uploader/ImageUploader';
 import useGroupsQuery from '@api/query/group/useGroupsQuery';
 import useGroupQuery from '@api/query/group/useGroupQuery';
+import { ResType as PhotoResType } from '@api/query/photo/usePhotoQuery';
 
 interface Props {
-  photo: typeof photoAPI.getPhotoDetail.resType;
+  photo: PhotoResType;
   photocardId: number;
   closeEditor: () => void;
 }

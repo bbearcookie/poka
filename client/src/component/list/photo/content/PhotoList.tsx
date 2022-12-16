@@ -1,15 +1,13 @@
 import React, { Fragment, useCallback } from 'react';
 import { useUpdateEffect } from 'react-use';
 import { useAppSelector } from '@app/redux/reduxHooks';
-import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { AxiosError } from 'axios';
-import { ErrorType } from '@util/request';
 import * as queryKey from '@api/queryKey';
-import * as photoAPI from '@api/photoAPI';
 import PhotoCard from '@component/photocard/PhotoCard';
 import SkeletonPhotoCard from '@component/photocard/skeleton/SkeletonPhotoCard';
+import usePhotosQuery from '@api/query/photo/usePhotosQuery';
 
 interface Props {
   icon?: IconDefinition;
@@ -23,16 +21,8 @@ function PhotoList({ icon, handleClickIcon }: Props) {
   const queryClient = useQueryClient();
 
   // 데이터 가져오기
-  const { data: photos, error, refetch, isFetching, fetchNextPage, hasNextPage } = 
-  useInfiniteQuery<typeof photoAPI.getPhotoList.resType, AxiosError<ErrorType>>
-  (queryKey.photoKeys.all,
-  ({ pageParam = 0 }) => photoAPI.getPhotoList.axios(pageParam, filter),
-  {
-    getNextPageParam: (lastPage, pages) => {
-      return lastPage?.paging.hasNextPage && lastPage?.paging.pageParam + 1;
-    },
-    refetchOnWindowFocus: false,
-  });
+  const { data: photos, error, refetch, isFetching, fetchNextPage, hasNextPage } =
+  usePhotosQuery(filter);
 
   // 다음 페이지 가져오기
   const handleFetchNextPage = useCallback(() => {

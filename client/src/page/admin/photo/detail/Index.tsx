@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { ErrorType } from '@util/request';
 import { AxiosError } from 'axios';
+import usePhotoQuery from '@api/query/photo/usePhotoQuery';
 import * as photoAPI from '@api/photoAPI';
 import * as queryKey from '@api/queryKey';
 import BackLabel from '@component/label/BackLabel';
@@ -14,10 +15,7 @@ const DefaultProps = {};
 
 function PhotoDetailPage({  }: Props) {
   const { photocardId } = useParams() as any;
-
-  const { status, data: photo, error } = 
-  useQuery<typeof photoAPI.getPhotoDetail.resType, AxiosError<ErrorType>>
-  (queryKey.photoKeys.detail(photocardId), () => photoAPI.getPhotoDetail.axios(photocardId));
+  const { status, data: photo, error } = usePhotoQuery(photocardId);
   
   return (
     <div className="PhotoDetailPage">
