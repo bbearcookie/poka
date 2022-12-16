@@ -4,10 +4,10 @@ import { groupImage } from '@api/resource';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import IconButton from '@component/form/IconButton';
 import TableBodyItem from '@component/table/TableBodyItem';
-import * as groupAPI from '@api/groupAPI';
+import { ResType as GroupsType } from '@api/query/useGroupsQuery';
 
 interface Props {
-  groups: typeof groupAPI.getAllGroupList.resType;
+  groups: GroupsType;
 }
 const DefaultProps = {};
 

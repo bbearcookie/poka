@@ -9,8 +9,7 @@ import TableHeadItem from '@component/table/TableHeadItem';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { AxiosError } from 'axios';
 import { ErrorType, getErrorMessage } from '@util/request';
-import * as queryKey from '@util/queryKey';
-import * as groupAPI from '@api/groupAPI';
+import useGroupsQuery from '@api/query/group/useGroupsQuery';
 import GroupList from './GroupList';
 import SkeletonGroupList from './SkeletonGroupList';
 import './Index.scss';
@@ -19,9 +18,7 @@ interface Props {}
 const DefaultProps = {};
 
 function GroupListPage({  }: Props) {
-  const { status, data: groups, error } = 
-  useQuery<typeof groupAPI.getAllGroupList.resType, AxiosError<ErrorType>>
-  (queryKey.groupKeys.all, groupAPI.getAllGroupList.axios);
+  const { status, data: groups, error } = useGroupsQuery();
 
   return (
     <section className="GroupListPage">

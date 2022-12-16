@@ -2,7 +2,7 @@ import React from 'react';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import { useQuery } from '@tanstack/react-query';
 import * as userAPI from '@api/userAPI';
-import * as queryKey from '@util/queryKey';
+import * as queryKey from '@api/queryKey';
 import { ErrorType } from '@util/request';
 import { AxiosError } from 'axios';
 import ErrorCard from '@component/card/ErrorCard';

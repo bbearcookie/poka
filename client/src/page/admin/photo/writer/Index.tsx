@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorType, getErrorMessage } from '@util/request';
 import * as photoAPI from '@api/photoAPI';
-import * as queryKey from '@util/queryKey';
+import * as queryKey from '@api/queryKey';
 import Button from '@component/form/Button';
 import SelectCard from './SelectCard';
 import Upload from './Upload';

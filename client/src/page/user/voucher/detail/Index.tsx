@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { ErrorType } from '@util/request';
 import { AxiosError } from 'axios';
 import * as voucherAPI from '@api/voucherAPI';
-import * as queryKey from '@util/queryKey';
+import * as queryKey from '@api/queryKey';
 import BackLabel from '@component/label/BackLabel';
 import Success from './Success';
 import './Index.scss';

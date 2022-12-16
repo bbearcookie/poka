@@ -4,7 +4,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 import { AxiosError } from 'axios';
 import { ErrorType } from '@util/request';
-import * as queryKey from '@util/queryKey';
+import * as queryKey from '@api/queryKey';
 import * as voucherAPI from '@api/voucherAPI';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';

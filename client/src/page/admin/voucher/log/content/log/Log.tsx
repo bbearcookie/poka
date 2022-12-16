@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { ErrorType } from '@util/request';
 import { AxiosError } from 'axios';
 import * as userAPI from '@api/userAPI';
-import * as queryKey from '@util/queryKey';
+import * as queryKey from '@api/queryKey';
 import { LogType } from '@api/voucherAPI';
 import { getFormattedTime } from '@util/common';
 import Issued from '../Issued';

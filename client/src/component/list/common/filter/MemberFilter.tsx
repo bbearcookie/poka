@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import useDropdown from '@hook/useDropdown';
 import { AxiosError } from 'axios';
 import { ErrorType } from '@util/request';
-import * as queryKey from '@util/queryKey';
+import * as queryKey from '@api/queryKey';
 import * as memberAPI from '@api/memberAPI';
 import { usePopper } from 'react-popper';
 import Dropdown from '@component/dropdown/Dropdown';

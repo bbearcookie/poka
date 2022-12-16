@@ -1,8 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError } from 'axios';
 import { ErrorType } from '@util/request';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
@@ -10,7 +8,8 @@ import Button from '@component/form/Button';
 import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 import ImageUploader, { Image } from '@component/form/uploader/ImageUploader';
-import * as groupAPI from '@api/groupAPI';
+import useAddGroup from '@api/mutation/group/useAddGroup';
+import useModifyGroup from '@api/mutation/group/useModifyGroup';
 
 interface Props {
   name?: string;
@@ -43,40 +42,26 @@ function Form({ name = DefaultProps.name, imageName = DefaultProps.imageName, gr
   });
   const navigate = useNavigate();
 
-  // 데이터 추가 요청
-  const postMutation = useMutation(groupAPI.postGroup.axios, {
-    onSuccess: (res: AxiosResponse<typeof groupAPI.postGroup.resType>) => {
-      toast.success(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-      return navigate('/admin/group/list');
-    },
-    onError: (err: AxiosError<ErrorType<keyof InputType>>) => {
-      toast.error(err.response?.data.message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
+  // 요청 실패시 콜백 함수
+  const onMutationError = useCallback((err: AxiosError<ErrorType<keyof InputType>>) => {
+    let message = inputMessage;
+    err.response?.data.errors.forEach((e) => {
+      message[e.param] = e.message;
+    });
+    setInputMessage({ ...inputMessage, ...message });
+  }, [inputMessage]);
 
-      let message = inputMessage;
-      err.response?.data.errors.forEach((e) => {
-        message[e.param] = e.message;
-      });
-      setInputMessage({ ...inputMessage, ...message });
-    }
-  });
+  // 데이터 추가 요청
+  const postMutation = useAddGroup<keyof InputType>(
+    (res) => navigate(`/admin/group/list`),
+    onMutationError
+  );
 
   // 데이터 수정 요청
-  const putMutation = useMutation(groupAPI.putGroup.axios, {
-    onSuccess: (res: AxiosResponse<typeof groupAPI.putGroup.resType>) => {
-      toast.success(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-      return navigate(`/admin/group/detail/${groupId}`);
-    },
-    onError: (err: AxiosError<ErrorType<keyof InputType>>) => {
-      if (err.response?.data.message) toast.error(err.response?.data.message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-      else toast.error(err.message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-
-      let message = inputMessage;
-      err.response?.data.errors.forEach((e) => {
-        message[e.param] = e.message;
-      });
-      setInputMessage({ ...inputMessage, ...message });
-    }
-  });
+  const putMutation = useModifyGroup<keyof InputType>(
+    (res) => navigate(`/admin/group/detail/${groupId}`),
+    onMutationError
+  );
 
   // 유효성 검사
   const validate = useCallback((name: keyof InputType) => {
@@ -117,41 +102,27 @@ function Form({ name = DefaultProps.name, imageName = DefaultProps.imageName, gr
   const onSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // 전체 폼 요소 유효성 검사 함수
-    const validateAll = () => {
-      let message = inputMessage;
-      let valid = true;
-
-      Object.keys(inputMessage).forEach((key) => {
-        const name = key as unknown as keyof InputType;
-        message[name] = validate(name);
-        if (message[name]) valid = false;
-      });
-      setInputMessage({ ...inputMessage, ...message });
-
-      return valid;
-    };
-
-    if (!validateAll()) return toast.error('올바른 정보를 입력해주세요.', { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT});
-
+    // 그룹 수정중이면 수정 요청
     if (groupId) {
       putMutation.mutate({
         groupId,
-        data: {
-          ...input,
+        body: {
+          name: input.name,
           image: input.image.file
         }
       });
+    
+    // 새로운 그룹 작성중이면 추가 요청
     } else {
       postMutation.mutate({
-        data: {
-          ...input,
+        body: {
+          name: input.name,
           image: input.image.file
         }
       });
     }
 
-  }, [input, inputMessage, postMutation, putMutation, groupId, validate]);
+  }, [input, postMutation, putMutation, groupId]);
 
   // 취소 버튼 클릭시
   const goBack = useCallback(() => {

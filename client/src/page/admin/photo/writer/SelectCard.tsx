@@ -1,15 +1,11 @@
 import React, { useCallback } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType } from '@util/request';
-import * as queryKey from '@util/queryKey';
-import * as groupAPI from '@api/groupAPI';
-import * as memberAPI from '@api/memberAPI';
 import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 import Select from '@component/form/Select';
 import InputMessage from '@component/form/InputMessage';
 import { SelectType } from './Index';
+import useGroupsQuery from '@api/query/group/useGroupsQuery';
+import useGroupQuery from '@api/query/group/useGroupQuery';
 
 interface Props {
   select: SelectType;
@@ -20,13 +16,8 @@ interface Props {
 const DefaultProps = {};
 
 function SelectCard({ select, setSelect, selectMessage, setSelectMessage }: Props) {
-  const groupQuery =
-  useQuery<typeof groupAPI.getAllGroupList.resType, AxiosError<ErrorType>>
-  (queryKey.groupKeys.all, groupAPI.getAllGroupList.axios);
-
-  const memberQuery = 
-  useQuery<typeof groupAPI.getMembersOfGroup.resType, AxiosError<ErrorType>>
-  (queryKey.groupKeys.members(select.groupId), () => groupAPI.getMembersOfGroup.axios(select.groupId));
+  const groupQuery = useGroupsQuery();
+  const memberQuery = useGroupQuery(select.groupId);
 
   // 그룹 선택 변경
   const onChangeGroup = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {

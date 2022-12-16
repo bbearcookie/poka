@@ -4,21 +4,6 @@ import { isAdmin, isLoggedIn, validate } from '@util/validator';
 import * as groupService from '@service/group.service';
 import * as memberService from '@service/member.service';
 
-// 특정 그룹의 멤버 목록 조회
-export const getMembersOfGroup = {
-  validator: [
-    param('groupId').isNumeric().withMessage('그룹 ID는 숫자여야 해요.'),
-    validate
-  ],
-  controller: async (req: Request, res: Response, next: NextFunction) => {
-    const groupId = Number(req.params.groupId);
-
-    const [members] = await memberService.selectAllMembersOfGroup(groupId);
-    return res.status(200).json({ message: `${groupId}번 그룹의 멤버 목록을 조회했습니다.`, members });
-    next();
-  }
-}
-
 // 모든 멤버 목록 조회
 export const getAllMemberList = {
   controller: async (req: Request, res: Response, next: NextFunction) => {

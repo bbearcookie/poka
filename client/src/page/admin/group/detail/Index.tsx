@@ -1,10 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import * as groupAPI from '@api/groupAPI';
-import * as queryKey from '@util/queryKey';
-import { ErrorType } from '@util/request';
-import { AxiosError } from 'axios';
+import useGroupQuery from '@api/query/group/useGroupQuery';
 import BackLabel from '@component/label/BackLabel';
 import ErrorCard from '@component/card/ErrorCard';
 import Success from './Success';
@@ -16,9 +12,7 @@ const DefaultProps = {};
 
 function GroupDetailPage({  }: Props) {
   const { groupId } = useParams() as any;
-  const { status, data: group, error } =
-  useQuery<typeof groupAPI.getGroupDetail.resType, AxiosError<ErrorType>>
-  (queryKey.groupKeys.detail(groupId), () => groupAPI.getGroupDetail.axios(groupId));
+  const { status, data: group, error } = useGroupQuery(groupId);
 
   return (
     <div className="GroupDetailPage">

@@ -4,7 +4,7 @@ import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import { PhotoType } from '@api/photoAPI';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import * as photoAPI from '@api/photoAPI';
-import * as queryKey from '@util/queryKey';
+import * as queryKey from '@api/queryKey';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 import PhotoCard from '@component/photocard/PhotoCard';

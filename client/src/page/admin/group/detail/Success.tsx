@@ -2,13 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { groupImage } from '@api/resource';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import * as groupAPI from '@api/groupAPI';
+import { ResType as GroupType } from '@api/query/group/useGroupQuery';
 import Button from '@component/form/Button';
 import MemberList from './content/MemberList';
 import GroupRemove from './content/GroupRemove';
 
 interface Props {
-  group: typeof groupAPI.getGroupDetail.resType;
+  group: GroupType;
   groupId: number;
 }
 const DefaultProps = {};

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useQueries, UseQueryResult, UseQueryOptions } from '@tanstack/react-query';
 import { faAdd, faClose } from '@fortawesome/free-solid-svg-icons';
-import * as queryKey from '@util/queryKey';
+import * as queryKey from '@api/queryKey';
 import * as photoAPI from '@api/photoAPI';
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import { ErrorType } from '@util/request';

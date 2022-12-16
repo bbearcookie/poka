@@ -6,7 +6,7 @@ import { useAppSelector } from '@app/redux/reduxHooks';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { AxiosError } from 'axios';
 import { ErrorType } from '@util/request';
-import * as queryKey from '@util/queryKey';
+import * as queryKey from '@api/queryKey';
 import * as voucherAPI from '@api/voucherAPI';
 import VoucherCard from '@component/photocard/VoucherCard';
 import SkeletonVoucherCard from '@component/photocard/skeleton/SkeletonVoucherCard';

@@ -1,5 +1,5 @@
 import React, { useState, useCallback, Fragment } from 'react';
-import * as groupAPI from '@api/groupAPI';
+import { ResType as GroupType } from '@api/query/group/useGroupQuery';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
@@ -12,7 +12,7 @@ import MemberInfo from './MemberInfo';
 import MemberAddButton from './MemberAddButton';
 
 interface Props {
-  group: typeof groupAPI.getGroupDetail.resType;
+  group: GroupType;
   groupId: number;
 }
 const DefaultProps = {};

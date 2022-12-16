@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import * as memberAPI from '@api/memberAPI';
-import * as queryKey from '@util/queryKey';
+import * as queryKey from '@api/queryKey';
 import { ErrorType } from '@util/request';
 import { AxiosError, AxiosResponse } from 'axios';
 import { getErrorMessage } from '@util/request';

@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
 import { ErrorType, getErrorMessage } from '@util/request';
 import * as shippingAddressAPI from '@api/shippingAddressAPI';
-import * as queryKey from '@util/queryKey';
+import * as queryKey from '@api/queryKey';
 import useModal from '@hook/useModal';
 import ConfirmModal from '@component/modal/ConfirmModal';
 import IconButton from '@component/form/IconButton';

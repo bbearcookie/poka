@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import * as userAPI from '@api/userAPI';
 import * as shippingAddressAPI from '@api/shippingAddressAPI';
-import * as queryKey from '@util/queryKey';
+import * as queryKey from '@api/queryKey';
 import { AddressType } from '@api/shippingAddressAPI';
 import { AxiosError } from 'axios';
 import { ErrorType, getErrorMessage } from '@util/request';

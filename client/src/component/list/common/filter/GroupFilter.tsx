@@ -1,10 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import useDropdown from '@hook/useDropdown';
-import { AxiosError } from 'axios';
-import { ErrorType } from '@util/request';
-import * as queryKey from '@util/queryKey';
-import * as groupAPI from '@api/groupAPI';
 import { usePopper } from 'react-popper';
 import Dropdown from '@component/dropdown/Dropdown';
 import DropdownButton from '@component/dropdown/DropdownButton';
@@ -13,6 +8,7 @@ import DropdownItem from '@component/dropdown/DropdownItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { GroupType } from './DataType';
+import useGroupsQuery from '@api/query/group/useGroupsQuery';
 
 interface Props {
   filter: GroupType[];
@@ -27,10 +23,7 @@ const DefaultProps = {
 function GroupFilter({ filter, setGroups, toggleGroup, resetOnMount = DefaultProps.resetOnMount }: Props) {
   const dropdown = useDropdown();
   const popper = usePopper(dropdown.buttonElement, dropdown.menuElement, {});
-
-  const groupQuery =
-  useQuery<typeof groupAPI.getAllGroupList.resType, AxiosError<ErrorType>>
-  (queryKey.groupKeys.all, groupAPI.getAllGroupList.axios);
+  const groupQuery = useGroupsQuery();
 
   // 그룹 정보 초기화
   const initGroup = useCallback(() => {

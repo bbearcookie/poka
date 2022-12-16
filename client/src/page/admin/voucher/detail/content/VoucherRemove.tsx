@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import { ErrorType, getErrorMessage } from '@util/request';
-import * as queryKey from '@util/queryKey';
+import * as queryKey from '@api/queryKey';
 import * as voucherAPI from '@api/voucherAPI';
 import useModal from '@hook/useModal';
 import RemoveCard from '@component/card/RemoveCard';

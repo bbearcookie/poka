@@ -6,7 +6,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorType, getErrorMessage } from '@util/request';
 import useModal from '@hook/useModal';
 import * as memberAPI from '@api/memberAPI';
-import * as queryKey from '@util/queryKey';
+import * as queryKey from '@api/queryKey';
 import ConfirmModal from '@component/modal/ConfirmModal';
 import RemoveCard from '@component/card/RemoveCard';
 

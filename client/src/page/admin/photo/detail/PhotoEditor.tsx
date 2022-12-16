@@ -3,8 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorType } from '@util/request';
-import * as queryKey from '@util/queryKey';
-import * as groupAPI from '@api/groupAPI';
+import * as queryKey from '@api/queryKey';
 import * as photoAPI from '@api/photoAPI';
 import { photoImage } from '@api/resource';
 import { getErrorMessage } from '@util/request';
@@ -15,6 +14,8 @@ import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 import Select from '@component/form/Select';
 import ImageUploader, { Image } from '@component/form/uploader/ImageUploader';
+import useGroupsQuery from '@api/query/group/useGroupsQuery';
+import useGroupQuery from '@api/query/group/useGroupQuery';
 
 interface Props {
   photo: typeof photoAPI.getPhotoDetail.resType;
@@ -49,14 +50,8 @@ function PhotoEditor({ photo, photocardId, closeEditor }: Props) {
     memberId: ''
   });
   const queryClient = useQueryClient();
-
-  const groupQuery =
-  useQuery<typeof groupAPI.getAllGroupList.resType, AxiosError<ErrorType>>
-  (queryKey.groupKeys.all, groupAPI.getAllGroupList.axios);
-
-  const memberQuery = 
-  useQuery<typeof groupAPI.getMembersOfGroup.resType, AxiosError<ErrorType>>
-  (queryKey.groupKeys.members(form.groupId), () => groupAPI.getMembersOfGroup.axios(form.groupId));
+  const groupQuery = useGroupsQuery();
+  const memberQuery = useGroupQuery(form.groupId);
 
   // 데이터 수정 요청
   const putMutation = useMutation(photoAPI.putPhoto.axios, {

@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
 import { ErrorType, getErrorMessage } from '@util/request';
 import * as shippingAddressAPI from '@api/shippingAddressAPI';
-import * as queryKey from '@util/queryKey';
+import * as queryKey from '@api/queryKey';
 import IconButton from '@component/form/IconButton';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
 import { AddressType } from '@api/shippingAddressAPI';
