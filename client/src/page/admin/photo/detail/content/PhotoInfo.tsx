@@ -1,6 +1,6 @@
 import React from 'react';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { PhotoType } from '@api/photoAPI';
+import { PhotoType } from '@type/photo';
 import Button from '@component/form/Button';
 import PhotoInfoCard from '@component/photocard/detail/PhotoInfoCard';
 

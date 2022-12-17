@@ -1,6 +1,6 @@
 import React from 'react';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { PhotoType } from '@api/photoAPI';
+import { PhotoType } from '@type/photo';
 import IconButton from '@component/form/IconButton';
 import PhotoCardTemplate from '@component/photocard/PhotoCardTemplate';
 import { StylesProps } from '@component/card/basic/Card';

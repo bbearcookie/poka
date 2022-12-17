@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { photoImage } from '@api/resource';
-import { PhotoType } from '@api/photoAPI';
+import { PhotoType } from '@type/photo';
 import Card, { StylesProps as CardStyles } from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 

@@ -4,24 +4,16 @@ import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorType } from '@util/request';
 import { getErrorMessage } from '@util/request';
-import { modifyPhoto } from '@api/api/photo';
+import { deletePhoto } from '@api/api/photo';
 import * as queryKey from '@api/queryKey';
 
 export interface ParamType {
   photocardId: number;
-  body: {
-    name: string;
-    groupId: number;
-    memberId: number;
-    image: File | null;
-  }
 }
 
-interface ResType {
-  message: string;
-}
+interface ResType { message: string; }
 
-export default function useModifyPhoto<TParam>(
+export default function useDeletePhoto<TParam>(
   onSuccess?: (res: AxiosResponse<ResType>) => void,
   onError?: (err: AxiosError<ErrorType<TParam>, any>) => void
 ): 
@@ -33,7 +25,7 @@ UseMutationResult<
   const queryClient = useQueryClient();
   const photocardId = useRef(0);
 
-  return useMutation(modifyPhoto, {
+  return useMutation(deletePhoto, {
     onSuccess: (res: AxiosResponse<ResType>) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
       queryClient.invalidateQueries(queryKey.photoKeys.all);

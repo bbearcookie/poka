@@ -1,11 +1,7 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
-import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType, getErrorMessage } from '@util/request';
-import * as photoAPI from '@api/photoAPI';
-import * as queryKey from '@api/queryKey';
+import { getErrorMessage } from '@util/request';
+import useDeletePhoto from '@api/mutation/photo/useDeletePhoto';
 import useModal from '@hook/useModal';
 import ConfirmModal from '@component/modal/ConfirmModal';
 import RemoveCard from '@component/card/RemoveCard';
@@ -19,21 +15,13 @@ const DefaultProps = {};
 
 function PhotoRemove({ photo, photocardId }: Props) {
   const removeModal = useModal();
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   // 데이터 삭제 요청
-  const deleteMutation = useMutation(photoAPI.deletePhoto.axios, {
-    onSuccess: (res: AxiosResponse<typeof photoAPI.deletePhoto.resType>) => {
-      toast.warning(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-      queryClient.invalidateQueries(queryKey.photoKeys.all);
-      queryClient.invalidateQueries(queryKey.photoKeys.detail(photocardId));
-      return navigate('/admin/photo/list');
-    },
-    onError: (err: AxiosError<ErrorType>) => {
-      removeModal.setErrorMessage(getErrorMessage(err));
-    }
-  });
+  const deleteMutation = useDeletePhoto(
+    (res) => navigate('/admin/photo/list'),
+    (err) => removeModal.setErrorMessage(getErrorMessage(err))
+  );
 
   // 포토카드 삭제
   const removePhotocard = useCallback(() => {

@@ -3,7 +3,7 @@ import { AxiosError } from 'axios';
 import { ErrorType } from '@util/request';
 import { fetchPhotos } from '@api/api/photo';
 import { FilterType } from '@component/list/photo/photoListCardSlice';
-import { PhotoType } from '@api/photoAPI';
+import { PhotoType } from '@type/photo';
 import * as queryKey from '@api/queryKey';
 
 export interface ParamType {

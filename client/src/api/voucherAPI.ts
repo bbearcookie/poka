@@ -1,6 +1,6 @@
 import { client } from "@util/request";
 import { FilterType } from "@component/list/voucher/voucherListSlice";
-import { PhotoType } from "@api/photoAPI";
+import { PhotoType } from "@type/photo";
 
 export type VoucherType = PhotoType & {
   voucher_id: number;
