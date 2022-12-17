@@ -10,18 +10,6 @@ export type PhotoType = {
   image_name: string;
 };
 
-export class postPhotos {
-  static axios = async ({ data }: { data: object }) => {
-    const url = `/api/photo/multiple`;
-    const option = { headers: { 'Content-Type': 'multipart/form-data' } };
-    const res = await client.post<typeof this.resType>(url, data, option);
-    return res;
-  }
-  static resType = undefined as undefined | {
-    message: string;
-  }
-}
-
 export class putPhoto {
   static axios = async ({ photocardId, data }: { photocardId: number; data: object; }) => {
     const url = `/api/photo/${photocardId}`;

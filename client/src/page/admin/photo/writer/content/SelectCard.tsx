@@ -1,41 +1,34 @@
 import React, { useCallback } from 'react';
+import useGroupsQuery from '@api/query/group/useGroupsQuery';
+import useGroupQuery from '@api/query/group/useGroupQuery';
 import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 import Select from '@component/form/Select';
 import InputMessage from '@component/form/InputMessage';
-import { SelectType } from './Index';
-import useGroupsQuery from '@api/query/group/useGroupsQuery';
-import useGroupQuery from '@api/query/group/useGroupQuery';
+import { State, Action } from '../reducer';
 
 interface Props {
-  select: SelectType;
-  setSelect: React.Dispatch<React.SetStateAction<SelectType>>;
-  selectMessage: {[k in keyof SelectType]: string;};
-  setSelectMessage: React.Dispatch<React.SetStateAction<{[k in keyof SelectType]: string;}>>
+  state: State;
+  dispatch: React.Dispatch<Action>;
 }
 const DefaultProps = {};
 
-function SelectCard({ select, setSelect, selectMessage, setSelectMessage }: Props) {
+function SelectCard({ state, dispatch }: Props) {
   const groupQuery = useGroupsQuery();
-  const memberQuery = useGroupQuery(select.groupId);
+  const memberQuery = useGroupQuery(state.form.groupId);
 
   // 그룹 선택 변경
   const onChangeGroup = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelect({
-      groupId: Number(e.target.value),
-      memberId: 0
-    });
-    setSelectMessage({ ...selectMessage, groupId: '' });
-  }, [setSelect, selectMessage, setSelectMessage]);
+    dispatch({ type: 'SET_GROUP_ID', groupId: Number(e.target.value) });
+    dispatch({ type: 'SET_MEMBER_ID', memberId: 0 });
+    dispatch({ type: 'SET_MESSAGE', payload: { target: 'groupId', value: '' } });
+  }, [dispatch]);
 
   // 멤버 선택 변경
   const onChangeMember = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelect({
-      groupId: select.groupId,
-      memberId: Number(e.target.value)
-    });
-    setSelectMessage({ ...selectMessage, memberId: '' });
-  }, [select, setSelect, selectMessage, setSelectMessage]);
+    dispatch({ type: 'SET_MEMBER_ID', memberId: Number(e.target.value) });
+    dispatch({ type: 'SET_MESSAGE', payload: { target: 'memberId', value: '' } });
+  }, [dispatch]);
 
   return (
     <Card className="SelectCard">
@@ -59,7 +52,7 @@ function SelectCard({ select, setSelect, selectMessage, setSelectMessage }: Prop
               ))}
             </Select>
           </section>
-          {selectMessage.groupId && <InputMessage styles={{margin: "0.5em 0 0 0"}}>{selectMessage.groupId}</InputMessage>}
+          {state.message.groupId && <InputMessage styles={{margin: "0.5em 0 0 0"}}>{state.message.groupId}</InputMessage>}
         </section>
 
         <section className="input-section">
@@ -79,7 +72,7 @@ function SelectCard({ select, setSelect, selectMessage, setSelectMessage }: Prop
               ))}
             </Select>
           </section>
-          {selectMessage.memberId && <InputMessage styles={{margin: "0.5em 0 0 0"}}>{selectMessage.memberId}</InputMessage>}
+          {state.message.memberId && <InputMessage styles={{margin: "0.5em 0 0 0"}}>{state.message.memberId}</InputMessage>}
         </section>
 
         <p className="description">등록하려는 포토카드들이 어떤 대상의 포토카드인지를 지정합니다.</p>
