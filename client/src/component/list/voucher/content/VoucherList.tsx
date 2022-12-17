@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback } from 'react';
+import useVouchersQuery from '@api/query/voucher/useVouchersQuery';
 import { useUpdateEffect } from 'react-use';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
@@ -26,16 +27,7 @@ function VoucherList({ defaultFilter, icon, handleClickIcon }: Props) {
   const queryClient = useQueryClient();
 
   // 데이터 가져오기
-  const { data: vouchers, error, refetch, isFetching, fetchNextPage, hasNextPage } =
-  useInfiniteQuery<typeof voucherAPI.getAllVoucherList.resType, AxiosError<ErrorType>>
-  (queryKey.voucherKeys.all,
-  ({ pageParam = 0 }) => voucherAPI.getAllVoucherList.axios(pageParam, filter),
-  {
-    getNextPageParam: (lastPage, pages) => {
-      return lastPage?.paging.hasNextPage && lastPage?.paging.pageParam + 1;
-    },
-    refetchOnWindowFocus: false
-  });
+  const { data: vouchers, error, refetch, isFetching, fetchNextPage, hasNextPage } = useVouchersQuery(filter);
 
   // 다음 페이지 가져오기
   const handleFetchNextPage = useCallback(() => {

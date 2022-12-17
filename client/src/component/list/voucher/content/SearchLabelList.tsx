@@ -3,7 +3,7 @@ import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import CardHeader from '@component/card/basic/CardHeader';
 import SearchLabel from '@component/label/SearchLabel';
 import { toggleGroup, toggleMember, setVoucherState, removeKeyword } from '../voucherListSlice';
-import { VoucherStateName } from '@component/list/common/filter/DataType';
+import { VoucherStateValue } from '@/type/voucher';
 import { DefaultFilterType } from '../VoucherListCard';
 
 interface Props {
@@ -21,7 +21,7 @@ function SearchLabelList({ defaultFilter }: Props) {
       {defaultFilter.state === 'ALL' && filter.state !== 'ALL' &&
       <SearchLabel
         category="상태"
-        text={VoucherStateName[filter.state]}
+        text={VoucherStateValue[filter.state]}
         handleRemove={() => dispatch(setVoucherState('ALL'))}
       />}
 

@@ -10,7 +10,7 @@ import * as voucherAPI from '@api/voucherAPI';
 import { userImage } from '@api/resource';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { VoucherStateLabel } from '@component/photocard/VoucherCard';
-import { VoucherStateType, VoucherStateName } from '@component/list/common/filter/DataType';
+import { VoucherStateKey, VoucherStateValue } from '@/type/voucher';
 
 interface Props {
   voucher: typeof voucherAPI.getVoucherDetail.resType;
@@ -46,7 +46,7 @@ function VoucherInfoCard({ voucher, showAdminInfo = DefaultProps.showAdminInfo }
             <SubtitleLabel>상태</SubtitleLabel>
             <Body>
               <VoucherStateLabel voucherState={voucher?.state || ''} width="6em" textAlign="center">
-                {VoucherStateName[voucher?.state.toUpperCase() as VoucherStateType]}
+                {VoucherStateValue[voucher?.state.toUpperCase() as VoucherStateKey]}
               </VoucherStateLabel>
             </Body>
           </Info>
@@ -80,7 +80,7 @@ function VoucherInfoCard({ voucher, showAdminInfo = DefaultProps.showAdminInfo }
               textAlign="center"
               margin="0 0.5em 0.2em 0"
             >
-              {VoucherStateName['AVAILABLE']}
+              {VoucherStateValue['AVAILABLE']}
             </VoucherStateLabel>
             <span>사용자끼리 교환이 가능한 상태입니다.</span>
           </StateDescription>
@@ -91,7 +91,7 @@ function VoucherInfoCard({ voucher, showAdminInfo = DefaultProps.showAdminInfo }
               textAlign="center"
               margin="0 0.5em 0.2em 0"
             >
-              {VoucherStateName['TRADING']}
+              {VoucherStateValue['TRADING']}
             </VoucherStateLabel>
             <span>소유권으로 교환글을 등록한 상태입니다.</span>
           </StateDescription>
@@ -102,7 +102,7 @@ function VoucherInfoCard({ voucher, showAdminInfo = DefaultProps.showAdminInfo }
               textAlign="center"
               margin="0 0.5em 0.2em 0"
             >
-              {VoucherStateName['SHIPPING']}
+              {VoucherStateValue['SHIPPING']}
             </VoucherStateLabel>
             <span>사용자가 소유권을 실물로 받기 위해 관리자에게 배송요청한 상태입니다.</span>
           </StateDescription>
@@ -113,7 +113,7 @@ function VoucherInfoCard({ voucher, showAdminInfo = DefaultProps.showAdminInfo }
               textAlign="center"
               margin="0 0.5em 0.2em 0"
             >
-              {VoucherStateName['SHIPPED']}
+              {VoucherStateValue['SHIPPED']}
             </VoucherStateLabel>
             <span>관리자가 사용자에게 포토카드를 발송한 상태입니다.</span>
           </StateDescription>

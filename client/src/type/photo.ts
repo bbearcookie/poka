@@ -1,6 +1,4 @@
-import { Image } from '@component/form/uploader/ImageUploader';
-
-export type PhotoType = {
+export interface PhotoType {
   photocard_id: number;
   member_id: number;
   group_id: number;

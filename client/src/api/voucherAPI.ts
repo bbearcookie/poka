@@ -61,36 +61,6 @@ export class getVoucherLogDetail {
   }
 }
 
-export class getAllVoucherList {
-  static axios = async (pageParam: number, filter: FilterType) => {
-    const url = `/api/voucher`
-
-    let refinedFilter = {
-      'GROUP_ID': filter.groups
-        .filter(item => item.checked)
-        .map(item => item.groupId),
-      'MEMBER_ID': filter.members
-        .filter(item => item.checked)
-        .map(item => item.memberId),
-      'PHOTO_NAME': filter.names.map(item => item.value),
-      'USER_NAME': filter.usernames.map(item => item.value),
-      'VOUCHER_STATE': filter.state
-    }
-
-    const params = { pageParam, filter: refinedFilter };
-    const res = await client.get<typeof this.resType>(url, { params });
-    return res.data;
-  };
-  static resType = undefined as undefined | {
-    message: string;
-    vouchers: VoucherType[];
-    paging: {
-      pageParam: number;
-      hasNextPage: boolean;
-    }
-  };
-}
-
 export class deleteVoucher {
   static axios = async ({ voucherId }: { voucherId: number; }) => {
     const url = `/api/voucher/${voucherId}`;

@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import IconButton from '@component/form/IconButton';
 import { VoucherType } from '@api/voucherAPI';
-import { VoucherStateName, VoucherStateType } from '@component/list/common/filter/DataType';
+import { VoucherStateKey, VoucherStateValue } from '@/type/voucher';
 import PhotoCardTemplate from '@component/photocard/PhotoCardTemplate';
 
 interface Props {
@@ -26,7 +26,7 @@ function VoucherCard({ showOwner = DefaultProps.showOwner, voucher, icon, handle
       iconNode={icon && <IconButton icon={icon} size="lg" onClick={() => handleClickIcon(voucher.voucher_id)} />}
     >
       <VoucherStateLabel voucherState={voucher.state}>
-        {VoucherStateName[voucher.state.toUpperCase() as VoucherStateType]}
+        {VoucherStateValue[voucher.state.toUpperCase() as VoucherStateKey]}
       </VoucherStateLabel>
       {showOwner && <UserNameLabel><b>{voucher.username}</b></UserNameLabel>}
     </PhotoCardTemplate>

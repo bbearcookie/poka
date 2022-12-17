@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import useMembersQuery from '@api/query/member/useMembersQuery';
-import { GroupType, MemberType } from './DataType';
+import { GroupFilterType, MemberFilterType } from '@type/listFilter';
 import { usePopper } from 'react-popper';
 import useDropdown from '@hook/useDropdown';
 import Dropdown from '@component/dropdown/Dropdown';
@@ -11,9 +11,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
-  groupFilter: GroupType[];
-  memberFilter: MemberType[];
-  setMembers: (members: MemberType[]) => void;
+  groupFilter: GroupFilterType[];
+  memberFilter: MemberFilterType[];
+  setMembers: (members: MemberFilterType[]) => void;
   toggleMember: (memberId: number) => void;
   resetOnMount?: boolean;
 }
@@ -33,7 +33,7 @@ function MemberFilter({
   const initMember = useCallback(() => {
     if (!memberQuery.data) return;
 
-    let newMembers: MemberType[] = [];
+    let newMembers: MemberFilterType[] = [];
     if (resetOnMount) {
       newMembers = memberQuery.data.members.map((member) => ({
         memberId: member.member_id,

@@ -5,7 +5,7 @@ import { DefaultFilterType } from '../VoucherListCard';
 import GroupFilter from '@component/list/common/filter/GroupFilter';
 import MemberFilter from '@component/list/common/filter/MemberFilter';
 import StateFilter from '@component/list/common/filter/StateFilter';
-import { GroupType, MemberType } from '@component/list/common/filter/DataType';
+import { GroupFilterType, MemberFilterType } from '@type/listFilter';
 
 interface Props {
   resetOnMount: boolean;
@@ -17,7 +17,7 @@ function FilterCheck({ resetOnMount, defaultFilter }: Props) {
   const filter = useAppSelector((state) => state.voucherList.filter);
   const dispatch = useAppDispatch();
 
-  const handleSetGroups = useCallback((groups: GroupType[]) => {
+  const handleSetGroups = useCallback((groups: GroupFilterType[]) => {
     dispatch(setGroups(groups));
   }, [dispatch]);
 
@@ -25,7 +25,7 @@ function FilterCheck({ resetOnMount, defaultFilter }: Props) {
     dispatch(toggleGroup(groupId));
   }, [dispatch]);
 
-  const handleSetMembers = useCallback((members: MemberType[]) => {
+  const handleSetMembers = useCallback((members: MemberFilterType[]) => {
     dispatch(setMembers(members));
   }, [dispatch]);
 

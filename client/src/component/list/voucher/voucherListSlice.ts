@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { GroupType, MemberType } from "@component/list/common/filter/DataType";
-import { VoucherStateType } from "@component/list/common/filter/DataType";
+import { GroupFilterType, MemberFilterType } from "@type/listFilter";
+import { VoucherStateKey } from "@type/voucher";
 const name = 'voucherList';
 
 export type SearchKeywordsType = 'PHOTO_NAME' | 'USER_NAME';
@@ -19,9 +19,9 @@ export interface FilterType {
     id: number;
     value: string;
   }[];
-  groups: GroupType[];
-  members: MemberType[];
-  state: VoucherStateType; // 소유권 상태
+  groups: GroupFilterType[];
+  members: MemberFilterType[];
+  state: VoucherStateKey; // 소유권 상태
 }
 
 let nextId = 0; // names 추가/삭제에 사용되는 변수
@@ -67,7 +67,7 @@ export const slice = createSlice({
     },
 
     // 소유권 상태 필터 설정
-    setVoucherState: (state, { payload }: PayloadAction<VoucherStateType>) => {
+    setVoucherState: (state, { payload }: PayloadAction<VoucherStateKey>) => {
       state.filter.state = payload;
     },
 

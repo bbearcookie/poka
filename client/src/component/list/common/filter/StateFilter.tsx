@@ -7,11 +7,11 @@ import DropdownItem from '@component/dropdown/DropdownItem';
 import { usePopper } from 'react-popper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import { VoucherStateName, VoucherStateType } from './DataType';
+import { VoucherStateKey, VoucherStateValue } from '@/type/voucher';
 
 interface Props {
-  filter: VoucherStateType;
-  changeFilter?: (voucherState: VoucherStateType) => void;
+  filter: VoucherStateKey;
+  changeFilter?: (voucherState: VoucherStateKey) => void;
 }
 const DefaultProps = {
   changeFilter: () => {}
@@ -34,8 +34,8 @@ function StateFilter({ filter, changeFilter = DefaultProps.changeFilter }: Props
 
       {dropdown.show &&
       <DropdownMenu popper={popper} menuRef={dropdown.menuRef} styles={{ minWidth: "10em", maxHeight: "20em" }}>
-        {Object.entries(VoucherStateName).map((element) => (
-        <DropdownItem key={element[0]} onClick={(e) => changeFilter(element[0] as VoucherStateType)}>
+        {Object.entries(VoucherStateValue).map((element) => (
+        <DropdownItem key={element[0]} onClick={(e) => changeFilter(element[0] as VoucherStateKey)}>
           <input type="radio" checked={filter === element[0]} readOnly/>
           <span>{element[1]}</span>
         </DropdownItem>))}

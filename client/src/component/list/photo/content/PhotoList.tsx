@@ -21,8 +21,7 @@ function PhotoList({ icon, handleClickIcon }: Props) {
   const queryClient = useQueryClient();
 
   // 데이터 가져오기
-  const { data: photos, error, refetch, isFetching, fetchNextPage, hasNextPage } =
-  usePhotosQuery(filter);
+  const { data: photos, error, refetch, isFetching, fetchNextPage, hasNextPage } = usePhotosQuery(filter);
 
   // 다음 페이지 가져오기
   const handleFetchNextPage = useCallback(() => {

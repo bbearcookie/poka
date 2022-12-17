@@ -9,13 +9,13 @@ import SearchLabelList from './content/SearchLabelList';
 import FilterCheck from './content/FilterCheck';
 import VoucherList from './content/VoucherList';
 import { SearchKeywords, addKeyword, SearchKeywordsType, initialize } from './voucherListSlice';
-import { VoucherStateType } from '@component/list/common/filter/DataType';
+import { VoucherStateKey } from '@type/voucher';
 import '../photo/PhotoListCard.scss';
 
 // 검색 필터에 기본적으로 적용할 값. 기본 값이 있으면 그 값에 대한 필터 변경은 불가능함.
 export type DefaultFilterType = {
   owner: 'ALL' | 'MINE'; // (ALL) 모든 사용자의 소유권 출력 (MINE) 자신의 소유권만 출력
-  state: VoucherStateType; // 특정 상태의 소유권만 보여주도록 지정
+  state: VoucherStateKey; // 특정 상태의 소유권만 보여주도록 지정
 }
 
 interface Props {

@@ -3,7 +3,7 @@ import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import { setGroups, setMembers, toggleGroup, toggleMember } from '../photoListCardSlice';
 import GroupFilter from '@component/list/common/filter/GroupFilter';
 import MemberFilter from '@component/list/common/filter/MemberFilter';
-import { GroupType, MemberType } from '@component/list/common/filter/DataType';
+import { GroupFilterType, MemberFilterType } from '@type/listFilter';
 
 interface Props {
   resetOnMount: boolean;
@@ -14,7 +14,7 @@ function FilterCheck({ resetOnMount }: Props) {
   const filter = useAppSelector((state) => state.photoListCard.filter);
   const dispatch = useAppDispatch();
   
-  const handleSetGroups = useCallback((groups: GroupType[]) => {
+  const handleSetGroups = useCallback((groups: GroupFilterType[]) => {
     dispatch(setGroups(groups));
   }, [dispatch]);
 
@@ -22,7 +22,7 @@ function FilterCheck({ resetOnMount }: Props) {
     dispatch(toggleGroup(groupId));
   }, [dispatch]);
 
-  const handleSetMembers = useCallback((members: MemberType[]) => {
+  const handleSetMembers = useCallback((members: MemberFilterType[]) => {
     dispatch(setMembers(members));
   }, [dispatch]);
 
