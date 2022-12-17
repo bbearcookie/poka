@@ -1,9 +1,5 @@
 import React, { useCallback } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import * as queryKey from '@api/queryKey';
-import * as voucherAPI from '@api/voucherAPI';
-import { AxiosError } from 'axios';
-import { ErrorType } from '@util/request';
+import useVoucherQuery from '@api/query/voucher/useVoucherQuery';
 import { faClose, faAdd } from '@fortawesome/free-solid-svg-icons';
 import useModal from '@hook/useModal';
 import TitleModal from '@component/modal/TitleModal';
@@ -25,9 +21,7 @@ const DefaultProps = {};
 function VoucherSection({ form, formDispatch }: Props) {
   const addModal = useModal();
 
-  const { status, data: voucher, error } =
-  useQuery<typeof voucherAPI.getVoucherDetail.resType, AxiosError<ErrorType>>
-  (queryKey.voucherKeys.detail(form.data.haveVoucherId), () => voucherAPI.getVoucherDetail.axios(form.data.haveVoucherId));
+  const { status, data: voucher, error } = useVoucherQuery(form.data.haveVoucherId);
 
   // 사용할 소유권 선택
   const changeVoucherId = useCallback((voucherId: number) => {

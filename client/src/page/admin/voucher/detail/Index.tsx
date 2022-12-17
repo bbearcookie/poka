@@ -1,10 +1,6 @@
 import React from 'react';
+import useVoucherQuery from '@api/query/voucher/useVoucherQuery';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { ErrorType } from '@util/request';
-import { AxiosError } from 'axios';
-import * as voucherAPI from '@api/voucherAPI';
-import * as queryKey from '@api/queryKey';
 import BackLabel from '@component/label/BackLabel';
 import Success from './Success';
 import './Index.scss';
@@ -14,10 +10,7 @@ const DefaultProps = {};
 
 function VoucherDetailPage({  }: Props) {
   const { voucherId } = useParams() as any;
-
-  const { status, data: voucher, error } =
-  useQuery<typeof voucherAPI.getVoucherDetail.resType, AxiosError<ErrorType>>
-  (queryKey.voucherKeys.detail(voucherId), () => voucherAPI.getVoucherDetail.axios(voucherId));
+  const { status, data: voucher, error } = useVoucherQuery(voucherId);
   
   return (
     <div className="VoucherDetailPage">

@@ -2,11 +2,12 @@ import React from 'react';
 import * as voucherAPI from '@api/voucherAPI';
 import VoucherInfoCard from '@component/card/VoucherInfoCard';
 import PhotoInfoCard from '@component/photocard/detail/PhotoInfoCard';
+import { ResType as VoucherResType } from '@api/query/voucher/useVoucherQuery';
 import VoucherInfo from './content/VoucherInfo';
 import VoucherRemove from './content/VoucherRemove';
 
 interface Props {
-  voucher: typeof voucherAPI.getVoucherDetail.resType;
+  voucher: VoucherResType;
 }
 const DefaultProps = {};
 

@@ -29,21 +29,6 @@ export class postVoucher {
   }
 }
 
-export class getVoucherDetail {
-  static axios = async (voucherId: number) => {
-    if (voucherId === 0) return;
-    
-    const url = `/api/voucher/${voucherId}`;
-    const res = await client.get<typeof this.resType>(url);
-    return res.data;
-  };
-  static resType = undefined as undefined | VoucherType & {
-    message: string;
-    user_id: number;
-    user_image_name: string;
-  }
-}
-
 export class getVoucherLogDetail {
   static axios = async (voucherId: number, pageParam: number) => {
     const url = `/api/voucher/${voucherId}/log`;

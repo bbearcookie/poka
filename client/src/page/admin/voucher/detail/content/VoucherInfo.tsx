@@ -10,9 +10,10 @@ import { userImage } from '@api/resource';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { VoucherStateLabel } from '@component/photocard/VoucherCard';
 import { VoucherStateKey, VoucherStateValue } from '@type/voucher';
+import { ResType as VoucherResType } from '@api/query/voucher/useVoucherQuery';
 
 interface Props {
-  voucher: typeof voucherAPI.getVoucherDetail.resType;
+  voucher: VoucherResType;
 }
 const DefaultProps = {};
 

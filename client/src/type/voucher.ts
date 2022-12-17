@@ -7,6 +7,15 @@ export interface VoucherType extends PhotoType {
   nickname: string;
 }
 
+export type VoucherLogType = {
+  log_id: number;
+  voucher_id: number;
+  origin_user_id: number;
+  dest_user_id: number;
+  type: 'issued' | 'traded' | 'shipped';
+  logged_time: string;
+}
+
 export type VoucherStateKey = 'ALL' | 'AVAILABLE' | 'TRADING' | 'SHIPPING' | 'SHIPPED';
 export const VoucherStateValue: {
   [k in VoucherStateKey]: string;
