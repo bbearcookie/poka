@@ -1,3 +1,5 @@
+import { Image } from '@component/form/uploader/ImageUploader';
+
 export type PhotoType = {
   photocard_id: number;
   member_id: number;

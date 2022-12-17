@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { ResType as PhotoResType } from '@api/query/photo/usePhotoQuery';
-import PhotoInfo from './PhotoInfo';
-import PhotoEditor from './PhotoEditor';
-import PhotoRemove from './PhotoRemove';
+import PhotoInfo from './content/PhotoInfo';
+import PhotoEditor from './content/editor/PhotoEditor';
+import PhotoRemove from './content/PhotoRemove';
 
 interface Props {
   photo: PhotoResType;

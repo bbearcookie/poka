@@ -8,19 +8,6 @@ import ButtonSection from './content/ButtonSection';
 import reducer, { initialState } from './reducer';
 import './Index.scss';
 
-export interface PhotoType {
-  idx: number;
-  name: string;
-  message: string; // 유효성 검사 에러 메시지
-  imageFile: File;
-  previewURL: string | ArrayBuffer | null;
-};
-
-export interface SelectType {
-  groupId: number;
-  memberId: number;
-}
-
 interface Props {}
 const DefaultProps = {};
 

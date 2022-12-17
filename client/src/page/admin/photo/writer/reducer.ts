@@ -35,16 +35,16 @@ export const initialState: State = {
 }
 
 export type Action =
-  | { type: 'ADD_PHOTO'; payload: PhotoType; }
-  | { type: 'REMOVE_PHOTO'; idx: number; }
-  | { type: 'SET_GROUP_ID'; groupId: number; }
-  | { type: 'SET_MEMBER_ID'; memberId: number; }
-  | { type: 'SET_PHOTO_MESSAGE', idx: number, message: string; }
-  | { type: 'SET_PHOTO_NAME', idx: number, name: string; }
-  | { 
-    type: 'SET_MESSAGE';
-    payload: { target: keyof MessageType; value: string; }
-  }
+| { type: 'ADD_PHOTO'; payload: PhotoType; }
+| { type: 'REMOVE_PHOTO'; idx: number; }
+| { type: 'SET_GROUP_ID'; groupId: number; }
+| { type: 'SET_MEMBER_ID'; memberId: number; }
+| { type: 'SET_PHOTO_MESSAGE', idx: number, message: string; }
+| { type: 'SET_PHOTO_NAME', idx: number, name: string; }
+| { 
+  type: 'SET_MESSAGE';
+  payload: { target: keyof MessageType; value: string; }
+}
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
