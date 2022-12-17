@@ -5,7 +5,6 @@ import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Button from '@component/form/Button';
 import UserProfile from '@component/profile/UserProfile';
-import * as voucherAPI from '@api/voucherAPI';
 import { userImage } from '@api/resource';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { VoucherStateLabel } from '@component/photocard/VoucherCard';

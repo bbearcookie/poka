@@ -1,5 +1,4 @@
 import { client } from "@util/request";
-import { FilterType } from "@component/list/voucher/voucherListSlice";
 import { PhotoType } from "@type/photo";
 
 export type VoucherType = PhotoType & {
@@ -26,23 +25,6 @@ export class postVoucher {
   }
   static resType = undefined as undefined | {
     message: string;
-  }
-}
-
-export class getVoucherLogDetail {
-  static axios = async (voucherId: number, pageParam: number) => {
-    const url = `/api/voucher/${voucherId}/log`;
-    const params = { pageParam }
-    const res = await client.get<typeof this.resType>(url, { params });
-    return res.data;
-  }
-  static resType = undefined as undefined | {
-    message: string;
-    logs: LogType[];
-    paging: {
-      pageParam: number;
-      hasNextPage: boolean;
-    }
   }
 }
 
