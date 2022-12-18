@@ -45,7 +45,7 @@ export default function useVouchersQuery(
   }
 
   return useInfiniteQuery<ResType, AxiosError<ErrorType>>(
-    queryKey.photoKeys.all,
+    queryKey.voucherKeys.all,
     ({ pageParam = 0 }) => fetchVouchers({ pageParam, filter: refinedFilter }),
     {
       getNextPageParam: (lastPage, pages) => {

@@ -1,14 +1,11 @@
 import React, { Fragment, useCallback } from 'react';
 import useVouchersQuery from '@api/query/voucher/useVouchersQuery';
 import { useUpdateEffect } from 'react-use';
-import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { AxiosError } from 'axios';
-import { ErrorType } from '@util/request';
 import * as queryKey from '@api/queryKey';
-import * as voucherAPI from '@api/voucherAPI';
 import VoucherCard from '@component/photocard/VoucherCard';
 import SkeletonVoucherCard from '@component/photocard/skeleton/SkeletonVoucherCard';
 import { DefaultFilterType } from '../VoucherListCard';
@@ -27,7 +24,8 @@ function VoucherList({ defaultFilter, icon, handleClickIcon }: Props) {
   const queryClient = useQueryClient();
 
   // 데이터 가져오기
-  const { data: vouchers, error, refetch, isFetching, fetchNextPage, hasNextPage } = useVouchersQuery(filter);
+  const { data: vouchers, error, refetch, isFetching, fetchNextPage, hasNextPage }
+  = useVouchersQuery(filter);
 
   // 다음 페이지 가져오기
   const handleFetchNextPage = useCallback(() => {

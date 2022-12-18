@@ -21,7 +21,8 @@ function PhotoList({ icon, handleClickIcon }: Props) {
   const queryClient = useQueryClient();
 
   // 데이터 가져오기
-  const { data: photos, error, refetch, isFetching, fetchNextPage, hasNextPage } = usePhotosQuery(filter);
+  const { data: photos, status, refetch, isFetching, fetchNextPage, hasNextPage }
+  = usePhotosQuery(filter);
 
   // 다음 페이지 가져오기
   const handleFetchNextPage = useCallback(() => {
@@ -47,12 +48,11 @@ function PhotoList({ icon, handleClickIcon }: Props) {
   return (
     <section className="item-section">
       {photos?.pages.map((page, pageIdx) => 
-        <Fragment key={pageIdx}>
-          {page?.photos.map((item) => (
-            <PhotoCard key={item.photocard_id} photo={item} icon={icon} handleClickIcon={handleClickIcon} />
-          ))}
-        </Fragment>
-      )}
+      <Fragment key={pageIdx}>
+        {page?.photos.map((item) => (
+          <PhotoCard key={item.photocard_id} photo={item} icon={icon} handleClickIcon={handleClickIcon} />
+        ))}
+      </Fragment>)}
 
       {isFetching && Array.from({length: 20}).map((_, idx) => (
         <SkeletonPhotoCard key={idx} />

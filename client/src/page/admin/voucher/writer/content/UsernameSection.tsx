@@ -1,18 +1,26 @@
 import React, { useCallback } from 'react';
-import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
-import { setUsername, setMessage } from '../voucherWriterSlice';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
+import { State, Action } from '../reducer';
 
-interface Props {}
+interface Props {
+  state: State;
+  dispatch: React.Dispatch<Action>;
+}
 const DefaultProps = {};
 
-function UsernameSection({  }: Props) {
-  const { username } = useAppSelector((state) => state.voucherWriter);
-  const dispatch = useAppDispatch();
+function UsernameSection({ state, dispatch }: Props) {
+
+  const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({ type: 'SET_USERNAME', username: e.target.value });
+  }, [dispatch]);
+
+  const onBlur = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
+    dispatch({ type: 'SET_MESSAGE', target: 'username', value: '' });
+  }, [dispatch]);
 
   return (
     <Card styles={{ marginBottom: "2em" }}>
@@ -24,9 +32,9 @@ function UsernameSection({  }: Props) {
         <Input
           type="text"
           name="username"
-          value={username.value}
-          onChange={(e) => dispatch(setUsername(e.target.value))}
-          onBlur={(e) => dispatch(setMessage({ type: 'username', message: '' }))}
+          value={state.form.username}
+          onChange={onChange}
+          onBlur={onBlur}
           placeholder="아이디를 입력하세요"
           autoComplete="off"
           styles={{
@@ -35,7 +43,7 @@ function UsernameSection({  }: Props) {
             margin: "1em 0 0.5em 0"
           }}
         >
-          <InputMessage styles={{ margin: '1em 0 0 0' }}>{username.message}</InputMessage>
+          {state.message.username && <InputMessage styles={{ margin: '1em 0 0 0' }}>{state.message.username}</InputMessage>}
         </Input>
       </CardBody>
     </Card>

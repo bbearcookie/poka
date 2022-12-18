@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@component/form/Button';
 
@@ -8,6 +8,10 @@ const DefaultProps = {};
 function SubmitSection({  }: Props) {
   const navigate = useNavigate();
 
+  const handleCancel = useCallback(() => {
+    navigate(-1);
+  }, [navigate]);
+
   return (
     <section className="button-section">
       <Button
@@ -16,7 +20,7 @@ function SubmitSection({  }: Props) {
           padding: "1em 2em",
           marginLeft: "1em"
         }}
-        onClick={() => navigate(-1)}
+        onClick={handleCancel}
       >취소</Button>
       <Button
         type="submit"

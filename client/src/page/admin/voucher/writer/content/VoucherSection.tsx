@@ -1,5 +1,4 @@
-import React, { useCallback } from 'react';
-import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
+import React, { useRef, useCallback } from 'react';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import InputMessage from '@component/form/InputMessage';
 import useModal from '@hook/useModal';
@@ -9,23 +8,30 @@ import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import PhotoListCard from '@component/list/photo/PhotoListCard';
-import { addVoucher, setMessage } from '../voucherWriterSlice';
-import PhotoList from './PhotoList';
+import PhotoList from './photo/PhotoList';
+import { State, Action } from '../reducer';
 
-interface Props {}
+interface Props {
+  state: State;
+  dispatch: React.Dispatch<Action>;
+}
 const DefaultProps = {};
 
-function VoucherSection({  }: Props) {
-  const { vouchers } = useAppSelector((state) => state.voucherWriter);
+function VoucherSection({ state, dispatch }: Props) {
   const addModal = useModal();
-  const dispatch = useAppDispatch();
+  const nextId = useRef(0);
 
-  // 소유권 선택 공간에 포토카드 추가
+  // // 소유권 선택 공간에 포토카드 추가
   const handleAddVoucher = useCallback((photocardId: number) => {
-    dispatch(addVoucher(photocardId));
-    dispatch(setMessage({ type: 'vouchers', message: '' }));
+    dispatch({ type: 'ADD_VOUCHER', voucher: {
+      id: nextId.current++,
+      photocardId,
+      amount: 1,
+      message: ''
+    }});
+    dispatch({ type: 'SET_MESSAGE', target: 'vouchers', value: '' });
     addModal.close();
-  }, [addModal, dispatch]);
+  }, [dispatch, addModal]);
 
   return (
     <section className="VoucherSection">
@@ -47,8 +53,8 @@ function VoucherSection({  }: Props) {
         </CardHeader>
         <CardBody>
           <p className="description">사용자에게 발급하려는 소유권의 종류와 수량을 지정합니다.</p>
-          {vouchers.value.length > 0 && <PhotoList />}
-          {vouchers.message && <InputMessage styles={{ margin: '1em 0 0 0' }}>{vouchers.message}</InputMessage>}
+          {state.form.vouchers.length > 0 && <PhotoList state={state} dispatch={dispatch} />}
+          {state.message.vouchers && <InputMessage styles={{ margin: '1em 0 0 0' }}>{state.message.vouchers}</InputMessage>}
         </CardBody>
       </Card>
 
