@@ -1,11 +1,7 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
-import { toast } from 'react-toastify';
-import { ErrorType, getErrorMessage } from '@util/request';
-import * as queryKey from '@api/queryKey';
-import * as voucherAPI from '@api/voucherAPI';
+import { getErrorMessage } from '@util/request';
+import useDeleteVoucher from '@api/mutation/voucher/useDeleteVoucher';
 import useModal from '@hook/useModal';
 import RemoveCard from '@component/card/RemoveCard';
 import ConfirmModal from '@component/modal/ConfirmModal';
@@ -17,21 +13,13 @@ const DefaultProps = {};
 
 function VoucherRemove({ voucherId }: Props) {
   const removeModal = useModal();
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   // 데이터 삭제 요청
-  const deleteMutation = useMutation(voucherAPI.deleteVoucher.axios, {
-    onSuccess: (res) => {
-      toast.warning(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-      queryClient.invalidateQueries(queryKey.voucherKeys.all);
-      queryClient.invalidateQueries(queryKey.voucherKeys.detail(voucherId));
-      return navigate('/admin/voucher/list');
-    },
-    onError: (err: AxiosError<ErrorType>) => {
-      removeModal.setErrorMessage(getErrorMessage(err));
-    }
-  })
+  const deleteMutation = useDeleteVoucher(
+    (res) => navigate('/admin/voucher/list'),
+    (err) => removeModal.setErrorMessage(getErrorMessage(err))
+  );
 
   // 소유권 삭제
   const handleRemove = useCallback(() => {

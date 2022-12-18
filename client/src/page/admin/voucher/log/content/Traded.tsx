@@ -4,13 +4,13 @@ import { ErrorType } from '@util/request';
 import { AxiosError } from 'axios';
 import * as userAPI from '@api/userAPI';
 import * as queryKey from '@api/queryKey';
-import { LogType } from '@api/voucherAPI';
+import { VoucherLogType } from '@type/voucher';
 import { userImage } from '@api/resource';
 import UserProfile from '@component/profile/UserProfile';
 import SkeletonUserProfile from '@component/profile/SkeletonUserProfile';
 
 interface Props {
-  log: LogType;
+  log: VoucherLogType;
   originUser: typeof userAPI.getUserDetail.resType;
 }
 const DefaultProps = {};

@@ -7,7 +7,7 @@ export interface VoucherType extends PhotoType {
   nickname: string;
 }
 
-export type VoucherLogType = {
+export interface VoucherLogType {
   log_id: number;
   voucher_id: number;
   origin_user_id: number;

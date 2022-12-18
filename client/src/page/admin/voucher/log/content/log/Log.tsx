@@ -5,13 +5,13 @@ import { ErrorType } from '@util/request';
 import { AxiosError } from 'axios';
 import * as userAPI from '@api/userAPI';
 import * as queryKey from '@api/queryKey';
-import { LogType } from '@api/voucherAPI';
+import { VoucherLogType } from '@type/voucher';
 import { getFormattedTime } from '@util/common';
 import Issued from '../Issued';
 import Traded from '../Traded';
 
 interface Props {
-  log: LogType;
+  log: VoucherLogType;
 }
 const DefaultProps = {};
 
