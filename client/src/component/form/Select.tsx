@@ -4,17 +4,19 @@ import styled from 'styled-components';
 interface Props {
   name?: string;
   value?: string | number | readonly string[] | undefined;
+  defaultValue?: string | number | readonly string[] | undefined;
   onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   styles?: StylesProps;
   children?: React.ReactNode;
 }
 const DefaultProps = {};
-function Select({ name, value, onChange, styles, children }: Props) {
+function Select({ name, value, defaultValue, onChange, styles, children }: Props) {
   return (
     <StyledSelect
       className="Select"
       name={name}
       value={value}
+      defaultValue={defaultValue}
       onChange={onChange}
       {...styles}
     >

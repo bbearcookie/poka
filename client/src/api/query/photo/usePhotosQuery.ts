@@ -39,15 +39,13 @@ export default function usePhotosQuery(
     PHOTO_NAME: filter.names.map(item => item.value)
   }
 
-  return useInfiniteQuery<ResType, AxiosError<ErrorType>>(
-    queryKey.photoKeys.all,
-    ({ pageParam = 0 }) => fetchPhotos({ pageParam, filter: refinedFilter }),
-    {
-      getNextPageParam: (lastPage, pages) => {
-        return lastPage.paging.hasNextPage && lastPage.paging.pageParam + 1;
-      },
-      refetchOnWindowFocus: false,
-      ...options
-    }
-  )
+  return useInfiniteQuery<ResType, AxiosError<ErrorType>>({
+    queryKey: queryKey.photoKeys.all,
+    queryFn: ({ pageParam = 0 }) => fetchPhotos({ pageParam, filter: refinedFilter }),
+    getNextPageParam: (lastPage, pages) => {
+      return lastPage.paging.hasNextPage && lastPage.paging.pageParam + 1;
+    },
+    refetchOnWindowFocus: false,
+    ...options
+  });
 }

@@ -44,15 +44,13 @@ export default function useVouchersQuery(
     VOUCHER_STATE: filter.state
   }
 
-  return useInfiniteQuery<ResType, AxiosError<ErrorType>>(
-    queryKey.voucherKeys.all,
-    ({ pageParam = 0 }) => fetchVouchers({ pageParam, filter: refinedFilter }),
-    {
-      getNextPageParam: (lastPage, pages) => {
-        return lastPage.paging.hasNextPage && lastPage.paging.pageParam + 1;
-      },
-      refetchOnWindowFocus: false,
-      ...options
-    }
-  )
+  return useInfiniteQuery<ResType, AxiosError<ErrorType>>({
+    queryKey: queryKey.voucherKeys.all,
+    queryFn: ({ pageParam = 0 }) => fetchVouchers({ pageParam, filter: refinedFilter }),
+    getNextPageParam: (lastPage, pages) => {
+      return lastPage.paging.hasNextPage && lastPage.paging.pageParam + 1;
+    },
+    refetchOnWindowFocus: false,
+    ...options
+  });
 }

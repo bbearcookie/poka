@@ -1,4 +1,4 @@
-import { useQuery, QueryOptions, UseQueryResult } from '@tanstack/react-query';
+import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { ErrorType } from '@util/request';
 import { fetchMembers } from '@api/api/member';
@@ -14,7 +14,11 @@ export interface ResType {
 }
 
 export default function useMembersQuery(
-  options?: QueryOptions<ResType, AxiosError<ErrorType>>
+  options?: UseQueryOptions<ResType, AxiosError<ErrorType>>
 ): UseQueryResult<ResType, AxiosError<ErrorType>> {
-  return useQuery(queryKey.memberKeys.all, fetchMembers, options);
+  return useQuery({
+    queryKey: queryKey.memberKeys.all,
+    queryFn: fetchMembers,
+    ...options
+  });
 }

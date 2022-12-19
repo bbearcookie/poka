@@ -1,13 +1,11 @@
 import React, { useState, useCallback, Fragment } from 'react';
-import { useAppDispatch } from '@app/redux/reduxHooks';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Editor from './content/editor/Index';
 import Address from './content/address/Address';
 import AddButton from './content/AddButton';
-import { initialize } from './content/editor/addressEditorSlice';
-import { ResType as AddressesResType } from '@api/query/address/useShippingAddresses'
+import { ResType as AddressesResType } from '@api/query/address/useShippingAddresses';
 
 interface Props {
   addresses: AddressesResType;
@@ -16,13 +14,11 @@ const DefaultProps = {};
 
 function Success({ addresses }: Props) {
   const [editorTarget, setEditorTarget] = useState<number | boolean>(false); // 수정 모드일 경우 현재 수정중인 memberId를 나타낸다.
-  const dispatch = useAppDispatch();
 
   // 편집 모드 ON / OFF
   const startEditor = useCallback((target: number | boolean) => {
-    dispatch(initialize());
     setEditorTarget(target);
-  }, [dispatch]);
+  }, []);
   const closeEditor = useCallback(() => setEditorTarget(false), []);
 
   return (

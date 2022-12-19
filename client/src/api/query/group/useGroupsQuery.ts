@@ -1,4 +1,4 @@
-import { useQuery, QueryOptions, UseQueryResult } from '@tanstack/react-query';
+import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { ErrorType } from '@util/request';
 import { fetchGroups } from '@api/api/group';
@@ -15,7 +15,11 @@ export interface ResType {
 }
 
 export default function useGroupsQuery(
-  options?: QueryOptions<ResType, AxiosError<ErrorType>>
+  options?: UseQueryOptions<ResType, AxiosError<ErrorType>>
 ): UseQueryResult<ResType, AxiosError<ErrorType>> {
-  return useQuery(queryKey.groupKeys.all, fetchGroups, options);
+  return useQuery({
+    queryKey: queryKey.groupKeys.all,
+    queryFn: fetchGroups,
+    ...options
+  });
 }

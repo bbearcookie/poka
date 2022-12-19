@@ -1,22 +1,21 @@
 import React, { useCallback } from 'react';
-import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';
-import { setInput, setInputMessage } from '../addressEditorSlice';
+import { State, Action } from '../reducer';
 
 interface Props {
+  state: State;
+  dispatch: React.Dispatch<Action>;
   changeInput: React.ChangeEventHandler<HTMLInputElement>;
   blurInput: React.FocusEventHandler<HTMLInputElement>;
 }
 const DefaultProps = {};
 
-function AddressSection({ changeInput, blurInput }: Props) {
-  const { form, inputMessage } = useAppSelector(state => state.addressEditor);
-  const dispatch = useAppDispatch();
+function AddressSection({ state, dispatch, changeInput, blurInput }: Props) {
   const daumPostcode = useDaumPostcodePopup();
 
   // 다음 주소 API 팝업 열기
@@ -25,18 +24,9 @@ function AddressSection({ changeInput, blurInput }: Props) {
       let address = data.roadAddress;
       if (data.buildingName) address += ` (${data.buildingName})`
       
-      dispatch(setInput({
-        name: 'address',
-        value: address
-      }));
-      dispatch(setInput({
-        name: 'postcode',
-        value: data.zonecode
-      }));
-      dispatch(setInputMessage({
-        name: 'address',
-        value: ''
-      }));
+      dispatch({ type: 'SET_FORM_DATA', target: 'address', value: address });
+      dispatch({ type: 'SET_FORM_DATA', target: 'postcode', value: data.zonecode });
+      dispatch({ type: 'SET_MESSAGE', target: 'address', value: '' });
     }});
   }, [daumPostcode, dispatch]);
 
@@ -52,7 +42,7 @@ function AddressSection({ changeInput, blurInput }: Props) {
           <Input
             type="text"
             name="postcode"
-            value={form.postcode}
+            value={state.form.postcode}
             placeholder="우편번호"
             readOnly={true}
             styles={{
@@ -76,7 +66,7 @@ function AddressSection({ changeInput, blurInput }: Props) {
           <Input
             type="text"
             name="address"
-            value={form.address}
+            value={state.form.address}
             placeholder="주소"
             readOnly={true}
             styles={{
@@ -85,12 +75,12 @@ function AddressSection({ changeInput, blurInput }: Props) {
               height: "2.5em"
             }}
           >
-            {inputMessage.address && <InputMessage styles={{ margin: "0.5em 0 0 0" }}>{inputMessage.address}</InputMessage>}
+            {state.message.address && <InputMessage styles={{ margin: "0.5em 0 0 0" }}>{state.message.address}</InputMessage>}
           </Input>
           <Input
             type="text"
             name="address_detail"
-            value={form.address_detail}
+            value={state.form.address_detail}
             placeholder="상세주소"
             maxLength={50}
             onChange={changeInput}
@@ -101,7 +91,7 @@ function AddressSection({ changeInput, blurInput }: Props) {
               height: "2.5em"
             }}
           >
-            {inputMessage.address_detail && <InputMessage styles={{ margin: "0.5em 0 0 0" }}>{inputMessage.address_detail}</InputMessage>}
+            {state.message.address_detail && <InputMessage styles={{ margin: "0.5em 0 0 0" }}>{state.message.address_detail}</InputMessage>}
           </Input>
         </div>
 

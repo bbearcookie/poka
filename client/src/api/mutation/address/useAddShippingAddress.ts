@@ -20,7 +20,7 @@ export interface ParamType {
   }
 }
 
-interface ResType { message: string; }
+export interface ResType { message: string; }
 
 export default function useAddShippingAddress<TParam>(
   onSuccess?: (res: AxiosResponse<ResType>) => void,
