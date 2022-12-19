@@ -20,6 +20,7 @@ export default function useMemberQuery(
   return useQuery({
     queryKey: queryKey.memberKeys.detail(memberId),
     queryFn: () => fetchMemberDetail(memberId),
+    enabled: memberId !== 0,
     ...options
   });
 }

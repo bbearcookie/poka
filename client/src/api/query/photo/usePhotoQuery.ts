@@ -16,6 +16,7 @@ export default function usePhotoQuery(
   return useQuery({
     queryKey: queryKey.photoKeys.detail(photocardId),
     queryFn: () => fetchPhotoDetail(photocardId),
+    enabled: photocardId !== 0,
     ...options
   });
 }

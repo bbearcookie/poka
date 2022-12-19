@@ -1,9 +1,6 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { ErrorType } from '@util/request';
-import { AxiosError } from 'axios';
-import * as userAPI from '@api/userAPI';
-import * as queryKey from '@api/queryKey';
+import useUserQuery from '@api/query/user/useUserQuery';
+import { ResType as UserResType } from '@api/query/user/useUserQuery';
 import { VoucherLogType } from '@type/voucher';
 import { userImage } from '@api/resource';
 import UserProfile from '@component/profile/UserProfile';
@@ -11,14 +8,12 @@ import SkeletonUserProfile from '@component/profile/SkeletonUserProfile';
 
 interface Props {
   log: VoucherLogType;
-  originUser: typeof userAPI.getUserDetail.resType;
+  originUser: UserResType;
 }
 const DefaultProps = {};
 
 function Traded({ originUser, log }: Props) {
-  const { data: destUser } =
-  useQuery<typeof userAPI.getUserDetail.resType, AxiosError<ErrorType>>
-  (queryKey.userKeys.profile(log.dest_user_id), () => userAPI.getUserDetail.axios(log.dest_user_id));
+  const { data: destUser } = useUserQuery(log.dest_user_id);
 
   return (
     <>

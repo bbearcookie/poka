@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from 'react';
-import * as userAPI from '@api/userAPI';
+import { ResType as UserResType } from '@api/query/user/useUserQuery';
 import { userImage } from '@api/resource';
-import UserInfo from './UserInfo';
-import UserEditor from './UserEditor';
+import UserInfo from './content/UserInfo';
+import UserEditor from './content/editor/UserEditor';
 
 interface Props {
-  user: typeof userAPI.getUserDetail.resType;
+  user: UserResType;
 }
 const DefaultProps = {};
 
@@ -20,15 +20,15 @@ function Success({ user }: Props) {
     <>
       {editMode ?
       <UserEditor
-        userId={user?.user_id}
-        nickname={user?.nickname}
-        imageName={userImage(user?.image_name)}
+        userId={user.user_id}
+        nickname={user.nickname}
+        imageName={userImage(user.image_name)}
         closeEditor={closeEditor}
       /> :
       <UserInfo
-        username={user?.username}
-        nickname={user?.nickname}
-        imageName={userImage(user?.image_name)}
+        username={user.username}
+        nickname={user.nickname}
+        imageName={userImage(user.image_name)}
         startEditor={startEditor}
       />}
     </>

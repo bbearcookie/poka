@@ -17,6 +17,7 @@ export default function useShippingAddresses(
   return useQuery({
     queryKey: queryKey.userKeys.address(userId),
     queryFn: () => fetchUserShippingAddress(userId),
+    enabled: userId !== 0,
     ...options
   });
 }

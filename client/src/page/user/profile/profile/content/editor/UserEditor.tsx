@@ -1,17 +1,13 @@
-import React, { useState, useCallback } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
-import * as userAPI from '@api/userAPI';
-import * as queryKey from '@api/queryKey';
-import { ErrorType } from '@util/request';
-import { AxiosError, AxiosResponse } from 'axios';
-import { getErrorMessage } from '@util/request';
+import React, { useReducer, useCallback } from 'react';
+import produce from 'immer';
+import useModifyUserProfile from '@api/mutation/user/useModifyUserProfile';
 import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 import ImageUploader, { Image } from '@component/form/uploader/ImageUploader';
 import Button from '@component/form/Button';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
+import reducer, { initialState, FormType } from './reducer';
 
 interface Props {
   userId?: number;
@@ -31,69 +27,48 @@ function UserEditor({
   imageName = DefaultProps.imageName,
   closeEditor
 }: Props) {
-  interface FormType {
-    nickname: string;
-    image: Image;
-  }
-  const [form, setForm] = useState<FormType>({
-    nickname,
-    image: {
+  const [state, dispatch] = useReducer(reducer, produce(initialState, draft => {
+    draft.form.nickname = nickname;
+    draft.form.image = {
       file: null,
       previewURL: imageName,
       initialURL: imageName
-    },
-  });
-  const [formMessage, setFormMessage] = useState<{
-    [k in keyof FormType]: string;
-  }>({
-    nickname: '',
-    image: ''
-  });
-  const queryClient = useQueryClient();
+    }
+  }));
 
   // 데이터 수정 요청
-  const putMutation = useMutation(userAPI.putUserProfile.axios, {
-    onSuccess: (res: AxiosResponse<typeof userAPI.putUserProfile.resType>) => {
-      toast.success(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-      queryClient.invalidateQueries(queryKey.userKeys.profile(userId));
-      closeEditor();
-    },
-    onError: (err: AxiosError<ErrorType<keyof FormType>>) => {
-      toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-
-      let message = formMessage;
+  const putMutation = useModifyUserProfile<keyof FormType>(
+    (res) => closeEditor(),
+    (err) => {
       err.response?.data.errors.forEach((e) => {
-        message[e.param] = e.message;
+        dispatch({ type: 'SET_MESSAGE', target: e.param, value: e.message });
       });
-      setFormMessage({ ...formMessage, ...message });
     }
-  })
+  );
 
   // input 상태 값 변경
-  const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    });
-    setFormMessage({ ...formMessage, [e.target.name]: '' });
-  }, [form, formMessage]);
+  const changeNickname = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({ type: 'SET_NICKNAME', nickname: e.target.value });
+    dispatch({ type: 'SET_MESSAGE', target: 'nickname', value: '' });
+  }, []);
 
   // 이미지 상태 값 변경
   const changeImage = useCallback((img: Image) => {
-    setForm({...form, image: img});
-    img.file && setFormMessage({ ...formMessage, image: '' }); // 업로드 한 이미지가 있다면 오류 메시지 삭제
-  }, [form, formMessage]);
+    // 업로드 한 이미지가 있다면 오류 메시지 삭제
+    if (img.file) dispatch({ type: 'SET_MESSAGE', target: 'image', value: '' });
+    dispatch({ type: 'SET_IMAGE', image: img });
+  }, []);
   
   // 전송 이벤트
   const onSubmit = useCallback(() => {
     putMutation.mutate({
-      userId: userId,
-      data: {
-        ...form,
-        image: form.image.file
+      userId,
+      body: {
+        nickname: state.form.nickname,
+        image: state.form.image.file
       }
     });
-  }, [form, putMutation, userId]);
+  }, [state, userId, putMutation]);
 
   return (
     <Card styles={{ marginBottom: "5em" }}>
@@ -102,8 +77,8 @@ function UserEditor({
           <section className="image-section">
             <p className="label">이미지</p>
             <ImageUploader
-              value={form.image}
-              errorMessage={formMessage.image}
+              value={state.form.image}
+              errorMessage={state.message.image}
               onChange={changeImage}
               styles={{
                 width: "75px",
@@ -118,15 +93,15 @@ function UserEditor({
             <Input
               type="text"
               name="nickname"
-              value={form.nickname}
+              value={state.form.nickname}
               placeholder='수정할 닉네임을 입력해주세요'
               styles={{
                 width: "100%",
                 height: "2.5em"
               }}
-              onChange={changeInput}
+              onChange={changeNickname}
             >
-              {formMessage.nickname && <InputMessage>{formMessage.nickname}</InputMessage>}
+              {state.message.nickname && <InputMessage>{state.message.nickname}</InputMessage>}
             </Input>
             <div className="space" />
 

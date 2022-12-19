@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import React, { useCallback } from 'react';
+import useUserQuery from '@api/query/user/useUserQuery';
 import { useNavigate, Link } from 'react-router-dom';
 import { usePopper } from 'react-popper';
 import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
@@ -8,13 +8,9 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { changeShow } from '@component/sidebar/sidebarSlice';
 import { logout } from '@util/auth/authSlice';
 import { userImage } from '@api/resource';
-import { ErrorType } from '@util/request';
-import { AxiosError, AxiosResponse } from 'axios';
 import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import Button from '@component/form/Button';
 import * as authAPI from '@api/authAPI';
-import * as userAPI from '@api/userAPI';
-import * as queryKey from '@api/queryKey';
 import useDropdown from '@hook/useDropdown';
 import Dropdown from '@component/dropdown/Dropdown';
 import DropdownButton from '@component/dropdown/DropdownButton';
@@ -42,9 +38,7 @@ function Navbar({  }: Props) {
     ]
   });
 
-  const { status, data: user, error } =
-  useQuery<typeof userAPI.getUserDetail.resType, AxiosError<ErrorType>>
-  (queryKey.userKeys.profile(user_id), () => userAPI.getUserDetail.axios(user_id));
+  const { status, data: user, error } = useUserQuery(user_id);
 
   // 로그아웃 로직
   const handleLogout = useCallback((e: React.MouseEvent) => {

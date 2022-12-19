@@ -10,7 +10,7 @@ const DefaultProps = {};
 
 function Index({  }: Props) {
   const userId = useAppSelector(state => state.auth.user_id);
-  const { status, data: addresses, error } = useShippingAddresses(userId, { enabled: userId !== 0 });
+  const { status, data: addresses, error } = useShippingAddresses(userId);
 
   return (
     <section className="shipping-section">

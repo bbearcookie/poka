@@ -1,11 +1,11 @@
 import React from 'react';
-import * as userAPI from '@api/userAPI';
 import { userImage } from '@api/resource';
+import { ResType as UserResType } from '@api/query/user/useUserQuery';
 import UserProfile from '@component/profile/UserProfile';
 import SkeletonUserProfile from '@component/profile/SkeletonUserProfile';
 
 interface Props {
-  originUser: typeof userAPI.getUserDetail.resType;
+  originUser: UserResType;
 }
 const DefaultProps = {};
 

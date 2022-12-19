@@ -23,12 +23,13 @@ export default function useVoucherLogsQuery(
   options?: UseInfiniteQueryOptions<ResType, AxiosError<ErrorType>>
 ): UseInfiniteQueryResult<ResType, AxiosError<ErrorType>> {
   return useInfiniteQuery<ResType, AxiosError<ErrorType>>({
-    queryKey: queryKey.photoKeys.all,
+    queryKey: queryKey.voucherKeys.log(voucherId),
     queryFn: ({ pageParam = 0 }) => fetchVoucherLogsDetail(voucherId, { pageParam }),
     getNextPageParam: (lastPage, pages) => {
       return lastPage.paging.hasNextPage && lastPage.paging.pageParam + 1;
     },
     refetchOnWindowFocus: false,
+    enabled: voucherId !== 0,
     ...options
   });
 }

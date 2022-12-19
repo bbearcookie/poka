@@ -1,10 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { useQuery } from '@tanstack/react-query';
-import { ErrorType } from '@util/request';
-import { AxiosError } from 'axios';
-import * as userAPI from '@api/userAPI';
-import * as queryKey from '@api/queryKey';
+import useUserQuery from '@api/query/user/useUserQuery';
 import { VoucherLogType } from '@type/voucher';
 import { getFormattedTime } from '@util/common';
 import Issued from '../Issued';
@@ -16,9 +12,7 @@ interface Props {
 const DefaultProps = {};
 
 function Log({ log }: Props) {
-  const originUser =
-  useQuery<typeof userAPI.getUserDetail.resType, AxiosError<ErrorType>>
-  (queryKey.userKeys.profile(log.origin_user_id), () => userAPI.getUserDetail.axios(log.origin_user_id));
+  const originUser = useUserQuery(log.origin_user_id);
 
   return (
     <li className="log">
@@ -32,8 +26,8 @@ function Log({ log }: Props) {
         <div className="subtitle">시간</div>
         <div className="body">{getFormattedTime(log.logged_time)}</div>
       </div>
-      {['issued', 'shipped'].includes(log.type) && <Issued originUser={originUser.data} /> }
-      {log.type === 'traded' && <Traded log={log} originUser={originUser.data} />}
+      {['issued', 'shipped'].includes(log.type) && originUser.data && <Issued originUser={originUser.data} /> }
+      {log.type === 'traded' && originUser.data && <Traded log={log} originUser={originUser.data} />}
     </li>
   );
 }
