@@ -5,19 +5,24 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorType } from '@util/request';
 import { getErrorMessage } from '@util/request';
 import * as queryKey from '@api/queryKey';
-import { modifyGroup } from '@api/api/group';
+import { addShippingAddress } from '@api/api/address';
 
 export interface ParamType {
-  groupId: number;
+  userId: number;
   body: {
     name: string;
-    image: File | null;
+    recipient: string;
+    contact: string;
+    postcode: string;
+    address: string;
+    address_detail: string;
+    requirement: string;
   }
 }
 
 interface ResType { message: string; }
 
-export default function useModifyGroup<TParam>(
+export default function useAddShippingAddress<TParam>(
   onSuccess?: (res: AxiosResponse<ResType>) => void,
   onError?: (err: AxiosError<ErrorType<TParam>, any>) => void
 ): 
@@ -26,14 +31,14 @@ UseMutationResult<
   AxiosError<ErrorType<TParam>>,
   ParamType
 > {
+  const userId = useRef(0);
   const queryClient = useQueryClient();
-  const groupId = useRef(0);
 
-  return useMutation(modifyGroup, {
+  return useMutation(addShippingAddress, {
     onSuccess: (res: AxiosResponse<ResType>) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-      queryClient.invalidateQueries(queryKey.groupKeys.all);
-      queryClient.invalidateQueries(queryKey.groupKeys.detail(groupId.current));
+      queryClient.invalidateQueries(queryKey.userKeys.address(userId.current));
+      queryClient.invalidateQueries(queryKey.addressKeys.all);
       if (onSuccess) onSuccess(res);
     },
     onError: (err) => {
@@ -41,7 +46,7 @@ UseMutationResult<
       if (onError) onError(err);
     },
     onMutate: (params) => {
-      groupId.current = params.groupId;
+      userId.current = params.userId;
     }
   })
 }

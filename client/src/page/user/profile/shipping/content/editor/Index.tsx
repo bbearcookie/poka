@@ -1,13 +1,8 @@
 import React, { useEffect, useCallback } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
+import useModifyShippingAddress from '@api/mutation/address/useModifyShippingAddress';
+import useAddShippingAddress from '@api/mutation/address/useAddShippingAddress';
 import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
-import * as userAPI from '@api/userAPI';
-import * as shippingAddressAPI from '@api/shippingAddressAPI';
-import * as queryKey from '@api/queryKey';
-import { AddressType } from '@api/shippingAddressAPI';
-import { AxiosError } from 'axios';
-import { ErrorType, getErrorMessage } from '@util/request';
+import { AddressType } from '@type/user';
 import CardHeader from '@component/card/basic/CardHeader';
 import NameSection from './content/NameSection';
 import ContactSection from './content/ContactSection';
@@ -27,7 +22,6 @@ function Editor({ address, closeEditor }: Props) {
   const { form } = useAppSelector(state => state.addressEditor);
   const userId = useAppSelector(state => state.auth.user_id);
   const dispatch = useAppDispatch();
-  const queryClient = useQueryClient();
 
   // 수정 모드일 경우 기본 값을 상태에 저장함.
   useEffect(() => {
@@ -52,40 +46,30 @@ function Editor({ address, closeEditor }: Props) {
   }, [dispatch]);
 
   // 데이터 추가 요청
-  const postMutation = useMutation(userAPI.postShippingAddress.axios, {
-    onSuccess: (res) => {
-      toast.success(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
+  const postMutation = useAddShippingAddress<keyof FormType>(
+    (res) => {
       dispatch(initialize());
-      queryClient.invalidateQueries(queryKey.userKeys.address(userId));
-      queryClient.invalidateQueries(queryKey.addressKeys.all);
       closeEditor();
     },
-    onError: (err: AxiosError<ErrorType<keyof FormType>>) => {
-      toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-
+    (err) => {
       err.response?.data.errors.forEach((e) => {
         dispatch(setInputMessage({ name: e.param, value: e.message }));
       });
     }
-  });
+  )
 
   // 데이터 수정 요청
-  const putMutation = useMutation(shippingAddressAPI.putShippingAddress.axios, {
-    onSuccess: (res) => {
-      toast.success(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
+  const putMutation = useModifyShippingAddress<keyof FormType>(userId,
+    (res) => {
       dispatch(initialize());
-      queryClient.invalidateQueries(queryKey.userKeys.address(userId));
-      queryClient.invalidateQueries(queryKey.addressKeys.all);
       closeEditor();
     },
-    onError: (err: AxiosError<ErrorType<keyof FormType>>) => {
-      toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-
+    (err) => {
       err.response?.data.errors.forEach((e) => {
         dispatch(setInputMessage({ name: e.param, value: e.message }));
       });
     }
-  })
+  )
 
   // 폼 전송 이벤트
   const onSubmit = useCallback((e: React.FormEvent) => {
@@ -102,9 +86,9 @@ function Editor({ address, closeEditor }: Props) {
     }
     
     // 수정 모드일경우
-    if (address) putMutation.mutate({ addressId: address.address_id || -1, data });
+    if (address) putMutation.mutate({ addressId: address.address_id, body: data })
     // 작성 모드일경우
-    else postMutation.mutate({ userId, data });
+    else postMutation.mutate({ userId, body: data });
 
   }, [address, form, userId, postMutation, putMutation]);
 

@@ -1,6 +1,5 @@
 import React, { useState, useCallback, Fragment } from 'react';
 import { useAppDispatch } from '@app/redux/reduxHooks';
-import * as userAPI from '@api/userAPI';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
@@ -8,9 +7,10 @@ import Editor from './content/editor/Index';
 import Address from './content/address/Address';
 import AddButton from './content/AddButton';
 import { initialize } from './content/editor/addressEditorSlice';
+import { ResType as AddressesResType } from '@api/query/address/useShippingAddresses'
 
 interface Props {
-  addresses: typeof userAPI.getUserShippingAddress.resType;
+  addresses: AddressesResType;
 }
 const DefaultProps = {};
 

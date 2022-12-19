@@ -1,13 +1,8 @@
 import React, { useCallback } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
-import { AxiosError } from 'axios';
-import { ErrorType, getErrorMessage } from '@util/request';
-import * as shippingAddressAPI from '@api/shippingAddressAPI';
-import * as queryKey from '@api/queryKey';
+import useChangePrimeAddress from '@api/mutation/address/useChangePrimeAddress';
 import IconButton from '@component/form/IconButton';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
-import { AddressType } from '@api/shippingAddressAPI';
+import { AddressType } from '@type/user';
 
 interface Props {
   address: AddressType;
@@ -15,22 +10,13 @@ interface Props {
 const DefaultProps = {};
 
 function AddressPrime({ address }: Props) {
-  const queryClient = useQueryClient();
 
   // 기본 배송지 수정 요청
-  const patchMutation = useMutation(shippingAddressAPI.patchShippingAddressPrime.axios, {
-    onSuccess: (res) => {
-      toast.success(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-      queryClient.invalidateQueries(queryKey.userKeys.address(address.user_id));
-    },
-    onError: (err: AxiosError<ErrorType>) => {
-      toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-    }
-  });
+  const patchMutation = useChangePrimeAddress(address.user_id);
 
   // 클릭 이벤트
   const handleClick = useCallback(() => {
-    patchMutation.mutate(address.address_id);
+    patchMutation.mutate({ addressId: address.address_id });
   }, [patchMutation, address]);
 
   return (

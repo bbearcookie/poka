@@ -2,8 +2,8 @@ import React from 'react';
 import CardHeader from '@component/card/basic/CardHeader';
 import IconButton from '@component/form/IconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationDot, faPhone, faInfoCircle, faEdit, faUser, faHouse } from '@fortawesome/free-solid-svg-icons';
-import { AddressType } from '@api/shippingAddressAPI';
+import { faLocationDot, faPhone, faInfoCircle, faEdit, faUser } from '@fortawesome/free-solid-svg-icons';
+import { AddressType } from '@type/user';
 import AddressRemove from './content/AddressRemove';
 import AddressPrime from './content/AddressPrime';
 

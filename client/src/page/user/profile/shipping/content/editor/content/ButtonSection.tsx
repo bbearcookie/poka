@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@component/form/Button';
-import { AddressType } from '@api/shippingAddressAPI';
+import { AddressType } from '@type/user';
 
 interface Props {
   address?: AddressType;
