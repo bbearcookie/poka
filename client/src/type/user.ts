@@ -10,3 +10,10 @@ export interface AddressType {
   requirement: string;
   prime: string;
 }
+
+export interface AuthType {
+  user_id: number;
+  username: string;
+  role: string;
+  strategy: string;
+}

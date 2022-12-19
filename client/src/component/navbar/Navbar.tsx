@@ -1,16 +1,15 @@
 import React, { useCallback } from 'react';
 import useUserQuery from '@api/query/user/useUserQuery';
+import useLogout from '@api/mutation/auth/useLogout';
 import { useNavigate, Link } from 'react-router-dom';
 import { usePopper } from 'react-popper';
 import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { changeShow } from '@component/sidebar/sidebarSlice';
-import { logout } from '@util/auth/authSlice';
 import { userImage } from '@api/resource';
 import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import Button from '@component/form/Button';
-import * as authAPI from '@api/authAPI';
 import useDropdown from '@hook/useDropdown';
 import Dropdown from '@component/dropdown/Dropdown';
 import DropdownButton from '@component/dropdown/DropdownButton';
@@ -27,26 +26,20 @@ function Navbar({  }: Props) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const userDropdown = useDropdown();
-  const popper = usePopper(userDropdown.buttonElement, userDropdown.menuElement, {
-    modifiers: [
-      {
-        name: 'offset',
-        options: {
-          // offset: [-30, 0]
-        }
-      }
-    ]
-  });
+  const popper = usePopper(userDropdown.buttonElement, userDropdown.menuElement);
 
   const { status, data: user, error } = useUserQuery(user_id);
+  const logoutMutation = useLogout(
+    (res) => {
+      userDropdown.close();
+      navigate('/login');
+    }
+  )
 
   // 로그아웃 로직
   const handleLogout = useCallback((e: React.MouseEvent) => {
-    dispatch(logout());
-    userDropdown.close();
-    authAPI.postLogout.axios();
-    return navigate('/login');
-  }, [dispatch, navigate, userDropdown]);
+    logoutMutation.mutate({});
+  }, [logoutMutation]);
 
   return (
     <article className="Navbar">
