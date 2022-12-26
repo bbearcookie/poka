@@ -1,9 +1,10 @@
 import React, { useEffect, useReducer, useCallback } from 'react';
 import qs from 'qs';
-import BackLabel from '@component/label/BackLabel';
+import useAddTrade from '@api/mutation/trade/useAddTrade';
 import VoucherSection from './content/VoucherSection';
-import PhotocardSection from './content/PhotocardSection';
-import { initialState, reducer } from './reducer';
+import PhotocardSection from './content/photocard/PhotocardSection';
+import ButtonSection from './content/ButtonSection';
+import { initialState, reducer, FormType } from './reducer';
 import './Index.scss';
 
 interface Props {}
@@ -13,6 +14,14 @@ function Index({  }: Props) {
   const querystring = qs.parse(window.location.search, { ignoreQueryPrefix: true });
   const voucherId = Number(querystring.voucherId) || 0;
   const [form, formDispatch] = useReducer(reducer, initialState);
+  const postMutation = useAddTrade<keyof FormType>(
+    (res) => {},
+    (err) => {
+      err.response?.data.errors.forEach(item => {
+        formDispatch({ type: 'SET_MESSAGE', target: item.param, value: item.message });
+      });
+    }
+  );
 
   useEffect(() => {
     formDispatch({ type: 'SET_VOUCHER_ID', payload: voucherId });
@@ -20,7 +29,14 @@ function Index({  }: Props) {
 
   const onSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
-  }, []);
+    postMutation.mutate({
+      body: {
+        haveVoucherId: form.data.haveVoucherId,
+        wantPhotocardIds: form.data.wantPhotocardIds,
+        amount: form.data.amount
+      }
+    });
+  }, [form, postMutation]);
 
   return (
     <div className="TradeWriterPage">
@@ -28,6 +44,7 @@ function Index({  }: Props) {
       <form onSubmit={onSubmit}>
         <VoucherSection form={form} formDispatch={formDispatch} />
         <PhotocardSection form={form} formDispatch={formDispatch} />
+        <ButtonSection />
       </form>
     </div>
   );
