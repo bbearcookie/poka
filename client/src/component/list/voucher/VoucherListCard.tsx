@@ -8,7 +8,7 @@ import SearchInput from '@component/list/common/SearchInput';
 import SearchLabelList from './content/SearchLabelList';
 import FilterCheck from './content/FilterCheck';
 import VoucherList from './content/VoucherList';
-import { SearchKeywords, addKeyword, SearchKeywordsType, initialize } from './voucherListSlice';
+import { SearchKeywords, SearchKeywordsType, addKeyword, setVoucherState, initialize } from './voucherListSlice';
 import { VoucherStateKey } from '@type/voucher';
 import '../photo/PhotoListCard.scss';
 
@@ -49,6 +49,7 @@ function VoucherListCard({
   // 자신의 소유권만 보여줘야 할 경우 렌더시 자신의 아이디를 검색 필터에 추가
   const initFilter = useCallback(() => {
     if (defaultFilter.owner === 'MINE') dispatch(addKeyword({ type: 'USER_NAME', value: username }));
+    if (defaultFilter.state !== 'ALL') dispatch(setVoucherState(defaultFilter.state));
   }, [dispatch, defaultFilter, username]);
   useEffect(() => {
     initFilter();

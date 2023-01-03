@@ -9,6 +9,8 @@
       "@controller/*": ["src/controller/*"],
       "@service": ["src/service"],
       "@service/*": ["src/service/*"],
+      "@type": ["src/type"],
+      "@type/*": ["src/type/*"],
       "@util": ["/src/util"],
       "@util/*": ["src/util/*"],
       "@uploader": ["/src/uploader"],

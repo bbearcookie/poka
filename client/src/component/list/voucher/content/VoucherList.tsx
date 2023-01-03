@@ -11,7 +11,7 @@ import SkeletonVoucherCard from '@component/photocard/skeleton/SkeletonVoucherCa
 import { DefaultFilterType } from '../VoucherListCard';
 
 interface Props {
-  defaultFilter: DefaultFilterType
+  defaultFilter: DefaultFilterType;
   icon?: IconDefinition;
   handleClickIcon?: (photocardId: number) => void;
   children?: React.ReactNode;

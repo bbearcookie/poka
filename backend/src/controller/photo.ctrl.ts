@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { query, body, param, oneOf } from 'express-validator';
 import fs from 'fs/promises';
 import path from 'path';
-import { isAdmin, validate, } from '@util/validator';
+import { isAdmin, validate } from '@util/validator';
 import { removeFile } from '@util/multer';
 import imageUploader, { PHOTO_IMAGE_DIR } from '@uploader/image.uploader';
 import * as photoService from '@service/photo.service';

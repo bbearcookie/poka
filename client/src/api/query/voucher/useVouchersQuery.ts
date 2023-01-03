@@ -32,6 +32,8 @@ export default function useVouchersQuery(
   options?: UseInfiniteQueryOptions<ResType, AxiosError<ErrorType>>
 ): UseInfiniteQueryResult<ResType, AxiosError<ErrorType>> {
 
+  // console.log(filter);
+
   const refinedFilter = {
     GROUP_ID: filter.groups
       .filter(item => item.checked)

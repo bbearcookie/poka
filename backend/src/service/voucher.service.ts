@@ -1,6 +1,7 @@
 import db from '@config/database';
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import { WhereSQL } from '@util/database';
+import { VoucherType } from '@type/voucher';
 import * as voucherCtrl from '@controller/voucher.ctrl';
 
 // 소유권 목록 조회
@@ -120,11 +121,8 @@ export const selectVoucherDetail = async (voucherId: number) => {
     FROM Voucher
     WHERE voucher_id=${con.escape(voucherId)}`;
 
-    interface DataType extends RowDataPacket {
-      voucher_id: number;
-      photocard_id: number;
-      user_id: number;
-      state: string;
+    interface DataType extends RowDataPacket, VoucherType {
+      
     }
 
     return await con.query<DataType[]>(sql);

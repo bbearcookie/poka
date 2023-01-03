@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
 import useAddTrade from '@api/mutation/trade/useAddTrade';
 import VoucherSection from './content/VoucherSection';
@@ -14,8 +15,10 @@ function Index({  }: Props) {
   const querystring = qs.parse(window.location.search, { ignoreQueryPrefix: true });
   const voucherId = Number(querystring.voucherId) || 0;
   const [form, formDispatch] = useReducer(reducer, initialState);
+  const navigate = useNavigate();
+
   const postMutation = useAddTrade<keyof FormType>(
-    (res) => {},
+    (res) => navigate('/trade/list'),
     (err) => {
       err.response?.data.errors.forEach(item => {
         formDispatch({ type: 'SET_MESSAGE', target: item.param, value: item.message });
