@@ -7,6 +7,7 @@ import ProfilePage from '@page/user/profile/Index';
 import VoucherListPage from '@page/user/voucher/list/Index';
 import VoucherDetailPage from '@page/user/voucher/detail/Index';
 import TradeWriterPage from '@page/user/trade/writer/Index';
+import TradeListPage from '@page/user/trade/list/Index';
 
 function UserRouter() {
   const { username, strategy, role } = useAppSelector((state) => state.auth);
@@ -29,6 +30,7 @@ function UserRouter() {
         <Route path="/voucher/list" element={<VoucherListPage />} />
         <Route path="/voucher/detail/:voucherId" element={<VoucherDetailPage />} />
         <Route path="/trade/writer" element={<TradeWriterPage />} />
+        <Route path="/trade/list" element={<TradeListPage />} />
       </Routes>
     </>
   );

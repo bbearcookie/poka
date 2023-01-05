@@ -52,7 +52,7 @@ function PhotoCardTemplate({ className, photo, iconNode, cardStyles, children }:
 
 export default PhotoCardTemplate;
 
-export const PhotoNameDiv = styled.div`
+export const PhotoNameDiv = styled.div<{ margin?: string; }>`
   margin-top: 1em;
   padding: 0 0.5em;
   width: 100%;

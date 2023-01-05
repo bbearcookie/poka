@@ -25,6 +25,7 @@ export interface StylesProps {
   width?: string;
   minWidth?: string;
   maxWidth?: string;
+  height?: string;
   margin?: string;
   marginTop?: string;
   marginBottom?: string;
@@ -40,6 +41,7 @@ const StyledCard = styled.article<StylesProps>`
   width: ${p => p.width};
   min-width: ${p => p.minWidth};
   max-width: ${p => p.maxWidth};
+  height: ${p => p.height};
   margin: ${p => p.margin};
   margin-top: ${p => p.marginTop};
   margin-bottom: ${p => p.marginBottom};

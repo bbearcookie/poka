@@ -39,9 +39,6 @@ function AdminContent({  }: Props) {
           <ChildItem to="/admin/photo/crop" icon={faCut} text="자르기" />
         </ParentItem>
       </ul>
-      <ul className="category">
-        <ChildItem to="/admin/first" text="테스트페이지" />
-      </ul>
     </>
   );
 }

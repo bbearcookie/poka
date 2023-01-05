@@ -1,3 +1,5 @@
+@import '@util/common';
+
 .Sidebar_wrapper {
   position: fixed;
   top: 0; left: 0;
@@ -75,20 +77,5 @@
     }
   }
 
-  // 스크롤 바 스타일 지정
-  & {
-    &::-webkit-scrollbar {
-      width: 0.5em;  /* 스크롤바의 너비 */
-    }
-    
-    &::-webkit-scrollbar-thumb {
-      height: 30%; /* 스크롤바의 길이 */
-      background: rgb(43, 56, 82); /* 스크롤바의 색상 */
-      border-radius: 0.7em;
-    }
-    
-    &::-webkit-scrollbar-track {
-      background: rgba(33, 122, 244, .1);  /* 스크롤바 뒷 배경 색상 */
-    }
-  }
+  @include scrollbar;
 }
