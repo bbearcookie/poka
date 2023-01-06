@@ -29,6 +29,9 @@ function TradeCard({  }: Props) {
             <MemberName>나연</MemberName>
             <NameLabel>TWICE</NameLabel>
             <GrayText>1시간 전</GrayText>
+            {/* <GrayText>29일 전</GrayText>
+            <GrayText>11달 전</GrayText>
+            <GrayText>2년 전</GrayText> */}
             <Space />
             <GrayText>교환할 수 있는 멤버</GrayText>
             <WantMemberSection>
