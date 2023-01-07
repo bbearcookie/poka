@@ -1,10 +1,11 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useCallback } from 'react';
+import { InfiniteQueryObserverResult, FetchNextPageOptions } from '@tanstack/react-query';
 import { useUpdateEffect } from 'react-use';
 import { useInView } from 'react-intersection-observer';
 
 interface Props {
   hasNextPage: boolean | undefined;
-  fetchNextPage: Function;
+  fetchNextPage: (options?: FetchNextPageOptions | undefined) => Promise<InfiniteQueryObserverResult>;
 }
 const DefaultProps = {};
 
@@ -13,13 +14,13 @@ function NextPageFetcher({ hasNextPage, fetchNextPage }: Props) {
   const [viewRef, inView] = useInView();
 
   // 다음 페이지 가져오기
-  const handleFetchNextPage = useCallback(() => {
-    if (!inView) return;
+  const handleFetchNextPage = useCallback(async () => {
     if (!hasNextPage) return;
-    
-    fetchNextPage();
-  }, [inView, hasNextPage, fetchNextPage]);
+
+    await fetchNextPage();
+  }, [hasNextPage, fetchNextPage]);
   useUpdateEffect(() => {
+    if (!inView) return;
     handleFetchNextPage();
   }, [inView]);
 

@@ -67,6 +67,11 @@
         border: 1px solid #EC1B5A;
         font-weight: bold;
       }
+
+      &.skeleton {
+        width: 3em;
+        height: 1.35em;
+      }
     }
   }
 

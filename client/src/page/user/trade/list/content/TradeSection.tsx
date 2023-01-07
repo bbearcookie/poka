@@ -4,6 +4,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import * as queryKey from '@api/queryKey';
 import useTradesQuery from '@api/query/trade/useTradesQuery';
 import NextPageFetcher from '@component/list/NextPageFetcher';
+import SkeletonTradeCard from '@component/trade/skeleton/SkeletonTradeCard';
 import TradeCard from '@component/trade/TradeCard';
 import { State, Action } from '../reducer';
 
@@ -30,13 +31,18 @@ function TradeSection({ state, dispatch }: Props) {
 
   return (
     <section className="trade-section">
+
       {trades?.pages.map((page, pageIdx) =>
       <Fragment key={pageIdx}>
         {page.trades.map(item =>
           <TradeCard key={item.trade_id} trade={item} />
         )}
       </Fragment>)}
-      
+
+      {isFetching && Array.from({length: 20}).map((_, idx) => (
+        <SkeletonTradeCard key={idx} />
+      ))}
+
       <NextPageFetcher hasNextPage={hasNextPage} fetchNextPage={fetchNextPage} />
     </section>
   );

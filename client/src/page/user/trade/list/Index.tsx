@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
-import GroupSelect from './content/GroupSelect';
-import MemberSelect from './content/MemberSelect';
+import GroupSelect from './content/group/GroupSelect';
+import MemberSelect from './content/member/MemberSelect';
 import TradeSection from './content/TradeSection';
 import reducer, { initialState } from './reducer';
 import './Index.scss';

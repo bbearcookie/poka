@@ -51,7 +51,7 @@ function TradeCard({ trade }: Props) {
 
 export default TradeCard;
 
-const Body = styled.div`
+export const Body = styled.div`
   display: flex;
   gap: 1em;
 
@@ -61,14 +61,14 @@ const Body = styled.div`
     align-items: center;
     text-align: center;
 
-    .NameLabel { align-self: center; }
+    .NameLabel, .SkeletonItem { align-self: center; }
     .WantMemberSection {
       justify-content: center;
     }
   }
 `
 
-const ContentSection = styled.section`
+export const ContentSection = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;

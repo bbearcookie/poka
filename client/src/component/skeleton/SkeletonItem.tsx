@@ -26,6 +26,7 @@ interface StylesProps {
   marginBottom?: string;
   backgroundColor?: string;
   borderRadius?: string;
+  boxSizing?: string;
 }
 const StyledItem = styled.div<StylesProps>`
   width: ${p => p.width ? p.width : '5em'};
@@ -38,4 +39,5 @@ const StyledItem = styled.div<StylesProps>`
   margin-right: ${p => p.marginRight};
   background-color: ${p => p.backgroundColor ? p.backgroundColor : 'gainsboro'};
   border-radius: ${p => p.borderRadius ? p.borderRadius : "10px"};
+  box-sizing: ${p => p.boxSizing};
 `;
