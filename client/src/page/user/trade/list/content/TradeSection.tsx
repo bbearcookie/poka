@@ -1,4 +1,9 @@
-import React from 'react';
+import React, { Fragment, useCallback } from 'react';
+import { useUpdateEffect } from 'react-use';
+import { useQueryClient } from '@tanstack/react-query';
+import * as queryKey from '@api/queryKey';
+import useTradesQuery from '@api/query/trade/useTradesQuery';
+import NextPageFetcher from '@component/list/NextPageFetcher';
 import TradeCard from '@component/trade/TradeCard';
 import { State, Action } from '../reducer';
 
@@ -9,15 +14,30 @@ interface Props {
 const DefaultProps = {};
 
 function TradeSection({ state, dispatch }: Props) {
+  const queryClient = useQueryClient();
+
+  const { data: trades, refetch, isFetching, fetchNextPage, hasNextPage }
+  = useTradesQuery(state.select);
+
+  // 검색 필터 변경시 데이터 리패칭
+  const handleRefetch = useCallback(async () => {
+    queryClient.removeQueries(queryKey.tradeKeys.all);
+    refetch();
+  }, [queryClient, refetch]);
+  useUpdateEffect(() => {
+    handleRefetch();
+  }, [state.select]);
+
   return (
     <section className="trade-section">
-      <TradeCard />
-      <TradeCard />
-      <TradeCard />
-      <TradeCard />
-      <TradeCard />
-      <TradeCard />
-      <TradeCard />
+      {trades?.pages.map((page, pageIdx) =>
+      <Fragment key={pageIdx}>
+        {page.trades.map(item =>
+          <TradeCard key={item.trade_id} trade={item} />
+        )}
+      </Fragment>)}
+      
+      <NextPageFetcher hasNextPage={hasNextPage} fetchNextPage={fetchNextPage} />
     </section>
   );
 }

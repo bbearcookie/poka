@@ -4,13 +4,16 @@ import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 import IconButton from '@component/form/IconButton';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { photoImage } from '@api/resource';
+import { TradeListItemType } from '@type/trade';
+import { getSimpleTakenTime } from '@util/common';
 
 interface Props {
-
+  trade: TradeListItemType;
 }
 const DefaultProps = {};
 
-function TradeCard({  }: Props) {
+function TradeCard({ trade }: Props) {
   return (
     <Card
       styles={{
@@ -22,26 +25,23 @@ function TradeCard({  }: Props) {
         <Body>
           <img
             width="150" height="224"
-            src="http://localhost:5000/image/photo/33_1659339397867.png"
+            src={photoImage(trade.image_name)}
             alt="이미지" />
           <ContentSection>
-            <PhotoName>MAP OF THE SOUL</PhotoName>
-            <MemberName>나연</MemberName>
-            <NameLabel>TWICE</NameLabel>
-            <GrayText>1시간 전</GrayText>
-            {/* <GrayText>29일 전</GrayText>
-            <GrayText>11달 전</GrayText>
-            <GrayText>2년 전</GrayText> */}
+            <PhotoName>{trade.photo_name}</PhotoName>
+            <MemberName>{trade.member_name}</MemberName>
+            <NameLabel className="NameLabel">{trade.group_name}</NameLabel>
+            <GrayText>{getSimpleTakenTime(trade.written_time)}</GrayText>
             <Space />
             <GrayText>교환할 수 있는 멤버</GrayText>
-            <WantMemberSection>
-              <NameLabel>조유리</NameLabel>
-              <NameLabel>조유리</NameLabel>
-              <NameLabel>조유리</NameLabel>
+            <WantMemberSection className="WantMemberSection">
+              {trade.wantMembers.map(item =>
+                <NameLabel key={item.member_id} className="NameLabel">{item.name}</NameLabel>)
+              }
             </WantMemberSection>
           </ContentSection>
           <IconSection>
-            <IconButton icon={faArrowRight} size='lg' tooltip="자세히 보기" />
+            <IconButton icon={faArrowRight} size="lg" tooltip="자세히 보기" />
           </IconSection>
         </Body>
       </CardBody>
@@ -56,7 +56,15 @@ const Body = styled.div`
   gap: 1em;
 
   @media screen and (max-width: 40rem) {
+    margin-top: 2em;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    .NameLabel { align-self: center; }
+    .WantMemberSection {
+      justify-content: center;
+    }
   }
 `
 
@@ -88,6 +96,7 @@ const NameLabel = styled.span`
   background-color: #E5E7EB;
   border-radius: 5px;
   word-break: keep-all;
+
 `
 
 const GrayText = styled.p`

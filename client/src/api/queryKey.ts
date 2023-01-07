@@ -30,3 +30,8 @@ export const addressKeys = {
   all: ['address'] as const,
   detail: (addressId: number) => [...addressKeys.all, addressId] as const
 }
+
+export const tradeKeys = {
+  all: ['trade'] as const,
+  detail: (tradeId: number) => [...tradeKeys.all, tradeId] as const
+}

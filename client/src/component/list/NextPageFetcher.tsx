@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useUpdateEffect } from 'react-use';
 import { useInView } from 'react-intersection-observer';
 

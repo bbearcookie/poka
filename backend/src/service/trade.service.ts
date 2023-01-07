@@ -1,5 +1,80 @@
 import db from '@config/database';
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
+import { TradeListItemType } from '@type/trade';
+import { WhereSQL } from '@util/database';
+
+// 교환글 목록 조회
+export const selectTradeList = async (
+  groupId: number, memberId: number,
+  itemPerPage: number, pageParam: number
+) => {
+  const con = await db.getConnection();
+
+  try {
+    let sql;
+    const where = new WhereSQL();
+
+    sql = `
+    SELECT T.trade_id, T.user_id, T.voucher_id, T.state, T.amount, T.written_time, T.traded_time,
+    P.photocard_id, P.image_name, M.member_id,
+    P.name as photo_name, M.name as member_name, G.name as group_name
+    FROM Trade as T
+    INNER JOIN Voucher as V ON T.voucher_id=V.voucher_id
+    INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
+    INNER JOIN MemberData as M ON P.member_id=M.member_id
+    INNER JOIN GroupData as G ON M.group_id=G.group_id `;
+
+    // 그룹ID 조건
+    if (groupId > 0) {
+      where.push({
+        query: `M.group_id=${con.escape(groupId)}`,
+        operator: 'AND'
+      });
+    }
+
+    // 멤버ID 조건
+    if (memberId > 0) {
+      where.push({
+        query: `M.member_id=${con.escape(memberId)}`,
+        operator: 'OR'
+      });
+    }
+
+    // 조건 처리
+    sql += where.toString();
+    sql += `ORDER BY written_time DESC `;
+
+    // 페이지 조건
+    sql += `LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
+
+    interface TradeDataType extends RowDataPacket, TradeListItemType {}
+    const [trades] = await con.query<TradeDataType[]>(sql);
+
+    for (let i = 0; i < trades.length; i++) {
+      sql = `
+      SELECT M.member_id, M.name
+      FROM TradeWantcard as T
+      INNER JOIN Photocard as P ON T.photocard_id=P.photocard_id
+      INNER JOIN MemberData as M ON P.member_id=M.member_id
+      WHERE T.trade_id=${con.escape(trades[i].trade_id)}
+      GROUP BY M.name`
+      
+      interface WantMemberType extends RowDataPacket {
+        member_id: number;
+        name: string;
+      }
+
+      const [wantMembers] = await con.query<WantMemberType[]>(sql);
+      trades[i] = { ...trades[i], wantMembers }
+    }
+
+    return trades;
+  } catch (err) {
+    throw err;
+  } finally {
+    con.release();
+  }
+}
 
 // 교환글 작성
 export const writeTrade = async ({ userId, voucherId, amount, wantPhotocardIds }:
@@ -9,7 +84,7 @@ export const writeTrade = async ({ userId, voucherId, amount, wantPhotocardIds }
 
   try {
     await con.beginTransaction();
-    let sql = '';
+    let sql;
 
     // 소유권 상태를 trading으로 변경
     sql = `
