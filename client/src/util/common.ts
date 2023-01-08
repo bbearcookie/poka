@@ -8,31 +8,23 @@ export function getFormattedTime(datetime: string) {
 }
 
 // 해당 date 값이 현재로부터 얼마나 이전인지를 문자열 형태로 변환함
-export function getSimpleTakenTime(datetime: string) {
+export function getElaspedTime(datetime: string) {
   const date = new Date(datetime);
-  const now = new Date(Date.now());
-  const diff = {
-    year: now.getFullYear() - date.getFullYear(),
-    month: now.getMonth() - date.getMonth(), 
-    day: now.getDay() - date.getDay(),
-    hours: now.getHours() - date.getHours(),
-    minutes: now.getMinutes() - date.getMinutes(),
-    seconds: now.getSeconds() - date.getSeconds()
-  }
+  const now = new Date();
+  const diff = (now.getTime() - date.getTime()) / 1000;
 
-  if (diff.year > 0)
-    return `${diff.year}년 전`;
-  else if (diff.month > 0)
-    return `${diff.month}달 전`;
-  else if (diff.day > 0)
-    return `${diff.day}일 전`;
-  else if (diff.hours > 0)
-    return `${diff.hours}시간 전`;
-  else if (diff.minutes > 0)
-    return `${diff.minutes}분 전`;
-  else if (diff.seconds > 0)
-    return `${diff.seconds}초 전`;
-  else
-    return `방금 전`;
+  const times = [
+    { name: '년', milliSeconds: 60 * 60 * 24 * 365 },
+    { name: '월', milliSeconds: 60 * 60 * 24 * 30 },
+    { name: '일', milliSeconds: 60 * 60 * 24 },
+    { name: '시간', milliSeconds: 60 * 60 },
+    { name: '분', milliSeconds: 60 }
+  ]
+
+  for (const time of times) {
+    const between = Math.floor(diff / time.milliSeconds);
+    if (between > 0) return `${between}${time.name} 전`;
+  }
+  return `방금 전`;
 
 }

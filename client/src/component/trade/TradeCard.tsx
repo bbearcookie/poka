@@ -6,7 +6,7 @@ import IconButton from '@component/form/IconButton';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { photoImage } from '@api/resource';
 import { TradeListItemType } from '@type/trade';
-import { getSimpleTakenTime } from '@util/common';
+import { getElaspedTime } from '@util/common';
 
 interface Props {
   trade: TradeListItemType;
@@ -31,7 +31,7 @@ function TradeCard({ trade }: Props) {
             <PhotoName>{trade.photo_name}</PhotoName>
             <MemberName>{trade.member_name}</MemberName>
             <NameLabel className="NameLabel">{trade.group_name}</NameLabel>
-            <GrayText>{getSimpleTakenTime(trade.written_time)}</GrayText>
+            <GrayText>{getElaspedTime(trade.written_time)}</GrayText>
             <Space />
             <GrayText>교환할 수 있는 멤버</GrayText>
             <WantMemberSection className="WantMemberSection">
