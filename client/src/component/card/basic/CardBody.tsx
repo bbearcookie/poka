@@ -24,9 +24,11 @@ export interface StylesProps {
   padding?: string;
   width?: string;
   height?: string;
+  color?: string;
 }
 const StyledCardBody = styled.section<StylesProps>`
   padding: ${p => p.padding ? p.padding : '1.5em'};
   width: ${p => p.width};
   height: ${p => p.height};
+  color: ${p => p.color};
 `

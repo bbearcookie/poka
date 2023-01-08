@@ -1,5 +1,5 @@
 import React from 'react';
-import VoucherInfoCard from '@component/card/VoucherInfoCard';
+import VoucherInfoCard from '@component/card/voucherInfo/VoucherInfoCard';
 import PhotoInfoCard from '@component/photocard/detail/PhotoInfoCard';
 import { ResType as VoucherResType } from '@api/query/voucher/useVoucherQuery';
 import VoucherRemove from './content/VoucherRemove';
