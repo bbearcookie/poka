@@ -6,8 +6,8 @@ import { useAppSelector } from '@app/redux/reduxHooks';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import * as queryKey from '@api/queryKey';
 import NextPageFetcher from '@component/list/NextPageFetcher';
-import VoucherCard from '@component/photocard/VoucherCard';
-import SkeletonVoucherCard from '@component/photocard/skeleton/SkeletonVoucherCard';
+import VoucherCard from '@component/photocard/voucher/VoucherCard';
+import SkeletonVoucherCard from '@component/photocard/voucher/SkeletonVoucherCard';
 import { DefaultFilterType } from '../VoucherListCard';
 
 interface Props {

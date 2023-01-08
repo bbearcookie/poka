@@ -10,7 +10,7 @@ import CardList from '@component/card/basic/CardList';
 import CardListItem from '@component/card/basic/CardListItem';
 import { userImage } from '@api/resource';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { VoucherStateLabel } from '@component/photocard/VoucherCard';
+import { VoucherStateLabel } from '@component/photocard/voucher/VoucherCard';
 import { VoucherStateKey, VoucherStateValue } from '@/type/voucher';
 import { ResType as VoucherResType } from '@api/query/voucher/useVoucherQuery';
 import DescriptionSection from './content/DescriptionSection';

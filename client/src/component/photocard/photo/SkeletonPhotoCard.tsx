@@ -1,8 +1,7 @@
 import React from 'react';
-import { PhotoNameDiv, ContentSection, NameSection } from '../PhotoCardTemplate';
+import { PhotoName, ContentSection, NameSection } from '../PhotoCardTemplate';
 import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
-import CardFooter from '@component/card/basic/CardFooter';
 import SkeletonItem from '@component/skeleton/SkeletonItem';
 import { StylesProps } from '@component/card/basic/Card';
 
@@ -11,7 +10,7 @@ interface Props {
 }
 const DefaultProps = {};
 
-function SkeletonVoucherCard({ cardStyles }: Props) {
+function SkeletonPhotoCard({ cardStyles }: Props) {
   return (
     <Card
       className="PhotoCard"
@@ -29,20 +28,16 @@ function SkeletonVoucherCard({ cardStyles }: Props) {
             marginBottom: "1.27em"
           }}
         />
-        <PhotoNameDiv />
+        <PhotoName />
         <ContentSection>
           <NameSection>
             <SkeletonItem />
-            <SkeletonItem styles={{ marginTop: '0.5em' }} />
+            <SkeletonItem styles={{ marginTop: "0.5em" }} />
           </NameSection>
         </ContentSection>
       </CardBody>
-      <CardFooter>
-        <SkeletonItem styles={{ height: '1.6em', marginBottom: '0.5em' }} />
-        <SkeletonItem />
-      </CardFooter>
     </Card>
   );
 }
 
-export default SkeletonVoucherCard;
+export default SkeletonPhotoCard;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import CardBody from '@component/card/basic/CardBody';
-import { VoucherStateLabel } from '@component/photocard/VoucherCard';
+import { VoucherStateLabel } from '@component/photocard/voucher/VoucherCard';
 import { VoucherStateKey, VoucherStateValue } from '@/type/voucher';
 
 interface Props {

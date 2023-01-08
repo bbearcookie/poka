@@ -2,7 +2,7 @@ import React from 'react';
 import { useQueries } from '@tanstack/react-query';
 import * as queryKey from '@api/queryKey';
 import { fetchPhotoDetail } from '@api/api/photo';
-import SkeletonPhotoCard from '@component/photocard/skeleton/SkeletonPhotoCard';
+import SkeletonPhotoCard from '@component/photocard/photo/SkeletonPhotoCard';
 import { State, Action } from '../../reducer';
 import { PhotoItemType } from './PhotoItem';
 import PhotoItem from './PhotoItem';

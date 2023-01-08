@@ -4,8 +4,8 @@ import { useAppSelector } from '@app/redux/reduxHooks';
 import { useQueryClient } from '@tanstack/react-query';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import * as queryKey from '@api/queryKey';
-import PhotoCard from '@component/photocard/PhotoCard';
-import SkeletonPhotoCard from '@component/photocard/skeleton/SkeletonPhotoCard';
+import PhotoCard from '@component/photocard/photo/PhotoCard';
+import SkeletonPhotoCard from '@component/photocard/photo/SkeletonPhotoCard';
 import usePhotosQuery from '@api/query/photo/usePhotosQuery';
 import NextPageFetcher from '@component/list/NextPageFetcher';
 

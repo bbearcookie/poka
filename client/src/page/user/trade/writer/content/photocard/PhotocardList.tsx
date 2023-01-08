@@ -1,6 +1,6 @@
 import React from 'react';
 import { UseQueryResult } from '@tanstack/react-query';
-import PhotoCard from '@component/photocard/PhotoCard';
+import PhotoCard from '@component/photocard/photo/PhotoCard';
 import InputMessage from '@component/form/InputMessage';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { PhotoType } from '@type/photo';

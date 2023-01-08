@@ -31,7 +31,7 @@ function PhotoCardTemplate({ className, photo, iconNode, cardStyles, children }:
           width="150" height="224"
           src={photoImage(photo.image_name)}
           alt="이미지" />
-        <PhotoNameDiv><p>{photo.name}</p></PhotoNameDiv>
+        <PhotoName><p>{photo.name}</p></PhotoName>
 
         <ContentSection>
           <NameSection>
@@ -52,7 +52,7 @@ function PhotoCardTemplate({ className, photo, iconNode, cardStyles, children }:
 
 export default PhotoCardTemplate;
 
-export const PhotoNameDiv = styled.div<{ margin?: string; }>`
+export const PhotoName = styled.div<{ margin?: string; }>`
   margin-top: 1em;
   padding: 0 0.5em;
   width: 100%;

@@ -7,7 +7,7 @@ import Button from '@component/form/Button';
 import UserProfile from '@component/profile/UserProfile';
 import { userImage } from '@api/resource';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { VoucherStateLabel } from '@component/photocard/VoucherCard';
+import { VoucherStateLabel } from '@component/photocard/voucher/VoucherCard';
 import { VoucherStateKey, VoucherStateValue } from '@type/voucher';
 import { ResType as VoucherResType } from '@api/query/voucher/useVoucherQuery';
 
