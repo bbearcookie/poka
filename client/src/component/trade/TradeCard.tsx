@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
@@ -14,6 +15,12 @@ interface Props {
 const DefaultProps = {};
 
 function TradeCard({ trade }: Props) {
+  const navigate = useNavigate();
+
+  const onClickIcon = useCallback(() => {
+    navigate(`/trade/detail/${trade.trade_id}`);
+  }, [navigate, trade]);
+
   return (
     <Card
       styles={{
@@ -41,7 +48,7 @@ function TradeCard({ trade }: Props) {
             </WantMemberSection>
           </ContentSection>
           <IconSection>
-            <IconButton icon={faArrowRight} size="lg" tooltip="자세히 보기" />
+            <IconButton icon={faArrowRight} size="lg" tooltip="자세히 보기" onClick={onClickIcon} />
           </IconSection>
         </Body>
       </CardBody>

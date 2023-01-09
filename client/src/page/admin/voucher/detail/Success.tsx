@@ -14,7 +14,7 @@ function Success({ voucher }: Props) {
 
   return (
     <>
-      <PhotoInfoCard photo={voucher} />
+      <PhotoInfoCard photoName={voucher.name} groupName={voucher.group_name} memberName={voucher.member_name} imageName={voucher.image_name} />
       <VoucherInfoCard voucher={voucher} showAdminInfo={true} />
       <VoucherRemove voucherId={voucher.voucher_id} />
     </>

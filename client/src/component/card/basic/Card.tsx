@@ -54,5 +54,5 @@ const StyledCard = styled.article<StylesProps>`
   border-radius: 10px;
 
   .text { margin: 0; }
-  .description { margin: 0; color: #65748B; }
+  .description { margin: 0.2em 0; color: #65748B; }
 `

@@ -1,18 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 import { photoImage } from '@api/resource';
-import { PhotoType } from '@type/photo';
 import Card, { StylesProps as CardStyles } from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 
 interface Props {
-  photo: PhotoType;
+  groupName: string;
+  photoName: string;
+  memberName: string;
+  imageName: string;
   cardStyles?: CardStyles;
   children?: React.ReactNode;
 }
 const DefaultProps = {};
 
-function PhotoInfoCard({ photo, cardStyles, children }: Props) {
+function PhotoInfoCard({ groupName, photoName, memberName, imageName, cardStyles, children }: Props) {
   return (
     <Card
       className="PhotoInfoCard"
@@ -27,12 +29,12 @@ function PhotoInfoCard({ photo, cardStyles, children }: Props) {
         <PhotoSection>
           <img
             width="150" height="224"
-            src={photoImage(photo.image_name)}
+            src={photoImage(imageName)}
             alt="이미지"
           />
-          <PhotoNameLabel>{photo.name}</PhotoNameLabel>
-          <MemberNameLabel>{photo.member_name}</MemberNameLabel>
-          <GroupNameLabel>그룹: <GroupName>{photo.group_name}</GroupName></GroupNameLabel>
+          <PhotoNameLabel>{photoName}</PhotoNameLabel>
+          <MemberNameLabel>{memberName}</MemberNameLabel>
+          <GroupNameLabel>그룹: <GroupName>{groupName}</GroupName></GroupNameLabel>
 
           {children}
         </PhotoSection>

@@ -57,66 +57,47 @@ export default VoucherInfoCard;
 
 function VoucherID({ voucher }: { voucher: VoucherResType }) {
   return (
-    <CardListItem>
-      <SubtitleLabel>소유권ID</SubtitleLabel>
-      <Body>{voucher.voucher_id}</Body>
+    <CardListItem title="소유권ID">
+      {voucher.voucher_id}
     </CardListItem>
   )
 }
 
 function VoucherOwner({ voucher }: { voucher: VoucherResType }) {
   return (
-    <CardListItem>
-      <SubtitleLabel>소유자</SubtitleLabel>
-      <Body>
-        <UserProfile
-          nickname={voucher?.nickname}
-          username={voucher?.username}
-          imageName={userImage(voucher?.user_image_name)}
-        />
-      </Body>
+    <CardListItem title="소유자">
+      <UserProfile
+        nickname={voucher?.nickname}
+        username={voucher?.username}
+        imageName={userImage(voucher?.user_image_name)}
+      />
     </CardListItem>
   )
 }
 
 function VoucherState({ voucher }: { voucher: VoucherResType }) {
   return (
-    <CardListItem>
-      <SubtitleLabel>상태</SubtitleLabel>
-      <Body>
-        <VoucherStateLabel voucherState={voucher?.state || ''} width="6em" textAlign="center">
-          {VoucherStateValue[voucher?.state.toUpperCase() as VoucherStateKey]}
-        </VoucherStateLabel>
-      </Body>
+    <CardListItem title="상태">
+      <VoucherStateLabel voucherState={voucher?.state || ''} width="6em" textAlign="center">
+        {VoucherStateValue[voucher?.state.toUpperCase() as VoucherStateKey]}
+      </VoucherStateLabel>
     </CardListItem>
   )
 }
 
 function VoucherLog({ voucher }: { voucher: VoucherResType }) {
   return (
-    <CardListItem>
-      <SubtitleLabel>기록</SubtitleLabel>
-      <Body>
-        <Link to={`/admin/voucher/log/${voucher?.voucher_id}`}>
-          <Button
-            rightIcon={faArrowRight}
-            styles={{
-              theme: "primary",
-              padding: "0.7em 1.3em",
-              iconMargin: "1em"
-            }}
-          >조회</Button>
-        </Link>
-      </Body>
+    <CardListItem title="기록">
+      <Link to={`/admin/voucher/log/${voucher?.voucher_id}`}>
+        <Button
+          rightIcon={faArrowRight}
+          styles={{
+            theme: "primary",
+            padding: "0.7em 1.3em",
+            iconMargin: "1em"
+          }}
+        >조회</Button>
+      </Link>
     </CardListItem>
   )
 }
-
-
-const SubtitleLabel = styled.div`
-  flex-basis: 30%;
-`
-
-const Body = styled.div`
-  flex-basis: 70%; color: #65748b;
-`

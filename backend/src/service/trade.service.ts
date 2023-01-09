@@ -1,6 +1,6 @@
 import db from '@config/database';
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
-import { TradeListItemType } from '@type/trade';
+import { TradeType, TradeListItemType, WantcardType } from '@type/trade';
 import { WhereSQL } from '@util/database';
 
 // 교환글 목록 조회
@@ -47,7 +47,7 @@ export const selectTradeList = async (
     // 페이지 조건
     sql += `LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
 
-    interface TradeDataType extends RowDataPacket, TradeListItemType {}
+    interface TradeDataType extends RowDataPacket, TradeType {}
     const [trades] = await con.query<TradeDataType[]>(sql);
 
     for (let i = 0; i < trades.length; i++) {
@@ -68,7 +68,56 @@ export const selectTradeList = async (
       trades[i] = { ...trades[i], wantMembers }
     }
 
-    return trades;
+    return trades as TradeListItemType[];
+  } catch (err) {
+    throw err;
+  } finally {
+    con.release();
+  }
+}
+
+// 교환글 상세 조회
+export const selectTradeDetail = async (tradeId: number) => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `
+    SELECT T.trade_id, T.user_id, T.voucher_id, T.state, T.amount, T.written_time, T.traded_time,
+    P.photocard_id, P.image_name, M.member_id,
+    P.name as photo_name, M.name as member_name, G.name as group_name
+    FROM Trade as T
+    INNER JOIN Voucher as V ON T.voucher_id=V.voucher_id
+    INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
+    INNER JOIN MemberData as M ON P.member_id=M.member_id
+    INNER JOIN GroupData as G ON M.group_id=G.group_id
+    WHERE T.trade_id=${con.escape(tradeId)}`;
+
+    interface DataType extends RowDataPacket, TradeType {}
+    return await con.query<DataType[]>(sql);
+  } catch (err) {
+    throw err;
+  } finally {
+    con.release();
+  }
+}
+
+// 교환글이 원하는 포토카드 목록 조회
+export const selectWantCardsOfTrade = async (tradeId: number) => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `
+    SELECT P.image_name, 
+    P.name as photo_name, M.name as member_name, G.name as group_name,
+    P.photocard_id, M.member_id, G.group_id
+    FROM TradeWantcard as T
+    INNER JOIN Photocard as P ON T.photocard_id=P.photocard_id
+    INNER JOIN MemberData as M ON P.member_id=M.member_id
+    INNER JOIN GroupData as G ON M.group_id=G.group_id
+    WHERE T.trade_id=${con.escape(tradeId)}`
+
+    interface DataType extends RowDataPacket, WantcardType {}
+    return await con.query<DataType[]>(sql);
   } catch (err) {
     throw err;
   } finally {

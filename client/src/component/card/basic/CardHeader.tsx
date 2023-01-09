@@ -27,4 +27,10 @@ export interface StylesProps {
 const StyledCardHeader = styled.header<StylesProps>`
   padding: ${p => p.padding ? p.padding : '1.5em'};
   border-bottom: ${p => p.borderBottom ? p.borderBottom : '1px solid #E5E7EB'};
+
+  .title {
+    margin: 0.2em 0;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
 `;

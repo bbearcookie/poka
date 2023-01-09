@@ -1,10 +1,15 @@
 // date 타입의 값을 사람이 읽을 문자열 형태로 변환함
 export function getFormattedTime(datetime: string) {
   const date = new Date(datetime);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const hour = date.getHours();
+  const pmhour = hour - 12;
+  const minute = date.getMinutes();
 
-  return `
-  ${date.getFullYear()}-${date.getMonth()}-${date.getDate()}
-  ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+  return `${year}년 ${month}월 ${day}일
+  ${hour < 12 ? '오전 ' + hour : '오후 ' + pmhour}시 ${minute}분`;
 }
 
 // 해당 date 값이 현재로부터 얼마나 이전인지를 문자열 형태로 변환함

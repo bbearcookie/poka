@@ -12,7 +12,7 @@ const DefaultProps = {};
 
 function PhotoInfo({ photo, startEditor }: Props) {
   return (
-    <PhotoInfoCard photo={photo}>
+    <PhotoInfoCard photoName={photo.name} groupName={photo.group_name} memberName={photo.member_name} imageName={photo.image_name}>
       <Button
         rightIcon={faPenToSquare}
         styles={{
