@@ -83,7 +83,8 @@ export const selectVoucherList = async (
 
     // 조건 처리
     sql += where.toString();
-    sql += `ORDER BY voucher_id `;
+    sql += `ORDER BY FIELD(state, 'available', 'trading', 'shipping', 'shipped') ASC,
+    voucher_id DESC `;
 
     // 페이지 조건
     sql += `LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
@@ -121,10 +122,7 @@ export const selectVoucherDetail = async (voucherId: number) => {
     FROM Voucher
     WHERE voucher_id=${con.escape(voucherId)}`;
 
-    interface DataType extends RowDataPacket, VoucherType {
-      
-    }
-
+    interface DataType extends RowDataPacket, VoucherType {}
     return await con.query<DataType[]>(sql);
   } catch (err) {
     throw err;
