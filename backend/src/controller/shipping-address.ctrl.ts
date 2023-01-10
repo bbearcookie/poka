@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { body, param } from 'express-validator';
-import { validate, isLoggedIn } from '@util/validator';
+import { validate, isLoggedIn, isAdminOrOwner } from '@util/validator';
 import { UserType } from '@util/jwt';
 import * as userService from '@service/user.service';
 import * as shippingAddressService from '@service/shipping-address.service';
@@ -56,7 +56,7 @@ export const getUserShippingAddress = {
     if (!user) return res.status(404).json({ message: '수정하려는 사용자의 데이터가 서버에 존재하지 않아요.' });
 
     // 관리자이거나, 자기 자신의 정보에 대한 경우에만 접근 가능
-    if (loggedUser.role !== 'admin' && user.user_id !== loggedUser.user_id) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
+    if (!isAdminOrOwner(loggedUser, user.user_id)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
 
     const [addresses] = await shippingAddressService.selectUserShippingAddressList(userId);
     return res.status(200).json({ message: '해당 사용자의 배송지 목록을 조회했어요.', addresses });
@@ -83,7 +83,7 @@ export const postShippingAddress = {
     if (!user) return res.status(404).json({ message: '수정하려는 사용자의 데이터가 서버에 존재하지 않아요.' });
 
     // 관리자이거나, 자기 자신의 정보에 대한 경우에만 접근 가능
-    if (loggedUser.role !== 'admin' && user.user_id !== loggedUser.user_id) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
+    if (!isAdminOrOwner(loggedUser, user.user_id)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
 
     // 이미 배송지를 10개 이상 저장한 상태면 추가 불가능
     const [addresses] = await shippingAddressService.selectUserShippingAddressList(userId);
@@ -115,7 +115,7 @@ export const putShippingAddress = {
     if (!address) return res.status(404).json({ message: '수정하려는 배송지의 데이터가 서버에 존재하지 않아요.' });
 
     // 관리자이거나, 자기 자신의 정보에 대한 경우에만 접근 가능
-    if (loggedUser.role !== 'admin' && loggedUser.user_id !== address.user_id) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
+    if (!isAdminOrOwner(loggedUser, address.user_id)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
 
     await shippingAddressService.updateShippingAddress(addressId, { form });
     return res.status(200).json({ message: '배송지 정보를 수정했어요.' });
@@ -140,7 +140,7 @@ export const patchShippingAddressPrime = {
     if (!address) return res.status(404).json({ message: '수정하려는 배송지의 데이터가 서버에 존재하지 않아요.' });
 
     // 관리자이거나, 자기 자신의 정보에 대한 경우에만 접근 가능
-    if (loggedUser.role !== 'admin' && loggedUser.user_id !== address.user_id) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
+    if (!isAdminOrOwner(loggedUser, address.user_id)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
 
     await shippingAddressService.updateUserShippingAddressPrimeFalse(address.user_id);
     await shippingAddressService.updateShippingAddressPrime(addressId, 'true');
@@ -165,7 +165,7 @@ export const deleteShippingAddress = {
     if (!address) return res.status(404).json({ message: '삭제하려는 배송지의 데이터가 서버에 존재하지 않아요.' });
 
     // 관리자이거나, 자기 자신의 정보에 대한 경우에만 접근 가능
-    if (loggedUser.role !== 'admin' && loggedUser.user_id !== address.user_id) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
+    if (!isAdminOrOwner(loggedUser, address.user_id)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
     await shippingAddressService.deleteShippingAddress(addressId);
 
     // 만약 배송자의 삭제로 인해서 기본 배송지가 사라진다면 기존의 배송지 중 하나를 기본 배송지로 설정

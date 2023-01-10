@@ -1,6 +1,7 @@
 import { client } from '@util/request';
 import { ParamType as TradesParam } from '@api/query/trade/useTradesQuery';
 import { ParamType as AddTradeParam } from '@api/mutation/trade/useAddTrade';
+import { ParamType as DeleteTradeParam } from '@api/mutation/trade/useDeleteTrade';
 
 export const fetchTrades = async (param: TradesParam) => {
   const url = `/api/trade`;
@@ -17,5 +18,11 @@ export const fetchTradeDetail = async (tradeId: number) => {
 export const addTrade = async (param: AddTradeParam) => {
   const url = `/api/trade`;
   const res = await client.post(url, param.body);
+  return res;
+}
+
+export const deleteTrade = async (param: DeleteTradeParam) => {
+  const url = `/api/trade/${param.tradeId}`;
+  const res = await client.delete(url);
   return res;
 }

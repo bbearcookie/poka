@@ -82,3 +82,9 @@ export function createResponseMessage(param: string, message: string) {
     }]
   };
 }
+
+// 관리자이거나, 로그인 한 사람이 리소스의 주인인지를 반환하는 함수
+export function isAdminOrOwner(user: UserType, ownerUserId: number) {
+  if (user.role === 'admin' || user.user_id === ownerUserId) return true;
+  return false;
+}

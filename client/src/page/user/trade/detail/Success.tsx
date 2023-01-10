@@ -12,7 +12,6 @@ interface Props {
 const DefaultProps = {};
 
 function Success({ trade }: Props) {
-
   return (
     <>
       <PhotoInfoCard

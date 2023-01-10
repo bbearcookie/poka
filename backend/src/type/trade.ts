@@ -2,7 +2,7 @@ export interface TradeType {
   trade_id: number;
   user_id: number;
   voucher_id: number;
-  state: number;
+  state: 'trading' | 'traded';
   amount: number;
   written_time: string;
   traded_time: string;

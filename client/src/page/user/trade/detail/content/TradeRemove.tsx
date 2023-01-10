@@ -1,5 +1,8 @@
 import React, { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ResType as TradeType } from '@api/query/trade/useTradeQuery';
+import { getErrorMessage } from '@util/request';
+import useDeleteTrade from '@api/mutation/trade/useDeleteTrade';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import useModal from '@hook/useModal';
 import ConfirmModal from '@component/modal/ConfirmModal';
@@ -13,11 +16,24 @@ const DefaultProps = {};
 function TradeRemove({ trade }: Props) {
   const auth = useAppSelector(state => state.auth);
   const removeModal = useModal();
+  const navigate = useNavigate();
 
+  // 데이터 삭제 요청
+  const deleteMutation = useDeleteTrade(
+    (res) => navigate('/trade/list'),
+    (err) => removeModal.setErrorMessage(getErrorMessage(err))
+  );
+
+  // 모달 열기
   const openModal = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     removeModal.open();
   }, [removeModal]);
+
+  // 교환글 삭제
+  const removeTrade = useCallback(() => {
+    deleteMutation.mutate({ tradeId: trade.trade_id });
+  }, [deleteMutation, trade]);
   
   return (
     <>
@@ -35,6 +51,7 @@ function TradeRemove({ trade }: Props) {
         titleName="교환글 삭제"
         confirmText="삭제"
         cardStyles={{ maxWidth: "100vh" }}
+        handleConfirm={removeTrade}
       >
         <p className="text">교환글을 삭제하면 등록한 소유권의 상태는 다시 교환 가능한 상태로 바뀌어요.</p>
         <p className="text">정말로 교환글을 삭제하시겠어요?</p>

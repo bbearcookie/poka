@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { body, oneOf, query, param } from 'express-validator';
-import { validate, isLoggedIn, createResponseMessage } from '@util/validator';
+import { validate, isLoggedIn, isAdminOrOwner, createResponseMessage } from '@util/validator';
 import { UserType } from '@util/jwt';
 import * as userService from '@service/user.service';
 import * as photoService from '@service/photo.service';
@@ -54,7 +54,7 @@ export const getTradeDetail = {
     const tradeId = Number(req.params.tradeId);
 
     const [[trade]] = await tradeService.selectTradeDetail(tradeId);
-    if (!trade) return res.status(404).json({ message: '조회하려는 교환글의 정보가 올바르지 않아요.' });
+    if (!trade) return res.status(404).json({ message: '조회하려는 교환글이 존재하지 않아요.' });
     const [wantcards] = await tradeService.selectWantCardsOfTrade(tradeId);
 
     return res.status(200).json({
@@ -93,8 +93,8 @@ export const postTrade = {
 
     // 소유권 정보 확인
     const [[voucher]] = await voucherService.selectVoucherDetail(haveVoucherId);
-    if (!voucher) return res.status(404).json({ message: '사용하려는 소유권의 정보가 올바르지 않아요.' });
-    if (voucher.state !== 'available') return res.status(400).json({ message: '사용하려는 소유권의 정보가 올바르지 않아요.' });
+    if (!voucher) return res.status(404).json({ message: '사용하려는 소유권이 존재하지 않아요.' });
+    if (voucher.state !== 'available') return res.status(400).json({ message: '사용하려는 소유권이 이용 가능한 상태가 아니에요.' });
     if (voucher.user_id !== user.user_id) return res.status(403).json({ message: '사용하려는 소유권이 당신의 것이 아니에요.' });
     
     // 받을 포토카드와 일치하는 소유권은 사용 불가능
@@ -113,6 +113,31 @@ export const postTrade = {
     });
 
     return res.status(200).json({ message: '교환글을 작성했어요.' });
+    next();
+  }
+}
+
+// 교환글 삭제
+export const deleteTrade = {
+  validator: [
+    isLoggedIn,
+    param('tradeId').isNumeric().withMessage('교환글 ID는 숫자여야 해요.'),
+    validate
+  ],
+  controller: async (req: Request, res: Response, next: NextFunction) => {
+    const loggedUser = req.user as UserType;
+    const tradeId = Number(req.params.tradeId);
+
+    const [[trade]] = await tradeService.selectTradeDetail(tradeId);
+    if (!trade) return res.status(404).json({ message: '삭제하려는 교환글이 존재하지 않아요.' });
+    if (trade.state !== 'trading') return res.status(400).json({ message: '이미 교환이 완료된 교환글은 삭제할 수 없어요.' });
+
+    // 관리자이거나, 자신이 작성한 교환글만 삭제 가능
+    if (!isAdminOrOwner(loggedUser, trade.user_id)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
+
+    await tradeService.deleteTrade(trade);
+    return res.status(200).json({ message: '교환글을 삭제했어요.' });
+
     next();
   }
 }
