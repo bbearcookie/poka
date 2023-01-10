@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from '@component/card/basic/Card';
+import Card, { StylesProps as CardStyles } from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Button from '@component/form/Button';
@@ -9,16 +9,17 @@ interface Props {
   titleText?: string;
   buttonText?: string;
   onClick?: React.MouseEventHandler;
+  cardStyles?: CardStyles;
   children?: React.ReactNode;
 }
 const DefaultProps = {
   buttonText: '삭제'
 };
 
-function RemoveCard({ onClick, titleText, buttonText = DefaultProps.buttonText, children }: Props) {
+function RemoveCard({ onClick, titleText, buttonText = DefaultProps.buttonText, cardStyles, children }: Props) {
   return (
-    <Card>
-      <CardHeader><h1>{titleText}</h1></CardHeader>
+    <Card styles={cardStyles}>
+      <CardHeader><h1 className="title">{titleText}</h1></CardHeader>
       <CardBody>
         <Button
           leftIcon={faTrashCan}

@@ -52,18 +52,18 @@ function PhotoCardTemplate({ className, photo, iconNode, cardStyles, children }:
 
 export default PhotoCardTemplate;
 
-export const PhotoName = styled.div<{ margin?: string; }>`
+export const PhotoName = styled.div<{ width?: string; }>`
   margin-top: 1em;
   padding: 0 0.5em;
-  width: 100%;
+  width: ${p => p.width ? p.width : "100%"};
   height: 3.5em;
-  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #242A38;
   color: white;
   border-radius: 5px;
+  box-sizing: border-box;
 
   p {
     margin: 0;

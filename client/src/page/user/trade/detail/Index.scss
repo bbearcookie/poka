@@ -1,3 +1,9 @@
 .UserTradeDetailPage {
   padding: 5em 10%;
+
+  .button-section {
+    // width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
 }

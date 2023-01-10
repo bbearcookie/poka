@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { photoImage } from '@api/resource';
 import Card, { StylesProps as CardStyles } from '@component/card/basic/Card';
+import { PhotoName } from '@component/photocard/PhotoCardTemplate';
 import CardBody from '@component/card/basic/CardBody';
 
 interface Props {
@@ -20,7 +21,6 @@ function PhotoInfoCard({ groupName, photoName, memberName, imageName, cardStyles
       className="PhotoInfoCard"
       styles={{
         width: "fit-content",
-        margin: "0 auto 5em auto",
         textAlign: "center",
         ...cardStyles
       }}
@@ -32,7 +32,7 @@ function PhotoInfoCard({ groupName, photoName, memberName, imageName, cardStyles
             src={photoImage(imageName)}
             alt="이미지"
           />
-          <PhotoNameLabel>{photoName}</PhotoNameLabel>
+          <PhotoName width="9.5em"><p>{photoName}</p></PhotoName>
           <MemberNameLabel>{memberName}</MemberNameLabel>
           <GroupNameLabel>그룹: <GroupName>{groupName}</GroupName></GroupNameLabel>
 
@@ -50,15 +50,6 @@ const PhotoSection = styled.section`
   flex-direction: column;
 
   img { margin: 0 auto; }
-`
-
-const PhotoNameLabel = styled.p`
-  margin: 1.5em 0 0 0;
-  padding: 1em;
-  width: 8em;
-  color: white;
-  background-color: #242A38;
-  border-radius: 5px;
 `
 
 const MemberNameLabel = styled.p`
