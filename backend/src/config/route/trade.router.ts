@@ -5,5 +5,6 @@ export default function(app: Express, baseURI: string) {
   app.get(`${baseURI}`, tradeCtrl.getTradeList.validator, tradeCtrl.getTradeList.controller);
   app.get(`${baseURI}/:tradeId`, tradeCtrl.getTradeDetail.validator, tradeCtrl.getTradeDetail.controller);
   app.post(`${baseURI}`, tradeCtrl.postTrade.validator, tradeCtrl.postTrade.controller);
+  app.put(`${baseURI}/:tradeId`, tradeCtrl.putTrade.validator, tradeCtrl.putTrade.controller);
   app.delete(`${baseURI}/:tradeId`, tradeCtrl.deleteTrade.validator, tradeCtrl.deleteTrade.controller);
 }

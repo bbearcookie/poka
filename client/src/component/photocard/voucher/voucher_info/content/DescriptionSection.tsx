@@ -23,7 +23,7 @@ function DescriptionSection({  }: Props) {
         >
           {VoucherStateValue['AVAILABLE']}
         </VoucherStateLabel>
-        <span>사용자끼리 교환이 가능한 상태입니다.</span>
+        <Span>사용자끼리 교환이 가능한 상태입니다.</Span>
       </StateDescription>
       <StateDescription>
         <VoucherStateLabel
@@ -34,7 +34,7 @@ function DescriptionSection({  }: Props) {
         >
           {VoucherStateValue['TRADING']}
         </VoucherStateLabel>
-        <span>소유권으로 교환글을 등록한 상태입니다.</span>
+        <Span>소유권으로 교환글을 등록한 상태입니다.</Span>
       </StateDescription>
       <StateDescription>
         <VoucherStateLabel
@@ -45,7 +45,7 @@ function DescriptionSection({  }: Props) {
         >
           {VoucherStateValue['SHIPPING']}
         </VoucherStateLabel>
-        <span>사용자가 소유권을 실물로 받기 위해 관리자에게 배송요청한 상태입니다.</span>
+        <Span>사용자가 소유권을 실물로 받기 위해 관리자에게 배송요청한 상태입니다.</Span>
       </StateDescription>
       <StateDescription>
         <VoucherStateLabel
@@ -56,7 +56,7 @@ function DescriptionSection({  }: Props) {
         >
           {VoucherStateValue['SHIPPED']}
         </VoucherStateLabel>
-        <span>관리자가 사용자에게 포토카드를 발송한 상태입니다.</span>
+        <Span>관리자가 사용자에게 포토카드를 발송한 상태입니다.</Span>
       </StateDescription>
     </CardBody>
   );
@@ -71,4 +71,9 @@ const StateDescription = styled.section`
   @media screen and (max-width: 65rem) {
     flex-direction: column;
   }
+`
+
+const Span = styled.span`
+  display: inline-block;
+  line-height: 1.75em;
 `

@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@component/form/Button';
 
 interface Props {
-
+  titleText: string;
 }
 const DefaultProps = {};
 
-function ButtonSection({  }: Props) {
+function ButtonSection({ titleText }: Props) {
   const navigate = useNavigate();
   
   const handleCancel = useCallback(() => {
@@ -31,7 +31,7 @@ function ButtonSection({  }: Props) {
           padding: "1em 2em",
           marginLeft: "1em"
         }}
-      >등록</Button>
+      >{titleText}</Button>
     </section>
   );
 }

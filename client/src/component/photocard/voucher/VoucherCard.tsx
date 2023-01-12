@@ -46,7 +46,7 @@ export const VoucherStateLabel = styled.p<StylesProps>`
   margin: ${p => p.margin ? p.margin : '0 0 0.2em 0'};
   text-align: ${p => p.textAlign};
   display: inline-block;
-  padding: 0.2em;
+  padding: 0.3em;
   border-radius: 5px;
 
   ${(p) => {

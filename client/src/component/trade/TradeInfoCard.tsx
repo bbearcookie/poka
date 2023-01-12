@@ -47,8 +47,10 @@ interface StateStyles {
   state: TradeStateKey;
 }
 const TradeStateLabel = styled.p<StateStyles>`
+  width: 6em;
   margin: 0;
   padding: 0.3em;
+  text-align: center;
   display: inline-block;
   border-radius: 5px;
 

@@ -6,7 +6,8 @@ import PhotoSearchPage from "@page/user/photo/search/Index";
 import ProfilePage from '@page/user/profile/Index';
 import VoucherListPage from '@page/user/voucher/list/Index';
 import VoucherDetailPage from '@page/user/voucher/detail/Index';
-import TradeWriterPage from '@page/user/trade/writer/Index';
+import TradeWriterPage from '@page/user/trade/writer/WriterIndex';
+import TradeEditorPage from '@page/user/trade/writer/EditorIndex';
 import TradeListPage from '@page/user/trade/list/Index';
 import TradeDetailPage from '@page/user/trade/detail/Index';
 
@@ -31,6 +32,7 @@ function UserRouter() {
         <Route path="/voucher/list" element={<VoucherListPage />} />
         <Route path="/voucher/detail/:voucherId" element={<VoucherDetailPage />} />
         <Route path="/trade/writer" element={<TradeWriterPage />} />
+        <Route path="/trade/editor/:tradeId" element={<TradeEditorPage />} />
         <Route path="/trade/list" element={<TradeListPage />} />
         <Route path="/trade/detail/:tradeId" element={<TradeDetailPage />} />
       </Routes>
