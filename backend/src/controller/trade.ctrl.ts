@@ -189,3 +189,30 @@ export const deleteTrade = {
     next();
   }
 }
+
+// 교환글 교환 가능 여부 확인
+export const getTradeExchange = {
+  validator: [
+    isLoggedIn,
+    param('tradeId').isNumeric().withMessage('교환글 ID는 숫자여야 해요.'),
+    validate
+  ],
+  controller: async (req: Request, res: Response, next: NextFunction) => {
+    const loggedUser = req.user as UserType;
+    const tradeId = Number(req.params.tradeId);
+
+    const [[trade]] = await tradeService.selectTradeDetail(tradeId);
+    if (!trade) return res.status(404).json({ message: '삭제하려는 교환글이 존재하지 않아요.' });
+    if (trade.state !== 'trading') return res.status(400).json({ message: '이미 교환이 완료된 교환글이에요.' });
+    if (trade.user_id === loggedUser.user_id) return res.status(403).json({ message: '자신이 작성한 교환글이에요.' });
+
+    const [wantcards] = (await tradeService.selectWantCardsOfTrade(tradeId));
+    const wantcardIds = wantcards.map(item => item.photocard_id);
+
+    const [vouchers] = await tradeService.selectHaveVouchersOfTrade(loggedUser.user_id, wantcardIds);
+    if (vouchers.length < trade.amount) return res.status(400).json({ message: '보유하고 있는 조건에 맞는 소유권이 부족해요.' });
+
+    return res.status(200).json({ message: '교환할 수 있는 교환글이에요.', exchangeable: true });
+    next();
+  }
+}

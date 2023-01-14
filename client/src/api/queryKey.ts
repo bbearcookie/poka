@@ -33,5 +33,6 @@ export const addressKeys = {
 
 export const tradeKeys = {
   all: ['trade'] as const,
-  detail: (tradeId: number) => [...tradeKeys.all, tradeId] as const
+  detail: (tradeId: number) => [...tradeKeys.all, tradeId] as const,
+  exchangeable: (tradeId: number) => [...tradeKeys.detail(tradeId), 'exchangeable'] as const
 }

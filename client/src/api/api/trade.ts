@@ -16,6 +16,12 @@ export const fetchTradeDetail = async (tradeId: number) => {
   return res.data;
 }
 
+export const fetchTradeExchangeable = async (tradeId: number) => {
+  const url = `/api/trade/${tradeId}/exchange`;
+  const res = await client.get(url);
+  return res.data;
+}
+
 export const addTrade = async (param: AddTradeParam) => {
   const url = `/api/trade`;
   const res = await client.post(url, param.body);

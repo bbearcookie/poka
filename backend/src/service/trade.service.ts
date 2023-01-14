@@ -125,6 +125,27 @@ export const selectWantCardsOfTrade = async (tradeId: number) => {
   }
 }
 
+// 특정 교환글이 원하는 포토카드 중에서 사용자가 소지한 소유권 조회
+export const selectHaveVouchersOfTrade = async (userId: number, photoIds: number[]) => {
+    const con = await db.getConnection();
+
+    try {
+      let sql = `
+      SELECT voucher_id
+      FROM Voucher
+      WHERE photocard_id IN (${con.escape(photoIds)})
+      AND user_id=${con.escape(userId)}
+      AND state='available'`;
+
+      interface DataType extends RowDataPacket { voucher_id: number; }
+      return await con.query<DataType[]>(sql);
+    } catch (err) {
+      throw err;
+    } finally {
+      con.release();
+    }
+}
+
 // 교환글 작성
 export const writeTrade = async ({ userId, voucherId, amount, wantPhotocardIds }:
   { userId: number; voucherId: number; amount: number; wantPhotocardIds: number[]; }

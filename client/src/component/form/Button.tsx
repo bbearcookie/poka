@@ -11,17 +11,19 @@ interface Props {
   type?: 'button' | 'submit' | 'reset';
   leftIcon?: IconDefinition;
   rightIcon?: IconDefinition;
+  disabled?: boolean;
   styles?: StylesProps;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   children?: React.ReactNode;
 }
 const DefaultProps = {};
-function Button({ className, type = 'button', leftIcon, rightIcon, styles, onClick, children }: Props) {
+function Button({ className, type = 'button', leftIcon, rightIcon, disabled, styles, onClick, children }: Props) {
   return (
     <StyledButton
       className={classNames(CLASS, className)}
       type={type}
       onClick={onClick}
+      disabled={disabled}
       {...styles}
     >
       {leftIcon && <FontAwesomeIcon className={`${CLASS}__left-icon`} icon={leftIcon} /> }
@@ -56,6 +58,7 @@ interface StylesProps {
   iconMargin?: string; // 아이콘 크기가 달라서 마진을 직접 줘야하는 경우에 부여
   borderRadius?: string;
   fontSize?: string;
+  
 }
 const StyledButton = styled.button<StylesProps>`
   width: ${p => p.width};
@@ -75,7 +78,12 @@ const StyledButton = styled.button<StylesProps>`
   user-select: none;
   transition: background-color border 0.3s;
 
-  &:active {
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:active:not(:disabled) {
     position: relative;
     top: 1px;
     box-shadow: none;
@@ -95,7 +103,7 @@ const StyledButton = styled.button<StylesProps>`
             border: 1px solid rgb(80, 72, 229);
           }
 
-          &:hover {
+          &:hover:not(:disabled) {
             background-color: rgb(56, 50, 160);
             border: 1px solid rgb(56, 50, 160);
           }
@@ -109,7 +117,7 @@ const StyledButton = styled.button<StylesProps>`
             box-shadow: none;
           }
 
-          &:hover {
+          &:hover:not(:disabled) {
             background-color: rgba(248, 248, 254, 100);
           }
         `;
@@ -121,7 +129,7 @@ const StyledButton = styled.button<StylesProps>`
             border: 1px solid gray;
           }
 
-          &:hover {
+          &:hover:not(:disabled) {
             background-color: rgb(92, 99, 106);
             border: 1px solid rgb(92, 99, 106);
           }
@@ -135,7 +143,7 @@ const StyledButton = styled.button<StylesProps>`
             box-shadow: none;
           }
 
-          &:hover {
+          &:hover:not(:disabled) {
             background-color: #fcfcfc;
           }
         `;
@@ -147,7 +155,7 @@ const StyledButton = styled.button<StylesProps>`
             border: 1px solid #D14343;
           }
 
-          &:hover {
+          &:hover:not(:disabled) {
             background-color: #ad3838;
             border: 1px solid #ad3838;
           }
@@ -161,7 +169,7 @@ const StyledButton = styled.button<StylesProps>`
             box-shadow: none;
           }
 
-          &:hover {
+          &:hover:not(:disabled) {
             background-color: rgb(248, 248, 254);
           }
         `;
@@ -173,7 +181,7 @@ const StyledButton = styled.button<StylesProps>`
             border: 1px solid #E95188;
           }
 
-          &:hover {
+          &:hover:not(:disabled) {
             background-color: #d14377;
             border: 1px solid #d14377;
           }
