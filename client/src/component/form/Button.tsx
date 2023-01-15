@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
+import { usePopper } from 'react-popper';
 import styled, { css } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
@@ -18,6 +19,7 @@ interface Props {
 }
 const DefaultProps = {};
 function Button({ className, type = 'button', leftIcon, rightIcon, disabled, styles, onClick, children }: Props) {
+
   return (
     <StyledButton
       className={classNames(CLASS, className)}
@@ -188,4 +190,18 @@ const StyledButton = styled.button<StylesProps>`
         `;
     }
   }}
+`;
+
+const Tooltip = styled.div`
+  visibility: hidden;
+
+  &.show {
+    transition-delay: 0.5s;
+    visibility: visible;
+    padding: 0.4em;
+    border-radius: 5px;
+    background-color: gray;
+    color: white;
+    font-size: 0.75rem;
+  }
 `;

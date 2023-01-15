@@ -8,7 +8,10 @@ import CardFooter from '@component/card/basic/CardFooter';
 import { StylesProps } from '@component/card/basic/Card';
 
 interface Props {
-  photo: PhotoType;
+  photoName: string;
+  memberName: string;
+  groupName: string;
+  imageName: string;
   className?: string;
   iconNode?: React.ReactNode;
   cardStyles?: StylesProps;
@@ -16,7 +19,7 @@ interface Props {
 }
 const DefaultProps = {};
 
-function PhotoCardTemplate({ className, photo, iconNode, cardStyles, children }: Props) {
+function PhotoCardTemplate({ className, photoName, memberName, groupName, imageName, iconNode, cardStyles, children }: Props) {
   return (
     <Card
       className={className}
@@ -29,14 +32,14 @@ function PhotoCardTemplate({ className, photo, iconNode, cardStyles, children }:
       <CardBody>
         <img
           width="150" height="224"
-          src={photoImage(photo.image_name)}
+          src={photoImage(imageName)}
           alt="이미지" />
-        <PhotoName><p>{photo.name}</p></PhotoName>
+        <PhotoName><p>{photoName}</p></PhotoName>
 
         <ContentSection>
           <NameSection>
-            <MemberNameLabel>{photo.member_name}</MemberNameLabel>
-            <GroupNameLabel>{photo.group_name}</GroupNameLabel>
+            <MemberNameLabel>{memberName}</MemberNameLabel>
+            <GroupNameLabel>{groupName}</GroupNameLabel>
           </NameSection>
 
           <IconSection>

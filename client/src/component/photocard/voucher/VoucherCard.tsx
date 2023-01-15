@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled, { css } from 'styled-components';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import IconButton from '@component/form/IconButton';
@@ -8,27 +8,51 @@ import PhotoCardTemplate from '@component/photocard/PhotoCardTemplate';
 
 interface Props {
   showOwner: boolean;
-  voucher: VoucherType;
+  voucherId: number;
+  voucherState: string;
+  username: string;
+  photoName: string;
+  memberName: string;
+  groupName: string;
+  imageName: string;
   icon?: IconDefinition;
   handleClickIcon?: (voucherId: number) => void;
   styles?: StylesProps;
+  children?: React.ReactNode;
 }
 const DefaultProps = {
   showOwner: false,
   handleClickIcon: (voucherId: number) => {}
 };
 
-function VoucherCard({ showOwner = DefaultProps.showOwner, voucher, icon, handleClickIcon = DefaultProps.handleClickIcon }: Props) {
+function VoucherCard({
+  showOwner = DefaultProps.showOwner,
+  voucherId, voucherState, photoName, groupName, memberName, imageName, username,
+  icon, handleClickIcon = DefaultProps.handleClickIcon, styles, children }
+: Props) {
+
+  const onClick = useCallback(() => {
+    handleClickIcon(voucherId)
+  }, [handleClickIcon, voucherId]);
+
   return (
     <PhotoCardTemplate
       className="VoucherCard"
-      photo={voucher}
-      iconNode={icon && <IconButton icon={icon} size="lg" onClick={() => handleClickIcon(voucher.voucher_id)} />}
+      photoName={photoName}
+      memberName={memberName}
+      imageName={imageName}
+      groupName={groupName}
+      iconNode={icon && <IconButton icon={icon} size="lg" onClick={onClick} />}
     >
-      <VoucherStateLabel voucherState={voucher.state}>
-        {VoucherStateValue[voucher.state.toUpperCase() as VoucherStateKey]}
-      </VoucherStateLabel>
-      {showOwner && <UserNameLabel><b>{voucher.username}</b></UserNameLabel>}
+      <StyledVoucherCard {...styles}>
+        <section>
+          <VoucherStateLabel voucherState={voucherState}>
+            {VoucherStateValue[voucherState.toUpperCase() as VoucherStateKey]}
+          </VoucherStateLabel>
+        </section>
+        {showOwner && <UserNameLabel><b>{username}</b></UserNameLabel>}
+        {children}
+      </StyledVoucherCard>
     </PhotoCardTemplate>
   );
 }
@@ -36,13 +60,19 @@ function VoucherCard({ showOwner = DefaultProps.showOwner, voucher, icon, handle
 export default VoucherCard;
 
 interface StylesProps {
+  flexDirection?: "row" | "row-reverse" | "column" | "column-reverse";
+}
+const StyledVoucherCard = styled.div<StylesProps>`
+  display: flex;
+  flex-direction: ${p => p.flexDirection ? p.flexDirection : "column"};
+`
+
+export const VoucherStateLabel = styled.p<{
   voucherState: string;
   width?: string;
   margin?: string;
   textAlign?: string;
-}
-export const VoucherStateLabel = styled.p<StylesProps>`
-  width: ${p => p.width};
+}>`
   margin: ${p => p.margin ? p.margin : '0 0 0.2em 0'};
   text-align: ${p => p.textAlign};
   display: inline-block;

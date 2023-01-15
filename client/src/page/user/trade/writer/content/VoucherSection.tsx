@@ -56,7 +56,11 @@ function VoucherSection({ form, formDispatch }: Props) {
         <CardBody>
           {status === 'success' && voucher &&
           <PhotoCard
-            photo={voucher}
+            photocardId={voucher.photocard_id}
+            photoName={voucher.name}
+            groupName={voucher.group_name}
+            memberName={voucher.member_name}
+            imageName={voucher.image_name}
             icon={faClose}
             handleClickIcon={removeVoucherId}
             cardStyles={{ marginBottom: '1.5em' }}

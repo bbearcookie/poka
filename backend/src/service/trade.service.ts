@@ -131,13 +131,20 @@ export const selectHaveVouchersOfTrade = async (userId: number, photoIds: number
 
     try {
       let sql = `
-      SELECT voucher_id
-      FROM Voucher
-      WHERE photocard_id IN (${con.escape(photoIds)})
-      AND user_id=${con.escape(userId)}
-      AND state='available'`;
+      SELECT V.voucher_id, V.user_id, V.state, U.username, U.nickname,
+      P.image_name, P.photocard_id, M.member_id, G.group_id,
+      P.name, M.name as member_name, G.name as group_name
+      FROM Voucher as V
+      INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
+      INNER JOIN MemberData as M ON P.member_id=M.member_id
+      INNER JOIN GroupData as G ON M.group_id=G.group_id
+      INNER JOIN User as U ON V.user_id=U.user_id
+      WHERE V.photocard_id IN (${con.escape(photoIds)})
+      AND V.user_id=${con.escape(userId)}
+      AND V.state='available'
+      GROUP BY photocard_id`;
 
-      interface DataType extends RowDataPacket { voucher_id: number; }
+      interface DataType extends RowDataPacket { }
       return await con.query<DataType[]>(sql);
     } catch (err) {
       throw err;

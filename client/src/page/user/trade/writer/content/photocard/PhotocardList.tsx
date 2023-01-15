@@ -25,7 +25,11 @@ function PhotocardList({ form, formDispatch, photos, removeWantPhotocardId }: Pr
           {photos.map((photo) => photo.status === 'success' && 
           <PhotoCard
             key={photo.data.photocard_id}
-            photo={photo.data as PhotoType}
+            photocardId={photo.data.photocard_id}
+            photoName={photo.data.name}
+            groupName={photo.data.group_name}
+            memberName={photo.data.member_name}
+            imageName={photo.data.image_name}
             icon={faClose}
             handleClickIcon={removeWantPhotocardId}
           />)}

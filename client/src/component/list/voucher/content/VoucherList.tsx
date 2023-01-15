@@ -43,7 +43,13 @@ function VoucherList({ defaultFilter, icon, handleClickIcon }: Props) {
           <VoucherCard
             showOwner={defaultFilter.owner === 'ALL' ? true : false}
             key={item.voucher_id}
-            voucher={item}
+            photoName={item.name}
+            groupName={item.group_name}
+            memberName={item.member_name}
+            imageName={item.image_name}
+            username={item.username}
+            voucherId={item.voucher_id}
+            voucherState={item.state}
             icon={icon}
             handleClickIcon={handleClickIcon}
           />

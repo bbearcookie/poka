@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { PhotoType } from '@type/photo';
 import IconButton from '@component/form/IconButton';
@@ -6,7 +6,11 @@ import PhotoCardTemplate from '@component/photocard/PhotoCardTemplate';
 import { StylesProps } from '@component/card/basic/Card';
 
 interface Props {
-  photo: PhotoType;
+  photocardId: number;
+  photoName: string;
+  memberName: string;
+  groupName: string;
+  imageName: string;
   icon?: IconDefinition;
   handleClickIcon?: (photocardId: number) => void;
   cardStyles?: StylesProps;
@@ -17,16 +21,24 @@ const DefaultProps = {
 };
 
 function PhotoCard({
-  photo, icon,
+  photocardId, photoName, groupName, memberName, imageName, icon,
   handleClickIcon = DefaultProps.handleClickIcon,
   cardStyles,
   children
 }: Props) {
+
+  const onClick = useCallback(() => {
+    handleClickIcon(photocardId)
+  }, [handleClickIcon, photocardId]);
+
   return (
     <PhotoCardTemplate
       className="PhotoCard"
-      photo={photo}
-      iconNode={icon && <IconButton icon={icon} size="lg" onClick={() => handleClickIcon(photo.photocard_id)} />}
+      photoName={photoName}
+      groupName={groupName}
+      memberName={memberName}
+      imageName={imageName}
+      iconNode={icon && <IconButton icon={icon} size="lg" onClick={onClick} />}
       cardStyles={cardStyles}
     >
       {children}
