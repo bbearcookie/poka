@@ -18,6 +18,7 @@ export const voucherKeys = {
   all: ['vouchers'] as const, // 전체 소유권 목록
   detail: (voucherId: number) => [...voucherKeys.all, voucherId] as const, // 소유권 상세 정보
   log: (voucherId: number) => [...voucherKeys.detail(voucherId), 'log'] as const, // 소유권 상세 기록
+  trade: (voucherId: number) => [...voucherKeys.detail(voucherId), tradeKeys.all] as const, // 해당 소유권으로 교환중인 교환글
 }
 
 export const userKeys = {

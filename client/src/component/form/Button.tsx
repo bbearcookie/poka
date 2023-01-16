@@ -47,6 +47,8 @@ export type ButtonTheme =
 | "danger-outlined"
 | "pink"
 | "pink-outlined"
+| "mint"
+| "mint-outlined"
 interface StylesProps {
   theme: ButtonTheme;
   width?: string;
@@ -186,6 +188,19 @@ const StyledButton = styled.button<StylesProps>`
           &:hover:not(:disabled) {
             background-color: #d14377;
             border: 1px solid #d14377;
+          }
+        `;
+      case "mint":
+        return css`
+          & {
+            color: white;
+            background-color: #14B8A6;
+            border: 1px solid #14B8A6;
+          }
+
+          &:hover:not(:disabled) {
+            background-color: #1aab9a;
+            border: 1px solid #1aab9a;
           }
         `;
     }

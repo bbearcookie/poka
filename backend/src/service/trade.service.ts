@@ -101,6 +101,32 @@ export const selectTradeDetail = async (tradeId: number) => {
   }
 }
 
+// 소유권 ID를 가지고 아직 성사되지 않은 교환글 상세 조회
+export const selectTradeDetailByVoucherID = async (voucherId: number) => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `
+    SELECT T.trade_id, T.user_id, T.voucher_id, T.state, T.amount, T.written_time, T.traded_time,
+    P.photocard_id, P.image_name, M.member_id,
+    P.name as photo_name, M.name as member_name, G.name as group_name
+    FROM Trade as T
+    INNER JOIN Voucher as V ON T.voucher_id=V.voucher_id
+    INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
+    INNER JOIN MemberData as M ON P.member_id=M.member_id
+    INNER JOIN GroupData as G ON M.group_id=G.group_id
+    WHERE T.voucher_id=${con.escape(voucherId)} AND T.state='trading'
+    ORDER BY T.written_time DESC`;
+
+    interface DataType extends RowDataPacket, TradeType {}
+    return await con.query<DataType[]>(sql);
+  } catch (err) {
+    throw err;
+  } finally {
+    con.release();
+  }
+}
+
 // 교환글이 원하는 포토카드 목록 조회
 export const selectWantCardsOfTrade = async (tradeId: number) => {
   const con = await db.getConnection();

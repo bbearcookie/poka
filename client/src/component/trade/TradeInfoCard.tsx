@@ -57,7 +57,7 @@ const TradeStateLabel = styled.p<StateStyles>`
   ${(p) => {
     switch (p.state.toLowerCase()) {
       case 'trading':
-        return css` background-color: #2196F3; color: white; `
+        return css` background-color: #14B8A6; color: white; `
       case 'traded':
         return css` background-color: #D14343; color: white; `
       default:

@@ -22,6 +22,12 @@ export const fetchVoucherLogsDetail = async (voucherId: number, param: VoucherLo
   return res.data;
 }
 
+export const fetchVoucherTradeDetail = async (voucherId: number) => {
+  const url = `/api/voucher/${voucherId}/trade`;
+  const res = await client.get(url);
+  return res.data;
+}
+
 export const addVouchers = async (param: AddVouchersParam) => {
   const url = `/api/voucher`;
   const res = await client.post(url, param.body);
