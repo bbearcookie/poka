@@ -1,5 +1,6 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
+import { Location } from '@type/navigate';
 import useTradeQuery from '@api/query/trade/useTradeQuery';
 import BackLabel from '@component/label/BackLabel';
 import Success from './Success';
@@ -12,14 +13,23 @@ const DefaultProps = {};
 
 function Index({  }: Props) {
   const { tradeId } = useParams() as any;
+  const location = useLocation() as Location;
   const { data: trade, status } = useTradeQuery(tradeId);
 
   return (
     <div className="UserTradeDetailPage">
-      <BackLabel to="/trade/list" styles={{ marginBottom: "2em" }}>교환글 목록</BackLabel>
+      <Back backURL={location.state?.backURL} />
       {status === 'success' && <Success trade={trade} />}
     </div>
   );
+}
+
+function Back({ backURL }: { backURL?: string; }) {
+  if (backURL) {
+    if (/voucher/.test(backURL)) return <BackLabel to={backURL} styles={{ marginBottom: "2em" }}>소유권 상세정보</BackLabel>
+  }
+
+  return <BackLabel to="/trade/list" styles={{ marginBottom: "2em" }}>교환글 목록</BackLabel>
 }
 
 export default Index;

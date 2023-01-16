@@ -32,8 +32,9 @@ function TradeInfoCard({ trade }: Props) {
         <CardListItem title="교환 상태" styles={{ color: "#65748b" }}>
           <TradeStateLabel state={trade.state}>{TradeStateValue[trade.state]}</TradeStateLabel>
         </CardListItem>
-        <CardListItem title="요구 포토카드 수량" styles={{ color: "#65748b" }}>{trade.amount}장</CardListItem>
         <CardListItem title="작성일" styles={{ color: "#65748b" }}>{getFormattedTime(trade.written_time)}</CardListItem>
+        {trade.traded_time && <CardListItem title="교환일" styles={{ color: "#65748b" }}>{getFormattedTime(trade.traded_time)}</CardListItem>}
+        <CardListItem title="요구 포토카드 수량" styles={{ color: "#65748b" }}>{trade.amount}장</CardListItem>
       </CardList>
       <CardBody>
         <p className="description">요구 포토카드 수량은 등록자가 올린 포토카드로 교환하기 위해서 등록자에게 얼마나 많은 포토카드를 줘야 하는지를 나타냅니다.</p>
