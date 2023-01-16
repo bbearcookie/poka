@@ -201,18 +201,69 @@ export const getTradeExchange = {
     const loggedUser = req.user as UserType;
     const tradeId = Number(req.params.tradeId);
 
+    // 교환글 확인
     const [[trade]] = await tradeService.selectTradeDetail(tradeId);
     if (!trade) return res.status(404).json({ message: '해당 교환글이 존재하지 않아요.' });
     if (trade.state !== 'trading') return res.status(400).json({ message: '이미 교환이 완료된 교환글이에요.' });
     if (trade.user_id === loggedUser.user_id) return res.status(403).json({ message: '자신이 작성한 교환글이에요.' });
 
+    // 교환글이 원하는 포토카드 확인
     const [wantcards] = (await tradeService.selectWantCardsOfTrade(tradeId));
     const wantcardIds = wantcards.map(item => item.photocard_id);
 
+    // 사용자가 소유한 교환 가능 소유권 확인
     const [vouchers] = await tradeService.selectHaveVouchersOfTrade(loggedUser.user_id, wantcardIds);
     if (vouchers.length < trade.amount) return res.status(400).json({ message: '보유하고 있는 조건에 맞는 소유권이 부족해요.' });
 
     return res.status(200).json({ message: '교환 가능한 소유권을 조회했어요.', vouchers });
+    next();
+  }
+}
+
+// 교환
+export const postTradeExchange = {
+  validator: [
+    isLoggedIn,
+    param('tradeId').isNumeric().withMessage('교환글 ID는 숫자여야 해요.').bail(),
+    body('vouchers').isArray({ min: 1 }).withMessage('교환할 소유권을 선택해주세요.').bail(),
+    body('vouchers.*')
+      .isNumeric().withMessage('소유권 ID는 숫자여야 해요.').bail(),
+    validate
+  ],
+  controller: async (req: Request, res: Response, next: NextFunction) => {
+    const loggedUser = req.user as UserType;
+    const tradeId = Number(req.params.tradeId);
+    const vouchers = req.body.vouchers as number[];
+
+    // 교환글 확인
+    const [[trade]] = await tradeService.selectTradeDetail(tradeId);
+    if (!trade) return res.status(404).json({ message: '해당 교환글이 존재하지 않아요.' });
+    if (trade.state !== 'trading') return res.status(400).json({ message: '이미 교환이 완료된 교환글이에요.' });
+    if (trade.user_id === loggedUser.user_id) return res.status(403).json({ message: '자신이 작성한 교환글이에요.' });
+    if (vouchers.length < trade.amount) return res.status(403).json({ message: `사용할 소유권을 ${trade.amount}개 선택해주세요.` });
+    if (vouchers.length > trade.amount) return res.status(403).json({ message: `사용할 소유권을 ${trade.amount}개만 선택해주세요.` });
+
+    // 교환글 소유권 확인
+    const [[voucher]] = await voucherService.selectVoucherDetail(trade.voucher_id);
+    if (!voucher) return res.status(404).json({ message: '교환글의 소유권이 존재하지 않아요.' });
+    if (voucher.user_id !== trade.user_id) return res.status(404).json({ message: '교환글의 작성자가 소유권의 실 소유주가 아니에요.' });
+    
+    // 소유권 확인
+    for (let voucherId of vouchers) {
+      const [[voucher]] = await voucherService.selectVoucherDetail(voucherId);
+      if (!trade) return res.status(404).json({ message: '사용하려는 소유권이 존재하지 않아요.' });
+      if (voucher.user_id !== loggedUser.user_id) return res.status(403).json({ message: '사용하려는 소유권이 당신의 것이 아니에요.' });
+      if (voucher.state !== 'available') return res.status(400).json({ message: '사용하려는 소유권이 교환 가능한 상태가 아니에요.' });
+    }
+
+    // 교환 진행
+    await tradeService.exchangeTrade({
+      trade,
+      userId: loggedUser.user_id,
+      voucherIds: vouchers
+    });
+
+    return res.status(200).json({ message: '교환이 완료되었어요.' });
     next();
   }
 }

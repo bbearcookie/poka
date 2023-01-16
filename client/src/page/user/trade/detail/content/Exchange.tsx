@@ -1,8 +1,11 @@
 import React, { useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import useTradeExchangeQuery from '@api/query/trade/useTradeExchangeQuery';
+import useExchangeTrade from '@api/mutation/trade/useExchangeTrade';
 import { ResType as TradeType } from '@api/query/trade/useTradeQuery';
 import { faArrowsSpin } from '@fortawesome/free-solid-svg-icons';
+import { getErrorMessage } from '@util/request';
 import VoucherCard from '@component/photocard/voucher/VoucherCard';
 import Button from '@component/form/Button';
 import Input from '@component/form/Input';
@@ -18,6 +21,7 @@ function Exchange({ trade }: Props) {
   const auth = useAppSelector(state => state.auth);
   const [select, setSelect] = useState<{ [x: number]: boolean }>({ });
   const modal = useModal();
+  const navigate = useNavigate();
 
   const { data: exchange, status } = useTradeExchangeQuery(trade.trade_id, {
     enabled: function() {
@@ -30,6 +34,11 @@ function Exchange({ trade }: Props) {
     }
   });
 
+  const postMutation = useExchangeTrade(
+    (res) => { modal.close(); },
+    (err) => { modal.setErrorMessage(getErrorMessage(err)); }
+  );
+
   // 모달 열기
   const openModal = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
@@ -39,13 +48,20 @@ function Exchange({ trade }: Props) {
   // 선택 변경
   const onChangeSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const voucherId = Number(e.target.value);
-    setSelect({ ...select, [voucherId]: !select[voucherId] });
-  }, [select]);
+    setSelect({ ...select, [voucherId]: e.target.checked });
+    modal.setErrorMessage('');
+  }, [select, modal]);
 
   // 교환
   const handleExchange = useCallback(() => {
-    console.log(select);
-  }, [select]);
+    const vouchers = Object.entries(select).filter(item => item[1]).map(item => Number(item[0]));
+    postMutation.mutate({
+      tradeId: trade.trade_id,
+      body: {
+        vouchers
+      }
+    })
+  }, [select, postMutation, trade]);
 
   return (
     <>
@@ -86,7 +102,9 @@ function Exchange({ trade }: Props) {
             <input
               type="checkbox"
               value={voucher.voucher_id}
+              checked={select[voucher.voucher_id] ? true : false}
               onChange={onChangeSelect}
+              readOnly
             />
           </VoucherCard>)}
         </section>

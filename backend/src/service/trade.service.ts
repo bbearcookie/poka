@@ -153,6 +153,58 @@ export const selectHaveVouchersOfTrade = async (userId: number, photoIds: number
     }
 }
 
+// 교환 진행
+export const exchangeTrade = async ({ trade, userId, voucherIds }:
+  { trade: TradeType; userId: number; voucherIds: number[]; }
+) => {
+  const con = await db.getConnection();
+
+  try {
+    await con.beginTransaction();
+    let sql;
+
+    // 교환글 상태 변경, 교환일 변경
+    sql = 
+    `UPDATE Trade
+    SET state='traded', traded_time=now()
+    WHERE trade_id=${con.escape(trade.trade_id)}`;
+    await con.execute(sql);
+
+    // 교환글의 소유권 변경
+    sql = `
+    UPDATE Voucher
+    SET user_id=${userId}, state='available'
+    WHERE voucher_id=${con.escape(trade.voucher_id)}`;
+    await con.execute(sql);
+
+    sql = `
+    INSERT INTO VoucherLog (voucher_id, origin_user_id, dest_user_id, type)
+    VALUES (${con.escape(trade.voucher_id)}, ${con.escape(trade.user_id)}, ${con.escape(userId)}, 'traded')`;
+    await con.execute(sql);
+
+    // 사용자의 소유권 변경
+    for (let voucherId of voucherIds) {
+      sql = `
+      UPDATE Voucher
+      SET user_id=${trade.user_id}, state='available'
+      WHERE voucher_id=${con.escape(voucherId)}`;
+      await con.execute(sql);
+
+      sql = `
+      INSERT INTO VoucherLog (voucher_id, origin_user_id, dest_user_id, type)
+      VALUES (${con.escape(voucherId)}, ${con.escape(trade.user_id)}, ${con.escape(userId)}, 'traded')`;
+      await con.execute(sql);
+    }
+
+    con.commit();
+  } catch (err) {
+    con.rollback();
+    throw err;
+  } finally {
+    con.release();
+  }
+}
+
 // 교환글 작성
 export const writeTrade = async ({ userId, voucherId, amount, wantPhotocardIds }:
   { userId: number; voucherId: number; amount: number; wantPhotocardIds: number[]; }
