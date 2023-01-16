@@ -28,7 +28,7 @@ export const selectVoucherList = async (
     INNER JOIN User as U ON V.user_id=U.user_id `
 
     // 소유권 상태 조건
-    if (filter['VOUCHER_STATE'] && filter['VOUCHER_STATE'] !== 'ALL') {
+    if (filter['VOUCHER_STATE'] && filter['VOUCHER_STATE'] !== 'all') {
       where.push({
         query: `V.state = ${con.escape(filter['VOUCHER_STATE'].toLowerCase())}`,
         operator: 'AND'

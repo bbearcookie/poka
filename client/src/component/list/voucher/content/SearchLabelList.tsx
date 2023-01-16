@@ -18,15 +18,15 @@ function SearchLabelList({ defaultFilter }: Props) {
   return (
     <CardHeader className="search-label-section">
       {/* 상태 관련 필터 */}
-      {defaultFilter.state === 'ALL' && filter.state !== 'ALL' &&
+      {defaultFilter.state === 'all' && filter.state !== 'all' &&
       <SearchLabel
         category="상태"
         text={VoucherStateValue[filter.state]}
-        handleRemove={() => dispatch(setVoucherState('ALL'))}
+        handleRemove={() => dispatch(setVoucherState('all'))}
       />}
 
       {/* 사용자 아이디 관련 필터 */}
-      {defaultFilter.owner === 'ALL' && filter.usernames.map((username) => (
+      {defaultFilter.owner === 'all' && filter.usernames.map((username) => (
       <SearchLabel
         key={username.id}
         category="아이디"

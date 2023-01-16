@@ -76,8 +76,8 @@ function VoucherSection({ form, formDispatch }: Props) {
           icon={faAdd}
           handleClickIcon={changeVoucherId}
           defaultFilter={{
-            owner: 'MINE',
-            state: 'AVAILABLE'
+            owner: 'mine',
+            state: 'available'
           }}
           cardStyles={{ border: "none" }}
         />

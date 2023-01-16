@@ -18,7 +18,7 @@ export const getAllVoucherList = {
       if (!Array.isArray(filter['USER_NAME'])) return false;
       if (!Array.isArray(filter['GROUP_ID'])) return false;
       if (!Array.isArray(filter['MEMBER_ID'])) return false;
-      if (!['', 'ALL', 'AVAILABLE', 'TRADING', 'SHIPPING', 'SHIPPED'].includes(filter["VOUCHER_STATE"])) return false;
+      if (!['', 'all', 'available', 'trading', 'shipping', 'shipped'].includes(filter["VOUCHER_STATE"])) return false;
       return true;
     }).withMessage("검색 필터가 잘못되었어요."),
     validate
@@ -28,7 +28,7 @@ export const getAllVoucherList = {
     'USER_NAME': [] as string[],
     'GROUP_ID': [] as number[],
     'MEMBER_ID': [] as number[],
-    'VOUCHER_STATE': '' as '' | 'ALL' | 'AVAILABLE' | 'TRADING' | 'SHIPPING' | 'SHIPPED'
+    'VOUCHER_STATE': '' as '' | 'all' | 'available' | 'trading' | 'shipping' | 'shipped'
   },
   controller: async (req: Request, res: Response, next: NextFunction) => {
     const itemPerPage = 20;

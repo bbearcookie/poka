@@ -22,8 +22,8 @@ function Index({  }: Props) {
         icon={faArrowRight}
         handleClickIcon={handleClickDetailicon}
         defaultFilter={{
-          owner: 'ALL',
-          state: 'ALL'
+          owner: 'all',
+          state: 'all'
         }}
       />
     </div>

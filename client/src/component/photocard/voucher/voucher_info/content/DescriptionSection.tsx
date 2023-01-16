@@ -21,7 +21,7 @@ function DescriptionSection({  }: Props) {
           textAlign="center"
           margin="0 0.5em 0.2em 0"
         >
-          {VoucherStateValue['AVAILABLE']}
+          {VoucherStateValue['available']}
         </VoucherStateLabel>
         <Span>사용자끼리 교환이 가능한 상태입니다.</Span>
       </StateDescription>
@@ -32,7 +32,7 @@ function DescriptionSection({  }: Props) {
           textAlign="center"
           margin="0 0.5em 0.2em 0"
         >
-          {VoucherStateValue['TRADING']}
+          {VoucherStateValue['trading']}
         </VoucherStateLabel>
         <Span>소유권으로 교환글을 등록한 상태입니다.</Span>
       </StateDescription>
@@ -43,7 +43,7 @@ function DescriptionSection({  }: Props) {
           textAlign="center"
           margin="0 0.5em 0.2em 0"
         >
-          {VoucherStateValue['SHIPPING']}
+          {VoucherStateValue['shipping']}
         </VoucherStateLabel>
         <Span>사용자가 소유권을 실물로 받기 위해 관리자에게 배송요청한 상태입니다.</Span>
       </StateDescription>
@@ -54,7 +54,7 @@ function DescriptionSection({  }: Props) {
           textAlign="center"
           margin="0 0.5em 0.2em 0"
         >
-          {VoucherStateValue['SHIPPED']}
+          {VoucherStateValue['shipped']}
         </VoucherStateLabel>
         <Span>관리자가 사용자에게 포토카드를 발송한 상태입니다.</Span>
       </StateDescription>

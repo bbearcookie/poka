@@ -2,7 +2,7 @@ import { PhotoType } from '@type/photo';
 
 export interface VoucherType extends PhotoType {
   voucher_id: number;
-  state: string;
+  state: 'available' | 'trading' | 'shipping' | 'shipped';
   username: string;
   nickname: string;
 }
@@ -16,13 +16,13 @@ export interface VoucherLogType {
   logged_time: string;
 }
 
-export type VoucherStateKey = 'ALL' | 'AVAILABLE' | 'TRADING' | 'SHIPPING' | 'SHIPPED';
+export type VoucherStateKey = 'all' | 'available' | 'trading' | 'shipping' | 'shipped';
 export const VoucherStateValue: {
   [k in VoucherStateKey]: string;
 } = {
-    'ALL': '전체',
-    'AVAILABLE': '교환가능',
-    'TRADING': '교환중',
-    'SHIPPING': '배송대기중',
-    'SHIPPED': '배송완료'
+    'all': '전체',
+    'available': '교환가능',
+    'trading': '교환중',
+    'shipping': '배송대기중',
+    'shipped': '배송완료'
 }

@@ -35,7 +35,7 @@ const initialState: State = {
     usernames: [],
     groups: [],
     members: [],
-    state: 'ALL'
+    state: 'all'
   }
 }
 

@@ -22,7 +22,7 @@ function Success({ voucher }: Props) {
         cardStyles={{ margin: "0 auto 5em auto" }}
       />
       <VoucherInfoCard voucher={voucher} showAdminInfo={false} />
-      <ButtonSection voucherId={voucher.voucher_id} />
+      <ButtonSection voucher={voucher} />
     </>
   );
 }

@@ -9,7 +9,7 @@ import PhotoCardTemplate from '@component/photocard/PhotoCardTemplate';
 interface Props {
   showOwner: boolean;
   voucherId: number;
-  voucherState: string;
+  voucherState: VoucherStateKey;
   username: string;
   photoName: string;
   memberName: string;
@@ -47,7 +47,7 @@ function VoucherCard({
       <StyledVoucherCard {...styles}>
         <section>
           <VoucherStateLabel voucherState={voucherState}>
-            {VoucherStateValue[voucherState.toUpperCase() as VoucherStateKey]}
+            {VoucherStateValue[voucherState as VoucherStateKey]}
           </VoucherStateLabel>
         </section>
         {showOwner && <UserNameLabel><b>{username}</b></UserNameLabel>}
@@ -68,11 +68,12 @@ const StyledVoucherCard = styled.div<StylesProps>`
 `
 
 export const VoucherStateLabel = styled.p<{
-  voucherState: string;
+  voucherState: VoucherStateKey;
   width?: string;
   margin?: string;
   textAlign?: string;
 }>`
+  width: ${p => p.width};
   margin: ${p => p.margin ? p.margin : '0 0 0.2em 0'};
   text-align: ${p => p.textAlign};
   display: inline-block;
@@ -80,17 +81,15 @@ export const VoucherStateLabel = styled.p<{
   border-radius: 5px;
 
   ${(p) => {
-    switch (p.voucherState.toUpperCase()) {
-      case 'AVAILABLE':
+    switch (p.voucherState) {
+      case 'available':
         return css` background-color: #2196F3; color: white; `
-      case 'TRADING':
+      case 'trading':
         return css` background-color: #14B8A6; color: white; `
-      case 'SHIPPING':
+      case 'shipping':
         return css` background-color: #E95188; color: white; `
-      case 'SHIPPED':
+      case 'shipped':
         return css` background-color: #D14343; color: white; `
-      default:
-        return css``
     }
   }}
 `

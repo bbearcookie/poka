@@ -50,7 +50,7 @@ function FilterCheck({ resetOnMount, defaultFilter }: Props) {
         toggleMember={handleToggleMember}
       />
 
-      {defaultFilter.state === 'ALL' &&
+      {defaultFilter.state === 'all' &&
       <StateFilter
         filter={filter.state}
         changeFilter={(value) => dispatch(setVoucherState(value))}

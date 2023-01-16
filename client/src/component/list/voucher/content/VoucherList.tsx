@@ -41,7 +41,7 @@ function VoucherList({ defaultFilter, icon, handleClickIcon }: Props) {
       <Fragment key={pageIdx}>
         {page?.vouchers.map(item => 
           <VoucherCard
-            showOwner={defaultFilter.owner === 'ALL' ? true : false}
+            showOwner={defaultFilter.owner === 'all' ? true : false}
             key={item.voucher_id}
             photoName={item.name}
             groupName={item.group_name}

@@ -78,8 +78,8 @@ function VoucherOwner({ voucher }: { voucher: VoucherResType }) {
 function VoucherState({ voucher }: { voucher: VoucherResType }) {
   return (
     <CardListItem title="상태">
-      <VoucherStateLabel voucherState={voucher?.state || ''} width="6em" textAlign="center">
-        {VoucherStateValue[voucher?.state.toUpperCase() as VoucherStateKey]}
+      <VoucherStateLabel voucherState={voucher.state} width="6em" textAlign="center">
+        {VoucherStateValue[voucher.state as VoucherStateKey]}
       </VoucherStateLabel>
     </CardListItem>
   )
