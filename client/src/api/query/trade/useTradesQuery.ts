@@ -3,11 +3,13 @@ import { AxiosError } from 'axios';
 import { ErrorType } from '@util/request';
 import * as queryKey from '@api/queryKey';
 import { fetchTrades } from '@api/api/trade';
-import { TradeListItemType } from '@type/trade';
+import { TradeListItemType, TradeStateKey } from '@type/trade';
 
 interface FilterType {
   groupId: number;
   memberId: number;
+  excludeUserId: number;
+  state: TradeStateKey;
 }
 
 export interface ParamType {

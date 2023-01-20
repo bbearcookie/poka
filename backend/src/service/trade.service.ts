@@ -1,11 +1,12 @@
 import db from '@config/database';
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import { TradeType, TradeListItemType, WantcardType } from '@type/trade';
+import { TradeStateType } from '@type/trade';
 import { WhereSQL } from '@util/database';
 
 // 교환글 목록 조회
 export const selectTradeList = async (
-  groupId: number, memberId: number,
+  groupId: number, memberId: number, excludeUserId: number, state: TradeStateType, 
   itemPerPage: number, pageParam: number
 ) => {
   const con = await db.getConnection();
@@ -36,7 +37,23 @@ export const selectTradeList = async (
     if (memberId > 0) {
       where.push({
         query: `M.member_id=${con.escape(memberId)}`,
-        operator: 'OR'
+        operator: 'AND'
+      });
+    }
+
+    // 작성자 ID 조건
+    if (excludeUserId !== 0) {
+      where.push({
+        query: `NOT T.user_id=${con.escape(excludeUserId)}`,
+        operator: 'AND'
+      });
+    }
+
+    // 거래글 상태 조건
+    if (state) {
+      where.push({
+        query: `T.state=${con.escape(state)}`,
+        operator: 'AND'
       });
     }
 

@@ -2,7 +2,6 @@ import React from 'react';
 import { getUser } from '@util/auth/auth';
 import { useAppSelector } from "@app/redux/reduxHooks";
 import { Route, Routes, Navigate } from "react-router-dom";
-import PhotoSearchPage from "@page/user/photo/search/Index";
 import ProfilePage from '@page/user/profile/Index';
 import VoucherListPage from '@page/user/voucher/list/Index';
 import VoucherDetailPage from '@page/user/voucher/detail/Index';
@@ -27,7 +26,6 @@ function UserRouter() {
             <div>{role}</div>
           </>
         } />
-        <Route path="/trade/search" element={<PhotoSearchPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/voucher/list" element={<VoucherListPage />} />
         <Route path="/voucher/detail/:voucherId" element={<VoucherDetailPage />} />

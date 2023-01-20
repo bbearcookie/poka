@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { body, oneOf, query, param } from 'express-validator';
 import { validate, isLoggedIn, isAdminOrOwner, createResponseMessage } from '@util/validator';
 import { UserType } from '@util/jwt';
+import { TradeStateType } from '@type/trade';
 import * as userService from '@service/user.service';
 import * as photoService from '@service/photo.service';
 import * as voucherService from '@service/voucher.service';
@@ -18,20 +19,23 @@ export const getTradeList = {
       const filter = JSON.parse(value);
       if (isNaN(filter.groupId)) return false;
       if (isNaN(filter.memberId)) return false;
+      if (isNaN(filter.excludeUserId)) return false;
       return true;
     }).withMessage("검색 필터가 잘못되었어요."),
     validate
   ],
   filterType: {
     'groupId': 0 as number,
-    'memberId': 0 as number
+    'memberId': 0 as number,
+    'excludeUserId': 0 as number,
+    'state': '' as TradeStateType
   },
   controller: async (req: Request, res: Response, next: NextFunction) => {
     const itemPerPage = 10;
     const pageParam = req.query.pageParam ? Number(req.query.pageParam) : 0;
     const filter = JSON.parse(String(req.query.filter)) as typeof getTradeList.filterType;
 
-    const trades = await tradeService.selectTradeList(filter.groupId, filter.memberId, itemPerPage, pageParam);
+    const trades = await tradeService.selectTradeList(filter.groupId, filter.memberId, filter.excludeUserId, filter.state, itemPerPage, pageParam);
     return res.status(200).json({
       message: '거래글 목록을 조회했습니다.',
       trades,

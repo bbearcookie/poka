@@ -17,8 +17,7 @@ function UserContent({  }: Props) {
       <ul className="category">
         <li className="subheader-label">포토카드 교환</li>
         <ParentItem id="trade" icon={faArrowsSpin} text="교환">
-          <ChildItem to="/trade/search" text="포토카드 찾기(X)" />
-          <ChildItem to="/trade/writer" text="교환글 등록(X)" />
+          <ChildItem to="/trade/writer" text="등록하기" />
           <ChildItem to="/trade/list" text="교환하기" />
           <ChildItem to="/trade/matching" text="매칭하기" />
         </ParentItem>

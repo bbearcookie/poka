@@ -1,8 +1,10 @@
+export type TradeStateType = 'trading' | 'traded';
+
 export interface TradeType {
   trade_id: number;
   user_id: number;
   voucher_id: number;
-  state: 'trading' | 'traded';
+  state: TradeStateType;
   amount: number;
   written_time: string;
   traded_time: string;
