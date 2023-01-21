@@ -1,15 +1,15 @@
 import React, { Fragment, useCallback, useRef } from 'react';
 import Button from '@component/form/Button';
 
-interface DownloadProps {
+interface Props {
   cropList: string[];
   setCropList: React.Dispatch<React.SetStateAction<string[]>>;
   downloadName: string;
   children?: React.ReactNode;
 }
-const DownloadDefaultProps = {};
+const DefaultProps = {};
 
-function Download({ cropList, setCropList, downloadName, children }: DownloadProps & typeof DownloadDefaultProps) {
+function Download({ cropList, setCropList, downloadName }: Props) {
   const fileRefs = useRef<HTMLAnchorElement[] | null[]>([]);
 
   // 다운로드 동작
@@ -43,5 +43,4 @@ function Download({ cropList, setCropList, downloadName, children }: DownloadPro
   );
 }
 
-Download.defaultProps = DownloadDefaultProps;
 export default Download;

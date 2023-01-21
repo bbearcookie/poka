@@ -33,6 +33,6 @@ export class WhereSQL {
       else result += ` ${queries[idx-1].operator} ${query.query}`;
     });
 
-    return result;
+    return result + ' ';
   }
 }

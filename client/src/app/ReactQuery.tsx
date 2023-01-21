@@ -1,24 +1,18 @@
 import React from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-interface ReactQueryProps {
+interface Props {
   children?: React.ReactNode;
 }
 
-const ReactQueryDefaultProps = {};
-
-function ReactQuery({ children }: ReactQueryProps & typeof ReactQueryDefaultProps) {
+function ReactQuery({ children }: Props) {
   const queryClient = new QueryClient();
 
   return (
     <QueryClientProvider client={queryClient}>
       {children}
-      <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
     </QueryClientProvider>
   );
 }
-
-ReactQuery.defaultProps = ReactQueryDefaultProps;
 
 export default ReactQuery;

@@ -6,15 +6,13 @@ import CardFooter from '@component/card/basic/CardFooter';
 import Form from './Form';
 import Move from './Move';
 
-interface ControlCardProps {
+interface Props {
   cropper: Cropper,
-  cropList: string[];
-  setCropList: React.Dispatch<React.SetStateAction<string[]>>;
   children?: React.ReactNode;
 }
-const ControlCardDefaultProps = {};
+const DefaultProps = {};
 
-function ControlCard({ cropper, cropList, setCropList, children }: ControlCardProps & typeof ControlCardDefaultProps) {
+function ControlCard({ cropper }: Props) {
   const [moveX, setMoveX] = useState(0);
   const [moveY, setMoveY] = useState(0);
 
@@ -31,5 +29,4 @@ function ControlCard({ cropper, cropList, setCropList, children }: ControlCardPr
   );
 }
 
-ControlCard.defaultProps = ControlCardDefaultProps;
 export default ControlCard;

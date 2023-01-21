@@ -15,20 +15,29 @@ export interface CommonSearchBarProps {
   handleSubmit?: () => void;
 }
 
-interface SearchBarProps extends CommonSearchBarProps {
+interface Props extends CommonSearchBarProps {
   styles?: StylesProps;
   children?: React.ReactNode;
 }
-const SearchBarDefaultProps = {
+const DefaultProps = {
   autoComplete: 'off',
 };
-function SearchBar(p: SearchBarProps & typeof SearchBarDefaultProps) {
+function SearchBar(p: Props & typeof DefaultProps) {
   const [active, setActive] = useState(false);
 
+  // 엔터 입력시 submit 동작
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (!p.handleSubmit) return;
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      p.handleSubmit();
+    }
+  }, [p]);
+
   return (
-    <StyledSearchBar 
-      {...StylesDefaultProps} {...p.styles} {...p}
+    <StyledSearchBar
       className={classNames("SearchBar", {"active": active})}
+      {...p.styles} {...p}
     >
       <Input
         type={p.type}
@@ -40,7 +49,7 @@ function SearchBar(p: SearchBarProps & typeof SearchBarDefaultProps) {
         onChange={p.handleInputChange}
         onFocus={(e) => setActive(true)}
         onBlur={(e) => setActive(false)}
-        onKeyDown={(e) => e.key === 'Enter' && p.handleSubmit && p.handleSubmit()}
+        onKeyDown={handleKeyDown}
       />
       {p.children}
       <Button onClick={p.handleSubmit} />
@@ -48,7 +57,6 @@ function SearchBar(p: SearchBarProps & typeof SearchBarDefaultProps) {
   );
 }
 
-SearchBar.defaultProps = SearchBarDefaultProps;
 export default SearchBar;
 
 // 스타일 컴포넌트
@@ -56,12 +64,9 @@ interface StylesProps {
   width?: string;
   height?: string;
 }
-const StylesDefaultProps = {
-  height: '3em',
-};
-const StyledSearchBar = styled.div<StylesProps & typeof StylesDefaultProps>`
+const StyledSearchBar = styled.div<StylesProps>`
   width: ${p => p.width};
-  height: ${p => p.height};
+  height: ${p => p.height ? p.height : '3em'};
   display: flex;
   align-items: center;
   border-radius: 10px;

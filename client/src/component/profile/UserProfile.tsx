@@ -1,16 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BACKEND } from '@util/commonAPI';
 
-interface UserProfileProps {
+interface Props {
   nickname?: string;
   username?: string;
   imageName?: string;
   children?: React.ReactNode;
 }
-const UserProfileDefaultProps = {};
+const DefaultProps = {};
 
-function UserProfile({ nickname, username, imageName, children }: UserProfileProps & typeof UserProfileDefaultProps) {
+function UserProfile({ nickname, username, imageName, children }: Props) {
   return (
     <Profile>
       <Img
@@ -29,7 +28,6 @@ function UserProfile({ nickname, username, imageName, children }: UserProfilePro
   );
 }
 
-UserProfile.defaultProps = UserProfileDefaultProps;
 export default UserProfile;
 
 export const Profile = styled.section`

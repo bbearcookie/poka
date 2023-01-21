@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import * as PopperJS from '@popperjs/core';
 
-interface DropdownMenuProps {
+interface Props {
   menuRef?: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
   popper?: {
     styles: {
@@ -20,12 +20,12 @@ interface DropdownMenuProps {
   styles?: StylesProps;
   children?: React.ReactNode;
 }
-const DropdownMenuDefaultProps = {};
+const DefaultProps = {};
 
-function DropdownMenu({ menuRef, popper, styles, children }: DropdownMenuProps & typeof DropdownMenuDefaultProps) {
+function DropdownMenu({ menuRef, popper, styles, children }: Props) {
   return (
     <StyledDropdownMenu
-      {...StylesDefaultProps} {...styles}
+      {...styles}
       ref={menuRef}
       style={popper?.styles.popper}
       {...popper?.attributes.popper}
@@ -35,20 +35,40 @@ function DropdownMenu({ menuRef, popper, styles, children }: DropdownMenuProps &
   );
 }
 
-DropdownMenu.defaultProps = DropdownMenuDefaultProps;
 export default DropdownMenu;
 
 // 스타일 컴포넌트
 interface StylesProps {
   width?: string;
+  minWidth?: string;
+  maxHeight?: string;
 }
-const StylesDefaultProps = {};
-const StyledDropdownMenu = styled.div<StylesProps & typeof StylesDefaultProps>`
+const StyledDropdownMenu = styled.div<StylesProps>`
   padding: 0.5em 0;
   width: ${p => p.width};
+  min-width: ${p => p.minWidth};
+  max-height: ${p => p.maxHeight};
   text-align: center;
   background-color: white;
-  z-index: 10;
+  z-index: 100;
   border: 2px solid #E5E7EB;
   border-radius: 10px;
+  overflow-y: auto;
+
+  // 스크롤 바 스타일 지정
+  & {
+    &::-webkit-scrollbar {
+      width: 0.5em;  /* 스크롤바의 너비 */
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      height: 30%; /* 스크롤바의 길이 */
+      background: rgb(43, 56, 82); /* 스크롤바의 색상 */
+      border-radius: 0.7em;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: rgba(33, 122, 244, .1);  /* 스크롤바 뒷 배경 색상 */
+    }
+  }
 `

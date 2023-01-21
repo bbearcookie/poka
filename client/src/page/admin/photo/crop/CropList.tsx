@@ -2,15 +2,13 @@ import React, { Fragment } from 'react';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
-import CardFooter from '@component/card/basic/CardFooter';
 
-interface CropListProps {
+interface Props {
   cropList: string[];
-  children?: React.ReactNode;
 }
-const CropListDefaultProps = {};
+const DefaultProps = {};
 
-function CropList({ cropList, children }: CropListProps & typeof CropListDefaultProps) {
+function CropList({ cropList }: Props) {
   return (
     <Card styles={{ marginTop: "2em" }}>
       <CardHeader>
@@ -29,5 +27,4 @@ function CropList({ cropList, children }: CropListProps & typeof CropListDefault
   );
 }
 
-CropList.defaultProps = CropListDefaultProps;
 export default CropList;

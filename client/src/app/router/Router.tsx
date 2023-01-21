@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { useAppSelector } from '@app/redux/reduxHooks';
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AdminPage from '@page/admin/AdminPage';
 import UserPage from '@page/user/UserPage';
 import LoginPage from '@page/sign/login/LoginPage';

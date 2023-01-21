@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
-import Modal, { ModalProps, StylesProps as ModalStyles } from '@component/modal/basic/Modal';
+import Modal, { Props as ModalProps, StylesProps as ModalStyles } from '@component/modal/basic/Modal';
 import Button from '@component/form/Button';
 import Card, { StylesProps as CardStyles } from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
@@ -9,7 +9,7 @@ import CardFooter from '@component/card/basic/CardFooter';
 import { ButtonTheme } from '@component/form/Button';
 import ModalHeader from './basic/ModalHeader';
 
-interface ConfirmModalProps extends ModalProps {
+interface Props extends ModalProps {
   titleName?: string;
   confirmText?: string;
   confirmButtonTheme?: ButtonTheme;
@@ -20,19 +20,23 @@ interface ConfirmModalProps extends ModalProps {
   modalStyles?: ModalStyles;
   children?: React.ReactNode;
 }
-const ConfirmModalDefaultProps = {
+const DefaultProps = {
   titleName: '',
-  confirmButtonTheme: 'danger',
-  cancelButtonTheme: 'gray',
+  confirmButtonTheme: 'danger' as ButtonTheme,
+  cancelButtonTheme: 'gray' as ButtonTheme,
   confirmText: '확인',
-  cancelText: '취소'
+  cancelText: '취소',
 };
 function ConfirmModal({
-  hook, location, titleName,
-  confirmText, confirmButtonTheme, handleConfirm,
-  cancelText, cancelButtonTheme, 
+  hook, location,
+  titleName = DefaultProps.titleName,
+  confirmText = DefaultProps.confirmText,
+  confirmButtonTheme = DefaultProps.confirmButtonTheme,
+  handleConfirm,
+  cancelText = DefaultProps.cancelText,
+  cancelButtonTheme = DefaultProps.cancelButtonTheme,
   cardStyles, modalStyles, children 
-}: ConfirmModalProps & typeof ConfirmModalDefaultProps) {
+}: Props) {
 
   return (
     <Modal
@@ -71,7 +75,6 @@ function ConfirmModal({
   );
 }
 
-ConfirmModal.defaultProps = ConfirmModalDefaultProps;
 export default ConfirmModal;
 
 const ErrorLabel = styled.p`

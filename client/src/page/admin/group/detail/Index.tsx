@@ -1,26 +1,18 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
-import * as groupAPI from '@api/groupAPI';
-import * as queryKey from '@util/queryKey';
-import { ErrorType } from '@util/commonAPI';
-import { AxiosError } from 'axios';
+import useGroupQuery from '@api/query/group/useGroupQuery';
 import BackLabel from '@component/label/BackLabel';
 import ErrorCard from '@component/card/ErrorCard';
 import Success from './Success';
 import Loading from './Loading';
 import './Index.scss';
 
-interface GroupDetailPageProps {
-  children?: React.ReactNode;
-}
-const GroupDetailPageDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function GroupDetailPage({ children }: GroupDetailPageProps & typeof GroupDetailPageDefaultProps) {
+function GroupDetailPage({  }: Props) {
   const { groupId } = useParams() as any;
-  const { status, data: group, error } =
-  useQuery<typeof groupAPI.getGroupDetail.resType, AxiosError<ErrorType>>
-  (queryKey.groupKeys.detail(groupId), () => groupAPI.getGroupDetail.axios(groupId));
+  const { status, data: group, error } = useGroupQuery(groupId);
 
   return (
     <div className="GroupDetailPage">
@@ -32,5 +24,4 @@ function GroupDetailPage({ children }: GroupDetailPageProps & typeof GroupDetail
   );
 }
 
-GroupDetailPage.defaultProps = GroupDetailPageDefaultProps;
 export default GroupDetailPage;

@@ -1,22 +1,18 @@
 import React, { useCallback } from 'react';
-import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
-import { setInput } from '../addressEditorSlice';
+import { State, Action } from '../reducer';
 
-interface ContactSectionProps {
-  changeInput: React.ChangeEventHandler<HTMLInputElement>;
+interface Props {
+  state: State;
+  dispatch: React.Dispatch<Action>;
   blurInput: React.FocusEventHandler<HTMLInputElement>;
-  children?: React.ReactNode;
 }
-const ContactSectionDefaultProps = {};
+const DefaultProps = {};
 
-function ContactSection({ changeInput, blurInput, children }: ContactSectionProps & typeof ContactSectionDefaultProps) {
-  const { form, inputMessage } = useAppSelector(state => state.addressEditor);
-  const dispatch = useAppDispatch();
-
+function ContactSection({ state, dispatch, blurInput }: Props) {
   // 연락처 상태 값 변경
   const changeContact = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     // 숫자가 아닌 값 필터링 후 전화번호 형태로 하이픈 추가
@@ -24,10 +20,7 @@ function ContactSection({ changeInput, blurInput, children }: ContactSectionProp
       .replace(/[^0-9]/g, '')
       .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
 
-    dispatch(setInput({
-      name: 'contact',
-      value
-    }));
+    dispatch({ type: 'SET_FORM_DATA', target: 'contact', value });
   }, [dispatch]);
 
   return (
@@ -42,7 +35,7 @@ function ContactSection({ changeInput, blurInput, children }: ContactSectionProp
           name="contact"
           placeholder="하이픈(-) 없이 숫자만 입력해주세요"
           maxLength={13}
-          value={form.contact}
+          value={state.form.contact}
           onChange={changeContact}
           onBlur={blurInput}
           styles={{
@@ -50,12 +43,11 @@ function ContactSection({ changeInput, blurInput, children }: ContactSectionProp
             height: "2.5em"
           }}
         >
-          {inputMessage.contact && <InputMessage styles={{ margin: "0.5em 0 0 0" }}>{inputMessage.contact}</InputMessage>}
+          {state.message.contact && <InputMessage styles={{ margin: "0.5em 0 0 0" }}>{state.message.contact}</InputMessage>}
         </Input>
       </section>
     </section>
   );
 }
 
-ContactSection.defaultProps = ContactSectionDefaultProps;
 export default ContactSection;

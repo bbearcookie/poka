@@ -1,17 +1,16 @@
 import React, { useState, useCallback } from 'react';
-import * as photoAPI from '@api/photoAPI';
-import PhotoInfo from './PhotoInfo';
-import PhotoEditor from './PhotoEditor';
-import PhotoRemove from './PhotoRemove';
+import { ResType as PhotoResType } from '@api/query/photo/usePhotoQuery';
+import PhotoInfo from './content/PhotoInfo';
+import PhotoEditor from './content/editor/PhotoEditor';
+import PhotoRemove from './content/PhotoRemove';
 
-interface SuccessProps {
-  photo: typeof photoAPI.getPhotoDetail.resType;
+interface Props {
+  photo: PhotoResType;
   photocardId: number;
-  children?: React.ReactNode;
 }
-const SuccessDefaultProps = {};
+const DefaultProps = {};
 
-function Success({ photo, photocardId, children }: SuccessProps & typeof SuccessDefaultProps) {
+function Success({ photo, photocardId }: Props) {
   const [editMode, setEditMode] = useState(false);
 
   // 편집 모드 ON / OFF
@@ -29,5 +28,4 @@ function Success({ photo, photocardId, children }: SuccessProps & typeof Success
   );
 }
 
-Success.defaultProps = SuccessDefaultProps;
 export default Success;

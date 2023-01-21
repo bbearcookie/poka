@@ -1,86 +1,48 @@
-import React, { useState, useCallback } from 'react';
+import React, { useReducer, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '@app/redux/reduxHooks';
-import { login, logout } from '@util/auth/authSlice';
-import { saveUser } from '@util/auth/auth';
-import { useMutation } from 'react-query';
-import { toast } from 'react-toastify';
-import * as authAPI from '@api/authAPI';
-import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType, getErrorMessage } from '@util/commonAPI';
+import useLogin from '@api/mutation/auth/useLogin';
 import Input from '@component/form/Input';
 import Button from '@component/form/Button';
 import InputMessage from '@component/form/InputMessage';
+import reducer, { initialState, FormType } from './reducer';
 
-interface FormProps {
-  children?: React.ReactNode;
-}
-const FormDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function Form({ children }: FormProps & typeof FormDefaultProps) {
-  interface InputType {
-    username: string;
-    password: string;
-  }
-  const [input, setInput] = useState<InputType>({
-    username: '',
-    password: ''
-  });
-  const [inputMessage, setInputMessage] = useState<{
-    [k in keyof InputType]: string;
-  }>({
-    username: '',
-    password: '',
-  });
-  const dispatch = useAppDispatch();
+function Form({  }: Props) {
+  const [state, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
 
   // 로그인 요청
-  const postMutation = useMutation(authAPI.postLogin.axios, {
-    onSuccess: (res: AxiosResponse<typeof authAPI.postLogin.resType>) => {
-      if (!res.data) return console.error('비정상적인 응답');
-
-      toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-      dispatch(login(res.data.user));
-
+  const postMutation = useLogin<keyof FormType>(
+    (res) => {
       if (res.data.user.role === 'admin') return navigate('/admin');
       else return navigate('/');
     },
-    onError: (err: AxiosError<ErrorType<keyof InputType>>) => {
-      toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-
-      let message = inputMessage;
+    (err) => {
       err.response?.data.errors.forEach((e) => {
-        message[e.param] = e.message;
+        dispatch({ type: 'SET_MESSAGE', target: e.param, value: e.message });
       });
-      setInputMessage({ ...inputMessage, ...message });
     }
-  });
+  )
 
   // input 포커스 해제시 오류 메시지 제거
   const blurInput = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
-    const name = e.target.name as unknown as keyof InputType;
-    setInputMessage({ ...inputMessage, [name]: '' });
-  }, [inputMessage]);
+    dispatch({ type: 'SET_MESSAGE', target: e.target.name as keyof FormType, value: '' });
+  }, [dispatch]);
 
   // input 상태 값 변경
   const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value
-    });
-  }, [input]);
+    dispatch({ type: 'SET_FORM_DATA', target: e.target.name as keyof FormType, value: e.target.value });
+  }, [dispatch]);
 
   // 폼 전송 이벤트
   const onSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     postMutation.mutate({
-      data: {
-        username: input.username,
-        password: input.password
-      }
+      body: { ...state.form }
     });
-  }, [input, postMutation]);
+  }, [state, postMutation]);
 
   return (
     <form onSubmit={onSubmit}>
@@ -98,7 +60,7 @@ function Form({ children }: FormProps & typeof FormDefaultProps) {
             height: '2.5rem'
           }}
         >
-          <InputMessage styles={{ margin: "0.5em 0 0 0.8em", wordBreak: 'break-all'}}>{inputMessage.username}</InputMessage>
+          <InputMessage styles={{ margin: "0.5em 0 0 0.8em", wordBreak: 'break-all'}}>{state.message.username}</InputMessage>
         </Input>
       </section>
 
@@ -116,15 +78,13 @@ function Form({ children }: FormProps & typeof FormDefaultProps) {
             height: "2.5rem"
           }}
         >
-          <InputMessage styles={{ margin: "0.5em 0 0 0.8em", wordBreak: 'break-all'}}>{inputMessage.password}</InputMessage>
+          <InputMessage styles={{ margin: "0.5em 0 0 0.8em", wordBreak: 'break-all'}}>{state.message.password}</InputMessage>
         </Input>
       </section>
 
-      {/* {message && <InputMessage styles={{ margin: "1em 0 0 0" }}>{message}</InputMessage>} */}
       <Button type="submit" styles={{ theme: "primary", width: "100%", marginTop: "2em" }}><b>로그인</b></Button>
     </form>
   );
 }
 
-Form.defaultProps = FormDefaultProps;
 export default Form;

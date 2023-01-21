@@ -3,12 +3,10 @@ import Profile from './profile/Index';
 import Shipping from './shipping/Index';
 import './Index.scss';
 
-interface IndexProps {
-  children?: React.ReactNode;
-}
-const IndexDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function Index({ children }: IndexProps & typeof IndexDefaultProps) {
+function Index({  }: Props) {
   return (
     <div className="ProfilePage">
       <h1 className="title-label">마이페이지</h1>
@@ -18,5 +16,4 @@ function Index({ children }: IndexProps & typeof IndexDefaultProps) {
   );
 }
 
-Index.defaultProps = IndexDefaultProps;
 export default Index;

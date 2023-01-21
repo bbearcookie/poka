@@ -7,12 +7,10 @@ import CardFooter from '@component/card/basic/CardFooter';
 import Form from './Form';
 import '../SignPage.scss';
 
-interface LoginPageProps {
-  children?: React.ReactNode;
-}
-const LoginPageDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function LoginPage({ children }: LoginPageProps & typeof LoginPageDefaultProps) {
+function LoginPage({  }: Props) {
   return (
     <div className="SignPage">
       <Card styles={{ width: "40rem" }}>
@@ -39,5 +37,4 @@ function LoginPage({ children }: LoginPageProps & typeof LoginPageDefaultProps) 
   );
 }
 
-LoginPage.defaultProps = LoginPageDefaultProps;
 export default LoginPage;

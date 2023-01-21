@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
-interface InputProps {
+interface Props {
   type: React.HTMLInputTypeAttribute;
   name: string;
   value?: any;
@@ -14,8 +14,8 @@ interface InputProps {
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
   children?: React.ReactNode;
 }
-const InputDefaultProps = {};
-function Input(p: InputProps & typeof InputDefaultProps) {
+const DefaultProps = {};
+function Input(p: Props) {
   return (
     <StyledInput {...p}>
       {p.children}
@@ -23,11 +23,10 @@ function Input(p: InputProps & typeof InputDefaultProps) {
   );
 }
 
-Input.defaultProps = InputDefaultProps;
 export default Input;
 
 // 스타일 컴포넌트
-const StyledInput = styled.input<InputProps>`
+const StyledInput = styled.input`
   padding: 0 0.5em;
   width: 100%;
   height: 100%;

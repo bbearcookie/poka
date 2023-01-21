@@ -9,12 +9,10 @@ import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 
-interface LoadingProps {
-  children?: React.ReactNode;
-}
-const LoadingDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function Loading({ children }: LoadingProps & typeof LoadingDefaultProps) {
+function Loading({  }: Props) {
   return (
     <>
       <section className="group-section">
@@ -64,5 +62,4 @@ function Loading({ children }: LoadingProps & typeof LoadingDefaultProps) {
   );
 }
 
-Loading.defaultProps = LoadingDefaultProps;
 export default Loading;

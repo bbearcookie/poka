@@ -1,0 +1,10 @@
+.UserVoucherDetailPage {
+  padding: 5em 10%;
+
+  .button-section {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 2em;
+    flex-wrap: wrap;
+  }
+}

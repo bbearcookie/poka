@@ -4,12 +4,10 @@ import Sidebar from '@component/sidebar/Sidebar';
 import Navbar from '@component/navbar/Navbar';
 import '../PageTemplate.scss';
 
-interface AdminPageProps {
-  children?: React.ReactNode;
-}
-const AdminPageDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function AdminPage({ children }: AdminPageProps & typeof AdminPageDefaultProps) {
+function AdminPage({  }: Props) {
   return (
     <div className="PageTemplate">
       <Sidebar mode="ADMIN" />
@@ -21,5 +19,4 @@ function AdminPage({ children }: AdminPageProps & typeof AdminPageDefaultProps) 
   );
 }
 
-AdminPage.defaultProps = AdminPageDefaultProps;
 export default AdminPage;

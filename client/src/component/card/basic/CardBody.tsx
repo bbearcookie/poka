@@ -2,26 +2,21 @@ import React from 'react';
 import classNames from 'classnames';
 import styled from 'styled-components';
 
-interface CardBodyProps {
+interface Props {
   className?: string;
   styles?: StylesProps;
   children?: React.ReactNode;
 }
+const DefaultProps = {};
 
-const CardBodyDefaultProps = {};
-
-export function CardBody({ className, styles, children }: CardBodyProps & typeof CardBodyDefaultProps) {
+export function CardBody({ className, styles, children }: Props) {
   return (
-    <StyledCardBody
-      className={classNames("CardBody", className)}
-      {...StylesDefaultProps}
-      {...styles}
-    >
+    <StyledCardBody className={classNames("CardBody", className)} {...styles}>
       {children}
     </StyledCardBody>
   );
 }
-CardBody.defaultProps = CardBodyDefaultProps;
+
 export default CardBody;
 
 // 스타일 컴포넌트
@@ -29,12 +24,11 @@ export interface StylesProps {
   padding?: string;
   width?: string;
   height?: string;
+  color?: string;
 }
-const StylesDefaultProps = {
-  padding: '1.5em'
-}
-const StyledCardBody = styled.section<StylesProps & typeof StylesDefaultProps>`
-  padding: ${p => p.padding};
+const StyledCardBody = styled.section<StylesProps>`
+  padding: ${p => p.padding ? p.padding : '1.5em'};
   width: ${p => p.width};
   height: ${p => p.height};
+  color: ${p => p.color};
 `

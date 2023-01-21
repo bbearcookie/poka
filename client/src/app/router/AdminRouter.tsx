@@ -1,8 +1,6 @@
 import React from 'react';
 import { getUser } from '@util/auth/auth';
 import { Route, Routes, Navigate } from 'react-router-dom';
-import FirstPage from '@page/admin/first/FirstPage';
-import SecondPage from '@page/admin/second/SecondPage';
 import GroupListPage from '@page/admin/group/list/Index';
 import GroupWriterPage from '@page/admin/group/writer/WriterIndex';
 import GroupEditorPage from '@page/admin/group/writer/EditorIndex';
@@ -15,6 +13,7 @@ import PhotoDetailPage from '@page/admin/photo/detail/Index';
 import VoucherWriterPage from '@page/admin/voucher/writer/Index';
 import VoucherListPage from '@page/admin/voucher/list/Index';
 import VoucherDetailPage from '@page/admin/voucher/detail/Index';
+import VoucherLogPage from '@page/admin/voucher/log/Index';
 
 // /admin 하위 라우팅 내용
 function AdminRouter() {
@@ -31,8 +30,6 @@ function AdminRouter() {
             {Array.from({length: 150}).map((_, idx) => (<div key={idx}>길이가 무지막지길다면</div>))}
           </>
         } />
-        <Route path="/first" element={<FirstPage />} />
-        <Route path="/second" element={<SecondPage />} />
         <Route path="/group/list" element={<GroupListPage />} />
         <Route path="/group/writer" element={<GroupWriterPage />} />
         <Route path="/group/editor/:groupId" element={<GroupEditorPage />} />
@@ -45,6 +42,7 @@ function AdminRouter() {
         <Route path="/voucher/writer" element={<VoucherWriterPage />} />
         <Route path="/voucher/list" element={<VoucherListPage />} />
         <Route path="/voucher/detail/:voucherId" element={<VoucherDetailPage />} />
+        <Route path="/voucher/log/:voucherId" element={<VoucherLogPage />} />
       </Routes>
     </>
   );

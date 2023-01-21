@@ -5,7 +5,6 @@ import * as memberCtrl from '@controller/member.ctrl';
 export default function(app: Express, baseURI: string) {
   app.get(`${baseURI}`, groupCtrl.getGroupList.controller);
   app.get(`${baseURI}/:groupId`, groupCtrl.getGroupDetail.validator, groupCtrl.getGroupDetail.controller);
-  app.get(`${baseURI}/:groupId/member`, memberCtrl.getMembersOfGroup.validator, memberCtrl.getMembersOfGroup.controller);
   app.put(
     `${baseURI}/:groupId`,
     groupCtrl.putGroup.uploader.single,
@@ -20,5 +19,6 @@ export default function(app: Express, baseURI: string) {
     groupCtrl.postGroup.validator,
     groupCtrl.postGroup.controller
   );
+  app.post(`${baseURI}/:groupId/member`, memberCtrl.postMember.validator, memberCtrl.postMember.controller);
   app.delete(`${baseURI}/:groupId`, groupCtrl.deleteGroup.validator, groupCtrl.deleteGroup.controller);
 };

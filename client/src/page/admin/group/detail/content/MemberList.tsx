@@ -1,5 +1,5 @@
 import React, { useState, useCallback, Fragment } from 'react';
-import * as groupAPI from '@api/groupAPI';
+import { ResType as GroupType } from '@api/query/group/useGroupQuery';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
@@ -11,14 +11,13 @@ import MemberEditor from './MemberEditor';
 import MemberInfo from './MemberInfo';
 import MemberAddButton from './MemberAddButton';
 
-interface MemberListProps {
-  group: typeof groupAPI.getGroupDetail.resType;
+interface Props {
+  group: GroupType;
   groupId: number;
 }
+const DefaultProps = {};
 
-const MemberListDefaultProps = {};
-
-function MemberList({ group, groupId }: MemberListProps & typeof MemberListDefaultProps) {
+function MemberList({ group, groupId }: Props) {
   const [editorTarget, setEditorTarget] = useState<number | boolean>(false); // 수정 모드일 경우 현재 수정중인 memberId를 나타낸다.
 
   // 편집 모드 ON / OFF
@@ -56,7 +55,5 @@ function MemberList({ group, groupId }: MemberListProps & typeof MemberListDefau
     </Card>
   );
 }
-
-MemberList.defaultProps = MemberListDefaultProps;
 
 export default MemberList;

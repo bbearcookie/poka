@@ -2,14 +2,14 @@ import React, { useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import { DropdownHookType } from '@hook/useDropdown';
 
-interface DropdownProps {
+interface Props {
   hook: DropdownHookType;
   className?: string;
   children?: React.ReactNode;
 }
-const DropdownDefaultProps = {};
+const DefaultProps = {};
 
-function Dropdown({ hook, className, children }: DropdownProps & typeof DropdownDefaultProps) {
+function Dropdown({ hook, className, children }: Props) {
   const ref = useRef<HTMLInputElement>(null);
 
   // 드롭다운의 바깥 영역이 클릭되면 드롭다운 닫음
@@ -31,5 +31,4 @@ function Dropdown({ hook, className, children }: DropdownProps & typeof Dropdown
   );
 }
 
-Dropdown.defaultProps = DropdownDefaultProps;
 export default Dropdown;

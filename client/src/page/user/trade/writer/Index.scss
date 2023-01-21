@@ -1,0 +1,42 @@
+.TradeWriterPage {
+  padding: 5em 10%;
+
+  .title-label {
+    margin: 0 0 1em 0;
+    font-size: 1.75rem;
+  }
+  
+  .Card {
+    .label { margin: 0.3em 0; }
+    .label-section {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1em;
+  
+      .label { flex-grow: 1; }
+    }
+  }
+
+  .photo-section {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1em;
+
+    &:empty { display: none; }
+
+    .PhotoCard {
+      margin: 1em;
+
+      @media screen and (max-width: 80rem) {
+        margin: 1em auto;
+      }
+    }
+  }
+
+  .button-section {
+    display: flex;
+    justify-content: right;
+  }
+  
+}

@@ -39,6 +39,7 @@
     "@config/*": "src/config/*",
     "@controller/*": "src/controller/*",
     "@service/*": "src/service/*",
+    "@type/*": "src/type/*",
     "@util/*": "src/util/*",
     "@uploader/*": "src/uploader/*",
     "@/*": "src/*"

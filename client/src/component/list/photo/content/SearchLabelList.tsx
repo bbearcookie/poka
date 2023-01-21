@@ -4,12 +4,11 @@ import CardHeader from '@component/card/basic/CardHeader';
 import SearchLabel from '@component/label/SearchLabel';
 import { removeName, toggleGroup, toggleMember } from '../photoListCardSlice';
 
-interface SearchLabelListProps {
-  children?: React.ReactNode;
+interface Props {
 }
-const SearchLabelListDefaultProps = {};
+const DefaultProps = {};
 
-function SearchLabelList({ children }: SearchLabelListProps & typeof SearchLabelListDefaultProps) {
+function SearchLabelList({  }: Props) {
   const filter = useAppSelector((state) => state.photoListCard.filter);
   const dispatch = useAppDispatch();
 
@@ -22,8 +21,7 @@ function SearchLabelList({ children }: SearchLabelListProps & typeof SearchLabel
         category="포토카드 이름"
         text={name.value}
         handleRemove={() => dispatch(removeName(name.id))}
-      />
-      ))}
+      />))}
 
       {/* 그룹 관련 필터 */}
       {filter.groups.map((group) => group.checked && (
@@ -32,8 +30,7 @@ function SearchLabelList({ children }: SearchLabelListProps & typeof SearchLabel
         category="그룹"
         text={group.name}
         handleRemove={() => dispatch(toggleGroup(group.groupId))}
-      />
-      ))}
+      />))}
 
       {/* 멤버 관련 필터 */}
       {filter.members.map((member) => member.checked && (
@@ -42,11 +39,9 @@ function SearchLabelList({ children }: SearchLabelListProps & typeof SearchLabel
         category="멤버"
         text={member.name}
         handleRemove={() => dispatch(toggleMember(member.memberId))}
-      />
-      ))}
+      />))}
     </CardHeader>
   );
 }
 
-SearchLabelList.defaultProps = SearchLabelListDefaultProps;
 export default SearchLabelList;

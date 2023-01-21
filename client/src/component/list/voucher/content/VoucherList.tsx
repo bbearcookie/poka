@@ -1,51 +1,30 @@
 import React, { Fragment, useCallback } from 'react';
+import useVouchersQuery from '@api/query/voucher/useVouchersQuery';
 import { useUpdateEffect } from 'react-use';
-import { useInfiniteQuery, useQueryClient } from 'react-query';
-import { useInView } from 'react-intersection-observer';
+import { useQueryClient } from '@tanstack/react-query';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { AxiosError } from 'axios';
-import { ErrorType } from '@util/commonAPI';
-import * as queryKey from '@util/queryKey';
-import * as voucherAPI from '@api/voucherAPI';
-import VoucherCard from '@component/photocard/VoucherCard';
-import SkeletonVoucherCard from '@component/photocard/skeleton/SkeletonVoucherCard';
+import * as queryKey from '@api/queryKey';
+import NextPageFetcher from '@component/list/NextPageFetcher';
+import VoucherCard from '@component/photocard/voucher/VoucherCard';
+import SkeletonVoucherCard from '@component/photocard/voucher/SkeletonVoucherCard';
+import { DefaultFilterType } from '../VoucherListCard';
 
-interface VoucherListProps {
+interface Props {
+  defaultFilter: DefaultFilterType;
   icon?: IconDefinition;
   handleClickIcon?: (photocardId: number) => void;
   children?: React.ReactNode;
 }
-const VoucherListDefaultProps = {};
+const DefaultProps = {};
 
-function VoucherList({ icon, handleClickIcon, children }: VoucherListProps & typeof VoucherListDefaultProps) {
+function VoucherList({ defaultFilter, icon, handleClickIcon }: Props) {
   const filter = useAppSelector((state) => state.voucherList.filter);
-  const [viewRef, inView] = useInView();
   const queryClient = useQueryClient();
 
   // 데이터 가져오기
-  const { data: vouchers, error, refetch, isFetching, fetchNextPage, hasNextPage } =
-  useInfiniteQuery<typeof voucherAPI.getAllVoucherList.resType, AxiosError<ErrorType>>
-  (queryKey.voucherKeys.all,
-  ({ pageParam = 0 }) => voucherAPI.getAllVoucherList.axios(pageParam, filter),
-  {
-    getNextPageParam: (lastPage, pages) => {
-      return lastPage?.paging.hasNextPage && lastPage?.paging.pageParam + 1;
-    },
-    refetchOnWindowFocus: false
-  });
-
-  // 다음 페이지 가져오기
-  const handleFetchNextPage = useCallback(() => {
-    if (!inView) return;
-    if (!vouchers) return;
-    if (!hasNextPage) return;
-    
-    fetchNextPage();
-  }, [inView, vouchers, hasNextPage, fetchNextPage]);
-  useUpdateEffect(() => {
-    handleFetchNextPage();
-  }, [inView]);
+  const { data: vouchers, refetch, isFetching, fetchNextPage, hasNextPage }
+  = useVouchersQuery(filter);
 
   // 검색 필터 변경시 데이터 리패칭
   const handleRefetch = useCallback(async () => {
@@ -60,16 +39,30 @@ function VoucherList({ icon, handleClickIcon, children }: VoucherListProps & typ
     <section className="item-section">
       {vouchers?.pages.map((page, pageIdx) => 
       <Fragment key={pageIdx}>
-        {page?.vouchers.map(item => <VoucherCard key={item.voucher_id} voucher={item} icon={icon} handleClickIcon={handleClickIcon} />)}
+        {page?.vouchers.map(item => 
+          <VoucherCard
+            showOwner={defaultFilter.owner === 'all' ? true : false}
+            key={item.voucher_id}
+            photoName={item.name}
+            groupName={item.group_name}
+            memberName={item.member_name}
+            imageName={item.image_name}
+            username={item.username}
+            voucherId={item.voucher_id}
+            voucherState={item.state}
+            icon={icon}
+            handleClickIcon={handleClickIcon}
+          />
+        )}
       </Fragment>)}
 
       {isFetching && Array.from({length: 20}).map((_, idx) => 
         <SkeletonVoucherCard key={idx} />
       )}
-      <div ref={viewRef} />
+
+      <NextPageFetcher hasNextPage={hasNextPage} fetchNextPage={fetchNextPage} />
     </section>
   );
 }
 
-VoucherList.defaultProps = VoucherListDefaultProps;
 export default VoucherList;

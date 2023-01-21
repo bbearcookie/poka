@@ -25,15 +25,11 @@ interface ParentItemProps {
   id: string;
   icon?: IconDefinition;
   text: string;
-  iconMarginRight?: string; // 아이콘 크기가 달라서 마진을 직접 줘야하는 경우에 부여
   children: React.ReactNode; // 리스트 아이템의 하위 메뉴가 있는 경우에 사용
 }
-
 const ParentItemDefaultProps = {};
 
-export function ParentItem(
-  { id, icon, text, iconMarginRight, children }
-  : ParentItemProps & typeof ParentItemDefaultProps) {
+export function ParentItem({ id, icon, text, children }: ParentItemProps) {
   const [show, setShow] = useState(false);
   const parentActiveId = useAppSelector((state) => state.sidebar.parentActiveId);
   const length = React.Children.count(children); // 하위 아이템 개수
@@ -56,7 +52,8 @@ export function ParentItem(
           <FontAwesomeIcon 
             className="icon"
             icon={icon}
-            style={iconMarginRight ? {marginRight: iconMarginRight} : {}}
+            width="16px"
+            height="16px"
         />}
         <span className="text">{text}</span>
         <FontAwesomeIcon icon={show ? faAngleDown : faAngleRight} />
@@ -74,8 +71,6 @@ export function ParentItem(
   );
 }
 
-ParentItem.defaultProps = ParentItemDefaultProps;
-
 // 자식 아이템 컴포넌트 =========================================================================
 interface ChildItemProps {
   showParent?: () => {}, // 부모 내용을 보여주는 함수
@@ -83,16 +78,14 @@ interface ChildItemProps {
   to?: string;
   icon?: IconDefinition;
   text: string;
-  iconMarginRight?: string; // 아이콘 크기가 달라서 마진을 직접 줘야하는 경우에 부여
 }
-
 const ChildItemDefaultProps = {
   to: '#'
 };
 
 export function ChildItem(
-  { showParent, parentId, to, icon, iconMarginRight, text }
-  : ChildItemProps & typeof ChildItemDefaultProps) {
+  { showParent, parentId, to = ChildItemDefaultProps.to, icon, text }
+  : ChildItemProps) {
   const URI = window.location.pathname;
   const activeURI = useAppSelector((state) => state.sidebar.activeURI);
   const dispatch = useAppDispatch();
@@ -128,7 +121,8 @@ export function ChildItem(
           <FontAwesomeIcon 
             className="icon"
             icon={icon}
-            style={iconMarginRight ? {marginRight: iconMarginRight} : {}}
+            width="16px"
+            height="16px"
           />
         }
         <span className="text">{text}</span>
@@ -136,5 +130,3 @@ export function ChildItem(
     </Link>
   );
 }
-
-ChildItem.defaultProps = ChildItemDefaultProps;

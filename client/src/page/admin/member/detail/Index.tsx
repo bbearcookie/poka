@@ -1,26 +1,18 @@
 import React, { useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useQuery } from 'react-query';
-import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType } from '@util/commonAPI';
-import * as memberAPI from '@api/memberAPI';
-import * as queryKey from '@util/queryKey';
+import useMemberQuery from '@api/query/member/useMemberQuery';
 import BackLabel from '@component/label/BackLabel';
 import ErrorCard from '@component/card/ErrorCard';
 import Success from './Success';
 import Loading from './Loading';
 import './Index.scss';
 
-interface MemberDetailPageProps {
-  children?: React.ReactNode;
-}
-const MemberDetailPageDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function MemberDetailPage({ children }: MemberDetailPageProps & typeof MemberDetailPageDefaultProps) {
+function MemberDetailPage({  }: Props) {
   const { memberId } = useParams() as any;
-  const { status, data: member, error } =
-  useQuery<typeof memberAPI.getMemberDetail.resType, AxiosError<ErrorType>>
-  (queryKey.memberKeys.detail(memberId), () => memberAPI.getMemberDetail.axios(memberId));
+  const { status, data: member, error } = useMemberQuery(memberId);
   const navigate = useNavigate();
 
   const toBackPage = useCallback(() => {
@@ -40,5 +32,4 @@ function MemberDetailPage({ children }: MemberDetailPageProps & typeof MemberDet
   );
 }
 
-MemberDetailPage.defaultProps = MemberDetailPageDefaultProps;
 export default MemberDetailPage;

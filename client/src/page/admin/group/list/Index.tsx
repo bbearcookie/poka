@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import Button from '@component/form/Button';
 import Table from '@component/table/Table';
@@ -7,24 +7,18 @@ import TableHead from '@component/table/TableHead';
 import TableBody from '@component/table/TableBody';
 import TableHeadItem from '@component/table/TableHeadItem';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType, getErrorMessage, BACKEND } from '@util/commonAPI';
-import * as queryKey from '@util/queryKey';
-import * as groupAPI from '@api/groupAPI';
+import { AxiosError } from 'axios';
+import { ErrorType, getErrorMessage } from '@util/request';
+import useGroupsQuery from '@api/query/group/useGroupsQuery';
 import GroupList from './GroupList';
 import SkeletonGroupList from './SkeletonGroupList';
 import './Index.scss';
 
-interface GroupListPageProps {
-  children?: React.ReactNode;
-}
+interface Props {}
+const DefaultProps = {};
 
-const GroupListPageDefaultProps = {};
-
-function GroupListPage({ children }: GroupListPageProps & typeof GroupListPageDefaultProps) {
-  const { status, data: groups, error } = 
-  useQuery<typeof groupAPI.getAllGroupList.resType, AxiosError<ErrorType>>
-  (queryKey.groupKeys.all, groupAPI.getAllGroupList.axios);
+function GroupListPage({  }: Props) {
+  const { status, data: groups, error } = useGroupsQuery();
 
   return (
     <section className="GroupListPage">
@@ -60,7 +54,5 @@ function GroupListPage({ children }: GroupListPageProps & typeof GroupListPageDe
     </section>
   );
 }
-
-GroupListPage.defaultProps = GroupListPageDefaultProps;
 
 export default GroupListPage;

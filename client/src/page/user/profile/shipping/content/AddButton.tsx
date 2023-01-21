@@ -3,14 +3,13 @@ import { toast } from 'react-toastify';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Button from '@component/form/Button';
 
-interface AddButtonProps {
+interface Props {
   addressLength: number;
   startEditor: () => void;
-  children?: React.ReactNode;
 }
-const AddButtonDefaultProps = {};
+const DefaultProps = {};
 
-function AddButton({ addressLength, startEditor, children }: AddButtonProps & typeof AddButtonDefaultProps) {
+function AddButton({ addressLength, startEditor }: Props) {
 
   const handleAddButton = useCallback(() => {
     if (addressLength >= 10)
@@ -34,5 +33,4 @@ function AddButton({ addressLength, startEditor, children }: AddButtonProps & ty
   );
 }
 
-AddButton.defaultProps = AddButtonDefaultProps;
 export default AddButton;

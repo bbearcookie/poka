@@ -12,7 +12,6 @@ import imageUploader, { USER_IMAGE_DIR } from '@uploader/image.uploader';
 // 사용자 상세 정보 조회
 export const getUserDetail = {
   validator: [
-    isLoggedIn,
     param('userId')
       .isNumeric().withMessage('user_id 는 숫자여야 해요.')
       .custom((value) => parseInt(value) > 0).withMessage('user_id 가 정상적이지 않아요.'),
@@ -20,14 +19,9 @@ export const getUserDetail = {
   ],
   controller: async (req: Request, res: Response, next: NextFunction) => {
     const userId = Number(req.params.userId);
-    const loggedUser = req.user as UserType;
 
     const [[user]] = await userService.selectUserDetailByUserID(userId);
     if (!user) return res.status(404).json({ message: '해당 사용자의 데이터가 서버에 존재하지 않아요.' });
-
-    // 관리자이거나, 자기 자신의 정보에 대한 경우에만 조회 가능
-    if (loggedUser.role !== 'admin' && user.user_id !== loggedUser.user_id)
-      return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
     
     return res.status(200).json({
       message: '사용자 상세 정보를 조회했어요.',

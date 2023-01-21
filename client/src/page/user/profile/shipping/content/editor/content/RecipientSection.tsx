@@ -1,20 +1,19 @@
 import React from 'react';
-import { useAppSelector } from '@app/redux/reduxHooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
+import { State, Action } from '../reducer';
 
-interface RecipientSectionProps {
+interface Props {
+  state: State;
+  dispatch: React.Dispatch<Action>;
   changeInput: React.ChangeEventHandler<HTMLInputElement>;
   blurInput: React.FocusEventHandler<HTMLInputElement>;
-  children?: React.ReactNode;
 }
-const RecipientSectionDefaultProps = {};
+const DefaultProps = {};
 
-function RecipientSection({ changeInput, blurInput, children }: RecipientSectionProps & typeof RecipientSectionDefaultProps) {
-  const { form, inputMessage } = useAppSelector(state => state.addressEditor);
-  
+function RecipientSection({ state, dispatch, changeInput, blurInput }: Props) {
   return (
     <section className="input-line">
       <section className="label-section">
@@ -27,7 +26,7 @@ function RecipientSection({ changeInput, blurInput, children }: RecipientSection
           name="recipient"
           placeholder="수령인 성함을 입력해주세요"
           maxLength={20}
-          value={form.recipient}
+          value={state.form.recipient}
           onChange={changeInput}
           onBlur={blurInput}
           styles={{
@@ -35,12 +34,11 @@ function RecipientSection({ changeInput, blurInput, children }: RecipientSection
             height: "2.5em"
           }}
         >
-          {inputMessage.recipient && <InputMessage styles={{ margin: "0.5em 0 0 0" }}>{inputMessage.recipient}</InputMessage>}
+          {state.message.recipient && <InputMessage styles={{ margin: "0.5em 0 0 0" }}>{state.message.recipient}</InputMessage>}
         </Input>
       </section>
     </section>
   );
 }
 
-RecipientSection.defaultProps = RecipientSectionDefaultProps;
 export default RecipientSection;

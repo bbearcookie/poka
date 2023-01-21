@@ -1,16 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
+import { GroupFilterType, MemberFilterType } from "@type/listFilter";
+import { VoucherStateKey } from "@type/voucher";
 const name = 'voucherList';
 
-export type VoucherStateType = 'ALL' | 'AVAILABLE' | 'TRADING' | 'SHIPPING' | 'SHIPPED';
-export const VoucherStateName: {
-  [k in VoucherStateType]: string;
+export type SearchKeywordsType = 'PHOTO_NAME' | 'USER_NAME';
+export const SearchKeywords: {
+  [k in SearchKeywordsType]: string;
 } = {
-    'ALL': '전체',
-    'AVAILABLE': '교환가능',
-    'TRADING': '교환중',
-    'SHIPPING': '배송대기중',
-    'SHIPPED': '배송완료'
+  'PHOTO_NAME': '포토카드 이름',
+  'USER_NAME': '사용자 아이디'
 }
 export interface FilterType {
   names: {
@@ -21,17 +19,9 @@ export interface FilterType {
     id: number;
     value: string;
   }[];
-  groups: {
-    groupId: number;
-    name: string;
-    checked: boolean;
-  }[];
-  members: {
-    memberId: number;
-    name: string;
-    checked: boolean;
-  }[];
-  state: VoucherStateType; // 소유권 상태
+  groups: GroupFilterType[];
+  members: MemberFilterType[];
+  state: VoucherStateKey; // 소유권 상태
 }
 
 let nextId = 0; // names 추가/삭제에 사용되는 변수
@@ -45,7 +35,7 @@ const initialState: State = {
     usernames: [],
     groups: [],
     members: [],
-    state: 'ALL'
+    state: 'all'
   }
 }
 
@@ -55,23 +45,30 @@ export const slice = createSlice({
   reducers: {
     // 상태 초기화
     initialize: (state) => {
-      state = initialState
+      Object.assign(state, initialState);
     },
 
     // 그룹 정보 설정
     setGroups: (state, { payload }: PayloadAction<{
       groupId: number;
       name: string;
+      checked: boolean;
     }[]>) => {
-      state.filter.groups = payload.map((data) => ({ ...data, checked: false }));
+      state.filter.groups = payload.map((data) => ({ ...data }));
     },
 
     // 멤버 정보 설정
     setMembers: (state, { payload }: PayloadAction<{
       memberId: number;
       name: string;
+      checked: boolean;
     }[]>) => {
-      state.filter.members = payload.map((data) => ({ ...data, checked: false }));
+      state.filter.members = payload.map((data) => ({ ...data }));
+    },
+
+    // 소유권 상태 필터 설정
+    setVoucherState: (state, { payload }: PayloadAction<VoucherStateKey>) => {
+      state.filter.state = payload;
     },
 
     // 그룹 선택 토글
@@ -92,47 +89,50 @@ export const slice = createSlice({
       )
     },
 
-    // 소유권 상태 필터 선택
-    changeVoucherFilter: (state, { payload }: PayloadAction<VoucherStateType>) => {
-      state.filter.state = payload;
+    // 키워드 필터 추가
+    addKeyword: (state, { payload }: PayloadAction<{
+      type: SearchKeywordsType,
+      value: string
+    }>) => {
+      const keyword = { id: nextId, value: payload.value };
+
+      switch (payload.type) {
+        case 'PHOTO_NAME':
+          if (!state.filter.names.find(item => item.value === keyword.value)) {
+            state.filter.names = state.filter.names.concat(keyword);
+            nextId++;
+          }
+          break;
+        case 'USER_NAME':
+          if (!state.filter.usernames.find(item => item.value === keyword.value)) {
+            state.filter.usernames = state.filter.usernames.concat(keyword);
+            nextId++;
+          }
+          break;
+        default:
+          break;
+      }
     },
 
-    // 포토카드 이름 필터 추가
-    addName: (state, { payload }: PayloadAction<string>) => {
-      if (!payload) return;
-      if (state.filter.names.find((item) => item.value === payload)) return;
-
-      state.filter.names = state.filter.names.concat({
-        id: nextId++,
-        value: payload.trim()
-      });
-    },
-
-    // 사용자 이름 필터 추가
-    addUsername: (state, { payload }: PayloadAction<string>) => {
-      if (!payload) return;
-      if (state.filter.usernames.find((item) => item.value === payload)) return;
-
-      state.filter.usernames = state.filter.usernames.concat({
-        id: nextId++,
-        value: payload.trim()
-      });
-    },
-
-    // 포토카드 이름 필터 제거
-    removeName: (state, { payload: id }: PayloadAction<number>) => {
-      state.filter.names = state.filter.names.filter((item) => item.id !== id);
-    },
-
-    // 사용자 이름 필터 제거
-    removeUsername: (state, { payload: id }: PayloadAction<number>) => {
-      state.filter.usernames = state.filter.usernames.filter((item) => item.id !== id);
-    },
+    // 키워드 삭제
+    removeKeyword: (state, { payload }: PayloadAction<{
+      type: SearchKeywordsType,
+      id: number
+    }>) => {
+      switch (payload.type) {
+        case 'PHOTO_NAME':
+          state.filter.names = state.filter.names.filter((item) => item.id !== payload.id);
+          break;
+        case 'USER_NAME':
+          state.filter.usernames = state.filter.usernames.filter((item) => item.id !== payload.id);
+          break;
+        default:
+          break;
+      }
+    }
 
   }
 });
 
-export const {
-  initialize, setGroups, setMembers, toggleGroup, toggleMember, changeVoucherFilter,
-  addName, addUsername, removeName, removeUsername } = slice.actions;
+export const { initialize, setGroups, setMembers, setVoucherState, toggleGroup, toggleMember, addKeyword, removeKeyword } = slice.actions;
 export default slice.reducer;

@@ -1,0 +1,61 @@
+import React from 'react';
+import styled, { css } from 'styled-components';
+import useUserQuery from '@api/query/user/useUserQuery';
+import { VoucherLogType } from '@type/voucher';
+import { getFormattedTime } from '@util/common';
+import Issued from '../Issued';
+import Traded from '../Traded';
+
+interface Props {
+  log: VoucherLogType;
+}
+const DefaultProps = {};
+
+function Log({ log }: Props) {
+  const originUser = useUserQuery(log.origin_user_id);
+
+  return (
+    <li className="log">
+      <div className="line">
+        <div className="subtitle">내용</div>
+        <div className="body">
+          <LogTypeLabel type={log.type}>{LogTypeText[log.type]}</LogTypeLabel>
+        </div>
+      </div>
+      <div className="line">
+        <div className="subtitle">시간</div>
+        <div className="body">{getFormattedTime(log.logged_time)}</div>
+      </div>
+      {['issued', 'shipped'].includes(log.type) && originUser.data && <Issued originUser={originUser.data} /> }
+      {log.type === 'traded' && originUser.data && <Traded log={log} originUser={originUser.data} />}
+    </li>
+  );
+}
+
+export default Log;
+
+const LogTypeText = {
+  'issued': '발급',
+  'traded': '교환',
+  'shipped': '배송'
+}
+
+const LogTypeLabel = styled.p<{ type: string; }>`
+  display: inline-block;
+  margin: 0 0 0.2em 0;
+  padding: 0.4em;
+  border-radius: 5px;
+
+  ${(p) => {
+    switch (p.type) {
+      case 'issued':
+        return css` background-color: #2196F3; color: white; `
+      case 'traded':
+        return css` background-color: #14B8A6; color: white; `
+      case 'shipped':
+        return css` background-color: #E95188; color: white; `
+      default:
+        return css``
+    }
+  }}
+`

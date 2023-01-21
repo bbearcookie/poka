@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
+import { GroupFilterType, MemberFilterType } from "@type/listFilter";
 const name = 'photoListCard';
 
 let nextId = 0; // names 추가/삭제에 사용되는 변수
@@ -8,16 +8,8 @@ export interface FilterType {
     id: number;
     value: string;
   }[];
-  groups: {
-    groupId: number;
-    name: string;
-    checked: boolean;
-  }[];
-  members: {
-    memberId: number;
-    name: string;
-    checked: boolean;
-  }[];
+  groups: GroupFilterType[];
+  members: MemberFilterType[];
 }
 interface State {
   filter: FilterType
@@ -37,23 +29,25 @@ export const slice = createSlice({
   reducers: {
     // 상태 초기화
     initialize: (state) => {
-      state = initialState
+      Object.assign(state, initialState);
     },
 
     // 그룹 정보 설정
     setGroups: (state, { payload }: PayloadAction<{
       groupId: number;
       name: string;
+      checked: boolean;
     }[]>) => {
-      state.filter.groups = payload.map((data) => ({ ...data, checked: false }));
+      state.filter.groups = payload;
     },
 
     // 멤버 정보 설정
     setMembers: (state, { payload }: PayloadAction<{
       memberId: number;
       name: string;
+      checked: boolean;
     }[]>) => {
-      state.filter.members = payload.map((data) => ({ ...data, checked: false }));
+      state.filter.members = payload;
     },
 
     // 그룹 선택 토글

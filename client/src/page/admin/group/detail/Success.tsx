@@ -1,24 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BACKEND } from '@util/commonAPI';
+import { groupImage } from '@api/resource';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import * as groupAPI from '@api/groupAPI';
+import { ResType as GroupType } from '@api/query/group/useGroupQuery';
 import Button from '@component/form/Button';
 import MemberList from './content/MemberList';
 import GroupRemove from './content/GroupRemove';
 
-interface SuccessProps {
-  group: typeof groupAPI.getGroupDetail.resType;
+interface Props {
+  group: GroupType;
   groupId: number;
 }
+const DefaultProps = {};
 
-const SuccessDefaultProps = {};
-
-function Success({ group, groupId }: SuccessProps & typeof SuccessDefaultProps) {
+function Success({ group, groupId }: Props) {
   return (
     <>
       <section className="group-section">
-        <img src={`${BACKEND}/image/group/${group?.image_name}`} width="60" height="60" alt={group?.name} />
+        <img src={groupImage(group?.image_name)} width="60" height="60" alt={group?.name} />
         <h1 className="name-label">{group?.name}</h1>
         <Link className="link-section" to={`/admin/group/editor/${groupId}`}>
           <Button
@@ -38,5 +37,4 @@ function Success({ group, groupId }: SuccessProps & typeof SuccessDefaultProps) 
   );
 }
 
-Success.defaultProps = SuccessDefaultProps;
 export default Success;

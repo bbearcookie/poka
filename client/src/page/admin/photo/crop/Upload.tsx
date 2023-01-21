@@ -8,13 +8,12 @@ import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import "cropperjs/dist/cropper.css";
 import './Index.scss';
 
-interface UploadProps {
+interface Props {
   setCropper: React.Dispatch<React.SetStateAction<Cropper | undefined>>
-  children?: React.ReactNode;
 }
-const UploadDefaultProps = {};
+const DefaultProps = {};
 
-function Upload({ setCropper, children }: UploadProps & typeof UploadDefaultProps) {
+function Upload({ setCropper }: Props) {
   const [image, setImage] = useState<string | ArrayBuffer | null>("https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg");
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -90,5 +89,4 @@ function Upload({ setCropper, children }: UploadProps & typeof UploadDefaultProp
   );
 }
 
-Upload.defaultProps = UploadDefaultProps;
 export default Upload;

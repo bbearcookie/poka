@@ -1,16 +1,15 @@
 import React, { useCallback } from 'react';
 import Input from '@component/form/Input';
 
-interface FormProps {
+interface Props {
   moveX: number;
   moveY: number;
   setMoveX: React.Dispatch<React.SetStateAction<number>>;
   setMoveY: React.Dispatch<React.SetStateAction<number>>;
-  children?: React.ReactNode;
 }
-const FormDefaultProps = {};
+const DefaultProps = {};
 
-function Form({ moveX, setMoveX, moveY, setMoveY, children }: FormProps & typeof FormDefaultProps) {
+function Form({ moveX, setMoveX, moveY, setMoveY }: Props) {
   return (
     <>
       <section className="input-line">
@@ -51,5 +50,4 @@ function Form({ moveX, setMoveX, moveY, setMoveY, children }: FormProps & typeof
   );
 }
 
-Form.defaultProps = FormDefaultProps;
 export default Form;

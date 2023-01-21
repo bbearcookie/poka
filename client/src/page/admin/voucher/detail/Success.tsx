@@ -1,26 +1,30 @@
 import React from 'react';
-import * as voucherAPI from '@api/voucherAPI';
-import PhotoInfoCard from '@component/photocard/detail/PhotoInfoCard';
-import VoucherInfo from './content/VoucherInfo';
+import VoucherInfoCard from '@component/photocard/voucher/voucher_info/VoucherInfoCard';
+import PhotoInfoCard from '@component/photocard/photo/PhotoInfoCard';
+import { ResType as VoucherResType } from '@api/query/voucher/useVoucherQuery';
 import VoucherRemove from './content/VoucherRemove';
 
-interface SuccessProps {
-  voucher: typeof voucherAPI.getVoucherDetail.resType;
-  children?: React.ReactNode;
+interface Props {
+  voucher: VoucherResType;
 }
-const SuccessDefaultProps = {};
+const DefaultProps = {};
 
-function Success({ voucher, children }: SuccessProps & typeof SuccessDefaultProps) {
+function Success({ voucher }: Props) {
   if (!voucher) return <></>;
 
   return (
     <>
-      <PhotoInfoCard photo={voucher} />
-      <VoucherInfo voucher={voucher} />
-      <VoucherRemove voucher={voucher} voucherId={voucher.voucher_id} />
+      <PhotoInfoCard
+        photoName={voucher.name}
+        groupName={voucher.group_name}
+        memberName={voucher.member_name}
+        imageName={voucher.image_name}
+        cardStyles={{ margin: "0 auto 5em auto" }}
+      />
+      <VoucherInfoCard voucher={voucher} showAdminInfo={true} />
+      <VoucherRemove voucherId={voucher.voucher_id} />
     </>
   );
 }
 
-Success.defaultProps = SuccessDefaultProps;
 export default Success;

@@ -1,38 +1,23 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMutation, useQueryClient } from 'react-query';
-import { toast } from 'react-toastify';
-import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType, getErrorMessage } from '@util/commonAPI';
 import useModal from '@hook/useModal';
-import * as groupAPI from '@api/groupAPI';
-import * as queryKey from '@util/queryKey';
+import { ResType as GroupType } from '@api/query/group/useGroupQuery';
 import ConfirmModal from '@component/modal/ConfirmModal';
 import RemoveCard from '@component/card/RemoveCard';
+import useDeleteGroup from '@api/mutation/group/useDeleteGroup';
 
-interface GroupRemoveProps {
-  group: typeof groupAPI.getGroupDetail.resType;
+interface Props {
+  group: GroupType;
   groupId: number;
 }
-const GroupRemoveDefaultProps = {};
+const DefaultProps = {};
 
-function GroupRemove({ group, groupId }: GroupRemoveProps & typeof GroupRemoveDefaultProps) {
+function GroupRemove({ group, groupId }: Props) {
   const removeModal = useModal();
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   // 데이터 삭제 요청
-  const deleteMutation = useMutation(groupAPI.deleteGroup.axios, {
-    onSuccess: (res: AxiosResponse<typeof groupAPI.deleteGroup.resType>) => {
-      toast.warning(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-      queryClient.invalidateQueries(queryKey.groupKeys.all);
-      queryClient.invalidateQueries(queryKey.groupKeys.detail(groupId));
-      return navigate('/admin/group/list');
-    },
-    onError: (err: AxiosError<ErrorType>) => {
-      removeModal.setErrorMessage(getErrorMessage(err));
-    }
-  });
+  const deleteMutation = useDeleteGroup((res) => navigate('/admin/group/list'));
 
   // 그룹 삭제
   const removeGroup = useCallback(() => {
@@ -63,5 +48,4 @@ function GroupRemove({ group, groupId }: GroupRemoveProps & typeof GroupRemoveDe
   );
 }
 
-GroupRemove.defaultProps = GroupRemoveDefaultProps;
 export default GroupRemove;

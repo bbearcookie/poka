@@ -2,14 +2,13 @@ import React from 'react';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Button from '@component/form/Button';
 
-interface MemberAddButtonProps {
+interface Props {
   children?: React.ReactNode;
   startEditor: () => void;
 }
+const DefaultProps = {};
 
-const MemberAddButtonDefaultProps = {};
-
-function MemberAddButton({ startEditor, children }: MemberAddButtonProps & typeof MemberAddButtonDefaultProps) {
+function MemberAddButton({ startEditor, children }: Props) {
   return (
     <section className="f-right">
       <Button
@@ -25,7 +24,5 @@ function MemberAddButton({ startEditor, children }: MemberAddButtonProps & typeo
   </section>
   );
 }
-
-MemberAddButton.defaultProps = MemberAddButtonDefaultProps;
 
 export default MemberAddButton;

@@ -1,85 +1,46 @@
-import React, { useState, useCallback } from 'react';
+import React, { useReducer, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMutation } from 'react-query';
-import { toast } from 'react-toastify';
-import * as authAPI from '@api/authAPI';
-import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType, getErrorMessage } from '@util/commonAPI';
+import useSignup from '@api/mutation/auth/useSignup';
 import Input from '@component/form/Input';
 import Button from '@component/form/Button';
 import InputMessage from '@component/form/InputMessage';
+import reducer, { initialState, FormType } from './reducer';
 
-interface FormProps {
-  children?: React.ReactNode;
-}
-const FormDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function Form({ children }: FormProps & typeof FormDefaultProps) {
-  interface InputType {
-    username: string;
-    nickname: string;
-    password: string;
-    passwordCheck: string;
-  }
-  const [input, setInput] = useState<InputType>({
-    username: '',
-    nickname: '',
-    password: '',
-    passwordCheck: ''
-  });
-  const [inputMessage, setInputMessage] = useState<{
-    [k in keyof InputType]: string;
-  }>({
-    username: '',
-    nickname: '',
-    password: '',
-    passwordCheck: ''
-  });
+function Form({  }: Props) {
+  const [state, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
 
   // 회원가입 요청
-  const postMutation = useMutation(authAPI.postSignup.axios, {
-    onSuccess: (res: AxiosResponse<typeof authAPI.postSignup.resType>) => {
-      toast.success(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-      return navigate('/login');
-    },
-    onError: (err: AxiosError<ErrorType<keyof InputType>>) => {
-      toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-
-      let message = inputMessage;
+  const postMutation = useSignup<keyof FormType>(
+    (res) => navigate('/login'),
+    (err) => {
       err.response?.data.errors.forEach((e) => {
-        message[e.param] = e.message;
+        dispatch({ type: 'SET_MESSAGE', target: e.param, value: e.message });
       });
-      setInputMessage({ ...inputMessage, ...message });
     }
-  });
+  )
 
   // input 포커스 해제시 오류 메시지 제거
   const blurInput = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
-    const name = e.target.name as unknown as keyof InputType;
-    setInputMessage({ ...inputMessage, [name]: '' });
-  }, [inputMessage]);
+    dispatch({ type: 'SET_MESSAGE', target: e.target.name as keyof FormType, value: '' });
+  }, [dispatch]);
 
   // input 상태 값 변경
   const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value
-    });
-  }, [input]);
+    dispatch({ type: 'SET_FORM_DATA', target: e.target.name as keyof FormType, value: e.target.value });
+  }, [dispatch]);
 
   // 폼 전송 이벤트
   const onSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
+    console.log(state.form);
     postMutation.mutate({
-      data: {
-        username: input.username,
-        nickname: input.nickname,
-        password: input.password,
-        passwordCheck: input.passwordCheck
-      }
+      body: { ...state.form }
     });
-  }, [input, postMutation]);
+  }, [state, postMutation]);
 
   return (
     <form onSubmit={onSubmit}>
@@ -90,6 +51,7 @@ function Form({ children }: FormProps & typeof FormDefaultProps) {
           type="text"
           placeholder="아이디를 입력하세요"
           autoComplete="off"
+          value={state.form.username}
           onChange={changeInput}
           onBlur={blurInput}
           styles={{
@@ -97,7 +59,7 @@ function Form({ children }: FormProps & typeof FormDefaultProps) {
             height: '2.5rem'
           }}
         >
-          <InputMessage styles={{ margin: "0.5em 0 0 0.8em", wordBreak: 'break-all'}}>{inputMessage.username}</InputMessage>
+          <InputMessage styles={{ margin: "0.5em 0 0 0.8em", wordBreak: 'break-all'}}>{state.message.username}</InputMessage>
         </Input>
       </section>
 
@@ -108,6 +70,7 @@ function Form({ children }: FormProps & typeof FormDefaultProps) {
           type="text"
           placeholder="닉네임을 입력하세요"
           autoComplete="off"
+          value={state.form.nickname}
           onChange={changeInput}
           onBlur={blurInput}
           styles={{
@@ -115,7 +78,7 @@ function Form({ children }: FormProps & typeof FormDefaultProps) {
             height: '2.5rem'
           }}
         >
-          <InputMessage styles={{ margin: "0.5em 0 0 0.8em", wordBreak: 'break-all'}}>{inputMessage.nickname}</InputMessage>
+          <InputMessage styles={{ margin: "0.5em 0 0 0.8em", wordBreak: 'break-all'}}>{state.message.nickname}</InputMessage>
         </Input>
       </section>
 
@@ -126,6 +89,7 @@ function Form({ children }: FormProps & typeof FormDefaultProps) {
           type="password"
           placeholder="비밀번호를 입력하세요"
           autoComplete="off"
+          value={state.form.password}
           onChange={changeInput}
           onBlur={blurInput}
           styles={{
@@ -133,7 +97,7 @@ function Form({ children }: FormProps & typeof FormDefaultProps) {
             height: "2.5rem"
           }}
         >
-          <InputMessage styles={{ margin: "0.5em 0 0 0.8em", wordBreak: 'break-all'}}>{inputMessage.password}</InputMessage>
+          <InputMessage styles={{ margin: "0.5em 0 0 0.8em", wordBreak: 'break-all'}}>{state.message.password}</InputMessage>
         </Input>
       </section>
 
@@ -144,6 +108,7 @@ function Form({ children }: FormProps & typeof FormDefaultProps) {
           type="password"
           placeholder="비밀번호를 다시 한번 입력하세요"
           autoComplete="off"
+          value={state.form.passwordCheck}
           onChange={changeInput}
           onBlur={blurInput}
           styles={{
@@ -151,7 +116,7 @@ function Form({ children }: FormProps & typeof FormDefaultProps) {
             height: "2.5rem"
           }}
         >
-          <InputMessage styles={{ margin: "0.5em 0 0 0.8em", wordBreak: 'break-all'}}>{inputMessage.passwordCheck}</InputMessage>
+          <InputMessage styles={{ margin: "0.5em 0 0 0.8em", wordBreak: 'break-all'}}>{state.message.passwordCheck}</InputMessage>
         </Input>
       </section>
 
@@ -160,5 +125,4 @@ function Form({ children }: FormProps & typeof FormDefaultProps) {
   );
 }
 
-Form.defaultProps = FormDefaultProps;
 export default Form;

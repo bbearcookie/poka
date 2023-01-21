@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
-interface ButtonProps {
+interface Props {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   children?: React.ReactNode;
 }
-const ButtonDefaultProps = {};
-function Button(p: ButtonProps & typeof ButtonDefaultProps) {
+const DefaultProps = {};
+function Button(p: Props) {
   return (
     <StyledButton {...p}>
       <FontAwesomeIcon className="icon" icon={faSearch} size="lg" />
@@ -16,11 +16,10 @@ function Button(p: ButtonProps & typeof ButtonDefaultProps) {
   );
 }
 
-Button.defaultProps = ButtonDefaultProps;
 export default Button;
 
 // 스타일 컴포넌트
-const StyledButton = styled.button<ButtonProps>`
+const StyledButton = styled.button`
   padding: 0 1.25rem;
   height: 100%;
   color: white;

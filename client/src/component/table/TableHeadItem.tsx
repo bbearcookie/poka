@@ -1,22 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface TableHeadItemProps {
+interface Props {
   styles?: StylesProps;
   children?: React.ReactNode;
 }
+const DefaultProps = {};
 
-const TableHeadItemDefaultProps = {};
-
-function TableHeadItem(p: TableHeadItemProps & typeof TableHeadItemDefaultProps) {
+function TableHeadItem({ styles, children }: Props) {
   return (
-    <StyledTH {...StylesDefaultProps} {...p.styles} {...p}>
-      {p.children}
+    <StyledTH {...styles}>
+      {children}
     </StyledTH>
   );
 }
 
-TableHeadItem.defaultProps = TableHeadItemDefaultProps;
 export default TableHeadItem;
 
 // 스타일 컴포넌트
@@ -29,8 +27,7 @@ interface StylesProps {
   paddingRight?: string;
   textAlign?: string;
 }
-const StylesDefaultProps = {};
-const StyledTH = styled.th<StylesProps & typeof StylesDefaultProps>`
+const StyledTH = styled.th<StylesProps>`
   width: ${p => p.width};
   padding: ${p => p.padding};
   padding-top: ${p => p.paddingTop};

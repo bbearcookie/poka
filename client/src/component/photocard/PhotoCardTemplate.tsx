@@ -1,71 +1,72 @@
 import React from 'react';
 import styled from 'styled-components';
-import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { BACKEND } from '@util/commonAPI';
-import { PhotoType } from '@api/photoAPI';
+import { photoImage } from '@api/resource';
+import { PhotoType } from '@type/photo';
 import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
-import IconButton from '@component/form/IconButton';
 import CardFooter from '@component/card/basic/CardFooter';
+import { StylesProps } from '@component/card/basic/Card';
 
-interface PhotoCardTemplateProps {
-  photo: PhotoType;
+interface Props {
+  photoName: string;
+  memberName: string;
+  groupName: string;
+  imageName: string;
   className?: string;
   iconNode?: React.ReactNode;
+  cardStyles?: StylesProps;
   children?: React.ReactNode;
 }
-const PhotoCardTemplateDefaultProps = {
-  handleClickIcon: (photocardId: number) => {}
-};
+const DefaultProps = {};
 
-function PhotoCardTemplate({ className, photo, iconNode, children }: PhotoCardTemplateProps & typeof PhotoCardTemplateDefaultProps) {
+function PhotoCardTemplate({ className, photoName, memberName, groupName, imageName, iconNode, cardStyles, children }: Props) {
   return (
-    <StyledPhotoCard className={className}>
-      <Card styles={{ boxShadow: "0px 0px 10px 0px #C0C0C0"}}>
-        <CardBody>
-          <img
-            width="150" height="224"
-            src={`${BACKEND}/image/photo/${photo.image_name}`}
-            alt="이미지" />
-          <PhotoNameDiv><p>{photo.name}</p></PhotoNameDiv>
+    <Card
+      className={className}
+      styles={{
+        width: "calc(150px + 3em)",
+        boxShadow: "0px 0px 10px 0px #C0C0C0",
+        ...cardStyles
+      }}
+    >
+      <CardBody>
+        <img
+          width="150" height="224"
+          src={photoImage(imageName)}
+          alt="이미지" />
+        <PhotoName><p>{photoName}</p></PhotoName>
 
-          <ContentSection>
-            <NameSection>
-              <MemberNameLabel>{photo.member_name}</MemberNameLabel>
-              <GroupNameLabel>{photo.group_name}</GroupNameLabel>
-            </NameSection>
+        <ContentSection>
+          <NameSection>
+            <MemberNameLabel>{memberName}</MemberNameLabel>
+            <GroupNameLabel>{groupName}</GroupNameLabel>
+          </NameSection>
 
-            <IconSection>
-              {iconNode && iconNode}
-            </IconSection>
-          </ContentSection>
+          <IconSection>
+            {iconNode && iconNode}
+          </IconSection>
+        </ContentSection>
 
-        </CardBody>
-        {children && <CardFooter>{children}</CardFooter>}
-      </Card>
-    </StyledPhotoCard>
+      </CardBody>
+      {children && <CardFooter>{children}</CardFooter>}
+    </Card>
   );
 }
 
-PhotoCardTemplate.defaultProps = PhotoCardTemplateDefaultProps;
 export default PhotoCardTemplate;
 
-export const StyledPhotoCard = styled.div`
-  width: calc(150px + 3em);
-`;
-
-export const PhotoNameDiv = styled.div`
+export const PhotoName = styled.div<{ width?: string; }>`
   margin-top: 1em;
   padding: 0 0.5em;
-  width: 100%;
+  width: ${p => p.width ? p.width : "100%"};
   height: 3.5em;
-  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #242A38;
   color: white;
   border-radius: 5px;
+  box-sizing: border-box;
 
   p {
     margin: 0;
@@ -73,6 +74,7 @@ export const PhotoNameDiv = styled.div`
     text-align: center;
     text-overflow: ellipsis;
     display: -webkit-box;
+    word-break: keep-all;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
   }

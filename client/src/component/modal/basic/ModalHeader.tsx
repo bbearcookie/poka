@@ -3,14 +3,13 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 
-interface ModalHeaderProps {
+interface Props {
   titleName: string;
   handleClose: () => void;
-  children?: React.ReactNode;
 }
-const ModalHeaderDefaultProps = {};
+const DefaultProps = {};
 
-function ModalHeader({ titleName, handleClose, children }: ModalHeaderProps & typeof ModalHeaderDefaultProps) {
+function ModalHeader({ titleName, handleClose }: Props) {
   return (
     <StyledHeader>
       <TitleLabel>{titleName}</TitleLabel>
@@ -21,7 +20,6 @@ function ModalHeader({ titleName, handleClose, children }: ModalHeaderProps & ty
   );
 }
 
-ModalHeader.defaultProps = ModalHeaderDefaultProps;
 export default ModalHeader;
 
 const StyledHeader = styled.header`

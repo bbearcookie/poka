@@ -1,40 +1,25 @@
 import React, { useCallback } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
-import { toast } from 'react-toastify';
-import { AxiosError } from 'axios';
-import { ErrorType, getErrorMessage } from '@util/commonAPI';
-import * as shippingAddressAPI from '@api/shippingAddressAPI';
-import * as queryKey from '@util/queryKey';
+import useDeleteShippingAddress from '@api/mutation/address/useDeleteShippingAddress';
 import useModal from '@hook/useModal';
 import ConfirmModal from '@component/modal/ConfirmModal';
 import IconButton from '@component/form/IconButton';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
-import { AddressType } from '@api/shippingAddressAPI';
+import { AddressType } from '@type/user';
 
-interface AddressRemoveProps {
+interface Props {
   address: AddressType;
-  children?: React.ReactNode;
 }
-const AddressRemoveDefaultProps = {};
+const DefaultProps = {};
 
-function AddressRemove({ address, children }: AddressRemoveProps & typeof AddressRemoveDefaultProps) {
+function AddressRemove({ address }: Props) {
   const removeModal = useModal();
-  const queryClient = useQueryClient();
 
   // 데이터 삭제 요청
-  const deleteMutation = useMutation(shippingAddressAPI.deleteShippingAddress.axios, {
-    onSuccess: (res) => {
-      toast.warning(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-      queryClient.invalidateQueries(queryKey.userKeys.address(address.user_id));
-    },
-    onError: (err: AxiosError<ErrorType>) => {
-      removeModal.setErrorMessage(getErrorMessage(err));
-    }
-  })
+  const deleteMutation = useDeleteShippingAddress(address.user_id);
 
   // 삭제 이벤트
   const handleRemove = useCallback(() => {
-    deleteMutation.mutate(address.address_id);
+    deleteMutation.mutate({ addressId: address.address_id});
   }, [address, deleteMutation]);
 
   return (
@@ -61,5 +46,4 @@ function AddressRemove({ address, children }: AddressRemoveProps & typeof Addres
   );
 }
 
-AddressRemove.defaultProps = AddressRemoveDefaultProps;
 export default AddressRemove;

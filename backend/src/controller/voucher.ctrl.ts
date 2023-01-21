@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import * as voucherService from '@service/voucher.service';
 import * as userService from '@service/user.service';
 import * as photoService from '@service/photo.service';
+import * as tradeService from '@service/trade.service';
 import { query, body, param, oneOf } from 'express-validator';
 import { isAdmin, validate, createResponseMessage } from '@util/validator';
 
@@ -18,7 +19,7 @@ export const getAllVoucherList = {
       if (!Array.isArray(filter['USER_NAME'])) return false;
       if (!Array.isArray(filter['GROUP_ID'])) return false;
       if (!Array.isArray(filter['MEMBER_ID'])) return false;
-      if (!['', 'ALL', 'AVAILABLE', 'TRADING', 'SHIPPING', 'SHIPPED'].includes(filter["VOUCHER_STATE"])) return false;
+      if (!['', 'all', 'available', 'trading', 'shipping', 'shipped'].includes(filter["VOUCHER_STATE"])) return false;
       return true;
     }).withMessage("검색 필터가 잘못되었어요."),
     validate
@@ -28,7 +29,7 @@ export const getAllVoucherList = {
     'USER_NAME': [] as string[],
     'GROUP_ID': [] as number[],
     'MEMBER_ID': [] as number[],
-    'VOUCHER_STATE': '' as '' | 'ALL' | 'AVAILABLE' | 'TRADING' | 'SHIPPING' | 'SHIPPED'
+    'VOUCHER_STATE': '' as '' | 'all' | 'available' | 'trading' | 'shipping' | 'shipped'
   },
   controller: async (req: Request, res: Response, next: NextFunction) => {
     const itemPerPage = 20;
@@ -46,11 +47,6 @@ export const getAllVoucherList = {
     });
     next();
   }
-}
-
-// 사용자 개인의 소유권 목록 조회
-export const getMyVoucherList = {
-  
 }
 
 // 소유권 상세 조회
@@ -73,8 +69,59 @@ export const getVoucherDetail = {
       ...photo,
       user_id: user.user_id,
       username: user.username,
-      nickname: user.nickname
+      nickname: user.nickname,
+      user_image_name: user.image_name
     });
+    next();
+  }
+}
+
+// 소유권 기록 조회
+export const getVoucherLogDetail = {
+  validator: [
+    isAdmin,
+    param('voucherId').isNumeric().withMessage('소유권 ID는 숫자여야 해요.'),
+    oneOf([ // pageParam은 undefined이거나 숫자여야 함.
+      query('pageParam').not().exists(),
+      query('pageParam').isNumeric()
+    ]),
+    validate
+  ],
+  controller: async (req: Request, res: Response, next: NextFunction) => {
+    const voucherId = Number(req.params.voucherId);
+    const itemPerPage = 5; // 페이지당 보여줄 내용 갯수
+    const pageParam = req.query.pageParam ? Number(req.query.pageParam) : 0; // 페이지 번호
+
+    const [[voucher]] = await voucherService.selectVoucherDetail(voucherId);
+    if (!voucher) return res.status(404).json({ message: '해당 소유권의 데이터가 서버에 존재하지 않아요.' });
+
+    // TODO: 소유권 기록 조회 후 반환
+    const [logs] = await voucherService.selectVoucherLogDetail(voucherId, itemPerPage, pageParam);
+    return res.status(200).json({
+      message: '소유권의 기록을 조회했어요.',
+      logs,
+      paging: {
+        pageParam,
+        hasNextPage: logs.length === itemPerPage
+      }
+    });
+    next();
+  }
+}
+
+// 특정 소유권으로 등록된 교환글 중 아직 성사되지 않은 글을 조회함
+export const getVoucherTradeDetail = {
+  validator: [
+    param('voucherId').isNumeric().withMessage('소유권 ID는 숫자여야 해요.'),
+    validate
+  ],
+  controller: async (req: Request, res: Response, next: NextFunction) => {
+    const voucherId = Number(req.params.voucherId);
+
+    const [[trade]] = await tradeService.selectTradeDetailByVoucherID(voucherId);
+    if (!trade) return res.status(404).json({ message: '해당 소유권으로 작성된 교환글이 존재하지 않아요.' });
+
+    return res.status(200).json({ message: '교환글을 조회했어요.', ...trade });
     next();
   }
 }

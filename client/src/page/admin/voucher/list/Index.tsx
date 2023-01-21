@@ -4,12 +4,10 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import VoucherListCard from '@component/list/voucher/VoucherListCard';
 import './Index.scss';
 
-interface IndexProps {
-  children?: React.ReactNode;
-}
-const IndexDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function Index({ children }: IndexProps & typeof IndexDefaultProps) {
+function Index({  }: Props) {
   const navigate = useNavigate();
 
   // 관리자용 상세 페이지로 이동
@@ -20,10 +18,16 @@ function Index({ children }: IndexProps & typeof IndexDefaultProps) {
   return (
     <div className="VoucherListPage">
       <h1 className="title-label">소유권 목록</h1>
-      <VoucherListCard icon={faArrowRight} handleClickIcon={handleClickDetailicon} />
+      <VoucherListCard
+        icon={faArrowRight}
+        handleClickIcon={handleClickDetailicon}
+        defaultFilter={{
+          owner: 'all',
+          state: 'all'
+        }}
+      />
     </div>
   );
 }
 
-Index.defaultProps = IndexDefaultProps;
 export default Index;

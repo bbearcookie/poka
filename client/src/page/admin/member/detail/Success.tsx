@@ -1,19 +1,19 @@
 import React from 'react';
-import * as memberAPI from '@api/memberAPI';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { ResType as MemberType } from '@api/query/member/useMemberQuery'
 import Button from '@component/form/Button';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import MemberRemove from './content/MemberRemove';
 
-interface SuccessProps {
-  member: typeof memberAPI.getMemberDetail.resType;
+interface Props {
+  member: MemberType;
   memberId: number;
 }
-const SuccessDefaultProps = {};
+const DefaultProps = {};
 
-function Success({ member, memberId }: SuccessProps & typeof SuccessDefaultProps) {
+function Success({ member, memberId }: Props) {
   return (
     <>
       <section className="name-section">
@@ -43,5 +43,4 @@ function Success({ member, memberId }: SuccessProps & typeof SuccessDefaultProps
   );
 }
 
-Success.defaultProps = SuccessDefaultProps;
 export default Success;

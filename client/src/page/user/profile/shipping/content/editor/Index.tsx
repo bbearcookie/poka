@@ -1,13 +1,10 @@
-import React, { useEffect, useCallback } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
-import { toast } from 'react-toastify';
-import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
-import * as userAPI from '@api/userAPI';
-import * as shippingAddressAPI from '@api/shippingAddressAPI';
-import * as queryKey from '@util/queryKey';
-import { AddressType } from '@api/shippingAddressAPI';
-import { AxiosError } from 'axios';
-import { ErrorType, getErrorMessage } from '@util/commonAPI';
+import React, { useReducer, useEffect, useCallback } from 'react';
+import useModifyShippingAddress from '@api/mutation/address/useModifyShippingAddress';
+import useAddShippingAddress, { ResType } from '@api/mutation/address/useAddShippingAddress';
+import { AxiosResponse, AxiosError } from 'axios';
+import { ErrorType } from '@util/request';
+import { useAppSelector } from '@app/redux/reduxHooks';
+import { AddressType } from '@type/user';
 import CardHeader from '@component/card/basic/CardHeader';
 import NameSection from './content/NameSection';
 import ContactSection from './content/ContactSection';
@@ -15,113 +12,86 @@ import AddressSection from './content/AddressSection';
 import RequirementSection from './content/RequirementSection';
 import RecipientSection from './content/RecipientSection';
 import ButtonSection from './content/ButtonSection';
-import { initialize, setDefaultState, setInput, setInputMessage, FormType } from './addressEditorSlice';
+import reducer, { initialState, FormType } from './reducer';
 
-interface EditorProps {
+interface Props {
   address?: AddressType;
   closeEditor: () => void;
-  children?: React.ReactNode;
 }
-const EditorDefaultProps = {};
+const DefaultProps = {};
 
-function Editor({ address, closeEditor, children }: EditorProps & typeof EditorDefaultProps) {
-  const { form } = useAppSelector(state => state.addressEditor);
+function Editor({ address, closeEditor }: Props) {
+  const [state, dispatch] = useReducer(reducer, initialState);
   const userId = useAppSelector(state => state.auth.user_id);
-  const dispatch = useAppDispatch();
-  const queryClient = useQueryClient();
 
   // 수정 모드일 경우 기본 값을 상태에 저장함.
   useEffect(() => {
     if (!address) return;
-    dispatch(setDefaultState(address));
+    dispatch({ type: 'SET_FORM', form: address });
   }, []);
 
   // input 상태 값 변경
   const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setInput({
-      name: e.target.name as keyof FormType,
-      value: e.target.value
-    }));
+    dispatch({ type: 'SET_FORM_DATA', target: e.target.name as keyof FormType, value: e.target.value  });
   }, [dispatch]);
 
   // input 포커스 해제시 유효성 검사
   const blurInput = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
-    dispatch(setInputMessage({
-      name: e.target.name as keyof FormType,
-      value: ''
-    }));
+    dispatch({ type: 'SET_MESSAGE', target: e.target.name as keyof FormType, value: '' });
   }, [dispatch]);
 
-  // 데이터 추가 요청
-  const postMutation = useMutation(userAPI.postShippingAddress.axios, {
-    onSuccess: (res) => {
-      toast.success(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-      dispatch(initialize());
-      queryClient.invalidateQueries(queryKey.userKeys.address(userId));
-      queryClient.invalidateQueries(queryKey.addressKeys.all);
-      closeEditor();
-    },
-    onError: (err: AxiosError<ErrorType<keyof FormType>>) => {
-      toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
+  // API 요청 성공시
+  const onSuccess = useCallback((res: AxiosResponse<ResType, any>) => {
+    dispatch({ type: 'SET_FORM', form: initialState.form });
+    closeEditor();
+  }, [closeEditor]);
 
-      err.response?.data.errors.forEach((e) => {
-        dispatch(setInputMessage({ name: e.param, value: e.message }));
-      });
-    }
-  });
+  // API 요청 실패시
+  const onError = useCallback((err: AxiosError<ErrorType<keyof FormType>, any>) => {
+    err.response?.data.errors.forEach((e) => {
+      dispatch({ type: 'SET_MESSAGE', target: e.param, value: e.message });
+    });
+  }, []);
+
+  // 데이터 추가 요청
+  const postMutation = useAddShippingAddress<keyof FormType>(onSuccess, onError);
 
   // 데이터 수정 요청
-  const putMutation = useMutation(shippingAddressAPI.putShippingAddress.axios, {
-    onSuccess: (res) => {
-      toast.success(res.data?.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-      dispatch(initialize());
-      queryClient.invalidateQueries(queryKey.userKeys.address(userId));
-      queryClient.invalidateQueries(queryKey.addressKeys.all);
-      closeEditor();
-    },
-    onError: (err: AxiosError<ErrorType<keyof FormType>>) => {
-      toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-
-      err.response?.data.errors.forEach((e) => {
-        dispatch(setInputMessage({ name: e.param, value: e.message }));
-      });
-    }
-  })
+  const putMutation = useModifyShippingAddress<keyof FormType>(userId, onSuccess, onError);
 
   // 폼 전송 이벤트
   const onSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
 
     const data = {
-      name: form.name,
-      recipient: form.recipient,
-      contact: form.contact,
-      postcode: form.postcode,
-      address: form.address,
-      address_detail: form.address_detail,
-      requirement: form.requirement === 'DEFAULT_VALUE' ? '' : form.requirement
+      name: state.form.name,
+      recipient: state.form.recipient,
+      contact: state.form.contact,
+      postcode: state.form.postcode,
+      address: state.form.address,
+      address_detail: state.form.address_detail,
+      requirement: state.form.requirement === 'DEFAULT_VALUE' ? '' : state.form.requirement
     }
     
     // 수정 모드일경우
-    if (address) putMutation.mutate({ addressId: address.address_id || -1, data });
+    if (address) putMutation.mutate({ addressId: address.address_id, body: data })
     // 작성 모드일경우
-    else postMutation.mutate({ userId, data });
+    else postMutation.mutate({ userId, body: data });
 
-  }, [address, form, userId, postMutation, putMutation]);
+  }, [address, state, userId, postMutation, putMutation]);
 
   return (
     <CardHeader className="editor-section">
       <form onSubmit={onSubmit}>
-        <NameSection changeInput={changeInput} blurInput={blurInput} />
-        <RecipientSection changeInput={changeInput} blurInput={blurInput} />
-        <ContactSection changeInput={changeInput} blurInput={blurInput} />
-        <AddressSection changeInput={changeInput} blurInput={blurInput} />
-        <RequirementSection defaultShow={address ? true : false} changeInput={changeInput} blurInput={blurInput} />
+        <NameSection state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
+        <RecipientSection state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
+        <ContactSection state={state} dispatch={dispatch} blurInput={blurInput} />
+        <AddressSection state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
+        <RequirementSection state={state} dispatch={dispatch} defaultShow={address ? true : false} changeInput={changeInput} blurInput={blurInput} />
         <ButtonSection address={address} closeEditor={closeEditor} />
       </form>
     </CardHeader>
   );
 }
 
-Editor.defaultProps = EditorDefaultProps;
 export default Editor;

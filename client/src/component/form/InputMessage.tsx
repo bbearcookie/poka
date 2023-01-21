@@ -1,20 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface InputMessageProps {
+interface Props {
   styles?: StylesProps;
   children?: React.ReactNode;
 }
-const InputMessageDefaultProps = {};
-function InputMessage(p: InputMessageProps & typeof InputMessageDefaultProps) {
+const DefaultProps = {};
+function InputMessage({ styles, children }: Props) {
   return (
-    <StyledLabel {...StylesDefaultProps} {...p.styles} {...p}>
-      {p.children}
+    <StyledLabel {...styles}>
+      {children}
     </StyledLabel>
   );
 }
 
-InputMessage.defaultProps = InputMessageDefaultProps;
 export default InputMessage;
 
 // 스타일 컴포넌트
@@ -28,8 +27,7 @@ interface StylesProps {
   textAlign?: string;
   wordBreak?: string;
 }
-const StylesDefaultProps = {};
-const StyledLabel = styled.p<StylesProps & typeof StylesDefaultProps>`
+const StyledLabel = styled.p<StylesProps>`
   margin: ${p => p.margin};
   margin-top: ${p => p.marginTop};
   margin-bottom: ${p => p.marginBottom};

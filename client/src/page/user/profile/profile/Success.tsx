@@ -1,16 +1,15 @@
 import React, { useState, useCallback } from 'react';
-import * as userAPI from '@api/userAPI';
-import { BACKEND } from '@util/commonAPI';
-import UserInfo from './UserInfo';
-import UserEditor from './UserEditor';
+import { ResType as UserResType } from '@api/query/user/useUserQuery';
+import { userImage } from '@api/resource';
+import UserInfo from './content/UserInfo';
+import UserEditor from './content/editor/UserEditor';
 
-interface SuccessProps {
-  user: typeof userAPI.getUserDetail.resType;
-  children?: React.ReactNode;
+interface Props {
+  user: UserResType;
 }
-const SuccessDefaultProps = {};
+const DefaultProps = {};
 
-function Success({ user, children }: SuccessProps & typeof SuccessDefaultProps) {
+function Success({ user }: Props) {
   const [editMode, setEditMode] = useState(false);
 
   // 편집 모드 ON / OFF
@@ -21,20 +20,19 @@ function Success({ user, children }: SuccessProps & typeof SuccessDefaultProps) 
     <>
       {editMode ?
       <UserEditor
-        userId={user?.user_id}
-        nickname={user?.nickname}
-        imageName={`${BACKEND}/image/user/${user?.image_name}`}
+        userId={user.user_id}
+        nickname={user.nickname}
+        imageName={userImage(user.image_name)}
         closeEditor={closeEditor}
       /> :
       <UserInfo
-        username={user?.username}
-        nickname={user?.nickname}
-        imageName={`${BACKEND}/image/user/${user?.image_name}`}
+        username={user.username}
+        nickname={user.nickname}
+        imageName={userImage(user.image_name)}
         startEditor={startEditor}
       />}
     </>
   );
 }
 
-Success.defaultProps = SuccessDefaultProps;
 export default Success;

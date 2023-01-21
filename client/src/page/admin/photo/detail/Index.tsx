@@ -1,25 +1,16 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
-import { ErrorType } from '@util/commonAPI';
-import { AxiosError } from 'axios';
-import * as photoAPI from '@api/photoAPI';
-import * as queryKey from '@util/queryKey';
+import usePhotoQuery from '@api/query/photo/usePhotoQuery';
 import BackLabel from '@component/label/BackLabel';
 import Success from './Success';
 import './Index.scss';
 
-interface PhotoDetailPageProps {
-  children?: React.ReactNode;
-}
-const PhotoDetailPageDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function PhotoDetailPage({ children }: PhotoDetailPageProps & typeof PhotoDetailPageDefaultProps) {
+function PhotoDetailPage({  }: Props) {
   const { photocardId } = useParams() as any;
-
-  const { status, data: photo, error } = 
-  useQuery<typeof photoAPI.getPhotoDetail.resType, AxiosError<ErrorType>>
-  (queryKey.photoKeys.detail(photocardId), () => photoAPI.getPhotoDetail.axios(photocardId));
+  const { status, data: photo, error } = usePhotoQuery(photocardId);
   
   return (
     <div className="PhotoDetailPage">
@@ -29,5 +20,4 @@ function PhotoDetailPage({ children }: PhotoDetailPageProps & typeof PhotoDetail
   );
 }
 
-PhotoDetailPage.defaultProps = PhotoDetailPageDefaultProps;
 export default PhotoDetailPage;

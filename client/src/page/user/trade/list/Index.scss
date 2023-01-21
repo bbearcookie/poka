@@ -1,0 +1,87 @@
+@import '@util/common';
+
+@mixin select {
+  display: flex;
+  overflow-x: auto;
+  list-style: none;
+  text-align: center;
+}
+
+.TradeListPage {
+  padding: 2em 10%;
+
+  .group-select {
+    @include select;
+    @include scrollbar;
+    padding-bottom: 1em;
+    gap: 1.5em;
+
+    li {
+      width: 5em;
+      color: #879396;
+      user-select: none;
+      cursor: pointer;
+      transition: all 0.15s;
+
+      .group-img {
+        border: 3px solid transparent;
+        border-radius: 50%;
+        transition: all 0.15s;
+      }
+    
+      .group-name {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+      &.active {
+        color: #EC1B5A;
+        font-weight: bold;
+
+        .group-img { border: 3px solid #EC1B5A; }
+      }
+    }
+
+  }
+
+  .member-select {
+    @include select;
+    @include scrollbar;
+    gap: 1.5em;
+    padding-bottom: 1em;
+    transition: all 0.15s;
+
+    li {
+      min-width: fit-content;
+      padding: 0.35em 0.5em;
+      color: #879396;
+      border: 1px solid #879396;
+      border-radius: 13%;
+      user-select: none;
+      cursor: pointer;
+      transition: all 0.15s;
+
+      &.active {
+        color: #EC1B5A;
+        border: 1px solid #EC1B5A;
+        font-weight: bold;
+      }
+
+      &.skeleton {
+        width: 3em;
+        height: 1.35em;
+      }
+    }
+  }
+
+  .trade-section {
+    display: grid;
+    gap: 2em;
+    grid-template-columns: 50% 50%;
+
+    @media screen and (max-width: 75rem) {
+      grid-template-columns: 100%;
+    }
+  }
+}

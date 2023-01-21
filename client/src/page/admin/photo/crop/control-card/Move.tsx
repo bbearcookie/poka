@@ -1,15 +1,14 @@
 import React, { useEffect, useCallback } from 'react';
 import Button from '@component/form/Button';
 
-interface MoveProps {
+interface Props {
   cropper: Cropper;
   moveX: number;
   moveY: number;
-  children?: React.ReactNode;
 }
-const MoveDefaultProps = {};
+const DefaultProps = {};
 
-function Move({ cropper, moveX, moveY, children }: MoveProps & typeof MoveDefaultProps) {
+function Move({ cropper, moveX, moveY }: Props) {
 
   // 크롭된 부분 이동
   const handleMove = useCallback((direction: 'UP' | 'DOWN' | 'LEFT' | 'RIGHT') => {
@@ -100,5 +99,4 @@ function Move({ cropper, moveX, moveY, children }: MoveProps & typeof MoveDefaul
   );
 }
 
-Move.defaultProps = MoveDefaultProps;
 export default Move;

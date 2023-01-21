@@ -6,12 +6,10 @@ import CropList from './CropList';
 import Upload from './Upload';
 import './Index.scss';
 
-interface PhotoCropPageProps {
-  children?: React.ReactNode;
-}
-const PhotoCropPageDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function PhotoCropPage({ children }: PhotoCropPageProps & typeof PhotoCropPageDefaultProps) {
+function PhotoCropPage({  }: Props) {
   const [cropList, setCropList] = useState<string[]>([]);
   const [cropper, setCropper] = useState<Cropper>();
 
@@ -19,7 +17,7 @@ function PhotoCropPage({ children }: PhotoCropPageProps & typeof PhotoCropPageDe
     <div className="PhotoCropPage">
       <Upload setCropper={setCropper} />
       <section className="card-section">
-        {cropper && <ControlCard cropper={cropper} cropList={cropList} setCropList={setCropList} />}
+        {cropper && <ControlCard cropper={cropper} />}
         {cropper && <CropCard cropper={cropper} cropList={cropList} setCropList={setCropList} />}
         {cropper && <DownloadCard cropList={cropList} setCropList={setCropList} />}
       </section>
@@ -28,5 +26,4 @@ function PhotoCropPage({ children }: PhotoCropPageProps & typeof PhotoCropPageDe
   );
 }
 
-PhotoCropPage.defaultProps = PhotoCropPageDefaultProps;
 export default PhotoCropPage;

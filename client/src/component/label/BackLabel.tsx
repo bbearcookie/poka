@@ -5,28 +5,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const CLASS = 'BackLabel';
-interface BackLabelProps {
+interface Props {
   className?: string;
   to?: string;
   onClick?: () => void;
-  styles: StylesProps;
+  styles?: StylesProps;
   children?: React.ReactNode;
 }
-const BackLabelDefaultProps = {
+const DefaultProps = {
   to: '#'
 };
-function BackLabel(p: BackLabelProps & typeof BackLabelDefaultProps) {
+function BackLabel({ className, to = DefaultProps.to, onClick, styles, children}: Props) {
   return (
-    <StyledLabel {...StylesDefaultProps} {...p.styles} {...p}>
-      <Link to={p.to}>
+    <StyledLabel {...styles}>
+      <Link to={to} onClick={onClick}>
         <FontAwesomeIcon className={`${CLASS}__icon`} icon={faArrowLeft} />
-        {p.children}
+        {children}
       </Link>
     </StyledLabel>
   );
 }
 
-BackLabel.defaultProps = BackLabelDefaultProps;
 export default BackLabel;
 
 // 스타일 컴포넌트
@@ -37,8 +36,7 @@ interface StylesProps {
   marginLeft?: string;
   marginRight?: string;
 }
-const StylesDefaultProps = {};
-const StyledLabel = styled.div<StylesProps & typeof StylesDefaultProps>`
+const StyledLabel = styled.div<StylesProps>`
   width: fit-content;
   padding: 0.5em;
   margin: ${p => p.margin};

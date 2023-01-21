@@ -1,25 +1,16 @@
 import React from 'react';
 import { useAppSelector } from '@app/redux/reduxHooks';
-import { useQuery } from 'react-query';
-import * as userAPI from '@api/userAPI';
-import * as queryKey from '@util/queryKey';
-import { ErrorType } from '@util/commonAPI';
-import { AxiosError, AxiosResponse } from 'axios';
+import useUserQuery from '@api/query/user/useUserQuery';
 import ErrorCard from '@component/card/ErrorCard';
 import Success from './Success';
 import Loading from './Loading';
 
-interface ProfileProps {
-  children?: React.ReactNode;
-}
-const ProfileDefaultProps = {};
+interface Props {}
+const DefaultProps = {};
 
-function Profile({ children }: ProfileProps & typeof ProfileDefaultProps) {
+function Profile({  }: Props) {
   const userId = useAppSelector(state => state.auth.user_id);
-
-  const { status, data: user, error } =
-  useQuery<typeof userAPI.getUserDetail.resType, AxiosError<ErrorType>>
-  (queryKey.userKeys.profile(userId), () => userAPI.getUserDetail.axios(userId));
+  const { status, data: user, error } = useUserQuery(userId);
 
   return (
     <section className="profile-section">
@@ -30,5 +21,4 @@ function Profile({ children }: ProfileProps & typeof ProfileDefaultProps) {
   );
 }
 
-Profile.defaultProps = ProfileDefaultProps;
 export default Profile;
