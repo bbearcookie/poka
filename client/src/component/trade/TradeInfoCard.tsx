@@ -10,7 +10,7 @@ import CardList from '@component/card/basic/CardList';
 import CardListItem from '@component/card/basic/CardListItem';
 import SkeletonUserProfile from '@component/profile/SkeletonUserProfile';
 import UserProfile from '@component/profile/UserProfile';
-import { getFormattedTime } from '@util/common';
+import { getFormattedTime } from '@util/date';
 import { TradeStateKey, TradeStateValue } from '@/type/trade';
 
 interface Props {
@@ -32,8 +32,8 @@ function TradeInfoCard({ trade }: Props) {
         <CardListItem title="교환 상태" styles={{ color: "#65748b" }}>
           <TradeStateLabel state={trade.state}>{TradeStateValue[trade.state]}</TradeStateLabel>
         </CardListItem>
-        <CardListItem title="작성일" styles={{ color: "#65748b" }}>{getFormattedTime(trade.written_time)}</CardListItem>
-        {trade.traded_time && <CardListItem title="교환일" styles={{ color: "#65748b" }}>{getFormattedTime(trade.traded_time)}</CardListItem>}
+        <CardListItem title="작성일" styles={{ color: "#65748b" }}>{getFormattedTime(new Date(trade.written_time))}</CardListItem>
+        {trade.traded_time && <CardListItem title="교환일" styles={{ color: "#65748b" }}>{getFormattedTime(new Date(trade.traded_time))}</CardListItem>}
         <CardListItem title="요구 포토카드 수량" styles={{ color: "#65748b" }}>{trade.amount}장</CardListItem>
       </CardList>
       <CardBody>

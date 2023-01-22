@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import useUserQuery from '@api/query/user/useUserQuery';
 import { VoucherLogType } from '@type/voucher';
-import { getFormattedTime } from '@util/common';
+import { getFormattedTime } from '@util/date';
 import Issued from '../Issued';
 import Traded from '../Traded';
 
@@ -24,7 +24,7 @@ function Log({ log }: Props) {
       </div>
       <div className="line">
         <div className="subtitle">시간</div>
-        <div className="body">{getFormattedTime(log.logged_time)}</div>
+        <div className="body">{getFormattedTime(new Date(log.logged_time))}</div>
       </div>
       {['issued', 'shipped'].includes(log.type) && originUser.data && <Issued originUser={originUser.data} /> }
       {log.type === 'traded' && originUser.data && <Traded log={log} originUser={originUser.data} />}
