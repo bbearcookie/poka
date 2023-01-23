@@ -13,28 +13,28 @@ export const getAllVoucherList = {
       query('pageParam').not().exists(),
       query('pageParam').isNumeric()
     ]),
-    query('filter').custom((value, { req }) => {
-      const filter = JSON.parse(value);
-      if (!Array.isArray(filter['PHOTO_NAME'])) return false;
-      if (!Array.isArray(filter['USER_NAME'])) return false;
-      if (!Array.isArray(filter['GROUP_ID'])) return false;
-      if (!Array.isArray(filter['MEMBER_ID'])) return false;
-      if (!['', 'all', 'available', 'trading', 'shipping', 'shipped'].includes(filter["VOUCHER_STATE"])) return false;
-      return true;
-    }).withMessage("검색 필터가 잘못되었어요."),
+    query('filter').customSanitizer((value) => {
+      try { return JSON.parse(value); }
+      catch (err) { return undefined; }
+    }),
+    query('filter.photoName').isArray().withMessage('검색 필터가 잘못되었어요.').bail(),
+    query('filter.userName').isArray().withMessage('검색 필터가 잘못되었어요.').bail(),
+    query('filter.groupId').isArray().withMessage('검색 필터가 잘못되었어요.').bail(),
+    query('filter.memberId').isArray().withMessage('검색 필터가 잘못되었어요.').bail(),
+    query('filter.voucherState').custom((value) => ['', 'all', 'available', 'trading', 'shipping', 'shipped'].includes(value)),
     validate
   ],
   filterType: {
-    'PHOTO_NAME': [] as string[],
-    'USER_NAME': [] as string[],
-    'GROUP_ID': [] as number[],
-    'MEMBER_ID': [] as number[],
-    'VOUCHER_STATE': '' as '' | 'all' | 'available' | 'trading' | 'shipping' | 'shipped'
+    'photoName': [] as string[],
+    'userName': [] as string[],
+    'groupId': [] as number[],
+    'memberId': [] as number[],
+    'voucherState': '' as '' | 'all' | 'available' | 'trading' | 'shipping' | 'shipped'
   },
   controller: async (req: Request, res: Response, next: NextFunction) => {
     const itemPerPage = 20;
     const pageParam = req.query.pageParam ? Number(req.query.pageParam) : 0;
-    const filter = JSON.parse(String(req.query.filter));
+    const filter = req.query.filter as unknown as typeof getAllVoucherList.filterType;
 
     const [vouchers] = await voucherService.selectVoucherList(itemPerPage, pageParam, filter);
     return res.status(200).json({

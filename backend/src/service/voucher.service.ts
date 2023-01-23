@@ -28,20 +28,20 @@ export const selectVoucherList = async (
     INNER JOIN User as U ON V.user_id=U.user_id `
 
     // 소유권 상태 조건
-    if (filter['VOUCHER_STATE'] && filter['VOUCHER_STATE'] !== 'all') {
+    if (filter.voucherState && filter.voucherState !== 'all') {
       where.push({
-        query: `V.state = ${con.escape(filter['VOUCHER_STATE'].toLowerCase())}`,
+        query: `V.state = ${con.escape(filter.voucherState.toLowerCase())}`,
         operator: 'AND'
       })
     }
 
     // 포토카드 이름 조건
-    if (filter['PHOTO_NAME'].length > 0) {
+    if (filter.photoName.length > 0) {
       where.pushString('(');
-      filter['PHOTO_NAME'].forEach((item, idx) => {
+      filter.photoName.forEach((item, idx) => {
         where.push({
           query: `P.name LIKE ${con.escape(`%${item}%`)}`,
-          operator: idx < filter['PHOTO_NAME'].length - 1 ? 'OR' : ''
+          operator: idx < filter.photoName.length - 1 ? 'OR' : ''
         });
       });
       where.push({
@@ -51,12 +51,12 @@ export const selectVoucherList = async (
     }
 
     // 사용자 아이디 조건
-    if (filter['USER_NAME'].length > 0) {
+    if (filter.userName.length > 0) {
       where.pushString('(');
-      filter['USER_NAME'].forEach((item, idx) => {
+      filter.userName.forEach((item, idx) => {
         where.push({
           query: `U.username = ${con.escape(item)}`,
-          operator: idx < filter['USER_NAME'].length - 1 ? 'OR' : ''
+          operator: idx < filter.userName.length - 1 ? 'OR' : ''
         });
       });
       where.push({
@@ -66,17 +66,17 @@ export const selectVoucherList = async (
     }
 
     // 그룹ID 조건
-    if (filter['GROUP_ID'].length > 0) {
+    if (filter.groupId.length > 0) {
       where.push({
-        query: `G.group_id IN (${con.escape(filter['GROUP_ID'])})`,
+        query: `G.group_id IN (${con.escape(filter.groupId)})`,
         operator: 'AND'
       });
     }
 
     // 멤버ID 조건
-    if (filter['MEMBER_ID'].length > 0) {
+    if (filter.memberId.length > 0) {
       where.push({
-        query: `M.member_id IN (${con.escape(filter['MEMBER_ID'])})`,
+        query: `M.member_id IN (${con.escape(filter.memberId)})`,
         operator: 'AND'
       })
     }

@@ -19,12 +19,12 @@ export const selectPhotoList =
       INNER JOIN GroupData as G ON M.group_id=G.group_id `;
 
       // 포토카드 이름 조건
-      if (filter['PHOTO_NAME'].length > 0) {
+      if (filter.photoName.length > 0) {
         where.pushString('(');
-        filter['PHOTO_NAME'].forEach((item, idx) => {
+        filter.photoName.forEach((item, idx) => {
           where.push({
             query: `P.name LIKE ${con.escape(`%${item}%`)}`,
-            operator: idx < filter['PHOTO_NAME'].length - 1 ? 'OR' : ''
+            operator: idx < filter.photoName.length - 1 ? 'OR' : ''
           });
         });
         where.push({
@@ -34,17 +34,17 @@ export const selectPhotoList =
       }
 
       // 그룹ID 조건
-      if (filter['GROUP_ID'].length > 0) {
+      if (filter.groupId.length > 0) {
         where.push({
-          query: `G.group_id IN (${con.escape(filter['GROUP_ID'])})`,
+          query: `G.group_id IN (${con.escape(filter.groupId)})`,
           operator: 'AND'
         });
       }
 
       // 멤버ID 조건
-      if (filter['MEMBER_ID'].length > 0) {
+      if (filter.memberId.length > 0) {
         where.push({
-          query: `M.member_id IN (${con.escape(filter['MEMBER_ID'])})`,
+          query: `M.member_id IN (${con.escape(filter.memberId)})`,
           operator: 'AND'
         })
       }

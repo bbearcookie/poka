@@ -9,9 +9,9 @@ import * as queryKey from '@api/queryKey';
 export interface ParamType {
   pageParam: number;
   filter: {
-    GROUP_ID: number[];
-    MEMBER_ID: number[];
-    PHOTO_NAME: string[];
+    groupId: number[];
+    memberId: number[];
+    photoName: string[];
   }
 }
 
@@ -30,13 +30,13 @@ export default function usePhotosQuery(
 ): UseInfiniteQueryResult<ResType, AxiosError<ErrorType>> {
 
   const refinedFilter = {
-    GROUP_ID: filter.groups
+    groupId: filter.groups
       .filter(item => item.checked)
       .map(item => item.groupId),
-    MEMBER_ID: filter.members
+    memberId: filter.members
       .filter(item => item.checked)
       .map(item => item.memberId),
-    PHOTO_NAME: filter.names.map(item => item.value)
+    photoName: filter.names.map(item => item.value)
   }
 
   return useInfiniteQuery<ResType, AxiosError<ErrorType>>({

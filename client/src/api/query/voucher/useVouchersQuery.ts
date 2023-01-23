@@ -10,11 +10,11 @@ import * as queryKey from '@api/queryKey';
 export interface ParamType {
   pageParam: number;
   filter: {
-    GROUP_ID: number[];
-    MEMBER_ID: number[];
-    PHOTO_NAME: string[];
-    USER_NAME: string[];
-    VOUCHER_STATE: VoucherStateKey;
+    groupId: number[];
+    memberId: number[];
+    photoName: string[];
+    userName: string[];
+    voucherState: VoucherStateKey;
   }
 }
 
@@ -32,18 +32,16 @@ export default function useVouchersQuery(
   options?: UseInfiniteQueryOptions<ResType, AxiosError<ErrorType>>
 ): UseInfiniteQueryResult<ResType, AxiosError<ErrorType>> {
 
-  // console.log(filter);
-
   const refinedFilter = {
-    GROUP_ID: filter.groups
+    groupId: filter.groups
       .filter(item => item.checked)
       .map(item => item.groupId),
-    MEMBER_ID: filter.members
+    memberId: filter.members
       .filter(item => item.checked)
       .map(item => item.memberId),
-    PHOTO_NAME: filter.names.map(item => item.value),
-    USER_NAME: filter.usernames.map(item => item.value),
-    VOUCHER_STATE: filter.state
+    photoName: filter.names.map(item => item.value),
+    userName: filter.usernames.map(item => item.value),
+    voucherState: filter.state
   }
 
   return useInfiniteQuery<ResType, AxiosError<ErrorType>>({
