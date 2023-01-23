@@ -23,6 +23,12 @@ export const fetchTradeExchange = async (tradeId: number) => {
   return res.data;
 }
 
+export const fetchUserTradeHistory = async (userId: number, param: object) => {
+  const url = `/api/user/${userId}/trade-history`;
+  const res = await client.get(url, { params: param });
+  return res.data;
+}
+
 export const addTrade = async (param: AddTradeParam) => {
   const url = `/api/trade`;
   const res = await client.post(url, param.body);

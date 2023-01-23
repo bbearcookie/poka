@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 import IconButton from '@component/form/IconButton';
@@ -9,26 +9,15 @@ import CustomInput from './content/CustomInput';
 import 'react-datepicker/dist/react-datepicker.css';
 
 interface Props {
-
+  todayDate: Date;
+  startDate: Date;
+  endDate: Date;
+  onChangeStartDate: (date: Date | null, e: React.SyntheticEvent<any, Event> | undefined) => void;
+  onChangeEndDate: (date: Date | null, e: React.SyntheticEvent<any, Event> | undefined) => void;
 }
 const DefaultProps = {};
 
-function Calendar({  }: Props) {
-  const today = useRef(new Date());
-  const [startDate, setStartDate] = useState(new Date(new Date().setDate(today.current.getDate() - 30)));
-  const [endDate, setEndDate] = useState(today.current);
-
-  const onChangeStartDate = useCallback((date: Date | null, e: React.SyntheticEvent<any, Event> | undefined) => {
-    if (!date) return;
-    setStartDate(date);
-    if (date > endDate) setEndDate(date);
-  }, [endDate]);
-
-  const onChangeEndDate = useCallback((date: Date | null, e: React.SyntheticEvent<any, Event> | undefined) => {
-    if (!date) return;
-    setEndDate(date);
-  }, []);
-
+function Calendar({ todayDate, startDate, endDate, onChangeStartDate, onChangeEndDate }: Props) {
   return (
     <StyledCalendar className="Calendar">
       <DatePicker
@@ -36,7 +25,7 @@ function Calendar({  }: Props) {
         onChange={onChangeStartDate}
         startDate={startDate}
         endDate={endDate}
-        maxDate={today.current}
+        maxDate={todayDate}
         locale={ko}
         customInput={<CustomInput titleText="시작" date={startDate} />}
         renderCustomHeader={({ date, increaseMonth, decreaseMonth }) => (
@@ -54,7 +43,7 @@ function Calendar({  }: Props) {
         startDate={startDate}
         endDate={endDate}
         minDate={startDate}
-        maxDate={today.current}
+        maxDate={todayDate}
         locale={ko}
         showYearDropdown
         customInput={<CustomInput titleText="끝" date={endDate} />}

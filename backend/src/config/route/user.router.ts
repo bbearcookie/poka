@@ -1,6 +1,7 @@
 import { Express } from 'express';
 import * as userCtrl from '@controller/user.ctrl';
 import * as shippingAddressCtrl from '@controller/shipping-address.ctrl';
+import * as tradeCtrl from '@controller/trade.ctrl';
 
 export default function(app: Express, baseURI: string) {
   app.get(`${baseURI}/:userId`, userCtrl.getUserDetail.validator, userCtrl.getUserDetail.controller);
@@ -13,4 +14,5 @@ export default function(app: Express, baseURI: string) {
   );
   app.get(`${baseURI}/:userId/shipping-address`, shippingAddressCtrl.getUserShippingAddress.validator, shippingAddressCtrl.getUserShippingAddress.controller);
   app.post(`${baseURI}/:userId/shipping-address`, shippingAddressCtrl.postShippingAddress.validator, shippingAddressCtrl.postShippingAddress.controller);
+  app.get(`${baseURI}/:userId/trade-history`, tradeCtrl.getUserTradeHistory.validator, tradeCtrl.getUserTradeHistory.controlller);
 }

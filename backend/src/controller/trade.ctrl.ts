@@ -271,3 +271,27 @@ export const postTradeExchange = {
     next();
   }
 }
+
+// 특정 사용자의 교환 기록 목록 조회
+export const getUserTradeHistory = {
+  validator: [
+    isLoggedIn,
+    param('userId').isNumeric().withMessage('사용자 ID는 숫자여야 해요.').bail(),
+    oneOf([
+      query('pageParam').not().exists(),
+      query('pageParam').isNumeric()
+    ]),
+    query('filter').customSanitizer((value) => {
+      try { return JSON.parse(value); }
+      catch (err) { return undefined; }
+    }),
+    query('filter').isObject().withMessage('검색 필터가 잘못되었어요.').bail(),
+    query('filter.startDate').isISO8601().toDate().withMessage('시작일은 날짜 형태여야해요.'),
+    query('filter.endDate').isISO8601().toDate().withMessage('끝일은 날짜 형태여야해요.'),
+    validate
+  ],
+  controlller: async (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.query);
+    next();
+  }
+}
