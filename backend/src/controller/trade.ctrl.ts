@@ -290,8 +290,30 @@ export const getUserTradeHistory = {
     query('filter.endDate').isISO8601().toDate().withMessage('끝일은 날짜 형태여야해요.'),
     validate
   ],
+  filterType: {
+    startDate: new Date() as Date,
+    endDate: new Date() as Date
+  },
   controlller: async (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.query);
+    const itemPerPage = 20;
+    const loggedUser = req.user as UserType;
+    const userId = Number(req.params.userId);
+    const pageParam = req.query.pageParam ? Number(req.query.pageParam) : 0;
+    const filter = req.query.filter as unknown as typeof getUserTradeHistory.filterType;
+    console.log(filter);
+
+    // 관리자이거나, 자기 자신의 정보에 대한 경우에만 접근 가능
+    if (!isAdminOrOwner(loggedUser, userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
+
+    const [histories] = await tradeService.selectUserTradeHistory(itemPerPage, pageParam, userId, filter);
+    return res.status(200).json({
+      message: '교환 내역을 조회했습니다.',
+      histories,
+      paging: {
+        pageParam,
+        hasNextPage: histories.length === itemPerPage
+      }
+    });
     next();
   }
 }

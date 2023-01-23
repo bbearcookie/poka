@@ -1,5 +1,6 @@
 import { client } from '@util/request';
 import { ParamType as TradesParam } from '@api/query/trade/useTradesQuery';
+import { ParamType as TradeHistoryParam } from '@api/query/trade/useUserTradeHistoryQuery';
 import { ParamType as AddTradeParam } from '@api/mutation/trade/useAddTrade';
 import { ParamType as DeleteTradeParam } from '@api/mutation/trade/useDeleteTrade';
 import { ParamType as ModifyTradeParam } from '@api/mutation/trade/useModifyTrade';
@@ -23,7 +24,7 @@ export const fetchTradeExchange = async (tradeId: number) => {
   return res.data;
 }
 
-export const fetchUserTradeHistory = async (userId: number, param: object) => {
+export const fetchUserTradeHistory = async (userId: number, param: TradeHistoryParam) => {
   const url = `/api/user/${userId}/trade-history`;
   const res = await client.get(url, { params: param });
   return res.data;

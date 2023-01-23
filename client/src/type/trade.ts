@@ -38,3 +38,21 @@ export const TradeStateValue: {
   trading: '대기중',
   traded: '완료'
 }
+
+export interface TradeHistoryType {
+  logId: number;
+  voucherId: number;
+  photoImageName: string;
+  photoName: string;
+  memberName: string;
+  groupName: string;
+  originUserId: number;
+  originUserName: string;
+  originUserNickname: string;
+  originUserImageName: string;
+  destUserId: number;
+  destUserName: string;
+  destUserNickname: string;
+  destUserImageName: string;
+  loggedTime: Date;
+}

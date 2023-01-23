@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useCallback } from 'react';
 import Calendar from '@component/calendar/Calendar';
 
 interface Props {
@@ -11,8 +11,6 @@ interface Props {
 const DefaultProps = {};
 
 function DateSelector({ todayDate, startDate, endDate, setStartDate, setEndDate }: Props) {
-  console.log(`TODO: queryClient.invalidate... ${startDate} ${endDate}`);
-
   const onChangeStartDate = useCallback((date: Date | null, e: React.SyntheticEvent<any, Event> | undefined) => {
     if (!date) return;
     setStartDate(date);

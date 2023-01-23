@@ -9,7 +9,7 @@ interface Props {
 const DefaultProps = {};
 
 function getToday() {
-  let today = new Date();
+  let today = new Date(Date.now());
   today.setHours(0, 0, 0, 0);
   return today;
 }
