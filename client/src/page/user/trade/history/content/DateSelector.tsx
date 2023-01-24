@@ -1,4 +1,7 @@
 import React, { useCallback } from 'react';
+import Card from '@component/card/basic/Card';
+import CardHeader from '@component/card/basic/CardHeader';
+import CardBody from '@component/card/basic/CardBody';
 import Calendar from '@component/calendar/Calendar';
 
 interface Props {
@@ -23,13 +26,20 @@ function DateSelector({ todayDate, startDate, endDate, setStartDate, setEndDate 
   }, [setEndDate]);
 
   return (
-    <Calendar
-      todayDate={todayDate}
-      startDate={startDate}
-      endDate={endDate}
-      onChangeStartDate={onChangeStartDate}
-      onChangeEndDate={onChangeEndDate}
-    />
+    <Card styles={{ marginBottom: "5em" }}>
+      <CardHeader>
+        <h1 className="title">조회할 기간</h1>
+      </CardHeader>
+      <CardBody>
+        <Calendar
+          todayDate={todayDate}
+          startDate={startDate}
+          endDate={endDate}
+          onChangeStartDate={onChangeStartDate}
+          onChangeEndDate={onChangeEndDate}
+        />
+      </CardBody>
+    </Card>
   );
 }
 

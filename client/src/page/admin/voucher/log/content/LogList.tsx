@@ -39,7 +39,6 @@ function LogList({ voucherId }: Props) {
       <CardBody className="log-section" styles={{ padding: "0" }}>
         
         <ul>
-          {/* <SkeletonLog /> */}
           {isFetching && Array.from({length: 20}).map((_, idx) => (
             <SkeletonLog key={idx} />
           ))}

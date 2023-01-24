@@ -36,6 +36,7 @@ export interface TradeListItemType extends TradeType {
 export interface TradeHistoryType {
   logId: number;
   voucherId: number;
+  photocardId: number;
   photoImageName: string;
   photoName: string;
   memberName: string;

@@ -28,7 +28,7 @@ function Success({ user }: Props) {
       <UserInfo
         username={user.username}
         nickname={user.nickname}
-        imageName={userImage(user.image_name)}
+        imageName={user.image_name}
         startEditor={startEditor}
       />}
     </>

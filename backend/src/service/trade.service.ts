@@ -383,7 +383,7 @@ export const selectUserTradeHistory = async (
     let sql = `
     SELECT
     L.log_id as logId,
-    L.voucher_id as voucherId, P.image_name as photoImageName, P.name as photoName, M.name as memberName, G.name as groupName,
+    L.voucher_id as voucherId, P.photocard_id as photocardId, P.image_name as photoImageName, P.name as photoName, M.name as memberName, G.name as groupName,
     L.origin_user_id as originUserId, ORI.username as originUserName, ORI.nickname as originUserNickname, ORI.image_name as originUserImageName,
     L.dest_user_id as destUserId, DST.username as destUserName, DST.nickname as destUserNickname, DST.image_name as destUserImageName,
     L.logged_time as loggedTime

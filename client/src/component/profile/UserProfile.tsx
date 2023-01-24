@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { userImage } from '@api/resource';
 
 interface Props {
   nickname?: string;
@@ -15,7 +16,7 @@ function UserProfile({ nickname, username, imageName, children }: Props) {
       <Img
         width="75"
         height="75"
-        src={imageName}
+        src={userImage(imageName)}
         alt="사용자"
         onError={e => e.currentTarget.src = "/user.png"}
       />

@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import styled, { css } from 'styled-components';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import IconButton from '@component/form/IconButton';
-import { VoucherType } from '@type/voucher';
 import { VoucherStateKey, VoucherStateValue } from '@/type/voucher';
 import PhotoCardTemplate from '@component/photocard/PhotoCardTemplate';
 

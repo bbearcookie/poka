@@ -300,7 +300,6 @@ export const getUserTradeHistory = {
     const userId = Number(req.params.userId);
     const pageParam = req.query.pageParam ? Number(req.query.pageParam) : 0;
     const filter = req.query.filter as unknown as typeof getUserTradeHistory.filterType;
-    console.log(filter);
 
     // 관리자이거나, 자기 자신의 정보에 대한 경우에만 접근 가능
     if (!isAdminOrOwner(loggedUser, userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });

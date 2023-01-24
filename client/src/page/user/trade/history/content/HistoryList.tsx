@@ -1,10 +1,16 @@
-import React, { useCallback, useRef } from 'react';
+import React, { Fragment, useCallback } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useUpdateEffect } from 'react-use';
 import useUserTradeHistoryQuery from '@api/query/trade/useUserTradeHistoryQuery';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import * as queryKey from '@api/queryKey';
-import { fetchUserTradeHistory } from '@api/api/trade';
+import Card from '@component/card/basic/Card';
+import CardHeader from '@component/card/basic/CardHeader';
+import CardBody from '@component/card/basic/CardBody';
+import CardList from '@component/card/basic/CardList';
+import NextPageFetcher from '@component/list/NextPageFetcher';
+import History from './History';
+import SkeletonHistory from './SkeletonHistory';
 
 interface Props {
   startDate: Date;
@@ -26,12 +32,42 @@ function HistoryList({ startDate, endDate }: Props) {
     handleRefetch();
   }, [startDate, endDate]);
 
-  console.log(histories?.pages[0]);
-
   return (
-    <div>
-      
-    </div>
+    <Card>
+      <CardHeader>
+        <h1 className="title">기록</h1>
+      </CardHeader>
+      <CardBody styles={{ padding: "0" }}>
+        <CardList>
+          <SkeletonHistory />
+          {histories?.pages.map((page, pageIdx) => 
+          <Fragment key={pageIdx}>
+            {page?.histories.map((item) => 
+            <History
+              key={item.logId}
+              photo={{
+                photoName: item.photoName,
+                groupName: item.groupName,
+                memberName: item.memberName,
+                imageName: item.photoImageName
+              }}
+              destUser={{
+                username: item.destUserName,
+                nickname: item.destUserNickname,
+                imageName: item.destUserImageName
+              }}
+              originUser={{
+                username: item.originUserName,
+                nickname: item.originUserNickname,
+                imageName: item.originUserImageName
+              }}
+              loggedTime={new Date(item.loggedTime)}
+            />)}
+          </Fragment>)}
+          <NextPageFetcher fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} />
+        </CardList>
+      </CardBody>
+    </Card>
   );
 }
 

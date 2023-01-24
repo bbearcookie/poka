@@ -30,10 +30,11 @@ export default CardListItem;
 // 스타일 컴포넌트
 export interface StylesProps {
   color?: string;
+  borderBottom?: string;
 }
 const StyledCardListItem = styled.li<StylesProps>`
   display: flex;
-  border-bottom: 1px solid #E5E7EB;
+  border-bottom: ${p => p.borderBottom ? p.borderBottom : "1px solid #E5E7EB"};
   padding: 1.5em;
   color: ${p => p.color};
 
@@ -47,6 +48,6 @@ export interface TitleStyles {
   flexBasis?: string;
 }
 const TitleLabel = styled.div<TitleStyles>`
-  flex-basis: ${p => p.flexBasis ? p.flexBasis : '30%'};
+  flex-basis: ${p => p.flexBasis ? p.flexBasis : "30%"};
   color: #121828;
 `

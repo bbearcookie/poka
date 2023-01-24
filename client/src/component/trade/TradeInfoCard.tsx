@@ -2,7 +2,6 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import useUserQuery from '@api/query/user/useUserQuery';
 import { ResType as TradeType } from '@api/query/trade/useTradeQuery';
-import { userImage } from '@api/resource';
 import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 import CardHeader from '@component/card/basic/CardHeader';
@@ -26,7 +25,7 @@ function TradeInfoCard({ trade }: Props) {
       <CardHeader><h1 className="title">교환글 정보</h1></CardHeader>
       <CardList>
         <CardListItem title="작성자" styles={{ color: "#65748b" }}>
-          {status === 'success' && <UserProfile username={user.username} nickname={user.nickname} imageName={userImage(user.image_name)} />}
+          {status === 'success' && <UserProfile username={user.username} nickname={user.nickname} imageName={user.image_name} />}
           {status === 'loading' && <SkeletonUserProfile />}
         </CardListItem>
         <CardListItem title="교환 상태" styles={{ color: "#65748b" }}>

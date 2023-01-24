@@ -22,22 +22,24 @@ function PhotoInfoCard({ groupName, photoName, memberName, imageName, cardStyles
       styles={{
         width: "fit-content",
         textAlign: "center",
+        boxShadow: "0px 0px 10px 0px #C0C0C0",
         ...cardStyles
       }}
     >
       <CardBody>
-        <PhotoSection>
+        <StyledWrapper>
           <img
             width="150" height="224"
             src={photoImage(imageName)}
             alt="이미지"
           />
-          <PhotoName width="9.5em"><p>{photoName}</p></PhotoName>
-          <MemberNameLabel>{memberName}</MemberNameLabel>
-          <GroupNameLabel>그룹: <GroupName>{groupName}</GroupName></GroupNameLabel>
-
-          {children}
-        </PhotoSection>
+          <InfoSection>
+            <PhotoName width="9.5em"><p>{photoName}</p></PhotoName>
+            <MemberNameLabel>{memberName}</MemberNameLabel>
+            <GroupNameLabel>그룹: <GroupName>{groupName}</GroupName></GroupNameLabel>
+            {children}
+          </InfoSection>
+        </StyledWrapper>
       </CardBody>
     </Card>
   );
@@ -45,11 +47,17 @@ function PhotoInfoCard({ groupName, photoName, memberName, imageName, cardStyles
 
 export default PhotoInfoCard;
 
-const PhotoSection = styled.section`
+const StyledWrapper = styled.section`
   display: flex;
-  flex-direction: column;
+  gap: 1em;
 
   img { margin: 0 auto; }
+`
+
+const InfoSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `
 
 const MemberNameLabel = styled.p`

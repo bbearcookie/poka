@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { photoImage } from '@api/resource';
-import { PhotoType } from '@type/photo';
 import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 import CardFooter from '@component/card/basic/CardFooter';
@@ -34,7 +33,7 @@ function PhotoCardTemplate({ className, photoName, memberName, groupName, imageN
           width="150" height="224"
           src={photoImage(imageName)}
           alt="이미지" />
-        <PhotoName><p>{photoName}</p></PhotoName>
+        <PhotoName margin="1em 0 0 0"><p>{photoName}</p></PhotoName>
 
         <ContentSection>
           <NameSection>
@@ -55,8 +54,8 @@ function PhotoCardTemplate({ className, photoName, memberName, groupName, imageN
 
 export default PhotoCardTemplate;
 
-export const PhotoName = styled.div<{ width?: string; }>`
-  margin-top: 1em;
+export const PhotoName = styled.div<{ width?: string; margin?: string; }>`
+  margin: ${p => p.margin};
   padding: 0 0.5em;
   width: ${p => p.width ? p.width : "100%"};
   height: 3.5em;

@@ -8,7 +8,6 @@ import Button from '@component/form/Button';
 import UserProfile from '@component/profile/UserProfile';
 import CardList from '@component/card/basic/CardList';
 import CardListItem from '@component/card/basic/CardListItem';
-import { userImage } from '@api/resource';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { VoucherStateLabel } from '@component/photocard/voucher/VoucherCard';
 import { VoucherStateKey, VoucherStateValue } from '@/type/voucher';
@@ -69,7 +68,7 @@ function VoucherOwner({ voucher }: { voucher: VoucherResType }) {
       <UserProfile
         nickname={voucher?.nickname}
         username={voucher?.username}
-        imageName={userImage(voucher?.user_image_name)}
+        imageName={voucher?.user_image_name}
       />
     </CardListItem>
   )
