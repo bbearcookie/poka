@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 interface Props {
   className?: string;
-  title?: string;
+  title?: string | React.ReactNode;
   titleStyles?: string;
   styles?: StylesProps;
   children?: React.ReactNode;

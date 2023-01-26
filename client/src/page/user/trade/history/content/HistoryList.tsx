@@ -39,7 +39,7 @@ function HistoryList({ startDate, endDate }: Props) {
       </CardHeader>
       <CardBody styles={{ padding: "0" }}>
         <CardList>
-          <SkeletonHistory />
+          
           {histories?.pages.map((page, pageIdx) => 
           <Fragment key={pageIdx}>
             {page?.histories.map((item) => 
@@ -64,6 +64,9 @@ function HistoryList({ startDate, endDate }: Props) {
               loggedTime={new Date(item.loggedTime)}
             />)}
           </Fragment>)}
+
+          {isFetching && Array.from({ length: 10 }).map((item, idx) => <SkeletonHistory key={idx} />)}
+
           <NextPageFetcher fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} />
         </CardList>
       </CardBody>
