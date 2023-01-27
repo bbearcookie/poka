@@ -4,7 +4,7 @@ import { WantcardType } from '@type/trade';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
-import PhotoInfoCard from '@component/photocard/photo/PhotoInfoCard';
+import PhotoCard from '@component/photocard/photo/PhotoCard';
 
 interface Props {
   wantcards: WantcardType[];
@@ -18,7 +18,8 @@ function TradeWantCard({ wantcards }: Props) {
       <CardBody>
         <PhotoSection>
           {wantcards.map(card => 
-          <PhotoInfoCard
+          <PhotoCard
+            photocardId={card.photocard_id}
             key={card.photocard_id}
             photoName={card.photo_name}
             memberName={card.member_name}

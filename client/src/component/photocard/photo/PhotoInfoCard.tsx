@@ -28,11 +28,13 @@ function PhotoInfoCard({ groupName, photoName, memberName, imageName, cardStyles
     >
       <CardBody>
         <StyledWrapper>
-          <img
-            width="150" height="224"
-            src={photoImage(imageName)}
-            alt="이미지"
-          />
+          <ImageSection>
+            <img
+              width="150" height="224"
+              src={photoImage(imageName)}
+              alt="이미지"
+            />
+          </ImageSection>
           <InfoSection>
             <PhotoName width="9.5em"><p>{photoName}</p></PhotoName>
             <MemberNameLabel>{memberName}</MemberNameLabel>
@@ -47,17 +49,24 @@ function PhotoInfoCard({ groupName, photoName, memberName, imageName, cardStyles
 
 export default PhotoInfoCard;
 
-const StyledWrapper = styled.section`
+export const StyledWrapper = styled.section`
   display: flex;
   gap: 1em;
 
-  img { margin: 0 auto; }
+  @media screen and (max-width: 40rem) {
+    flex-direction: column;
+  }
 `
 
-const InfoSection = styled.section`
+export const ImageSection = styled.section`
+  margin: 0 auto;
+`
+
+export const InfoSection = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 `
 
 const MemberNameLabel = styled.p`

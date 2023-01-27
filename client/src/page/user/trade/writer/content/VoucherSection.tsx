@@ -3,8 +3,8 @@ import useVoucherQuery from '@api/query/voucher/useVoucherQuery';
 import { faClose, faAdd } from '@fortawesome/free-solid-svg-icons';
 import useModal from '@hook/useModal';
 import TitleModal from '@component/modal/TitleModal';
-import PhotoCard from '@component/photocard/photo/PhotoCard';
-import SkeletonPhotoCard from '@component/photocard/photo/SkeletonPhotoCard';
+import PhotoInfoCard from '@component/photocard/photo/PhotoInfoCard';
+import SkeletonPhotoInfoCard from '@component/photocard/photo/SkeletonPhotoInfoCard';
 import VoucherListCard from '@component/list/voucher/VoucherListCard';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
@@ -44,7 +44,7 @@ function VoucherSection({ form, formDispatch }: Props) {
             <Button
               leftIcon={faAdd}
               styles={{
-                height: 'fit-content',
+                height: "fit-content",
                 theme: "primary",
                 padding: "0.7em 1.3em",
                 iconMargin: "1em"
@@ -55,17 +55,14 @@ function VoucherSection({ form, formDispatch }: Props) {
         </CardHeader>
         <CardBody>
           {status === 'success' && voucher &&
-          <PhotoCard
-            photocardId={voucher.photocard_id}
+          <PhotoInfoCard
             photoName={voucher.name}
             groupName={voucher.group_name}
             memberName={voucher.member_name}
             imageName={voucher.image_name}
-            icon={faClose}
-            handleClickIcon={removeVoucherId}
-            cardStyles={{ marginBottom: '1.5em' }}
+            cardStyles={{ margin: "0 auto 1.5em auto" }}
           />}
-          {status === 'loading' && form.data.haveVoucherId > 0 && <SkeletonPhotoCard cardStyles={{ marginBottom: '1.5em' }} />}
+          {status === 'loading' && form.data.haveVoucherId > 0 && <SkeletonPhotoInfoCard cardStyles={{ margin: "0 auto 1.5em auto" }} />}
           {form.message.haveVoucherId && <InputMessage styles={{margin: "0 0 0.5em 0"}}>{form.message.haveVoucherId}</InputMessage>}
           <p className="description">자신이 가지고 있는 소유권 중에서 타인과 교환하기를 원하는 소유권을 선택합니다.</p>
         </CardBody>

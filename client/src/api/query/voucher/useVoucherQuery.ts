@@ -18,7 +18,7 @@ export default function useVoucherQuery(
   return useQuery({
     queryKey: queryKey.voucherKeys.detail(voucherId),
     queryFn: () => fetchVoucherDetail(voucherId),
-    enabled: voucherId !== 0,
+    // enabled: voucherId !== 0,
     ...options
   });
 }

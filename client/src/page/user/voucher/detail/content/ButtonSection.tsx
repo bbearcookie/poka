@@ -12,9 +12,12 @@ const DefaultProps = {};
 function ButtonSection({ voucher }: Props) {
   return (
     <section className="button-section">
-      {voucher.state === 'available' && <WriteLink voucher={voucher} />}
+      {voucher.state === 'available' && 
+      <>
+        <WriteLink voucher={voucher} />
+        <ShippingLink voucher={voucher} />
+      </>}
       {voucher.state === 'trading' && <TradeLink voucher={voucher} />}
-      <ShippingLink />
     </section>
   );
 }

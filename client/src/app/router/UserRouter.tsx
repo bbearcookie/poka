@@ -10,6 +10,7 @@ import TradeEditorPage from '@page/user/trade/writer/EditorIndex';
 import TradeListPage from '@page/user/trade/list/Index';
 import TradeDetailPage from '@page/user/trade/detail/Index';
 import TradeHistoryPage from '@page/user/trade/history/Index';
+import ShippingWriterPage from '@page/user/shipping/writer/Index';
 
 function UserRouter() {
   const { username, strategy, role } = useAppSelector((state) => state.auth);
@@ -35,6 +36,7 @@ function UserRouter() {
         <Route path="/trade/list" element={<TradeListPage />} />
         <Route path="/trade/detail/:tradeId" element={<TradeDetailPage />} />
         <Route path="/trade/history" element={<TradeHistoryPage />} />
+        <Route path="/shipping/writer" element={<ShippingWriterPage />} />
       </Routes>
     </>
   );

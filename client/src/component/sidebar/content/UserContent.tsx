@@ -26,7 +26,7 @@ function UserContent({  }: Props) {
       <ul className="category">
         <li className="subheader-label">포토카드 보관함</li>
         <ChildItem to="/voucher/list" icon={faBagShopping} text="소유권" />
-        <ChildItem to="/shipping" icon={faTruckFast} text="배송" />
+        <ChildItem to="/shipping/list" icon={faTruckFast} text="배송" />
       </ul>
       <ul className="category">
         <li className="subheader-label">마이페이지</li>
