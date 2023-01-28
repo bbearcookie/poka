@@ -32,12 +32,12 @@ function TradeRemove({ trade }: Props) {
 
   // 교환글 삭제
   const removeTrade = useCallback(() => {
-    deleteMutation.mutate({ tradeId: trade.trade_id });
+    deleteMutation.mutate({ tradeId: trade.tradeId });
   }, [deleteMutation, trade]);
   
   return (
     <>
-      {trade.state === 'trading' && trade.user_id === userId &&
+      {trade.state === 'trading' && trade.userId === userId &&
       <RemoveCard
         titleText="교환글 삭제"
         cardStyles={{ marginBottom: "5em" }}

@@ -100,13 +100,13 @@ export const postTrade = {
     const [[voucher]] = await voucherService.selectVoucherDetail(haveVoucherId);
     if (!voucher) return res.status(404).json(createResponseMessage('haveVoucherId', '사용하려는 소유권이 존재하지 않아요.'));
     if (voucher.state !== 'available') return res.status(404).json(createResponseMessage('haveVoucherId', '사용하려는 소유권이 이용 가능한 상태가 아니에요.'));
-    if (voucher.user_id !== user.userId) return res.status(404).json(createResponseMessage('haveVoucherId', '사용하려는 소유권이 당신의 것이 아니에요.'));
+    if (voucher.userId !== user.userId) return res.status(404).json(createResponseMessage('haveVoucherId', '사용하려는 소유권이 당신의 것이 아니에요.'));
 
     // 받을 포토카드와 일치하는 소유권은 사용 불가능
     for (let photoId of wantPhotocardIds) {
       const [[photo]] = await photoService.selectPhotoDetail(photoId);
       if (!photo) return res.status(404).json(createResponseMessage('wantPhotocardIds', '받을 포토카드의 정보가 올바르지 않아요.'));
-      if (photo.photocard_id === voucher.photocard_id) return res.status(400).json(createResponseMessage('wantPhotocardIds', '받을 포토카드는 등록할 소유권과 같은 종류일 수 없어요.'));
+      if (photo.photocardId === voucher.photocardId) return res.status(400).json(createResponseMessage('wantPhotocardIds', '받을 포토카드는 등록할 소유권과 같은 종류일 수 없어요.'));
     }
 
     // 교환글 작성
@@ -149,13 +149,13 @@ export const putTrade = {
     const [[voucher]] = await voucherService.selectVoucherDetail(haveVoucherId);
     if (!voucher) return res.status(404).json(createResponseMessage('haveVoucherId', '사용하려는 소유권이 존재하지 않아요.'));
     if (voucher.state !== 'available' && voucher.voucher_id !== trade.voucher_id) return res.status(404).json(createResponseMessage('haveVoucherId', '사용하려는 소유권이 이용 가능한 상태가 아니에요.'));
-    if (voucher.user_id !== user.userId) return res.status(404).json(createResponseMessage('haveVoucherId', '사용하려는 소유권이 당신의 것이 아니에요.'));
+    if (voucher.userId !== user.userId) return res.status(404).json(createResponseMessage('haveVoucherId', '사용하려는 소유권이 당신의 것이 아니에요.'));
 
     // 받을 포토카드와 일치하는 소유권은 사용 불가능
     for (let photoId of wantPhotocardIds) {
       const [[photo]] = await photoService.selectPhotoDetail(photoId);
       if (!photo) return res.status(404).json(createResponseMessage('wantPhotocardIds', '받을 포토카드의 정보가 올바르지 않아요.'));
-      if (photo.photocard_id === voucher.photocard_id) return res.status(400).json(createResponseMessage('wantPhotocardIds', '받을 포토카드는 등록할 소유권과 같은 종류일 수 없어요.'));
+      if (photo.photocardId === voucher.photocardId) return res.status(400).json(createResponseMessage('wantPhotocardIds', '받을 포토카드는 등록할 소유권과 같은 종류일 수 없어요.'));
     }
 
     // 교환글 수정
@@ -185,7 +185,7 @@ export const deleteTrade = {
     const [[trade]] = await tradeService.selectTradeDetail(tradeId);
     if (!trade) return res.status(404).json({ message: '삭제하려는 교환글이 존재하지 않아요.' });
     if (trade.state !== 'trading') return res.status(400).json({ message: '이미 교환이 완료된 교환글은 삭제할 수 없어요.' });
-    if (!isAdminOrOwner(loggedUser, trade.user_id)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
+    if (!isAdminOrOwner(loggedUser, trade.userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
 
     await tradeService.deleteTrade(trade);
     return res.status(200).json({ message: '교환글을 삭제했어요.' });
@@ -209,11 +209,11 @@ export const getTradeExchange = {
     const [[trade]] = await tradeService.selectTradeDetail(tradeId);
     if (!trade) return res.status(404).json({ message: '해당 교환글이 존재하지 않아요.' });
     if (trade.state !== 'trading') return res.status(400).json({ message: '이미 교환이 완료된 교환글이에요.' });
-    if (trade.user_id === loggedUser.userId) return res.status(403).json({ message: '자신이 작성한 교환글이에요.' });
+    if (trade.userId === loggedUser.userId) return res.status(403).json({ message: '자신이 작성한 교환글이에요.' });
 
     // 교환글이 원하는 포토카드 확인
     const [wantcards] = (await tradeService.selectWantCardsOfTrade(tradeId));
-    const wantcardIds = wantcards.map(item => item.photocard_id);
+    const wantcardIds = wantcards.map(item => item.photocardId);
 
     // 사용자가 소유한 교환 가능 소유권 확인
     const [vouchers] = await tradeService.selectHaveVouchersOfTrade(loggedUser.userId, wantcardIds);
@@ -243,20 +243,20 @@ export const postTradeExchange = {
     const [[trade]] = await tradeService.selectTradeDetail(tradeId);
     if (!trade) return res.status(404).json({ message: '해당 교환글이 존재하지 않아요.' });
     if (trade.state !== 'trading') return res.status(400).json({ message: '이미 교환이 완료된 교환글이에요.' });
-    if (trade.user_id === loggedUser.userId) return res.status(403).json({ message: '자신이 작성한 교환글이에요.' });
+    if (trade.userId === loggedUser.userId) return res.status(403).json({ message: '자신이 작성한 교환글이에요.' });
     if (vouchers.length < trade.amount) return res.status(403).json({ message: `사용할 소유권을 ${trade.amount}개 선택해주세요.` });
     if (vouchers.length > trade.amount) return res.status(403).json({ message: `사용할 소유권을 ${trade.amount}개만 선택해주세요.` });
 
     // 교환글 소유권 확인
     const [[voucher]] = await voucherService.selectVoucherDetail(trade.voucher_id);
     if (!voucher) return res.status(404).json({ message: '교환글의 소유권이 존재하지 않아요.' });
-    if (voucher.user_id !== trade.user_id) return res.status(404).json({ message: '교환글의 작성자가 소유권의 실 소유주가 아니에요.' });
+    if (voucher.userId !== trade.userId) return res.status(404).json({ message: '교환글의 작성자가 소유권의 실 소유주가 아니에요.' });
     
     // 소유권 확인
     for (let voucherId of vouchers) {
       const [[voucher]] = await voucherService.selectVoucherDetail(voucherId);
       if (!trade) return res.status(404).json({ message: '사용하려는 소유권이 존재하지 않아요.' });
-      if (voucher.user_id !== loggedUser.userId) return res.status(403).json({ message: '사용하려는 소유권이 당신의 것이 아니에요.' });
+      if (voucher.userId !== loggedUser.userId) return res.status(403).json({ message: '사용하려는 소유권이 당신의 것이 아니에요.' });
       if (voucher.state !== 'available') return res.status(400).json({ message: '사용하려는 소유권이 교환 가능한 상태가 아니에요.' });
     }
 

@@ -22,10 +22,10 @@ function Exchange({ trade }: Props) {
   const modal = useModal();
   const navigate = useNavigate();
 
-  const { data: exchange, status } = useTradeExchangeQuery(trade.trade_id, {
+  const { data: exchange, status } = useTradeExchangeQuery(trade.tradeId, {
     enabled: function() {
-      if (trade.trade_id === 0) return false;
-      if (trade.user_id === userId) return false;
+      if (trade.tradeId === 0) return false;
+      if (trade.userId === userId) return false;
       return true;
     }(),
     onSuccess: (data) => {
@@ -55,7 +55,7 @@ function Exchange({ trade }: Props) {
   const handleExchange = useCallback(() => {
     const vouchers = Object.entries(select).filter(item => item[1]).map(item => Number(item[0]));
     postMutation.mutate({
-      tradeId: trade.trade_id,
+      tradeId: trade.tradeId,
       body: {
         vouchers
       }

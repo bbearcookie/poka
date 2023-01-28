@@ -17,9 +17,10 @@ export const selectTradeList = async (
     const where = new WhereSQL();
 
     sql = `
-    SELECT T.trade_id, T.user_id, T.voucher_id, T.state, T.amount, T.written_time, T.traded_time,
-    P.photocard_id, P.image_name, M.member_id,
-    P.name as photo_name, M.name as member_name, G.name as group_name
+    SELECT T.trade_id as tradeId, T.user_id as userId, T.voucher_id as voucherId,
+    T.state, T.amount, T.written_time as writtenTime, T.traded_time as tradedTime,
+    P.photocard_id as photocardId, M.member_id as memberId,
+    P.name as photoName, M.name as memberName, G.name as groupName, P.image_name as imageName
     FROM Trade as T
     INNER JOIN Voucher as V ON T.voucher_id=V.voucher_id
     INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
@@ -70,7 +71,7 @@ export const selectTradeList = async (
 
     for (let i = 0; i < trades.length; i++) {
       sql = `
-      SELECT M.member_id, M.name
+      SELECT M.member_id as memberId, M.name
       FROM TradeWantcard as T
       INNER JOIN Photocard as P ON T.photocard_id=P.photocard_id
       INNER JOIN MemberData as M ON P.member_id=M.member_id
@@ -78,7 +79,7 @@ export const selectTradeList = async (
       GROUP BY M.name`
       
       interface WantMemberType extends RowDataPacket {
-        member_id: number;
+        memberId: number;
         name: string;
       }
 
@@ -100,9 +101,10 @@ export const selectTradeDetail = async (tradeId: number) => {
 
   try {
     let sql = `
-    SELECT T.trade_id, T.user_id, T.voucher_id, T.state, T.amount, T.written_time, T.traded_time,
-    P.photocard_id, P.image_name, M.member_id,
-    P.name as photo_name, M.name as member_name, G.name as group_name
+    SELECT T.trade_id as tradeId, T.user_id as userId, T.voucher_id as voucherId,
+    T.state, T.amount, T.written_time as writtenTime, T.traded_time as tradedTime,
+    P.photocard_id as photocardId, M.member_id as memberId,
+    P.name as photoName, M.name as memberName, G.name as groupName, P.image_name as imageName
     FROM Trade as T
     INNER JOIN Voucher as V ON T.voucher_id=V.voucher_id
     INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
@@ -125,9 +127,10 @@ export const selectTradeDetailByVoucherID = async (voucherId: number) => {
 
   try {
     let sql = `
-    SELECT T.trade_id, T.user_id, T.voucher_id, T.state, T.amount, T.written_time, T.traded_time,
-    P.photocard_id, P.image_name, M.member_id,
-    P.name as photo_name, M.name as member_name, G.name as group_name
+    SELECT T.trade_id as tradeId, T.user_id as userId, T.voucher_id as voucherId,
+    T.state, T.amount, T.written_time as writtenTime, T.traded_time as tradedTime,
+    P.photocard_id as photocardId, M.member_id as memberId,
+    P.name as photoName, M.name as memberName, G.name as groupName, P.image_name as imageName
     FROM Trade as T
     INNER JOIN Voucher as V ON T.voucher_id=V.voucher_id
     INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
@@ -151,9 +154,9 @@ export const selectWantCardsOfTrade = async (tradeId: number) => {
 
   try {
     let sql = `
-    SELECT P.image_name, 
-    P.name as photo_name, M.name as member_name, G.name as group_name,
-    P.photocard_id, M.member_id, G.group_id
+    SELECT P.image_name as imageName, 
+    P.name as photoName, M.name as memberName, G.name as groupName,
+    P.photocard_id as photocardId, M.member_id as memberId, G.group_id as groupId
     FROM TradeWantcard as T
     INNER JOIN Photocard as P ON T.photocard_id=P.photocard_id
     INNER JOIN MemberData as M ON P.member_id=M.member_id
@@ -175,9 +178,9 @@ export const selectHaveVouchersOfTrade = async (userId: number, photoIds: number
 
     try {
       let sql = `
-      SELECT V.voucher_id, V.user_id, V.state, U.username, U.nickname,
-      P.image_name, P.photocard_id, M.member_id, G.group_id,
-      P.name, M.name as member_name, G.name as group_name
+      SELECT V.voucher_id as voucherId, V.user_id as userId, V.state, U.username, U.nickname,
+      P.image_name as imageName, P.photocard_id as photocardId, M.member_id as memberId, G.group_id as groupId,
+      P.name, M.name as memberName, G.name as groupName
       FROM Voucher as V
       INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
       INNER JOIN MemberData as M ON P.member_id=M.member_id
@@ -197,6 +200,46 @@ export const selectHaveVouchersOfTrade = async (userId: number, photoIds: number
     }
 }
 
+// 특정 사용자의 소유권 교환 기록 조회
+export const selectUserTradeHistory = async (
+  itemPerPage: number,
+  pageParam: number,
+  userId: number,
+  filter: typeof tradeCtrl.getUserTradeHistory.filterType
+) => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `
+    SELECT
+    L.log_id as logId,
+    L.voucher_id as voucherId, P.photocard_id as photocardId, P.image_name as photoImageName, P.name as photoName, M.name as memberName, G.name as groupName,
+    L.origin_user_id as originUserId, ORI.username as originUserName, ORI.nickname as originUserNickname, ORI.image_name as originUserImageName,
+    L.dest_user_id as destUserId, DST.username as destUserName, DST.nickname as destUserNickname, DST.image_name as destUserImageName,
+    L.logged_time as loggedTime
+    FROM VoucherLog as L
+    INNER JOIN User as ORI ON L.origin_user_id=ORI.user_id
+    INNER JOIN User as DST ON L.dest_user_id=DST.user_id
+    INNER JOIN Voucher as V ON L.voucher_id=V.voucher_id
+    INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
+    INNER JOIN MemberData as M ON P.member_id=M.member_id
+    INNER JOIN GroupData as G ON M.group_id=G.group_id
+    WHERE L.type='traded' AND
+    (origin_user_id=${userId} OR dest_user_id=${userId}) AND
+    L.logged_time between ${con.escape(filter.startDate)} AND ${con.escape(filter.endDate)}
+    ORDER BY L.logged_time DESC
+    LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
+
+    interface DataType extends RowDataPacket, TradeHistoryType {}
+    return await con.query<DataType[]>(sql);
+
+  } catch (err) {
+    throw err;
+  } finally {
+    con.release();
+  }
+}
+
 // 교환 진행
 export const exchangeTrade = async ({ trade, userId, voucherIds }:
   { trade: TradeType; userId: number; voucherIds: number[]; }
@@ -211,32 +254,32 @@ export const exchangeTrade = async ({ trade, userId, voucherIds }:
     sql = 
     `UPDATE Trade
     SET state='traded', traded_time=now()
-    WHERE trade_id=${con.escape(trade.trade_id)}`;
+    WHERE trade_id=${con.escape(trade.tradeId)}`;
     await con.execute(sql);
 
     // 교환글의 소유권 변경
     sql = `
     UPDATE Voucher
     SET user_id=${userId}, state='available'
-    WHERE voucher_id=${con.escape(trade.voucher_id)}`;
+    WHERE voucher_id=${con.escape(trade.voucherId)}`;
     await con.execute(sql);
 
     sql = `
     INSERT INTO VoucherLog (voucher_id, origin_user_id, dest_user_id, type)
-    VALUES (${con.escape(trade.voucher_id)}, ${con.escape(trade.user_id)}, ${con.escape(userId)}, 'traded')`;
+    VALUES (${con.escape(trade.voucherId)}, ${con.escape(trade.userId)}, ${con.escape(userId)}, 'traded')`;
     await con.execute(sql);
 
     // 사용자의 소유권 변경
     for (let voucherId of voucherIds) {
       sql = `
       UPDATE Voucher
-      SET user_id=${trade.user_id}, state='available'
+      SET user_id=${trade.userId}, state='available'
       WHERE voucher_id=${con.escape(voucherId)}`;
       await con.execute(sql);
 
       sql = `
       INSERT INTO VoucherLog (voucher_id, origin_user_id, dest_user_id, type)
-      VALUES (${con.escape(voucherId)}, ${con.escape(trade.user_id)}, ${con.escape(userId)}, 'traded')`;
+      VALUES (${con.escape(voucherId)}, ${con.escape(trade.userId)}, ${con.escape(userId)}, 'traded')`;
       await con.execute(sql);
     }
 
@@ -304,11 +347,11 @@ export const putTrade = async ({ trade, voucherId, amount, wantPhotocardIds }:
     sql = `
     UPDATE Voucher
     SET state=${con.escape('available')}
-    WHERE voucher_id=${con.escape(trade.voucher_id)}`
+    WHERE voucher_id=${con.escape(trade.voucherId)}`
     await con.execute(sql);
 
     // 기존 wantPhotocard 모두 제거
-    sql = `DELETE FROM TradeWantcard WHERE trade_id=${trade.trade_id}`
+    sql = `DELETE FROM TradeWantcard WHERE trade_id=${trade.tradeId}`
     await con.execute(sql);
 
     // 새로운 소유권 사용상태 변경
@@ -322,14 +365,14 @@ export const putTrade = async ({ trade, voucherId, amount, wantPhotocardIds }:
     sql = `
     UPDATE Trade
     SET voucher_id=${con.escape(voucherId)}
-    WHERE trade_id=${con.escape(trade.trade_id)}`
+    WHERE trade_id=${con.escape(trade.tradeId)}`
     await con.execute(sql);
 
     // 교환글이 원하는 포토카드 정보 작성
     for (let photoId of wantPhotocardIds) {
       sql = `
       INSERT INTO TradeWantcard (trade_id, photocard_id)
-      VALUES (${con.escape(trade.trade_id)}, ${con.escape(photoId)})`;
+      VALUES (${con.escape(trade.tradeId)}, ${con.escape(photoId)})`;
       await con.execute(sql);
     }
     
@@ -354,56 +397,16 @@ export const deleteTrade = async (trade: TradeType) => {
     sql = `
     UPDATE Voucher
     SET state='available'
-    WHERE voucher_id=${con.escape(trade.voucher_id)}`;
+    WHERE voucher_id=${con.escape(trade.voucherId)}`;
     await con.execute(sql);
 
     // 교환글 삭제
-    sql = `DELETE FROM Trade WHERE trade_id=${con.escape(trade.trade_id)}`;
+    sql = `DELETE FROM Trade WHERE trade_id=${con.escape(trade.tradeId)}`;
     await con.execute(sql);
 
     con.commit();
   } catch (err) {
     con.rollback();
-    throw err;
-  } finally {
-    con.release();
-  }
-}
-
-// 특정 사용자의 소유권 교환 기록 조회
-export const selectUserTradeHistory = async (
-  itemPerPage: number,
-  pageParam: number,
-  userId: number,
-  filter: typeof tradeCtrl.getUserTradeHistory.filterType
-) => {
-  const con = await db.getConnection();
-
-  try {
-    let sql = `
-    SELECT
-    L.log_id as logId,
-    L.voucher_id as voucherId, P.photocard_id as photocardId, P.image_name as photoImageName, P.name as photoName, M.name as memberName, G.name as groupName,
-    L.origin_user_id as originUserId, ORI.username as originUserName, ORI.nickname as originUserNickname, ORI.image_name as originUserImageName,
-    L.dest_user_id as destUserId, DST.username as destUserName, DST.nickname as destUserNickname, DST.image_name as destUserImageName,
-    L.logged_time as loggedTime
-    FROM VoucherLog as L
-    INNER JOIN User as ORI ON L.origin_user_id=ORI.user_id
-    INNER JOIN User as DST ON L.dest_user_id=DST.user_id
-    INNER JOIN Voucher as V ON L.voucher_id=V.voucher_id
-    INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
-    INNER JOIN MemberData as M ON P.member_id=M.member_id
-    INNER JOIN GroupData as G ON M.group_id=G.group_id
-    WHERE L.type='traded' AND
-    (origin_user_id=${userId} OR dest_user_id=${userId}) AND
-    L.logged_time between ${con.escape(filter.startDate)} AND ${con.escape(filter.endDate)}
-    ORDER BY L.logged_time DESC
-    LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
-
-    interface DataType extends RowDataPacket, TradeHistoryType {}
-    return await con.query<DataType[]>(sql);
-
-  } catch (err) {
     throw err;
   } finally {
     con.release();

@@ -18,7 +18,7 @@ interface Props {
 const DefaultProps = {};
 
 function TradeInfoCard({ trade }: Props) {
-  const { data: user, status } = useUserQuery(trade.user_id);
+  const { data: user, status } = useUserQuery(trade.userId);
 
   return (
     <Card className="TradeInfoCard" styles={{ marginBottom: "5em" }}>
@@ -31,8 +31,8 @@ function TradeInfoCard({ trade }: Props) {
         <CardListItem title="교환 상태" styles={{ color: "#65748b" }}>
           <TradeStateLabel state={trade.state}>{TradeStateValue[trade.state]}</TradeStateLabel>
         </CardListItem>
-        <CardListItem title="작성일" styles={{ color: "#65748b" }}>{getFormattedTime(new Date(trade.written_time))}</CardListItem>
-        {trade.traded_time && <CardListItem title="교환일" styles={{ color: "#65748b" }}>{getFormattedTime(new Date(trade.traded_time))}</CardListItem>}
+        <CardListItem title="작성일" styles={{ color: "#65748b" }}>{getFormattedTime(new Date(trade.writtenTime))}</CardListItem>
+        {trade.tradedTime && <CardListItem title="교환일" styles={{ color: "#65748b" }}>{getFormattedTime(new Date(trade.tradedTime))}</CardListItem>}
         <CardListItem title="요구 포토카드 수량" styles={{ color: "#65748b" }}>{trade.amount}장</CardListItem>
       </CardList>
       <CardBody>

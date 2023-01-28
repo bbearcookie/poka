@@ -16,8 +16,8 @@ function ButtonSection({ trade }: Props) {
     <div className="button-section">
       {trade.state === 'trading' &&
       <>
-        {trade.user_id === userId && <Edit trade={trade} />}
-        {trade.user_id !== userId && <Exchange trade={trade} />}
+        {trade.userId === userId && <Edit trade={trade} />}
+        {trade.userId !== userId && <Exchange trade={trade} />}
       </>}
     </div>
   );

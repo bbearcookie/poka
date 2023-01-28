@@ -44,7 +44,7 @@ function TradeSection({ state, dispatch }: Props) {
       {trades?.pages.map((page, pageIdx) =>
       <Fragment key={pageIdx}>
         {page.trades.map(item =>
-          <TradeCard key={item.trade_id} trade={item} />
+          <TradeCard key={item.tradeId} trade={item} />
         )}
       </Fragment>)}
 

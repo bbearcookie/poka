@@ -31,9 +31,9 @@ function EditorIndex({  }: Props) {
   useEffect(() => {
     if (!trade) return;
     formDispatch({ type: 'SET_AMOUNT', payload: trade.amount });
-    formDispatch({ type: 'SET_VOUCHER_ID', payload: trade.voucher_id });
+    formDispatch({ type: 'SET_VOUCHER_ID', payload: trade.voucherId });
     trade.wantcards.forEach(item => {
-      formDispatch({ type: 'ADD_WANT_PHOTOCARD_ID', payload: item.photocard_id });
+      formDispatch({ type: 'ADD_WANT_PHOTOCARD_ID', payload: item.photocardId });
     })
   }, [trade]);
 

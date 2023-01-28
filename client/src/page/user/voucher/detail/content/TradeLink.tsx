@@ -17,7 +17,7 @@ function TradeLink({ voucher }: Props) {
   return (
     <>
       {status === 'success' &&
-      <Link to={`/trade/detail/${trade.trade_id}`} state={{ backURL: location.pathname }}>
+      <Link to={`/trade/detail/${trade.tradeId}`} state={{ backURL: location.pathname }}>
         <Button
           leftIcon={faShareNodes}
           styles={{

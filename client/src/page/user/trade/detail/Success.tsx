@@ -15,10 +15,10 @@ function Success({ trade }: Props) {
   return (
     <>
       <PhotoInfoCard
-        photoName={trade.photo_name}
-        groupName={trade.group_name}
-        memberName={trade.member_name}
-        imageName={trade.image_name}
+        photoName={trade.photoName}
+        groupName={trade.groupName}
+        memberName={trade.memberName}
+        imageName={trade.imageName}
         cardStyles={{ margin: "0 auto 5em auto" }}
       />
       <TradeInfoCard trade={trade} />

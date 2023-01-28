@@ -19,12 +19,12 @@ function TradeWantCard({ wantcards }: Props) {
         <PhotoSection>
           {wantcards.map(card => 
           <PhotoCard
-            photocardId={card.photocard_id}
-            key={card.photocard_id}
-            photoName={card.photo_name}
-            memberName={card.member_name}
-            groupName={card.group_name}
-            imageName={card.image_name}
+            photocardId={card.photocardId}
+            key={card.photocardId}
+            photoName={card.photoName}
+            memberName={card.memberName}
+            groupName={card.groupName}
+            imageName={card.imageName}
           />)}
         </PhotoSection>
       </CardBody>

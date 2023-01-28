@@ -18,7 +18,7 @@ function TradeCard({ trade }: Props) {
   const navigate = useNavigate();
 
   const onClickIcon = useCallback(() => {
-    navigate(`/trade/detail/${trade.trade_id}`);
+    navigate(`/trade/detail/${trade.tradeId}`);
   }, [navigate, trade]);
 
   return (
@@ -32,18 +32,18 @@ function TradeCard({ trade }: Props) {
         <Body>
           <img
             width="150" height="224"
-            src={photoImage(trade.image_name)}
+            src={photoImage(trade.imageName)}
             alt="이미지" />
           <ContentSection>
-            <PhotoName>{trade.photo_name}</PhotoName>
-            <MemberName>{trade.member_name}</MemberName>
-            <NameLabel className="NameLabel">{trade.group_name}</NameLabel>
-            <GrayText>{getElaspedTime(new Date(trade.written_time))}</GrayText>
+            <PhotoName>{trade.photoName}</PhotoName>
+            <MemberName>{trade.memberName}</MemberName>
+            <NameLabel className="NameLabel">{trade.groupName}</NameLabel>
+            <GrayText>{getElaspedTime(new Date(trade.writtenTime))}</GrayText>
             <Space />
             <GrayText>교환할 수 있는 멤버</GrayText>
             <WantMemberSection className="WantMemberSection">
               {trade.wantMembers.map(item =>
-                <NameLabel key={item.member_id} className="NameLabel">{item.name}</NameLabel>)
+                <NameLabel key={item.memberId} className="NameLabel">{item.name}</NameLabel>)
               }
             </WantMemberSection>
           </ContentSection>
