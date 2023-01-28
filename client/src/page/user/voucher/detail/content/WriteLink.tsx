@@ -11,7 +11,7 @@ const DefaultProps = {};
 
 function WriteLink({ voucher }: Props) {
   return (
-    <Link to={`/trade/writer?voucherId=${voucher.voucher_id}`}>
+    <Link to={`/trade/writer?voucherId=${voucher.voucherId}`}>
       <Button
         leftIcon={faShareNodes}
         styles={{

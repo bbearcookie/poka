@@ -42,13 +42,13 @@ function VoucherList({ defaultFilter, icon, handleClickIcon }: Props) {
         {page?.vouchers.map(item => 
           <VoucherCard
             showOwner={defaultFilter.owner === 'all' ? true : false}
-            key={item.voucher_id}
+            key={item.voucherId}
             photoName={item.name}
-            groupName={item.group_name}
-            memberName={item.member_name}
-            imageName={item.image_name}
+            groupName={item.groupName}
+            memberName={item.memberName}
+            imageName={item.imageName}
             username={item.username}
-            voucherId={item.voucher_id}
+            voucherId={item.voucherId}
             voucherState={item.state}
             icon={icon}
             handleClickIcon={handleClickIcon}

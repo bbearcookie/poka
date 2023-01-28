@@ -11,7 +11,7 @@ const DefaultProps = {};
 
 function ShippingLink({ voucher }: Props) {
   return (
-    <Link to={`/shipping/writer?voucherId=${voucher.voucher_id}`}>
+    <Link to={`/shipping/writer?voucherId=${voucher.voucherId}`}>
       <Button
         leftIcon={faTruckFast}
         styles={{

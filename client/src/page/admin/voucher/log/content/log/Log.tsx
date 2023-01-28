@@ -12,7 +12,7 @@ interface Props {
 const DefaultProps = {};
 
 function Log({ log }: Props) {
-  const originUser = useUserQuery(log.origin_user_id);
+  const originUser = useUserQuery(log.originUserId);
 
   return (
     <li className="log">
@@ -24,7 +24,7 @@ function Log({ log }: Props) {
       </div>
       <div className="line">
         <div className="subtitle">시간</div>
-        <div className="body">{getFormattedTime(new Date(log.logged_time))}</div>
+        <div className="body">{getFormattedTime(new Date(log.loggedTime))}</div>
       </div>
       {['issued', 'shipped'].includes(log.type) && originUser.data && <Issued originUser={originUser.data} /> }
       {log.type === 'traded' && originUser.data && <Traded log={log} originUser={originUser.data} />}

@@ -38,11 +38,11 @@ function PhotoItem({ photo, idx, state, dispatch }: Props) {
 
   return (
     <PhotoCard
-      photocardId={photo.photocard_id}
+      photocardId={photo.photocardId}
       photoName={photo.name}
-      groupName={photo.group_name}
-      memberName={photo.member_name}
-      imageName={photo.image_name}
+      groupName={photo.groupName}
+      memberName={photo.memberName}
+      imageName={photo.imageName}
       icon={faClose}
       handleClickIcon={handleRemove}
     >

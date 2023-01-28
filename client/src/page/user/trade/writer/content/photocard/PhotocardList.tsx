@@ -24,12 +24,12 @@ function PhotocardList({ form, formDispatch, photos, removeWantPhotocardId }: Pr
         <section className="photo-section">
           {photos.map((photo) => photo.status === 'success' && 
           <PhotoCard
-            key={photo.data.photocard_id}
-            photocardId={photo.data.photocard_id}
+            key={photo.data.photocardId}
+            photocardId={photo.data.photocardId}
             photoName={photo.data.name}
-            groupName={photo.data.group_name}
-            memberName={photo.data.member_name}
-            imageName={photo.data.image_name}
+            groupName={photo.data.groupName}
+            memberName={photo.data.memberName}
+            imageName={photo.data.imageName}
             icon={faClose}
             handleClickIcon={removeWantPhotocardId}
           />)}

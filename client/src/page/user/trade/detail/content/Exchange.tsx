@@ -8,7 +8,6 @@ import { faArrowsSpin } from '@fortawesome/free-solid-svg-icons';
 import { getErrorMessage } from '@util/request';
 import VoucherCard from '@component/photocard/voucher/VoucherCard';
 import Button from '@component/form/Button';
-import Input from '@component/form/Input';
 import useModal from '@hook/useModal';
 import ConfirmModal from '@component/modal/ConfirmModal';
 
@@ -30,7 +29,7 @@ function Exchange({ trade }: Props) {
       return true;
     }(),
     onSuccess: (data) => {
-      setSelect(Object.fromEntries(data.vouchers.map(item => [item.voucher_id, false])));
+      setSelect(Object.fromEntries(data.vouchers.map(item => [item.voucherId, false])));
     }
   });
 
@@ -87,12 +86,12 @@ function Exchange({ trade }: Props) {
         <section className="photo-section">
           {exchange?.vouchers.map(voucher => 
           <VoucherCard
-            key={voucher.voucher_id}
-            voucherId={voucher.voucher_id}
+            key={voucher.voucherId}
+            voucherId={voucher.voucherId}
             photoName={voucher.name}
-            groupName={voucher.group_name}
-            memberName={voucher.member_name}
-            imageName={voucher.image_name}
+            groupName={voucher.groupName}
+            memberName={voucher.memberName}
+            imageName={voucher.imageName}
             username={voucher.username}
             voucherState={voucher.state}
             showOwner={false}
@@ -101,8 +100,8 @@ function Exchange({ trade }: Props) {
             <div className="space" />
             <input
               type="checkbox"
-              value={voucher.voucher_id}
-              checked={select[voucher.voucher_id] ? true : false}
+              value={voucher.voucherId}
+              checked={select[voucher.voucherId] ? true : false}
               onChange={onChangeSelect}
               readOnly
             />

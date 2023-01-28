@@ -60,17 +60,17 @@ export const getVoucherDetail = {
 
     const [[voucher]] = await voucherService.selectVoucherDetail(voucherId);
     if (!voucher) return res.status(404).json({ message: '해당 소유권의 데이터가 서버에 존재하지 않아요.' });
-    const [[photo]] = await photoService.selectPhotoDetail(voucher.photocard_id);
-    const [[user]] = await userService.selectUserDetailByUserID(voucher.user_id);
+    const [[photo]] = await photoService.selectPhotoDetail(voucher.photocardId);
+    const [[user]] = await userService.selectUserDetailByUserID(voucher.userId);
 
     return res.status(200).json({
       message: `${voucherId}번 소유권의 상세 정보를 조회했습니다.`,
       ...voucher,
       ...photo,
-      user_id: user.user_id,
+      userId: user.userId,
       username: user.username,
       nickname: user.nickname,
-      user_image_name: user.image_name
+      userImageName: user.imageName
     });
     next();
   }
@@ -95,7 +95,6 @@ export const getVoucherLogDetail = {
     const [[voucher]] = await voucherService.selectVoucherDetail(voucherId);
     if (!voucher) return res.status(404).json({ message: '해당 소유권의 데이터가 서버에 존재하지 않아요.' });
 
-    // TODO: 소유권 기록 조회 후 반환
     const [logs] = await voucherService.selectVoucherLogDetail(voucherId, itemPerPage, pageParam);
     return res.status(200).json({
       message: '소유권의 기록을 조회했어요.',
@@ -146,7 +145,7 @@ export const postVoucher = {
     const [[user]] = await userService.selectUserDetailByUsername(username);
     if (!user) return res.status(404).json(createResponseMessage("username", "가입되지 않은 사용자에요."));
 
-    await voucherService.insertVouchers(user.user_id, vouchers);
+    await voucherService.insertVouchers(user.userId, vouchers);
     return res.status(200).json({ message: `${user.username} 사용자에게 소유권을 발급했어요.` });
     next();
   }
@@ -165,8 +164,8 @@ export const deleteVoucher = {
     const [[voucher]] = await voucherService.selectVoucherDetail(voucherId);
     if (!voucher) return res.status(404).json({ message: '해당 소유권의 데이터가 서버에 존재하지 않아요.' });
 
-    const [[user]] = await userService.selectUserDetailByUserID(voucher.user_id);
-    const [[photo]] = await photoService.selectPhotoDetail(voucher.photocard_id);
+    const [[user]] = await userService.selectUserDetailByUserID(voucher.userId);
+    const [[photo]] = await photoService.selectPhotoDetail(voucher.photocardId);
 
     await voucherService.deleteVoucher(voucherId);
     return res.status(200).json({ message: `${user.username} 회원의 ${photo.name} 소유권을 삭제했어요.` });

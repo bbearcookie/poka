@@ -1,7 +1,7 @@
 import db from '@config/database';
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import { WhereSQL } from '@util/database';
-import { VoucherType } from '@type/voucher';
+import { VoucherType, VoucherSimpleType, VoucherLogType } from '@type/voucher';
 import * as voucherCtrl from '@controller/voucher.ctrl';
 
 // 소유권 목록 조회
@@ -16,11 +16,11 @@ export const selectVoucherList = async (
     const where = new WhereSQL();
 
     let sql = `
-    SELECT V.voucher_id, V.state,
-    P.photocard_id, P.name, P.image_name,
-    M.member_id, M.name as member_name,
-    G.group_id, G.name as group_name,
-    U.username, U.nickname
+    SELECT V.voucher_id as voucherId, V.state,
+    P.photocard_id as photocardId, P.name, P.image_name as imageName,
+    M.member_id as memberId, M.name as memberName,
+    G.group_id as groupId, G.name as groupName,
+    U.username, U.nickname, U.user_id as userId
     FROM Voucher as V
     INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
     INNER JOIN MemberData as M ON P.member_id=M.member_id
@@ -89,20 +89,7 @@ export const selectVoucherList = async (
     // 페이지 조건
     sql += `LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
 
-    interface DataType extends RowDataPacket {
-      photocard_id: number;
-      voucher_id: number;
-      state: string;
-      name: string;
-      image_name: string;
-      member_id: number;
-      member_name: string;
-      group_id: number;
-      group_name: string;
-      username: string;
-      nickname: string;
-    }
-
+    interface DataType extends VoucherType, RowDataPacket {}
     return await con.query<DataType[]>(sql);
   } catch (err) {
     con.rollback();
@@ -118,11 +105,11 @@ export const selectVoucherDetail = async (voucherId: number) => {
 
   try {
     let sql = `
-    SELECT voucher_id, photocard_id, user_id, state
+    SELECT voucher_id as voucherId, photocard_id as photocardId, user_id as userId, state
     FROM Voucher
     WHERE voucher_id=${con.escape(voucherId)}`;
 
-    interface DataType extends RowDataPacket, VoucherType {}
+    interface DataType extends RowDataPacket, VoucherSimpleType {}
     return await con.query<DataType[]>(sql);
   } catch (err) {
     throw err;
@@ -141,21 +128,15 @@ export const selectVoucherLogDetail = async (
 
   try {
     let sql = `
-    SELECT log_id, voucher_id, origin_user_id, dest_user_id, type, logged_time
+    SELECT log_id as logId, voucher_id as voucherId,
+    origin_user_id as originUserId, dest_user_id as destUserId,
+    type, logged_time as loggedTime
     FROM VoucherLog
     WHERE voucher_id=${con.escape(voucherId)}
     ORDER BY logged_time DESC
     LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
 
-    interface DataType extends RowDataPacket {
-      log_id: number;
-      voucher_id: number;
-      origin_user_id: number;
-      dest_user_id: number;
-      type: string;
-      logged_time: string;
-    }
-
+    interface DataType extends VoucherLogType, RowDataPacket {}
     return await con.query<DataType[]>(sql);
   } catch (err) {
     throw err;

@@ -57,7 +57,7 @@ export default VoucherInfoCard;
 function VoucherID({ voucher }: { voucher: VoucherResType }) {
   return (
     <CardListItem title="소유권ID">
-      {voucher.voucher_id}
+      {voucher.voucherId}
     </CardListItem>
   )
 }
@@ -68,7 +68,7 @@ function VoucherOwner({ voucher }: { voucher: VoucherResType }) {
       <UserProfile
         nickname={voucher?.nickname}
         username={voucher?.username}
-        imageName={voucher?.user_image_name}
+        imageName={voucher?.userImageName}
       />
     </CardListItem>
   )
@@ -87,7 +87,7 @@ function VoucherState({ voucher }: { voucher: VoucherResType }) {
 function VoucherLog({ voucher }: { voucher: VoucherResType }) {
   return (
     <CardListItem title="기록">
-      <Link to={`/admin/voucher/log/${voucher?.voucher_id}`}>
+      <Link to={`/admin/voucher/log/${voucher?.voucherId}`}>
         <Button
           rightIcon={faArrowRight}
           styles={{

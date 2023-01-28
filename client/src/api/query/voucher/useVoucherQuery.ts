@@ -7,8 +7,8 @@ import * as queryKey from '@api/queryKey';
 
 export interface ResType extends VoucherType {
   message: string;
-  user_id: number;
-  user_image_name: string;
+  userId: number;
+  userImageName: string;
 }
 
 export default function useVoucherQuery(
@@ -18,7 +18,7 @@ export default function useVoucherQuery(
   return useQuery({
     queryKey: queryKey.voucherKeys.detail(voucherId),
     queryFn: () => fetchVoucherDetail(voucherId),
-    // enabled: voucherId !== 0,
+    enabled: voucherId !== 0,
     ...options
   });
 }

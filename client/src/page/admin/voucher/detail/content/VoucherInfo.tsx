@@ -25,13 +25,13 @@ function VoucherInfo({ voucher }: Props) {
         <ul>
           <li className="info">
             <div className="subtitle">소유권ID</div>
-            <div className="body">{voucher?.voucher_id}</div>
+            <div className="body">{voucher?.voucherId}</div>
           </li>
           <li className="info">
             <div className="subtitle">소유자</div>
             <div className="body">
               <section className="user-section">
-                <UserProfile nickname={voucher?.nickname} username={voucher?.username} imageName={userImage(voucher?.user_image_name)} />
+                <UserProfile nickname={voucher?.nickname} username={voucher?.username} imageName={userImage(voucher?.userImageName)} />
               </section>
             </div>
           </li>
@@ -46,7 +46,7 @@ function VoucherInfo({ voucher }: Props) {
           <li className="info">
             <div className="subtitle">기록</div>
             <div className="body">
-              <Link to={`/admin/voucher/log/${voucher?.voucher_id}`}>
+              <Link to={`/admin/voucher/log/${voucher?.voucherId}`}>
                 <Button
                   rightIcon={faArrowRight}
                   styles={{

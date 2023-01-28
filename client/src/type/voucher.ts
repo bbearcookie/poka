@@ -1,19 +1,20 @@
 import { PhotoType } from '@type/photo';
 
 export interface VoucherType extends PhotoType {
-  voucher_id: number;
+  voucherId: number;
+  userId: number;
   state: 'available' | 'trading' | 'shipping' | 'shipped';
   username: string;
   nickname: string;
 }
 
 export interface VoucherLogType {
-  log_id: number;
-  voucher_id: number;
-  origin_user_id: number;
-  dest_user_id: number;
+  logId: number;
+  voucherId: number;
+  originUserId: number;
+  destUserId: number;
   type: 'issued' | 'traded' | 'shipped';
-  logged_time: string;
+  loggedTime: string;
 }
 
 export type VoucherStateKey = 'all' | 'available' | 'trading' | 'shipping' | 'shipped';

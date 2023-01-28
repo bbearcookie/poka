@@ -38,12 +38,12 @@ function PhotoList({ icon, handleClickIcon }: Props) {
       <Fragment key={pageIdx}>
         {page?.photos.map((item) => (
           <PhotoCard
-            key={item.photocard_id}
-            photocardId={item.photocard_id}
+            key={item.photocardId}
+            photocardId={item.photocardId}
             photoName={item.name}
-            groupName={item.group_name}
-            memberName={item.member_name}
-            imageName={item.image_name}
+            groupName={item.groupName}
+            memberName={item.memberName}
+            imageName={item.imageName}
             icon={icon}
             handleClickIcon={handleClickIcon}
           />

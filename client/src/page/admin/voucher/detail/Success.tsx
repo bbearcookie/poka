@@ -16,13 +16,13 @@ function Success({ voucher }: Props) {
     <>
       <PhotoInfoCard
         photoName={voucher.name}
-        groupName={voucher.group_name}
-        memberName={voucher.member_name}
-        imageName={voucher.image_name}
+        groupName={voucher.groupName}
+        memberName={voucher.memberName}
+        imageName={voucher.imageName}
         cardStyles={{ margin: "0 auto 5em auto" }}
       />
       <VoucherInfoCard voucher={voucher} showAdminInfo={true} />
-      <VoucherRemove voucherId={voucher.voucher_id} />
+      <VoucherRemove voucherId={voucher.voucherId} />
     </>
   );
 }

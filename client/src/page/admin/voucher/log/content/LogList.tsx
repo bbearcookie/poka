@@ -47,7 +47,7 @@ function LogList({ voucherId }: Props) {
         {logs?.pages.map((page, pageIdx) => 
           <ul key={pageIdx}>
             {page?.logs.map((item) => (
-              <Log key={item.log_id} log={item} />
+              <Log key={item.logId} log={item} />
             ))}
           </ul>
         )}

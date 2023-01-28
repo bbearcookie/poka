@@ -57,9 +57,9 @@ function VoucherSection({ form, formDispatch }: Props) {
           {status === 'success' && voucher &&
           <PhotoInfoCard
             photoName={voucher.name}
-            groupName={voucher.group_name}
-            memberName={voucher.member_name}
-            imageName={voucher.image_name}
+            groupName={voucher.groupName}
+            memberName={voucher.memberName}
+            imageName={voucher.imageName}
             cardStyles={{ margin: "0 auto 1.5em auto" }}
           />}
           {status === 'loading' && form.data.haveVoucherId > 0 && <SkeletonPhotoInfoCard cardStyles={{ margin: "0 auto 1.5em auto" }} />}

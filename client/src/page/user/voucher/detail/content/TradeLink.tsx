@@ -11,7 +11,7 @@ interface Props {
 const DefaultProps = {};
 
 function TradeLink({ voucher }: Props) {
-  const { data: trade, status } = useVoucherTradeQuery(voucher.voucher_id);
+  const { data: trade, status } = useVoucherTradeQuery(voucher.voucherId);
   const location = useLocation();
 
   return (

@@ -14,9 +14,9 @@ function PhotoInfo({ photo, startEditor }: Props) {
   return (
     <PhotoInfoCard
       photoName={photo.name}
-      groupName={photo.group_name}
-      memberName={photo.member_name}
-      imageName={photo.image_name}
+      groupName={photo.groupName}
+      memberName={photo.memberName}
+      imageName={photo.imageName}
       cardStyles={{ margin: "0 auto 5em auto" }}
     >
       <Button

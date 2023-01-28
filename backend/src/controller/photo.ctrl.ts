@@ -146,7 +146,7 @@ export const putPhoto = {
 
       // 기존의 이미지 파일 삭제
       if (process.env.INIT_CWD) {
-        try { fs.rm(path.join(process.env.INIT_CWD, PHOTO_IMAGE_DIR, photo.image_name)) }
+        try { fs.rm(path.join(process.env.INIT_CWD, PHOTO_IMAGE_DIR, photo.imageName)) }
         catch (err) { console.error(err); }
       }
     }
@@ -172,7 +172,7 @@ export const deletePhoto = {
 
     // 기존의 이미지 파일 삭제
     if (process.env.INIT_CWD) {
-      try { fs.rm(path.join(process.env.INIT_CWD, PHOTO_IMAGE_DIR, photo.image_name)) }
+      try { fs.rm(path.join(process.env.INIT_CWD, PHOTO_IMAGE_DIR, photo.imageName)) }
       catch (err) { console.error(err); }
     }
 

@@ -1,5 +1,6 @@
 import db from '@config/database';
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
+import { PhotoType } from '@type/photo';
 import { WhereSQL } from '@util/database';
 import * as photoCtrl from '@controller/photo.ctrl';
 
@@ -12,8 +13,9 @@ export const selectPhotoList =
       const where = new WhereSQL();
 
       let sql = `
-      SELECT P.photocard_id, P.member_id, P.name, P.image_name,
-      G.group_id, G.name as group_name, M.name as member_name
+      SELECT P.photocard_id as photocardId, P.name, P.image_name as imageName,
+      G.group_id as groupId, G.name as groupName,
+      M.member_id as memberId, M.name as memberName
       FROM Photocard as P
       INNER JOIN MemberData as M ON P.member_id=M.member_id
       INNER JOIN GroupData as G ON M.group_id=G.group_id `;
@@ -56,15 +58,7 @@ export const selectPhotoList =
       // 페이지 조건
       sql += `LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
 
-      interface DataType extends RowDataPacket {
-        photocard_id: number;
-        member_id: number;
-        name: string;
-        image_name: string;
-        group_id: number;
-        group_name: string;
-        member_name: string;
-      }
+      interface DataType extends PhotoType, RowDataPacket {}
 
       return await con.query<DataType[]>(sql);
     } catch (err) {
@@ -81,21 +75,15 @@ export const selectPhotoDetail = async (photocardId: number) => {
 
   try {
     let sql = `
-    SELECT P.photocard_id, P.member_id, P.name, P.image_name,
-    G.group_id, G.name as group_name, M.member_id, M.name as member_name
+    SELECT P.photocard_id as photocardId, P.name, P.image_name as imageName,
+    G.group_id as groupId, G.name as groupName,
+    M.member_id as memberId, M.name as memberName
     FROM Photocard as P
     INNER JOIN MemberData as M ON P.member_id=M.member_id
     INNER JOIN GroupData as G ON M.group_id=G.group_id
     WHERE photocard_id=${con.escape(photocardId)}`;
 
-    interface DataType extends RowDataPacket {
-      photocard_id: number;
-      group_id: number;
-      name: string;
-      group_name: string;
-      member_name: string;
-      image_name: string;
-    }
+    interface DataType extends PhotoType, RowDataPacket {}
 
     return await con.query<DataType[]>(sql);
   } catch (err) {

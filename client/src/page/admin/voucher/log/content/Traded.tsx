@@ -13,7 +13,7 @@ interface Props {
 const DefaultProps = {};
 
 function Traded({ originUser, log }: Props) {
-  const { data: destUser } = useUserQuery(log.dest_user_id);
+  const { data: destUser } = useUserQuery(log.destUserId);
 
   return (
     <>

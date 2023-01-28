@@ -22,10 +22,10 @@ const DefaultProps = {};
 function PhotoEditor({ photo, photocardId, closeEditor }: Props) {
   const [state, dispatch] = useReducer(reducer, produce(initialState, draft => {
     draft.form.name = photo.name;
-    draft.form.groupId = photo.group_id;
-    draft.form.memberId = photo.member_id;
-    draft.form.image.previewURL = photoImage(photo.image_name);
-    draft.form.image.initialURL = photoImage(photo.image_name);
+    draft.form.groupId = photo.groupId;
+    draft.form.memberId = photo.memberId;
+    draft.form.image.previewURL = photoImage(photo.imageName);
+    draft.form.image.initialURL = photoImage(photo.imageName);
   }));
 
   // 데이터 수정 요청
