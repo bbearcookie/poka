@@ -4,7 +4,7 @@ import useAddShippingAddress, { ResType } from '@api/mutation/address/useAddShip
 import { AxiosResponse, AxiosError } from 'axios';
 import { ErrorType } from '@util/request';
 import { useAppSelector } from '@app/redux/reduxHooks';
-import { AddressType } from '@type/user';
+import { ShippingAddressType } from '@type/user';
 import CardHeader from '@component/card/basic/CardHeader';
 import NameSection from './content/NameSection';
 import ContactSection from './content/ContactSection';
@@ -15,7 +15,7 @@ import ButtonSection from './content/ButtonSection';
 import reducer, { initialState, FormType } from './reducer';
 
 interface Props {
-  address?: AddressType;
+  address?: ShippingAddressType;
   closeEditor: () => void;
 }
 const DefaultProps = {};
@@ -69,12 +69,12 @@ function Editor({ address, closeEditor }: Props) {
       contact: state.form.contact,
       postcode: state.form.postcode,
       address: state.form.address,
-      address_detail: state.form.address_detail,
+      addressDetail: state.form.addressDetail,
       requirement: state.form.requirement === 'DEFAULT_VALUE' ? '' : state.form.requirement
     }
     
     // 수정 모드일경우
-    if (address) putMutation.mutate({ addressId: address.address_id, body: data })
+    if (address) putMutation.mutate({ addressId: address.addressId, body: data })
     // 작성 모드일경우
     else postMutation.mutate({ userId, body: data });
 

@@ -3,12 +3,12 @@ import CardHeader from '@component/card/basic/CardHeader';
 import IconButton from '@component/form/IconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faPhone, faInfoCircle, faEdit, faUser } from '@fortawesome/free-solid-svg-icons';
-import { AddressType } from '@type/user';
+import { ShippingAddressType } from '@type/user';
 import AddressRemove from './content/AddressRemove';
 import AddressPrime from './content/AddressPrime';
 
 interface Props {
-  address: AddressType;
+  address: ShippingAddressType;
   startEditor: () => void;
 }
 const DefaultProps = {};
@@ -22,7 +22,7 @@ function Address({ address, startEditor }: Props) {
       </div>
       <div className="content-section">
         <FontAwesomeIcon icon={faLocationDot} width="1.5em" height="1.5em" color="#2678F3" />
-        <span className="text">{address.address} {address.address_detail}</span>
+        <span className="text">{address.address} {address.addressDetail}</span>
       </div>
       <div className="content-section">
         <FontAwesomeIcon icon={faUser} width="1.5em" height="1.5em" color="#EC1B5A" />

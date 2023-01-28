@@ -4,10 +4,10 @@ import useModal from '@hook/useModal';
 import ConfirmModal from '@component/modal/ConfirmModal';
 import IconButton from '@component/form/IconButton';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
-import { AddressType } from '@type/user';
+import { ShippingAddressType } from '@type/user';
 
 interface Props {
-  address: AddressType;
+  address: ShippingAddressType;
 }
 const DefaultProps = {};
 
@@ -15,11 +15,11 @@ function AddressRemove({ address }: Props) {
   const removeModal = useModal();
 
   // 데이터 삭제 요청
-  const deleteMutation = useDeleteShippingAddress(address.user_id);
+  const deleteMutation = useDeleteShippingAddress(address.userId);
 
   // 삭제 이벤트
   const handleRemove = useCallback(() => {
-    deleteMutation.mutate({ addressId: address.address_id});
+    deleteMutation.mutate({ addressId: address.addressId});
   }, [address, deleteMutation]);
 
   return (
@@ -40,7 +40,7 @@ function AddressRemove({ address }: Props) {
         handleConfirm={handleRemove}
       >
         <p className="text">정말로 <b>{address.name}</b> 배송지를 삭제하시겠어요?</p>
-        <p className="text"><i>{address.address} {address.address_detail}</i></p>
+        <p className="text"><i>{address.address} {address.addressDetail}</i></p>
       </ConfirmModal>
     </>
   );

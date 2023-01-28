@@ -12,15 +12,15 @@ export interface LoginTokenPayloadType {
   strategy: string;
 }
 
-export interface AddressType {
-  address_id: number;
-  user_id: number;
+export interface ShippingAddressType {
+  addressId: number;
+  userId: number;
   name: string;
   recipient: string;
   contact: string;
   postcode: string;
   address: string;
-  address_detail: string;
+  addressDetail: string;
   requirement: string;
   prime: string;
 }

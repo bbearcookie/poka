@@ -79,8 +79,8 @@ function AddressSection({ state, dispatch, changeInput, blurInput }: Props) {
           </Input>
           <Input
             type="text"
-            name="address_detail"
-            value={state.form.address_detail}
+            name="addressDetail"
+            value={state.form.addressDetail}
             placeholder="상세주소"
             maxLength={50}
             onChange={changeInput}
@@ -91,7 +91,7 @@ function AddressSection({ state, dispatch, changeInput, blurInput }: Props) {
               height: "2.5em"
             }}
           >
-            {state.message.address_detail && <InputMessage styles={{ margin: "0.5em 0 0 0" }}>{state.message.address_detail}</InputMessage>}
+            {state.message.addressDetail && <InputMessage styles={{ margin: "0.5em 0 0 0" }}>{state.message.addressDetail}</InputMessage>}
           </Input>
         </div>
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import Button from '@component/form/Button';
-import { AddressType } from '@type/user';
+import { ShippingAddressType } from '@type/user';
 
 interface Props {
-  address?: AddressType;
+  address?: ShippingAddressType;
   closeEditor: () => void;
 }
 const DefaultProps = {};

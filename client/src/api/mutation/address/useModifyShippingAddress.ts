@@ -15,7 +15,7 @@ export interface ParamType {
     contact: string;
     postcode: string;
     address: string;
-    address_detail: string;
+    addressDetail: string;
     requirement: string;
   }
 }

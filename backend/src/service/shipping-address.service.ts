@@ -1,19 +1,6 @@
 import db from '@config/database';
 import { RowDataPacket } from 'mysql2';
-import { AddressForm } from '@controller/shipping-address.ctrl';
-
-interface ShippingAddressType extends RowDataPacket {
-  address_id: number;
-  user_id: number;
-  name: string;
-  recipient: string;
-  contact: string;
-  postcode: string;
-  address: string;
-  address_detail: string;
-  requirement: string;
-  prime: string;
-}
+import { ShippingAddressType } from '@type/user';
 
 // 해당 사용자의 모든 배송지 조회
 export const selectUserShippingAddressList = async (userId: number) => {
@@ -21,12 +8,13 @@ export const selectUserShippingAddressList = async (userId: number) => {
 
   try {
     let sql = `
-    SELECT address_id, user_id, name, recipient, contact, postcode, address, address_detail, requirement, prime
+    SELECT address_id as addressId, user_id as userId, name, recipient, contact, postcode, address, address_detail, requirement, prime
     FROM ShippingAddress
     WHERE user_id=${con.escape(userId)}
     ORDER BY address_id`;
 
-    return await con.query<ShippingAddressType[]>(sql);
+    interface DataType extends ShippingAddressType, RowDataPacket {}
+    return await con.query<DataType[]>(sql);
   } catch (err) {
     throw err;
   } finally {
@@ -40,11 +28,12 @@ export const selectUserShippingAddressDetail = async (addressId: number) => {
 
   try {
     let sql = `
-    SELECT address_id, user_id, name, recipient, contact, postcode, address, address_detail, requirement, prime
+    SELECT address_id as addressId, user_id as userId, name, recipient, contact, postcode, address, address_detail, requirement, prime
     FROM ShippingAddress
     WHERE address_id=${con.escape(addressId)}`;
 
-    return await con.query<ShippingAddressType[]>(sql);
+    interface DataType extends ShippingAddressType, RowDataPacket {}
+    return await con.query<DataType[]>(sql);
   } catch (err) {
     throw err;
   } finally {

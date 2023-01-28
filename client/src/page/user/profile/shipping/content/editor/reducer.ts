@@ -6,7 +6,7 @@ export interface FormType {
   contact: string;
   postcode: string;
   address: string;
-  address_detail: string;
+  addressDetail: string;
   requirement: string;
 }
 
@@ -22,7 +22,7 @@ export const initialState: State = {
     contact: '',
     postcode: '',
     address: '',
-    address_detail: '',
+    addressDetail: '',
     requirement: ''
   },
   message: {
@@ -31,7 +31,7 @@ export const initialState: State = {
     contact: '',
     postcode: '',
     address: '',
-    address_detail: '',
+    addressDetail: '',
     requirement: ''
   }
 }

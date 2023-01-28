@@ -20,7 +20,7 @@ export const AddressForm = {
     body('address').trim()
       .not().isEmpty().withMessage('주소가 비어있어요.').bail()
       .isLength({ max: 250 }).withMessage('주소는 최대 250글자까지 입력할 수 있어요.').bail(),
-    body('address_detail').trim()
+    body('addressDetail').trim()
       .isLength({ max: 50 }).withMessage('상세 주소는 최대 50글자까지 입력할 수 있어요.').bail(),
     body('requirement').trim()
       .isLength({ max: 50 }).withMessage('배송 요청사항은 최대 50글자까지 입력할 수 있어요.').bail(),
@@ -31,7 +31,7 @@ export const AddressForm = {
     const contact = req.body.contact as unknown as string;
     const postcode = req.body.postcode as unknown as string;
     const address = req.body.address as unknown as string;
-    const addressDetail = req.body.address_detail as unknown as string;
+    const addressDetail = req.body.addressDetail as unknown as string;
     const requirement = req.body.requirement as unknown as string;
     const prime = '';
 
@@ -44,8 +44,8 @@ export const getUserShippingAddress = {
   validator: [
     isLoggedIn,
     param('userId')
-      .isNumeric().withMessage('user_id 는 숫자여야 해요.')
-      .custom((value) => parseInt(value) > 0).withMessage('user_id 가 정상적이지 않아요.'),
+      .isNumeric().withMessage('userId 는 숫자여야 해요.')
+      .custom((value) => parseInt(value) > 0).withMessage('userId 가 정상적이지 않아요.'),
     validate,
   ],
   controller: async (req: Request, res: Response, next: NextFunction) => {
@@ -70,8 +70,8 @@ export const postShippingAddress = {
     isLoggedIn,
     ...AddressForm.validator,
     param('userId')
-      .isNumeric().withMessage('user_id 는 숫자여야 해요.')
-      .custom((value) => parseInt(value) > 0).withMessage('user_id 가 정상적이지 않아요.'),
+      .isNumeric().withMessage('userId 는 숫자여야 해요.')
+      .custom((value) => parseInt(value) > 0).withMessage('userId 가 정상적이지 않아요.'),
     validate
   ],
   controller: async (req: Request, res: Response, next: NextFunction) => {
@@ -115,7 +115,7 @@ export const putShippingAddress = {
     if (!address) return res.status(404).json({ message: '수정하려는 배송지의 데이터가 서버에 존재하지 않아요.' });
 
     // 관리자이거나, 자기 자신의 정보에 대한 경우에만 접근 가능
-    if (!isAdminOrOwner(loggedUser, address.user_id)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
+    if (!isAdminOrOwner(loggedUser, address.userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
 
     await shippingAddressService.updateShippingAddress(addressId, { form });
     return res.status(200).json({ message: '배송지 정보를 수정했어요.' });
@@ -140,9 +140,9 @@ export const patchShippingAddressPrime = {
     if (!address) return res.status(404).json({ message: '수정하려는 배송지의 데이터가 서버에 존재하지 않아요.' });
 
     // 관리자이거나, 자기 자신의 정보에 대한 경우에만 접근 가능
-    if (!isAdminOrOwner(loggedUser, address.user_id)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
+    if (!isAdminOrOwner(loggedUser, address.userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
 
-    await shippingAddressService.updateUserShippingAddressPrimeFalse(address.user_id);
+    await shippingAddressService.updateUserShippingAddressPrimeFalse(address.userId);
     await shippingAddressService.updateShippingAddressPrime(addressId, 'true');
     return res.status(200).json({ message: '기본 배송지를 변경했어요.' });
 
@@ -165,13 +165,13 @@ export const deleteShippingAddress = {
     if (!address) return res.status(404).json({ message: '삭제하려는 배송지의 데이터가 서버에 존재하지 않아요.' });
 
     // 관리자이거나, 자기 자신의 정보에 대한 경우에만 접근 가능
-    if (!isAdminOrOwner(loggedUser, address.user_id)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
+    if (!isAdminOrOwner(loggedUser, address.userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
     await shippingAddressService.deleteShippingAddress(addressId);
 
     // 만약 배송자의 삭제로 인해서 기본 배송지가 사라진다면 기존의 배송지 중 하나를 기본 배송지로 설정
-    const [addresses] = await shippingAddressService.selectUserShippingAddressList(address.user_id);
+    const [addresses] = await shippingAddressService.selectUserShippingAddressList(address.userId);
     if (addresses.length > 0 && !addresses.find(item => item.prime === 'true')) {
-      await shippingAddressService.updateShippingAddressPrime(addresses.find(item => item.prime === 'false')?.address_id || 0, 'true');
+      await shippingAddressService.updateShippingAddressPrime(addresses.find(item => item.prime === 'false')?.addressId || 0, 'true');
     }
 
     return res.status(200).json({ message: '배송지를 삭제했어요.' });

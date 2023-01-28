@@ -28,14 +28,14 @@ function Success({ addresses }: Props) {
       </CardHeader>
       <CardBody styles={{ padding: "0" }}>
           {addresses?.addresses.filter((address) => address.prime === "true").map((address) =>
-          <Fragment key={address.address_id}>
-            {editorTarget === address.address_id && <Editor address={address} closeEditor={closeEditor} />}
-            {editorTarget !== address.address_id && <Address address={address} startEditor={() => startEditor(address.address_id)} />}
+          <Fragment key={address.addressId}>
+            {editorTarget === address.addressId && <Editor address={address} closeEditor={closeEditor} />}
+            {editorTarget !== address.addressId && <Address address={address} startEditor={() => startEditor(address.addressId)} />}
           </Fragment>)}
           {addresses?.addresses.filter((address) => address.prime === "false").map((address) =>
-          <Fragment key={address.address_id}>
-            {editorTarget === address.address_id && <Editor address={address} closeEditor={closeEditor} />}
-            {editorTarget !== address.address_id && <Address address={address} startEditor={() => startEditor(address.address_id)} />}
+          <Fragment key={address.addressId}>
+            {editorTarget === address.addressId && <Editor address={address} closeEditor={closeEditor} />}
+            {editorTarget !== address.addressId && <Address address={address} startEditor={() => startEditor(address.addressId)} />}
           </Fragment>)}
         {editorTarget === true && <Editor closeEditor={closeEditor} />}
         {editorTarget !== true && <AddButton addressLength={addresses?.addresses.length ? addresses.addresses.length : 0} startEditor={() => startEditor(true)} />}
