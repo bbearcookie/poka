@@ -1,21 +1,8 @@
 import jwt from 'jsonwebtoken';
-
-// 토큰에 들어갈 페이로드 타입
-export type UserType = {
-  user_id: number;
-  username: string;
-  role: string;
-  strategy: string;
-}
-
-// 액세스 토큰 타입
-export type TokenType = UserType & {
-  iat: number;
-  exp: number;
-}
+import { LoginTokenPayloadType, LoginTokenType } from '@type/user';
 
 // 로그인 토큰 생성
-export function createLoginToken(payload: UserType) {
+export function createLoginToken(payload: LoginTokenPayloadType) {
   if (!process.env.TOKEN_SECRET_KEY) throw new Error("TOKEN_SECRET_KEY is undefined");
   if (!process.env.ACCESS_TOKEN_EXPIRES) throw new Error("ACCESS_TOKEN_EXPIRES is undefined");
 
@@ -30,7 +17,7 @@ export function verifyToken(token: string) {
   if (!token) throw new Error("로그인 상태가 아니에요.");
 
   try {
-    const payload = jwt.verify(token, process.env.TOKEN_SECRET_KEY) as TokenType;
+    const payload = jwt.verify(token, process.env.TOKEN_SECRET_KEY) as LoginTokenType;
     return payload;
   } catch (err) {
     const error = (err as jwt.VerifyErrors);

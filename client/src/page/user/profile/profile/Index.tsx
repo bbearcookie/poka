@@ -9,7 +9,7 @@ interface Props {}
 const DefaultProps = {};
 
 function Profile({  }: Props) {
-  const userId = useAppSelector(state => state.auth.user_id);
+  const { userId } = useAppSelector(state => state.auth);
   const { status, data: user, error } = useUserQuery(userId);
 
   return (

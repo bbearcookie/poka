@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { body, oneOf, query, param } from 'express-validator';
 import { validate, isLoggedIn, isAdminOrOwner, createResponseMessage } from '@util/validator';
-import { UserType } from '@util/jwt';
+import { LoginTokenType } from '@type/user';
 import { TradeStateType } from '@type/trade';
 import * as userService from '@service/user.service';
 import * as photoService from '@service/photo.service';
@@ -87,20 +87,20 @@ export const postTrade = {
     validate
   ],
   controller: async (req: Request, res: Response, next: NextFunction) => {
-    const loggedUser = req.user as UserType;
+    const loggedUser = req.user as LoginTokenType;
     const amount = req.body.amount as number;
     const haveVoucherId = req.body.haveVoucherId as number;
     const wantPhotocardIds = req.body.wantPhotocardIds as number[];
 
     // 사용자 정보 확인
-    const [[user]] = await userService.selectUserDetailByUserID(loggedUser.user_id);
+    const [[user]] = await userService.selectUserDetailByUserID(loggedUser.userId);
     if (!user) return res.status(404).json({ message: '로그인한 사용자의 정보가 올바르지 않아요.' });
 
     // 소유권 정보 확인
     const [[voucher]] = await voucherService.selectVoucherDetail(haveVoucherId);
     if (!voucher) return res.status(404).json(createResponseMessage('haveVoucherId', '사용하려는 소유권이 존재하지 않아요.'));
     if (voucher.state !== 'available') return res.status(404).json(createResponseMessage('haveVoucherId', '사용하려는 소유권이 이용 가능한 상태가 아니에요.'));
-    if (voucher.user_id !== user.user_id) return res.status(404).json(createResponseMessage('haveVoucherId', '사용하려는 소유권이 당신의 것이 아니에요.'));
+    if (voucher.user_id !== user.userId) return res.status(404).json(createResponseMessage('haveVoucherId', '사용하려는 소유권이 당신의 것이 아니에요.'));
 
     // 받을 포토카드와 일치하는 소유권은 사용 불가능
     for (let photoId of wantPhotocardIds) {
@@ -111,7 +111,7 @@ export const postTrade = {
 
     // 교환글 작성
     await tradeService.writeTrade({
-      userId: loggedUser.user_id,
+      userId: loggedUser.userId,
       voucherId: haveVoucherId,
       amount,
       wantPhotocardIds
@@ -129,14 +129,14 @@ export const putTrade = {
     ...postTrade.validator,
   ],
   controller: async (req: Request, res: Response, next: NextFunction) => {
-    const loggedUser = req.user as UserType;
+    const loggedUser = req.user as LoginTokenType;
     const tradeId = Number(req.params.tradeId);
     const amount = req.body.amount as number;
     const haveVoucherId = req.body.haveVoucherId as number;
     const wantPhotocardIds = req.body.wantPhotocardIds as number[];
 
     // 사용자 정보 확인
-    const [[user]] = await userService.selectUserDetailByUserID(loggedUser.user_id);
+    const [[user]] = await userService.selectUserDetailByUserID(loggedUser.userId);
     if (!user) return res.status(404).json({ message: '로그인한 사용자의 정보가 올바르지 않아요.' });
 
     // 교환글 정보 확인
@@ -149,7 +149,7 @@ export const putTrade = {
     const [[voucher]] = await voucherService.selectVoucherDetail(haveVoucherId);
     if (!voucher) return res.status(404).json(createResponseMessage('haveVoucherId', '사용하려는 소유권이 존재하지 않아요.'));
     if (voucher.state !== 'available' && voucher.voucher_id !== trade.voucher_id) return res.status(404).json(createResponseMessage('haveVoucherId', '사용하려는 소유권이 이용 가능한 상태가 아니에요.'));
-    if (voucher.user_id !== user.user_id) return res.status(404).json(createResponseMessage('haveVoucherId', '사용하려는 소유권이 당신의 것이 아니에요.'));
+    if (voucher.user_id !== user.userId) return res.status(404).json(createResponseMessage('haveVoucherId', '사용하려는 소유권이 당신의 것이 아니에요.'));
 
     // 받을 포토카드와 일치하는 소유권은 사용 불가능
     for (let photoId of wantPhotocardIds) {
@@ -179,7 +179,7 @@ export const deleteTrade = {
     validate
   ],
   controller: async (req: Request, res: Response, next: NextFunction) => {
-    const loggedUser = req.user as UserType;
+    const loggedUser = req.user as LoginTokenType;
     const tradeId = Number(req.params.tradeId);
 
     const [[trade]] = await tradeService.selectTradeDetail(tradeId);
@@ -202,21 +202,21 @@ export const getTradeExchange = {
     validate
   ],
   controller: async (req: Request, res: Response, next: NextFunction) => {
-    const loggedUser = req.user as UserType;
+    const loggedUser = req.user as LoginTokenType;
     const tradeId = Number(req.params.tradeId);
 
     // 교환글 확인
     const [[trade]] = await tradeService.selectTradeDetail(tradeId);
     if (!trade) return res.status(404).json({ message: '해당 교환글이 존재하지 않아요.' });
     if (trade.state !== 'trading') return res.status(400).json({ message: '이미 교환이 완료된 교환글이에요.' });
-    if (trade.user_id === loggedUser.user_id) return res.status(403).json({ message: '자신이 작성한 교환글이에요.' });
+    if (trade.user_id === loggedUser.userId) return res.status(403).json({ message: '자신이 작성한 교환글이에요.' });
 
     // 교환글이 원하는 포토카드 확인
     const [wantcards] = (await tradeService.selectWantCardsOfTrade(tradeId));
     const wantcardIds = wantcards.map(item => item.photocard_id);
 
     // 사용자가 소유한 교환 가능 소유권 확인
-    const [vouchers] = await tradeService.selectHaveVouchersOfTrade(loggedUser.user_id, wantcardIds);
+    const [vouchers] = await tradeService.selectHaveVouchersOfTrade(loggedUser.userId, wantcardIds);
     if (vouchers.length < trade.amount) return res.status(400).json({ message: '보유하고 있는 조건에 맞는 소유권이 부족해요.' });
 
     return res.status(200).json({ message: '교환 가능한 소유권을 조회했어요.', vouchers });
@@ -235,7 +235,7 @@ export const postTradeExchange = {
     validate
   ],
   controller: async (req: Request, res: Response, next: NextFunction) => {
-    const loggedUser = req.user as UserType;
+    const loggedUser = req.user as LoginTokenType;
     const tradeId = Number(req.params.tradeId);
     const vouchers = req.body.vouchers as number[];
 
@@ -243,7 +243,7 @@ export const postTradeExchange = {
     const [[trade]] = await tradeService.selectTradeDetail(tradeId);
     if (!trade) return res.status(404).json({ message: '해당 교환글이 존재하지 않아요.' });
     if (trade.state !== 'trading') return res.status(400).json({ message: '이미 교환이 완료된 교환글이에요.' });
-    if (trade.user_id === loggedUser.user_id) return res.status(403).json({ message: '자신이 작성한 교환글이에요.' });
+    if (trade.user_id === loggedUser.userId) return res.status(403).json({ message: '자신이 작성한 교환글이에요.' });
     if (vouchers.length < trade.amount) return res.status(403).json({ message: `사용할 소유권을 ${trade.amount}개 선택해주세요.` });
     if (vouchers.length > trade.amount) return res.status(403).json({ message: `사용할 소유권을 ${trade.amount}개만 선택해주세요.` });
 
@@ -256,14 +256,14 @@ export const postTradeExchange = {
     for (let voucherId of vouchers) {
       const [[voucher]] = await voucherService.selectVoucherDetail(voucherId);
       if (!trade) return res.status(404).json({ message: '사용하려는 소유권이 존재하지 않아요.' });
-      if (voucher.user_id !== loggedUser.user_id) return res.status(403).json({ message: '사용하려는 소유권이 당신의 것이 아니에요.' });
+      if (voucher.user_id !== loggedUser.userId) return res.status(403).json({ message: '사용하려는 소유권이 당신의 것이 아니에요.' });
       if (voucher.state !== 'available') return res.status(400).json({ message: '사용하려는 소유권이 교환 가능한 상태가 아니에요.' });
     }
 
     // 교환 진행
     await tradeService.exchangeTrade({
       trade,
-      userId: loggedUser.user_id,
+      userId: loggedUser.userId,
       voucherIds: vouchers
     });
 
@@ -296,7 +296,7 @@ export const getUserTradeHistory = {
   },
   controlller: async (req: Request, res: Response, next: NextFunction) => {
     const itemPerPage = 20;
-    const loggedUser = req.user as UserType;
+    const loggedUser = req.user as LoginTokenType;
     const userId = Number(req.params.userId);
     const pageParam = req.query.pageParam ? Number(req.query.pageParam) : 0;
     const filter = req.query.filter as unknown as typeof getUserTradeHistory.filterType;

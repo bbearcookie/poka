@@ -20,15 +20,15 @@ function Success({ user }: Props) {
     <>
       {editMode ?
       <UserEditor
-        userId={user.user_id}
+        userId={user.userId}
         nickname={user.nickname}
-        imageName={userImage(user.image_name)}
+        imageName={userImage(user.imageName)}
         closeEditor={closeEditor}
       /> :
       <UserInfo
         username={user.username}
         nickname={user.nickname}
-        imageName={user.image_name}
+        imageName={user.imageName}
         startEditor={startEditor}
       />}
     </>

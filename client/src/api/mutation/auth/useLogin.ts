@@ -4,7 +4,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorType } from '@util/request';
 import { getErrorMessage } from '@util/request';
 import { useAppDispatch } from '@app/redux/reduxHooks';
-import { AuthType } from '@type/user';
+import { LoginTokenPayloadType } from '@type/user';
 import { login } from '@util/auth/authSlice';
 import { login as loginFn } from '@api/api/auth';
 
@@ -17,7 +17,7 @@ export interface ParamType {
 
 interface ResType {
   message: string;
-  user: AuthType;
+  user: LoginTokenPayloadType;
 }
 
 export default function useLogin<TParam>(

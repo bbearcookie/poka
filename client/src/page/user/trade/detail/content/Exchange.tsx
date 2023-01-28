@@ -18,7 +18,7 @@ interface Props {
 const DefaultProps = {};
 
 function Exchange({ trade }: Props) {
-  const auth = useAppSelector(state => state.auth);
+  const { userId } = useAppSelector(state => state.auth);
   const [select, setSelect] = useState<{ [x: number]: boolean }>({ });
   const modal = useModal();
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ function Exchange({ trade }: Props) {
   const { data: exchange, status } = useTradeExchangeQuery(trade.trade_id, {
     enabled: function() {
       if (trade.trade_id === 0) return false;
-      if (trade.user_id === auth.user_id) return false;
+      if (trade.user_id === userId) return false;
       return true;
     }(),
     onSuccess: (data) => {

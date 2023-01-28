@@ -14,7 +14,7 @@ interface Props {
 const DefaultProps = {};
 
 function TradeRemove({ trade }: Props) {
-  const auth = useAppSelector(state => state.auth);
+  const { userId } = useAppSelector(state => state.auth);
   const removeModal = useModal();
   const navigate = useNavigate();
 
@@ -37,7 +37,7 @@ function TradeRemove({ trade }: Props) {
   
   return (
     <>
-      {trade.state === 'trading' && trade.user_id === auth.user_id &&
+      {trade.state === 'trading' && trade.user_id === userId &&
       <RemoveCard
         titleText="교환글 삭제"
         cardStyles={{ marginBottom: "5em" }}

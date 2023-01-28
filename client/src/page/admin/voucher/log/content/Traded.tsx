@@ -23,7 +23,7 @@ function Traded({ originUser, log }: Props) {
         <UserProfile
           username={destUser.username}
           nickname={destUser.nickname}
-          imageName={userImage(destUser.image_name)}
+          imageName={userImage(destUser.imageName)}
         />}
         {!destUser && <SkeletonUserProfile />}
       </div>
@@ -33,7 +33,7 @@ function Traded({ originUser, log }: Props) {
         <UserProfile
           username={originUser.username}
           nickname={originUser.nickname}
-          imageName={userImage(originUser.image_name)}
+          imageName={userImage(originUser.imageName)}
         />}
         {!originUser && <SkeletonUserProfile />}
       </div>

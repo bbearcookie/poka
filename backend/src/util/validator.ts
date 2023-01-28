@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { validationResult } from 'express-validator';
-import { UserType, verifyToken } from '@util/jwt';
+import { verifyToken } from '@util/jwt';
+import { LoginTokenType } from '@type/user';
 import { removeFile } from './multer';
 import jwt from 'jsonwebtoken';
 
@@ -52,7 +53,7 @@ function checkLoggedIn(req: Request, res: Response) {
 export function isAdmin(req: Request, res: Response, next: NextFunction) {
   try {
     checkLoggedIn(req, res);
-    const user = req.user as UserType;
+    const user = req.user as LoginTokenType;
     if (user.role !== 'admin') return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
     next();
   } catch (err) {
@@ -84,7 +85,7 @@ export function createResponseMessage(param: string, message: string) {
 }
 
 // 관리자이거나, 로그인 한 사람이 리소스의 주인인지를 반환하는 함수
-export function isAdminOrOwner(user: UserType, ownerUserId: number) {
-  if (user.role === 'admin' || user.user_id === ownerUserId) return true;
+export function isAdminOrOwner(user: LoginTokenType, ownerUserId: number) {
+  if (user.role === 'admin' || user.userId === ownerUserId) return true;
   return false;
 }

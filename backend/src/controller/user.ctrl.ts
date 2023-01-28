@@ -3,7 +3,8 @@ import fs from 'fs/promises';
 import path from 'path';
 import { body, param } from 'express-validator';
 import { validate, isLoggedIn } from '@util/validator';
-import { UserType } from '@util/jwt';
+import { LoginTokenType } from '@type/user';
+import { isAdminOrOwner } from '@util/validator';
 import { removeFile } from '@util/multer';
 import { getTimestampFilename } from '@util/multer';
 import * as userService from '@service/user.service';
@@ -13,8 +14,8 @@ import imageUploader, { USER_IMAGE_DIR } from '@uploader/image.uploader';
 export const getUserDetail = {
   validator: [
     param('userId')
-      .isNumeric().withMessage('user_id 는 숫자여야 해요.')
-      .custom((value) => parseInt(value) > 0).withMessage('user_id 가 정상적이지 않아요.'),
+      .isNumeric().withMessage('userId는 숫자여야 해요.')
+      .custom((value) => parseInt(value) > 0).withMessage('userId가 정상적이지 않아요.'),
     validate
   ],
   controller: async (req: Request, res: Response, next: NextFunction) => {
@@ -25,10 +26,10 @@ export const getUserDetail = {
     
     return res.status(200).json({
       message: '사용자 상세 정보를 조회했어요.',
-      user_id: user.user_id,
+      userId: user.userId,
       nickname: user.nickname,
       username: user.username,
-      image_name: user.image_name
+      imageName: user.imageName
     });
     next();
   }
@@ -40,15 +41,15 @@ export const putUserProfile = {
   validator: [
     isLoggedIn,
     param('userId')
-      .isNumeric().withMessage('user_id 는 숫자여야 해요.')
-      .custom((value) => parseInt(value) > 0).withMessage('user_id 가 정상적이지 않아요.'),
+      .isNumeric().withMessage('userId는 숫자여야 해요.')
+      .custom((value) => parseInt(value) > 0).withMessage('userId가 정상적이지 않아요.'),
     body('nickname').trim()
       .not().isEmpty().withMessage('닉네임이 비어있어요.')
       .isLength({ max: 20 }).withMessage('닉네임은 최대 20글자까지 입력할 수 있어요.'),
     validate
   ],
   controller: async (req: Request, res: Response, next: NextFunction) => {
-    const loggedUser = req.user as UserType;
+    const loggedUser = req.user as LoginTokenType;
     const userId = Number(req.params.userId);
     const nickname = req.body.nickname as unknown as string;
     const file = req.file;
@@ -60,7 +61,7 @@ export const putUserProfile = {
     }
 
     // 관리자이거나, 자기 자신의 정보에 대한 경우에만 수정 가능
-    if (loggedUser.role !== 'admin' && user.user_id !== loggedUser.user_id) {
+    if (!isAdminOrOwner(loggedUser, user.userId)) {
       removeFile(file);
       return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
     }

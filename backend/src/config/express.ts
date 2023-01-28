@@ -2,13 +2,13 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import path from 'path';
-import { UserType } from '@util/jwt';
+import { LoginTokenType } from '@type/user';
 
 // 로그인 정보를 req.user 데이터를 넣기 위해 정의해줌
 declare global {
   namespace Express {
     interface Request {
-      user?: UserType;
+      user?: LoginTokenType;
     }
   }
 }

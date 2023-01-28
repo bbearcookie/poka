@@ -9,7 +9,7 @@ interface Props {}
 const DefaultProps = {};
 
 function Index({  }: Props) {
-  const userId = useAppSelector(state => state.auth.user_id);
+  const { userId } = useAppSelector(state => state.auth);
   const { status, data: addresses, error } = useShippingAddresses(userId);
 
   return (

@@ -17,7 +17,7 @@ function Issued({ originUser }: Props) {
       <UserProfile
         username={originUser.username}
         nickname={originUser.nickname}
-        imageName={originUser.image_name}
+        imageName={originUser.imageName}
       />}
       {!originUser && <SkeletonUserProfile />}
     </div>

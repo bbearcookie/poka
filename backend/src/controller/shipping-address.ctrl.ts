@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { body, param } from 'express-validator';
 import { validate, isLoggedIn, isAdminOrOwner } from '@util/validator';
-import { UserType } from '@util/jwt';
+import { LoginTokenType } from '@type/user';
 import * as userService from '@service/user.service';
 import * as shippingAddressService from '@service/shipping-address.service';
 
@@ -49,14 +49,14 @@ export const getUserShippingAddress = {
     validate,
   ],
   controller: async (req: Request, res: Response, next: NextFunction) => {
-    const loggedUser = req.user as UserType;
+    const loggedUser = req.user as LoginTokenType;
     const userId = Number(req.params.userId);
 
     const [[user]] = await userService.selectUserDetailByUserID(userId);
     if (!user) return res.status(404).json({ message: '수정하려는 사용자의 데이터가 서버에 존재하지 않아요.' });
 
     // 관리자이거나, 자기 자신의 정보에 대한 경우에만 접근 가능
-    if (!isAdminOrOwner(loggedUser, user.user_id)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
+    if (!isAdminOrOwner(loggedUser, user.userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
 
     const [addresses] = await shippingAddressService.selectUserShippingAddressList(userId);
     return res.status(200).json({ message: '해당 사용자의 배송지 목록을 조회했어요.', addresses });
@@ -75,7 +75,7 @@ export const postShippingAddress = {
     validate
   ],
   controller: async (req: Request, res: Response, next: NextFunction) => {
-    const loggedUser = req.user as UserType;
+    const loggedUser = req.user as LoginTokenType;
     const userId = Number(req.params.userId);
     const form = AddressForm.form(req);
 
@@ -83,7 +83,7 @@ export const postShippingAddress = {
     if (!user) return res.status(404).json({ message: '수정하려는 사용자의 데이터가 서버에 존재하지 않아요.' });
 
     // 관리자이거나, 자기 자신의 정보에 대한 경우에만 접근 가능
-    if (!isAdminOrOwner(loggedUser, user.user_id)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
+    if (!isAdminOrOwner(loggedUser, user.userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
 
     // 이미 배송지를 10개 이상 저장한 상태면 추가 불가능
     const [addresses] = await shippingAddressService.selectUserShippingAddressList(userId);
@@ -107,7 +107,7 @@ export const putShippingAddress = {
     validate
   ],
   controller: async (req: Request, res: Response, next: NextFunction) => {
-    const loggedUser = req.user as UserType;
+    const loggedUser = req.user as LoginTokenType;
     const addressId = Number(req.params.addressId);
     const form = AddressForm.form(req);
 
@@ -133,7 +133,7 @@ export const patchShippingAddressPrime = {
     validate
   ],
   controller: async (req: Request, res: Response, next: NextFunction) => {
-    const loggedUser = req.user as UserType;
+    const loggedUser = req.user as LoginTokenType;
     const addressId = Number(req.params.addressId);
 
     const [[address]] = await shippingAddressService.selectUserShippingAddressDetail(addressId);
@@ -158,7 +158,7 @@ export const deleteShippingAddress = {
     validate
   ],
   controller: async (req: Request, res: Response, next: NextFunction) => {
-    const loggedUser = req.user as UserType;
+    const loggedUser = req.user as LoginTokenType;
     const addressId = Number(req.params.addressId);
 
     const [[address]] = await shippingAddressService.selectUserShippingAddressDetail(addressId);

@@ -22,7 +22,7 @@ const DefaultProps = {};
 
 function Editor({ address, closeEditor }: Props) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const userId = useAppSelector(state => state.auth.user_id);
+  const { userId } = useAppSelector(state => state.auth);
 
   // 수정 모드일 경우 기본 값을 상태에 저장함.
   useEffect(() => {

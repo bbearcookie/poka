@@ -22,19 +22,19 @@ interface Props {
 const DefaultProps = {}
 function Navbar({  }: Props) {
   const show = useAppSelector((state) => state.sidebar.show);
-  const { user_id } = useAppSelector((state) => state.auth);
+  const { userId } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const userDropdown = useDropdown();
   const popper = usePopper(userDropdown.buttonElement, userDropdown.menuElement);
 
-  const { status, data: user, error } = useUserQuery(user_id);
+  const { status, data: user, error } = useUserQuery(userId);
   const logoutMutation = useLogout(
     (res) => {
       userDropdown.close();
       navigate('/login');
     }
-  )
+  );
 
   // 로그아웃 로직
   const handleLogout = useCallback((e: React.MouseEvent) => {
@@ -58,7 +58,7 @@ function Navbar({  }: Props) {
           >
             <img
               className="profile-img"
-              src={userImage(user?.image_name)}
+              src={userImage(user?.imageName)}
               width="50"
               height="50"
               alt="사용자"

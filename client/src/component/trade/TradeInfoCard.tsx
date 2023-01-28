@@ -25,7 +25,7 @@ function TradeInfoCard({ trade }: Props) {
       <CardHeader><h1 className="title">교환글 정보</h1></CardHeader>
       <CardList>
         <CardListItem title="작성자" styles={{ color: "#65748b" }}>
-          {status === 'success' && <UserProfile username={user.username} nickname={user.nickname} imageName={user.image_name} />}
+          {status === 'success' && <UserProfile username={user.username} nickname={user.nickname} imageName={user.imageName} />}
           {status === 'loading' && <SkeletonUserProfile />}
         </CardListItem>
         <CardListItem title="교환 상태" styles={{ color: "#65748b" }}>

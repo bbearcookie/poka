@@ -4,6 +4,7 @@ import { validate, createResponseMessage, isLoggedIn } from '@util/validator';
 import { encryptText } from '@util/encrypt';
 import { createLoginToken, verifyToken } from '@util/jwt';
 import * as userService from '@service/user.service';
+import { LoginTokenPayloadType } from '@type/user';
 
 // 회원가입
 export const postSignup = {
@@ -56,8 +57,8 @@ export const postLogin = {
     const encryptedPassword = encryptText(password, user.salt);
     if (user.password !== encryptedPassword) return res.status(409).json(createResponseMessage("password", "비밀번호가 일치하지 않아요."));
 
-    const payload = {
-      user_id: user.user_id,
+    const payload: LoginTokenPayloadType = {
+      userId: user.userId,
       username: user.username,
       role: user.role,
       strategy: user.strategy

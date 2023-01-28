@@ -20,14 +20,14 @@ const DefaultProps = {};
 
 function HistoryList({ startDate, endDate }: Props) {
   const queryClient = useQueryClient();
-  const { user_id } = useAppSelector(state => state.auth);
-  const { data: histories, refetch, isFetching, fetchNextPage, hasNextPage } = useUserTradeHistoryQuery(user_id, { startDate, endDate });
+  const { userId } = useAppSelector(state => state.auth);
+  const { data: histories, refetch, isFetching, fetchNextPage, hasNextPage } = useUserTradeHistoryQuery(userId, { startDate, endDate });
 
   // 검색 필터 변경시 데이터 리패칭
   const handleRefetch = useCallback(async () => {
-    queryClient.removeQueries(queryKey.userKeys.tradeHistory(user_id));
+    queryClient.removeQueries(queryKey.userKeys.tradeHistory(userId));
     refetch();
-  }, [user_id, queryClient, refetch]);
+  }, [userId, queryClient, refetch]);
   useUpdateEffect(() => {
     handleRefetch();
   }, [startDate, endDate]);
