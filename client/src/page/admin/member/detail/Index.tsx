@@ -21,8 +21,8 @@ function MemberDetailPage({  }: Props) {
 
   return (
     <div className="MemberDetailPage">
-      {member && member.group_id ?
-        <BackLabel to={`/admin/group/detail/${member.group_id}`} styles={{ marginBottom: "2em" }}>{member.group_name}</BackLabel>
+      {member && member.groupId ?
+        <BackLabel to={`/admin/group/detail/${member.groupId}`} styles={{ marginBottom: "2em" }}>{member.groupName}</BackLabel>
       : <BackLabel onClick={toBackPage} styles={{ marginBottom: "2em" }}>뒤로가기</BackLabel>}
 
       {status === 'success' && <Success member={member} memberId={memberId} />}

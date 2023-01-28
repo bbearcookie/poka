@@ -40,8 +40,8 @@ function MemberList({ group, groupId }: Props) {
             <>
               {group?.members.map((item, idx) => (
                 <Fragment key={idx}>
-                  {editorTarget === idx && <MemberEditor groupId={groupId} memberId={item.member_id} defaultValue={item.name} closeEditor={closeEditor} />}
-                  {editorTarget !== idx && <MemberInfo memberId={item.member_id} name={item.name} photoCnt={item.photo_cnt} startEditor={() => startEditor(idx)} />}
+                  {editorTarget === idx && <MemberEditor groupId={groupId} memberId={item.memberId} defaultValue={item.name} closeEditor={closeEditor} />}
+                  {editorTarget !== idx && <MemberInfo memberId={item.memberId} name={item.name} photoCnt={item.photoCount} startEditor={() => startEditor(idx)} />}
                 </Fragment>
               ))}
 

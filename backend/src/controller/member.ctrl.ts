@@ -25,11 +25,11 @@ export const getMemberDetail = {
     const [[member]] = await memberService.selectMemberDetail(memberId);
     if (!member) return res.status(404).json({ message: '해당 멤버의 데이터가 서버에 존재하지 않아요.' });
 
-    const [[group]] = await groupService.selectGroupDetail(member.group_id);
+    const [[group]] = await groupService.selectGroupDetail(member.groupId);
 
     return res.status(200).json({
       message: `${memberId}번 멤버의 상세 정보를 조회했습니다.`,
-      group_name: group?.name,
+      groupName: group?.name,
       ...member
     });
     next();
@@ -80,8 +80,8 @@ export const putMember = {
     await memberService.updateMember(memberId, name);
     return res.status(200).json({
       message: `멤버 ${member.name}의 이름을 ${name}(으)로 변경했어요.`,
-      groupId: member.group_id,
-      memberId: member.member_id
+      groupId: member.groupId,
+      memberId: member.memberId
     });
     next();
   }
@@ -103,8 +103,8 @@ export const deleteMember = {
     await memberService.deleteMember(memberId);
     return res.status(200).json({
       message: `멤버 ${member.name} 을(를) 삭제했어요.`,
-      groupId: member.group_id,
-      memberId: member.member_id
+      groupId: member.groupId,
+      memberId: member.memberId
     });
     next();
   }

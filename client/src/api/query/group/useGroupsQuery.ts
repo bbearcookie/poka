@@ -7,10 +7,10 @@ import * as queryKey from '@api/queryKey';
 export interface ResType {
   message: string;
   groups: {
-    group_id: number;
+    groupId: number;
     name: string;
-    image_name: string;
-    member_cnt: number;
+    imageName: string;
+    memberCount: number;
   }[];
 }
 

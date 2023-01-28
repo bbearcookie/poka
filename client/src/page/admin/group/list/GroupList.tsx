@@ -17,14 +17,14 @@ function GroupList({ groups }: Props) {
       {groups?.groups.map((item, idx) => (
         <tr key={idx}>
           <TableBodyItem styles={{ paddingLeft: "1.5em" }}>
-            <Link className="name-section" to={`/admin/group/detail/${item.group_id}`}>
-              <img src={groupImage(item.image_name)} width="60" height="60" alt={item.name} />
+            <Link className="name-section" to={`/admin/group/detail/${item.groupId}`}>
+              <img src={groupImage(item.imageName)} width="60" height="60" alt={item.name} />
               <span className="name">{item.name}</span>
             </Link>
           </TableBodyItem>
-          <TableBodyItem>{item.member_cnt}명</TableBodyItem>
+          <TableBodyItem>{item.memberCount}명</TableBodyItem>
           <TableBodyItem styles={{ paddingRight: "1.5em" }}>
-            <Link className="action-section" to={`/admin/group/detail/${item.group_id}`}>
+            <Link className="action-section" to={`/admin/group/detail/${item.groupId}`}>
               <IconButton icon={faArrowRight} />
             </Link>
           </TableBodyItem>

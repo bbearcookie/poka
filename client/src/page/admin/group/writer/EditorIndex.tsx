@@ -15,7 +15,7 @@ function GroupEditorPage({  }: Props) {
   return (
     <div className="GroupWriterPage">
       <h1 className="title-label">그룹 수정</h1>
-      {status === 'success' && <Form groupId={groupId} name={group?.name} imageName={groupImage(group?.image_name)} />}
+      {status === 'success' && <Form groupId={groupId} name={group?.name} imageName={groupImage(group?.imageName)} />}
     </div>
   );
 }

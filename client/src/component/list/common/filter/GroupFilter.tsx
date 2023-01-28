@@ -32,15 +32,15 @@ function GroupFilter({ filter, setGroups, toggleGroup, resetOnMount = DefaultPro
     let newGroups: GroupFilterType[] = [];
     if (resetOnMount) {
       newGroups = groupQuery.data.groups.map((group) => ({
-        groupId: group.group_id,
+        groupId: group.groupId,
         name: group.name,
         checked: false
       }));
     } else {
       newGroups = groupQuery.data.groups.map((group) => ({
-        groupId: group.group_id,
+        groupId: group.groupId,
         name: group.name,
-        checked: filter.find(item => item.checked && item.groupId === group.group_id) ? true : false
+        checked: filter.find(item => item.checked && item.groupId === group.groupId) ? true : false
       }));
     }
 
@@ -66,8 +66,8 @@ function GroupFilter({ filter, setGroups, toggleGroup, resetOnMount = DefaultPro
         <DropdownMenu popper={popper} menuRef={dropdown.menuRef} styles={{ minWidth: "10em", maxHeight: "20em" }}>
           {groupQuery.data?.groups.map((group, idx) => (
             <DropdownItem
-              key={group.group_id}
-              onClick={(e) => toggleGroup(group.group_id)}
+              key={group.groupId}
+              onClick={(e) => toggleGroup(group.groupId)}
             >
               <input
                 type="checkbox"

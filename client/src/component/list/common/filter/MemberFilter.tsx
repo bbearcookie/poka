@@ -36,15 +36,15 @@ function MemberFilter({
     let newMembers: MemberFilterType[] = [];
     if (resetOnMount) {
       newMembers = memberQuery.data.members.map((member) => ({
-        memberId: member.member_id,
+        memberId: member.memberId,
         name: member.name,
         checked: false
       }));
     } else {
       newMembers = memberQuery.data.members.map((member) => ({
-        memberId: member.member_id,
+        memberId: member.memberId,
         name: member.name,
-        checked: memberFilter.find(item => item.checked && item.memberId === member.member_id) ? true : false
+        checked: memberFilter.find(item => item.checked && item.memberId === member.memberId) ? true : false
       }));
     }
 
@@ -70,11 +70,11 @@ function MemberFilter({
         {!groupFilter.find(group => group.checked) && <DropdownItem>전체</DropdownItem>}
 
         {memberQuery.data?.members.map((member, idx) =>
-        groupFilter.find(group => group.groupId === member.group_id && group.checked) && 
+        groupFilter.find(group => group.groupId === member.groupId && group.checked) && 
         (
           <DropdownItem
-            key={member.member_id}
-            onClick={(e) => toggleMember(member.member_id)}
+            key={member.memberId}
+            onClick={(e) => toggleMember(member.memberId)}
           >
             <input 
               type="checkbox"

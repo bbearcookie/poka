@@ -93,7 +93,7 @@ export const putGroup = {
 
       // 기존의 이미지 파일 삭제
       if (process.env.INIT_CWD) {
-        try { fs.rm(path.join(process.env.INIT_CWD, GROUP_IMAGE_DIR, group.image_name)) }
+        try { fs.rm(path.join(process.env.INIT_CWD, GROUP_IMAGE_DIR, group.imageName)) }
         catch (err) { console.error(err); }
       }
     }
@@ -119,7 +119,7 @@ export const deleteGroup = {
 
     // 기존의 이미지 파일 삭제
     if (process.env.INIT_CWD) {
-      try { fs.rm(path.join(process.env.INIT_CWD, GROUP_IMAGE_DIR, group.image_name)) }
+      try { fs.rm(path.join(process.env.INIT_CWD, GROUP_IMAGE_DIR, group.imageName)) }
       catch (err) { console.error(err); }
     }
 

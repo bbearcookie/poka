@@ -6,11 +6,11 @@ import * as queryKey from '@api/queryKey';
 
 export interface ResType {
   message: string;
-  group_id: number;
-  group_name: string;
-  member_id: number;
+  groupId: number;
+  memberId: number;
+  groupName: string;
   name: string;
-  photo_cnt: number;
+  photoCount: number;
 }
 
 export default function useMemberQuery(

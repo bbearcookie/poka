@@ -7,8 +7,8 @@ export const selectAllMembersOfGroup = async (groupId: number) => {
 
   try {
     let sql = `
-    SELECT M.group_id, M.member_id, M.name,
-    (SELECT COUNT(*) FROM Photocard as P WHERE P.member_id=M.member_id) as photo_cnt
+    SELECT M.group_id as groupId, M.member_id as memberId, M.name,
+    (SELECT COUNT(*) FROM Photocard as P WHERE P.member_id=M.member_id) as photoCount
     FROM MemberData as M
     WHERE M.group_id=${con.escape(groupId)}`
 
@@ -25,7 +25,10 @@ export const selectAllMemberList = async () => {
   const con = await db.getConnection();
 
   try {
-    let sql = `SELECT member_id, group_id, name FROM MemberData`;
+    let sql = `
+    SELECT member_id as memberId, group_id as groupId, name
+    FROM MemberData`;
+
     return await con.query(sql);
   } catch (err) {
     throw err;
@@ -40,16 +43,16 @@ export const selectMemberDetail = async (memberId: number) => {
 
   try {
     let sql = `
-    SELECT M.member_id, M.group_id, M.name,
-    (SELECT COUNT(*) FROM Photocard as P WHERE P.member_id=M.member_id) as photo_cnt
+    SELECT M.member_id as memberId, M.group_id as groupId, M.name,
+    (SELECT COUNT(*) FROM Photocard as P WHERE P.member_id=M.member_id) as photoCount
     FROM MemberData as M
     WHERE M.member_id=${con.escape(memberId)}`;
 
     interface DataType extends RowDataPacket {
-      member_id: number;
-      group_id: number;
+      memberId: number;
+      groupId: number;
       name: string;
-      photo_cnt: number;
+      photoCount: number;
     }
 
     return await con.query<DataType[]>(sql);

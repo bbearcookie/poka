@@ -18,7 +18,7 @@ function Success({ member, memberId }: Props) {
     <>
       <section className="name-section">
         <p className="name-label">{member?.name}</p>
-        <p>그룹: <span className="group-name-label">{member?.group_name}</span></p>
+        <p>그룹: <span className="group-name-label">{member?.groupName}</span></p>
       </section>
 
       <Card styles={{ marginBottom: "5em" }}>
@@ -34,7 +34,7 @@ function Success({ member, memberId }: Props) {
           </section>
         </CardHeader>
         <CardBody>
-          <p className="text">{member?.photo_cnt} 종류</p>
+          <p className="text">{member?.photoCount} 종류</p>
         </CardBody>
       </Card>
 

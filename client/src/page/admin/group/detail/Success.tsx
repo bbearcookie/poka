@@ -17,7 +17,7 @@ function Success({ group, groupId }: Props) {
   return (
     <>
       <section className="group-section">
-        <img src={groupImage(group?.image_name)} width="60" height="60" alt={group?.name} />
+        <img src={groupImage(group?.imageName)} width="60" height="60" alt={group?.name} />
         <h1 className="name-label">{group?.name}</h1>
         <Link className="link-section" to={`/admin/group/editor/${groupId}`}>
           <Button

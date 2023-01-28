@@ -7,8 +7,8 @@ import * as queryKey from '@api/queryKey';
 export interface ResType {
   message: string;
   members: {
-    member_id: number;
-    group_id: number;
+    memberId: number;
+    groupId: number;
     name: string;
   }[];
 }

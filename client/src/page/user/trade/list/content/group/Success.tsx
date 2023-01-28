@@ -32,12 +32,12 @@ function Success({ groups, state, dispatch }: Props) {
       
       {groups.groups.map(group => 
         <li
-          className={classNames({"active": state.select.groupId === group.group_id})}
-          key={group.group_id}
-          value={group.group_id}
+          className={classNames({"active": state.select.groupId === group.groupId})}
+          key={group.groupId}
+          value={group.groupId}
           onClick={onSelectGroup}
         >
-          <img className="group-img" src={groupImage(group.image_name)} width="60" height="60" alt={group.name} />
+          <img className="group-img" src={groupImage(group.imageName)} width="60" height="60" alt={group.name} />
           <div className="group-name">{group.name}</div>
         </li>
       )}
