@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import useVoucherQuery from '@api/query/voucher/useVoucherQuery';
-import { faClose, faAdd } from '@fortawesome/free-solid-svg-icons';
+import { faAdd, faCheck } from '@fortawesome/free-solid-svg-icons';
 import useModal from '@hook/useModal';
 import TitleModal from '@component/modal/TitleModal';
 import PhotoInfoCard from '@component/photocard/photo/PhotoInfoCard';
@@ -11,6 +11,8 @@ import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Button from '@component/form/Button';
 import InputMessage from '@component/form/InputMessage';
+import { getErrorMessage } from '@util/request';
+import * as queryKey from '@api/queryKey';
 import { State as FormState, Action as FormAction } from '../reducer';
 
 interface Props {
@@ -21,7 +23,14 @@ const DefaultProps = {};
 
 function VoucherSection({ form, formDispatch }: Props) {
   const addModal = useModal();
-  const { status, data: voucher, error } = useVoucherQuery(form.data.haveVoucherId);
+  const { status, data: voucher, error } = useVoucherQuery(form.data.haveVoucherId, {
+    queryKey: queryKey.tradeKeys.writerVoucher(form.data.haveVoucherId),
+    refetchOnWindowFocus: false,
+    retry: false,
+    onError: (err) => {
+      formDispatch({ type: "SET_MESSAGE", target: 'haveVoucherId', value: getErrorMessage(err) });
+    }
+  });
 
   // 사용할 소유권 선택
   const changeVoucherId = useCallback((voucherId: number) => {
@@ -29,11 +38,6 @@ function VoucherSection({ form, formDispatch }: Props) {
     formDispatch({ type: "SET_MESSAGE", target: 'haveVoucherId', value: '' });
     addModal.close();
   }, [formDispatch, addModal]);
-
-  // 사용할 소유권 선택 해제
-  const removeVoucherId = useCallback(() => {
-    formDispatch({ type: 'SET_VOUCHER_ID', payload: 0 });
-  }, [formDispatch]);
 
   return (
     <>
@@ -70,7 +74,7 @@ function VoucherSection({ form, formDispatch }: Props) {
 
       <TitleModal hook={addModal} titleName="소유권 선택" styles={{ width: '75%' }}>
         <VoucherListCard
-          icon={faAdd}
+          icon={faCheck}
           handleClickIcon={changeVoucherId}
           defaultFilter={{
             owner: 'mine',

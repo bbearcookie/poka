@@ -19,7 +19,7 @@ export default function useGroupsQuery(
 ): UseQueryResult<ResType, AxiosError<ErrorType>> {
   return useQuery({
     queryKey: queryKey.groupKeys.all,
-    queryFn: fetchGroups,
+    queryFn: () => fetchGroups(),
     ...options
   });
 }

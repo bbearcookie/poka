@@ -1,5 +1,6 @@
-import React, { useEffect, useReducer, useCallback } from 'react';
+import React, { useReducer, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import produce from 'immer';
 import qs from 'qs';
 import useAddTrade from '@api/mutation/trade/useAddTrade';
 import Component from './Component';
@@ -12,7 +13,9 @@ const DefaultProps = {};
 function WriterIndex({  }: Props) {
   const querystring = qs.parse(window.location.search, { ignoreQueryPrefix: true });
   const voucherId = Number(querystring.voucherId) || 0;
-  const [form, formDispatch] = useReducer(reducer, initialState);
+  const [form, formDispatch] = useReducer(reducer, initialState, produce(draft => {
+    draft.data.haveVoucherId = voucherId;
+  }));
   const navigate = useNavigate();
 
   const postMutation = useAddTrade<keyof FormType>(
@@ -23,10 +26,6 @@ function WriterIndex({  }: Props) {
       });
     }
   );
-
-  useEffect(() => {
-    formDispatch({ type: 'SET_VOUCHER_ID', payload: voucherId });
-  }, [voucherId]);
 
   const onSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
