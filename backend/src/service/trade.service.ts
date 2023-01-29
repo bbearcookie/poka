@@ -75,7 +75,7 @@ export const selectTradeList = async (
       FROM TradeWantcard as T
       INNER JOIN Photocard as P ON T.photocard_id=P.photocard_id
       INNER JOIN MemberData as M ON P.member_id=M.member_id
-      WHERE T.trade_id=${con.escape(trades[i].trade_id)}
+      WHERE T.trade_id=${con.escape(trades[i].tradeId)}
       GROUP BY M.name`
       
       interface WantMemberType extends RowDataPacket {
