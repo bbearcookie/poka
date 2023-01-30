@@ -2,9 +2,8 @@ import React, { useEffect } from 'react';
 import useVerify from '@api/mutation/auth/useVerify';
 import { getUser } from '@util/auth/auth';
 
+// 로그인 확인
 function AuthCheck() {
-
-  // 액세스 토큰 검증 요청
   const postMutation = useVerify();
 
   useEffect(() => {
@@ -13,8 +12,7 @@ function AuthCheck() {
   }, []);
   
   return (
-    <>
-    </>
+    <></>
   );
 }
 

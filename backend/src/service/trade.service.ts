@@ -189,7 +189,7 @@ export const selectHaveVouchersOfTrade = async (userId: number, photoIds: number
       WHERE V.photocard_id IN (${con.escape(photoIds)})
       AND V.user_id=${con.escape(userId)}
       AND V.state='available'
-      GROUP BY photocard_id`;
+      GROUP BY P.photocard_id`;
 
       interface DataType extends RowDataPacket { }
       return await con.query<DataType[]>(sql);
