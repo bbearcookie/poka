@@ -11,7 +11,7 @@ export const selectUserShippingAddressList = async (userId: number) => {
     SELECT address_id as addressId, user_id as userId, name, recipient, contact, postcode, address, address_detail, requirement, prime
     FROM ShippingAddress
     WHERE user_id=${con.escape(userId)}
-    ORDER BY address_id`;
+    ORDER BY prime DESC, address_id`;
 
     interface DataType extends ShippingAddressType, RowDataPacket {}
     return await con.query<DataType[]>(sql);

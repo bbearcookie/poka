@@ -1,10 +1,12 @@
 import React, { useCallback } from 'react';
+import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
+import Button from '@component/form/Button';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
-import Button from '@component/form/Button';
+import { InputLine, LabelSection, InputSection } from '../AddressEditor';
 import { State, Action } from '../reducer';
 
 interface Props {
@@ -15,7 +17,7 @@ interface Props {
 }
 const DefaultProps = {};
 
-function AddressSection({ state, dispatch, changeInput, blurInput }: Props) {
+function Address({ state, dispatch, changeInput, blurInput }: Props) {
   const daumPostcode = useDaumPostcodePopup();
 
   // 다음 주소 API 팝업 열기
@@ -31,14 +33,13 @@ function AddressSection({ state, dispatch, changeInput, blurInput }: Props) {
   }, [daumPostcode, dispatch]);
 
   return (
-    <section className="input-line">
-      <section className="label-section">
+    <InputLine>
+      <LabelSection>
         <FontAwesomeIcon className="icon" icon={faLocationDot} width="1.5em" height="1.5em" color="#2678F3" />
         <span className="label">주소</span>
-      </section>
-
-      <section className="input-section">
-        <div className="address-section">
+      </LabelSection>
+      <InputSection>
+        <AddressSection>
           <Input
             type="text"
             name="postcode"
@@ -60,9 +61,9 @@ function AddressSection({ state, dispatch, changeInput, blurInput }: Props) {
             }}
             onClick={openAddressPopup}
           >주소 찾기</Button>
-        </div>
+        </AddressSection>
 
-        <div className="detail-address-section">
+        <AddressDetailSection>
           <Input
             type="text"
             name="address"
@@ -93,11 +94,28 @@ function AddressSection({ state, dispatch, changeInput, blurInput }: Props) {
           >
             {state.message.addressDetail && <InputMessage styles={{ margin: "0.5em 0 0 0" }}>{state.message.addressDetail}</InputMessage>}
           </Input>
-        </div>
-
-      </section>
-    </section>
+        </AddressDetailSection>
+      </InputSection>
+    </InputLine>
   );
 }
 
-export default AddressSection;
+export default Address;
+
+const AddressSection = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin-bottom: 0.5em;
+`
+
+const AddressDetailSection = styled.section`
+  display: flex;
+  gap: 0.5em;
+
+  .Input { flex-basis: 50%; }
+  
+  @media screen and (max-width: 50rem) {
+    flex-direction: column;
+  }
+`

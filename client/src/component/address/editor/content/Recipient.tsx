@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
+import { InputLine, LabelSection, InputSection } from '../AddressEditor';
 import { State, Action } from '../reducer';
 
 interface Props {
@@ -13,14 +14,14 @@ interface Props {
 }
 const DefaultProps = {};
 
-function RecipientSection({ state, dispatch, changeInput, blurInput }: Props) {
+function Recipient({ state, dispatch, changeInput, blurInput }: Props) {
   return (
-    <section className="input-line">
-      <section className="label-section">
+    <InputLine>
+      <LabelSection>
         <FontAwesomeIcon className="icon" icon={faUser} width="1.5em" height="1.5em" color="#EC1B5A" />
         <span className="label">수령인</span>
-      </section>
-      <section className="input-section">
+      </LabelSection>
+      <InputSection>
         <Input
           type="text"
           name="recipient"
@@ -36,9 +37,9 @@ function RecipientSection({ state, dispatch, changeInput, blurInput }: Props) {
         >
           {state.message.recipient && <InputMessage styles={{ margin: "0.5em 0 0 0" }}>{state.message.recipient}</InputMessage>}
         </Input>
-      </section>
-    </section>
+      </InputSection>
+    </InputLine>
   );
 }
 
-export default RecipientSection;
+export default Recipient;

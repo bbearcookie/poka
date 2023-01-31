@@ -4,20 +4,21 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 import Select from '@component/form/Select';
+import { InputLine, LabelSection, InputSection } from '../AddressEditor';
 import { State, Action, FormType } from '../reducer';
 
 interface Props {
   state: State;
   dispatch: React.Dispatch<Action>;
-  defaultShow?: boolean; // 직접 입력 input 창을 기본적으로 보여줄지 안보여줄지 설정. 수정 모드에서는 기본적으로 보여줘야 함.
   changeInput: React.ChangeEventHandler<HTMLInputElement>;
   blurInput: React.FocusEventHandler<HTMLInputElement>;
+  defaultShow?: boolean; // 직접 입력 input 창을 기본적으로 보여줄지 안보여줄지 설정. 수정 모드에서는 기본적으로 보여줘야 함.
 }
 const DefaultProps = {
   defaultShow: false
 };
 
-function RequirementSection({ state, dispatch, defaultShow = DefaultProps.defaultShow, changeInput, blurInput }: Props) {
+function Requirement({ state, dispatch, changeInput, blurInput, defaultShow = DefaultProps.defaultShow }: Props) {
   const [showRequirement, setShowRequirement] = useState(defaultShow);
 
   const onLoad = useCallback(() => {
@@ -37,12 +38,13 @@ function RequirementSection({ state, dispatch, defaultShow = DefaultProps.defaul
   }, [dispatch]);
 
   return (
-    <section className="input-line">
-      <section className="label-section">
+    <InputLine>
+      <LabelSection>
         <FontAwesomeIcon className="icon" icon={faInfoCircle} width="1.5em" height="1.5em" color="#F3E079" />
         <span className="label">배송 요청사항</span>
-      </section>
-      <section className="input-section">
+      </LabelSection>
+
+      <InputSection>
         <Select
           name="requirement"
           onChange={changeRequirement}
@@ -78,9 +80,9 @@ function RequirementSection({ state, dispatch, defaultShow = DefaultProps.defaul
         >
           {state.message.requirement && <InputMessage styles={{ margin: "0.5em 0 0 0" }}>{state.message.requirement}</InputMessage>}
         </Input>}
-      </section>
-    </section>
+      </InputSection>
+    </InputLine>
   );
 }
 
-export default RequirementSection;
+export default Requirement;

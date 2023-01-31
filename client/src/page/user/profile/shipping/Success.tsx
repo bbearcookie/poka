@@ -1,11 +1,11 @@
 import React, { useState, useCallback, Fragment } from 'react';
+import { ResType as AddressesResType } from '@api/query/address/useShippingAddresses';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Editor from './content/editor/Index';
-import Address from './content/address/Address';
 import AddButton from './content/AddButton';
-import { ResType as AddressesResType } from '@api/query/address/useShippingAddresses';
+import Address from './content/address/Index';
 
 interface Props {
   addresses: AddressesResType;
@@ -24,19 +24,14 @@ function Success({ addresses }: Props) {
   return (
     <Card styles={{ marginBottom: "5em" }}>
       <CardHeader>
-        <h1 className="subtitle-label">배송 정보</h1>
+        <h1 className="title">배송 정보</h1>
       </CardHeader>
       <CardBody styles={{ padding: "0" }}>
-          {addresses?.addresses.filter((address) => address.prime === "true").map((address) =>
-          <Fragment key={address.addressId}>
-            {editorTarget === address.addressId && <Editor address={address} closeEditor={closeEditor} />}
-            {editorTarget !== address.addressId && <Address address={address} startEditor={() => startEditor(address.addressId)} />}
-          </Fragment>)}
-          {addresses?.addresses.filter((address) => address.prime === "false").map((address) =>
-          <Fragment key={address.addressId}>
-            {editorTarget === address.addressId && <Editor address={address} closeEditor={closeEditor} />}
-            {editorTarget !== address.addressId && <Address address={address} startEditor={() => startEditor(address.addressId)} />}
-          </Fragment>)}
+        {addresses.addresses.map((address) => 
+        <Fragment key={address.addressId}>
+          {editorTarget === address.addressId && <Editor address={address} closeEditor={closeEditor} />}
+          {editorTarget !== address.addressId && <Address address={address} startEditor={() => startEditor(address.addressId)} />}
+        </Fragment>)}
         {editorTarget === true && <Editor closeEditor={closeEditor} />}
         {editorTarget !== true && <AddButton addressLength={addresses?.addresses.length ? addresses.addresses.length : 0} startEditor={() => startEditor(true)} />}
       </CardBody>

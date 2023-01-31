@@ -1,18 +1,14 @@
-import React, { useReducer, useEffect, useCallback } from 'react';
+import React, { useCallback, useReducer } from 'react';
+import produce from 'immer';
+import { useAppSelector } from '@app/redux/reduxHooks';
 import useModifyShippingAddress from '@api/mutation/address/useModifyShippingAddress';
 import useAddShippingAddress, { ResType } from '@api/mutation/address/useAddShippingAddress';
 import { AxiosResponse, AxiosError } from 'axios';
 import { ErrorType } from '@util/request';
-import { useAppSelector } from '@app/redux/reduxHooks';
+import Button from '@component/form/Button';
+import reducer, { initialState, FormType } from '@component/address/editor/reducer';
+import AddressEditor from '@component/address/editor/AddressEditor';
 import { ShippingAddressType } from '@type/user';
-import CardHeader from '@component/card/basic/CardHeader';
-import NameSection from './content/NameSection';
-import ContactSection from './content/ContactSection';
-import AddressSection from './content/AddressSection';
-import RequirementSection from './content/RequirementSection';
-import RecipientSection from './content/RecipientSection';
-import ButtonSection from './content/ButtonSection';
-import reducer, { initialState, FormType } from './reducer';
 
 interface Props {
   address?: ShippingAddressType;
@@ -20,25 +16,12 @@ interface Props {
 }
 const DefaultProps = {};
 
-function Editor({ address, closeEditor }: Props) {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const { userId } = useAppSelector(state => state.auth);
-
-  // 수정 모드일 경우 기본 값을 상태에 저장함.
-  useEffect(() => {
+function Index({ address, closeEditor }: Props) {
+  const [state, dispatch] = useReducer(reducer, initialState, produce(draft => {
     if (!address) return;
-    dispatch({ type: 'SET_FORM', form: address });
-  }, []);
-
-  // input 상태 값 변경
-  const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: 'SET_FORM_DATA', target: e.target.name as keyof FormType, value: e.target.value  });
-  }, [dispatch]);
-
-  // input 포커스 해제시 유효성 검사
-  const blurInput = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
-    dispatch({ type: 'SET_MESSAGE', target: e.target.name as keyof FormType, value: '' });
-  }, [dispatch]);
+    draft.form = address;
+  }));
+  const { userId } = useAppSelector(state => state.auth);
 
   // API 요청 성공시
   const onSuccess = useCallback((res: AxiosResponse<ResType, any>) => {
@@ -74,24 +57,34 @@ function Editor({ address, closeEditor }: Props) {
     }
     
     // 수정 모드일경우
-    if (address) putMutation.mutate({ addressId: address.addressId, body: data })
+    if (address) putMutation.mutate({ addressId: address.addressId, body: data });
     // 작성 모드일경우
     else postMutation.mutate({ userId, body: data });
 
   }, [address, state, userId, postMutation, putMutation]);
 
   return (
-    <CardHeader className="editor-section">
-      <form onSubmit={onSubmit}>
-        <NameSection state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
-        <RecipientSection state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
-        <ContactSection state={state} dispatch={dispatch} blurInput={blurInput} />
-        <AddressSection state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
-        <RequirementSection state={state} dispatch={dispatch} defaultShow={address ? true : false} changeInput={changeInput} blurInput={blurInput} />
-        <ButtonSection address={address} closeEditor={closeEditor} />
-      </form>
-    </CardHeader>
+    <AddressEditor state={state} dispatch={dispatch} address={address} onSubmit={onSubmit}>
+      <section className="button-section">
+        <Button 
+          type="submit"
+          styles={{
+            theme: "primary",
+            padding: "0.7em 1em",
+            marginLeft: "0.5em"
+          }}
+        >{address ? "수정" : "등록"}</Button>
+        <Button
+          onClick={closeEditor}
+          styles={{
+            theme: "gray-outlined",
+            padding: "0.7em 1em",
+            marginLeft: "0.5em"
+          }}
+        >취소</Button>
+      </section>
+    </AddressEditor>
   );
 }
 
-export default Editor;
+export default Index;
