@@ -24,19 +24,19 @@ function SearchLabelList({ state, dispatch }: Props) {
       {/* 그룹 관련 필터 */}
       {state.groups.map((group) => group.checked && (
       <SearchLabel
-        key={group.groupId}
+        key={group.id}
         category="그룹"
         text={group.name}
-        handleRemove={() => dispatch({ type: "TOGGLE_GROUP", groupId: group.groupId})}
+        handleRemove={() => dispatch({ type: "TOGGLE", target: "groups",  id: group.id})}
       />))}
 
       {/* 멤버 관련 필터 */}
       {state.members.map((member) => member.checked && (
       <SearchLabel
-        key={member.memberId}
+        key={member.id}
         category="멤버"
         text={member.name}
-        handleRemove={() => dispatch({ type: "TOGGLE_MEMBER", memberId: member.memberId})}
+        handleRemove={() => dispatch({ type: "TOGGLE", target: "members", id: member.id})}
       />))}
     </CardHeader>
   );

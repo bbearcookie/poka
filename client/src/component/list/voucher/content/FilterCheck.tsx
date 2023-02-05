@@ -1,57 +1,55 @@
 import React, { useCallback } from 'react';
-import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
-import { setGroups, setMembers, toggleGroup, toggleMember, setVoucherState } from '../voucherListSlice';
 import { DefaultFilterType } from '../VoucherListCard';
 import GroupFilter from '@component/list/common/filter/GroupFilter';
 import MemberFilter from '@component/list/common/filter/MemberFilter';
 import StateFilter from '@component/list/common/filter/StateFilter';
-import { GroupFilterType, MemberFilterType } from '@type/listFilter';
+import { FilterItemType } from '@type/listFilter';
+import { State, Action } from '../reducer';
 
 interface Props {
-  resetOnMount: boolean;
+  state: State;
+  dispatch: React.Dispatch<Action>;
   defaultFilter: DefaultFilterType;
 }
 const DefaultProps = {};
 
-function FilterCheck({ resetOnMount, defaultFilter }: Props) {
-  const filter = useAppSelector((state) => state.voucherList.filter);
-  const dispatch = useAppDispatch();
+function FilterCheck({ state, dispatch, defaultFilter }: Props) {
 
-  const handleSetGroups = useCallback((groups: GroupFilterType[]) => {
-    dispatch(setGroups(groups));
+  const handleSetGroups = useCallback((groups: FilterItemType[]) => {
+    dispatch({ type: "SET", target: "groups", payload: groups });
   }, [dispatch]);
 
   const handleToggleGroup = useCallback((groupId: number) => {
-    dispatch(toggleGroup(groupId));
+    dispatch({ type: "TOGGLE", target: "groups", id: groupId });
   }, [dispatch]);
 
-  const handleSetMembers = useCallback((members: MemberFilterType[]) => {
-    dispatch(setMembers(members));
+  const handleSetMembers = useCallback((members: FilterItemType[]) => {
+    dispatch({ type: "SET", target: "members", payload: members });
   }, [dispatch]);
 
   const handleToggleMember = useCallback((memberId: number) => {
-    dispatch(toggleMember(memberId));
+    dispatch({ type: "TOGGLE", target: "members", id: memberId });
   }, [dispatch]);
 
   return (
     <section className="check-section">
       <GroupFilter
-        filter={filter.groups}
+        filter={state.groups}
         setGroups={handleSetGroups}
         toggleGroup={handleToggleGroup}
       />
 
       <MemberFilter
-        groupFilter={filter.groups}
-        memberFilter={filter.members}
+        groupFilter={state.groups}
+        memberFilter={state.members}
         setMembers={handleSetMembers}
         toggleMember={handleToggleMember}
       />
 
       {defaultFilter.state === 'all' &&
       <StateFilter
-        filter={filter.state}
-        changeFilter={(value) => dispatch(setVoucherState(value))}
+        filter={state.state}
+        changeFilter={(value) => dispatch({ type: "SET_VOUCHER_STATE", value })}
       />}
     </section>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import useMembersQuery from '@api/query/member/useMembersQuery';
-import { GroupFilterType, MemberFilterType } from '@type/listFilter';
+import { FilterItemType } from '@type/listFilter';
 import { usePopper } from 'react-popper';
 import useDropdown from '@hook/useDropdown';
 import Dropdown from '@component/dropdown/Dropdown';
@@ -11,9 +11,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
-  groupFilter: GroupFilterType[];
-  memberFilter: MemberFilterType[];
-  setMembers: (members: MemberFilterType[]) => void;
+  groupFilter: FilterItemType[];
+  memberFilter: FilterItemType[];
+  setMembers: (members: FilterItemType[]) => void;
   toggleMember: (memberId: number) => void;
 }
 
@@ -28,11 +28,11 @@ function MemberFilter({
   const initMember = useCallback(() => {
     if (!memberQuery.data) return;
 
-    let newMembers: MemberFilterType[] = [];
+    let newMembers: FilterItemType[] = [];
     newMembers = memberQuery.data.members.map((member) => ({
-      memberId: member.memberId,
+      id: member.memberId,
       name: member.name,
-      checked: memberFilter.find(item => item.checked && item.memberId === member.memberId) ? true : false
+      checked: memberFilter.find(item => item.checked && item.id === member.memberId) ? true : false
     }));
 
     setMembers(newMembers);
@@ -57,7 +57,7 @@ function MemberFilter({
         {!groupFilter.find(group => group.checked) && <DropdownItem>전체</DropdownItem>}
 
         {memberQuery.data?.members.map((member, idx) =>
-        groupFilter.find(group => group.groupId === member.groupId && group.checked) && 
+        groupFilter.find(group => group.id === member.groupId && group.checked) && 
         (
           <DropdownItem
             key={member.memberId}

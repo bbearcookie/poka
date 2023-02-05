@@ -3,7 +3,7 @@ import { AxiosError } from 'axios';
 import { ErrorType } from '@util/request';
 import { fetchVouchers } from '@api/api/voucher';
 import { VoucherStateKey } from "@type/voucher";
-import { FilterType } from '@component/list/voucher/voucherListSlice';
+import { State as FilterType } from '@component/list/voucher/reducer';
 import { VoucherType } from '@type/voucher';
 import * as queryKey from '@api/queryKey';
 
@@ -35,10 +35,10 @@ export default function useVouchersQuery(
   const refinedFilter = {
     groupId: filter.groups
       .filter(item => item.checked)
-      .map(item => item.groupId),
+      .map(item => item.id),
     memberId: filter.members
       .filter(item => item.checked)
-      .map(item => item.memberId),
+      .map(item => item.id),
     photoName: filter.names.map(item => item.value),
     userName: filter.usernames.map(item => item.value),
     voucherState: filter.state

@@ -7,12 +7,12 @@ import DropdownMenu from '@component/dropdown/DropdownMenu';
 import DropdownItem from '@component/dropdown/DropdownItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import { GroupFilterType } from '@type/listFilter';
+import { FilterItemType } from '@type/listFilter';
 import useGroupsQuery from '@api/query/group/useGroupsQuery';
 
 interface Props {
-  filter: GroupFilterType[];
-  setGroups: (groups: GroupFilterType[]) => void;
+  filter: FilterItemType[];
+  setGroups: (groups: FilterItemType[]) => void;
   toggleGroup: (groupId: number) => void;
 }
 
@@ -25,11 +25,11 @@ function GroupFilter({ filter, setGroups, toggleGroup }: Props) {
   const initGroup = useCallback(() => {
     if (!groupQuery.data) return;
 
-    let newGroups: GroupFilterType[] = [];
+    let newGroups: FilterItemType[] = [];
     newGroups = groupQuery.data.groups.map((group) => ({
-      groupId: group.groupId,
+      id: group.groupId,
       name: group.name,
-      checked: filter.find(item => item.checked && item.groupId === group.groupId) ? true : false
+      checked: filter.find(item => item.checked && item.id === group.groupId) ? true : false
     }));
 
     setGroups(newGroups);

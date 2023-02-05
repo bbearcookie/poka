@@ -2,15 +2,17 @@ import React, { Fragment, useCallback } from 'react';
 import useVouchersQuery from '@api/query/voucher/useVouchersQuery';
 import { useUpdateEffect } from 'react-use';
 import { useQueryClient } from '@tanstack/react-query';
-import { useAppSelector } from '@app/redux/reduxHooks';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import * as queryKey from '@api/queryKey';
 import NextPageFetcher from '@component/list/NextPageFetcher';
 import VoucherCard from '@component/photocard/voucher/VoucherCard';
 import SkeletonVoucherCard from '@component/photocard/voucher/SkeletonVoucherCard';
 import { DefaultFilterType } from '../VoucherListCard';
+import { State, Action } from '../reducer';
 
 interface Props {
+  state: State;
+  dispatch: React.Dispatch<Action>;
   defaultFilter: DefaultFilterType;
   icon?: IconDefinition;
   handleClickIcon?: (photocardId: number) => void;
@@ -18,13 +20,12 @@ interface Props {
 }
 const DefaultProps = {};
 
-function VoucherList({ defaultFilter, icon, handleClickIcon }: Props) {
-  const filter = useAppSelector((state) => state.voucherList.filter);
+function VoucherList({ state, dispatch, defaultFilter, icon, handleClickIcon }: Props) {
   const queryClient = useQueryClient();
 
   // 데이터 가져오기
   const { data: vouchers, refetch, isFetching, fetchNextPage, hasNextPage }
-  = useVouchersQuery(filter);
+  = useVouchersQuery(state);
 
   // 검색 필터 변경시 데이터 리패칭
   const handleRefetch = useCallback(async () => {
@@ -33,7 +34,7 @@ function VoucherList({ defaultFilter, icon, handleClickIcon }: Props) {
   }, [queryClient, refetch]);
   useUpdateEffect(() => {
     handleRefetch();
-  }, [filter]);
+  }, [state]);
 
   return (
     <section className="item-section">

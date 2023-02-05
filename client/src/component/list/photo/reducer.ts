@@ -1,15 +1,14 @@
 import produce from "immer";
-import { GroupFilterType, MemberFilterType } from "@type/listFilter";
+import { FilterItemType } from "@type/listFilter";
 
 let nextId = 0; // names 추가/삭제에 사용되는 변수
-
 export interface State {
   names: {
     id: number;
     value: string;
   }[];
-  groups: GroupFilterType[];
-  members: MemberFilterType[];
+  groups: FilterItemType[];
+  members: FilterItemType[];
 }
 
 export const initialState: State = {
@@ -20,25 +19,17 @@ export const initialState: State = {
 
 export type Action =
 | {
-  type: "SET_GROUPS";
+  type: "SET";
+  target: "groups" | "members",
   payload: {
-    groupId: number;
+    id: number;
     name: string;
     checked: boolean;
   }[]; 
 } | {
-  type: "SET_MEMBERS";
-  payload: {
-    memberId: number;
-    name: string;
-    checked: boolean;
-  }[];
-} | {
-  type: "TOGGLE_GROUP";
-  groupId: number;
-} | {
-  type: "TOGGLE_MEMBER";
-  memberId: number;
+  type: "TOGGLE";
+  target: "groups" | "members"
+  id: number;
 } | {
   type: "ADD_NAME",
   payload: string;
@@ -49,26 +40,14 @@ export type Action =
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case "SET_GROUPS":
+    case "SET":
       return produce(state, draft => {
-        draft.groups = action.payload;
+        draft[action.target] = action.payload;
       });
-    case "SET_MEMBERS":
+    case "TOGGLE":
       return produce(state, draft => {
-        draft.members = action.payload;
-      });
-    case "TOGGLE_GROUP":
-      return produce(state, draft => {
-        draft.groups = state.groups.map(
-          (item) => item.groupId === action.groupId ?
-          { ...item, checked: !item.checked }:
-          { ...item }
-        )
-      });
-    case "TOGGLE_MEMBER":
-      return produce(state, draft => {
-        draft.members = state.members.map(
-          (item) => item.memberId === action.memberId ?
+        draft[action.target] = state[action.target].map(
+          (item) => item.id === action.id ?
           { ...item, checked: !item.checked }:
           { ...item }
         )

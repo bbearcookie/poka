@@ -32,10 +32,10 @@ export default function usePhotosQuery(
   const refinedFilter = {
     groupId: filter.groups
       .filter(item => item.checked)
-      .map(item => item.groupId),
+      .map(item => item.id),
     memberId: filter.members
       .filter(item => item.checked)
-      .map(item => item.memberId),
+      .map(item => item.id),
     photoName: filter.names.map(item => item.value)
   }
 
