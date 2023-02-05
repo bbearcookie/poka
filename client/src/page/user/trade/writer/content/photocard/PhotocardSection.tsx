@@ -89,7 +89,6 @@ function PhotocardSection({ form, formDispatch }: Props) {
 
       <TitleModal hook={addModal} titleName="포토카드 선택" styles={{ width: '75%' }}>
         <PhotoListCard
-          resetOnMount={true}
           icon={faAdd}
           handleClickIcon={addWantPhotocardId}
           cardStyles={{ border: "none" }}

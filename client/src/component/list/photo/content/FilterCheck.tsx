@@ -1,47 +1,42 @@
 import React, { useCallback } from 'react';
-import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
-import { setGroups, setMembers, toggleGroup, toggleMember } from '../photoListCardSlice';
 import GroupFilter from '@component/list/common/filter/GroupFilter';
 import MemberFilter from '@component/list/common/filter/MemberFilter';
 import { GroupFilterType, MemberFilterType } from '@type/listFilter';
+import { State, Action } from '../reducer';
 
 interface Props {
-  resetOnMount: boolean;
+  state: State;
+  dispatch: React.Dispatch<Action>;
 }
 const DefaultProps = {};
 
-function FilterCheck({ resetOnMount }: Props) {
-  const filter = useAppSelector((state) => state.photoListCard.filter);
-  const dispatch = useAppDispatch();
-  
+function FilterCheck({ state, dispatch }: Props) {
   const handleSetGroups = useCallback((groups: GroupFilterType[]) => {
-    dispatch(setGroups(groups));
+    dispatch({ type: "SET_GROUPS", payload: groups });
   }, [dispatch]);
 
   const handleToggleGroup = useCallback((groupId: number) => {
-    dispatch(toggleGroup(groupId));
+    dispatch({ type: "TOGGLE_GROUP", groupId });
   }, [dispatch]);
 
   const handleSetMembers = useCallback((members: MemberFilterType[]) => {
-    dispatch(setMembers(members));
+    dispatch({ type: "SET_MEMBERS", payload: members });
   }, [dispatch]);
 
   const handleToggleMember = useCallback((memberId: number) => {
-    dispatch(toggleMember(memberId));
+    dispatch({ type: "TOGGLE_MEMBER", memberId });
   }, [dispatch]);
 
   return (
     <section className="check-section">
       <GroupFilter
-        resetOnMount={resetOnMount}
-        filter={filter.groups}
+        filter={state.groups}
         setGroups={handleSetGroups}
         toggleGroup={handleToggleGroup}
       />
       <MemberFilter
-        resetOnMount={resetOnMount}
-        groupFilter={filter.groups}
-        memberFilter={filter.members}
+        groupFilter={state.groups}
+        memberFilter={state.members}
         setMembers={handleSetMembers}
         toggleMember={handleToggleMember}
       />

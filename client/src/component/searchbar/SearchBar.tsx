@@ -1,58 +1,44 @@
 import React, { useState, useCallback } from 'react';
+import { Props as InputProps } from '@component/searchbar/Input';
 import styled from 'styled-components';
 import classNames from 'classnames';
 import Input from './Input';
 import Button from './Button';
 
-export interface CommonSearchBarProps {
-  type: React.HTMLInputTypeAttribute;
-  name: string;
-  value?: any;
-  autoComplete?: string;
-  maxLength?: number;
-  placeholder?: string;
+interface Props {
+  inputProps: InputProps;
   handleInputChange?: React.ChangeEventHandler<HTMLInputElement>;
   handleSubmit?: () => void;
-}
-
-interface Props extends CommonSearchBarProps {
   styles?: StylesProps;
   children?: React.ReactNode;
 }
-const DefaultProps = {
-  autoComplete: 'off',
-};
-function SearchBar(p: Props & typeof DefaultProps) {
+function SearchBar({inputProps, handleInputChange, handleSubmit, styles, children}: Props) {
   const [active, setActive] = useState(false);
 
   // 엔터 입력시 submit 동작
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (!p.handleSubmit) return;
+    if (!handleSubmit) return;
+
     if (e.key === 'Enter') {
       e.preventDefault();
-      p.handleSubmit();
+      handleSubmit();
     }
-  }, [p]);
+  }, [handleSubmit]);
 
   return (
     <StyledSearchBar
       className={classNames("SearchBar", {"active": active})}
-      {...p.styles} {...p}
+      {...styles}
     >
       <Input
-        type={p.type}
-        name={p.name}
-        value={p.value}
-        placeholder={p.placeholder}
-        maxLength={p.maxLength}
-        autoComplete={p.autoComplete}
-        onChange={p.handleInputChange}
+        {...inputProps}
         onFocus={(e) => setActive(true)}
         onBlur={(e) => setActive(false)}
+        onChange={handleInputChange}
         onKeyDown={handleKeyDown}
       />
-      {p.children}
-      <Button onClick={p.handleSubmit} />
+      {children}
+      <Button onClick={handleSubmit} />
     </StyledSearchBar>
   );
 }

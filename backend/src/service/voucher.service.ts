@@ -83,8 +83,10 @@ export const selectVoucherList = async (
 
     // 조건 처리
     sql += where.toString();
-    sql += `ORDER BY FIELD(state, 'available', 'trading', 'shipping', 'shipped') ASC,
-    voucher_id DESC `;
+    sql += `
+    ORDER BY FIELD(state, 'available', 'trading', 'shipping', 'shipped') ASC,
+    V.photocard_id, 
+    V.voucher_id DESC `;
 
     // 페이지 조건
     sql += `LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;

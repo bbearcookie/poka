@@ -15,15 +15,10 @@ interface Props {
   memberFilter: MemberFilterType[];
   setMembers: (members: MemberFilterType[]) => void;
   toggleMember: (memberId: number) => void;
-  resetOnMount?: boolean;
 }
-const DefaultProps = {
-  resetOnMount: false
-};
 
 function MemberFilter({
   groupFilter, memberFilter, setMembers, toggleMember,
-  resetOnMount = DefaultProps.resetOnMount
 }: Props) {
   const dropdown = useDropdown();
   const popper = usePopper(dropdown.buttonElement, dropdown.menuElement, {});
@@ -34,22 +29,14 @@ function MemberFilter({
     if (!memberQuery.data) return;
 
     let newMembers: MemberFilterType[] = [];
-    if (resetOnMount) {
-      newMembers = memberQuery.data.members.map((member) => ({
-        memberId: member.memberId,
-        name: member.name,
-        checked: false
-      }));
-    } else {
-      newMembers = memberQuery.data.members.map((member) => ({
-        memberId: member.memberId,
-        name: member.name,
-        checked: memberFilter.find(item => item.checked && item.memberId === member.memberId) ? true : false
-      }));
-    }
+    newMembers = memberQuery.data.members.map((member) => ({
+      memberId: member.memberId,
+      name: member.name,
+      checked: memberFilter.find(item => item.checked && item.memberId === member.memberId) ? true : false
+    }));
 
     setMembers(newMembers);
-  }, [memberQuery.data, memberFilter, resetOnMount, setMembers]);
+  }, [memberQuery.data, memberFilter, setMembers]);
   useEffect(() => {
     initMember();
   }, [memberQuery.data]);

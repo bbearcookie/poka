@@ -66,7 +66,7 @@ function VoucherListCard({
   return (
     <Card styles={cardStyles}>
       <CardHeader styles={{ padding: "0", borderBottom: "0" }}>
-        {defaultFilter.owner === 'all' && <SearchInput keywords={SearchKeywords} handleAddKeyword={handleAddKeyword} />}
+        {defaultFilter.owner === 'all' && <SearchInput keywords={SearchKeywords} addKeyword={handleAddKeyword} />}
         <SearchLabelList defaultFilter={defaultFilter} />
       </CardHeader>
       <CardBody>

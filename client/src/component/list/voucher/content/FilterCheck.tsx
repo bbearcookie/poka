@@ -36,14 +36,12 @@ function FilterCheck({ resetOnMount, defaultFilter }: Props) {
   return (
     <section className="check-section">
       <GroupFilter
-        resetOnMount={resetOnMount}
         filter={filter.groups}
         setGroups={handleSetGroups}
         toggleGroup={handleToggleGroup}
       />
 
       <MemberFilter
-        resetOnMount={resetOnMount}
         groupFilter={filter.groups}
         memberFilter={filter.members}
         setMembers={handleSetMembers}

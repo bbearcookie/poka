@@ -5,16 +5,16 @@ import CardHeader from '@component/card/basic/CardHeader';
 
 interface Props {
   keywords?: { [name: string]: string; };
-  handleAddKeyword?: (type: string, value: string) => void;
+  addKeyword?: (type: string, value: string) => void;
 }
 const DefaultProps = {
   keywords: { 'DEFAULT': '키워드' },
-  handleAddKeyword: (type: string, value: string) => {}
+  addKeyword: (type: string, value: string) => {}
 };
 
 function SearchInput({
   keywords = DefaultProps.keywords,
-  handleAddKeyword = DefaultProps.handleAddKeyword
+  addKeyword = DefaultProps.addKeyword
 }: Props) {
   const keywordsEntries = Object.entries(keywords);
   const [input, setInput] = useState('');
@@ -35,9 +35,9 @@ function SearchInput({
   const onSubmit = useCallback(() => {
     const value = input.trim();
     if (!value) return;
-    handleAddKeyword(select, value);
+    addKeyword(select, value);
     setInput('');
-  }, [select, input, handleAddKeyword]);
+  }, [select, input, addKeyword]);
 
   return (
     <CardHeader className="search-bar-section">
@@ -52,11 +52,13 @@ function SearchInput({
         {keywordsEntries.map((item, idx) => <option key={idx} value={item[0]}>{item[1]}</option>)}
       </Select>}
       <SearchBar
-        type="text"
-        name="search"
-        value={input}
-        autoComplete="off"
-        placeholder={`${keywords[select]}(으)로 검색`}
+        inputProps={{
+          type: "text",
+          name: "search",
+          value: input,
+          autoComplete: "off",
+          placeholder: `${keywords[select]}(으)로 검색`,
+        }}
         handleInputChange={changeInput}
         handleSubmit={onSubmit}
         styles={{

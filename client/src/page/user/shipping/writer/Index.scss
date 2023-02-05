@@ -15,6 +15,11 @@
     .title { flex-grow: 1; }
   }
 
+  .voucher-section {
+    display: flex;
+    margin-bottom: 5em;
+  }
+
   .button-section { 
     display: flex;
     justify-content: flex-end;

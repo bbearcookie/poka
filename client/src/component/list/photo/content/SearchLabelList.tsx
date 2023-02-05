@@ -1,44 +1,42 @@
 import React from 'react';
-import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
 import CardHeader from '@component/card/basic/CardHeader';
 import SearchLabel from '@component/label/SearchLabel';
-import { removeName, toggleGroup, toggleMember } from '../photoListCardSlice';
+import { State, Action } from '../reducer';
 
 interface Props {
+  state: State;
+  dispatch: React.Dispatch<Action>;
 }
 const DefaultProps = {};
 
-function SearchLabelList({  }: Props) {
-  const filter = useAppSelector((state) => state.photoListCard.filter);
-  const dispatch = useAppDispatch();
-
+function SearchLabelList({ state, dispatch }: Props) {
   return (
     <CardHeader className="search-label-section">
       {/* 포토카드 이름 관련 필터 */}
-      {filter.names.map((name) => (
+      {state.names.map((name) => (
       <SearchLabel
         key={name.id}
         category="포토카드 이름"
         text={name.value}
-        handleRemove={() => dispatch(removeName(name.id))}
+        handleRemove={() => dispatch({ type: "REMOVE_NAME", id: name.id })}
       />))}
 
       {/* 그룹 관련 필터 */}
-      {filter.groups.map((group) => group.checked && (
+      {state.groups.map((group) => group.checked && (
       <SearchLabel
         key={group.groupId}
         category="그룹"
         text={group.name}
-        handleRemove={() => dispatch(toggleGroup(group.groupId))}
+        handleRemove={() => dispatch({ type: "TOGGLE_GROUP", groupId: group.groupId})}
       />))}
 
       {/* 멤버 관련 필터 */}
-      {filter.members.map((member) => member.checked && (
+      {state.members.map((member) => member.checked && (
       <SearchLabel
         key={member.memberId}
         category="멤버"
         text={member.name}
-        handleRemove={() => dispatch(toggleMember(member.memberId))}
+        handleRemove={() => dispatch({ type: "TOGGLE_MEMBER", memberId: member.memberId})}
       />))}
     </CardHeader>
   );

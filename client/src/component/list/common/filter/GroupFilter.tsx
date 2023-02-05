@@ -14,13 +14,9 @@ interface Props {
   filter: GroupFilterType[];
   setGroups: (groups: GroupFilterType[]) => void;
   toggleGroup: (groupId: number) => void;
-  resetOnMount?: boolean;
 }
-const DefaultProps = {
-  resetOnMount: false
-};
 
-function GroupFilter({ filter, setGroups, toggleGroup, resetOnMount = DefaultProps.resetOnMount }: Props) {
+function GroupFilter({ filter, setGroups, toggleGroup }: Props) {
   const dropdown = useDropdown();
   const popper = usePopper(dropdown.buttonElement, dropdown.menuElement, {});
   const groupQuery = useGroupsQuery();
@@ -30,22 +26,14 @@ function GroupFilter({ filter, setGroups, toggleGroup, resetOnMount = DefaultPro
     if (!groupQuery.data) return;
 
     let newGroups: GroupFilterType[] = [];
-    if (resetOnMount) {
-      newGroups = groupQuery.data.groups.map((group) => ({
-        groupId: group.groupId,
-        name: group.name,
-        checked: false
-      }));
-    } else {
-      newGroups = groupQuery.data.groups.map((group) => ({
-        groupId: group.groupId,
-        name: group.name,
-        checked: filter.find(item => item.checked && item.groupId === group.groupId) ? true : false
-      }));
-    }
+    newGroups = groupQuery.data.groups.map((group) => ({
+      groupId: group.groupId,
+      name: group.name,
+      checked: filter.find(item => item.checked && item.groupId === group.groupId) ? true : false
+    }));
 
     setGroups(newGroups);
-  }, [groupQuery.data, setGroups, filter, resetOnMount]);
+  }, [groupQuery.data, setGroups, filter]);
   useEffect(() => {
     initGroup();
   }, [groupQuery.data]);

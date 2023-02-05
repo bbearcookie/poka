@@ -1,7 +1,7 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-interface Props {
+export interface Props {
   type: React.HTMLInputTypeAttribute;
   name: string;
   value?: any;
@@ -14,7 +14,6 @@ interface Props {
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
   children?: React.ReactNode;
 }
-const DefaultProps = {};
 function Input(p: Props) {
   return (
     <StyledInput {...p}>

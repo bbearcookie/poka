@@ -33,15 +33,15 @@ function VoucherSection({ form, formDispatch }: Props) {
   });
 
   // 사용할 소유권 선택
-  const changeVoucherId = useCallback((voucherId: number) => {
+  const onSelectVoucher = useCallback((voucherId: number) => {
     formDispatch({ type: 'SET_VOUCHER_ID', payload: voucherId });
     formDispatch({ type: "SET_MESSAGE", target: 'haveVoucherId', value: '' });
     addModal.close();
   }, [formDispatch, addModal]);
 
   return (
-    <>
-      <Card styles={{ marginBottom: '5em' }}>
+    <section className="voucher-section">
+      <Card>
         <CardHeader>
           <section className="label-section">
             <h3 className="label">등록할 소유권</h3>
@@ -64,26 +64,26 @@ function VoucherSection({ form, formDispatch }: Props) {
             groupName={voucher.groupName}
             memberName={voucher.memberName}
             imageName={voucher.imageName}
-            cardStyles={{ margin: "0 auto 1.5em auto" }}
+            cardStyles={{ boxShadow: "none", border: "none" }}
           />}
-          {status === 'loading' && form.data.haveVoucherId > 0 && <SkeletonPhotoInfoCard cardStyles={{ margin: "0 auto 1.5em auto" }} />}
+          {status === 'loading' && form.data.haveVoucherId > 0 && <SkeletonPhotoInfoCard cardStyles={{ boxShadow: "none", border: "none" }} />}
           {form.message.haveVoucherId && <InputMessage styles={{margin: "0 0 0.5em 0"}}>{form.message.haveVoucherId}</InputMessage>}
-          <p className="description">자신이 가지고 있는 소유권 중에서 타인과 교환하기를 원하는 소유권을 선택합니다.</p>
+          <p className="description">타인과 교환하기를 원하는 소유권을 선택합니다.</p>
         </CardBody>
       </Card>
 
-      <TitleModal hook={addModal} titleName="소유권 선택" styles={{ width: '75%' }}>
+      <TitleModal hook={addModal} titleName="소유권 선택" styles={{ width: "75%" }}>
         <VoucherListCard
           icon={faCheck}
-          handleClickIcon={changeVoucherId}
+          handleClickIcon={onSelectVoucher}
           defaultFilter={{
-            owner: 'mine',
-            state: 'available'
+            owner: "mine",
+            state: "available"
           }}
           cardStyles={{ border: "none" }}
         />
       </TitleModal>
-    </>
+    </section>
   );
 }
 

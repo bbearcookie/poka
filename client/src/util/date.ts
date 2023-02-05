@@ -49,7 +49,7 @@ export function getElaspedTime(date: Date) {
 
   const times = [
     { name: '년', milliSeconds: 60 * 60 * 24 * 365 },
-    { name: '월', milliSeconds: 60 * 60 * 24 * 30 },
+    { name: '개월', milliSeconds: 60 * 60 * 24 * 30 },
     { name: '일', milliSeconds: 60 * 60 * 24 },
     { name: '시간', milliSeconds: 60 * 60 },
     { name: '분', milliSeconds: 60 }

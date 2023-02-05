@@ -33,7 +33,6 @@ function PhotoListPage({  }: Props) {
         </Link>
       </section>
       <PhotoListCard
-        resetOnMount={false}
         icon={faArrowRight}
         handleClickIcon={handleClickDetailIcon}
       />
