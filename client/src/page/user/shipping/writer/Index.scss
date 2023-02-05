@@ -1,4 +1,22 @@
 .ShippingWriterPage {
   padding: 5em 10%;
 
+  .title-label {
+    margin: 0 0 1em 0;
+    font-size: 1.75rem;
+  }
+
+  .label-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1em;
+
+    .title { flex-grow: 1; }
+  }
+
+  .button-section { 
+    display: flex;
+    justify-content: flex-end;
+  }
 }

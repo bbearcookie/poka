@@ -12,12 +12,11 @@ interface Props {
   state: State;
   dispatch: React.Dispatch<Action>;
   address?: ShippingAddressType;
-  onSubmit?: React.FormEventHandler<HTMLFormElement>;
   children?: React.ReactNode;
 }
 const DefaultProps = {};
 
-function AddressEditor({ state, dispatch, address, onSubmit, children }: Props) {
+function AddressEditor({ state, dispatch, address, children }: Props) {
 
   // input 상태 값 변경
   const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,14 +30,12 @@ function AddressEditor({ state, dispatch, address, onSubmit, children }: Props) 
 
   return (
     <StyledWrapper className="AddressEditor">
-      <form onSubmit={onSubmit}>
-        <Name state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
-        <Recipient state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
-        <Contact state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
-        <Address state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
-        <Requirement defaultShow={address ? true : false} state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
-        {children}
-      </form>
+      <Name state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
+      <Recipient state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
+      <Contact state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
+      <Address state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
+      <Requirement defaultShow={address ? true : false} state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
+      {children}
     </StyledWrapper>
   );
 }

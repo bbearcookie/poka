@@ -8,7 +8,7 @@ export const selectUserShippingAddressList = async (userId: number) => {
 
   try {
     let sql = `
-    SELECT address_id as addressId, user_id as userId, name, recipient, contact, postcode, address, address_detail, requirement, prime
+    SELECT address_id as addressId, user_id as userId, name, recipient, contact, postcode, address, address_detail as addressDetail, requirement, prime
     FROM ShippingAddress
     WHERE user_id=${con.escape(userId)}
     ORDER BY prime DESC, address_id`;
@@ -28,7 +28,7 @@ export const selectUserShippingAddressDetail = async (addressId: number) => {
 
   try {
     let sql = `
-    SELECT address_id as addressId, user_id as userId, name, recipient, contact, postcode, address, address_detail, requirement, prime
+    SELECT address_id as addressId, user_id as userId, name, recipient, contact, postcode, address, address_detail as addressDetail, requirement, prime
     FROM ShippingAddress
     WHERE address_id=${con.escape(addressId)}`;
 

@@ -1,19 +1,24 @@
 import React from 'react';
 import Modal, { Props as ModalProps } from '@component/modal/basic/Modal';
 import Card from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
-import CardBody from '@component/card/basic/CardBody';
+import CardHeader, { StylesProps as CardHeaderStyles } from '@component/card/basic/CardHeader';
+import CardBody, { StylesProps as CardBodyStyles } from '@component/card/basic/CardBody';
 import ModalHeader from './basic/ModalHeader';
 
 interface Props extends ModalProps {
   titleName?: string;
+  cardHeaderStyles?: CardHeaderStyles;
+  cardBodyStyles?: CardBodyStyles;
   children?: React.ReactNode;
 }
 const DefaultProps = {
   titleName: '',
 };
 
-function TitleModal({ hook, titleName = DefaultProps.titleName, location, styles, children }: Props) {
+function TitleModal({
+  hook, location,
+  titleName = DefaultProps.titleName,
+  styles, cardHeaderStyles, cardBodyStyles, children }: Props) {
   return (
     <Modal
       hook={hook}
@@ -21,10 +26,10 @@ function TitleModal({ hook, titleName = DefaultProps.titleName, location, styles
       styles={styles}
     >
       <Card>
-        <CardHeader styles={{ padding: "1.25em" }}>
+        <CardHeader styles={cardHeaderStyles}>
           <ModalHeader titleName={titleName} handleClose={hook.close} />
         </CardHeader>
-        <CardBody styles={{ padding: "1.25em" }}>
+        <CardBody styles={cardBodyStyles}>
           {children}
         </CardBody>
       </Card>

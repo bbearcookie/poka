@@ -64,10 +64,11 @@ function Index({ address, closeEditor }: Props) {
   }, [address, state, userId, postMutation, putMutation]);
 
   return (
-    <AddressEditor state={state} dispatch={dispatch} address={address} onSubmit={onSubmit}>
+    <AddressEditor state={state} dispatch={dispatch} address={address}>
       <section className="button-section">
         <Button 
-          type="submit"
+          type="button"
+          onClick={onSubmit}
           styles={{
             theme: "primary",
             padding: "0.7em 1em",
