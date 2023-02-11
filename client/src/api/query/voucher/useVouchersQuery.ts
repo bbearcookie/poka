@@ -12,6 +12,7 @@ export interface ParamType {
   filter: {
     groupId: number[];
     memberId: number[];
+    excludeVoucherId: number[];
     photoName: string[];
     userName: string[];
     voucherState: VoucherStateKey;
@@ -39,6 +40,7 @@ export default function useVouchersQuery(
     memberId: filter.members
       .filter(item => item.checked)
       .map(item => item.id),
+    excludeVoucherId: filter.excludeVoucherId,
     photoName: filter.names.map(item => item.value),
     userName: filter.usernames.map(item => item.value),
     voucherState: filter.state

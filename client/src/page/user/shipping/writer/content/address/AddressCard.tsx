@@ -41,7 +41,7 @@ function AddressCard({ modal, state, dispatch }: Props) {
         </section>
       </CardHeader>
       <CardBody styles={{ padding: "0" }}>
-        <AddressEditor state={state} dispatch={dispatch} />
+        <AddressEditor state={state} dispatch={dispatch} showName={false} />
       </CardBody>
       <CardBody>
         <p className="description">물품이 도착할 주소를 지정합니다.</p>

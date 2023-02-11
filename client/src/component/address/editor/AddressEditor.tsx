@@ -12,11 +12,11 @@ interface Props {
   state: State;
   dispatch: React.Dispatch<Action>;
   address?: ShippingAddressType;
+  showName?: boolean;
   children?: React.ReactNode;
 }
-const DefaultProps = {};
 
-function AddressEditor({ state, dispatch, address, children }: Props) {
+function AddressEditor({ state, dispatch, address, showName = true, children }: Props) {
 
   // input 상태 값 변경
   const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +30,7 @@ function AddressEditor({ state, dispatch, address, children }: Props) {
 
   return (
     <StyledWrapper className="AddressEditor">
-      <Name state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
+      {showName && <Name state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />}
       <Recipient state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
       <Contact state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
       <Address state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />

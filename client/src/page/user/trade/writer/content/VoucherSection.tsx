@@ -78,7 +78,8 @@ function VoucherSection({ form, formDispatch }: Props) {
           handleClickIcon={onSelectVoucher}
           defaultFilter={{
             owner: "mine",
-            state: "available"
+            state: "available",
+            excludeVoucherId: []
           }}
           cardStyles={{ border: "none" }}
         />

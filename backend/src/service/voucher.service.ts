@@ -81,6 +81,14 @@ export const selectVoucherList = async (
       })
     }
 
+    // 소유권 제외 조건
+    if (filter.excludeVoucherId.length > 0) {
+      where.push({
+        query: `V.voucher_id NOT IN (${con.escape(filter.excludeVoucherId)})`,
+        operator: 'AND'
+      });
+    }
+
     // 조건 처리
     sql += where.toString();
     sql += `

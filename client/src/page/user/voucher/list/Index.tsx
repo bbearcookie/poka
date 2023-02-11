@@ -19,12 +19,12 @@ function Index({  }: Props) {
     <div className="InventoryPage">
     <h1 className="title-label">소유권 보관함</h1>
       <VoucherListCard
-        // resetState={true}
         icon={faArrowRight}
         handleClickIcon={handleClickDetailicon}
         defaultFilter={{
           owner: 'mine',
-          state: 'all'
+          state: 'all',
+          excludeVoucherId: []
         }}
       />
     </div>

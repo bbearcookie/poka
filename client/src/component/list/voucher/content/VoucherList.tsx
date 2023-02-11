@@ -31,7 +31,7 @@ function VoucherList({ state, dispatch, defaultFilter, icon, handleClickIcon }: 
   const handleRefetch = useCallback(async () => {
     queryClient.removeQueries(queryKey.voucherKeys.all);
     refetch();
-  }, [queryClient, refetch]);
+  }, [queryClient, refetch, state]);
   useUpdateEffect(() => {
     handleRefetch();
   }, [state]);

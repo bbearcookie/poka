@@ -23,7 +23,8 @@ function Index({  }: Props) {
         handleClickIcon={handleClickDetailicon}
         defaultFilter={{
           owner: 'all',
-          state: 'all'
+          state: 'all',
+          excludeVoucherId: []
         }}
       />
     </div>

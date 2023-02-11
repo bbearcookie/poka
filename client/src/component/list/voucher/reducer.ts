@@ -21,6 +21,7 @@ export interface State {
   }[];
   groups: FilterItemType[];
   members: FilterItemType[];
+  excludeVoucherId: number[];
   state: VoucherStateKey; // 소유권 상태
 }
 
@@ -29,6 +30,7 @@ export const initialState: State = {
   usernames: [],
   groups: [],
   members: [],
+  excludeVoucherId: [],
   state: "all"
 }
 
@@ -56,6 +58,9 @@ export type Action =
 } | {
   type: "SET_VOUCHER_STATE";
   value: VoucherStateKey;
+} | {
+  type: "SET_EXCLUDE_VOUCHER_ID"
+  payload: number[];
 }
 
 const reducer = (state: State, action: Action): State => {
@@ -100,9 +105,12 @@ const reducer = (state: State, action: Action): State => {
       return produce(state, draft => {
         draft.state = action.value
       });
-    
-    default:
-      return state;
-  }
+
+    // 조회에서 제외할 소유권 ID 설정
+    case "SET_EXCLUDE_VOUCHER_ID":
+      return produce(state, draft => {
+        draft.excludeVoucherId = action.payload;
+      });
+    }
 }
 export default reducer;

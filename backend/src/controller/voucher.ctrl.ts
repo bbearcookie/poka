@@ -21,6 +21,7 @@ export const getAllVoucherList = {
     query('filter.userName').isArray().withMessage('검색 필터가 잘못되었어요.').bail(),
     query('filter.groupId').isArray().withMessage('검색 필터가 잘못되었어요.').bail(),
     query('filter.memberId').isArray().withMessage('검색 필터가 잘못되었어요.').bail(),
+    query('filter.excludeVoucherId').isArray().withMessage('검색 필터가 잘못되었어요.').bail(),
     query('filter.voucherState').custom((value) => ['', 'all', 'available', 'trading', 'shipping', 'shipped'].includes(value)),
     validate
   ],
@@ -29,6 +30,7 @@ export const getAllVoucherList = {
     'userName': [] as string[],
     'groupId': [] as number[],
     'memberId': [] as number[],
+    'excludeVoucherId': [] as number[],
     'voucherState': '' as '' | 'all' | 'available' | 'trading' | 'shipping' | 'shipped'
   },
   controller: async (req: Request, res: Response, next: NextFunction) => {
