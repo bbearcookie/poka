@@ -1,5 +1,5 @@
 import React from 'react';
-import useShippingAddresses from '@api/query/address/useShippingAddresses';
+import useShippingAddresses from '@api/query/shipping/useShippingAddresses';
 import useModal from '@hook/useModal';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import { State, Action } from '@component/address/editor/reducer';

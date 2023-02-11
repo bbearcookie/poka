@@ -2,7 +2,7 @@ import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query
 import { AxiosError } from 'axios';
 import { ErrorType } from '@util/request';
 import { ShippingAddressType } from '@type/user';
-import { fetchUserShippingAddress } from '@api/api/address';
+import { fetchUserShippingAddress } from '@api/api/shipping';
 import * as queryKey from '@api/queryKey';
 
 export interface ResType {

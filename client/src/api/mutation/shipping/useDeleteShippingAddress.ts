@@ -5,24 +5,15 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorType } from '@util/request';
 import { getErrorMessage } from '@util/request';
 import * as queryKey from '@api/queryKey';
-import { modifyShippingAddress } from '@api/api/address';
+import { deleteShippingAddress } from '@api/api/shipping';
 
 export interface ParamType {
   addressId: number;
-  body: {
-    name: string;
-    recipient: string;
-    contact: string;
-    postcode: string;
-    address: string;
-    addressDetail: string;
-    requirement: string;
-  }
 }
 
 interface ResType { message: string; }
 
-export default function useModifyShippingAddress<TParam>(
+export default function useDeleteShippingAddress<TParam>(
   userId: number,
   onSuccess?: (res: AxiosResponse<ResType>) => void,
   onError?: (err: AxiosError<ErrorType<TParam>, any>) => void
@@ -34,7 +25,7 @@ UseMutationResult<
 > {
   const queryClient = useQueryClient();
 
-  return useMutation(modifyShippingAddress, {
+  return useMutation(deleteShippingAddress, {
     onSuccess: (res: AxiosResponse<ResType>) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
       queryClient.invalidateQueries(queryKey.userKeys.address(userId));
@@ -44,6 +35,6 @@ UseMutationResult<
     onError: (err) => {
       toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
       if (onError) onError(err);
-    },
+    }
   })
 }

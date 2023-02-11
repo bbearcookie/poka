@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import useChangePrimeAddress from '@api/mutation/address/useChangePrimeAddress';
+import useChangePrimeAddress from '@api/mutation/shipping/useChangePrimeAddress';
 import IconButton from '@component/form/IconButton';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
 import { ShippingAddressType } from '@type/user';

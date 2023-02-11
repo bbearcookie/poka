@@ -5,7 +5,7 @@ import photoRouter from '@config/route/photo.router';
 import authRouter from '@config/route/auth.router';
 import userRouter from '@config/route/user.router';
 import voucherRouter from '@config/route/voucher.router';
-import shippingAddressRouter from '@config/route/shipping-address.router';
+import shippingRouter from '@config/route/shipping.router';
 import tradeRouter from '@config/route/trade.router';
 
 export default function(app: Express) {
@@ -15,7 +15,7 @@ export default function(app: Express) {
   authRouter(app, '/api/auth');
   userRouter(app, '/api/user');
   voucherRouter(app, '/api/voucher');
-  shippingAddressRouter(app, '/api/shipping-address');
+  shippingRouter(app, '/api/shipping');
   tradeRouter(app, '/api/trade');
 
   // 미들웨어가 response 응답을 하지 않으면 실행

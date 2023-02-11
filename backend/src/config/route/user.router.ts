@@ -1,6 +1,6 @@
 import { Express } from 'express';
 import * as userCtrl from '@controller/user.ctrl';
-import * as shippingAddressCtrl from '@controller/shipping-address.ctrl';
+import * as shippingAddressCtrl from '@controller/shipping.ctrl';
 import * as tradeCtrl from '@controller/trade.ctrl';
 
 export default function(app: Express, baseURI: string) {

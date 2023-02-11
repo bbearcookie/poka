@@ -1,5 +1,5 @@
 import React from 'react';
-import useShippingAddresses from '@api/query/address/useShippingAddresses';
+import useShippingAddresses from '@api/query/shipping/useShippingAddresses';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import ErrorCard from '@component/card/ErrorCard';
 import Loading from './Loading';

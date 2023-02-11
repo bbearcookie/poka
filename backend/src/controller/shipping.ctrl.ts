@@ -3,7 +3,7 @@ import { body, param } from 'express-validator';
 import { validate, isLoggedIn, isAdminOrOwner } from '@util/validator';
 import { LoginTokenType } from '@type/user';
 import * as userService from '@service/user.service';
-import * as shippingAddressService from '@service/shipping-address.service';
+import * as shippingService from '@service/shipping.service';
 
 export const AddressForm = {
   validator: [
@@ -58,7 +58,7 @@ export const getUserShippingAddress = {
     // 관리자이거나, 자기 자신의 정보에 대한 경우에만 접근 가능
     if (!isAdminOrOwner(loggedUser, user.userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
 
-    const [addresses] = await shippingAddressService.selectUserShippingAddressList(userId);
+    const [addresses] = await shippingService.selectUserShippingAddressList(userId);
     return res.status(200).json({ message: '해당 사용자의 배송지 목록을 조회했어요.', addresses });
     next();
   }
@@ -86,11 +86,11 @@ export const postShippingAddress = {
     if (!isAdminOrOwner(loggedUser, user.userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
 
     // 이미 배송지를 10개 이상 저장한 상태면 추가 불가능
-    const [addresses] = await shippingAddressService.selectUserShippingAddressList(userId);
+    const [addresses] = await shippingService.selectUserShippingAddressList(userId);
     if (addresses.length >= 10) return res.status(400).json({ message: '배송지는 10개 까지만 추가할 수 있어요.' });
 
     form.prime = addresses.find(item => item.prime === 'true') ? 'false' : 'true';
-    await shippingAddressService.insertShippingAddress(userId, { form });
+    await shippingService.insertShippingAddress(userId, { form });
     return res.status(200).json({ message: '새로운 배송지를 추가했어요.' });
     next();
   }
@@ -111,13 +111,13 @@ export const putShippingAddress = {
     const addressId = Number(req.params.addressId);
     const form = AddressForm.form(req);
 
-    const [[address]] = await shippingAddressService.selectUserShippingAddressDetail(addressId);
+    const [[address]] = await shippingService.selectUserShippingAddressDetail(addressId);
     if (!address) return res.status(404).json({ message: '수정하려는 배송지의 데이터가 서버에 존재하지 않아요.' });
 
     // 관리자이거나, 자기 자신의 정보에 대한 경우에만 접근 가능
     if (!isAdminOrOwner(loggedUser, address.userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
 
-    await shippingAddressService.updateShippingAddress(addressId, { form });
+    await shippingService.updateShippingAddress(addressId, { form });
     return res.status(200).json({ message: '배송지 정보를 수정했어요.' });
     next();
   }
@@ -136,14 +136,14 @@ export const patchShippingAddressPrime = {
     const loggedUser = req.user as LoginTokenType;
     const addressId = Number(req.params.addressId);
 
-    const [[address]] = await shippingAddressService.selectUserShippingAddressDetail(addressId);
+    const [[address]] = await shippingService.selectUserShippingAddressDetail(addressId);
     if (!address) return res.status(404).json({ message: '수정하려는 배송지의 데이터가 서버에 존재하지 않아요.' });
 
     // 관리자이거나, 자기 자신의 정보에 대한 경우에만 접근 가능
     if (!isAdminOrOwner(loggedUser, address.userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
 
-    await shippingAddressService.updateUserShippingAddressPrimeFalse(address.userId);
-    await shippingAddressService.updateShippingAddressPrime(addressId, 'true');
+    await shippingService.updateUserShippingAddressPrimeFalse(address.userId);
+    await shippingService.updateShippingAddressPrime(addressId, 'true');
     return res.status(200).json({ message: '기본 배송지를 변경했어요.' });
 
     next();
@@ -161,17 +161,17 @@ export const deleteShippingAddress = {
     const loggedUser = req.user as LoginTokenType;
     const addressId = Number(req.params.addressId);
 
-    const [[address]] = await shippingAddressService.selectUserShippingAddressDetail(addressId);
+    const [[address]] = await shippingService.selectUserShippingAddressDetail(addressId);
     if (!address) return res.status(404).json({ message: '삭제하려는 배송지의 데이터가 서버에 존재하지 않아요.' });
 
     // 관리자이거나, 자기 자신의 정보에 대한 경우에만 접근 가능
     if (!isAdminOrOwner(loggedUser, address.userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
-    await shippingAddressService.deleteShippingAddress(addressId);
+    await shippingService.deleteShippingAddress(addressId);
 
     // 만약 배송자의 삭제로 인해서 기본 배송지가 사라진다면 기존의 배송지 중 하나를 기본 배송지로 설정
-    const [addresses] = await shippingAddressService.selectUserShippingAddressList(address.userId);
+    const [addresses] = await shippingService.selectUserShippingAddressList(address.userId);
     if (addresses.length > 0 && !addresses.find(item => item.prime === 'true')) {
-      await shippingAddressService.updateShippingAddressPrime(addresses.find(item => item.prime === 'false')?.addressId || 0, 'true');
+      await shippingService.updateShippingAddressPrime(addresses.find(item => item.prime === 'false')?.addressId || 0, 'true');
     }
 
     return res.status(200).json({ message: '배송지를 삭제했어요.' });

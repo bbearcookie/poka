@@ -56,7 +56,7 @@ function CardSection({ modal, voucherIds, setVoucherIds }: Props) {
       </CardHeader>
       <CardBody>
         <section className="item-section">
-          {loading && Array.from({ length: 10 }).map(_ => <SkeletonVoucherCard />)}
+          {loading && Array.from({ length: 10 }).map((_, idx) => <SkeletonVoucherCard key={idx} />)}
           {!loading && vouchers.map(voucher => voucher.status === "success" &&
           <VoucherCard
             key={voucher.data.voucherId}

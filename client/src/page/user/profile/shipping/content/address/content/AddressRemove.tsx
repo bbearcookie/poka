@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import useDeleteShippingAddress from '@api/mutation/address/useDeleteShippingAddress';
+import useDeleteShippingAddress from '@api/mutation/shipping/useDeleteShippingAddress';
 import useModal from '@hook/useModal';
 import ConfirmModal from '@component/modal/ConfirmModal';
 import IconButton from '@component/form/IconButton';

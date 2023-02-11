@@ -1,8 +1,8 @@
 import { client } from '@util/request';
-import { ParamType as ChangePrimeAddressParam } from '@api/mutation/address/useChangePrimeAddress';
-import { ParamType as modifyShippingAddressParam } from '@api/mutation/address/useModifyShippingAddress';
-import { ParamType as addShippingAddressParam } from '@api/mutation/address/useAddShippingAddress';
-import { ParamType as deleteShippingAddressParam } from '@api/mutation/address/useDeleteShippingAddress';
+import { ParamType as ChangePrimeAddressParam } from '@api/mutation/shipping/useChangePrimeAddress';
+import { ParamType as modifyShippingAddressParam } from '@api/mutation/shipping/useModifyShippingAddress';
+import { ParamType as addShippingAddressParam } from '@api/mutation/shipping/useAddShippingAddress';
+import { ParamType as deleteShippingAddressParam } from '@api/mutation/shipping/useDeleteShippingAddress';
 
 export const fetchUserShippingAddress = async (userId: number) => {
   const url = `/api/user/${userId}/shipping-address`;
@@ -11,13 +11,13 @@ export const fetchUserShippingAddress = async (userId: number) => {
 }
 
 export const changePrimeAddress = async (param: ChangePrimeAddressParam) => {
-  const url = `/api/shipping-address/${param.addressId}/prime`;
+  const url = `/api/shipping/address/${param.addressId}/prime`;
   const res = await client.patch(url);
   return res;
 }
 
 export const modifyShippingAddress = async (param: modifyShippingAddressParam) => {
-  const url = `/api/shipping-address/${param.addressId}`;
+  const url = `/api/shipping/address/${param.addressId}`;
   const res = await client.put(url, param.body);
   return res;
 }
@@ -29,7 +29,7 @@ export const addShippingAddress = async (param: addShippingAddressParam) => {
 }
 
 export const deleteShippingAddress = async (param: deleteShippingAddressParam) => {
-  const url = `/api/shipping-address/${param.addressId}`;
+  const url = `/api/shipping/address/${param.addressId}`;
   const res = await client.delete(url);
   return res;
 }
