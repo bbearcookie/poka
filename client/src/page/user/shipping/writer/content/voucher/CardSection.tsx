@@ -9,21 +9,23 @@ import SkeletonVoucherCard from '@component/photocard/voucher/SkeletonVoucherCar
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
+import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';
 import * as queryKey from '@api/queryKey';
+import { State, Action } from '../../reducer';
 
 interface Props {
+  state: State;
+  dispatch: React.Dispatch<Action>;
   modal: ModalHookType;
-  voucherIds: number[];
-  setVoucherIds: React.Dispatch<React.SetStateAction<number[]>>;
 }
 const DefaultProps = {};
 
-function CardSection({ modal, voucherIds, setVoucherIds }: Props) {
+function CardSection({ state, dispatch, modal }: Props) {
 
   // 소유권 정보
   const vouchers = useQueries({
-    queries: voucherIds.map(voucherId => ({
+    queries: state.data.voucherIds.map(voucherId => ({
       queryKey: queryKey.voucherKeys.detail(voucherId),
       queryFn: async () => {
         return await fetchVoucherDetail(voucherId) as Promise<VoucherResType>
@@ -34,8 +36,9 @@ function CardSection({ modal, voucherIds, setVoucherIds }: Props) {
 
   // 소유권 선택 해제
   const onCancel = useCallback((voucherId: number) => {
-    setVoucherIds(voucherIds.filter(item => item !== voucherId));
-  }, [voucherIds, setVoucherIds]);
+    dispatch({ type: 'SET_VOUCHER_ID', voucherIds: state.data.voucherIds.filter(item => item !== voucherId)});
+    dispatch({ type: 'SET_MESSAGE', target: 'voucherIds', value: ''});
+  }, [state, dispatch]);
 
   return (
     <Card>
@@ -72,6 +75,7 @@ function CardSection({ modal, voucherIds, setVoucherIds }: Props) {
             handleClickIcon={onCancel}
           />)}
         </section>
+        {state.message.voucherIds && <InputMessage styles={{ margin: "0 0 0.5em 0" }}>{state.message.voucherIds}</InputMessage>}
         <p className="description">실물로 배송받으려는 소유권을 지정합니다.</p>
       </CardBody>
     </Card>

@@ -17,8 +17,8 @@ const DefaultProps = {};
 function AddressModal({ addresses, modal, state, dispatch }: Props) {
 
   const applyAddress = useCallback((idx: number) => {
-    console.log(addresses.addresses[idx]);
     dispatch({ type: "SET_FORM", form: addresses.addresses[idx] });
+    dispatch({ type: "INIT_MESSAGE" });
     modal.close();
   }, [addresses, dispatch, modal]);
 
@@ -39,9 +39,7 @@ function AddressModal({ addresses, modal, state, dispatch }: Props) {
               iconMargin: "1em"
             }}
             onClick={() => applyAddress(idx)}
-          >
-            적용
-          </Button>
+          >적용</Button>
         </section>
       </Address>)}
     </TitleModal>

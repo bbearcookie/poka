@@ -30,17 +30,23 @@ function Index({ address, closeEditor }: Props) {
   }, [closeEditor]);
 
   // API 요청 실패시
-  const onError = useCallback((err: AxiosError<ErrorType<keyof FormType>, any>) => {
+  const onError = useCallback((err: AxiosError<ErrorType<string>, any>) => {
     err.response?.data.errors.forEach((e) => {
-      dispatch({ type: 'SET_MESSAGE', target: e.param, value: e.message });
+      if (e.param.substring(0, 8) === "address.") {
+        dispatch({
+          type: 'SET_MESSAGE',
+          target: e.param.substring(8) as keyof FormType,
+          value: e.message
+        });
+      }
     });
   }, []);
 
   // 데이터 추가 요청
-  const postMutation = useAddShippingAddress<keyof FormType>(onSuccess, onError);
+  const postMutation = useAddShippingAddress(onSuccess, onError);
 
   // 데이터 수정 요청
-  const putMutation = useModifyShippingAddress<keyof FormType>(userId, onSuccess, onError);
+  const putMutation = useModifyShippingAddress(userId, onSuccess, onError);
 
   // 폼 전송 이벤트
   const onSubmit = useCallback((e: React.FormEvent) => {
@@ -57,9 +63,9 @@ function Index({ address, closeEditor }: Props) {
     }
     
     // 수정 모드일경우
-    if (address) putMutation.mutate({ addressId: address.addressId, body: data });
+    if (address) putMutation.mutate({ addressId: address.addressId, body: { address: data } });
     // 작성 모드일경우
-    else postMutation.mutate({ userId, body: data });
+    else postMutation.mutate({ userId, body: { address: data } });
 
   }, [address, state, userId, postMutation, putMutation]);
 

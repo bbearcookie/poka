@@ -3,33 +3,37 @@ import TitleModal from '@component/modal/TitleModal';
 import VoucherListCard from '@component/list/voucher/VoucherListCard';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { ModalHookType } from '@hook/useModal';
+import { State, Action } from '../../reducer';
 
 interface Props {
+  state: State;
+  dispatch: React.Dispatch<Action>;
   modal: ModalHookType;
-  voucherIds: number[];
-  setVoucherIds: React.Dispatch<React.SetStateAction<number[]>>;
 }
 const DefaultProps = {};
 
-function ModalSection({ modal, voucherIds, setVoucherIds }: Props) {
+function ModalSection({ state, dispatch, modal }: Props) {
 
   // 사용할 소유권 선택
   const onSelectVoucher = useCallback((id: number) => {
-    if (!voucherIds.includes(id)) setVoucherIds(voucherIds.concat(id));
-  }, [voucherIds, setVoucherIds]);
+    if (!state.data.voucherIds.includes(id))
+    dispatch({ type: 'SET_VOUCHER_ID', voucherIds: state.data.voucherIds.concat(id)});
+    dispatch({ type: "SET_MESSAGE", target: "voucherIds", value: ""});
+  }, [state, dispatch]);
 
   return (
-    <TitleModal hook={modal} titleName="소유권 선택" styles={{ width: "75%" }}>
+    <TitleModal hook={modal} titleName="소유권 선택" styles={{ width: "75%" }} cardBodyStyles={{ height: "100vh" }}>
+      {modal.show &&
       <VoucherListCard
         icon={faCheck}
         handleClickIcon={onSelectVoucher}
         defaultFilter={{
           owner: "mine",
           state: "available",
-          excludeVoucherId: voucherIds
+          excludeVoucherId: state.data.voucherIds
         }}
         cardStyles={{ border: "none" }}
-      />
+      />}
     </TitleModal>
   );
 }

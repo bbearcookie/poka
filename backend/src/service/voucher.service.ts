@@ -110,14 +110,16 @@ export const selectVoucherList = async (
 };
 
 // 소유권 상세 조회
-export const selectVoucherDetail = async (voucherId: number) => {
+export const selectVoucherDetail = async (voucherId: number | number[]) => {
   const con = await db.getConnection();
 
   try {
     let sql = `
     SELECT voucher_id as voucherId, photocard_id as photocardId, user_id as userId, state
-    FROM Voucher
-    WHERE voucher_id=${con.escape(voucherId)}`;
+    FROM Voucher `;
+
+    if (Array.isArray(voucherId)) sql += `WHERE voucher_id IN (${con.escape(voucherId)})`;
+    else sql += `WHERE voucher_id=${con.escape(voucherId)}`;
 
     interface DataType extends RowDataPacket, VoucherSimpleType {}
     return await con.query<DataType[]>(sql);

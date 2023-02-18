@@ -1,21 +1,22 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import useModal from '@hook/useModal';
 import CardSection from './CardSection';
 import ModalSection from './ModalSection';
+import { State, Action } from '../../reducer';
 
 interface Props {
-  voucherIds: number[];
-  setVoucherIds: React.Dispatch<React.SetStateAction<number[]>>;
+  state: State;
+  dispatch: React.Dispatch<Action>
 }
 const DefaultProps = {};
 
-function VoucherSection({ voucherIds, setVoucherIds }: Props) {
+function VoucherSection({ state, dispatch }: Props) {
   const addModal = useModal();
 
   return (
     <section className="voucher-section">
-      <CardSection modal={addModal} voucherIds={voucherIds} setVoucherIds={setVoucherIds} />
-      <ModalSection modal={addModal} voucherIds={voucherIds} setVoucherIds={setVoucherIds} />
+      <CardSection modal={addModal} state={state} dispatch={dispatch} />
+      <ModalSection modal={addModal} state={state} dispatch={dispatch} />
     </section>
   );
 }

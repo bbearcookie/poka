@@ -1,38 +1,39 @@
 import { NextFunction, Request, Response } from 'express';
 import { body, param } from 'express-validator';
-import { validate, isLoggedIn, isAdminOrOwner } from '@util/validator';
+import { validate, isLoggedIn, isAdminOrOwner, createResponseMessage } from '@util/validator';
 import { LoginTokenType } from '@type/user';
 import * as userService from '@service/user.service';
 import * as shippingService from '@service/shipping.service';
+import * as voucherService from '@service/voucher.service';
 
 export const AddressForm = {
   validator: [
-    body('name').trim()
+    body('address.name').trim()
       .not().isEmpty().withMessage('배송지 이름이 비어있어요.').bail()
       .isLength({ max: 20 }).withMessage('배송지 이름은 최대 20글자까지 입력할 수 있어요.').bail(),
-    body('recipient').trim()
+    body('address.recipient').trim()
       .not().isEmpty().withMessage('수령인 이름이 비어있어요.').bail()
       .isLength({ max: 20 }).withMessage('수령인 이름은 최대 20글자까지 입력할 수 있어요.').bail(),
-    body('contact').trim()
+    body('address.contact').trim()
       .not().isEmpty().withMessage('연락처가 비어있어요.').bail()
       .isLength({ max: 13 }).withMessage('연락처는 최대 13글자까지 입력할 수 있어요.').bail()
       .custom((value, { req }) => /(\d{2,3})-(\d{3,4})-(\d{4})/.test(value)).withMessage('연락처가 올바른 형태가 아니에요.').bail(),
-    body('address').trim()
+    body('address.address').trim()
       .not().isEmpty().withMessage('주소가 비어있어요.').bail()
       .isLength({ max: 250 }).withMessage('주소는 최대 250글자까지 입력할 수 있어요.').bail(),
-    body('addressDetail').trim()
+    body('address.addressDetail').trim()
       .isLength({ max: 50 }).withMessage('상세 주소는 최대 50글자까지 입력할 수 있어요.').bail(),
-    body('requirement').trim()
+    body('address.requirement').trim()
       .isLength({ max: 50 }).withMessage('배송 요청사항은 최대 50글자까지 입력할 수 있어요.').bail(),
   ],
   form: (req: Request) => {
-    const name = req.body.name as unknown as string;
-    const recipient = req.body.recipient as unknown as string;
-    const contact = req.body.contact as unknown as string;
-    const postcode = req.body.postcode as unknown as string;
-    const address = req.body.address as unknown as string;
-    const addressDetail = req.body.addressDetail as unknown as string;
-    const requirement = req.body.requirement as unknown as string;
+    const name = req.body.address.name as unknown as string;
+    const recipient = req.body.address.recipient as unknown as string;
+    const contact = req.body.address.contact as unknown as string;
+    const postcode = req.body.address.postcode as unknown as string;
+    const address = req.body.address.address as unknown as string;
+    const addressDetail = req.body.address.addressDetail as unknown as string;
+    const requirement = req.body.address.requirement as unknown as string;
     const prime = '';
 
     return { name, recipient, contact, postcode, address, addressDetail, requirement, prime };
@@ -90,7 +91,7 @@ export const postShippingAddress = {
     if (addresses.length >= 10) return res.status(400).json({ message: '배송지는 10개 까지만 추가할 수 있어요.' });
 
     form.prime = addresses.find(item => item.prime === 'true') ? 'false' : 'true';
-    await shippingService.insertShippingAddress(userId, { form });
+    await shippingService.insertShippingAddress(userId, form);
     return res.status(200).json({ message: '새로운 배송지를 추가했어요.' });
     next();
   }
@@ -117,7 +118,7 @@ export const putShippingAddress = {
     // 관리자이거나, 자기 자신의 정보에 대한 경우에만 접근 가능
     if (!isAdminOrOwner(loggedUser, address.userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
 
-    await shippingService.updateShippingAddress(addressId, { form });
+    await shippingService.updateShippingAddress(addressId, form);
     return res.status(200).json({ message: '배송지 정보를 수정했어요.' });
     next();
   }
@@ -175,6 +176,36 @@ export const deleteShippingAddress = {
     }
 
     return res.status(200).json({ message: '배송지를 삭제했어요.' });
+    next();
+  }
+}
+
+// 배송 요청 작성
+export const postShippingRequest = {
+  validator: [
+    isLoggedIn,
+    body('voucherIds').isArray({ min: 1 }).withMessage('소유권을 선택해주세요.'),
+    ...AddressForm.validator,
+    validate
+  ],
+  controller: async (req: Request, res: Response, next: NextFunction) => {
+    const loggedUser = req.user as LoginTokenType;
+    const voucherIds = req.body.voucherIds as number[];
+    const address = AddressForm.form(req);
+
+    // 소유권 유효성 검사
+    const [vouchers] = await voucherService.selectVoucherDetail(voucherIds);
+    if (vouchers.length === 0) return res.status(404).json(createResponseMessage('voucherIds', '사용하려는 소유권을 찾지 못했어요.'));
+    vouchers.forEach(voucher => {
+      if (loggedUser.userId !== voucher.userId)
+        return res.status(403).json(createResponseMessage('voucherIds', '당신의 소유권이 아니에요.'));
+      if (voucher.state !== 'available')
+        return res.status(403).json(createResponseMessage('voucherIds', '배송 요청하려는 소유권 중에 이용가능 상태가 아닌 소유권이 있어요.'));
+    });
+
+    // 배송 요청 생성.
+    const requestId = await shippingService.insertShippingRequest(loggedUser.userId, voucherIds, address);
+    return res.status(200).json({ message: '배송 요청글을 작성했어요. 이어서 배송비를 결제해주세요.', requestId });
     next();
   }
 }

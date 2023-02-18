@@ -44,6 +44,7 @@ export type Action =
   target: keyof FormType;
   value: string;
 }
+| { type: 'INIT_MESSAGE' }
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -58,6 +59,10 @@ const reducer = (state: State, action: Action): State => {
     case 'SET_MESSAGE':
       return produce(state, draft => {
         draft.message[action.target] = action.value
+      });
+    case 'INIT_MESSAGE':
+      return produce(state, draft => {
+        draft.message = initialState.message;
       });
     default:
       return state;

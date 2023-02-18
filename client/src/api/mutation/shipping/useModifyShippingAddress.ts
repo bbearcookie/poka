@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
@@ -10,14 +9,16 @@ import { modifyShippingAddress } from '@api/api/shipping';
 export interface ParamType {
   addressId: number;
   body: {
-    name: string;
-    recipient: string;
-    contact: string;
-    postcode: string;
-    address: string;
-    addressDetail: string;
-    requirement: string;
-  }
+    address: {
+      name: string;
+      recipient: string;
+      contact: string;
+      postcode: string;
+      address: string;
+      addressDetail: string;
+      requirement: string;
+    }
+  };
 }
 
 interface ResType { message: string; }

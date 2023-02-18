@@ -46,7 +46,7 @@ export const insertUser = async (username: string, nickname: string, password: s
   const con = await db.getConnection();
 
   try {
-    const salt = makeSalt();
+    const salt = makeSalt(32);
     const encryptedPassword = encryptText(password, salt);
     
     let sql = `

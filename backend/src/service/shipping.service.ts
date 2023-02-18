@@ -1,6 +1,7 @@
 import db from '@config/database';
-import { RowDataPacket } from 'mysql2';
+import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import { ShippingAddressType } from '@type/user';
+import { makeSalt } from '@util/encrypt';
 
 // 해당 사용자의 모든 배송지 조회
 export const selectUserShippingAddressList = async (userId: number) => {
@@ -44,7 +45,7 @@ export const selectUserShippingAddressDetail = async (addressId: number) => {
 // 사용자 배송지 추가
 export const insertShippingAddress = async (
   userId: number,
-  { form }: { form: {
+  form: {
     name: string;
     recipient: string;
     contact: string;
@@ -54,7 +55,7 @@ export const insertShippingAddress = async (
     requirement: string;
     prime: string;
   }
-}) => {
+) => {
   const con = await db.getConnection();
 
   try {
@@ -84,7 +85,7 @@ export const insertShippingAddress = async (
 // 사용자 배송지 수정
 export const updateShippingAddress = async (
   addressId: number,
-  { form }: { form: {
+  form : {
     name: string;
     recipient: string;
     contact: string;
@@ -93,7 +94,7 @@ export const updateShippingAddress = async (
     addressDetail: string;
     requirement: string;
   }
-}) => {
+) => {
   const con = await db.getConnection();
 
   try {
@@ -160,6 +161,79 @@ export const deleteShippingAddress = async (addressId: number) => {
     let sql = `DELETE FROM ShippingAddress WHERE address_id=${con.escape(addressId)}`;
     return await con.execute(sql);
   } catch (err) {
+    throw err;
+  } finally {
+    con.release();
+  }
+}
+
+// 배송요청 작성
+export const insertShippingRequest = async (
+  userId: number,
+  voucherIds: number[],
+  address: {
+    recipient: string;
+    contact: string;
+    postcode: string;
+    address: string;
+    addressDetail: string;
+    requirement: string;
+  }
+) => {
+  const con = await db.getConnection();
+
+  try {
+    await con.beginTransaction();
+    let sql;
+
+    // 중복되지 않은 결제 UID 생성
+    let merchantUID;
+    while (1) {
+      merchantUID = makeSalt(24);
+      sql = `SELECT payment_id as paymentId FROM Payment WHERE merchant_uid=${con.escape(merchantUID)}`;
+      const [[payment]] = await con.query<RowDataPacket[]>(sql);
+      if (!payment) break; // 생성한 결제 UID가 중복되지 않는다면 반복문 종료
+    }
+
+    // 결제 정보 생성
+    sql = `
+    INSERT INTO Payment (merchant_uid, amount)
+    VALUES (${con.escape(merchantUID)}, ${100})`;
+    const [payment] = await con.execute(sql);
+    const paymentId = (payment as ResultSetHeader).insertId;
+
+    // 배송 요청 생성
+    sql = `
+    INSERT INTO ShippingRequest (
+      user_id, payment_id,
+      recipient, contact, postcode, address, address_detail, requirement
+    ) VALUES (
+      ${con.escape(userId)}, ${con.escape(paymentId)}, ${con.escape(address.recipient)}, ${con.escape(address.contact)}, 
+      ${con.escape(address.postcode)}, ${con.escape(address.address)}, ${con.escape(address.addressDetail)}, ${con.escape(address.recipient)}
+    )`
+    const [request] = await con.execute(sql);
+    const requestId = (request as ResultSetHeader).insertId;
+
+    // 소유권 관련 처리
+    for (let voucherId of voucherIds) {
+      // 소유권 상태 배송대기 상태로 변경.
+      sql = `
+      UPDATE Voucher
+      SET state='shipping'
+      WHERE voucher_id=${con.escape(voucherId)}`;
+      await con.execute(sql);
+
+      // 배송 요청하는 소유권 정보 생성
+      sql = `
+      INSERT INTO ShippingRequestVoucher (request_id, voucher_id)
+      VALUES (${con.escape(requestId)}, ${con.escape(voucherId)})`
+      await con.execute(sql);
+    }
+
+    con.commit();
+    return requestId;
+  } catch (err) {
+    con.rollback();
     throw err;
   } finally {
     con.release();

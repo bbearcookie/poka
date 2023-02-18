@@ -37,7 +37,7 @@ function AddressCard({ modal, state, dispatch }: Props) {
               iconMargin: "1em"
             }}
             onClick={openModal}
-          >선택</Button>
+          >가져오기</Button>
         </section>
       </CardHeader>
       <CardBody styles={{ padding: "0" }}>
