@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { ShippingAddressType } from '@type/user';
+import { ShippingAddressType } from '@type/shipping';
 import { State, Action, FormType } from '@component/address/editor/reducer';
 import Name from './content/Name';
 import Recipient from './content/Recipient';

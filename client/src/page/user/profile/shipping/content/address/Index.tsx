@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShippingAddressType } from '@type/user';
+import { ShippingAddressType } from '@type/shipping';
 import IconButton from '@component/form/IconButton';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import Address, { IconSection } from '@component/address/Address';

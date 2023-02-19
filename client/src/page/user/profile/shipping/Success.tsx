@@ -1,5 +1,5 @@
 import React, { useState, useCallback, Fragment } from 'react';
-import { ResType as AddressesResType } from '@api/query/shipping/useShippingAddresses';
+import { ResType as AddressesResType } from '@api/query/shipping/useShippingAddressesQuery';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';

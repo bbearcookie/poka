@@ -209,3 +209,27 @@ export const postShippingRequest = {
     next();
   }
 }
+
+// 배송 요청 상세 조회
+export const getShippingDetail = {
+  validator: [
+    param('requestId').isNumeric().withMessage('요청 ID는 숫자여야 해요.'),
+    validate
+  ],
+  controlller: async (req: Request, res: Response, next: NextFunction) => {
+    const requestId = Number(req.params.requestId);
+
+    // 배송 요청 상세 조회
+    const [[shipping]] = await shippingService.selectShippingRequestDetail(requestId);
+
+    // 요청한 소유권 목록 조회
+    const [vouchers] = await shippingService.selectShippingRequestVoucherIds(requestId);
+
+    return res.status(200).json({
+      message: '배송 요청 상세 정보를 조회했어요.',
+      shipping,
+      vouchers
+    });
+    next();
+  }
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faPhone, faInfoCircle, faEdit, faUser } from '@fortawesome/free-solid-svg-icons';
-import { ShippingAddressType } from '@type/user';
+import { ShippingAddressType } from '@type/shipping';
 
 interface Props {
   address: ShippingAddressType;

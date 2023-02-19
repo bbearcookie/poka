@@ -3,7 +3,7 @@ import { ModalHookType } from '@hook/useModal';
 import TitleModal from '@component/modal/TitleModal';
 import Button from '@component/form/Button';
 import Address from '@component/address/Address';
-import { ResType } from '@api/query/shipping/useShippingAddresses';
+import { ResType } from '@api/query/shipping/useShippingAddressesQuery';
 import { State, Action } from '@component/address/editor/reducer';
 
 interface Props {

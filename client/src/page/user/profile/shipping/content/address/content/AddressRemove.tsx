@@ -4,7 +4,7 @@ import useModal from '@hook/useModal';
 import ConfirmModal from '@component/modal/ConfirmModal';
 import IconButton from '@component/form/IconButton';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
-import { ShippingAddressType } from '@type/user';
+import { ShippingAddressType } from '@type/shipping';
 
 interface Props {
   address: ShippingAddressType;

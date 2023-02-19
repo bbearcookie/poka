@@ -8,7 +8,7 @@ import { ErrorType } from '@util/request';
 import Button from '@component/form/Button';
 import reducer, { initialState, FormType } from '@component/address/editor/reducer';
 import AddressEditor from '@component/address/editor/AddressEditor';
-import { ShippingAddressType } from '@type/user';
+import { ShippingAddressType } from '@type/shipping';
 
 interface Props {
   address?: ShippingAddressType;

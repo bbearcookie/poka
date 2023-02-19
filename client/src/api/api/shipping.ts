@@ -35,6 +35,12 @@ export const deleteShippingAddress = async (param: deleteShippingAddressParam) =
   return res;
 }
 
+export const fetchShippingRequestDetail = async (requestId: number) => {
+  const url = `/api/shipping/request/${requestId}`;
+  const res = await client.get(url);
+  return res.data;
+}
+
 export const addShippingRequest = async (param: addShippingParam) => {
   const url = `/api/shipping/request`;
   const res = await client.post(url, param.body);

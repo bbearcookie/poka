@@ -1,7 +1,9 @@
 import db from '@config/database';
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
-import { ShippingAddressType } from '@type/user';
+import { ShippingAddressType, ShippingRequestType } from '@type/shipping';
+import { VoucherType } from '@type/voucher';
 import { makeSalt } from '@util/encrypt';
+import * as voucherService from '@service/voucher.service';
 
 // 해당 사용자의 모든 배송지 조회
 export const selectUserShippingAddressList = async (userId: number) => {
@@ -167,7 +169,7 @@ export const deleteShippingAddress = async (addressId: number) => {
   }
 }
 
-// 배송요청 작성
+// 배송 요청 작성
 export const insertShippingRequest = async (
   userId: number,
   voucherIds: number[],
@@ -234,6 +236,59 @@ export const insertShippingRequest = async (
     return requestId;
   } catch (err) {
     con.rollback();
+    throw err;
+  } finally {
+    con.release();
+  }
+}
+
+// 배송 요청 상세 조회
+export const selectShippingRequestDetail = async (requestId: number) => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `
+    SELECT R.request_id as requestId, R.state as requestState,
+    R.recipient, R.contact, R.postcode, R.address, R.address_detail as addressDetail,
+    R.requirement, R.written_time as writtenTime,
+    U.username, U.nickname, U.image_name as userImageName,
+    P.payment_id as paymentId, P.merchant_uid as merchantUID, P.amount, P.state as paymentState
+    FROM ShippingRequest as R
+    INNER JOIN User as U ON R.user_id=U.user_id
+    INNER JOIN Payment as P ON R.payment_id=P.payment_id
+    WHERE R.request_id=${con.escape(requestId)}`;
+
+    interface DataType extends ShippingRequestType, RowDataPacket {}
+    return await con.query<DataType[]>(sql);
+  } catch (err) {
+    throw err;
+  } finally {
+    con.release();
+  }
+}
+
+// 배송 요청이 원하는 소유권 정보 조회
+export const selectShippingRequestVoucherIds = async (requestId: number) => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `
+    SELECT P.photocard_id as photocardId, P.name, P.image_name as imageName,
+    G.group_id as groupId, G.name as groupName,
+    M.member_id as memberId, M.name as memberName,
+    V.voucher_id as voucherId, V.state,
+    U.username, U.nickname, U.image_name as userImageName
+    FROM ShippingRequestVoucher as R
+    INNER JOIN Voucher as V ON R.voucher_id=V.voucher_id
+    INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
+    INNER JOIN MemberData as M ON P.member_id=M.member_id
+    INNER JOIN GroupData as G ON M.group_id=G.group_id
+    INNER JOIN User as U ON V.user_id=U.user_id
+    WHERE R.request_id=${con.escape(requestId)}`;
+
+    interface DataType extends VoucherType, RowDataPacket {}
+    return await con.query<DataType[]>(sql);
+  } catch (err) {
     throw err;
   } finally {
     con.release();

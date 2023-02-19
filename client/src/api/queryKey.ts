@@ -42,5 +42,6 @@ export const tradeKeys = {
 
 export const shippingKeys = {
   all: ["shipping"] as const,
+  detail: (requestId: number) => [...shippingKeys.all, requestId] as const, // 배송 요청 상세 정보
   writerVoucher: (voucherId: number) => ["shipping", "writer", ...voucherKeys.detail(voucherId)] as const, // 배송요청 작성 화면에서 사용할 소유권의 상세 정보
 }
