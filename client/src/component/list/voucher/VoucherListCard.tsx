@@ -9,7 +9,7 @@ import SearchInput from '@component/list/common/SearchInput';
 import SearchLabelList from './content/SearchLabelList';
 import FilterCheck from './content/FilterCheck';
 import VoucherList from './content/VoucherList';
-import { VoucherStateKey } from '@type/voucher';
+import { VoucherStateKey } from '@component/label/StateLabel';
 import reducer, { initialState, SearchKeywordsType, SearchKeywords } from './reducer';
 import '../photo/PhotoListCard.scss';
 

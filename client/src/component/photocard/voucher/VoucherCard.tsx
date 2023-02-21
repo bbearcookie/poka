@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import IconButton from '@component/form/IconButton';
-import { VoucherStateKey, VoucherStateValue } from '@/type/voucher';
+import StateLabel, { VoucherStateKey, VoucherStateValue } from '@component/label/StateLabel';
 import PhotoCardTemplate from '@component/photocard/PhotoCardTemplate';
 
 interface Props {
@@ -45,9 +45,9 @@ function VoucherCard({
     >
       <StyledVoucherCard {...styles}>
         <section>
-          <VoucherStateLabel voucherState={voucherState}>
-            {VoucherStateValue[voucherState as VoucherStateKey]}
-          </VoucherStateLabel>
+        <StateLabel state={{ type: "voucher", key: voucherState }} textAlign="start">
+          {VoucherStateValue[voucherState]}
+        </StateLabel>
         </section>
         {showOwner && <UserNameLabel><b>{username}</b></UserNameLabel>}
         {children}
@@ -66,32 +66,6 @@ const StyledVoucherCard = styled.div<StylesProps>`
   flex-direction: ${p => p.flexDirection ? p.flexDirection : "column"};
 `
 
-export const VoucherStateLabel = styled.p<{
-  voucherState: VoucherStateKey;
-  width?: string;
-  margin?: string;
-  textAlign?: string;
-}>`
-  width: ${p => p.width};
-  margin: ${p => p.margin ? p.margin : '0 0 0.2em 0'};
-  text-align: ${p => p.textAlign};
-  display: inline-block;
-  padding: 0.3em;
-  border-radius: 5px;
-
-  ${(p) => {
-    switch (p.voucherState) {
-      case 'available':
-        return css` background-color: #2196F3; color: white; `
-      case 'trading':
-        return css` background-color: #14B8A6; color: white; `
-      case 'shipping':
-        return css` background-color: #E95188; color: white; `
-      case 'shipped':
-        return css` background-color: #D14343; color: white; `
-    }
-  }}
-`
 const UserNameLabel = styled.p`
   margin: 0;
   overflow: hidden;

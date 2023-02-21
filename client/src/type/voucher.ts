@@ -16,14 +16,3 @@ export interface VoucherLogType {
   type: 'issued' | 'traded' | 'shipped';
   loggedTime: string;
 }
-
-export type VoucherStateKey = 'all' | 'available' | 'trading' | 'shipping' | 'shipped';
-export const VoucherStateValue: {
-  [k in VoucherStateKey]: string;
-} = {
-    'all': '전체',
-    'available': '교환가능',
-    'trading': '교환중',
-    'shipping': '배송대기중',
-    'shipped': '배송완료'
-}

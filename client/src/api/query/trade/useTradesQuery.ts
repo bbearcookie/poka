@@ -3,7 +3,8 @@ import { AxiosError } from 'axios';
 import { ErrorType } from '@util/request';
 import * as queryKey from '@api/queryKey';
 import { fetchTrades } from '@api/api/trade';
-import { TradeListItemType, TradeStateKey } from '@type/trade';
+import { TradeStateKey } from '@component/label/StateLabel';
+import { TradeListItemType } from '@type/trade';
 
 interface FilterType {
   groupId: number;

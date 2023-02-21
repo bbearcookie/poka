@@ -7,8 +7,7 @@ import Button from '@component/form/Button';
 import UserProfile from '@component/profile/UserProfile';
 import { userImage } from '@api/resource';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { VoucherStateLabel } from '@component/photocard/voucher/VoucherCard';
-import { VoucherStateKey, VoucherStateValue } from '@type/voucher';
+import StateLabel, { VoucherStateValue } from '@component/label/StateLabel';
 import { ResType as VoucherResType } from '@api/query/voucher/useVoucherQuery';
 
 interface Props {
@@ -38,9 +37,9 @@ function VoucherInfo({ voucher }: Props) {
           <li className="info">
             <div className="subtitle">상태</div>
             <div className="body">
-              <VoucherStateLabel className="state-label" voucherState={voucher?.state || ''}>
-                {VoucherStateValue[voucher?.state.toUpperCase() as VoucherStateKey]}
-              </VoucherStateLabel>
+              <StateLabel className="state-label" state={{ type: "voucher", key: voucher.state || "" }}>
+                {VoucherStateValue[voucher.state]}
+              </StateLabel>
             </div>
           </li>
           <li className="info">
@@ -65,19 +64,27 @@ function VoucherInfo({ voucher }: Props) {
         <p className="description">상태는 플랫폼 내에서 발급된 이 소유권의 상태를 나타냅니다.</p>
         <br />
         <section className="state-description">
-          <VoucherStateLabel className="state-label" voucherState="available">{VoucherStateValue['available']}</VoucherStateLabel>
+          <StateLabel className="state-label" state={{ type: "voucher", key: "available" }}>
+            {VoucherStateValue.available}
+          </StateLabel>
           <span className="description">사용자끼리 교환이 가능한 상태입니다.</span>
         </section>
         <section className="state-description">
-          <VoucherStateLabel className="state-label" voucherState="trading">{VoucherStateValue['trading']}</VoucherStateLabel>
+          <StateLabel className="state-label" state={{ type: "voucher", key: "trading" }}>
+            {VoucherStateValue.trading}
+          </StateLabel>
           <span>소유권으로 교환글을 등록한 상태입니다.</span>
         </section>
         <section className="state-description">
-          <VoucherStateLabel className="state-label" voucherState="shipping">{VoucherStateValue['shipping']}</VoucherStateLabel>
+          <StateLabel className="state-label" state={{ type: "voucher", key: "shipping" }}>
+            {VoucherStateValue.shipping}
+          </StateLabel>
           <span>사용자가 소유권을 실물로 받기 위해 관리자에게 배송요청한 상태입니다.</span>
         </section>
         <section className="state-description">
-          <VoucherStateLabel className="state-label" voucherState="shipped">{VoucherStateValue['shipped']}</VoucherStateLabel>
+          <StateLabel className="state-label" state={{ type: "voucher", key: "shipped" }}>
+            {VoucherStateValue.shipped}
+          </StateLabel>
           <span>관리자가 사용자에게 포토카드를 발송한 상태입니다.</span>
         </section>
       </CardBody>

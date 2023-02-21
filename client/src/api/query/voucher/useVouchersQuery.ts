@@ -2,7 +2,7 @@ import { useInfiniteQuery, UseInfiniteQueryOptions, UseInfiniteQueryResult } fro
 import { AxiosError } from 'axios';
 import { ErrorType } from '@util/request';
 import { fetchVouchers } from '@api/api/voucher';
-import { VoucherStateKey } from "@type/voucher";
+import { VoucherStateKey } from '@component/label/StateLabel';
 import { State as FilterType } from '@component/list/voucher/reducer';
 import { VoucherType } from '@type/voucher';
 import * as queryKey from '@api/queryKey';

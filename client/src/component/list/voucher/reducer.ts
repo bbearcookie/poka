@@ -1,5 +1,5 @@
 import produce from "immer";
-import { VoucherStateKey } from "@type/voucher";
+import { VoucherStateKey } from "@component/label/StateLabel";
 import { FilterItemType } from "@type/listFilter";
 
 let nextId = 0; // names, usernames 추가/삭제에 사용되는 변수

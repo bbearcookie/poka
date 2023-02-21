@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
@@ -9,8 +8,7 @@ import UserProfile from '@component/profile/UserProfile';
 import CardList from '@component/card/basic/CardList';
 import CardListItem from '@component/card/basic/CardListItem';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { VoucherStateLabel } from '@component/photocard/voucher/VoucherCard';
-import { VoucherStateKey, VoucherStateValue } from '@/type/voucher';
+import StateLabel, { VoucherStateValue } from '@component/label/StateLabel';
 import { ResType as VoucherResType } from '@api/query/voucher/useVoucherQuery';
 import DescriptionSection from './content/DescriptionSection';
 
@@ -34,14 +32,14 @@ function VoucherInfoCard({ voucher, showAdminInfo = DefaultProps.showAdminInfo }
           <>
             <VoucherID voucher={voucher} />
             <VoucherOwner voucher={voucher} />
-            <VoucherState voucher={voucher} />
+            <VoucherStateItem voucher={voucher} />
             <VoucherLog voucher={voucher} />
           </>}
 
           {!showAdminInfo && 
           <>
             <VoucherOwner voucher={voucher} />
-            <VoucherState voucher={voucher} />
+            <VoucherStateItem voucher={voucher} />
           </>}
         </CardList>
 
@@ -74,12 +72,12 @@ function VoucherOwner({ voucher }: { voucher: VoucherResType }) {
   )
 }
 
-function VoucherState({ voucher }: { voucher: VoucherResType }) {
+function VoucherStateItem({ voucher }: { voucher: VoucherResType }) {
   return (
     <CardListItem title="상태">
-      <VoucherStateLabel voucherState={voucher.state} width="6em" textAlign="center">
-        {VoucherStateValue[voucher.state as VoucherStateKey]}
-      </VoucherStateLabel>
+      <StateLabel state={{ type: "voucher", key: voucher.state}} width="6em">
+        {VoucherStateValue[voucher.state]}
+      </StateLabel>
     </CardListItem>
   )
 }

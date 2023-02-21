@@ -7,7 +7,7 @@ import DropdownItem from '@component/dropdown/DropdownItem';
 import { usePopper } from 'react-popper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import { VoucherStateKey, VoucherStateValue } from '@/type/voucher';
+import { VoucherStateKey, VoucherStateValue } from '@component/label/StateLabel';
 
 interface Props {
   filter: VoucherStateKey;

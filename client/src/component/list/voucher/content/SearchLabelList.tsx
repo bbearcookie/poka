@@ -1,7 +1,7 @@
 import React from 'react';
 import CardHeader from '@component/card/basic/CardHeader';
 import SearchLabel from '@component/label/SearchLabel';
-import { VoucherStateValue } from '@/type/voucher';
+import { VoucherStateValue } from '@component/label/StateLabel';
 import { DefaultFilterType } from '../VoucherListCard';
 import { State, Action } from '../reducer';
 

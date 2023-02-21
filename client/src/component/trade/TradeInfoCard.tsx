@@ -1,5 +1,4 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
 import useUserQuery from '@api/query/user/useUserQuery';
 import { ResType as TradeType } from '@api/query/trade/useTradeQuery';
 import Card from '@component/card/basic/Card';
@@ -10,7 +9,7 @@ import CardListItem from '@component/card/basic/CardListItem';
 import SkeletonUserProfile from '@component/profile/SkeletonUserProfile';
 import UserProfile from '@component/profile/UserProfile';
 import { getFormattedTime } from '@util/date';
-import { TradeStateKey, TradeStateValue } from '@/type/trade';
+import StateLabel, { TradeStateValue } from '@component/label/StateLabel';
 
 interface Props {
   trade: TradeType;
@@ -29,7 +28,7 @@ function TradeInfoCard({ trade }: Props) {
           {status === 'loading' && <SkeletonUserProfile />}
         </CardListItem>
         <CardListItem title="교환 상태" styles={{ color: "#65748b" }}>
-          <TradeStateLabel state={trade.state}>{TradeStateValue[trade.state]}</TradeStateLabel>
+          <StateLabel state={{ type: "trade", key: trade.state }} width="6em" margin="0">{TradeStateValue[trade.state]}</StateLabel>
         </CardListItem>
         <CardListItem title="작성일" styles={{ color: "#65748b" }}>{getFormattedTime(new Date(trade.writtenTime))}</CardListItem>
         {trade.tradedTime && <CardListItem title="교환일" styles={{ color: "#65748b" }}>{getFormattedTime(new Date(trade.tradedTime))}</CardListItem>}
@@ -42,28 +41,5 @@ function TradeInfoCard({ trade }: Props) {
     </Card>
   );
 }
-
-interface StateStyles {
-  state: TradeStateKey;
-}
-const TradeStateLabel = styled.p<StateStyles>`
-  width: 6em;
-  margin: 0;
-  padding: 0.3em;
-  text-align: center;
-  display: inline-block;
-  border-radius: 5px;
-
-  ${(p) => {
-    switch (p.state.toLowerCase()) {
-      case 'trading':
-        return css` background-color: #14B8A6; color: white; `
-      case 'traded':
-        return css` background-color: #D14343; color: white; `
-      default:
-        return css``
-    }
-  }}
-`
 
 export default TradeInfoCard;
