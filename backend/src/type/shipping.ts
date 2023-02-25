@@ -8,7 +8,7 @@ export interface ShippingAddressType {
   address: string;
   addressDetail: string;
   requirement: string;
-  prime: string;
+  prime: number;
 }
 
 export interface ShippingRequestType {

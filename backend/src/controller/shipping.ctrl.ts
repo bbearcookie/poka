@@ -34,7 +34,7 @@ export const AddressForm = {
     const address = req.body.address.address as unknown as string;
     const addressDetail = req.body.address.addressDetail as unknown as string;
     const requirement = req.body.address.requirement as unknown as string;
-    const prime = '';
+    const prime = 0;
 
     return { name, recipient, contact, postcode, address, addressDetail, requirement, prime };
   }
@@ -90,7 +90,7 @@ export const postShippingAddress = {
     const [addresses] = await shippingService.selectUserShippingAddressList(userId);
     if (addresses.length >= 10) return res.status(400).json({ message: '배송지는 10개 까지만 추가할 수 있어요.' });
 
-    form.prime = addresses.find(item => item.prime === 'true') ? 'false' : 'true';
+    form.prime = addresses.find(item => item.prime) ? 0 : 1;
     await shippingService.insertShippingAddress(userId, form);
     return res.status(200).json({ message: '새로운 배송지를 추가했어요.' });
     next();
@@ -144,7 +144,7 @@ export const patchShippingAddressPrime = {
     if (!isAdminOrOwner(loggedUser, address.userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
 
     await shippingService.updateUserShippingAddressPrimeFalse(address.userId);
-    await shippingService.updateShippingAddressPrime(addressId, 'true');
+    await shippingService.updateShippingAddressPrime(addressId, 1);
     return res.status(200).json({ message: '기본 배송지를 변경했어요.' });
 
     next();
@@ -171,8 +171,8 @@ export const deleteShippingAddress = {
 
     // 만약 배송자의 삭제로 인해서 기본 배송지가 사라진다면 기존의 배송지 중 하나를 기본 배송지로 설정
     const [addresses] = await shippingService.selectUserShippingAddressList(address.userId);
-    if (addresses.length > 0 && !addresses.find(item => item.prime === 'true')) {
-      await shippingService.updateShippingAddressPrime(addresses.find(item => item.prime === 'false')?.addressId || 0, 'true');
+    if (addresses.length > 0 && !addresses.find(item => item.prime)) {
+      await shippingService.updateShippingAddressPrime(addresses.find(item => item.prime === 0)?.addressId || 0, 1);
     }
 
     return res.status(200).json({ message: '배송지를 삭제했어요.' });

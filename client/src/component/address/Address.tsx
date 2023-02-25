@@ -1,38 +1,44 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationDot, faPhone, faInfoCircle, faEdit, faUser } from '@fortawesome/free-solid-svg-icons';
-import { ShippingAddressType } from '@type/shipping';
+import { faLocationDot, faPhone, faInfoCircle, faUser } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
-  address: ShippingAddressType;
+  name?: string;
+  address?: string;
+  addressDetail?: string;
+  recipient?: string;
+  contact?: string;
+  requirement?: string;
+  prime?: number;
+  styles?: StylesProps;
   children?: React.ReactNode;
 }
-const DefaultProps = {};
 
-function Address({ address, children }: Props) {
+function Address({ name, address, addressDetail, contact, recipient, requirement, prime = 0, styles, children }: Props) {
   return (
-    <StyledWrapper>
+    <StyledWrapper {...styles}>
       <ContentSection className="name-section">
-        <NameLabel>{address.name}</NameLabel>
-        {address.prime === 'true' && <PrimeLabel>기본배송지</PrimeLabel>}
+        <NameLabel>{name}</NameLabel>
+        {prime === 1 && <PrimeLabel>기본배송지</PrimeLabel>}
       </ContentSection>
       <ContentSection>
         <FontAwesomeIcon icon={faLocationDot} width="1.5em" height="1.5em" color="#2678F3" />
-        <span className="text">{address.address} {address.addressDetail}</span>
+        <span className="text">{address} {addressDetail}</span>
       </ContentSection>
+      {recipient &&
       <ContentSection>
         <FontAwesomeIcon icon={faUser} width="1.5em" height="1.5em" color="#EC1B5A" />
-        <span className="text">{address.recipient}</span>
-      </ContentSection>
+        <span className="text">{recipient}</span>
+      </ContentSection>}
       <ContentSection>
         <FontAwesomeIcon icon={faPhone} width="1.5em" height="1.5em" color="#459A10" />
-        <span className="text">{address.contact}</span>
+        <span className="text">{contact}</span>
       </ContentSection>
-      {address.requirement &&
+      {requirement &&
       <ContentSection>
         <FontAwesomeIcon icon={faInfoCircle} width="1.5em" height="1.5em" color="#F3E079" />
-        <span className="text">{address.requirement}</span>
+        <span className="text">{requirement}</span>
       </ContentSection>}
       {children}
     </StyledWrapper>
@@ -41,12 +47,16 @@ function Address({ address, children }: Props) {
 
 export default Address;
 
-export const StyledWrapper = styled.div`
+export interface StylesProps {
+  padding?: string;
+  borderBottom?: string;
+}
+export const StyledWrapper = styled.div<StylesProps>`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  padding: 1.5em;
-  border-bottom: 1px solid #E5E7EB;
+  padding: ${p => p.padding ? p.padding : '1.5em'};
+  border-bottom: ${p => p.borderBottom};
 `
 
 export const ContentSection = styled.div`

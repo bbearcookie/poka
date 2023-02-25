@@ -1,3 +1,11 @@
 .ShippingDetailPage {
   padding: 5em 10%;
+
+  .ShippingInfoSection {
+    .state-description-section {
+      display: flex;
+      margin-bottom: 0.5em;
+      flex-wrap: wrap;
+    }
+  }
 }

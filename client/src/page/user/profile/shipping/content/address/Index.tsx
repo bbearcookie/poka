@@ -14,15 +14,15 @@ const DefaultProps = {};
 
 function Index({ address, startEditor }: Props) {
   return (
-    <Address address={address}>
+    <Address {...address} styles={{ borderBottom: '1px solid #E5E7EB' }}>
       <IconSection>
-        {address.prime === "false" && <AddressPrime address={address} />}
+        {!address.prime && <AddressPrime address={address} />}
         <IconButton
           width="1em"
           height="1em"
           icon={faEdit}
           tooltip="수정"
-          styles={{ display: "inline" }}
+          styles={{ display: 'inline' }}
           onClick={startEditor}
         />
         <AddressRemove address={address} />

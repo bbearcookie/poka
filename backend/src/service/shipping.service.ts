@@ -55,7 +55,7 @@ export const insertShippingAddress = async (
     address: string;
     addressDetail: string;
     requirement: string;
-    prime: string;
+    prime: number;
   }
 ) => {
   const con = await db.getConnection();
@@ -126,7 +126,7 @@ export const updateUserShippingAddressPrimeFalse = async (userId: number) => {
   try {
     let sql = `
     UPDATE ShippingAddress
-    SET prime='false'
+    SET prime=0
     WHERE user_id=${con.escape(userId)}`;
 
     return await con.execute(sql);
@@ -138,7 +138,7 @@ export const updateUserShippingAddressPrimeFalse = async (userId: number) => {
 }
 
 // 사용자 기본 배송지 정보 변경
-export const updateShippingAddressPrime = async (addressId: number, prime: string) => {
+export const updateShippingAddressPrime = async (addressId: number, prime: number) => {
   const con = await db.getConnection();
 
   try {
