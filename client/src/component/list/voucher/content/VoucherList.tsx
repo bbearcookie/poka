@@ -7,6 +7,7 @@ import * as queryKey from '@api/queryKey';
 import NextPageFetcher from '@component/list/NextPageFetcher';
 import VoucherCard from '@component/photocard/voucher/VoucherCard';
 import SkeletonVoucherCard from '@component/photocard/voucher/SkeletonVoucherCard';
+import ItemSection from '@component/list/ItemSection';
 import { DefaultFilterType } from '../VoucherListCard';
 import { State, Action } from '../reducer';
 
@@ -18,9 +19,8 @@ interface Props {
   handleClickIcon?: (photocardId: number) => void;
   children?: React.ReactNode;
 }
-const DefaultProps = {};
 
-function VoucherList({ state, dispatch, defaultFilter, icon, handleClickIcon }: Props) {
+function VoucherList({ state, dispatch, defaultFilter, icon, handleClickIcon, children }: Props) {
   const queryClient = useQueryClient();
 
   // 데이터 가져오기
@@ -37,7 +37,7 @@ function VoucherList({ state, dispatch, defaultFilter, icon, handleClickIcon }: 
   }, [state]);
 
   return (
-    <section className="item-section">
+    <ItemSection>
       {vouchers?.pages.map((page, pageIdx) => 
       <Fragment key={pageIdx}>
         {page?.vouchers.map(item => 
@@ -62,7 +62,7 @@ function VoucherList({ state, dispatch, defaultFilter, icon, handleClickIcon }: 
       )}
 
       <NextPageFetcher hasNextPage={hasNextPage} fetchNextPage={fetchNextPage} />
-    </section>
+    </ItemSection>
   );
 }
 

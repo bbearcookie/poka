@@ -4,6 +4,7 @@ import * as queryKey from '@api/queryKey';
 import { fetchPhotoDetail } from '@api/api/photo';
 import SkeletonPhotoCard from '@component/photocard/photo/SkeletonPhotoCard';
 import { State, Action } from '../../reducer';
+import ItemSection from '@component/list/ItemSection';
 import { PhotoItemType } from './PhotoItem';
 import PhotoItem from './PhotoItem';
 
@@ -25,12 +26,12 @@ function PhotoList({ state, dispatch }: Props) {
   });
 
   return (
-    <section className="PhotoList">
+    <ItemSection styles={{ margin: "1em 0" }}>
       {photos.map((photo, idx) => {
         if (photo.data) return <PhotoItem key={idx} photo={photo.data} idx={idx} state={state} dispatch={dispatch} />
         else return <SkeletonPhotoCard key={idx}></SkeletonPhotoCard>
       })}
-    </section>
+    </ItemSection>
   );
 }
 

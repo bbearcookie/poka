@@ -77,7 +77,6 @@ function PhotocardSection({ form, formDispatch }: Props) {
           </section>
         </CardHeader>
         <CardBody>
-          
           <PhotocardList form={form} formDispatch={formDispatch} photos={photos} removeWantPhotocardId={removeWantPhotocardId} />
           {photos.length > 0 && <PhotocardAmount form={form} formDispatch={formDispatch} />}
           <p className="description">타인으로부터 받기를 원하는 포토카드의 종류와 수량을 선택합니다.</p>
@@ -88,7 +87,7 @@ function PhotocardSection({ form, formDispatch }: Props) {
 
       <TitleModal hook={addModal} titleName="포토카드 선택" styles={{ width: '75%' }}>
         <PhotoListCard
-          icon={{ svg: faAdd, tooltip: "추가" }}
+          icon={{ svg: faAdd }}
           handleClickIcon={addWantPhotocardId}
           cardStyles={{ border: "none" }}
         />

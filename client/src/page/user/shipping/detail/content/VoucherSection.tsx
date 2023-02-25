@@ -5,6 +5,7 @@ import CardBody from '@component/card/basic/CardBody';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { ResType } from '@api/query/shipping/useShippingRequestQuery';
 import PhotoCard from '@component/photocard/photo/PhotoCard';
+import ItemSection from '@component/list/ItemSection';
 
 interface Props {
   res: ResType;
@@ -15,17 +16,20 @@ function VoucherSection({ res }: Props) {
   console.log(res.vouchers);
 
   return (
-    <Card>
+    <Card className="VoucherSection">
       <CardHeader>
         <h1 className="title">요청한 소유권</h1>
       </CardHeader>
       <CardBody>
-        {res.vouchers.map(voucher =>
-          <PhotoCard
-            {...voucher}
-            photoName={voucher.name}
-            icon={{ svg: faArrowRight, tooltip: '상세 보기' }}
+        <ItemSection>
+          {res.vouchers.map(voucher =>
+            <PhotoCard
+              {...voucher}
+              key={voucher.voucherId}
+              photoName={voucher.name}
+              icon={{ svg: faArrowRight, tooltip: '상세 보기' }}
           />)}
+        </ItemSection>
       </CardBody>
     </Card>
   );

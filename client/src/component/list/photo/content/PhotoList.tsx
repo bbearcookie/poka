@@ -3,6 +3,7 @@ import { useUpdateEffect } from 'react-use';
 import { useQueryClient } from '@tanstack/react-query';
 import { IconType } from '@type/icon';
 import * as queryKey from '@api/queryKey';
+import ItemSection from '@component/list/ItemSection';
 import PhotoCard from '@component/photocard/photo/PhotoCard';
 import SkeletonPhotoCard from '@component/photocard/photo/SkeletonPhotoCard';
 import usePhotosQuery from '@api/query/photo/usePhotosQuery';
@@ -34,7 +35,7 @@ function PhotoList({ state, dispatch, icon, handleClickIcon }: Props) {
   }, [state]);
 
   return (
-    <section className="item-section">
+    <ItemSection>
       {photos?.pages.map((page, pageIdx) => 
       <Fragment key={pageIdx}>
         {page?.photos.map((item) => (
@@ -56,7 +57,7 @@ function PhotoList({ state, dispatch, icon, handleClickIcon }: Props) {
       ))}
 
       <NextPageFetcher hasNextPage={hasNextPage} fetchNextPage={fetchNextPage} />
-    </section>
+    </ItemSection>
   );
 }
 

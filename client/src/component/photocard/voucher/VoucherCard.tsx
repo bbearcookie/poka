@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { IconType } from '@type/icon';
 import IconButton from '@component/form/IconButton';
+import { StylesProps as CardStylesProps } from '@component/card/basic/Card';
 import StateLabel, { VoucherStateKey, VoucherStateValue } from '@component/label/StateLabel';
 import PhotoCardTemplate from '@component/photocard/PhotoCardTemplate';
 
@@ -16,6 +17,7 @@ interface Props {
   imageName: string;
   icon?: IconType;
   handleClickIcon?: (voucherId: number) => void;
+  cardStyles?: CardStylesProps;
   styles?: StylesProps;
   children?: React.ReactNode;
 }
@@ -27,7 +29,7 @@ const DefaultProps = {
 function VoucherCard({
   showOwner = DefaultProps.showOwner,
   voucherId, voucherState, photoName, groupName, memberName, imageName, username,
-  icon, handleClickIcon = DefaultProps.handleClickIcon, styles, children }
+  icon, handleClickIcon = DefaultProps.handleClickIcon, cardStyles, styles, children }
 : Props) {
 
   const onClick = useCallback(() => {
@@ -42,12 +44,13 @@ function VoucherCard({
       imageName={imageName}
       groupName={groupName}
       iconNode={icon && <IconButton icon={icon.svg} tooltip={icon.tooltip} size="lg" onClick={onClick} />}
+      cardStyles={cardStyles}
     >
       <StyledVoucherCard {...styles}>
         <section>
-        <StateLabel state={{ type: "voucher", key: voucherState }} textAlign="start">
-          {VoucherStateValue[voucherState]}
-        </StateLabel>
+          <StateLabel state={{ type: "voucher", key: voucherState }} textAlign="start" margin="0">
+            {VoucherStateValue[voucherState]}
+          </StateLabel>
         </section>
         {showOwner && <UserNameLabel><b>{username}</b></UserNameLabel>}
         {children}

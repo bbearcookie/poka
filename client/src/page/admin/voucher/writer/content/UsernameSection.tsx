@@ -28,7 +28,6 @@ function UsernameSection({ state, dispatch }: Props) {
         <h3 className="label">사용자 아이디</h3>
       </CardHeader>
       <CardBody>
-        <p className="description">소유권을 발급하려는 대상 사용자의 아이디를 지정합니다.</p>
         <Input
           type="text"
           name="username"
@@ -40,11 +39,12 @@ function UsernameSection({ state, dispatch }: Props) {
           styles={{
             width: "100%",
             height: "2.5em",
-            margin: "1em 0 0.5em 0"
+            margin: "0 0 0.5em 0"
           }}
         >
           {state.message.username && <InputMessage styles={{ margin: '1em 0 0 0' }}>{state.message.username}</InputMessage>}
         </Input>
+        <p className="description">소유권을 발급하려는 대상 사용자의 아이디를 지정합니다.</p>
       </CardBody>
     </Card>
   );

@@ -9,6 +9,7 @@ import VoucherListCard from '@component/list/voucher/VoucherListCard';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
+import ItemSection from '@component/list/ItemSection';
 import Button from '@component/form/Button';
 import InputMessage from '@component/form/InputMessage';
 import { getErrorMessage } from '@util/request';
@@ -58,15 +59,17 @@ function VoucherSection({ form, formDispatch }: Props) {
           </section>
         </CardHeader>
         <CardBody>
-          {status === 'success' && voucher &&
-          <PhotoInfoCard
-            photoName={voucher.name}
-            groupName={voucher.groupName}
-            memberName={voucher.memberName}
-            imageName={voucher.imageName}
-            cardStyles={{ boxShadow: "none", border: "none" }}
-          />}
-          {status === 'loading' && form.data.haveVoucherId > 0 && <SkeletonPhotoInfoCard cardStyles={{ boxShadow: "none", border: "none" }} />}
+          <ItemSection>
+            {status === 'success' && voucher &&
+            <PhotoInfoCard
+              photoName={voucher.name}
+              groupName={voucher.groupName}
+              memberName={voucher.memberName}
+              imageName={voucher.imageName}
+              cardStyles={{ boxShadow: "none", border: "none" }}
+            />}
+            {status === 'loading' && form.data.haveVoucherId > 0 && <SkeletonPhotoInfoCard cardStyles={{ boxShadow: "none", border: "none" }} />}
+          </ItemSection>
           {form.message.haveVoucherId && <InputMessage styles={{margin: "0 0 0.5em 0"}}>{form.message.haveVoucherId}</InputMessage>}
           <p className="description">타인과 교환하기를 원하는 소유권을 선택합니다.</p>
         </CardBody>

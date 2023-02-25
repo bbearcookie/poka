@@ -21,7 +21,7 @@ function VoucherSection({ state, dispatch }: Props) {
   const addModal = useModal();
   const nextId = useRef(0);
 
-  // // 소유권 선택 공간에 포토카드 추가
+  // 소유권 선택 공간에 포토카드 추가
   const handleAddVoucher = useCallback((photocardId: number) => {
     dispatch({ type: 'ADD_VOUCHER', voucher: {
       id: nextId.current++,
@@ -52,15 +52,15 @@ function VoucherSection({ state, dispatch }: Props) {
           </section>
         </CardHeader>
         <CardBody>
-          <p className="description">사용자에게 발급하려는 소유권의 종류와 수량을 지정합니다.</p>
           {state.form.vouchers.length > 0 && <PhotoList state={state} dispatch={dispatch} />}
-          {state.message.vouchers && <InputMessage styles={{ margin: '1em 0 0 0' }}>{state.message.vouchers}</InputMessage>}
+          {state.message.vouchers && <InputMessage styles={{ margin: '0 0 0.5em 0' }}>{state.message.vouchers}</InputMessage>}
+          <p className="description">사용자에게 발급하려는 소유권의 종류와 수량을 지정합니다.</p>
         </CardBody>
       </Card>
 
       <TitleModal hook={addModal} titleName="소유권 선택" styles={{ width: '75%' }}>
         <PhotoListCard
-          icon={{ svg: faPlus, tooltip: '선택' }}
+          icon={{ svg: faPlus }}
           handleClickIcon={handleAddVoucher}
           cardStyles={{ border: "none" }}
         />

@@ -38,20 +38,6 @@
   }
 }
 
-.item-section {
-  display: flex;
-  width: 100%;
-  flex-wrap: wrap;
-
-  .PhotoCard, .VoucherCard {
-    margin: 1em;
-
-    @media screen and (max-width: 80rem) {
-      margin: 1em auto;
-    }
-  }
-}
-
 @media screen and (max-width: 25rem) {
   .search-bar-section { 
     flex-direction: column;

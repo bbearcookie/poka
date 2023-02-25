@@ -11,6 +11,7 @@ import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';
+import ItemSection from '@component/list/ItemSection';
 import * as queryKey from '@api/queryKey';
 import { State, Action } from '../../reducer';
 
@@ -41,7 +42,7 @@ function CardSection({ state, dispatch, modal }: Props) {
   }, [state, dispatch]);
 
   return (
-    <Card>
+    <Card styles={{ marginBottom: '5em' }}>
       <CardHeader>
         <section className="label-section">
           <h1 className="title">소유권 선택</h1>
@@ -58,7 +59,7 @@ function CardSection({ state, dispatch, modal }: Props) {
         </section>
       </CardHeader>
       <CardBody>
-        <section className="item-section">
+        <ItemSection styles={{ marginBottom: '2em' }}>
           {loading && Array.from({ length: 10 }).map((_, idx) => <SkeletonVoucherCard key={idx} />)}
           {!loading && vouchers.map(voucher => voucher.status === "success" &&
           <VoucherCard
@@ -74,7 +75,7 @@ function CardSection({ state, dispatch, modal }: Props) {
             icon={{ svg: faClose, tooltip: '취소' }}
             handleClickIcon={onCancel}
           />)}
-        </section>
+        </ItemSection>
         {state.message.voucherIds && <InputMessage styles={{ margin: "0 0 0.5em 0" }}>{state.message.voucherIds}</InputMessage>}
         <p className="description">실물로 배송받으려는 소유권을 지정합니다.</p>
       </CardBody>

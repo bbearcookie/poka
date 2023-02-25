@@ -22,12 +22,14 @@ export default CardBody;
 // 스타일 컴포넌트
 export interface StylesProps {
   padding?: string;
+  margin?: string;
   width?: string;
   height?: string;
   color?: string;
 }
 const StyledCardBody = styled.section<StylesProps>`
   padding: ${p => p.padding ? p.padding : '1.5em'};
+  margin: ${p => p.margin};
   width: ${p => p.width};
   height: ${p => p.height};
   color: ${p => p.color};

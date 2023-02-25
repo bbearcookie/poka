@@ -16,8 +16,7 @@
   }
 
   .voucher-section {
-    display: flex;
-    margin-bottom: 5em;
+    .ItemSection:empty { display: none; }
   }
 
   .button-section { 

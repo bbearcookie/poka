@@ -23,22 +23,6 @@
     margin-bottom: 5em;
   }
 
-  .photo-section {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 1em;
-
-    &:empty { display: none; }
-
-    .PhotoCard {
-      margin: 1em;
-
-      @media screen and (max-width: 80rem) {
-        margin: 1em auto;
-      }
-    }
-  }
-
   .button-section {
     display: flex;
     justify-content: right;
