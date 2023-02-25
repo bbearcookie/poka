@@ -43,7 +43,7 @@ function PhotoItem({ photo, idx, state, dispatch }: Props) {
       groupName={photo.groupName}
       memberName={photo.memberName}
       imageName={photo.imageName}
-      icon={faClose}
+      icon={{ svg: faClose, tooltip: '취소' }}
       handleClickIcon={handleRemove}
     >
       <b>수량</b>

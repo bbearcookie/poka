@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import TitleModal from '@component/modal/TitleModal';
 import VoucherListCard from '@component/list/voucher/VoucherListCard';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ModalHookType } from '@hook/useModal';
 import { State, Action } from '../../reducer';
 
@@ -25,7 +25,7 @@ function ModalSection({ state, dispatch, modal }: Props) {
     <TitleModal hook={modal} titleName="소유권 선택" styles={{ width: "75%" }} cardBodyStyles={{ height: "100vh" }}>
       {modal.show &&
       <VoucherListCard
-        icon={faCheck}
+        icon={{ svg: faPlus, tooltip: '선택' }}
         handleClickIcon={onSelectVoucher}
         defaultFilter={{
           owner: "mine",

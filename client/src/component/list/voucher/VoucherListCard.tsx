@@ -1,6 +1,5 @@
 import React, { useEffect, useReducer, useCallback } from 'react';
-import produce from 'immer';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { IconType } from '@type/icon';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import Card, { StylesProps as CardStyle } from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
@@ -22,7 +21,7 @@ export type DefaultFilterType = {
 
 interface Props {
   defaultFilter?: DefaultFilterType;
-  icon?: IconDefinition;
+  icon?: IconType;
   handleClickIcon?: (voucherId: number) => void;
   cardStyles?: CardStyle;
 }

@@ -74,7 +74,7 @@ function VoucherSection({ form, formDispatch }: Props) {
 
       <TitleModal hook={addModal} titleName="소유권 선택" styles={{ width: "75%" }}>
         <VoucherListCard
-          icon={faCheck}
+          icon={{ svg: faCheck, tooltip: "선택" }}
           handleClickIcon={onSelectVoucher}
           defaultFilter={{
             owner: "mine",

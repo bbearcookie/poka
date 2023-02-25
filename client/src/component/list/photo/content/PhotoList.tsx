@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback } from 'react';
 import { useUpdateEffect } from 'react-use';
 import { useQueryClient } from '@tanstack/react-query';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { IconType } from '@type/icon';
 import * as queryKey from '@api/queryKey';
 import PhotoCard from '@component/photocard/photo/PhotoCard';
 import SkeletonPhotoCard from '@component/photocard/photo/SkeletonPhotoCard';
@@ -12,7 +12,7 @@ import { State, Action } from '../reducer';
 interface Props {
   state: State;
   dispatch: React.Dispatch<Action>;
-  icon?: IconDefinition;
+  icon?: IconType;
   handleClickIcon?: (photocardId: number) => void;
 }
 const DefaultProps = {};

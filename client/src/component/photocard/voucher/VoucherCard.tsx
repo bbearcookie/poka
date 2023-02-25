@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { IconType } from '@type/icon';
 import IconButton from '@component/form/IconButton';
 import StateLabel, { VoucherStateKey, VoucherStateValue } from '@component/label/StateLabel';
 import PhotoCardTemplate from '@component/photocard/PhotoCardTemplate';
@@ -14,7 +14,7 @@ interface Props {
   memberName: string;
   groupName: string;
   imageName: string;
-  icon?: IconDefinition;
+  icon?: IconType;
   handleClickIcon?: (voucherId: number) => void;
   styles?: StylesProps;
   children?: React.ReactNode;
@@ -41,7 +41,7 @@ function VoucherCard({
       memberName={memberName}
       imageName={imageName}
       groupName={groupName}
-      iconNode={icon && <IconButton icon={icon} size="lg" onClick={onClick} />}
+      iconNode={icon && <IconButton icon={icon.svg} tooltip={icon.tooltip} size="lg" onClick={onClick} />}
     >
       <StyledVoucherCard {...styles}>
         <section>

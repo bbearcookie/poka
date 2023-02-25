@@ -33,7 +33,7 @@ function PhotoListPage({  }: Props) {
         </Link>
       </section>
       <PhotoListCard
-        icon={faArrowRight}
+        icon={{ svg: faArrowRight, tooltip: '상세 보기' }}
         handleClickIcon={handleClickDetailIcon}
       />
     </section>

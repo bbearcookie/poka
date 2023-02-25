@@ -8,7 +8,6 @@ import TitleModal from '@component/modal/TitleModal';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
-import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';
 import PhotoListCard from '@component/list/photo/PhotoListCard';
 import PhotocardList from './PhotocardList';
@@ -74,7 +73,7 @@ function PhotocardSection({ form, formDispatch }: Props) {
                 iconMargin: "1em"
               }}
               onClick={openModal}
-            >선택</Button>
+            >추가</Button>
           </section>
         </CardHeader>
         <CardBody>
@@ -89,7 +88,7 @@ function PhotocardSection({ form, formDispatch }: Props) {
 
       <TitleModal hook={addModal} titleName="포토카드 선택" styles={{ width: '75%' }}>
         <PhotoListCard
-          icon={faAdd}
+          icon={{ svg: faAdd, tooltip: "추가" }}
           handleClickIcon={addWantPhotocardId}
           cardStyles={{ border: "none" }}
         />

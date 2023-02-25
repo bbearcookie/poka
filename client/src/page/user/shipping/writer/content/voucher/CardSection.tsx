@@ -71,7 +71,7 @@ function CardSection({ state, dispatch, modal }: Props) {
             imageName={voucher.data.imageName}
             username={voucher.data.username}
             voucherState={voucher.data.state}
-            icon={faClose}
+            icon={{ svg: faClose, tooltip: '취소' }}
             handleClickIcon={onCancel}
           />)}
         </section>

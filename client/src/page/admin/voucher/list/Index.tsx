@@ -19,7 +19,7 @@ function Index({  }: Props) {
     <div className="VoucherListPage">
       <h1 className="title-label">소유권 목록</h1>
       <VoucherListCard
-        icon={faArrowRight}
+        icon={{ svg: faArrowRight, tooltip: '상세 보기' }}
         handleClickIcon={handleClickDetailicon}
         defaultFilter={{
           owner: 'all',

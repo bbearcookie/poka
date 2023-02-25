@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
-import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { PhotoType } from '@type/photo';
+import { IconType } from '@type/icon';
 import IconButton from '@component/form/IconButton';
 import PhotoCardTemplate from '@component/photocard/PhotoCardTemplate';
 import { StylesProps } from '@component/card/basic/Card';
@@ -11,18 +10,15 @@ interface Props {
   memberName: string;
   groupName: string;
   imageName: string;
-  icon?: IconDefinition;
+  icon?: IconType;
   handleClickIcon?: (photocardId: number) => void;
   cardStyles?: StylesProps;
   children?: React.ReactNode;
 }
-const DefaultProps = {
-  handleClickIcon: (photocardId: number) => {}
-};
 
 function PhotoCard({
-  photocardId, photoName, groupName, memberName, imageName, icon,
-  handleClickIcon = DefaultProps.handleClickIcon,
+  photocardId, photoName, groupName, memberName, imageName,
+  icon, handleClickIcon = (photocardId: number) => {},
   cardStyles,
   children
 }: Props) {
@@ -38,7 +34,7 @@ function PhotoCard({
       groupName={groupName}
       memberName={memberName}
       imageName={imageName}
-      iconNode={icon && <IconButton icon={icon} size="lg" onClick={onClick} />}
+      iconNode={icon && <IconButton icon={icon.svg} tooltip={icon.tooltip} size="lg" onClick={onClick} />}
       cardStyles={cardStyles}
     >
       {children}

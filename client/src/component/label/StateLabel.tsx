@@ -56,7 +56,7 @@ const StateLabel = styled.p<Props>`
     } else if (p.state.type === 'shipping') {
       switch (p.state.key) {
         case 'waiting':
-          return css` background-color: #E95188; color: white; `
+          return css` background-color: #2196F3; color: white; `
         case 'shipped':
           return css` background-color: #D14343; color: white; `
       }
@@ -100,8 +100,8 @@ export type ShippingStateKey = 'waiting' | 'shipped'
 export const ShippingStateValue: {
   [k in ShippingStateKey]: string;
 } = {
-  waiting: '배송대기',
-  shipped: '배송완료'
+  waiting: '대기중',
+  shipped: '완료'
 }
 
 export type PaymentStateKey = 'waiting' | 'paid' | 'forgeried';

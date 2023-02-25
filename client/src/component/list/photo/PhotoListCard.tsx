@@ -1,5 +1,5 @@
 import React, { useReducer, useCallback } from 'react';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { IconType } from '@type/icon';
 import Card, { StylesProps as CardStyle } from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
@@ -11,7 +11,7 @@ import reducer, { initialState } from './reducer';
 import './PhotoListCard.scss';
 
 interface Props {
-  icon?: IconDefinition;
+  icon?: IconType;
   handleClickIcon?: (photocardId: number) => void;
   cardStyles?: CardStyle;
 }

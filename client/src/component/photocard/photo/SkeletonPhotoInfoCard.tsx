@@ -2,7 +2,7 @@ import React from 'react';
 import SkeletonItem from '@component/skeleton/SkeletonItem';
 import Card, { StylesProps as CardStyles } from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
-import { PhotoName, ContentSection, NameSection } from '../PhotoCardTemplate';
+import { PhotoName } from '../PhotoCardTemplate';
 import { StyledWrapper, ImageSection, InfoSection } from './PhotoInfoCard';
 
 interface Props {

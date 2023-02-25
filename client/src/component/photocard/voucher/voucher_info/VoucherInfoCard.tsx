@@ -75,7 +75,7 @@ function VoucherOwner({ voucher }: { voucher: VoucherResType }) {
 function VoucherStateItem({ voucher }: { voucher: VoucherResType }) {
   return (
     <CardListItem title="상태">
-      <StateLabel state={{ type: "voucher", key: voucher.state}} width="6em">
+      <StateLabel state={{ type: "voucher", key: voucher.state}} width="6em" margin="0">
         {VoucherStateValue[voucher.state]}
       </StateLabel>
     </CardListItem>
