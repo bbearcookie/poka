@@ -5,6 +5,7 @@ import { ParamType as addShippingAddressParam } from '@api/mutation/shipping/use
 import { ParamType as deleteShippingAddressParam } from '@api/mutation/shipping/useDeleteShippingAddress';
 import { ParamType as addShippingParam } from '@api/mutation/shipping/useAddShippingRequest';
 import { ParamType as deleteShippingRequestParam } from '@api/mutation/shipping/useDeleteShippingRequest';
+import { ParamType as checkShippingPaymentParam } from '@api/mutation/shipping/useCheckShippingPayment';
 
 export const fetchUserShippingAddress = async (userId: number) => {
   const url = `/api/user/${userId}/shipping-address`;
@@ -51,5 +52,11 @@ export const addShippingRequest = async (param: addShippingParam) => {
 export const deleteShippingRequest = async (param: deleteShippingRequestParam) => {
   const url = `/api/shipping/request/${param.requestId}`;
   const res = await client.delete(url);
+  return res;
+}
+
+export const checkShippingPayment = async (param: checkShippingPaymentParam) => {
+  const url = `/api/shipping/request/${param.requestId}/payment`;
+  const res = await client.post(url, param.body);
   return res;
 }

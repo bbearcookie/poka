@@ -22,7 +22,7 @@ function ModalSection({ state, dispatch, modal }: Props) {
   }, [state, dispatch]);
 
   return (
-    <TitleModal hook={modal} titleName="소유권 선택" styles={{ width: "75%" }} cardBodyStyles={{ height: "100vh" }}>
+    <TitleModal hook={modal} titleName="소유권 선택" styles={{ width: "75%" }} cardBodyStyles={{ minHeight: "100vh" }}>
       {modal.show &&
       <VoucherListCard
         icon={{ svg: faPlus, tooltip: '선택' }}

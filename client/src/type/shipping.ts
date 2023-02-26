@@ -26,7 +26,7 @@ export interface ShippingRequestType {
   nickname: string;
   userImageName: string;
   paymentId: number;
-  merchantUID: number;
+  merchantUID: string;
   amount: number;
   paymentState: 'waiting' | 'paid' | 'forgeried';
 }

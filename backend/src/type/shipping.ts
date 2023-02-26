@@ -11,6 +11,8 @@ export interface ShippingAddressType {
   prime: number;
 }
 
+export type PaymentStateType = 'waiting' | 'paid' | 'forgeried';
+
 export interface ShippingRequestType {
   requestId: number;
   requestState: 'waiting' | 'shipped';
@@ -26,7 +28,7 @@ export interface ShippingRequestType {
   nickname: string;
   userImageName: string;
   paymentId: number;
-  merchantUID: number;
+  merchantUID: string;
   amount: number;
-  paymentState: 'waiting' | 'paid' | 'forgeried';
+  paymentState: PaymentStateType;
 }

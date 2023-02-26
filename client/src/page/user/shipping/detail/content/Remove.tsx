@@ -49,6 +49,8 @@ function Remove({ res }: Props) {
       <ConfirmModal
         hook={modal}
         titleName="배송요청 취소"
+        confirmText="예"
+        cancelText="아니오"
         cardStyles={{ maxWidth: "100vh" }}
         handleConfirm={handleRemove}
       >

@@ -3,7 +3,6 @@ import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import { ShippingAddressType, ShippingRequestType } from '@type/shipping';
 import { VoucherType } from '@type/voucher';
 import { makeSalt } from '@util/encrypt';
-import * as voucherService from '@service/voucher.service';
 
 // 해당 사용자의 모든 배송지 조회
 export const selectUserShippingAddressList = async (userId: number) => {
@@ -191,7 +190,7 @@ export const insertShippingRequest = async (
     // 중복되지 않은 결제 UID 생성
     let merchantUID;
     while (1) {
-      merchantUID = makeSalt(24);
+      merchantUID = makeSalt(20);
       sql = `SELECT payment_id as paymentId FROM Payment WHERE merchant_uid=${con.escape(merchantUID)}`;
       const [[payment]] = await con.query<RowDataPacket[]>(sql);
       if (!payment) break; // 생성한 결제 UID가 중복되지 않는다면 반복문 종료

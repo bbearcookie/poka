@@ -2,9 +2,11 @@ import { NextFunction, Request, Response } from 'express';
 import { body, param } from 'express-validator';
 import { validate, isLoggedIn, isAdminOrOwner, createResponseMessage } from '@util/validator';
 import { LoginTokenType } from '@type/user';
+import { getToken, getPaymentData } from '@util/iamport';
 import * as userService from '@service/user.service';
 import * as shippingService from '@service/shipping.service';
 import * as voucherService from '@service/voucher.service';
+import * as paymentService from '@service/payment.service';
 
 export const AddressForm = {
   validator: [
@@ -248,6 +250,7 @@ export const deleteShippingRequest = {
     
     // 배송 요청 관련 유효성 검사
     const [[shipping]] = await shippingService.selectShippingRequestDetail(requestId);
+    if (!shipping) return res.status(404).json({ message: '해당 배송 요청을 찾지 못했어요.' });
     if (!isAdminOrOwner(loggedUser, shipping.userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
     if (shipping.paymentState !== 'waiting') return res.status(403).json({ message: '아직 미결제 상태인 경우에만 삭제할 수 있어요.' });
     if (shipping.requestState !== 'waiting') return res.status(403).json({ message: '관리자가 이미 배송처리한 경우에는 삭제할 수 없어요.' });
@@ -256,5 +259,40 @@ export const deleteShippingRequest = {
     await shippingService.deleteShippingRequest(requestId, shipping.paymentId);
     return res.status(200).json({ message: '배송 요청을 취소했어요.' });
     next(); 
+  }
+}
+
+// 배송 요청의 결제 검증
+export const postShippingRequestPayment = {
+  validator: [
+    param('requestId').isNumeric().withMessage('요청 ID는 숫자여야 해요.'),
+    body('impUID').notEmpty().withMessage('impUID가 없어요.'),
+    validate
+  ],
+  controller: async (req: Request, res: Response, next: NextFunction) => {
+    const requestId = Number(req.params.requestId);
+    const impUID = req.body.impUID;
+
+    // 배송 요청 정보
+    const [[shipping]] = await shippingService.selectShippingRequestDetail(requestId);
+    if (!shipping) return res.status(404).json({ message: '해당 배송 요청을 찾지 못했어요.' });
+    
+    // 포트원 액세스 토큰 발급
+    const token = await getToken();
+
+    // 결제 정보 조회
+    const payment = await getPaymentData(impUID, token);
+    if (!payment) return res.status(404).json({ message: '포트원 결제 정보를 찾지 못했어요.' });
+
+    // 결제 금액이 일치하면 결제 완료 처리. 다르면 위조 처리.
+    if (payment.amount === shipping.amount && payment.status === 'paid') {
+      await paymentService.updatePaymentState(shipping.paymentId, 'paid');
+      return res.status(200).json({ message: '배송비가 결제되었어요.' });
+    } else {
+      await paymentService.updatePaymentState(shipping.paymentId, 'forgeried');
+      return res.status(200).json({ message: '위조된 결과가 확인되었어요.' });
+    }
+
+    next();
   }
 }

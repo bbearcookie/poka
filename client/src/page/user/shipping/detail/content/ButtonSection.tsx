@@ -10,7 +10,7 @@ interface Props {
 function ButtonSection({ res }: Props) {
   return (
     <section className="button-section">
-      <Payment />
+      <Payment res={res} />
       <Remove res={res} />
     </section>
   );

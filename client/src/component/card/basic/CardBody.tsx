@@ -25,6 +25,7 @@ export interface StylesProps {
   margin?: string;
   width?: string;
   height?: string;
+  minHeight?: string;
   color?: string;
 }
 const StyledCardBody = styled.section<StylesProps>`
@@ -32,5 +33,6 @@ const StyledCardBody = styled.section<StylesProps>`
   margin: ${p => p.margin};
   width: ${p => p.width};
   height: ${p => p.height};
+  min-height: ${p => p.minHeight};
   color: ${p => p.color};
 `
