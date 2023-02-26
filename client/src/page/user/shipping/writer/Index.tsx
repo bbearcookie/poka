@@ -1,4 +1,5 @@
 import React, { useCallback, useReducer } from 'react';
+import { useNavigate } from 'react-router-dom';
 import produce from 'immer';
 import qs from 'qs';
 import { toast } from 'react-toastify';
@@ -23,9 +24,10 @@ function Index({  }: Props) {
   const [addressState, addressDispatcher] = useReducer(addressReducer, produce(AddressInitState, draft => {
     draft.form.name = "배송지"
   }));
+  const navigate = useNavigate();
 
   const addMutation = useAddShippingRequest<string>(
-    (res) => console.log(res),
+    (res) => navigate(`/shipping/detail/${res.data.requestId}`),
     (err) => {
       err.response?.data.errors.forEach(e => {
         if (e.param.substring(0, 8) === "address.") {

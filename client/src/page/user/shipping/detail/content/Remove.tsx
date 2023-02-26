@@ -17,7 +17,7 @@ function Remove({ res }: Props) {
   const modal = useModal();
   const navigate = useNavigate();
 
-  const deleteMutation = useDeleteShippingRequest(res.shipping.requestId,
+  const deleteMutation = useDeleteShippingRequest(res.shipping.requestId, res.vouchers.map(e => e.voucherId),
     (res) => navigate('/shipping/list'),
     (err) => {
       modal.setErrorMessage(getErrorMessage(err));

@@ -14,6 +14,7 @@ interface ResType { message: string; }
 
 export default function useDeleteShippingRequest<TParam>(
   requestId: number,
+  voucherIds: number[],
   onSuccess?: (res: AxiosResponse<ResType>) => void,
   onError?: (err: AxiosError<ErrorType<TParam>, any>) => void
 ): 
@@ -29,6 +30,8 @@ UseMutationResult<
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
       queryClient.invalidateQueries(queryKey.shippingKeys.detail(requestId));
       queryClient.invalidateQueries(queryKey.shippingKeys.all);
+      voucherIds.forEach(v => queryClient.invalidateQueries(queryKey.voucherKeys.detail(v)));
+      queryClient.invalidateQueries(queryKey.voucherKeys.all);
       if (onSuccess) onSuccess(res);
     },
     onError: (err) => {

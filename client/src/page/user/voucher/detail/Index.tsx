@@ -12,6 +12,8 @@ function Index({  }: Props) {
   const { voucherId } = useParams() as any;
   const { status, data: voucher, error } = useVoucherQuery(voucherId);
 
+  console.log(voucher);
+
   return (
     <div className="UserVoucherDetailPage">
       <BackLabel to="/voucher/list" styles={{ marginBottom: "2em" }}>소유권 목록</BackLabel>
