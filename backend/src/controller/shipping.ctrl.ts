@@ -180,6 +180,31 @@ export const deleteShippingAddress = {
   }
 }
 
+// 배송 요청 상세 조회
+export const getShippingDetail = {
+  validator: [
+    param('requestId').isNumeric().withMessage('요청 ID는 숫자여야 해요.'),
+    validate
+  ],
+  controlller: async (req: Request, res: Response, next: NextFunction) => {
+    const requestId = Number(req.params.requestId);
+
+    // 배송 요청 상세 조회
+    const [[shipping]] = await shippingService.selectShippingRequestDetail(requestId);
+    if (!shipping) return res.status(404).json({ message: '해당 배송 요청을 찾지 못했어요.' });
+
+    // 요청한 소유권 목록 조회
+    const [vouchers] = await shippingService.selectShippingRequestVoucherIds(requestId);
+
+    return res.status(200).json({
+      message: '배송 요청 상세 정보를 조회했어요.',
+      shipping,
+      vouchers
+    });
+    next();
+  }
+}
+
 // 배송 요청 작성
 export const postShippingRequest = {
   validator: [
@@ -210,26 +235,26 @@ export const postShippingRequest = {
   }
 }
 
-// 배송 요청 상세 조회
-export const getShippingDetail = {
+// 배송 요청 삭제
+export const deleteShippingRequest = {
   validator: [
+    isLoggedIn,
     param('requestId').isNumeric().withMessage('요청 ID는 숫자여야 해요.'),
     validate
   ],
-  controlller: async (req: Request, res: Response, next: NextFunction) => {
+  controller: async (req: Request, res: Response, next: NextFunction) => {
+    const loggedUser = req.user as LoginTokenType;
     const requestId = Number(req.params.requestId);
-
-    // 배송 요청 상세 조회
+    
+    // 배송 요청 관련 유효성 검사
     const [[shipping]] = await shippingService.selectShippingRequestDetail(requestId);
+    if (!isAdminOrOwner(loggedUser, shipping.userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
+    if (shipping.paymentState !== 'waiting') return res.status(403).json({ message: '아직 미결제 상태인 경우에만 삭제할 수 있어요.' });
+    if (shipping.requestState !== 'waiting') return res.status(403).json({ message: '관리자가 이미 배송처리한 경우에는 삭제할 수 없어요.' });
 
-    // 요청한 소유권 목록 조회
-    const [vouchers] = await shippingService.selectShippingRequestVoucherIds(requestId);
-
-    return res.status(200).json({
-      message: '배송 요청 상세 정보를 조회했어요.',
-      shipping,
-      vouchers
-    });
-    next();
+    // TODO: 배송 요청 삭제
+    await shippingService.deleteShippingRequest(requestId, shipping.paymentId);
+    return res.status(200).json({ message: '배송 요청을 취소했어요.' });
+    next(); 
   }
 }

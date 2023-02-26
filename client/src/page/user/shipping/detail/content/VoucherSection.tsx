@@ -13,8 +13,6 @@ interface Props {
 const DefaultProps = {};
 
 function VoucherSection({ res }: Props) {
-  console.log(res.vouchers);
-
   return (
     <Card className="VoucherSection">
       <CardHeader>
