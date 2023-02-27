@@ -23,6 +23,8 @@ function Index({ address, closeEditor }: Props) {
   }));
   const { userId } = useAppSelector(state => state.auth);
 
+  console.log(state);
+
   // API 요청 성공시
   const onSuccess = useCallback((res: AxiosResponse<ResType, any>) => {
     dispatch({ type: 'SET_FORM', form: initialState.form });
@@ -59,7 +61,7 @@ function Index({ address, closeEditor }: Props) {
       postcode: state.form.postcode,
       address: state.form.address,
       addressDetail: state.form.addressDetail,
-      requirement: state.form.requirement === 'DEFAULT_VALUE' ? '' : state.form.requirement
+      requirement: state.form.requirement
     }
     
     // 수정 모드일경우
@@ -70,7 +72,7 @@ function Index({ address, closeEditor }: Props) {
   }, [address, state, userId, postMutation, putMutation]);
 
   return (
-    <AddressEditor state={state} dispatch={dispatch} address={address}>
+    <AddressEditor state={state} dispatch={dispatch}>
       <section className="button-section">
         <Button 
           type="button"

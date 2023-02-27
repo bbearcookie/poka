@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { ShippingAddressType } from '@type/shipping';
 import { State, Action, FormType } from '@component/address/editor/reducer';
 import Name from './content/Name';
 import Recipient from './content/Recipient';
@@ -11,12 +10,11 @@ import Requirement from './content/Requirement';
 interface Props {
   state: State;
   dispatch: React.Dispatch<Action>;
-  address?: ShippingAddressType;
   showName?: boolean;
   children?: React.ReactNode;
 }
 
-function AddressEditor({ state, dispatch, address, showName = true, children }: Props) {
+function AddressEditor({ state, dispatch, showName = true, children }: Props) {
 
   // input 상태 값 변경
   const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +32,7 @@ function AddressEditor({ state, dispatch, address, showName = true, children }: 
       <Recipient state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
       <Contact state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
       <Address state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
-      <Requirement defaultShow={address ? true : false} state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
+      <Requirement state={state} dispatch={dispatch} changeInput={changeInput} blurInput={blurInput} />
       {children}
     </StyledWrapper>
   );

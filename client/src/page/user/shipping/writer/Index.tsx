@@ -2,7 +2,6 @@ import React, { useCallback, useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import produce from 'immer';
 import qs from 'qs';
-import { toast } from 'react-toastify';
 import addressReducer, { initialState as AddressInitState, FormType as AddressFormType } from '@component/address/editor/reducer';
 import useAddShippingRequest from '@api/mutation/shipping/useAddShippingRequest';
 import VoucherSection from './content/voucher/VoucherSection';
@@ -26,6 +25,7 @@ function Index({  }: Props) {
   }));
   const navigate = useNavigate();
 
+  // 작성 요청
   const addMutation = useAddShippingRequest<string>(
     (res) => navigate(`/shipping/detail/${res.data.requestId}`),
     (err) => {
@@ -43,37 +43,7 @@ function Index({  }: Props) {
     }
   )
 
-  // const checkMutation = useCheckShippingRequest<string>(
-  //   (res) => {
-  //     window.IMP?.request_pay({
-  //       amount: 10,
-  //       buyer_tel: "010-1111-1111",
-  //       merchant_uid: "123123",
-  //       name: "배송비"
-  //     }, rsp => {
-  //       if (rsp.success) {
-  //         console.log(rsp);
-  //         console.log(`결제 성공`);
-  //       } else {
-  //         toast.error(`결제 실패(${rsp.error_code}) ${rsp.error_msg}`, { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-  //       }
-  //     });
-  //   },
-  //   (err) => {
-  //     err.response?.data.errors.forEach(e => {
-  //       if (e.param.substring(0, 8) === "address.") {
-  //         addressDispatcher({
-  //           type: "SET_MESSAGE",
-  //           target: e.param.substring(8) as keyof AddressFormType,
-  //           value: e.message
-  //         });
-  //       } else {
-  //         dispatch({ type: "SET_MESSAGE", target: e.param as keyof FormType, value: e.message });
-  //       }
-  //     });
-  //   }
-  // );
-
+  // 등록 이벤트
   const onSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     addMutation.mutate({

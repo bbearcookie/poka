@@ -5,36 +5,57 @@ import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 import Select from '@component/form/Select';
 import { InputLine, LabelSection, InputSection } from '../AddressEditor';
-import { State, Action, FormType } from '../reducer';
+import { State, Action } from '../reducer';
 
 interface Props {
   state: State;
   dispatch: React.Dispatch<Action>;
   changeInput: React.ChangeEventHandler<HTMLInputElement>;
   blurInput: React.FocusEventHandler<HTMLInputElement>;
-  defaultShow?: boolean; // 직접 입력 input 창을 기본적으로 보여줄지 안보여줄지 설정. 수정 모드에서는 기본적으로 보여줘야 함.
 }
 const DefaultProps = {
   defaultShow: false
 };
 
-function Requirement({ state, dispatch, changeInput, blurInput, defaultShow = DefaultProps.defaultShow }: Props) {
-  const [showRequirement, setShowRequirement] = useState(defaultShow);
+function Requirement({ state, dispatch, changeInput, blurInput }: Props) {
+  const [showRequirement, setShowRequirement] = useState(state.form.requirement ? true : false);
+  const [option, setOption] = useState(state.form.requirement ? OptionText.length - 1 : 0);
 
-  const onLoad = useCallback(() => {
-    if (state.form.requirement) setShowRequirement(true);
-  }, [state.form.requirement]);
+  // 배송 요청 사항 가져오기나 수정 모드 등으로 변할때마다 option 설정.
   useEffect(() => {
-    onLoad();
-  }, []);
+    // 배송 요청 사항이 비어있으면 0번째 option 선택.
+    if (state.form.requirement === '') {
+      if (option !== OptionText.length - 1) setOption(0);
+    // 배송 요청 사항이 기본 내용중에 있으면 해당 option 선택.
+    } else if (OptionText.includes(state.form.requirement)) {
+      setOption(OptionText.findIndex((item) => item === state.form.requirement));
+      setShowRequirement(false);
+    // 배송 요청 사항이 기본 내용과 다르면 마지막 option 선택.
+    } else {
+      setOption(OptionText.length - 1);
+      setShowRequirement(true);
+    }
 
-  // 배송 요청사항 선택 변경
-  const changeRequirement = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch({ type: 'SET_FORM_DATA', target: e.target.name as keyof FormType, value: e.target.value });
+  }, [state.form.requirement]);
 
-    // 직접 입력하는 input 요소 보여주기
-    if (e.target.value === '') setShowRequirement(true);
-    else setShowRequirement(false);
+  // 선택 변경
+  const changeSelect = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = Number(e.target.value);
+    setOption(value);
+
+    // 맨 처음 선택지 (공백)
+    if (value === 0) {
+      setShowRequirement(false);
+      dispatch({ type: 'SET_FORM_DATA', target: 'requirement', value: '' });
+    // 가장 마지막 선택지 (직접 입력)
+    } else if (value === OptionText.length - 1) {
+      setShowRequirement(true);
+      dispatch({ type: 'SET_FORM_DATA', target: 'requirement', value: '' });
+    // 그 외 선택지
+    } else {
+      setShowRequirement(false);
+      dispatch({ type: 'SET_FORM_DATA', target: 'requirement', value: OptionText[value] });
+    }
   }, [dispatch]);
 
   return (
@@ -47,20 +68,14 @@ function Requirement({ state, dispatch, changeInput, blurInput, defaultShow = De
       <InputSection>
         <Select
           name="requirement"
-          onChange={changeRequirement}
-          defaultValue={defaultShow ? "" : "DEFAULT_VALUE"}
+          onChange={changeSelect}
+          value={option}
           styles={{
             width: "100%",
             height: "2.5em"
           }}
         >
-          <option value="DEFAULT_VALUE">배송시 요청사항을 선택해주세요.</option>
-          <option>직접 수령하겠습니다.</option>
-          <option>배송 전 연락 바랍니다.</option>
-          <option>부재 시 경비실에 맡겨주세요.</option>
-          <option>부재 시 문 앞에 놓아주세요.</option>
-          <option>부재 시 택배함에 놓아주세요.</option>
-          <option value="">직접 입력</option>
+          {OptionText.map((text, idx) => <option key={idx} value={idx}>{text}</option>)}
         </Select>
 
         {showRequirement && 
@@ -80,9 +95,20 @@ function Requirement({ state, dispatch, changeInput, blurInput, defaultShow = De
         >
           {state.message.requirement && <InputMessage styles={{ margin: "0.5em 0 0 0" }}>{state.message.requirement}</InputMessage>}
         </Input>}
+
       </InputSection>
     </InputLine>
   );
 }
 
 export default Requirement;
+
+const OptionText = [
+  '배송시 요청사항을 선택해주세요.',
+  '직접 수령하겠습니다.',
+  '배송 전 연락 바랍니다.',
+  '부재 시 경비실에 맡겨주세요.',
+  '부재 시 문 앞에 놓아주세요.',
+  '부재 시 택배함에 놓아주세요.',
+  '직접 입력'
+]

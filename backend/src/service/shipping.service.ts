@@ -210,7 +210,7 @@ export const insertShippingRequest = async (
       recipient, contact, postcode, address, address_detail, requirement
     ) VALUES (
       ${con.escape(userId)}, ${con.escape(paymentId)}, ${con.escape(address.recipient)}, ${con.escape(address.contact)}, 
-      ${con.escape(address.postcode)}, ${con.escape(address.address)}, ${con.escape(address.addressDetail)}, ${con.escape(address.recipient)}
+      ${con.escape(address.postcode)}, ${con.escape(address.address)}, ${con.escape(address.addressDetail)}, ${con.escape(address.requirement)}
     )`
     const [request] = await con.execute(sql);
     const requestId = (request as ResultSetHeader).insertId;

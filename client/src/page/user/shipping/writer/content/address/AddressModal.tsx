@@ -16,6 +16,7 @@ const DefaultProps = {};
 
 function AddressModal({ addresses, modal, state, dispatch }: Props) {
 
+  // 주소 가져오기
   const applyAddress = useCallback((idx: number) => {
     dispatch({ type: "SET_FORM", form: addresses.addresses[idx] });
     dispatch({ type: "INIT_MESSAGE" });
