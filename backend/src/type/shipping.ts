@@ -1,3 +1,5 @@
+import { PaymentStateType } from "@type/payment";
+
 export interface ShippingAddressType {
   addressId: number;
   userId: number;
@@ -10,8 +12,6 @@ export interface ShippingAddressType {
   requirement: string;
   prime: number;
 }
-
-export type PaymentStateType = 'waiting' | 'paid' | 'forgeried';
 
 export interface ShippingRequestType {
   requestId: number;

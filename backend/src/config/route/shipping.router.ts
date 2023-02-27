@@ -9,4 +9,5 @@ export default function(app: Express, baseURI: string) {
   app.get(`${baseURI}/request/:requestId`, shippingCtrl.getShippingDetail.validator, shippingCtrl.getShippingDetail.controlller);
   app.delete(`${baseURI}/request/:requestId`, shippingCtrl.deleteShippingRequest.validator, shippingCtrl.deleteShippingRequest.controller);
   app.post(`${baseURI}/request/:requestId/payment`, shippingCtrl.postShippingRequestPayment.validator, shippingCtrl.postShippingRequestPayment.controller);
+  app.post(`${baseURI}/request/:requestId/refund`, shippingCtrl.postShippingRequestRefund.validator, shippingCtrl.postShippingRequestRefund.controller);
 }

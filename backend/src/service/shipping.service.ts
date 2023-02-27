@@ -329,8 +329,8 @@ export const deleteShippingRequest = async (requestId: number, paymentId: number
 
     con.commit();
   } catch (err) {
-    throw err;
     con.rollback();
+    throw err;
   } finally {
     con.release();
   }
