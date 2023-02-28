@@ -9,7 +9,7 @@ import VoucherListCard from '@component/list/voucher/VoucherListCard';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
-import ItemSection from '@component/list/ItemSection';
+import ItemSection from '@component/list/common/ItemSection';
 import Button from '@component/form/Button';
 import InputMessage from '@component/form/InputMessage';
 import { getErrorMessage } from '@util/request';
@@ -78,7 +78,7 @@ function VoucherSection({ form, formDispatch }: Props) {
       <TitleModal hook={addModal} titleName="소유권 선택" styles={{ width: "75%" }}>
         <VoucherListCard
           icon={{ svg: faCheck, tooltip: "선택" }}
-          handleClickIcon={onSelectVoucher}
+          handleSelect={onSelectVoucher}
           defaultFilter={{
             owner: "mine",
             state: "available",

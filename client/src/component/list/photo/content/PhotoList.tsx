@@ -3,7 +3,7 @@ import { useUpdateEffect } from 'react-use';
 import { useQueryClient } from '@tanstack/react-query';
 import { IconType } from '@type/icon';
 import * as queryKey from '@api/queryKey';
-import ItemSection from '@component/list/ItemSection';
+import ItemSection from '@component/list/common/ItemSection';
 import PhotoCard from '@component/photocard/photo/PhotoCard';
 import SkeletonPhotoCard from '@component/photocard/photo/SkeletonPhotoCard';
 import usePhotosQuery from '@api/query/photo/usePhotosQuery';
@@ -14,11 +14,11 @@ interface Props {
   state: State;
   dispatch: React.Dispatch<Action>;
   icon?: IconType;
-  handleClickIcon?: (photocardId: number) => void;
+  handleSelect?: (photocardId: number) => void;
 }
 const DefaultProps = {};
 
-function PhotoList({ state, dispatch, icon, handleClickIcon }: Props) {
+function PhotoList({ state, dispatch, icon, handleSelect }: Props) {
   const queryClient = useQueryClient();
 
   // 데이터 가져오기
@@ -47,7 +47,7 @@ function PhotoList({ state, dispatch, icon, handleClickIcon }: Props) {
             memberName={item.memberName}
             imageName={item.imageName}
             icon={icon}
-            handleClickIcon={handleClickIcon}
+            handleClick={handleSelect}
           />
         ))}
       </Fragment>)}

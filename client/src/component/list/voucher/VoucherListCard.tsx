@@ -2,15 +2,14 @@ import React, { useEffect, useReducer, useCallback } from 'react';
 import { IconType } from '@type/icon';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import Card, { StylesProps as CardStyle } from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
+import { SearchSection } from '@component/list/common/Styles';
 import CardBody from '@component/card/basic/CardBody';
-import SearchInput from '@component/list/common/SearchInput';
+import SearchInput from '@component/list/common/searchbar/SearchInput';
 import SearchLabelList from './content/SearchLabelList';
-import FilterCheck from './content/FilterCheck';
+import FilterList from './content/FilterList';
 import VoucherList from './content/VoucherList';
 import { VoucherStateKey } from '@component/label/StateLabel';
 import reducer, { initialState, SearchKeywordsType, SearchKeywords } from './reducer';
-import '../photo/PhotoListCard.scss';
 
 // 검색 필터에 기본적으로 적용할 값
 export type DefaultFilterType = {
@@ -22,7 +21,7 @@ export type DefaultFilterType = {
 interface Props {
   defaultFilter?: DefaultFilterType;
   icon?: IconType;
-  handleClickIcon?: (voucherId: number) => void;
+  handleSelect?: (voucherId: number) => void;
   cardStyles?: CardStyle;
 }
 const DefaultProps = {
@@ -35,7 +34,7 @@ const DefaultProps = {
 
 function VoucherListCard({
   defaultFilter = DefaultProps.defaultFilter,
-  icon, handleClickIcon, cardStyles
+  icon, handleSelect, cardStyles
 }: Props) {
   const username = useAppSelector(state => state.auth.username);
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -57,13 +56,13 @@ function VoucherListCard({
 
   return (
     <Card styles={{ minHeight: "50em",  ...cardStyles}}>
-      <CardHeader styles={{ padding: "0", borderBottom: "0" }}>
+      <SearchSection>
         {defaultFilter.owner === "all" && <SearchInput keywords={SearchKeywords} addKeyword={handleAddKeyword} />}
         <SearchLabelList state={state} dispatch={dispatch} defaultFilter={defaultFilter} />
-      </CardHeader>
+        <FilterList state={state} dispatch={dispatch} defaultFilter={defaultFilter} />
+      </SearchSection>
       <CardBody>
-        <FilterCheck state={state} dispatch={dispatch} defaultFilter={defaultFilter} />
-        <VoucherList state={state} dispatch={dispatch} defaultFilter={defaultFilter} icon={icon} handleClickIcon={handleClickIcon} />
+        <VoucherList state={state} dispatch={dispatch} defaultFilter={defaultFilter} icon={icon} handleSelect={handleSelect} />
       </CardBody>
     </Card>
   );

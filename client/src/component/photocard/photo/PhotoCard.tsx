@@ -11,21 +11,21 @@ interface Props {
   groupName: string;
   imageName: string;
   icon?: IconType;
-  handleClickIcon?: (photocardId: number) => void;
+  handleClick?: (photocardId: number) => void;
   cardStyles?: StylesProps;
   children?: React.ReactNode;
 }
 
 function PhotoCard({
   photocardId, photoName, groupName, memberName, imageName,
-  icon, handleClickIcon = (photocardId: number) => {},
+  icon, handleClick = (photocardId: number) => {},
   cardStyles,
   children
 }: Props) {
 
   const onClick = useCallback(() => {
-    handleClickIcon(photocardId)
-  }, [handleClickIcon, photocardId]);
+    handleClick(photocardId)
+  }, [handleClick, photocardId]);
 
   return (
     <PhotoCardTemplate

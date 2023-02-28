@@ -13,7 +13,7 @@ function PhotoListPage({  }: Props) {
   const navigate = useNavigate();
 
   // 관리자용 상세 페이지로 이동
-  const handleClickDetailIcon = useCallback((photocardId: number) => {
+  const handleSelect = useCallback((photocardId: number) => {
     navigate(`/admin/photo/detail/${photocardId}`);
   }, [navigate]);
 
@@ -34,7 +34,7 @@ function PhotoListPage({  }: Props) {
       </section>
       <PhotoListCard
         icon={{ svg: faArrowRight }}
-        handleClickIcon={handleClickDetailIcon}
+        handleSelect={handleSelect}
       />
     </section>
   );

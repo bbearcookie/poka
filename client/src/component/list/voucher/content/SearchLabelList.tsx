@@ -1,6 +1,6 @@
 import React from 'react';
-import CardHeader from '@component/card/basic/CardHeader';
-import SearchLabel from '@component/label/SearchLabel';
+import SearchLabel from '@component/list/common/SearchLabel';
+import { SearchLabelSection } from '@component/list/common/Styles';
 import { VoucherStateValue } from '@component/label/StateLabel';
 import { DefaultFilterType } from '../VoucherListCard';
 import { State, Action } from '../reducer';
@@ -10,12 +10,10 @@ interface Props {
   dispatch: React.Dispatch<Action>;
   defaultFilter: DefaultFilterType;
 }
-const DefaultProps = {};
 
 function SearchLabelList({ state, dispatch, defaultFilter }: Props) {
-
   return (
-    <CardHeader className="search-label-section">
+    <SearchLabelSection>
       {/* 상태 관련 필터 */}
       {defaultFilter.state === 'all' && state.state !== 'all' &&
       <SearchLabel
@@ -59,7 +57,7 @@ function SearchLabelList({ state, dispatch, defaultFilter }: Props) {
         text={member.name}
         handleRemove={() => dispatch({ type: "TOGGLE", target: "members", id: member.id })}
       />))}
-    </CardHeader>
+    </SearchLabelSection>
   );
 }
 

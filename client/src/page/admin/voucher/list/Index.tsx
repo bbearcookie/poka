@@ -11,7 +11,7 @@ function Index({  }: Props) {
   const navigate = useNavigate();
 
   // 관리자용 상세 페이지로 이동
-  const handleClickDetailicon = useCallback((voucherId: number) => {
+  const handleSelect = useCallback((voucherId: number) => {
     navigate(`/admin/voucher/detail/${voucherId}`);
   }, [navigate]);
 
@@ -20,7 +20,7 @@ function Index({  }: Props) {
       <h1 className="title-label">소유권 목록</h1>
       <VoucherListCard
         icon={{ svg: faArrowRight }}
-        handleClickIcon={handleClickDetailicon}
+        handleSelect={handleSelect}
         defaultFilter={{
           owner: 'all',
           state: 'all',

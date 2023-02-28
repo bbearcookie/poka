@@ -44,7 +44,7 @@ function PhotoItem({ photo, idx, state, dispatch }: Props) {
       memberName={photo.memberName}
       imageName={photo.imageName}
       icon={{ svg: faClose, tooltip: '취소' }}
-      handleClickIcon={handleRemove}
+      handleClick={handleRemove}
     >
       <b>수량</b>
       <Input

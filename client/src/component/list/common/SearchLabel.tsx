@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
-const CLASS = 'SearchLabel';
 interface Props {
   id?: number;
   handleRemove?: (id: number) => void;
@@ -18,10 +17,10 @@ const DefaultProps = {
 
 function SearchLabel({ id = DefaultProps.id, category, text, handleRemove = DefaultProps.handleRemove, children }: Props) {
   return (
-    <StyledLabel className={CLASS}>
+    <StyledLabel>
       <b>{category}: </b> <span>{text}</span>
       <FontAwesomeIcon
-        className={`${CLASS}__close-icon`}
+        className="icon"
         icon={faCircleXmark} size="lg"
         onClick={(e) => { e.stopPropagation(); handleRemove(id) }}
       />
@@ -38,7 +37,7 @@ const StyledLabel = styled.span`
   border-radius: 50px;
   transition: background 0.2s;
 
-  .${CLASS}__close-icon {
+  .icon {
     margin-left: 0.35em;
     color: #D1D5DB;
     cursor: pointer;

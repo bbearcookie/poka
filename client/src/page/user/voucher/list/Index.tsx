@@ -5,7 +5,6 @@ import VoucherListCard from '@component/list/voucher/VoucherListCard';
 import './Index.scss';
 
 interface Props {}
-const IndexDefaultProps = {};
 
 function Index({  }: Props) {
   const navigate = useNavigate();
@@ -20,7 +19,7 @@ function Index({  }: Props) {
     <h1 className="title-label">소유권 보관함</h1>
       <VoucherListCard
         icon={{ svg: faArrowRight, tooltip: "상세 보기" }}
-        handleClickIcon={handleClickDetailicon}
+        handleSelect={handleClickDetailicon}
         defaultFilter={{
           owner: 'mine',
           state: 'all',

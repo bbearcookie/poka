@@ -39,35 +39,33 @@ function GroupFilter({ filter, setGroups, toggleGroup }: Props) {
   }, [groupQuery.data]);
 
   return (
-    <>
-      <Dropdown hook={dropdown}>
-        <DropdownButton
-          styles={{ padding: "0.25em" }}
-          buttonRef={dropdown.buttonRef}
-          onClick={() => dropdown.toggle()}
-        >
-          <b>그룹</b>
-          <FontAwesomeIcon className="icon" icon={faChevronDown} />
-        </DropdownButton>
+    <Dropdown hook={dropdown}>
+      <DropdownButton
+        styles={{ padding: "0.25em" }}
+        buttonRef={dropdown.buttonRef}
+        onClick={() => dropdown.toggle()}
+      >
+        <b>그룹</b>
+        <FontAwesomeIcon className="icon" icon={faChevronDown} />
+      </DropdownButton>
 
-        {dropdown.show &&
-        <DropdownMenu popper={popper} menuRef={dropdown.menuRef} styles={{ minWidth: "10em", maxHeight: "20em" }}>
-          {groupQuery.data?.groups.map((group, idx) => (
-            <DropdownItem
-              key={group.groupId}
-              onClick={(e) => toggleGroup(group.groupId)}
-            >
-              <input
-                type="checkbox"
-                checked={filter[idx] && filter[idx].checked ? filter[idx].checked : false}
-                readOnly
-              />
-              <span>{group.name}</span>
-            </DropdownItem>
-          ))}
-        </DropdownMenu>}
-      </Dropdown>
-    </>
+      {dropdown.show &&
+      <DropdownMenu popper={popper} menuRef={dropdown.menuRef} styles={{ minWidth: "10em", maxHeight: "20em" }}>
+        {groupQuery.data?.groups.map((group, idx) => (
+          <DropdownItem
+            key={group.groupId}
+            onClick={(e) => toggleGroup(group.groupId)}
+          >
+            <input
+              type="checkbox"
+              checked={filter[idx] && filter[idx].checked ? filter[idx].checked : false}
+              readOnly
+            />
+            <span>{group.name}</span>
+          </DropdownItem>
+        ))}
+      </DropdownMenu>}
+    </Dropdown>
   );
 }
 

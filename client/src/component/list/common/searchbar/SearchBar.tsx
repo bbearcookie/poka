@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react';
-import { Props as InputProps } from '@component/searchbar/Input';
+import { Props as InputProps } from '@component/list/common/searchbar/content/Input';
 import styled from 'styled-components';
 import classNames from 'classnames';
-import Input from './Input';
-import Button from './Button';
+import Input from './content/Input';
+import Button from './content/Button';
 
 interface Props {
   inputProps: InputProps;
@@ -12,7 +12,8 @@ interface Props {
   styles?: StylesProps;
   children?: React.ReactNode;
 }
-function SearchBar({inputProps, handleInputChange, handleSubmit, styles, children}: Props) {
+
+function SearchBar({ inputProps, handleInputChange, handleSubmit, styles, children }: Props) {
   const [active, setActive] = useState(false);
 
   // 엔터 입력시 submit 동작
@@ -27,7 +28,7 @@ function SearchBar({inputProps, handleInputChange, handleSubmit, styles, childre
 
   return (
     <StyledSearchBar
-      className={classNames("SearchBar", {"active": active})}
+      className={classNames({"active": active})}
       {...styles}
     >
       <Input

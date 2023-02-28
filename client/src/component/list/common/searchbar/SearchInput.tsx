@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
+import styled from 'styled-components';
 import Select from '@component/form/Select';
-import SearchBar from '@component/searchbar/SearchBar';
-import CardHeader from '@component/card/basic/CardHeader';
+import SearchBar from '@component/list/common/searchbar/SearchBar';
 
 interface Props {
   keywords?: { [name: string]: string; };
@@ -40,7 +40,7 @@ function SearchInput({
   }, [select, input, addKeyword]);
 
   return (
-    <CardHeader className="search-bar-section">
+    <StyledWrapper>
       {keywordsEntries.length > 1 &&
       <Select
         styles={{
@@ -51,6 +51,7 @@ function SearchInput({
       >
         {keywordsEntries.map((item, idx) => <option key={idx} value={item[0]}>{item[1]}</option>)}
       </Select>}
+
       <SearchBar
         inputProps={{
           type: "text",
@@ -61,13 +62,22 @@ function SearchInput({
         }}
         handleInputChange={changeInput}
         handleSubmit={onSubmit}
-        styles={{
-          width: "100%"
-        }}
-      >
-      </SearchBar>
-    </CardHeader>
+        styles={{ width: "100%" }}
+      />
+    </StyledWrapper>
   );
 }
 
 export default SearchInput;
+
+const StyledWrapper = styled.div`
+  display: flex;
+  padding: 1.5em 1.5em 0 1.5em;
+  gap: 1em;
+
+  @media screen and (max-width: 25rem) {
+    flex-direction: column;
+
+    .Select { width: 100%; }
+}
+`

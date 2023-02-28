@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import GroupFilter from '@component/list/common/filter/GroupFilter';
 import MemberFilter from '@component/list/common/filter/MemberFilter';
+import { FilterSection } from '@component/list/common/Styles';
 import { FilterItemType } from '@type/listFilter';
 import { State, Action } from '../reducer';
 
@@ -10,7 +11,7 @@ interface Props {
 }
 const DefaultProps = {};
 
-function FilterCheck({ state, dispatch }: Props) {
+function FilterList({ state, dispatch }: Props) {
   const handleSetGroups = useCallback((groups: FilterItemType[]) => {
     dispatch({ type: "SET", target: "groups", payload: groups });
   }, [dispatch]);
@@ -28,7 +29,7 @@ function FilterCheck({ state, dispatch }: Props) {
   }, [dispatch]);
 
   return (
-    <section className="check-section">
+    <FilterSection>
       <GroupFilter
         filter={state.groups}
         setGroups={handleSetGroups}
@@ -40,8 +41,8 @@ function FilterCheck({ state, dispatch }: Props) {
         setMembers={handleSetMembers}
         toggleMember={handleToggleMember}
       />
-    </section>
+    </FilterSection>
   );
 }
 
-export default FilterCheck;
+export default FilterList;

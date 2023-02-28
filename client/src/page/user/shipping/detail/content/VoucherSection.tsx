@@ -5,7 +5,7 @@ import CardBody from '@component/card/basic/CardBody';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { ResType } from '@api/query/shipping/useShippingRequestQuery';
 import PhotoCard from '@component/photocard/photo/PhotoCard';
-import ItemSection from '@component/list/ItemSection';
+import ItemSection from '@component/list/common/ItemSection';
 
 interface Props {
   res: ResType;

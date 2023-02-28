@@ -26,7 +26,7 @@ function ModalSection({ state, dispatch, modal }: Props) {
       {modal.show &&
       <VoucherListCard
         icon={{ svg: faPlus, tooltip: '선택' }}
-        handleClickIcon={onSelectVoucher}
+        handleSelect={onSelectVoucher}
         defaultFilter={{
           owner: "mine",
           state: "available",

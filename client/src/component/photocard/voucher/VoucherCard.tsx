@@ -16,25 +16,25 @@ interface Props {
   groupName: string;
   imageName: string;
   icon?: IconType;
-  handleClickIcon?: (voucherId: number) => void;
+  handleClick?: (voucherId: number) => void;
   cardStyles?: CardStylesProps;
   styles?: StylesProps;
   children?: React.ReactNode;
 }
 const DefaultProps = {
   showOwner: false,
-  handleClickIcon: (voucherId: number) => {}
+  handleClick: (voucherId: number) => {}
 };
 
 function VoucherCard({
   showOwner = DefaultProps.showOwner,
   voucherId, voucherState, photoName, groupName, memberName, imageName, username,
-  icon, handleClickIcon = DefaultProps.handleClickIcon, cardStyles, styles, children }
+  icon, handleClick = DefaultProps.handleClick, cardStyles, styles, children }
 : Props) {
 
   const onClick = useCallback(() => {
-    handleClickIcon(voucherId)
-  }, [handleClickIcon, voucherId]);
+    handleClick(voucherId)
+  }, [handleClick, voucherId]);
 
   return (
     <PhotoCardTemplate

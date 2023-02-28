@@ -1,6 +1,6 @@
 import React from 'react';
-import CardHeader from '@component/card/basic/CardHeader';
-import SearchLabel from '@component/label/SearchLabel';
+import SearchLabel from '@component/list/common/SearchLabel';
+import { SearchLabelSection } from '@component/list/common/Styles';
 import { State, Action } from '../reducer';
 
 interface Props {
@@ -11,7 +11,7 @@ const DefaultProps = {};
 
 function SearchLabelList({ state, dispatch }: Props) {
   return (
-    <CardHeader className="search-label-section">
+    <SearchLabelSection>
       {/* 포토카드 이름 관련 필터 */}
       {state.names.map((name) => (
       <SearchLabel
@@ -38,7 +38,7 @@ function SearchLabelList({ state, dispatch }: Props) {
         text={member.name}
         handleRemove={() => dispatch({ type: "TOGGLE", target: "members", id: member.id})}
       />))}
-    </CardHeader>
+    </SearchLabelSection>
   );
 }
 

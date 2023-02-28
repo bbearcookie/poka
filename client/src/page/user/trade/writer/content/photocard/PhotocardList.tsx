@@ -2,7 +2,7 @@ import React from 'react';
 import { UseQueryResult } from '@tanstack/react-query';
 import PhotoCard from '@component/photocard/photo/PhotoCard';
 import InputMessage from '@component/form/InputMessage';
-import ItemSection from '@component/list/ItemSection';
+import ItemSection from '@component/list/common/ItemSection';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { ResType as PhotoResType } from '@api/query/photo/usePhotoQuery';
 import { State as FormState, Action as FormAction } from '../../reducer';
@@ -31,7 +31,7 @@ function PhotocardList({ form, formDispatch, photos, removeWantPhotocardId }: Pr
             memberName={photo.data.memberName}
             imageName={photo.data.imageName}
             icon={{ svg: faClose, tooltip: '취소' }}
-            handleClickIcon={removeWantPhotocardId}
+            handleClick={removeWantPhotocardId}
           />)}
         </ItemSection>
       </>}

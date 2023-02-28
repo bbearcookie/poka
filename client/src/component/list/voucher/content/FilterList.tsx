@@ -3,6 +3,7 @@ import { DefaultFilterType } from '../VoucherListCard';
 import GroupFilter from '@component/list/common/filter/GroupFilter';
 import MemberFilter from '@component/list/common/filter/MemberFilter';
 import StateFilter from '@component/list/common/filter/StateFilter';
+import { FilterSection } from '@component/list/common/Styles';
 import { FilterItemType } from '@type/listFilter';
 import { State, Action } from '../reducer';
 
@@ -13,8 +14,7 @@ interface Props {
 }
 const DefaultProps = {};
 
-function FilterCheck({ state, dispatch, defaultFilter }: Props) {
-
+function FilterList({ state, dispatch, defaultFilter }: Props) {
   const handleSetGroups = useCallback((groups: FilterItemType[]) => {
     dispatch({ type: "SET", target: "groups", payload: groups });
   }, [dispatch]);
@@ -32,7 +32,7 @@ function FilterCheck({ state, dispatch, defaultFilter }: Props) {
   }, [dispatch]);
 
   return (
-    <section className="check-section">
+    <FilterSection>
       <GroupFilter
         filter={state.groups}
         setGroups={handleSetGroups}
@@ -51,8 +51,8 @@ function FilterCheck({ state, dispatch, defaultFilter }: Props) {
         filter={state.state}
         changeFilter={(value) => dispatch({ type: "SET_VOUCHER_STATE", value })}
       />}
-    </section>
+    </FilterSection>
   );
 }
 
-export default FilterCheck;
+export default FilterList;

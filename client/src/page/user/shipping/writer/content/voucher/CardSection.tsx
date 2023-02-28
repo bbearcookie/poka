@@ -11,7 +11,7 @@ import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';
-import ItemSection from '@component/list/ItemSection';
+import ItemSection from '@component/list/common/ItemSection';
 import * as queryKey from '@api/queryKey';
 import { State, Action } from '../../reducer';
 
@@ -73,7 +73,7 @@ function CardSection({ state, dispatch, modal }: Props) {
             username={voucher.data.username}
             voucherState={voucher.data.state}
             icon={{ svg: faClose, tooltip: '취소' }}
-            handleClickIcon={onCancel}
+            handleClick={onCancel}
           />)}
         </ItemSection>
         {state.message.voucherIds && <InputMessage styles={{ margin: "0 0 0.5em 0" }}>{state.message.voucherIds}</InputMessage>}
