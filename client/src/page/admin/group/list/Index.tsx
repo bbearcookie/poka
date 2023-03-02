@@ -4,9 +4,9 @@ import Button from '@component/form/Button';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import useGroupsQuery from '@api/query/group/useGroupsQuery';
 import SkeletonGroup from './content/SkeletonGroup';
-import Table from '@component/table/new/Table';
+import Table from '@component/table/Table';
 import Group from './content/Group';
-import Col from '@component/table/new/styles/Col';
+import Col from '@component/table/styles/Col';
 import { getErrorMessage } from '@util/request';
 import './Index.scss';
 

@@ -33,7 +33,6 @@ UseMutationResult<
 
   return useMutation(addMember, {
     onSuccess: (res: AxiosResponse<ResType>) => {
-      toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
       queryClient.invalidateQueries(queryKey.groupKeys.all);
       queryClient.invalidateQueries(queryKey.groupKeys.detail(groupId.current));
       if (onSuccess) onSuccess(res);

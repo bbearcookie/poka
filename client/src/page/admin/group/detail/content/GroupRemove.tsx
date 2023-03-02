@@ -10,7 +10,6 @@ interface Props {
   group: GroupType;
   groupId: number;
 }
-const DefaultProps = {};
 
 function GroupRemove({ group, groupId }: Props) {
   const removeModal = useModal();

@@ -1,16 +1,7 @@
 import React from 'react';
-import { groupImage } from '@api/resource';
-import { Link } from 'react-router-dom';
-import IconButton from '@component/form/IconButton';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import SkeletonItem from '@component/skeleton/SkeletonItem';
 
-interface Props {
-
-}
-const DefaultProps = {};
-
-function SkeletonGroup({  }: Props) {
+function SkeletonGroup() {
   return (
     <tr className="Group">
       <td>

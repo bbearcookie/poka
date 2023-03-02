@@ -1,25 +1,20 @@
 import React, { useState, useCallback } from 'react';
 import { getErrorMessage } from '@util/request';
 import useAddMember from '@api/mutation/member/useAddMember';
+import useModifyMember from '@api/mutation/member/useModifyMember';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';
-import TableBodyItem from '@component/table/TableBodyItem';
-import useModifyMember from '@api/mutation/member/useModifyMember';
 
 interface Props {
   groupId: number;
-  memberId?: number | undefined;
+  memberId: number | null;
   defaultValue?: string;
   closeEditor: () => void;
 }
-const DefaultProps = {
-  defaultValue: ''
-};
 
-// 멤버 추가 or 수정 모드에 보여줄 컴포넌트
-function MemberEditor({ groupId, memberId, defaultValue = DefaultProps.defaultValue, closeEditor }: Props) {
-  const [name, setName] = useState(defaultValue);
+function MemberEditor({ memberId, groupId, defaultValue = '', closeEditor }: Props) {
+  const [input, setInput] = useState(defaultValue);
   const [message, setMessage] = useState('');
 
   // 데이터 추가 요청
@@ -35,33 +30,32 @@ function MemberEditor({ groupId, memberId, defaultValue = DefaultProps.defaultVa
   );
 
   // input 상태 값 변경
-  const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value), []);
+  const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value), []);
 
   // 전송 이벤트
   const onSubmit = useCallback(() => {
-
     // 수정 요청
     if (memberId) {
       modifyMutation.mutate({
         memberId,
-        body: { name }
+        body: { name: input }
       });
     // 추가 요청
     } else {
       addMutation.mutate({
         groupId,
-        body: { name }
+        body: { name: input }
       });
     }
-  }, [name, groupId, memberId, addMutation, modifyMutation]);
+  }, [input, groupId, memberId, addMutation, modifyMutation]);
 
   return (
     <tr>
-      <TableBodyItem styles={{ paddingLeft: "1em" }}>
+      <td colSpan={2}>
         <Input
           type="text"
           name="name"
-          value={name}
+          value={input}
           placeholder={memberId ? '수정할 이름을 입력하세요' : '추가할 이름을 입력하세요'}
           autoComplete="off"
           onChange={changeInput}
@@ -70,11 +64,10 @@ function MemberEditor({ groupId, memberId, defaultValue = DefaultProps.defaultVa
             height: "2.5em"
           }}
         >
-          <InputMessage styles={{margin: "0.5em 0 0 0.8em"}}>{message}</InputMessage>
+          <InputMessage styles={{ margin: "0.5em 0 0 0.8em" }}>{message}</InputMessage>
         </Input>
-      </TableBodyItem>
-      <TableBodyItem></TableBodyItem>
-      <TableBodyItem styles={{ paddingRight: "0.5em" }}>
+      </td>
+      <td>
         <section className="action-section">
           <Button 
             onClick={onSubmit}
@@ -89,11 +82,10 @@ function MemberEditor({ groupId, memberId, defaultValue = DefaultProps.defaultVa
             styles={{
               theme: "gray-outlined",
               padding: "0.7em 1em",
-              marginRight: "0.5em"
             }}
            >취소</Button>
         </section>
-      </TableBodyItem>
+      </td>
     </tr>
   );
 }
