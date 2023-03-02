@@ -14,6 +14,7 @@ import VoucherWriterPage from '@page/admin/voucher/writer/Index';
 import VoucherListPage from '@page/admin/voucher/list/Index';
 import VoucherDetailPage from '@page/admin/voucher/detail/Index';
 import VoucherLogPage from '@page/admin/voucher/log/Index';
+import ShippingListpage from '@page/admin/shipping/list/Index';
 
 // /admin 하위 라우팅 내용
 function AdminRouter() {
@@ -43,6 +44,7 @@ function AdminRouter() {
         <Route path="/voucher/list" element={<VoucherListPage />} />
         <Route path="/voucher/detail/:voucherId" element={<VoucherDetailPage />} />
         <Route path="/voucher/log/:voucherId" element={<VoucherLogPage />} />
+        <Route path="/shipping/list" element={<ShippingListpage />} />
       </Routes>
     </>
   );
