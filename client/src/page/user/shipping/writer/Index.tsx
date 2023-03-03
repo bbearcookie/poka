@@ -4,16 +4,14 @@ import produce from 'immer';
 import qs from 'qs';
 import addressReducer, { initialState as AddressInitState, FormType as AddressFormType } from '@component/address/editor/reducer';
 import useAddShippingRequest from '@api/mutation/shipping/useAddShippingRequest';
+import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import VoucherSection from './content/voucher/VoucherSection';
 import AddressSection from './content/address/Index';
 import ButtonSection from './content/ButtonSection';
 import reducer, { initialState, FormType } from './reducer';
 import './Index.scss';
 
-interface Props {
-
-}
-const DefaultProps = {};
+interface Props {}
 
 function Index({  }: Props) {
   const querystring = qs.parse(window.location.search, { ignoreQueryPrefix: true });
@@ -56,7 +54,7 @@ function Index({  }: Props) {
 
   return (
     <div className="ShippingWriterPage">
-      <h1 className="title-label">소유권 배송 요청</h1>
+      <TitleLabel title="소유권 배송 요청" styles={{ marginBottom: "1em" }} />
       <form onSubmit={onSubmit}>
         <VoucherSection state={state} dispatch={dispatch} />
         <AddressSection state={addressState} dispatch={addressDispatcher} />

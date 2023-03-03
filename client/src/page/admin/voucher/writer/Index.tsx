@@ -1,5 +1,6 @@
 import React, { useReducer, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import useAddVouchers from '@api/mutation/voucher/useAddVouchers';
 import UsernameSection from './content/UsernameSection';
 import VoucherSection from './content/VoucherSection';
@@ -8,7 +9,6 @@ import reducer, { initialState } from './reducer';
 import './Index.scss';
 
 interface Props {}
-const DefaultProps = {};
 
 function Index({  }: Props) {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -46,7 +46,7 @@ function Index({  }: Props) {
 
   return (
     <div className="VoucherWriterPage">
-      <h1 className="title-label">소유권 발급</h1>
+      <TitleLabel title="소유권 발급" styles={{ marginBottom: "1em" }} />
       <form onSubmit={onSubmit}>
         <UsernameSection state={state} dispatch={dispatch} />
         <VoucherSection state={state} dispatch={dispatch} />

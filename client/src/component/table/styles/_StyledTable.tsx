@@ -13,7 +13,10 @@ const StyledTable = styled.table<Props>`
   border-collapse: collapse;
   text-align: left;
 
-  th, td { padding: ${p => p.itemPadding}; }
+  th, td {
+    height: ${p => p.itemHeight};
+    padding: ${p => p.itemPadding};
+  }
   th:last-child, td:last-child { text-align: right; }
 
   thead {

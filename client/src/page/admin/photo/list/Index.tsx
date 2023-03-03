@@ -1,13 +1,13 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import Button from '@component/form/Button';
 import PhotoListCard from '@component/list/photo/PhotoListCard';
 import './Index.scss';
 
 interface Props {}
-const DefaultProps = {};
 
 function PhotoListPage({  }: Props) {
   const navigate = useNavigate();
@@ -19,8 +19,8 @@ function PhotoListPage({  }: Props) {
 
   return (
     <section className="PhotoListPage">
-      <section className="title-label-section">
-        <h1 className="title-label">포토카드 목록</h1>
+
+      <TitleLabel title="포토카드 목록" styles={{ marginBottom: "1em" }}>
         <Link to="/admin/photo/writer">
           <Button
             leftIcon={faPlus} 
@@ -31,7 +31,8 @@ function PhotoListPage({  }: Props) {
             }}
           >추가</Button>
         </Link>
-      </section>
+      </TitleLabel>
+
       <PhotoListCard
         icon={{ svg: faArrowRight }}
         handleSelect={handleSelect}

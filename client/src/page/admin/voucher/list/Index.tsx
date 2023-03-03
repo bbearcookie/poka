@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import VoucherListCard from '@component/list/voucher/VoucherListCard';
 import './Index.scss';
 
 interface Props {}
-const DefaultProps = {};
 
 function Index({  }: Props) {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ function Index({  }: Props) {
 
   return (
     <div className="VoucherListPage">
-      <h1 className="title-label">소유권 목록</h1>
+      <TitleLabel title="소유권 목록" styles={{ marginBottom: "1em" }} />
       <VoucherListCard
         icon={{ svg: faArrowRight }}
         handleSelect={handleSelect}

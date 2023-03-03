@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import { useNavigate } from 'react-router-dom';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import VoucherListCard from '@component/list/voucher/VoucherListCard';
@@ -16,7 +17,7 @@ function Index({  }: Props) {
 
   return (
     <div className="InventoryPage">
-    <h1 className="title-label">소유권 보관함</h1>
+    <TitleLabel title="소유권 보관함" styles={{ marginBottom: "1em" }} />
       <VoucherListCard
         icon={{ svg: faArrowRight, tooltip: "상세 보기" }}
         handleSelect={handleClickDetailicon}

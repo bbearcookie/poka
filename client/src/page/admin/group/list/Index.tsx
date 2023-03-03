@@ -7,32 +7,31 @@ import SkeletonGroup from './content/SkeletonGroup';
 import Table from '@component/table/Table';
 import Group from './content/Group';
 import Col from '@component/table/styles/Col';
+import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import { getErrorMessage } from '@util/request';
 import './Index.scss';
 
 interface Props {}
-const DefaultProps = {};
 
 function GroupListPage({  }: Props) {
   const { status, data: groups, error } = useGroupsQuery();
 
   return (
     <section className="GroupListPage">
-      <div className="title-label-section">
-        <h1 className="title-label">그룹 목록</h1>
+      <TitleLabel title="그룹 목록" styles={{ marginBottom: "1em" }}>
         <Link to="/admin/group/writer">
           <Button
             leftIcon={faPlus}
             styles={{
               theme: "primary",
-              padding: "0.7em 1.3em",
+              padding: "0.6em 1.2em",
               iconMargin: "1em"
             }}
           >추가</Button>
         </Link>
-      </div>
+      </TitleLabel>
 
-      <Table styles={{ itemHeight: "3em", itemPadding: "1em" }}>
+      <Table styles={{ itemHeight: "1em", itemPadding: "1em" }}>
         <colgroup>
           <Col width="60%" />
           <Col width="25%" />

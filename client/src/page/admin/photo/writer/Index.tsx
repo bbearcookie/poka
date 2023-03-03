@@ -1,6 +1,7 @@
 import React, { useReducer, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAddPhotos from '@api/mutation/photo/useAddPhotos';
+import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import SelectCard from './content/SelectCard';
 import Upload from './content/Upload';
 import PhotoList from './content/PhotoList';
@@ -9,7 +10,6 @@ import reducer, { initialState } from './reducer';
 import './Index.scss';
 
 interface Props {}
-const DefaultProps = {};
 
 function PhotoWriterPage({  }: Props) {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -48,7 +48,7 @@ function PhotoWriterPage({  }: Props) {
 
   return (
     <div className="PhotoWriterPage">
-      <h1 className="title-label">포토카드 등록</h1>
+      <TitleLabel title="포토카드 등록" styles={{ marginBottom: "1em" }} />
       <form onSubmit={onSubmit}>
         <section className="info-section">
           <SelectCard state={state} dispatch={dispatch} />

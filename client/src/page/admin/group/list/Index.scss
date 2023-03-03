@@ -1,29 +1,6 @@
 .GroupListPage {
   padding: 5em 1.5em;
 
-  a { color: inherit; }
-
-  .title-label {
-    margin: 0 0 1em 0;
-    font-size: 1.75rem;
-  }
-
-  .title-label-section {
-    margin-bottom: 1em;
-    display: flex;
-    align-items: center;
-
-    .card-label {
-      margin: 0;
-      flex-grow: 1;
-    }
-
-    .title-label {
-      margin: 0;
-      flex-grow: 1;
-    }
-  }
-
   .Group {
     .name-section {
       width: fit-content;

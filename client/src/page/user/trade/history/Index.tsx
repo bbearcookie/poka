@@ -1,12 +1,10 @@
 import React, { useState, useRef } from 'react';
+import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import DateSelector from './content/DateSelector';
 import HistoryList from './content/HistoryList';
 import './Index.scss';
 
-interface Props {
-
-}
-const DefaultProps = {};
+interface Props {}
 
 function getToday() {
   let today = new Date(Date.now());
@@ -21,7 +19,7 @@ function Index({  }: Props) {
 
   return (
     <div className="TradeHistoryPage">
-      <h1 className="title-label">교환 내역</h1>
+      <TitleLabel title="교환 내역" styles={{ marginBottom: "2em" }} />
       <DateSelector todayDate={today.current} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
       <HistoryList startDate={startDate} endDate={endDate} />
     </div>
