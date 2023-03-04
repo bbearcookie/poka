@@ -23,3 +23,22 @@ export const StyledFilter = styled.div`
     }
   }
 `
+
+interface FilterSectionProps {
+  margin?: string;
+  marginTop?: string;
+  marginBottom?: string;
+  marginLeft?: string;
+  marginRight?: string;
+}
+export const FilterSection = styled.section<FilterSectionProps>`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5em;
+  
+  margin: ${p => p.margin};
+  margin-top: ${p => p.marginTop};
+  margin-bottom: ${p => p.marginBottom};
+  margin-left: ${p => p.marginLeft};
+  margin-right: ${p => p.marginRight};
+`

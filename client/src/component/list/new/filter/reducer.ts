@@ -27,9 +27,12 @@ export type Action = |
 } | {
   type: "TOGGLE_MEMBER";
   id: number;
+} | {
+  type: "SET_VOUCHER_STATE";
+  value: VoucherStateKey;
 }
 
-const reducer = (state: State, action: Action): State => {
+export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'INIT_GROUPS':
       return produce(state, draft => {
@@ -55,9 +58,11 @@ const reducer = (state: State, action: Action): State => {
           m
         );
       });
+    case 'SET_VOUCHER_STATE':
+      return produce(state, draft => {
+        draft.voucherState = action.value;
+      });
     default:
       return state;
   }
 }
-
-export default reducer;

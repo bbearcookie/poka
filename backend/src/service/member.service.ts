@@ -27,7 +27,8 @@ export const selectAllMemberList = async () => {
   try {
     let sql = `
     SELECT member_id as memberId, group_id as groupId, name
-    FROM MemberData`;
+    FROM MemberData
+    ORDER BY group_id`;
 
     return await con.query(sql);
   } catch (err) {

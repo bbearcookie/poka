@@ -26,7 +26,7 @@ function GroupFilter({ state, dispatch }: Props) {
     retry: false,
   });
 
-  // 그룹 클릭시 필터에 추가 or 제거
+  // 아이템 클릭시 필터에 추가 or 제거
   const handleClickItem = useCallback((id: number) => {
     dispatch({ type: "TOGGLE_GROUP", id });
   }, [dispatch]);
