@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import Select from '@component/form/Select';
 import { SearchSection, StyledInput, StyledButton, StyledSearchBar } from './content/_styles';
-import { State, Action } from '../keyword/reducer';
+import { State, Action } from '@component/search/content/keyword/reducer';
 
 interface Props {
   category: { [type: string]: string; }

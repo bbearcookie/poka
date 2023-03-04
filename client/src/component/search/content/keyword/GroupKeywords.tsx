@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { State, Action } from '@component/list/new/filter/reducer';
+import { State, Action } from '@component/search/content/filter/reducer';
 import Keyword from './content/_Keyword';
 
 interface Props {

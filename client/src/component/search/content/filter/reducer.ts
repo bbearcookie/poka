@@ -1,6 +1,6 @@
-import produce from "immer";
-import { VoucherStateKey } from "@component/label/StateLabel";
-import { CheckItemType } from "@type/listFilter";
+import produce from 'immer';
+import { VoucherStateKey } from '@component/label/StateLabel';
+import { CheckItemType } from '@type/listFilter';
 
 export interface State {
   groups: CheckItemType[];
@@ -16,19 +16,19 @@ export const initialState: State = {
 
 export type Action = |
 {
-  type: "INIT_GROUPS";
+  type: 'INIT_GROUPS';
   groups: CheckItemType[];
 } | {
-  type: "INIT_MEMBERS";
+  type: 'INIT_MEMBERS';
   members: CheckItemType[];
 } | {
-  type: "TOGGLE_GROUP";
+  type: 'TOGGLE_GROUP';
   id: number;
 } | {
-  type: "TOGGLE_MEMBER";
+  type: 'TOGGLE_MEMBER';
   id: number;
 } | {
-  type: "SET_VOUCHER_STATE";
+  type: 'SET_VOUCHER_STATE';
   value: VoucherStateKey;
 }
 
