@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import Card from '@component/card/basic/Card';
+import CardBody from '@component/card/basic/CardBody';
 import Button from '@component/form/Button';
-import PhotoListCard from '@component/list/photo/PhotoListCard';
+import PhotoListWithFilter from '@component/list/new/photo/PhotoListWithFilter';
 import './Index.scss';
 
 interface Props {}
@@ -33,10 +35,12 @@ function PhotoListPage({  }: Props) {
         </Link>
       </TitleLabel>
 
-      <PhotoListCard
-        icon={{ svg: faArrowRight }}
-        handleSelect={handleSelect}
-      />
+      <Card>
+        <CardBody>
+          <PhotoListWithFilter icon={{ svg: faArrowRight }} handleSelect={handleSelect} />
+        </CardBody>
+      </Card>
+      
     </section>
   );
 }

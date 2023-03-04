@@ -14,8 +14,24 @@ export const StyledKeyword = styled.span`
   }
 `
 
-export const KeywordSection = styled.section`
+interface KeywordSectionProps {
+  margin?: string;
+  marginTop?: string;
+  marginBottom?: string;
+  marginLeft?: string;
+  marginRight?: string;
+}
+
+export const KeywordSection = styled.section<KeywordSectionProps>`
   display: flex;
   flex-wrap: wrap;
   gap: 1em;
+  
+  margin: ${p => p.margin};
+  margin-top: ${p => p.marginTop};
+  margin-bottom: ${p => p.marginBottom};
+  margin-left: ${p => p.marginLeft};
+  margin-right: ${p => p.marginRight};
+  
+  &:empty { display: none; }
 `

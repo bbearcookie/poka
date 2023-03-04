@@ -15,14 +15,15 @@ import MemberFilter from '@component/search/content/filter/MemberFilter';
 import VoucherStateFilter from '@component/search/content/filter/VoucherStateFilter';
 import GroupKeywords from '@component/search/content/keyword/GroupKeywords';
 import MemberKeywords from '@component/search/content/keyword/MemberKeywords';
+import VoucherStateKeywords from './content/keyword/VoucherStateKeywords';
 import Keywords from '@component/search/content/keyword/Keywords';
 
 interface Props {
   category: { [type: string]: string; } // 검색 타입의 키워드와, 라벨에 보여줄 텍스트 지정
   options: { // 어떤 데이터에 대한 필터를 보여줄 것인지를 지정한다.
-    group?: boolean;
-    member?: boolean;
-    voucherState?: boolean;
+    group?: boolean; // 그룹
+    member?: boolean; // 멤버
+    voucherState?: boolean; // 소유권 상태
   }
   filter: FilterState;
   keyword: KeywordState;
@@ -39,7 +40,8 @@ function Searcher({ category, options, filter, keyword, filterDispatch, keywordD
         {options.member && <MemberFilter state={filter} dispatch={filterDispatch} />}
         {options.voucherState && <VoucherStateFilter state={filter} dispatch={filterDispatch} />}
       </FilterSection>
-      <KeywordSection>
+      <KeywordSection marginBottom="1em">
+        <VoucherStateKeywords state={filter} dispatch={filterDispatch} />
         <GroupKeywords state={filter} dispatch={filterDispatch} />
         <MemberKeywords state={filter} dispatch={filterDispatch} />
         <Keywords state={keyword} dispatch={keywordDispatch} />

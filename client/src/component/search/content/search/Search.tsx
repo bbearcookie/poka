@@ -59,6 +59,7 @@ function Search({ category, state, dispatch }: Props) {
           name="search"
           value={input}
           autoComplete="off"
+          placeholder={`${category[select]}(으)로 검색`}
           onChange={changeInput}
           onKeyDown={(e) => {
             if (e.key === 'Enter') addKeyword(); 

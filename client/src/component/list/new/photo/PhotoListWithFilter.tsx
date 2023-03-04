@@ -1,36 +1,36 @@
 import React from 'react';
+import { IconType } from '@type/icon';
 import useSearcher from '@component/search/useSearcher';
 import Searcher from '@component/search/Searcher';
+import PhotoList from './content/_PhotoList';
 
-const category = {
-  photoname: '포토카드',
-  username: '아이디'
+interface Props {
+  icon?: IconType;
+  handleSelect?: (photocardId: number) => void;
 }
 
-interface Props {}
-
-function PhotoListCard({  }: Props) {
+function PhotoListWithFilter({ icon, handleSelect }: Props) {
   const { filter, keyword, filterDispatch, keywordDispatch } = useSearcher();
 
   return (
-    <div>
+    <>
       <Searcher
         category={{
-          photoname: '포토카드',
-          username: '아이디'
+          photoName: '포토카드 이름'
         }}
         options={{
           group: true,
-          member: true,
-          voucherState: true
+          member: true
         }}
         filter={filter}
         keyword={keyword}
         filterDispatch={filterDispatch}
         keywordDispatch={keywordDispatch}
       />
-    </div>
+
+      <PhotoList filter={filter} keyword={keyword} icon={icon} handleSelect={handleSelect} />
+    </>
   );
 }
 
-export default PhotoListCard;
+export default PhotoListWithFilter;
