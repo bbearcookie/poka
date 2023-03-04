@@ -9,7 +9,7 @@ import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Button from '@component/form/Button';
-import PhotoListCard from '@component/list/photo/PhotoListCard';
+import PhotoListWithFilter from '@component/list/new/photo/PhotoListWithFilter';
 import PhotocardList from './PhotocardList';
 import PhotocardAmount from './PhotocardAmount';
 import { State as FormState, Action as FormAction } from '../../reducer';
@@ -20,7 +20,6 @@ interface Props {
   form: FormState;
   formDispatch: React.Dispatch<FormAction>;
 }
-const DefaultProps = {};
 
 function PhotocardSection({ form, formDispatch }: Props) {
   const addModal = useModal();
@@ -86,11 +85,7 @@ function PhotocardSection({ form, formDispatch }: Props) {
       </Card>
 
       <TitleModal hook={addModal} titleName="포토카드 선택" styles={{ width: '75%' }}>
-        <PhotoListCard
-          icon={{ svg: faAdd }}
-          handleSelect={addWantPhotocardId}
-          cardStyles={{ border: "none" }}
-        />
+        <PhotoListWithFilter icon={{ svg: faAdd }} handleSelect={addWantPhotocardId} />
       </TitleModal>
     </>
   );

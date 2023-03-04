@@ -2,17 +2,18 @@ import { useInfiniteQuery, UseInfiniteQueryOptions, UseInfiniteQueryResult } fro
 import { AxiosError } from 'axios';
 import { ErrorType } from '@util/request';
 import { fetchPhotos } from '@api/api/photo';
-import { State as FilterType } from '@component/list/photo/reducer';
 import { PhotoType } from '@type/photo';
 import * as queryKey from '@api/queryKey';
 
+export interface FilterType {
+  groupId: number[];
+  memberId: number[];
+  photoName: string[];
+}
+
 export interface ParamType {
   pageParam: number;
-  filter: {
-    groupId: number[];
-    memberId: number[];
-    photoName: string[];
-  }
+  filter: FilterType;
 }
 
 export interface ResType {
@@ -29,19 +30,9 @@ export default function usePhotosQuery(
   options?: UseInfiniteQueryOptions<ResType, AxiosError<ErrorType>>
 ): UseInfiniteQueryResult<ResType, AxiosError<ErrorType>> {
 
-  const refinedFilter = {
-    groupId: filter.groups
-      .filter(item => item.checked)
-      .map(item => item.id),
-    memberId: filter.members
-      .filter(item => item.checked)
-      .map(item => item.id),
-    photoName: filter.names.map(item => item.value)
-  }
-
   return useInfiniteQuery<ResType, AxiosError<ErrorType>>({
     queryKey: queryKey.photoKeys.all,
-    queryFn: ({ pageParam = 0 }) => fetchPhotos({ pageParam, filter: refinedFilter }),
+    queryFn: ({ pageParam = 0 }) => fetchPhotos({ pageParam, filter }),
     getNextPageParam: (lastPage, pages) => {
       return lastPage.paging.hasNextPage && lastPage.paging.pageParam + 1;
     },

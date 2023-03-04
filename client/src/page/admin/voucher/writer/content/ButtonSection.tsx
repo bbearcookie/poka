@@ -2,10 +2,11 @@ import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@component/form/Button';
 
-interface Props {}
-const DefaultProps = {};
+interface Props {
+  handleSubmit: () => void;
+}
 
-function SubmitSection({  }: Props) {
+function ButtonSection({ handleSubmit }: Props) {
   const navigate = useNavigate();
 
   const handleCancel = useCallback(() => {
@@ -23,15 +24,16 @@ function SubmitSection({  }: Props) {
         onClick={handleCancel}
       >취소</Button>
       <Button
-        type="submit"
+        type="button"
         styles={{
           theme: "primary",
           padding: "1em 2em",
           marginLeft: "1em"
         }}
+        onClick={handleSubmit}
       >발급</Button>
     </section>
   );
 }
 
-export default SubmitSection;
+export default ButtonSection;

@@ -65,7 +65,7 @@ function Search({ category, state, dispatch }: Props) {
             if (e.key === 'Enter') addKeyword(); 
           }}
         />
-        <StyledButton onClick={addKeyword}>
+        <StyledButton type="button" onClick={addKeyword}>
           <FontAwesomeIcon className="icon" icon={faSearch} size="lg" />
         </StyledButton>
       </StyledSearchBar>

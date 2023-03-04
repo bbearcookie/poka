@@ -7,7 +7,7 @@ import Button from '@component/form/Button';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
-import PhotoListCard from '@component/list/photo/PhotoListCard';
+import PhotoListWithFilter from '@component/list/new/photo/PhotoListWithFilter';
 import PhotoList from './photo/PhotoList';
 import { State, Action } from '../reducer';
 
@@ -15,7 +15,6 @@ interface Props {
   state: State;
   dispatch: React.Dispatch<Action>;
 }
-const DefaultProps = {};
 
 function VoucherSection({ state, dispatch }: Props) {
   const addModal = useModal();
@@ -33,6 +32,11 @@ function VoucherSection({ state, dispatch }: Props) {
     addModal.close();
   }, [dispatch, addModal]);
 
+  // 모달 열기
+  const openModal = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+    setTimeout(() => addModal.open(), 0);
+  }, [addModal]);
+
   return (
     <section className="VoucherSection">
       <Card styles={{ marginBottom: "2em" }}>
@@ -47,7 +51,7 @@ function VoucherSection({ state, dispatch }: Props) {
                 padding: "0.7em 1.3em",
                 iconMargin: "1em"
               }}
-              onClick={(e) => { e.stopPropagation(); addModal.open(); }}
+              onClick={openModal}
             >추가</Button>
           </section>
         </CardHeader>
@@ -58,12 +62,8 @@ function VoucherSection({ state, dispatch }: Props) {
         </CardBody>
       </Card>
 
-      <TitleModal hook={addModal} titleName="소유권 선택" styles={{ width: '75%' }}>
-        <PhotoListCard
-          icon={{ svg: faPlus }}
-          handleSelect={handleAddVoucher}
-          cardStyles={{ border: "none" }}
-        />
+      <TitleModal hook={addModal} titleName="소유권 선택" styles={{ width: "75%" }}>
+        <PhotoListWithFilter icon={{ svg: faPlus }} handleSelect={handleAddVoucher} />
       </TitleModal>
     </section>
   );

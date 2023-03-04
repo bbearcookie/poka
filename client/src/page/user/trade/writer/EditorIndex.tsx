@@ -37,8 +37,7 @@ function EditorIndex({  }: Props) {
     })
   }, [trade]);
 
-  const onSubmit = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = useCallback(() => {
     putMutation.mutate({
       tradeId: Number(tradeId),
       body: {

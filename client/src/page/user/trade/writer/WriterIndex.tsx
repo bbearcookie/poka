@@ -27,8 +27,7 @@ function WriterIndex({  }: Props) {
     }
   );
 
-  const onSubmit = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = useCallback(() => {
     postMutation.mutate({
       body: {
         haveVoucherId: form.data.haveVoucherId,

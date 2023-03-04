@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from 'react';
 import { useUpdateEffect } from 'react-use';
 import { useQueryClient } from '@tanstack/react-query';
-import usePhotosQuery, { FilterType } from '@api/query/photo/useNewPhotosQuery';
+import usePhotosQuery, { FilterType } from '@api/query/photo/usePhotosQuery';
 import * as queryKey from '@api/queryKey';
 import NextPageFetcher from '@component/list/NextPageFetcher';
 import PhotoCard from '@component/photocard/photo/PhotoCard';
