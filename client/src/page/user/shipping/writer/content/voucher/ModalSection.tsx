@@ -1,4 +1,5 @@
-import React, { useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
+import { useAppSelector } from '@app/redux/reduxHooks';
 import useSearcher from '@component/search/useSearcher';
 import Searcher from '@component/search/Searcher';
 import TitleModal from '@component/modal/TitleModal';
@@ -15,6 +16,15 @@ interface Props {
 
 function ModalSection({ state, dispatch, modal }: Props) {
   const { filter, keyword, filterDispatch, keywordDispatch } = useSearcher({ voucherState: 'available' });
+  const username = useAppSelector(state => state.auth.username);
+
+  // 로그인 한 사용자의 소유권만 보이도록 기본 키워드 추가
+  useEffect(() => {
+    keywordDispatch({
+      type: 'ADD_KEYWORD',
+      value: { category: 'userName', title: '소유자', value: username, show: false }
+    });
+  }, [username]);
 
   // 사용할 소유권 선택
   const onSelectVoucher = useCallback((id: number) => {
@@ -40,7 +50,7 @@ function ModalSection({ state, dispatch, modal }: Props) {
       <VoucherList
         filter={filter}
         keyword={keyword}
-        showOwner={false}
+        showOwner={true}
         excludeVoucherId={state.data.voucherIds}
         icon={{ svg: faPlus }}
         handleSelect={onSelectVoucher}

@@ -40,7 +40,7 @@ function PhotoList({ filter, keyword, icon, handleSelect }: Props) {
     setRefine({
       groupId: filter.groups.filter(g => g.checked).map(g => g.id),
       memberId: filter.members.filter(m => m.checked).map(m => m.id),
-      photoName: keyword.keywords.filter(k => k.type === 'photoName').map(k => k.value)
+      photoName: keyword.keywords.filter(k => k.category === 'photoName').map(k => k.value)
     });
   }, [filter, keyword]);
 
@@ -62,7 +62,6 @@ function PhotoList({ filter, keyword, icon, handleSelect }: Props) {
       </Fragment>)}
 
       {isFetching && Array.from({length: 20}).map((_, i) => <SkeletonPhotoCard key={i} />)}
-
       <NextPageFetcher hasNextPage={hasNextPage} fetchNextPage={fetchNextPage} />
     </ItemSection>
   );

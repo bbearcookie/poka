@@ -24,7 +24,7 @@ function VoucherList({
   filter,
   keyword,
   showOwner = true,
-  excludeVoucherId = [],
+  excludeVoucherId,
   icon,
   handleSelect
 }: Props) {
@@ -33,9 +33,9 @@ function VoucherList({
     groupId: [],
     memberId: [],
     photoName: [],
-    excludeVoucherId,
     userName: [],
-    voucherState: filter.voucherState
+    voucherState: filter.voucherState,
+    excludeVoucherId: excludeVoucherId || [],
   });
 
   // 데이터 가져오기
@@ -53,9 +53,9 @@ function VoucherList({
     setRefine({
       groupId: filter.groups.filter(g => g.checked).map(g => g.id),
       memberId: filter.members.filter(m => m.checked).map(m => m.id),
-      photoName: keyword.keywords.filter(k => k.type === 'photoName').map(k => k.value),
-      userName: keyword.keywords.filter(k => k.type === 'username').map(k => k.value),
-      excludeVoucherId,
+      photoName: keyword.keywords.filter(k => k.category === 'photoName').map(k => k.value),
+      userName: keyword.keywords.filter(k => k.category === 'userName').map(k => k.value),
+      excludeVoucherId: excludeVoucherId || [],
       voucherState: filter.voucherState
     });
   }, [filter, keyword, excludeVoucherId]);

@@ -1,5 +1,5 @@
 import { client } from '@util/request';
-import { ParamType as VouchersParam } from '@api/query/voucher/useVouchersQuery';
+import { ParamType as VouchersParam } from '@api/query/voucher/useNewVouchersQuery';
 import { ParamType as VoucherLogsParam } from '@api/query/voucher/useVoucherLogsQuery';
 import { ParamType as AddVouchersParam } from '@api/mutation/voucher/useAddVouchers';
 import { ParamType as DeleteVoucherParam } from '@api/mutation/voucher/useDeleteVoucher';

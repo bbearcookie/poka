@@ -3,22 +3,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import Select from '@component/form/Select';
 import { SearchSection, StyledInput, StyledButton, StyledSearchBar } from './content/_styles';
-import { State, Action } from '@component/search/content/keyword/reducer';
+import { State, Action, CategoryType } from '@component/search/content/keyword/reducer';
 
 interface Props {
-  category: { [type: string]: string; }
+  category: CategoryType;
   state: State;
   dispatch: React.Dispatch<Action>;
 }
 
 function Search({ category, state, dispatch }: Props) {
-  const categories = Object.entries(category);
+  const categories = Object.entries(category) as [keyof CategoryType, any][];
   const [input, setInput] = useState('');
-  const [select, setSelect] = useState(categories.length > 0 ? categories[0][0] : '');
+  const [select, setSelect] = useState<keyof CategoryType>(categories.length > 0 ? categories[0][0] : 'undefined');
 
   // 검색 타입 선택 변경
   const changeSelect = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
+    const value = e.target.value as keyof CategoryType;
     setSelect(value);
   }, []);
 
@@ -32,14 +32,14 @@ function Search({ category, state, dispatch }: Props) {
     dispatch({
       type: 'ADD_KEYWORD',
       value: {
-        type: select,
-        title: category[select],
+        category: select,
+        title: category[select] || '',
         value: input,
         show: true
       }
     });
-    setInput('');
 
+    setInput('');
   }, [category, select, input, dispatch]);
 
   if (categories.length === 0) return <></>;

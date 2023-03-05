@@ -28,7 +28,7 @@ function Index({  }: Props) {
           <Searcher
             category={{
               photoName: '포토카드 이름',
-              username: '사용자 아이디'
+              userName: '사용자 아이디'
             }}
             options={{
               group: true,

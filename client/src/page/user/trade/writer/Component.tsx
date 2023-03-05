@@ -1,5 +1,5 @@
 import React from 'react';
-import VoucherSection from './content/VoucherSection';
+import VoucherSection from './content/voucher/VoucherSection';
 import PhotocardSection from './content/photocard/PhotocardSection';
 import ButtonSection from './content/ButtonSection';
 import { State as FormState, Action as FormAction } from './reducer';
