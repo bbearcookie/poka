@@ -2,7 +2,7 @@ import React from 'react';
 import { IconType } from '@type/icon';
 import useSearcher from '@component/search/useSearcher';
 import Searcher from '@component/search/Searcher';
-import PhotoList from './content/_PhotoList';
+import PhotoList from './PhotoList';
 
 interface Props {
   icon?: IconType;

@@ -3,7 +3,7 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
-import PhotoListWithFilter from '@component/list/new/photo/PhotoListWithFilter';
+import PhotoListWithFilter from '@component/list/PhotoListWithFilter';
 import './Index.scss';
 
 interface Props {}

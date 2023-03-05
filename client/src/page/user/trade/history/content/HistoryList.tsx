@@ -8,7 +8,7 @@ import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import CardList from '@component/card/basic/CardList';
-import NextPageFetcher from '@component/list/NextPageFetcher';
+import NextPageFetcher from '@component/list/content/NextPageFetcher';
 import History from './History';
 import SkeletonHistory from './SkeletonHistory';
 

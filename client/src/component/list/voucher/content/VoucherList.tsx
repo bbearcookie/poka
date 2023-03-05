@@ -1,10 +1,10 @@
 import React, { Fragment, useCallback } from 'react';
-import useVouchersQuery from '@api/query/voucher/useVouchersQuery';
 import { useUpdateEffect } from 'react-use';
+import useVouchersQuery from '@api/query/voucher/useVouchersQuery';
 import { useQueryClient } from '@tanstack/react-query';
 import { IconType } from '@type/icon';
 import * as queryKey from '@api/queryKey';
-import NextPageFetcher from '@component/list/NextPageFetcher';
+import NextPageFetcher from '@component/list/content/NextPageFetcher';
 import VoucherCard from '@component/photocard/voucher/VoucherCard';
 import SkeletonVoucherCard from '@component/photocard/voucher/SkeletonVoucherCard';
 import ItemSection from '@component/list/common/ItemSection';

@@ -1,15 +1,15 @@
 import React, { useState, Fragment } from 'react';
 import { useUpdateEffect } from 'react-use';
 import { useQueryClient } from '@tanstack/react-query';
-import usePhotosQuery, { FilterType } from '@api/query/photo/usePhotosQuery';
 import * as queryKey from '@api/queryKey';
-import NextPageFetcher from '@component/list/NextPageFetcher';
+import usePhotosQuery, { FilterType } from '@api/query/photo/usePhotosQuery';
+import NextPageFetcher from '@component/list/content/NextPageFetcher';
 import PhotoCard from '@component/photocard/photo/PhotoCard';
 import SkeletonPhotoCard from '@component/photocard/photo/SkeletonPhotoCard';
 import { IconType } from '@type/icon';
 import { State as FilterState } from '@component/search/content/filter/reducer';
 import { State as KeywordState } from '@component/search/content/keyword/reducer';
-import { ItemSection } from '@component/list/new/_styles';
+import { ItemSection } from '@component/list/_styles';
 
 interface Props {
   filter: FilterState;
@@ -48,14 +48,14 @@ function PhotoList({ filter, keyword, icon, handleSelect }: Props) {
     <ItemSection>
       {photos?.pages.map((page, i) =>
       <Fragment key={i}>
-        {page.photos.map(photo =>
+        {page.photos.map(p =>
         <PhotoCard
-          key={photo.photocardId}
-          photocardId={photo.photocardId}
-          photoName={photo.name}
-          groupName={photo.groupName}
-          memberName={photo.memberName}
-          imageName={photo.imageName}
+          key={p.photocardId}
+          photocardId={p.photocardId}
+          photoName={p.name}
+          groupName={p.groupName}
+          memberName={p.memberName}
+          imageName={p.imageName}
           icon={icon}
           handleClick={handleSelect}
         />)}

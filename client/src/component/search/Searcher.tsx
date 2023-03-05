@@ -18,13 +18,16 @@ import MemberKeywords from '@component/search/content/keyword/MemberKeywords';
 import VoucherStateKeywords from './content/keyword/VoucherStateKeywords';
 import Keywords from '@component/search/content/keyword/Keywords';
 
+// 어떤 데이터에 대한 필터를 보여줄 것인지를 지정한다.
+export interface OptionType {
+  group?: boolean; // 그룹
+  member?: boolean; // 멤버
+  voucherState?: boolean; // 소유권 상태
+}
+
 interface Props {
   category: { [type: string]: string; } // 검색 타입의 키워드와, 라벨에 보여줄 텍스트 지정
-  options: { // 어떤 데이터에 대한 필터를 보여줄 것인지를 지정한다.
-    group?: boolean; // 그룹
-    member?: boolean; // 멤버
-    voucherState?: boolean; // 소유권 상태
-  }
+  options: OptionType;
   filter: FilterState;
   keyword: KeywordState;
   filterDispatch: React.Dispatch<FilterAction>;

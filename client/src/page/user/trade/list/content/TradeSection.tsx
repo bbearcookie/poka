@@ -3,7 +3,7 @@ import { useUpdateEffect } from 'react-use';
 import { useQueryClient } from '@tanstack/react-query';
 import * as queryKey from '@api/queryKey';
 import useTradesQuery from '@api/query/trade/useTradesQuery';
-import NextPageFetcher from '@component/list/NextPageFetcher';
+import NextPageFetcher from '@component/list/content/NextPageFetcher';
 import SkeletonTradeCard from '@component/trade/SkeletonTradeCard';
 import TradeCard from '@component/trade/TradeCard';
 import { State, Action } from '../reducer';
