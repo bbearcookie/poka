@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { useUpdateEffect } from 'react-use';
 import { useQueryClient } from '@tanstack/react-query';
 import * as queryKey from '@api/queryKey';
-import useVouchersQuery, { FilterType } from '@api/query/voucher/useNewVouchersQuery';
+import useVouchersQuery, { FilterType } from '@api/query/voucher/useVouchersQuery';
 import { State as FilterState } from '@component/search/content/filter/reducer';
 import { State as KeywordState } from '@component/search/content/keyword/reducer';
 import { IconType } from '@type/icon';

@@ -1,4 +1,5 @@
-import React, { useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
+import { useAppSelector } from '@app/redux/reduxHooks';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { ModalHookType } from '@hook/useModal';
 import TitleModal from '@component/modal/TitleModal';
@@ -14,10 +15,16 @@ interface Props {
 }
 
 function ModalSection({ form, formDispatch, addModal }: Props) {
-  const { filter, keyword, filterDispatch, keywordDispatch } = useSearcher(
-    { voucherState: 'available' },
-  );
-  // TODO: username이 자기아이디 인것만 보여주게 하기
+  const { filter, keyword, filterDispatch, keywordDispatch } = useSearcher({ voucherState: 'available' });
+  const username = useAppSelector(state => state.auth.username);
+
+  // 로그인 한 사용자의 소유권만 보이도록 기본 키워드 추가
+  useEffect(() => {
+    keywordDispatch({
+      type: 'ADD_KEYWORD',
+      value: { category: 'userName', title: '소유자', value: username, show: false }
+    });
+  }, [username]);
 
   // 사용할 소유권 선택
   const onSelectVoucher = useCallback((voucherId: number) => {
@@ -39,24 +46,14 @@ function ModalSection({ form, formDispatch, addModal }: Props) {
         keywordDispatch={keywordDispatch}
       />
 
+      {username &&
       <VoucherList
         filter={filter}
         keyword={keyword}
         showOwner={false}
         icon={{ svg: faCheck }}
         handleSelect={onSelectVoucher}
-      />
-
-      {/* <VoucherListCard
-        icon={{ svg: faCheck, tooltip: "선택" }}
-        handleSelect={onSelectVoucher}
-        defaultFilter={{
-          owner: "mine",
-          state: "available",
-          excludeVoucherId: []
-        }}
-        cardStyles={{ border: "none" }}
-      /> */}
+      />}
     </TitleModal>
   );
 }
