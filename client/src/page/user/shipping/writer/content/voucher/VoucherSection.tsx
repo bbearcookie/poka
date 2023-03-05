@@ -8,7 +8,6 @@ interface Props {
   state: State;
   dispatch: React.Dispatch<Action>
 }
-const DefaultProps = {};
 
 function VoucherSection({ state, dispatch }: Props) {
   const addModal = useModal();

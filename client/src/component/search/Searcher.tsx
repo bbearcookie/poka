@@ -26,7 +26,7 @@ export interface OptionType {
 }
 
 interface Props {
-  category: { [type: string]: string; } // 검색 타입의 키워드와, 라벨에 보여줄 텍스트 지정
+  category?: { [type: string]: string; } // 검색 타입의 키워드와, 라벨에 보여줄 텍스트 지정
   options: OptionType;
   filter: FilterState;
   keyword: KeywordState;
@@ -34,7 +34,7 @@ interface Props {
   keywordDispatch: React.Dispatch<KeywordAction>;
 }
 
-function Searcher({ category, options, filter, keyword, filterDispatch, keywordDispatch }: Props) {
+function Searcher({ category = {}, options, filter, keyword, filterDispatch, keywordDispatch }: Props) {
   return (
     <>
       <Search category={category} state={keyword} dispatch={keywordDispatch} />
@@ -44,9 +44,9 @@ function Searcher({ category, options, filter, keyword, filterDispatch, keywordD
         {options.voucherState && <VoucherStateFilter state={filter} dispatch={filterDispatch} />}
       </FilterSection>
       <KeywordSection marginBottom="1em">
-        <VoucherStateKeywords state={filter} dispatch={filterDispatch} />
-        <GroupKeywords state={filter} dispatch={filterDispatch} />
-        <MemberKeywords state={filter} dispatch={filterDispatch} />
+        {options.group && <GroupKeywords state={filter} dispatch={filterDispatch} />}
+        {options.member && <MemberKeywords state={filter} dispatch={filterDispatch} />}
+        {options.voucherState && <VoucherStateKeywords state={filter} dispatch={filterDispatch} />}
         <Keywords state={keyword} dispatch={keywordDispatch} />
       </KeywordSection>
     </>

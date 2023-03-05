@@ -14,19 +14,28 @@ import { ItemSection } from '@component/list/_styles';
 interface Props {
   filter: FilterState;
   keyword: KeywordState;
+  showOwner?: boolean;
+  excludeVoucherId?: number[];
   icon?: IconType;
   handleSelect?: (voucherId: number) => void;
 }
 
-function VoucherList({ filter, keyword, icon, handleSelect }: Props) {
+function VoucherList({
+  filter,
+  keyword,
+  showOwner = true,
+  excludeVoucherId = [],
+  icon,
+  handleSelect
+}: Props) {
   const queryClient = useQueryClient();
   const [refine, setRefine] = useState<FilterType>({
     groupId: [],
     memberId: [],
     photoName: [],
-    excludeVoucherId: [],
+    excludeVoucherId,
     userName: [],
-    voucherState: 'all'
+    voucherState: filter.voucherState
   });
 
   // 데이터 가져오기
@@ -46,10 +55,10 @@ function VoucherList({ filter, keyword, icon, handleSelect }: Props) {
       memberId: filter.members.filter(m => m.checked).map(m => m.id),
       photoName: keyword.keywords.filter(k => k.type === 'photoName').map(k => k.value),
       userName: keyword.keywords.filter(k => k.type === 'username').map(k => k.value),
-      excludeVoucherId: [],
+      excludeVoucherId,
       voucherState: filter.voucherState
     });
-  }, [filter, keyword]);
+  }, [filter, keyword, excludeVoucherId]);
 
   return (
     <ItemSection>
@@ -59,7 +68,7 @@ function VoucherList({ filter, keyword, icon, handleSelect }: Props) {
         <VoucherCard
           key={v.voucherId}
           voucherId={v.voucherId}
-          showOwner={true}
+          showOwner={showOwner}
           groupName={v.groupName}
           memberName={v.memberName}
           photoName={v.name}

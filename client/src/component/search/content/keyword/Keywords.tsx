@@ -16,7 +16,7 @@ function Keywords({ state, dispatch }: Props) {
 
   return (
     <>
-      {state.keywords.map(k =>
+      {state.keywords.filter(k => k.show).map(k =>
         <Keyword
           key={k.id}
           category={k.title}

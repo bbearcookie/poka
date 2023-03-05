@@ -14,7 +14,7 @@ interface Props {
 function Search({ category, state, dispatch }: Props) {
   const categories = Object.entries(category);
   const [input, setInput] = useState('');
-  const [select, setSelect] = useState(categories[0][0]);
+  const [select, setSelect] = useState(categories.length > 0 ? categories[0][0] : '');
 
   // 검색 타입 선택 변경
   const changeSelect = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -35,13 +35,15 @@ function Search({ category, state, dispatch }: Props) {
         type: select,
         title: category[select],
         value: input,
+        show: true
       }
     });
     setInput('');
 
   }, [category, select, input, dispatch]);
 
-  return (
+  if (categories.length === 0) return <></>;
+  else return (
     <SearchSection marginBottom="1em">
 
       {categories.length > 1 &&
@@ -62,7 +64,7 @@ function Search({ category, state, dispatch }: Props) {
           placeholder={`${category[select]}(으)로 검색`}
           onChange={changeInput}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') addKeyword(); 
+            if (e.key === "Enter") addKeyword();
           }}
         />
         <StyledButton type="button" onClick={addKeyword}>
