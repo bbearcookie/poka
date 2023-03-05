@@ -2,11 +2,11 @@ import React, { useEffect, useCallback } from 'react';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import useSearcher from '@component/search/useSearcher';
 import Searcher from '@component/search/Searcher';
+import VoucherList from '@component/list/VoucherList';
 import TitleModal from '@component/modal/TitleModal';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ModalHookType } from '@hook/useModal';
 import { State, Action } from '../../reducer';
-import VoucherList from '@component/list/VoucherList';
 
 interface Props {
   state: State;
@@ -47,14 +47,15 @@ function ModalSection({ state, dispatch, modal }: Props) {
         keywordDispatch={keywordDispatch}
       />
 
+      {username &&
       <VoucherList
         filter={filter}
         keyword={keyword}
-        showOwner={true}
+        showOwner={false}
         excludeVoucherId={state.data.voucherIds}
         icon={{ svg: faPlus }}
         handleSelect={onSelectVoucher}
-      />
+      />}
     </TitleModal>
   );
 }

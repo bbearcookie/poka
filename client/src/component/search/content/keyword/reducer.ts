@@ -41,8 +41,6 @@ export const reducer = (state: State, action: Action): State => {
     case "ADD_KEYWORD":
       const trimmed = action.value.value.trim();
 
-      console.log(action);
-
       // 비어 있는 문자열이면 추가하지 않음.
       if (trimmed.length === 0) return state;
 
