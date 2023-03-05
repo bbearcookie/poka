@@ -9,7 +9,7 @@ import SkeletonPhotoCard from '@component/photocard/photo/SkeletonPhotoCard';
 import { IconType } from '@type/icon';
 import { State as FilterState } from '@component/search/content/filter/reducer';
 import { State as KeywordState } from '@component/search/content/keyword/reducer';
-import { ItemSection } from '@component/list/_styles';
+import { ItemSection } from '@component/list/content/_styles';
 
 interface Props {
   filter: FilterState;

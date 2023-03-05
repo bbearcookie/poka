@@ -2,7 +2,7 @@ import React from 'react';
 import { UseQueryResult } from '@tanstack/react-query';
 import PhotoCard from '@component/photocard/photo/PhotoCard';
 import InputMessage from '@component/form/InputMessage';
-import ItemSection from '@component/list/common/ItemSection';
+import { ItemSection } from '@component/list/content/_styles';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { ResType as PhotoResType } from '@api/query/photo/usePhotoQuery';
 import { State as FormState, Action as FormAction } from '../../reducer';
@@ -13,7 +13,6 @@ interface Props {
   photos: UseQueryResult<PhotoResType, unknown>[];
   removeWantPhotocardId: (photocardId: number) => void;
 }
-const DefaultProps = {};
 
 function PhotocardList({ form, formDispatch, photos, removeWantPhotocardId }: Props) {
   return (
@@ -21,7 +20,7 @@ function PhotocardList({ form, formDispatch, photos, removeWantPhotocardId }: Pr
       {photos.length > 0 &&
       <>
         <b className="label">종류</b>
-        <ItemSection styles={{ margin: "1em 0" }}>
+        <ItemSection margin="1em 0">
           {photos.map((photo) => photo.status === 'success' && 
           <PhotoCard
             key={photo.data.photocardId}

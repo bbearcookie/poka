@@ -11,7 +11,7 @@ import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';
-import ItemSection from '@component/list/common/ItemSection';
+import { ItemSection } from '@component/list/content/_styles';
 import * as queryKey from '@api/queryKey';
 import { State, Action } from '../../reducer';
 
@@ -20,7 +20,6 @@ interface Props {
   dispatch: React.Dispatch<Action>;
   modal: ModalHookType;
 }
-const DefaultProps = {};
 
 function CardSection({ state, dispatch, modal }: Props) {
 
@@ -59,7 +58,7 @@ function CardSection({ state, dispatch, modal }: Props) {
         </section>
       </CardHeader>
       <CardBody>
-        <ItemSection styles={{ marginBottom: '2em' }}>
+        <ItemSection marginBottom="2em">
           {loading && Array.from({ length: 10 }).map((_, idx) => <SkeletonVoucherCard key={idx} />)}
           {!loading && vouchers.map(voucher => voucher.status === "success" &&
           <VoucherCard

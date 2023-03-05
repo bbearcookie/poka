@@ -8,7 +8,7 @@ import SkeletonPhotoInfoCard from '@component/photocard/photo/SkeletonPhotoInfoC
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
-import ItemSection from '@component/list/common/ItemSection';
+import { ItemSection } from '@component/list/content/_styles';
 import Button from '@component/form/Button';
 import InputMessage from '@component/form/InputMessage';
 import { getErrorMessage } from '@util/request';

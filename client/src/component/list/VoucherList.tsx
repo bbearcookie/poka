@@ -9,7 +9,7 @@ import { IconType } from '@type/icon';
 import NextPageFetcher from '@component/list/content/NextPageFetcher';
 import VoucherCard from '@component/photocard/voucher/VoucherCard';
 import SkeletonVoucherCard from '@component/photocard/voucher/SkeletonVoucherCard';
-import { ItemSection } from '@component/list/_styles';
+import { ItemSection } from '@component/list/content/_styles';
 
 interface Props {
   filter: FilterState;

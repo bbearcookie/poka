@@ -13,6 +13,8 @@ export const ItemSection = styled.section<ItemSectionProps>`
   grid-template-columns: repeat(auto-fit, minmax(200px, max-content));
   grid-gap: ${p => p.gridGap ? p.gridGap : '2em'};
 
+  &:empty { display: none; }
+
   @media screen and (max-width: 80rem) {
     justify-content: center;
   }
