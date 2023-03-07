@@ -1,3 +1,6 @@
+type PaymentStateType = 'waiting' | 'paid' | 'forgeried';
+type RequestStateType = 'waiting' | 'shipped';
+
 export interface ShippingAddressType {
   addressId: number;
   userId: number;
@@ -13,7 +16,7 @@ export interface ShippingAddressType {
 
 export interface ShippingRequestType {
   requestId: number;
-  requestState: 'waiting' | 'shipped';
+  requestState: RequestStateType;
   recipient: string;
   contact: string;
   postcode: string;
@@ -28,5 +31,16 @@ export interface ShippingRequestType {
   paymentId: number;
   merchantUID: string;
   amount: number;
-  paymentState: 'waiting' | 'paid' | 'forgeried';
+  paymentState: PaymentStateType;
+}
+
+export interface ShippingListItemType {
+  requestId: number;
+  requestState: RequestStateType;
+  paymentState: PaymentStateType;
+  userId: number;
+  username: string;
+  nickname: string;
+  userImageName: string;
+  voucherAmount: number;
 }

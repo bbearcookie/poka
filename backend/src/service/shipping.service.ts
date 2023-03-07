@@ -1,6 +1,6 @@
 import db from '@config/database';
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
-import { ShippingAddressType, ShippingRequestType } from '@type/shipping';
+import { ShippingAddressType, ShippingRequestType, ShippingListItemType } from '@type/shipping';
 import { VoucherType } from '@type/voucher';
 import { makeSalt } from '@util/encrypt';
 
@@ -235,6 +235,31 @@ export const insertShippingRequest = async (
     return requestId;
   } catch (err) {
     con.rollback();
+    throw err;
+  } finally {
+    con.release();
+  }
+}
+
+// 배송 요청 목록 조회
+export const selectShippingRequestList = async (itemPerPage: number, pageParam: number) => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `
+    SELECT R.request_id as requestId, R.state as requestState, P.state as paymentState, 
+    U.user_id as userId, U.username, U.nickname, U.image_name as userImageName,
+      (SELECT count(*)
+      FROM ShippingRequestVoucher as V
+      WHERE V.request_id=R.request_id) as voucherAmount
+    FROM ShippingRequest as R
+    INNER JOIN Payment as P ON R.payment_id=P.payment_id
+    INNER JOIN User as U ON R.user_id=U.user_id
+    LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
+
+    interface DataType extends ShippingListItemType, RowDataPacket {}
+    return await con.query<DataType[]>(sql);
+  } catch (err) {
     throw err;
   } finally {
     con.release();

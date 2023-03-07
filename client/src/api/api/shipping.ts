@@ -3,6 +3,7 @@ import { ParamType as ChangePrimeAddressParam } from '@api/mutation/shipping/use
 import { ParamType as modifyShippingAddressParam } from '@api/mutation/shipping/useModifyShippingAddress';
 import { ParamType as addShippingAddressParam } from '@api/mutation/shipping/useAddShippingAddress';
 import { ParamType as deleteShippingAddressParam } from '@api/mutation/shipping/useDeleteShippingAddress';
+import { ParamType as ShippingsParam } from '@api/query/shipping/useShippingsQuery';
 import { ParamType as addShippingParam } from '@api/mutation/shipping/useAddShippingRequest';
 import { ParamType as deleteShippingRequestParam } from '@api/mutation/shipping/useDeleteShippingRequest';
 import { ParamType as checkShippingPaymentParam } from '@api/mutation/shipping/useCheckShippingPayment';
@@ -36,6 +37,12 @@ export const deleteShippingAddress = async (param: deleteShippingAddressParam) =
   const url = `/api/shipping/address/${param.addressId}`;
   const res = await client.delete(url);
   return res;
+}
+
+export const fetchShippings = async (param: ShippingsParam) => {
+  const url = `/api/shipping/request`;
+  const res = await client.get(url, { params: param });
+  return res.data;
 }
 
 export const fetchShippingRequestDetail = async (requestId: number) => {

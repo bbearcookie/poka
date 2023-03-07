@@ -6,6 +6,7 @@ export default function(app: Express, baseURI: string) {
   app.put(`${baseURI}/address/:addressId`, shippingCtrl.putShippingAddress.validator, shippingCtrl.putShippingAddress.controller);
   app.patch(`${baseURI}/address/:addressId/prime`, shippingCtrl.patchShippingAddressPrime.validator, shippingCtrl.patchShippingAddressPrime.controller);
   app.post(`${baseURI}/request`, shippingCtrl.postShippingRequest.validator, shippingCtrl.postShippingRequest.controller);
+  app.get(`${baseURI}/request`, shippingCtrl.getShippingList.validator, shippingCtrl.getShippingList.controlller);
   app.get(`${baseURI}/request/:requestId`, shippingCtrl.getShippingDetail.validator, shippingCtrl.getShippingDetail.controlller);
   app.delete(`${baseURI}/request/:requestId`, shippingCtrl.deleteShippingRequest.validator, shippingCtrl.deleteShippingRequest.controller);
   app.post(`${baseURI}/request/:requestId/payment`, shippingCtrl.postShippingRequestPayment.validator, shippingCtrl.postShippingRequestPayment.controller);

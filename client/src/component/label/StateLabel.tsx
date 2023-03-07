@@ -96,7 +96,7 @@ export const TradeStateValue: {
   traded: '완료'
 }
 
-export type ShippingStateKey = 'waiting' | 'shipped'
+export type ShippingStateKey = 'waiting' | 'shipped';
 export const ShippingStateValue: {
   [k in ShippingStateKey]: string;
 } = {

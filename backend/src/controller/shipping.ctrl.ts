@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { body, param } from 'express-validator';
+import { oneOf, query, body, param } from 'express-validator';
 import { validate, isLoggedIn, isAdminOrOwner, createResponseMessage } from '@util/validator';
 import { LoginTokenType } from '@type/user';
 import { getToken, getPaymentData, refundPayment } from '@util/iamport';
@@ -182,6 +182,33 @@ export const deleteShippingAddress = {
   }
 }
 
+// 배송 요청 목록 조회
+export const getShippingList = {
+  validator: [
+    oneOf([ // pageParam은 undefined이거나 숫자여야 함.
+      query('pageParam').not().exists(),
+      query('pageParam').isNumeric()
+    ]),
+    validate
+  ],
+  controlller: async (req: Request, res: Response, next: NextFunction) => {
+    const itemPerPage = 20; // 페이지당 보여줄 내용 갯수
+    const pageParam = req.query.pageParam ? Number(req.query.pageParam) : 0; // 페이지 번호
+
+    const [shippings] = await shippingService.selectShippingRequestList(itemPerPage, pageParam);
+
+    return res.status(200).json({
+      message: '배송 요청 목록을 조회했어요.',
+      shippings,
+      paging: {
+        pageParam,
+        hasNextPage: shippings.length === itemPerPage
+      }
+    });
+    next();
+  }
+}
+
 // 배송 요청 상세 조회
 export const getShippingDetail = {
   validator: [
@@ -230,7 +257,7 @@ export const postShippingRequest = {
         return res.status(403).json(createResponseMessage('voucherIds', '배송 요청하려는 소유권 중에 이용가능 상태가 아닌 소유권이 있어요.'));
     });
 
-    // 배송 요청 생성.
+    // 배송 요청 생성
     const requestId = await shippingService.insertShippingRequest(loggedUser.userId, voucherIds, address);
     return res.status(200).json({ message: '배송 요청글을 작성했어요. 이어서 배송비를 결제해주세요.', requestId });
     next();
