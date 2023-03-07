@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { IconType } from '@type/icon';
 import IconButton from '@component/form/IconButton';
 import { StylesProps as CardStylesProps } from '@component/card/basic/Card';
-import StateLabel, { VoucherStateKey, VoucherStateValue } from '@component/label/StateLabel';
+import StateLabel from '@component/label/stateLabel/StateLabel';
+import { VoucherStateKey } from '@component/label/stateLabel/_types';
 import PhotoCardTemplate from '@component/photocard/PhotoCardTemplate';
 
 interface Props {
@@ -48,9 +49,7 @@ function VoucherCard({
     >
       <StyledVoucherCard {...styles}>
         <section>
-          <StateLabel state={{ type: "voucher", key: voucherState }} textAlign="start" margin="0">
-            {VoucherStateValue[voucherState]}
-          </StateLabel>
+          <StateLabel state={{ type: "voucher", key: voucherState }} styles={{ textAlign: "start", margin: "0" }} />
         </section>
         {showOwner && <UserNameLabel><b>{username}</b></UserNameLabel>}
         {children}

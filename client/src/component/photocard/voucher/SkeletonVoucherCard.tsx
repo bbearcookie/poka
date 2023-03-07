@@ -9,7 +9,6 @@ import { StylesProps } from '@component/card/basic/Card';
 interface Props {
   cardStyles?: StylesProps;
 }
-const DefaultProps = {};
 
 function SkeletonVoucherCard({ cardStyles }: Props) {
   return (

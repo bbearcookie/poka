@@ -8,7 +8,7 @@ import UserProfile from '@component/profile/UserProfile';
 import CardList from '@component/card/basic/CardList';
 import CardListItem from '@component/card/basic/CardListItem';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import StateLabel, { VoucherStateValue } from '@component/label/StateLabel';
+import StateLabel from '@component/label/stateLabel/StateLabel';
 import { ResType as VoucherResType } from '@api/query/voucher/useVoucherQuery';
 import DescriptionSection from './content/DescriptionSection';
 
@@ -75,9 +75,10 @@ function VoucherOwner({ voucher }: { voucher: VoucherResType }) {
 function VoucherStateItem({ voucher }: { voucher: VoucherResType }) {
   return (
     <CardListItem title="상태">
-      <StateLabel state={{ type: "voucher", key: voucher.state}} width="6em" margin="0">
-        {VoucherStateValue[voucher.state]}
-      </StateLabel>
+      <StateLabel
+        state={{ type: "voucher", key: voucher.state }}
+        styles={{ width: "6em", margin: "0" }}
+      />
     </CardListItem>
   )
 }

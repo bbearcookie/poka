@@ -3,7 +3,7 @@ import { AxiosError } from 'axios';
 import { ErrorType } from '@util/request';
 import * as queryKey from '@api/queryKey';
 import { fetchTrades } from '@api/api/trade';
-import { TradeStateKey } from '@component/label/StateLabel';
+import { TradeStateKey } from '@component/label/stateLabel/_types';
 import { TradeListItemType } from '@type/trade';
 
 interface FilterType {

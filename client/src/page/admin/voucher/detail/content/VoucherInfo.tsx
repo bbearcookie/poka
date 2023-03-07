@@ -7,13 +7,12 @@ import Button from '@component/form/Button';
 import UserProfile from '@component/profile/UserProfile';
 import { userImage } from '@api/resource';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import StateLabel, { VoucherStateValue } from '@component/label/StateLabel';
+import StateLabel from '@component/label/stateLabel/StateLabel';
 import { ResType as VoucherResType } from '@api/query/voucher/useVoucherQuery';
 
 interface Props {
   voucher: VoucherResType;
 }
-const DefaultProps = {};
 
 function VoucherInfo({ voucher }: Props) {
   return (
@@ -37,9 +36,7 @@ function VoucherInfo({ voucher }: Props) {
           <li className="info">
             <div className="subtitle">상태</div>
             <div className="body">
-              <StateLabel className="state-label" state={{ type: "voucher", key: voucher.state || "" }}>
-                {VoucherStateValue[voucher.state]}
-              </StateLabel>
+              <StateLabel className="state-label" state={{ type: "voucher", key: voucher.state || "" }}/>
             </div>
           </li>
           <li className="info">
@@ -64,27 +61,19 @@ function VoucherInfo({ voucher }: Props) {
         <p className="description">상태는 플랫폼 내에서 발급된 이 소유권의 상태를 나타냅니다.</p>
         <br />
         <section className="state-description">
-          <StateLabel className="state-label" state={{ type: "voucher", key: "available" }}>
-            {VoucherStateValue.available}
-          </StateLabel>
+          <StateLabel className="state-label" state={{ type: "voucher", key: "available" }} />
           <span className="description">사용자끼리 교환이 가능한 상태입니다.</span>
         </section>
         <section className="state-description">
-          <StateLabel className="state-label" state={{ type: "voucher", key: "trading" }}>
-            {VoucherStateValue.trading}
-          </StateLabel>
+          <StateLabel className="state-label" state={{ type: "voucher", key: "trading" }} />
           <span>소유권으로 교환글을 등록한 상태입니다.</span>
         </section>
         <section className="state-description">
-          <StateLabel className="state-label" state={{ type: "voucher", key: "shipping" }}>
-            {VoucherStateValue.shipping}
-          </StateLabel>
+          <StateLabel className="state-label" state={{ type: "voucher", key: "shipping" }} />
           <span>사용자가 소유권을 실물로 받기 위해 관리자에게 배송요청한 상태입니다.</span>
         </section>
         <section className="state-description">
-          <StateLabel className="state-label" state={{ type: "voucher", key: "shipped" }}>
-            {VoucherStateValue.shipped}
-          </StateLabel>
+          <StateLabel className="state-label" state={{ type: "voucher", key: "shipped" }} />
           <span>관리자가 사용자에게 포토카드를 발송한 상태입니다.</span>
         </section>
       </CardBody>

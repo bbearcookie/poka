@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { VoucherStateValue } from '@component/label/StateLabel';
+import { VoucherStateText } from '@component/label/stateLabel/_types';
 import { State, Action } from '@component/search/content/filter/reducer';
 import Keyword from './content/_Keyword';
 
@@ -19,7 +19,7 @@ function VoucherStateKeywords({ state, dispatch }: Props) {
       {state.voucherState !== 'all' &&
       <Keyword
         category="소유권 상태"
-        text={VoucherStateValue[state.voucherState]}
+        text={VoucherStateText[state.voucherState]}
         handleClick={handleCancelFilter}
       />}
     </>

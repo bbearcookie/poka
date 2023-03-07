@@ -1,4 +1,4 @@
-import { TradeStateKey } from "@component/label/StateLabel";
+import { TradeStateKey } from "@component/label/stateLabel/_types";
 
 export interface TradeType {
   tradeId: number;

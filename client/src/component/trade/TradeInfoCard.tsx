@@ -9,12 +9,11 @@ import CardListItem from '@component/card/basic/CardListItem';
 import SkeletonUserProfile from '@component/profile/SkeletonUserProfile';
 import UserProfile from '@component/profile/UserProfile';
 import { getFormattedTime } from '@util/date';
-import StateLabel, { TradeStateValue } from '@component/label/StateLabel';
+import StateLabel from '@component/label/stateLabel/StateLabel';
 
 interface Props {
   trade: TradeType;
 }
-const DefaultProps = {};
 
 function TradeInfoCard({ trade }: Props) {
   const { data: user, status } = useUserQuery(trade.userId);
@@ -28,7 +27,7 @@ function TradeInfoCard({ trade }: Props) {
           {status === 'loading' && <SkeletonUserProfile />}
         </CardListItem>
         <CardListItem title="교환 상태" styles={{ color: "#65748b" }}>
-          <StateLabel state={{ type: "trade", key: trade.state }} width="6em" margin="0">{TradeStateValue[trade.state]}</StateLabel>
+          <StateLabel state={{ type: "trade", key: trade.state }} styles={{ width: "6em", margin: "0" }} />
         </CardListItem>
         <CardListItem title="작성일" styles={{ color: "#65748b" }}>{getFormattedTime(new Date(trade.writtenTime))}</CardListItem>
         {trade.tradedTime && <CardListItem title="교환일" styles={{ color: "#65748b" }}>{getFormattedTime(new Date(trade.tradedTime))}</CardListItem>}

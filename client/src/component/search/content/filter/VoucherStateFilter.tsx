@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import DropdownItem from '@component/dropdown/DropdownItem';
-import { VoucherStateKey, VoucherStateValue } from '@component/label/StateLabel';
+import { VoucherStateKey, VoucherStateText } from '@component/label/stateLabel/_types';
 import Filter from './content/_Filter';
 import { State, Action } from './reducer';
 
@@ -18,7 +18,7 @@ function VoucherStateFilter({ state, dispatch }: Props) {
 
   return (
     <Filter title="상태">
-      {Object.entries(VoucherStateValue).map(([key, value]) =>
+      {Object.entries(VoucherStateText).map(([key, value]) =>
       <DropdownItem
         key={key}
         className="item"

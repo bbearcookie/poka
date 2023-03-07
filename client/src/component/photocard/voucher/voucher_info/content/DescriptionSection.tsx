@@ -1,12 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import CardBody from '@component/card/basic/CardBody';
-import StateLabel, { VoucherStateValue } from '@component/label/StateLabel';
+import StateLabel from '@component/label/stateLabel/StateLabel';
 
-interface Props {
-
-}
-const DefaultProps = {};
+interface Props {}
 
 function DescriptionSection({  }: Props) {
   return (
@@ -15,30 +12,22 @@ function DescriptionSection({  }: Props) {
       <br />
       
       <StateDescription>
-        <StateLabel state={{ type: "voucher", key: "available" }} width="6em" margin="0 0.5em 0.2em 0">
-          {VoucherStateValue.available}
-        </StateLabel>
+        <StateLabel state={{ type: "voucher", key: "available" }} styles={{ width: "6em", margin: "0 0.5em 0.2em 0" }} />
         <Span>사용자끼리 교환이 가능한 상태입니다.</Span>
       </StateDescription>
 
       <StateDescription>
-        <StateLabel state={{ type: "voucher", key: "trading" }} width="6em" margin="0 0.5em 0.2em 0">
-          {VoucherStateValue.trading}
-        </StateLabel>
+        <StateLabel state={{ type: "voucher", key: "trading" }} styles={{ width: "6em", margin: "0 0.5em 0.2em 0" }} />
         <Span>소유권으로 교환글을 등록한 상태입니다.</Span>
       </StateDescription>
 
       <StateDescription>
-        <StateLabel state={{ type: "voucher", key: "shipping" }} width="6em" margin="0 0.5em 0.2em 0">
-          {VoucherStateValue.shipping}
-        </StateLabel>
+        <StateLabel state={{ type: "voucher", key: "shipping" }} styles={{ width: "6em", margin: "0 0.5em 0.2em 0" }} />
         <Span>사용자가 소유권을 실물로 받기 위해 관리자에게 배송요청한 상태입니다.</Span>
       </StateDescription>
 
       <StateDescription>
-        <StateLabel state={{ type: "voucher", key: "shipped" }} width="6em" margin="0 0.5em 0.2em 0">
-          {VoucherStateValue.shipped}
-        </StateLabel>
+        <StateLabel state={{ type: "voucher", key: "shipped" }} styles={{ width: "6em", margin: "0 0.5em 0.2em 0" }} />
         <Span>관리자가 사용자에게 포토카드를 발송한 상태입니다.</Span>
       </StateDescription>
 

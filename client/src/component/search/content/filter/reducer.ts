@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { VoucherStateKey } from '@component/label/StateLabel';
+import { VoucherStateKey } from '@component/label/stateLabel/_types';
 import { CheckItemType } from '@type/listFilter';
 
 export interface State {
