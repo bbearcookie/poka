@@ -27,7 +27,7 @@ function PhotoList({ filter, keyword, icon, handleSelect }: Props) {
   });
 
   const { data: photos, isFetching, hasNextPage, fetchNextPage, refetch }
-  = usePhotosQuery(refine);
+  = usePhotosQuery(refine, { enabled: filter.initialized });
 
   // 데이터 리패칭
   useUpdateEffect(() => {

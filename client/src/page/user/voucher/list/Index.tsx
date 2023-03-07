@@ -13,7 +13,7 @@ import './Index.scss';
 interface Props {}
 
 function Index({  }: Props) {
-  const { filter, keyword, filterDispatch, keywordDispatch } = useSearcher({ voucherState: 'available' });
+  const { filter, keyword, filterDispatch, keywordDispatch } = useSearcher();
   const username = useAppSelector(state => state.auth.username);
   const navigate = useNavigate();
 
@@ -38,7 +38,8 @@ function Index({  }: Props) {
           <Searcher
             options={{
               group: true,
-              member: true
+              member: true,
+              voucherState: true
             }}
             filter={filter}
             keyword={keyword}

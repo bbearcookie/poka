@@ -39,8 +39,9 @@ function VoucherList({
   });
 
   // 데이터 가져오기
-  const { data: vouchers, isFetching, hasNextPage, refetch, fetchNextPage }
-  = useVouchersQuery(refine);
+  const { data: vouchers, isFetching, hasNextPage, refetch, fetchNextPage } = useVouchersQuery(refine, {
+    enabled: filter.initialized
+  });
 
   // 데이터 리패칭
   useUpdateEffect(() => {

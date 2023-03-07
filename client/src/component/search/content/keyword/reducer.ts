@@ -1,7 +1,5 @@
 import produce from 'immer';
 
-let insertId = 0;
-
 // 키워드로 지정할 수 있는 타입과 보여줄 텍스트를 지정한다.
 export interface CategoryType {
   undefined?: string;
@@ -20,14 +18,18 @@ export interface KeywordType {
 }
 
 export interface State {
+  insertId: number; // 내부적으로 키워드를 추가할때 id를 부여하기 위해 사용
   keywords: (KeywordType & { id: number; })[];
+  initialized: boolean;
 }
 
 export const initialState: State = {
-  keywords: []
+  insertId: 0,
+  keywords: [],
+  initialized: false
 }
 
-export type Action = |
+export type Action = 
 {
   type: "ADD_KEYWORD";
   value: KeywordType;
@@ -37,25 +39,35 @@ export type Action = |
 }
 
 export const reducer = (state: State, action: Action): State => {
+  
+  // 추가하려는 키워드의 유효성을 검사하는 함수
+  const isValidKeyword = function (newKeyword: KeywordType) {
+    // 비어 있는 문자열이면 추가하지 않음.
+    if (newKeyword.value.length === 0) return false;
+    // 이미 추가 되어있는 키워드이면 추가하지 않음.
+    if (state.keywords.find(k => k.category === newKeyword.category && k.value === newKeyword.value)) return false;
+
+    return true;
+  }
+
   switch (action.type) {
+    // 키워드 추가
     case "ADD_KEYWORD":
-      const trimmed = action.value.value.trim();
-
-      // 비어 있는 문자열이면 추가하지 않음.
-      if (trimmed.length === 0) return state;
-
-      // 이미 추가 되어있는 키워드이면 추가하지 않음.
-      if (state.keywords.find(k => k.category === action.value.category && k.value === action.value.value)) return state;
+      const trimmed = { ...action.value, value: action.value.value.trim() };
+      if (!isValidKeyword(trimmed)) return state;
 
       return produce(state, draft => {
         draft.keywords = state.keywords.concat({
-          id: insertId++,
+          id: state.insertId,
           category: action.value.category,
           title: action.value.title,
-          value: trimmed,
+          value: trimmed.value,
           show: action.value.show
         });
+        draft.insertId++;
       });
+
+    // 키워드 제거
     case "REMOVE_KEYWORD":
       return produce(state, draft => {
         draft.keywords = state.keywords.filter(k => k.id !== action.id);

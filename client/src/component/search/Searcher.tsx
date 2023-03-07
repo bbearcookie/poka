@@ -37,8 +37,8 @@ function Searcher({ category = {}, options = {}, filter, keyword, filterDispatch
     <>
       <Search category={category} state={keyword} dispatch={keywordDispatch} />
       <FilterSection marginBottom="1em">
-        {options.group && <GroupFilter state={filter} dispatch={filterDispatch} />}
-        {options.member && <MemberFilter state={filter} dispatch={filterDispatch} />}
+        <GroupFilter show={options.group || false} state={filter} dispatch={filterDispatch} />
+        <MemberFilter show={options.member || false} state={filter} dispatch={filterDispatch} />
         {options.voucherState && <VoucherStateFilter state={filter} dispatch={filterDispatch} />}
       </FilterSection>
       <KeywordSection marginBottom="1em">

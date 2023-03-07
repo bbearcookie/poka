@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer } from 'react';
 import produce from 'immer';
 import {
   State as filterState,
@@ -15,17 +15,25 @@ function useSearcher(
   defaultFilter?: Partial<filterState>,
   defaultKeyword?: KeywordType[],
 ) {
+
   const [filter, filterDispatch] = useReducer(filterReducer, produce(filterInitialState, draft => {
     if (defaultFilter?.groups) draft.groups = defaultFilter?.groups;
     if (defaultFilter?.members) draft.members = defaultFilter?.members;
     if (defaultFilter?.voucherState) draft.voucherState = defaultFilter?.voucherState;
-  }))
-  const [keyword, keywordDispatch] = useReducer(keywordReducer, keywordInitialState);
+  }));
 
-  // 기본 키워드 추가
-  useEffect(() => {
-    defaultKeyword?.forEach(k => keywordDispatch({ type: 'ADD_KEYWORD', value: k }));
-  }, []);
+  const [keyword, keywordDispatch] = useReducer(keywordReducer, produce(keywordInitialState, draft => {
+    let insertId = 0;
+
+    if (defaultKeyword) {
+      draft.keywords = defaultKeyword.map(k => ({
+        id: insertId++,
+        ...k
+      }));
+      draft.insertId = insertId;
+    }
+
+  }));
   
   return { filter, keyword, filterDispatch, keywordDispatch };
 }

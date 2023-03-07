@@ -5,11 +5,12 @@ import Filter from './content/_Filter';
 import { State, Action } from './reducer';
 
 interface Props {
+  show: boolean;
   state: State;
   dispatch: React.Dispatch<Action>;
 }
 
-function GroupFilter({ state, dispatch }: Props) {
+function GroupFilter({ show, state, dispatch }: Props) {
 
   // 그룹 데이터 가져오고 초기 필터 상태 설정
   useGroupsQuery({
@@ -31,19 +32,21 @@ function GroupFilter({ state, dispatch }: Props) {
     dispatch({ type: "TOGGLE_GROUP", id });
   }, [dispatch]);
   
-  return (
-    <Filter title="그룹">
-      {state.groups.map(g =>
-      <DropdownItem
-        key={g.id}
-        className="item"
-        onClick={() => handleClickItem(g.id)}
-      >
-        <input type="checkbox" checked={g.checked} readOnly />
-        <span>{g.name}</span>
-      </DropdownItem>)}
-    </Filter>
-  );
+  if (show)
+    return (
+      <Filter title="그룹">
+        {state.groups.map(g =>
+        <DropdownItem
+          key={g.id}
+          className="item"
+          onClick={() => handleClickItem(g.id)}
+        >
+          <input type="checkbox" checked={g.checked} readOnly />
+          <span>{g.name}</span>
+        </DropdownItem>)}
+      </Filter>
+    );
+  else return <></>;
 }
 
 export default GroupFilter;
