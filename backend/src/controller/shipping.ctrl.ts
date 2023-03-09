@@ -1,6 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import { oneOf, query, body, param } from 'express-validator';
-import { validate, isLoggedIn, isAdminOrOwner, createResponseMessage } from '@util/validator';
+import { createResponseMessage } from '@util/validator/function/response';
+import { isLoggedIn } from '@util/validator/middleware/auth';
+import { isAdminOrOwner } from '@util/validator/function/auth';
+import { validate } from '@util/validator/middleware/response';
 import { LoginTokenType } from '@type/user';
 import { getToken, getPaymentData, refundPayment } from '@util/iamport';
 import * as userService from '@service/user.service';

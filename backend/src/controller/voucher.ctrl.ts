@@ -4,7 +4,9 @@ import * as userService from '@service/user.service';
 import * as photoService from '@service/photo.service';
 import * as tradeService from '@service/trade.service';
 import { query, body, param, oneOf } from 'express-validator';
-import { isAdmin, validate, createResponseMessage } from '@util/validator';
+import { createResponseMessage } from '@util/validator/function/response';
+import { isAdmin } from '@util/validator/middleware/auth';
+import { validate } from '@util/validator/middleware/response';
 
 // 전체 소유권 목록 조회
 export const getAllVoucherList = {

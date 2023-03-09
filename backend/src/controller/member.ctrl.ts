@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { param, body } from 'express-validator';
-import { isAdmin, validate } from '@util/validator';
+import { isAdmin } from '@util/validator/middleware/auth';
+import { validate } from '@util/validator/middleware/response';
 import * as groupService from '@service/group.service';
 import * as memberService from '@service/member.service';
 

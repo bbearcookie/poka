@@ -1,3 +1,4 @@
+import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { LoginTokenPayloadType, LoginTokenType } from '@type/user';
 
@@ -29,4 +30,22 @@ export function verifyToken(token: string) {
         throw new Error(error.message);
     }
   }
+}
+
+// 로그인 정보를 req.user에 담는 함수
+export function checkLoggedIn(req: Request, res: Response) {
+  const accessToken = req.cookies.accessToken;
+
+  try {
+    const payload = verifyToken(accessToken);
+    req.user = payload;
+  } catch (err) {
+    throw err;
+  }
+}
+
+// 관리자이거나, 로그인 한 사람이 리소스의 주인인지를 반환하는 함수
+export function isAdminOrOwner(user: LoginTokenType, ownerUserId: number) {
+  if (user.role === 'admin' || user.userId === ownerUserId) return true;
+  return false;
 }

@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import { body, param } from 'express-validator';
-import { validate, createResponseMessage, isLoggedIn } from '@util/validator';
+import { createResponseMessage } from '@util/validator/function/response';
+import { validate } from '@util/validator/middleware/response';
 import { encryptText } from '@util/encrypt';
-import { createLoginToken, verifyToken } from '@util/jwt';
+import { verifyToken, createLoginToken } from '@util/validator/function/auth';
 import * as userService from '@service/user.service';
 import { LoginTokenPayloadType } from '@type/user';
 
