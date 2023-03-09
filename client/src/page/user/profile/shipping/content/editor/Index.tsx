@@ -4,7 +4,7 @@ import { useAppSelector } from '@app/redux/reduxHooks';
 import useModifyShippingAddress from '@api/mutation/shipping/useModifyShippingAddress';
 import useAddShippingAddress, { ResType } from '@api/mutation/shipping/useAddShippingAddress';
 import { AxiosResponse, AxiosError } from 'axios';
-import { ErrorType } from '@util/request';
+import { ResponseError } from '@type/response';
 import Button from '@component/form/Button';
 import reducer, { initialState, FormType } from '@component/address/editor/reducer';
 import AddressEditor from '@component/address/editor/AddressEditor';
@@ -14,7 +14,6 @@ interface Props {
   address?: ShippingAddressType;
   closeEditor: () => void;
 }
-const DefaultProps = {};
 
 function Index({ address, closeEditor }: Props) {
   const [state, dispatch] = useReducer(reducer, initialState, produce(draft => {
@@ -32,7 +31,7 @@ function Index({ address, closeEditor }: Props) {
   }, [closeEditor]);
 
   // API 요청 실패시
-  const onError = useCallback((err: AxiosError<ErrorType<string>, any>) => {
+  const onError = useCallback((err: AxiosError<ResponseError<string>, any>) => {
     err.response?.data.errors.forEach((e) => {
       if (e.param.substring(0, 8) === "address.") {
         dispatch({

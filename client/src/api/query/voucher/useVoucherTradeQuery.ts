@@ -1,6 +1,6 @@
 import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { ErrorType } from '@util/request';
+import { ResponseError } from '@type/response';
 import { TradeType } from '@type/trade';
 import * as queryKey from '@api/queryKey';
 import { fetchVoucherTradeDetail } from '@api/api/voucher';
@@ -11,8 +11,8 @@ export interface ResType extends TradeType {
 
 export default function useVoucherTradeQuery(
   voucherId: number,
-  options?: UseQueryOptions<ResType, AxiosError<ErrorType>>
-): UseQueryResult<ResType, AxiosError<ErrorType>> {
+  options?: UseQueryOptions<ResType, AxiosError<ResponseError>>
+): UseQueryResult<ResType, AxiosError<ResponseError>> {
   return useQuery({
     queryKey: queryKey.voucherKeys.trade(voucherId),
     queryFn: () => fetchVoucherTradeDetail(voucherId),

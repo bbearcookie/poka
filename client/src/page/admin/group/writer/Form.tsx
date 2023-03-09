@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
-import { ErrorType } from '@util/request';
+import { ResponseError } from '@type/response';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';
@@ -43,7 +43,7 @@ function Form({ name = DefaultProps.name, imageName = DefaultProps.imageName, gr
   const navigate = useNavigate();
 
   // 요청 실패시 콜백 함수
-  const onMutationError = useCallback((err: AxiosError<ErrorType<keyof InputType>>) => {
+  const onMutationError = useCallback((err: AxiosError<ResponseError<keyof InputType>>) => {
     let message = inputMessage;
     err.response?.data.errors.forEach((e) => {
       message[e.param] = e.message;

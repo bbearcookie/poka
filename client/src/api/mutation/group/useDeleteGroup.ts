@@ -3,7 +3,7 @@ import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-
 import { toast } from 'react-toastify';
 import { deleteGroup } from '@api/api/group';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType } from '@util/request';
+import { ResponseError } from "@type/response";
 import { getErrorMessage } from '@util/request';
 import * as queryKey from '@api/queryKey';
 
@@ -15,11 +15,11 @@ interface ResType { message: string; }
 
 export default function useDeleteGroup<TParam>(
   onSuccess?: (res: AxiosResponse<ResType>) => void,
-  onError?: (err: AxiosError<ErrorType<TParam>, any>) => void
+  onError?: (err: AxiosError<ResponseError<TParam>, any>) => void
 ): 
 UseMutationResult<
   AxiosResponse<ResType>,
-  AxiosError<ErrorType<TParam>>,
+  AxiosError<ResponseError<TParam>>,
   ParamType
 > {
   const queryClient = useQueryClient();

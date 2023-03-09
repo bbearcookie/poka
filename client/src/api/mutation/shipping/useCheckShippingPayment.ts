@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType } from '@util/request';
+import { ResponseError } from "@type/response";
 import { getErrorMessage } from '@util/request';
 import * as queryKey from '@api/queryKey';
 import { checkShippingPayment } from '@api/api/shipping';
@@ -18,11 +18,11 @@ interface ResType { message: string; }
 
 export default function useCheckShippingPayment<TParam>(
   onSuccess?: (res: AxiosResponse<ResType>) => void,
-  onError?: (err: AxiosError<ErrorType<TParam>, any>) => void
+  onError?: (err: AxiosError<ResponseError<TParam>, any>) => void
 ): 
 UseMutationResult<
   AxiosResponse<ResType>,
-  AxiosError<ErrorType<TParam>>,
+  AxiosError<ResponseError<TParam>>,
   ParamType
 > {
   const requestId = useRef(0);

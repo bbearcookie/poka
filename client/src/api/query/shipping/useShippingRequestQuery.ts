@@ -1,6 +1,6 @@
 import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { ErrorType } from '@util/request';
+import { ResponseError } from '@type/response';
 import { fetchShippingRequestDetail } from '@api/api/shipping';
 import * as queryKey from '@api/queryKey';
 import { ShippingRequestType } from '@type/shipping';
@@ -14,8 +14,8 @@ export interface ResType {
 
 export default function useShippingRequestQuery(
   requestId: number,
-  options?: UseQueryOptions<ResType, AxiosError<ErrorType>>
-): UseQueryResult<ResType, AxiosError<ErrorType>> {
+  options?: UseQueryOptions<ResType, AxiosError<ResponseError>>
+): UseQueryResult<ResType, AxiosError<ResponseError>> {
   return useQuery({
     queryKey: queryKey.shippingKeys.detail(requestId),
     queryFn: () => fetchShippingRequestDetail(requestId),

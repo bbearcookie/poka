@@ -1,6 +1,6 @@
 import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { ErrorType } from '@util/request';
+import { ResponseError } from '@type/response';
 import { fetchUserDetail } from '@api/api/user';
 import { UserType } from '@type/user';
 import * as queryKey from '@api/queryKey';
@@ -11,8 +11,8 @@ export interface ResType extends UserType {
 
 export default function useUserQuery(
   userId: number,
-  options?: UseQueryOptions<ResType, AxiosError<ErrorType>>
-): UseQueryResult<ResType, AxiosError<ErrorType>> {
+  options?: UseQueryOptions<ResType, AxiosError<ResponseError>>
+): UseQueryResult<ResType, AxiosError<ResponseError>> {
   return useQuery({
     queryKey: queryKey.userKeys.profile(userId),
     queryFn: () => fetchUserDetail(userId),

@@ -1,6 +1,6 @@
 import { useInfiniteQuery, UseInfiniteQueryOptions, UseInfiniteQueryResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { ErrorType } from '@util/request';
+import { ResponseError } from '@type/response';
 import * as queryKey from '@api/queryKey';
 import { TradeHistoryType } from '@type/trade';
 import { fetchUserTradeHistory } from '@api/api/trade';
@@ -27,9 +27,9 @@ export interface ResType {
 export default function useUserTradeHistoryQuery(
   userId: number,
   filter: FilterType,
-  options?: UseInfiniteQueryOptions<ResType, AxiosError<ErrorType>>
-): UseInfiniteQueryResult<ResType, AxiosError<ErrorType>> {
-  return useInfiniteQuery<ResType, AxiosError<ErrorType>>({
+  options?: UseInfiniteQueryOptions<ResType, AxiosError<ResponseError>>
+): UseInfiniteQueryResult<ResType, AxiosError<ResponseError>> {
+  return useInfiniteQuery<ResType, AxiosError<ResponseError>>({
     queryKey: queryKey.userKeys.tradeHistory(userId),
     queryFn: ({ pageParam = 0 }) => fetchUserTradeHistory(userId, { pageParam, filter }),
     getNextPageParam: (lastPage, pages) => {

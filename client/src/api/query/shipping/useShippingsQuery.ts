@@ -1,6 +1,6 @@
 import { useInfiniteQuery, UseInfiniteQueryOptions, UseInfiniteQueryResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { ErrorType } from '@util/request';
+import { ResponseError } from '@type/response';
 import { fetchShippings } from '@api/api/shipping';
 import { ShippingListItemType } from '@type/shipping';
 import * as queryKey from '@api/queryKey';
@@ -19,10 +19,10 @@ export interface ResType {
 }
 
 export default function useShippingsQuery(
-  options?: UseInfiniteQueryOptions<ResType, AxiosError<ErrorType>>
-): UseInfiniteQueryResult<ResType, AxiosError<ErrorType>> {
+  options?: UseInfiniteQueryOptions<ResType, AxiosError<ResponseError>>
+): UseInfiniteQueryResult<ResType, AxiosError<ResponseError>> {
 
-  return useInfiniteQuery<ResType, AxiosError<ErrorType>>({
+  return useInfiniteQuery<ResType, AxiosError<ResponseError>>({
     queryKey: queryKey.shippingKeys.all,
     queryFn: ({ pageParam = 0 }) => fetchShippings({ pageParam }),
     getNextPageParam: (lastPage, pages) => {

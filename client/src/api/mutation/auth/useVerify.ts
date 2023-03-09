@@ -1,7 +1,7 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType } from '@util/request';
+import { ResponseError } from "@type/response";
 import { getErrorMessage } from '@util/request';
 import { useAppDispatch } from '@app/redux/reduxHooks';
 import { LoginTokenPayloadType } from '@type/user';
@@ -18,11 +18,11 @@ interface ResType {
 
 export default function useVerify<TParam>(
   onSuccess?: (res: AxiosResponse<ResType>) => void,
-  onError?: (err: AxiosError<ErrorType<TParam>, any>) => void
+  onError?: (err: AxiosError<ResponseError<TParam>, any>) => void
 ): 
 UseMutationResult<
   AxiosResponse<ResType>,
-  AxiosError<ErrorType<TParam>>,
+  AxiosError<ResponseError<TParam>>,
   ParamType
 > {
   const dispatch = useAppDispatch();
