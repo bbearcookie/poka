@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import IconButton from '@component/form/IconButton';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { getYearMonthDay } from '@util/date';
 import UserProfile from '@component/profile/UserProfile';
 import StateLabel from '@component/label/stateLabel/StateLabel';
 import { ShippingStateKey, PaymentStateKey } from '@component/label/stateLabel/_types';
@@ -13,9 +14,10 @@ interface Props {
   shippingState: ShippingStateKey;
   paymentState: PaymentStateKey;
   voucherAmount: number;
+  writtenTime: string;
 }
 
-function Shipping({ username, nickname, userImageName, shippingState, paymentState, voucherAmount }: Props) {
+function Shipping({ username, nickname, userImageName, shippingState, paymentState, voucherAmount, writtenTime }: Props) {
   return (
     <tr>
       <td>
@@ -37,7 +39,8 @@ function Shipping({ username, nickname, userImageName, shippingState, paymentSta
           styles={{ padding: "0.5em" }}
         />
       </td>
-      <td>{voucherAmount}</td>
+      <td>{voucherAmount}장</td>
+      <td>{getYearMonthDay(new Date(writtenTime))}</td>
       <td>
         <Link className="action-section" to="#">
           <IconButton icon={faArrowRight} />

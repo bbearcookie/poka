@@ -23,7 +23,7 @@ export interface ShippingRequestType {
   address: string;
   addressDetail: string;
   requirement: string;
-  writtenTime: Date;
+  writtenTime: string;
   userId: number;
   username: string;
   nickname: string;
@@ -43,4 +43,5 @@ export interface ShippingListItemType {
   nickname: string;
   userImageName: string;
   voucherAmount: number;
+  writtenTime: string;
 }

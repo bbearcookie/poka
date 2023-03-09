@@ -249,6 +249,7 @@ export const selectShippingRequestList = async (itemPerPage: number, pageParam: 
     let sql = `
     SELECT R.request_id as requestId, R.state as requestState, P.state as paymentState, 
     U.user_id as userId, U.username, U.nickname, U.image_name as userImageName,
+    R.written_time as writtenTime,
       (SELECT count(*)
       FROM ShippingRequestVoucher as V
       WHERE V.request_id=R.request_id) as voucherAmount

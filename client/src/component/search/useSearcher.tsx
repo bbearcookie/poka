@@ -32,7 +32,6 @@ function useSearcher(
       }));
       draft.insertId = insertId;
     }
-
   }));
   
   return { filter, keyword, filterDispatch, keywordDispatch };

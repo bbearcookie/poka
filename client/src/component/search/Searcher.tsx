@@ -13,10 +13,10 @@ import { FilterSection } from '@component/search/content/filter/content/_styles'
 import { KeywordSection } from '@component/search/content/keyword/content/_styles';
 import GroupFilter from '@component/search/content/filter/GroupFilter';
 import MemberFilter from '@component/search/content/filter/MemberFilter';
-import VoucherStateFilter from '@component/search/content/filter/VoucherStateFilter';
+import RadioFilter from '@component/search/content/filter/RadioFilter';
 import GroupKeywords from '@component/search/content/keyword/GroupKeywords';
 import MemberKeywords from '@component/search/content/keyword/MemberKeywords';
-import VoucherStateKeywords from './content/keyword/VoucherStateKeywords';
+import RadioKeywords from './content/keyword/RadioKeywords';
 import Keywords from '@component/search/content/keyword/Keywords';
 
 interface Props {
@@ -25,6 +25,8 @@ interface Props {
     group?: boolean; // 그룹
     member?: boolean; // 멤버
     voucherState?: boolean; // 소유권 상태
+    shippingState?: boolean; // 배송 상태
+    paymentState?: boolean; // 결제 상태
   }
   filter: FilterState;
   keyword: KeywordState;
@@ -39,12 +41,16 @@ function Searcher({ category = {}, options = {}, filter, keyword, filterDispatch
       <FilterSection marginBottom="1em">
         <GroupFilter show={options.group || false} state={filter} dispatch={filterDispatch} />
         <MemberFilter show={options.member || false} state={filter} dispatch={filterDispatch} />
-        {options.voucherState && <VoucherStateFilter state={filter} dispatch={filterDispatch} />}
+        {options.voucherState && <RadioFilter target="voucher" state={filter} dispatch={filterDispatch} />}
+        {options.shippingState && <RadioFilter target="shipping" state={filter} dispatch={filterDispatch} />}
+        {options.paymentState && <RadioFilter target="payment" state={filter} dispatch={filterDispatch} />}
       </FilterSection>
       <KeywordSection marginBottom="1em">
         {options.group && <GroupKeywords state={filter} dispatch={filterDispatch} />}
         {options.member && <MemberKeywords state={filter} dispatch={filterDispatch} />}
-        {options.voucherState && <VoucherStateKeywords state={filter} dispatch={filterDispatch} />}
+        {options.voucherState && <RadioKeywords target="voucher" state={filter} dispatch={filterDispatch} />}
+        {options.shippingState && <RadioKeywords target="shipping" state={filter} dispatch={filterDispatch} />}
+        {options.paymentState && <RadioKeywords target="payment" state={filter} dispatch={filterDispatch} />}
         <Keywords state={keyword} dispatch={keywordDispatch} />
       </KeywordSection>
     </>
