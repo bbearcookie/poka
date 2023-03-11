@@ -3,6 +3,7 @@ import { RowDataPacket } from 'mysql2';
 import { PhotoType } from '@type/photo';
 import { WhereSQL } from '@util/database';
 import { FilterType } from '@controller/photo/getPhotos';
+import { WantcardType } from '@type/trade';
 
 // 포토카드 목록 조회
 export const selectPhotos = 
@@ -85,6 +86,30 @@ export const selectPhotoDetail = async (photocardId: number) => {
 
     interface DataType extends PhotoType, RowDataPacket {}
 
+    return await con.query<DataType[]>(sql);
+  } catch (err) {
+    throw err;
+  } finally {
+    con.release();
+  }
+}
+
+// 교환글이 원하는 포토카드 목록 조회
+export const selectWantCardsOfTrade = async (tradeId: number) => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `
+    SELECT P.image_name as imageName, 
+    P.name as photoName, M.name as memberName, G.name as groupName,
+    P.photocard_id as photocardId, M.member_id as memberId, G.group_id as groupId
+    FROM TradeWantcard as T
+    INNER JOIN Photocard as P ON T.photocard_id=P.photocard_id
+    INNER JOIN MemberData as M ON P.member_id=M.member_id
+    INNER JOIN GroupData as G ON M.group_id=G.group_id
+    WHERE T.trade_id=${con.escape(tradeId)}`
+
+    interface DataType extends RowDataPacket, WantcardType {}
     return await con.query<DataType[]>(sql);
   } catch (err) {
     throw err;

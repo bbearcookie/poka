@@ -129,3 +129,31 @@ export const selectVoucherDetail = async (voucherId: number | number[]) => {
     con.release();
   }
 }
+
+// 특정 교환글이 원하는 포토카드 중에서 사용자가 소지한 소유권 조회
+export const selectHaveVouchersOfTrade = async (userId: number, photoIds: number[]) => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `
+    SELECT V.voucher_id as voucherId, V.user_id as userId, V.state, U.username, U.nickname,
+    P.image_name as imageName, P.photocard_id as photocardId, M.member_id as memberId, G.group_id as groupId,
+    P.name, M.name as memberName, G.name as groupName
+    FROM Voucher as V
+    INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
+    INNER JOIN MemberData as M ON P.member_id=M.member_id
+    INNER JOIN GroupData as G ON M.group_id=G.group_id
+    INNER JOIN User as U ON V.user_id=U.user_id
+    WHERE V.photocard_id IN (${con.escape(photoIds)})
+    AND V.user_id=${con.escape(userId)}
+    AND V.state='available'
+    GROUP BY P.photocard_id`;
+
+    interface DataType extends RowDataPacket { }
+    return await con.query<DataType[]>(sql);
+  } catch (err) {
+    throw err;
+  } finally {
+    con.release();
+  }
+}
