@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import { body, oneOf, query, param } from 'express-validator';
-import { createResponseMessage } from '@util/validator/function/response';
-import { isLoggedIn } from '@util/validator/middleware/auth';
-import { isAdminOrOwner } from '@util/validator/function/auth';
-import { validate } from '@util/validator/middleware/response';
+import { createResponseMessage } from '@validator/function/response';
+import { isLoggedIn } from '@validator/middleware/auth';
+import { isAdminOrOwner } from '@validator/function/auth';
+import { havePageParam } from '@validator/chain/page';
+import { validate } from '@validator/middleware/response';
 import { LoginTokenType } from '@type/user';
 import { TradeStateType } from '@type/trade';
 import * as userService from '@service/user.service';
@@ -14,10 +15,7 @@ import * as tradeService from '@service/trade.service';
 // 교환글 목록 조회
 export const getTradeList = {
   validator: [
-    oneOf([
-      query('pageParam').not().exists(),
-      query('pageParam').isNumeric()
-    ]),
+    ...havePageParam,
     query('filter').custom(value => {
       const filter = JSON.parse(value);
       if (isNaN(filter.groupId)) return false;
@@ -279,11 +277,8 @@ export const postTradeExchange = {
 export const getUserTradeHistory = {
   validator: [
     isLoggedIn,
+    ...havePageParam,
     param('userId').isNumeric().withMessage('사용자 ID는 숫자여야 해요.').bail(),
-    oneOf([
-      query('pageParam').not().exists(),
-      query('pageParam').isNumeric()
-    ]),
     query('filter').customSanitizer((value) => {
       try { return JSON.parse(value); }
       catch (err) { return undefined; }

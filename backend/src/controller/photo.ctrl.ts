@@ -2,8 +2,9 @@ import { NextFunction, Request, Response } from 'express';
 import { query, body, param, oneOf } from 'express-validator';
 import fs from 'fs/promises';
 import path from 'path';
-import { isAdmin } from '@util/validator/middleware/auth';
-import { validate } from '@util/validator/middleware/response';
+import { isAdmin } from '@validator/middleware/auth';
+import { validate } from '@validator/middleware/response';
+import { havePageParam } from '@validator/chain/page';
 import { removeFile } from '@util/multer';
 import imageUploader, { PHOTO_IMAGE_DIR } from '@uploader/image.uploader';
 import * as photoService from '@service/photo.service';
@@ -12,10 +13,7 @@ import { getTimestampFilename } from '@util/multer';
 // 포토카드 목록 조회
 export const getPhotoList = {
   validator: [
-    oneOf([ // pageParam은 undefined이거나 숫자여야 함.
-      query('pageParam').not().exists(),
-      query('pageParam').isNumeric()
-    ]),
+    ...havePageParam,
     query('filter').customSanitizer((value) => {
       try { return JSON.parse(value); }
       catch (err) { return undefined; }

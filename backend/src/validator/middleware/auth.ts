@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
-import { checkLoggedIn } from '@util/validator/function/auth';
+import { checkLoggedIn } from '@validator/function/auth';
 import { LoginTokenType } from '@type/user';
 
 // 관리자 권한을 확인하는 미들웨어

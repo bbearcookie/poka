@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import { oneOf, query, body, param } from 'express-validator';
-import { createResponseMessage } from '@util/validator/function/response';
-import { isLoggedIn } from '@util/validator/middleware/auth';
-import { isAdminOrOwner } from '@util/validator/function/auth';
-import { validate } from '@util/validator/middleware/response';
+import { createResponseMessage } from '@validator/function/response';
+import { isLoggedIn } from '@validator/middleware/auth';
+import { isAdminOrOwner } from '@validator/function/auth';
+import { havePageParam } from '@validator/chain/page';
+import { validate } from '@validator/middleware/response';
 import { LoginTokenType } from '@type/user';
 import { getToken, getPaymentData, refundPayment } from '@util/iamport';
 import * as userService from '@service/user.service';
@@ -188,10 +189,7 @@ export const deleteShippingAddress = {
 // 배송 요청 목록 조회
 export const getShippingList = {
   validator: [
-    oneOf([ // pageParam은 undefined이거나 숫자여야 함.
-      query('pageParam').not().exists(),
-      query('pageParam').isNumeric()
-    ]),
+    ...havePageParam,
     validate
   ],
   controlller: async (req: Request, res: Response, next: NextFunction) => {

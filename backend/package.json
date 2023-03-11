@@ -43,6 +43,7 @@
     "@type/*": "src/type/*",
     "@util/*": "src/util/*",
     "@uploader/*": "src/uploader/*",
+    "@validator/*": "src/validator/*",
     "@/*": "src/*"
   }
 }
