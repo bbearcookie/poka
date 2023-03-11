@@ -10,6 +10,7 @@ export const validator = [
   validate
 ]
 
+// 사용자 상세 정보 조회
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
   const userId = Number(req.params.userId);
 

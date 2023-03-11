@@ -1,20 +1,27 @@
-import { Express } from 'express';
-import * as photoCtrl from '@controller/photo.ctrl';
+import express from 'express';
+import * as getPhotos from '@controller/photo/getPhotos';
+import * as getPhotoDetail from '@controller/photo/getPhotoDetail';
+import * as postPhotos from '@controller/photo/postPhotos';
+import * as putPhoto from '@controller/photo/putPhoto';
+import * as deletePhoto from '@controller/photo/deletePhoto';
 
-export default function(app: Express, baseURI: string) {
-  app.get(`${baseURI}`, photoCtrl.getPhotoList.validator, photoCtrl.getPhotoList.controller);
-  app.get(`${baseURI}/:photocardId`, photoCtrl.getPhotoDetail.validator, photoCtrl.getPhotoDetail.controller);
-  app.post(`${baseURI}/multiple`,
-    photoCtrl.postPhotos.uploader.array,
-    photoCtrl.postPhotos.uploader.errorHandler,
-    photoCtrl.postPhotos.validator,
-    photoCtrl.postPhotos.controller
-  );
-  app.put(`${baseURI}/:photocardId`,
-    photoCtrl.putPhoto.uploader.single,
-    photoCtrl.putPhoto.uploader.errorHandler,
-    photoCtrl.putPhoto.validator,
-    photoCtrl.putPhoto.controller
-  );
-  app.delete(`${baseURI}/:photocardId`, photoCtrl.deletePhoto.validator, photoCtrl.deletePhoto.controller);
-};
+const router = express.Router();
+
+router.route('/')
+  .get(getPhotos.validator, getPhotos.controller)
+  .post(
+    postPhotos.uploader.array,
+    postPhotos.uploader.errorHandler,
+    postPhotos.validator,
+    postPhotos.controller);
+
+router.route('/:photocardId')
+  .get(getPhotoDetail.validator, getPhotoDetail.controller)
+  .put(
+    putPhoto.uploader.single,
+    putPhoto.uploader.errorHandler,
+    putPhoto.validator,
+    putPhoto.controller)
+  .delete(deletePhoto.validator, deletePhoto.controller);
+
+export default router;

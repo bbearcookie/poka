@@ -5,7 +5,7 @@ import { param } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { isAdmin } from '@validator/middleware/auth';
 import { selectGroupDetail } from '@service/group/select';
-import { deleteGroup } from '@service/group.service';
+import { deleteGroup } from '@service/group/delete';
 import { GROUP_IMAGE_DIR } from '@uploader/image.uploader';
 
 export const validator = [

@@ -15,6 +15,7 @@ export const validator = [
   validate,
 ]
 
+// 사용자의 배송 주소 목록 조회
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginTokenType;
   const userId = Number(req.params.userId);

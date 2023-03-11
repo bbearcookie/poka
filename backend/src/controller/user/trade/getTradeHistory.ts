@@ -26,6 +26,7 @@ export const validator = [
   validate
 ]
 
+// 사용자의 교환 내역 조회
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
   const itemPerPage = 20;
   const loggedUser = req.user as LoginTokenType;

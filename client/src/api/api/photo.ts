@@ -17,7 +17,7 @@ export const fetchPhotoDetail = async (photocardId: number) => {
 }
 
 export const addPhotos = async (param: AddPhotoParam) => {
-  const url = `/api/photo/multiple`;
+  const url = `/api/photo`;
   const option = { headers: { 'Content-Type': 'multipart/form-data' } };
   const res = await client.post(url, param.body, option);
   return res;
