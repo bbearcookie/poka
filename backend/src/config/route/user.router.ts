@@ -1,18 +1,21 @@
-import { Express } from 'express';
-import * as userCtrl from '@controller/user.ctrl';
-import * as shippingAddressCtrl from '@controller/shipping.ctrl';
-import * as tradeCtrl from '@controller/trade.ctrl';
+import express from 'express';
+import * as getUserDetail from '@controller/user/getUserDetail';
+import * as putUserProfile from '@controller/user/putUserProfile';
+import * as getAddress from '@controller/user/address/getAddress';
+import * as postAddress from '@controller/user/address/postAddress';
+import * as getTradeHistory from '@controller/user/trade/getTradeHistory';
 
-export default function(app: Express, baseURI: string) {
-  app.get(`${baseURI}/:userId`, userCtrl.getUserDetail.validator, userCtrl.getUserDetail.controller);
-  app.put(
-    `${baseURI}/:userId/profile`,
-    userCtrl.putUserProfile.uploader.single,
-    userCtrl.putUserProfile.uploader.errorHandler,
-    userCtrl.putUserProfile.validator,
-    userCtrl.putUserProfile.controller
-  );
-  app.get(`${baseURI}/:userId/shipping-address`, shippingAddressCtrl.getUserShippingAddress.validator, shippingAddressCtrl.getUserShippingAddress.controller);
-  app.post(`${baseURI}/:userId/shipping-address`, shippingAddressCtrl.postShippingAddress.validator, shippingAddressCtrl.postShippingAddress.controller);
-  app.get(`${baseURI}/:userId/trade-history`, tradeCtrl.getUserTradeHistory.validator, tradeCtrl.getUserTradeHistory.controlller);
-}
+const router = express.Router();
+router.get('/:userId', getUserDetail.validator, getUserDetail.controller);
+router.put('/:userId/profile',
+  putUserProfile.uploader.single,
+  putUserProfile.uploader.errorHandler,
+  putUserProfile.validator,
+  putUserProfile.controller
+);
+router.route('/:userId/shipping-address')
+  .get(getAddress.validator, getAddress.controller)
+  .post(postAddress.validator, postAddress.controller);
+router.get('/:userId/trade-history', getTradeHistory.validator, getTradeHistory.controller);
+
+export default router;

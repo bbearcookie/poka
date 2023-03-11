@@ -5,6 +5,7 @@ import path from 'path';
 import { isAdmin } from '@validator/middleware/auth';
 import { validate } from '@validator/middleware/response';
 import { havePageParam } from '@validator/chain/page';
+import { filterSanitizer } from '@validator/chain/filter';
 import { removeFile } from '@util/multer';
 import imageUploader, { PHOTO_IMAGE_DIR } from '@uploader/image.uploader';
 import * as photoService from '@service/photo.service';
@@ -14,10 +15,7 @@ import { getTimestampFilename } from '@util/multer';
 export const getPhotoList = {
   validator: [
     ...havePageParam,
-    query('filter').customSanitizer((value) => {
-      try { return JSON.parse(value); }
-      catch (err) { return undefined; }
-    }),
+    ...filterSanitizer,
     query('filter.photoName').isArray().withMessage('검색 필터가 잘못되었어요.').bail(),
     query('filter.groupId').isArray().withMessage('검색 필터가 잘못되었어요.').bail(),
     query('filter.memberId').isArray().withMessage('검색 필터가 잘못되었어요.').bail(),
