@@ -4,7 +4,7 @@ import * as getGroupDetail from '@controller/group/getGroupDetail';
 import * as postGroup from '@controller/group/postGroup';
 import * as putGroup from '@controller/group/putGroup';
 import * as deleteGroup from '@controller/group/deleteGroup';
-import * as postMember from '@controller/member/postMember';
+import * as postMember from '@controller/group/member/postMember';
 
 const router = express.Router();
 

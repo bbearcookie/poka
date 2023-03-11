@@ -1,11 +1,23 @@
-import { Express } from 'express';
-import * as voucherCtrl from '@controller/voucher.ctrl';
+import express from 'express';
+import * as getVouchers from '@controller/voucher/getVouchers';
+import * as getVoucherDetail from '@controller/voucher/getVoucherDetail';
+import * as deleteVoucher from '@controller/voucher/deleteVoucher';
+import * as postVoucher from '@controller/voucher/postVoucher';
+import * as getVoucherLogDetail from '@controller/voucher/log/getVoucherLogDetail';
+import * as getTradeDetailByVoucherId from '@controller/voucher/trade/getTradeDetailByVoucherId';
 
-export default function(app: Express, baseURI: string) {
-  app.post(`${baseURI}`, voucherCtrl.postVoucher.validator, voucherCtrl.postVoucher.controller);
-  app.get(`${baseURI}`, voucherCtrl.getAllVoucherList.validator, voucherCtrl.getAllVoucherList.controller);
-  app.get(`${baseURI}/:voucherId`, voucherCtrl.getVoucherDetail.validator, voucherCtrl.getVoucherDetail.controller);
-  app.get(`${baseURI}/:voucherId/log`, voucherCtrl.getVoucherLogDetail.validator, voucherCtrl.getVoucherLogDetail.controller);
-  app.get(`${baseURI}/:voucherId/trade`, voucherCtrl.getVoucherTradeDetail.validator, voucherCtrl.getVoucherTradeDetail.controller);
-  app.delete(`${baseURI}/:voucherId`, voucherCtrl.deleteVoucher.validator, voucherCtrl.deleteVoucher.controller);
-};
+const router = express.Router();
+
+router.route('/')
+  .get(getVouchers.validator, getVouchers.controller)
+  .post(postVoucher.validator, postVoucher.controller);
+
+router.route('/:voucherId')
+  .get(getVoucherDetail.validator, getVoucherDetail.controller)
+  .delete(deleteVoucher.validator, deleteVoucher.controller);
+
+router.get('/:voucherId/log', getVoucherLogDetail.validator, getVoucherLogDetail.controller);
+
+router.get('/:voucherId/trade', getTradeDetailByVoucherId.validator, getTradeDetailByVoucherId.controller);
+
+export default router;

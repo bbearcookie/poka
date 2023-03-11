@@ -5,7 +5,7 @@ import { isLoggedIn } from '@validator/middleware/auth';
 import { havePageParam } from '@validator/chain/page';
 import { isAdminOrOwner } from '@validator/function/auth';
 import { LoginTokenType } from '@type/user';
-import { selectUserTradeHistory } from '@service/trade-history/selectUserTradeHistory';
+import { selectUserTradeHistory } from '@service/trade/history/select';
 
 export type FilterType = {
   startDate: Date,
