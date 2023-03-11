@@ -1,24 +1,30 @@
-import { Express } from 'express';
-import * as groupCtrl from '@controller/group.ctrl';
-import * as memberCtrl from '@controller/member.ctrl';
+import express from 'express';
+import * as getGroups from '@controller/group/getGroups';
+import * as getGroupDetail from '@controller/group/getGroupDetail';
+import * as postGroup from '@controller/group/postGroup';
+import * as putGroup from '@controller/group/putGroup';
+import * as deleteGroup from '@controller/group/deleteGroup';
+import * as postMember from '@controller/member/postMember';
 
-export default function(app: Express, baseURI: string) {
-  app.get(`${baseURI}`, groupCtrl.getGroupList.controller);
-  app.get(`${baseURI}/:groupId`, groupCtrl.getGroupDetail.validator, groupCtrl.getGroupDetail.controller);
-  app.put(
-    `${baseURI}/:groupId`,
-    groupCtrl.putGroup.uploader.single,
-    groupCtrl.putGroup.uploader.errorHandler,
-    groupCtrl.putGroup.validator,
-    groupCtrl.putGroup.controller
-  );
-  app.post(
-    `${baseURI}`,
-    groupCtrl.postGroup.uploader.single,
-    groupCtrl.postGroup.uploader.errorHandler,
-    groupCtrl.postGroup.validator,
-    groupCtrl.postGroup.controller
-  );
-  app.post(`${baseURI}/:groupId/member`, memberCtrl.postMember.validator, memberCtrl.postMember.controller);
-  app.delete(`${baseURI}/:groupId`, groupCtrl.deleteGroup.validator, groupCtrl.deleteGroup.controller);
-};
+const router = express.Router();
+
+router.route('/')
+  .get(getGroups.validator, getGroups.controller)
+  .post(
+    postGroup.uploader.single,
+    postGroup.uploader.errorHandler,
+    postGroup.validator,
+    postGroup.controller);
+
+router.route('/:groupId')
+  .get(getGroupDetail.validator, getGroupDetail.controller)
+  .put(
+    putGroup.uploader.single,
+    putGroup.uploader.errorHandler,
+    putGroup.validator,
+    putGroup.controller)
+  .delete(deleteGroup.validator, deleteGroup.controller);
+  
+router.post('/:groupId/member', postMember.validator, postMember.controller);
+
+export default router;

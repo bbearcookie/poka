@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { param } from 'express-validator';
 import { validate } from '@validator/middleware/response';
-import { selectUserDetailByUserID } from '@service/user/selectDetail';
+import { selectUserDetailByUserID } from '@service/user/select';
 
 export const validator = [
   param('userId')

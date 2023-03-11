@@ -3,7 +3,7 @@ import { RowDataPacket } from 'mysql2';
 import { ShippingAddressType } from '@type/shipping';
 
 // 특정 사용자의 모든 배송지 조회
-export const selectUserShippingAddressList = async (userId: number) => {
+export const selectUserShippingAddresses = async (userId: number) => {
   const con = await db.getConnection();
 
   try {

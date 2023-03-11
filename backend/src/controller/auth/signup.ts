@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { body } from 'express-validator';
 import { createResponseMessage } from '@validator/function/response';
-import { selectUserDetailByUsername } from '@service/user/selectDetail';
+import { selectUserDetailByUsername } from '@service/user/select';
 import { insertUser } from '@service/user/insert';
 import { validate } from '@validator/middleware/response';
 

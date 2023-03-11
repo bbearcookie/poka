@@ -4,8 +4,8 @@ import { validate } from '@validator/middleware/response';
 import { isLoggedIn } from '@validator/middleware/auth';
 import { isAdminOrOwner } from '@validator/function/auth';
 import { LoginTokenType } from '@type/user';
-import { selectUserDetailByUserID } from '@service/user/selectDetail';
-import { selectUserShippingAddressList } from '@service/shipping-address/select';
+import { selectUserDetailByUserID } from '@service/user/select';
+import { selectUserShippingAddresses } from '@service/shipping-address/select';
 import { insertUserShippingAddress } from '@service/shipping-address/insert';
 
 export const AddressForm = {
@@ -74,7 +74,7 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   if (!isAdminOrOwner(loggedUser, user.userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
 
   // 이미 배송지를 10개 이상 저장한 상태면 추가 불가능
-  const [addresses] = await selectUserShippingAddressList(userId);
+  const [addresses] = await selectUserShippingAddresses(userId);
   if (addresses.length >= 10) return res.status(400).json({ message: '배송지는 10개 까지만 추가할 수 있어요.' });
 
   form.prime = addresses.find(item => item.prime) ? 0 : 1;

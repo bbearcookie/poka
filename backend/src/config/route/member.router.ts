@@ -1,9 +1,15 @@
-import { Express } from 'express';
-import * as memberCtrl from '@controller/member.ctrl';
+import express from 'express';
+import * as getMembers from '@controller/member/getMembers';
+import * as getMember from '@controller/member/getMember';
+import * as putMember from '@controller/member/putMember';
+import * as deleteMember from '@controller/member/deleteMember';
 
-export default function(app: Express, baseURI: string) {
-  app.get(`${baseURI}`, memberCtrl.getAllMemberList.controller);
-  app.get(`${baseURI}/:memberId`, memberCtrl.getMemberDetail.validator, memberCtrl.getMemberDetail.controller);
-  app.put(`${baseURI}/:memberId`, memberCtrl.putMember.validator, memberCtrl.putMember.controller);
-  app.delete(`${baseURI}/:memberId`, memberCtrl.deleteMember.validator, memberCtrl.deleteMember.controller);
-};
+const router = express.Router();
+
+router.get('/', getMembers.controller);
+router.route('/:memberId')
+  .get(getMember.validator, getMember.controller)
+  .put(putMember.validator, putMember.controller)
+  .delete(deleteMember.validator, deleteMember.controller)
+
+export default router;

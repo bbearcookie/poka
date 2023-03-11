@@ -5,7 +5,7 @@ import { createResponseMessage } from '@validator/function/response';
 import { encryptText } from '@util/encrypt';
 import { verifyToken, createLoginToken } from '@validator/function/auth';
 import { LoginTokenPayloadType } from '@type/user';
-import { selectUserDetailByUsername } from '@service/user/selectDetail';
+import { selectUserDetailByUsername } from '@service/user/select';
 
 export const validator = [
   body('username').trim().toLowerCase()

@@ -3,8 +3,8 @@ import { param } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { isLoggedIn } from '@validator/middleware/auth';
 import { isAdminOrOwner } from '@validator/function/auth';
-import { selectUserDetailByUserID } from '@service/user/selectDetail';
-import { selectUserShippingAddressList } from '@service/shipping-address/select';
+import { selectUserDetailByUserID } from '@service/user/select';
+import { selectUserShippingAddresses } from '@service/shipping-address/select';
 import { LoginTokenType } from '@type/user';
 
 export const validator = [
@@ -25,7 +25,7 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   // 관리자이거나, 자기 자신의 정보에 대한 경우에만 접근 가능
   if (!isAdminOrOwner(loggedUser, user.userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
 
-  const [addresses] = await selectUserShippingAddressList(userId);
+  const [addresses] = await selectUserShippingAddresses(userId);
   return res.status(200).json({ message: '해당 사용자의 배송지 목록을 조회했어요.', addresses });
   next();
 }

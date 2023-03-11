@@ -8,7 +8,7 @@ import { isLoggedIn } from '@validator/middleware/auth';
 import { isAdminOrOwner } from '@validator/function/auth';
 import { LoginTokenType } from '@type/user';
 import { getTimestampFilename, removeFile } from '@util/multer';
-import { selectUserDetailByUserID } from '@service/user/selectDetail';
+import { selectUserDetailByUserID } from '@service/user/select';
 import { updateUserProfile } from '@service/user/update';
 
 export const uploader = imageUploader('image', USER_IMAGE_DIR)

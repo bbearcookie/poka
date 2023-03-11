@@ -1,7 +1,6 @@
 import multer, { MulterError } from 'multer';
 import fs from 'fs/promises';
 import fsAsync from 'fs';
-export const GROUP_IMAGE_DIR = 'public/image/group';
 
 // 파일의 mimetype에 따른 확장자를 반환하는 함수
 export function getExtension(mimetype: string) {
