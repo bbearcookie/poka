@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { query } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { havePageParam } from '@validator/chain/page';
+import { filterSanitizer } from '@validator/chain/filter';
 import { TradeStateType } from '@type/trade';
 import { selectTrades } from '@service/trade/select';
 
@@ -14,13 +15,10 @@ export type FilterType = {
 
 export const validator = [
   ...havePageParam,
-  query('filter').custom(value => {
-    const filter = JSON.parse(value);
-    if (isNaN(filter.groupId)) return false;
-    if (isNaN(filter.memberId)) return false;
-    if (isNaN(filter.excludeUserId)) return false;
-    return true;
-  }).withMessage("검색 필터가 잘못되었어요."),
+  ...filterSanitizer,
+  query('filter.groupId').isNumeric().withMessage('검색 필터가 잘못되었어요.').bail(),
+  query('filter.memberId').isNumeric().withMessage('검색 필터가 잘못되었어요.').bail(),
+  query('filter.excludeUserId').isNumeric().withMessage('검색 필터가 잘못되었어요.').bail(),
   validate
 ]
 
@@ -28,7 +26,7 @@ export const validator = [
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
   const itemPerPage = 10;
   const pageParam = req.query.pageParam ? Number(req.query.pageParam) : 0;
-  const filter = JSON.parse(String(req.query.filter)) as FilterType;
+  const filter = req.query.filter as unknown as FilterType;
 
   const trades = await selectTrades(filter.groupId, filter.memberId, filter.excludeUserId, filter.state, itemPerPage, pageParam);
   return res.status(200).json({

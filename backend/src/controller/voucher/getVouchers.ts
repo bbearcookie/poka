@@ -11,7 +11,7 @@ export type FilterType = {
   groupId: number[];
   memberId: number[];
   excludeVoucherId: number[];
-  voucherState: '' | 'all' | 'available' | 'trading' | 'shipping' | 'shipped';
+  voucherState: 'all' | 'available' | 'trading' | 'shipping' | 'shipped';
 }
 
 export const validator = [
@@ -22,7 +22,7 @@ export const validator = [
   query('filter.groupId').isArray().withMessage('검색 필터가 잘못되었어요.').bail(),
   query('filter.memberId').isArray().withMessage('검색 필터가 잘못되었어요.').bail(),
   query('filter.excludeVoucherId').isArray().withMessage('검색 필터가 잘못되었어요.').bail(),
-  query('filter.voucherState').custom((value) => ['', 'all', 'available', 'trading', 'shipping', 'shipped'].includes(value)),
+  query('filter.voucherState').custom((value) => ['all', 'available', 'trading', 'shipping', 'shipped'].includes(value)),
   validate
 ]
 

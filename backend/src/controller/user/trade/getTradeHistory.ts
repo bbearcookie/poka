@@ -3,6 +3,7 @@ import { param, query } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { isLoggedIn } from '@validator/middleware/auth';
 import { havePageParam } from '@validator/chain/page';
+import { filterSanitizer } from '@validator/chain/filter';
 import { isAdminOrOwner } from '@validator/function/auth';
 import { LoginTokenType } from '@type/user';
 import { selectUserTradeHistory } from '@service/trade/history/select';
@@ -15,11 +16,8 @@ export type FilterType = {
 export const validator = [
   isLoggedIn,
   ...havePageParam,
+  ...filterSanitizer,
   param('userId').isNumeric().withMessage('사용자 ID는 숫자여야 해요.').bail(),
-  query('filter').customSanitizer((value) => {
-    try { return JSON.parse(value); }
-    catch (err) { return undefined; }
-  }),
   query('filter').isObject().withMessage('검색 필터가 잘못되었어요.').bail(),
   query('filter.startDate').isISO8601().toDate().withMessage('시작일은 날짜 형태여야해요.'),
   query('filter.endDate').isISO8601().toDate().withMessage('끝일은 날짜 형태여야해요.'),
