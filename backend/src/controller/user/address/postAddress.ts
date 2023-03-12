@@ -5,8 +5,8 @@ import { isLoggedIn } from '@validator/middleware/auth';
 import { isAdminOrOwner } from '@validator/function/auth';
 import { LoginTokenType } from '@type/user';
 import { selectUserDetailByUserID } from '@service/user/select';
-import { selectUserShippingAddresses } from '@service/shipping-address/select';
-import { insertUserShippingAddress } from '@service/shipping-address/insert';
+import { selectUserShippingAddresses } from '@service/shipping/address/select';
+import { insertUserShippingAddress } from '@service/shipping/address/insert';
 
 export const AddressForm = {
   validator: [

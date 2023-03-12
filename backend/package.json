@@ -39,6 +39,7 @@
   "_moduleAliases": {
     "@config/*": "src/config/*",
     "@controller/*": "src/controller/*",
+    "@router/*": "src/router/*",
     "@service/*": "src/service/*",
     "@type/*": "src/type/*",
     "@util/*": "src/util/*",

@@ -1,12 +1,12 @@
 import { Express, NextFunction, Request, Response } from 'express';
-import authRouter from '@config/route/auth.router';
-import userRouter from '@config/route/user.router';
-import groupRouter from '@config/route/group.router';
-import memberRouter from '@config/route/member.router';
-import photoRouter from '@config/route/photo.router';
-import voucherRouter from '@config/route/voucher.router';
-import tradeRouter from '@config/route/trade.router';
-// import shippingRouter from '@config/route/shipping.router';
+import authRouter from '@router/auth.router';
+import userRouter from '@router/user.router';
+import groupRouter from '@router/group.router';
+import memberRouter from '@router/member.router';
+import photoRouter from '@router/photo.router';
+import voucherRouter from '@router/voucher.router';
+import tradeRouter from '@router/trade.router';
+import shippingRouter from '@router/shipping.router';
 
 export default function(app: Express) {
   app.use('/api/auth', authRouter);
@@ -16,6 +16,7 @@ export default function(app: Express) {
   app.use('/api/photo', photoRouter);
   app.use('/api/voucher', voucherRouter);
   app.use('/api/trade', tradeRouter);
+  app.use('/api/shipping', shippingRouter);
 
   // 미들웨어가 response 응답을 하지 않으면 실행
   app.use('*', (req: Request, res: Response) => {
@@ -28,7 +29,3 @@ export default function(app: Express) {
     return res.status(500).json({ message: '서버 문제로 오류가 발생했어요.' });
   });
 }
-
-// export default function(app: Express) {
-//   shippingRouter(app, '/api/shipping');
-// };

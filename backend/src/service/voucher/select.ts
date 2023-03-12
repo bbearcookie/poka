@@ -157,3 +157,31 @@ export const selectHaveVouchersOfTrade = async (userId: number, photoIds: number
     con.release();
   }
 }
+
+// 배송 요청이 원하는 소유권 정보 조회
+export const selectShippingRequestVoucherIds = async (requestId: number) => {
+  const con = await db.getConnection();
+
+  try {
+    let sql = `
+    SELECT P.photocard_id as photocardId, P.name, P.image_name as imageName,
+    G.group_id as groupId, G.name as groupName,
+    M.member_id as memberId, M.name as memberName,
+    V.voucher_id as voucherId, V.state,
+    U.username, U.nickname, U.image_name as userImageName
+    FROM ShippingRequestVoucher as R
+    INNER JOIN Voucher as V ON R.voucher_id=V.voucher_id
+    INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
+    INNER JOIN MemberData as M ON P.member_id=M.member_id
+    INNER JOIN GroupData as G ON M.group_id=G.group_id
+    INNER JOIN User as U ON V.user_id=U.user_id
+    WHERE R.request_id=${con.escape(requestId)}`;
+
+    interface DataType extends VoucherType, RowDataPacket {}
+    return await con.query<DataType[]>(sql);
+  } catch (err) {
+    throw err;
+  } finally {
+    con.release();
+  }
+}

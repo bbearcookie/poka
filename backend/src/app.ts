@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'; dotenv.config(); // env 변수 사용
 import ExpressConfig, { app } from '@config/express';
-import RouteConfig from '@config/route/route';
+import RouteConfig from '@config/route';
 import { Request, Response } from 'express';
 
 ExpressConfig(); // express 기본 설정

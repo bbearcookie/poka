@@ -4,7 +4,7 @@ import { validate } from '@validator/middleware/response';
 import { isLoggedIn } from '@validator/middleware/auth';
 import { isAdminOrOwner } from '@validator/function/auth';
 import { selectUserDetailByUserID } from '@service/user/select';
-import { selectUserShippingAddresses } from '@service/shipping-address/select';
+import { selectUserShippingAddresses } from '@service/shipping/address/select';
 import { LoginTokenType } from '@type/user';
 
 export const validator = [

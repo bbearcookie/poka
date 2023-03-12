@@ -1,7 +1,7 @@
 import express from 'express';
 import * as getUserDetail from '@controller/user/getUserDetail';
 import * as putUserProfile from '@controller/user/putUserProfile';
-import * as getAddress from '@controller/user/address/getAddress';
+import * as getAddresses from '@controller/user/address/getAddresses';
 import * as postAddress from '@controller/user/address/postAddress';
 import * as getTradeHistory from '@controller/user/trade/getTradeHistory';
 
@@ -14,7 +14,7 @@ router.put('/:userId/profile',
   putUserProfile.controller
 );
 router.route('/:userId/shipping-address')
-  .get(getAddress.validator, getAddress.controller)
+  .get(getAddresses.validator, getAddresses.controller)
   .post(postAddress.validator, postAddress.controller);
 router.get('/:userId/trade-history', getTradeHistory.validator, getTradeHistory.controller);
 
