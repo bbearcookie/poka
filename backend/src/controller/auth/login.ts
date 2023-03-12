@@ -3,7 +3,7 @@ import { body } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { createResponseMessage } from '@validator/function/response';
 import { encryptText } from '@util/encrypt';
-import { verifyToken, createLoginToken } from '@validator/function/auth';
+import { createLoginToken } from '@validator/function/auth';
 import { LoginTokenPayloadType } from '@type/user';
 import { selectUserDetailByUsername } from '@service/user/select';
 
