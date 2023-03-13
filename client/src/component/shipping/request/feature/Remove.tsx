@@ -11,9 +11,11 @@ import useModal from '@hook/useModal';
 
 interface Props {
   res: ResType;
+  redirectTo: string;
 }
 
-function Remove({ res }: Props) {
+// 배송 요청 삭제 기능
+function Remove({ res, redirectTo }: Props) {
   const modal = useModal();
   const navigate = useNavigate();
 

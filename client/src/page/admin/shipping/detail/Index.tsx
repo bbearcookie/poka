@@ -9,8 +9,6 @@ function Index() {
   const { requestId } = useParams() as any;
   const { data: shipping, status } = useShippingRequestQuery(requestId);
 
-
-
   return (
     <main className="AdminShippingDetailPage">
       <BackLabel to="/admin/shipping/list" styles={{ marginBottom: "1em" }}>배송 요청 목록</BackLabel>

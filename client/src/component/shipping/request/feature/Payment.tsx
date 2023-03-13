@@ -9,6 +9,7 @@ interface Props {
   res: ResType;
 }
 
+// 결제 기능
 function Payment({ res }: Props) {
   const checkMutation = useCheckShippingPayment();
 

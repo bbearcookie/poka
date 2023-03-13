@@ -3,9 +3,9 @@ import { ResType } from '@api/query/shipping/useShippingRequestQuery';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import ShippingRequestInfo from '@component/shipping/request/ShippingRequestInfo';
 import RequestVoucherInfo from '@component/shipping/request/RequestVoucherInfo';
+import Payment from '@component/shipping/request/feature/Payment';
+import Remove from '@component/shipping/request/feature/Remove';
 import { ButtonSection } from '@component/form/_styles';
-import Payment from './content/Payment';
-import Remove from './content/Remove';
 
 interface Props {
   res: ResType;
@@ -25,7 +25,7 @@ function Success({ res }: Props) {
       />
       <ButtonSection>
         {res.shipping.paymentState === "waiting" && <Payment res={res} />}
-        {res.shipping.requestState !== "shipped" && <Remove res={res} />}
+        {res.shipping.requestState !== "shipped" && <Remove res={res} redirectTo="/shipping/list" />}
       </ButtonSection>
     </>
   );
