@@ -1,18 +1,5 @@
 .VoucherWriterPage {
   padding: 5em 1.5em;
-  
-  .label {
-    margin: 0.5em 0;
-  }
-
-  .label-section {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 1em;
-
-    .label { flex-grow: 1; }
-  }
 
   .button-section {
     display: flex;

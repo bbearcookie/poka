@@ -6,10 +6,7 @@ import BackLabel from '@component/label/BackLabel';
 import Success from './Success';
 import './Index.scss';
 
-interface Props {
-
-}
-const DefaultProps = {};
+interface Props {}
 
 function Index({  }: Props) {
   const { tradeId } = useParams() as any;
@@ -17,10 +14,10 @@ function Index({  }: Props) {
   const { data: trade, status } = useTradeQuery(tradeId);
 
   return (
-    <div className="UserTradeDetailPage">
+    <main className="UserTradeDetailPage">
       <Back backURL={location.state?.backURL} />
       {status === 'success' && <Success trade={trade} />}
-    </div>
+    </main>
   );
 }
 

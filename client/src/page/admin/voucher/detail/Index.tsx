@@ -13,10 +13,10 @@ function VoucherDetailPage({  }: Props) {
   const { status, data: voucher, error } = useVoucherQuery(voucherId);
   
   return (
-    <div className="VoucherDetailPage">
+    <main className="VoucherDetailPage">
       <BackLabel to="/admin/voucher/list" styles={{ marginBottom: "2em" }}>소유권 목록</BackLabel>
       {status === 'success' && <Success voucher={voucher} />}
-    </div>
+    </main>
   );
 }
 

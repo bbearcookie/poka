@@ -11,6 +11,7 @@ import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';
+import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import { ItemSection } from '@component/list/content/_styles';
 import * as queryKey from '@api/queryKey';
 import { State, Action } from '../../reducer';
@@ -43,8 +44,7 @@ function CardSection({ state, dispatch, modal }: Props) {
   return (
     <Card styles={{ marginBottom: '5em' }}>
       <CardHeader>
-        <section className="label-section">
-          <h1 className="title">소유권 선택</h1>
+        <TitleLabel title="소유권 선택">
           <Button
             leftIcon={faAdd}
             styles={{
@@ -55,7 +55,7 @@ function CardSection({ state, dispatch, modal }: Props) {
             }}
             onClick={(e) => { e.stopPropagation(); modal.open(); }}
           >선택</Button>
-        </section>
+        </TitleLabel>
       </CardHeader>
       <CardBody>
         <ItemSection marginBottom="2em">

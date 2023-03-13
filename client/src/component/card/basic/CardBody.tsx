@@ -28,11 +28,13 @@ export interface StylesProps {
   minHeight?: string;
   color?: string;
 }
-const StyledCardBody = styled.section<StylesProps>`
+const StyledCardBody = styled.main<StylesProps>`
   padding: ${p => p.padding ? p.padding : '1.5em'};
   margin: ${p => p.margin};
   width: ${p => p.width};
   height: ${p => p.height};
   min-height: ${p => p.minHeight};
   color: ${p => p.color};
+
+  .title { margin: 0 0 1em 0; }
 `

@@ -27,49 +27,51 @@ function MemberList({ res }: Props) {
   const onClickAddMember = useCallback(() => startEditor(true), [startEditor]);
 
   return (
-    <Card className="MemberList" styles={{ marginBottom: "5em" }}>
-      <CardHeader>
-        <div className="title">그룹의 멤버</div>
-      </CardHeader>
-      <Table styles={{ itemPadding: "1.5em" }}>
-        <colgroup>
-          <Col width="40%" />
-          <Col width="30%" />
-          <Col width="30%" />
-        </colgroup>
-        <thead>
-          <tr>
-            <th>이름</th>
-            <th>등록된 포토카드</th>
-            <th>액션</th>
-          </tr>
-        </thead>
-        <tbody>
-          {res.members.map(m => {
-            if (editTarget === m.memberId)
-              return <MemberEditor key={m.memberId} {...m} defaultValue={m.name} closeEditor={closeEditor} /> // Editor
-            else
-              return <MemberInfo key={m.memberId} {...m} startEditor={startEditor} />
-          })}
-          {editTarget === true && <MemberEditor groupId={res.groupId} memberId={null} closeEditor={closeEditor} />}
-        </tbody>
-      </Table>
+    <section>
+      <Card className="MemberList" styles={{ marginBottom: "5em" }}>
+        <CardHeader>
+          <h1 className="title">그룹의 멤버</h1>
+        </CardHeader>
+        <Table styles={{ itemPadding: "1.5em" }}>
+          <colgroup>
+            <Col width="40%" />
+            <Col width="30%" />
+            <Col width="30%" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>이름</th>
+              <th>등록된 포토카드</th>
+              <th>액션</th>
+            </tr>
+          </thead>
+          <tbody>
+            {res.members.map(m => {
+              if (editTarget === m.memberId)
+                return <MemberEditor key={m.memberId} {...m} defaultValue={m.name} closeEditor={closeEditor} /> // Editor
+              else
+                return <MemberInfo key={m.memberId} {...m} startEditor={startEditor} />
+            })}
+            {editTarget === true && <MemberEditor groupId={res.groupId} memberId={null} closeEditor={closeEditor} />}
+          </tbody>
+        </Table>
 
-      <section className="add-button">
-        {editTarget !== true &&
-        <Button
-          styles={{
-            theme: "primary",
-            margin: "1.57em",
-            padding: "0.7em 1em",
-            iconMargin: "1em",
-          }}
-          leftIcon={faPlus}
-          onClick={onClickAddMember}
-        >추가</Button>}
-      </section>
+        <section className="add-button">
+          {editTarget !== true &&
+          <Button
+            styles={{
+              theme: "primary",
+              margin: "1.57em",
+              padding: "0.7em 1em",
+              iconMargin: "1em",
+            }}
+            leftIcon={faPlus}
+            onClick={onClickAddMember}
+          >추가</Button>}
+        </section>
 
-    </Card>
+      </Card>
+    </section>
   );
 }
 

@@ -8,6 +8,7 @@ import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import CardList from '@component/card/basic/CardList';
+import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import NextPageFetcher from '@component/list/content/NextPageFetcher';
 import History from './History';
 import SkeletonHistory from './SkeletonHistory';
@@ -33,44 +34,46 @@ function HistoryList({ startDate, endDate }: Props) {
   }, [startDate, endDate]);
 
   return (
-    <Card>
-      <CardHeader>
-        <h1 className="title">기록</h1>
-      </CardHeader>
-      <CardBody styles={{ padding: "0" }}>
-        <CardList>
-          
-          {histories?.pages.map((page, pageIdx) => 
-          <Fragment key={pageIdx}>
-            {page?.histories.map((item) => 
-            <History
-              key={item.logId}
-              photo={{
-                photoName: item.photoName,
-                groupName: item.groupName,
-                memberName: item.memberName,
-                imageName: item.photoImageName
-              }}
-              destUser={{
-                username: item.destUserName,
-                nickname: item.destUserNickname,
-                imageName: item.destUserImageName
-              }}
-              originUser={{
-                username: item.originUserName,
-                nickname: item.originUserNickname,
-                imageName: item.originUserImageName
-              }}
-              loggedTime={new Date(item.loggedTime)}
-            />)}
-          </Fragment>)}
+    <section>
+      <Card>
+        <CardHeader>
+          <h1 className="title">기록</h1>
+        </CardHeader>
+        <CardBody styles={{ padding: "0" }}>
+          <CardList>
+            
+            {histories?.pages.map((page, pageIdx) => 
+            <Fragment key={pageIdx}>
+              {page?.histories.map((item) => 
+              <History
+                key={item.logId}
+                photo={{
+                  photoName: item.photoName,
+                  groupName: item.groupName,
+                  memberName: item.memberName,
+                  imageName: item.photoImageName
+                }}
+                destUser={{
+                  username: item.destUserName,
+                  nickname: item.destUserNickname,
+                  imageName: item.destUserImageName
+                }}
+                originUser={{
+                  username: item.originUserName,
+                  nickname: item.originUserNickname,
+                  imageName: item.originUserImageName
+                }}
+                loggedTime={new Date(item.loggedTime)}
+              />)}
+            </Fragment>)}
 
-          {isFetching && Array.from({ length: 10 }).map((item, idx) => <SkeletonHistory key={idx} />)}
+            {isFetching && Array.from({ length: 10 }).map((item, idx) => <SkeletonHistory key={idx} />)}
 
-          <NextPageFetcher fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} />
-        </CardList>
-      </CardBody>
-    </Card>
+            <NextPageFetcher fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} />
+          </CardList>
+        </CardBody>
+      </Card>
+    </section>
   );
 }
 

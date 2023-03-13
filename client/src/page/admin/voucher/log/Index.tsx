@@ -11,10 +11,10 @@ function Index({  }: Props) {
   const { voucherId } = useParams() as any;
 
   return (
-    <div className="VoucherLogPage">
+    <main className="VoucherLogPage">
       <BackLabel to={`/admin/voucher/detail/${voucherId}`} styles={{ marginBottom: "2em" }}>소유권 상세정보</BackLabel>
       <LogList voucherId={voucherId} />
-    </div>
+    </main>
   );
 }
 

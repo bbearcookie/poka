@@ -24,6 +24,5 @@ export const StyledTitle = styled.div<Props>`
   .title {
     flex-grow: 1;
     margin: 0;
-    font-size: 1.65rem;
   }
 `

@@ -17,7 +17,7 @@ function Index({  }: Props) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <div className="TradeListPage">
+    <main className="TradeListPage">
       <GroupSelect state={state} dispatch={dispatch} />
       {state.select.groupId > 0 && <MemberSelect state={state} dispatch={dispatch} />}
       <section className="add-button-section">
@@ -26,7 +26,7 @@ function Index({  }: Props) {
         </Link>
       </section>
       <TradeSection state={state} dispatch={dispatch} />
-    </div>
+    </main>
   );
 }
 

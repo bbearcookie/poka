@@ -44,12 +44,12 @@ function Index({  }: Props) {
   }, [state, postMutation]);
 
   return (
-    <div className="VoucherWriterPage">
+    <main className="VoucherWriterPage">
       <TitleLabel title="소유권 발급" styles={{ marginBottom: "1em" }} />
       <UsernameSection state={state} dispatch={dispatch} />
       <VoucherSection state={state} dispatch={dispatch} />
       <SubmitSection handleSubmit={onSubmit} />
-    </div>
+    </main>
   );
 }
 

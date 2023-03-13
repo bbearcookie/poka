@@ -132,42 +132,46 @@ function Form({ name = DefaultProps.name, imageName = DefaultProps.imageName, gr
 
   return (
     <form onSubmit={onSubmit}>
-      <Card styles={{ marginBottom: "2em" }}>
-        <CardBody>
-          <h3 className="label">이름</h3>
-          <Input
-            type="text"
-            name="name"
-            value={input.name}
-            placeholder="이름을 입력하세요"
-            maxLength={20}
-            autoComplete="off"
-            onChange={changeInput}
-            onBlur={blurInput}
-            styles={{
-              width: "100%",
-              height: "2.5em",
-              marginBottom: "1em"
-            }}
-          >
-            <InputMessage styles={{margin: "0.5em 0 0 0.8em"}}>{inputMessage.name}</InputMessage>
-          </Input>
-          <p className="description">아이돌 그룹의 이름을 지정합니다. 이 이름은 사용자가 포토카드를 찾거나, 관리자가 포토카드 정보를 관리할 때 사용됩니다.</p>
-        </CardBody>
-      </Card>
+      <section>
+        <Card styles={{ marginBottom: "2em" }}>
+          <CardBody>
+            <h1 className="title">이름</h1>
+            <Input
+              type="text"
+              name="name"
+              value={input.name}
+              placeholder="이름을 입력하세요"
+              maxLength={20}
+              autoComplete="off"
+              onChange={changeInput}
+              onBlur={blurInput}
+              styles={{
+                width: "100%",
+                height: "2.5em",
+                marginBottom: "1em"
+              }}
+            >
+              <InputMessage styles={{margin: "0.5em 0 0 0.8em"}}>{inputMessage.name}</InputMessage>
+            </Input>
+            <p className="description">아이돌 그룹의 이름을 지정합니다. 이 이름은 사용자가 포토카드를 찾거나, 관리자가 포토카드 정보를 관리할 때 사용됩니다.</p>
+          </CardBody>
+        </Card>
+      </section>
 
-      <Card className="logo-card">
-        <CardBody>
-          <h3 className="label">로고 이미지</h3>
-          <ImageUploader
-            value={input.image}
-            onChange={changeImage}
-            errorMessage={inputMessage.image}
-            description={<p className="description">파일 업로드<br/>Drag & Drop</p>}
-            styles={{ height: "20em" }}
-          />
-        </CardBody>
-      </Card>
+      <section>
+        <Card className="logo-card">
+          <CardBody>
+            <h1 className="title">로고 이미지</h1>
+            <ImageUploader
+              value={input.image}
+              onChange={changeImage}
+              errorMessage={inputMessage.image}
+              description={<p className="description">파일 업로드<br/>Drag & Drop</p>}
+              styles={{ height: "20em" }}
+            />
+          </CardBody>
+        </Card>
+      </section>
 
       <section className="button-section">
         <Button

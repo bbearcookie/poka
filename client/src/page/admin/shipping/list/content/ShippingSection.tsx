@@ -8,16 +8,17 @@ import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Table from '@component/table/Table';
 import Col from '@component/table/styles/Col';
+import NextPageFetcher from '@component/list/content/NextPageFetcher';
 import Shipping from './Shipping';
 
 interface Props {}
 
 function ShippingSection({  }: Props) {
   const { filter, keyword, filterDispatch, keywordDispatch } = useSearcher();
-  const { status, data: shippings, error } = useShippingsQuery();
+  const { data: shippings, isFetching, hasNextPage, refetch, fetchNextPage } = useShippingsQuery();
 
   return (
-    <Card>
+    <Card className="shipping-section">
       <CardHeader styles={{ padding: "1em 1em 0 1em"}}>
         <Searcher
           category={{
@@ -55,32 +56,21 @@ function ShippingSection({  }: Props) {
             </tr>
           </thead>
           <tbody>
-            {status === 'success' && <Success res={shippings} />}
+            {shippings?.pages.map((page, i) =>
+            <Fragment key={i}>
+              {page.shippings.map(r =>
+              <Shipping
+                key={r.requestId}
+                shippingState={r.requestState}
+                {...r}
+              />)}
+            </Fragment>)}
           </tbody>
         </Table>
+        <NextPageFetcher hasNextPage={hasNextPage} fetchNextPage={fetchNextPage} />
       </CardBody>
     </Card>
   );
 }
 
 export default ShippingSection;
-
-interface SuccessProps {
-  res: InfiniteData<ResType>;
-}
-
-function Success({ res }: SuccessProps) {
-  return (
-    <>
-      {res.pages.map((page, i) =>
-      <Fragment key={i}>
-        {page.shippings.map(r =>
-        <Shipping
-          key={r.requestId}
-          shippingState={r.requestState}
-          {...r}
-        />)}
-      </Fragment>)}
-    </>
-  );
-}

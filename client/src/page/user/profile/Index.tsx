@@ -8,11 +8,11 @@ interface Props {}
 
 function Index({  }: Props) {
   return (
-    <div className="ProfilePage">
+    <main className="ProfilePage">
       <TitleLabel title="마이페이지" styles={{ marginBottom: "1em" }} />
       <Profile />
       <Shipping />
-    </div>
+    </main>
   );
 }
 

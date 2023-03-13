@@ -1,14 +1,14 @@
 .ShippingWriterPage {
   padding: 5em 10%;
 
-  .label-section {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 1em;
+  // .label-section {
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   align-items: center;
+  //   gap: 1em;
 
-    .title { flex-grow: 1; }
-  }
+  //   .title { flex-grow: 1; }
+  // }
 
   .voucher-section {
     .ItemSection:empty { display: none; }

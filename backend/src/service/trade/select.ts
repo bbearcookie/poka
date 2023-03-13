@@ -2,12 +2,10 @@ import db from '@config/database';
 import { RowDataPacket } from 'mysql2';
 import { WhereSQL } from '@util/database';
 import { TradeStateType, TradeType, TradeListItemType } from '@type/trade';
+import { FilterType } from '@controller/trade/getTrades';
 
 // 교환글 목록 조회
-export const selectTrades = async (
-  groupId: number, memberId: number, excludeUserId: number, state: TradeStateType, 
-  itemPerPage: number, pageParam: number
-) => {
+export const selectTrades = async (itemPerPage: number, pageParam: number, filter: FilterType) => {
   const con = await db.getConnection();
 
   try {
@@ -26,33 +24,33 @@ export const selectTrades = async (
     INNER JOIN GroupData as G ON M.group_id=G.group_id `;
 
     // 그룹ID 조건
-    if (groupId > 0) {
+    if (filter.groupId > 0) {
       where.push({
-        query: `M.group_id=${con.escape(groupId)}`,
+        query: `M.group_id=${con.escape(filter.groupId)}`,
         operator: 'AND'
       });
     }
 
     // 멤버ID 조건
-    if (memberId > 0) {
+    if (filter.memberId > 0) {
       where.push({
-        query: `M.member_id=${con.escape(memberId)}`,
+        query: `M.member_id=${con.escape(filter.memberId)}`,
         operator: 'AND'
       });
     }
 
     // 작성자 ID 조건
-    if (excludeUserId !== 0) {
+    if (filter.excludeUserId !== 0) {
       where.push({
-        query: `NOT T.user_id=${con.escape(excludeUserId)}`,
+        query: `NOT T.user_id=${con.escape(filter.excludeUserId)}`,
         operator: 'AND'
       });
     }
 
     // 거래글 상태 조건
-    if (state) {
+    if (filter.state) {
       where.push({
-        query: `T.state=${con.escape(state)}`,
+        query: `T.state=${con.escape(filter.state)}`,
         operator: 'AND'
       });
     }

@@ -33,7 +33,7 @@ function SelectCard({ state, dispatch }: Props) {
   return (
     <Card className="SelectCard">
       <CardBody>
-        <h3 className="label">그룹 멤버 정보</h3>
+        <h1 className="title">그룹 멤버 정보</h1>
 
         <section className="input-section">
           <section className="input-line">

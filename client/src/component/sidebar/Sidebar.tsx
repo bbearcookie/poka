@@ -33,12 +33,12 @@ function Sidebar({ mode }: Props) {
   }, []);
 
   return (
-    <div className={classNames("Sidebar_wrapper", {"hide": !show})} onClick={closeSidebar}>
-      <aside className="Sidebar" onClick={blockPropagation}>
+    <aside className={classNames("Sidebar_wrapper", {"hide": !show})} onClick={closeSidebar}>
+      <div className="Sidebar" onClick={blockPropagation}>
         {mode === 'ADMIN' && <AdminContent />}
         {mode === 'USER' && <UserContent />}
-      </aside>
-    </div>
+      </div>
+    </aside>
   );
 }
 

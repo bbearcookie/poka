@@ -7,10 +7,10 @@ interface Props {}
 
 function Index({  }: Props) {
   return (
-    <div className="AdminShippingListPage">
+    <main className="AdminShippingListPage">
       <TitleLabel title="배송요청 목록" styles={{ marginBottom: "1em" }} />
       <ShippingSection />
-    </div>
+    </main>
   );
 }
 

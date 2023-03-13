@@ -53,14 +53,14 @@ function Index({  }: Props) {
   }, [addMutation, state, addressState]);
 
   return (
-    <div className="ShippingWriterPage">
+    <main className="ShippingWriterPage">
       <TitleLabel title="소유권 배송 요청" styles={{ marginBottom: "1em" }} />
       <form onSubmit={onSubmit}>
         <VoucherSection state={state} dispatch={dispatch} />
         <AddressSection state={addressState} dispatch={addressDispatcher} />
         <ButtonSection />
       </form>
-    </div>
+    </main>
   );
 }
 

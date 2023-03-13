@@ -31,7 +31,7 @@ function Index({  }: Props) {
   }, [navigate]);
 
   return (
-    <div className="InventoryPage">
+    <main className="InventoryPage">
       <TitleLabel title="소유권 보관함" styles={{ marginBottom: "1em" }} />
       <Card>
         <CardBody>
@@ -57,7 +57,7 @@ function Index({  }: Props) {
           />}
         </CardBody>
       </Card>
-    </div>
+    </main>
   );
 }
 

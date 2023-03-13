@@ -8,10 +8,10 @@ const DefaultProps = {};
 
 function GroupWriterPage({  }: Props) {
   return (
-    <div className="GroupWriterPage">
+    <main className="GroupWriterPage">
       <TitleLabel title="그룹 등록" styles={{ marginBottom: "1em" }} />
       <Form />
-    </div>
+    </main>
   );
 }
 

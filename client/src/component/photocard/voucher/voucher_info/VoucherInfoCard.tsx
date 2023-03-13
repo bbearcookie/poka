@@ -5,6 +5,7 @@ import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Button from '@component/form/Button';
 import UserProfile from '@component/profile/UserProfile';
+import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import CardList from '@component/card/basic/CardList';
 import CardListItem from '@component/card/basic/CardListItem';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
@@ -22,31 +23,35 @@ const DefaultProps = {
 
 function VoucherInfoCard({ voucher, showAdminInfo = DefaultProps.showAdminInfo }: Props) {
   return (
-    <Card styles={{ marginBottom: "5em" }}>
-      <CardHeader><h1>소유권 정보</h1></CardHeader>
+    <article>
+      <Card styles={{ marginBottom: "5em" }}>
+        <CardHeader>
+          <TitleLabel title="소유권 정보" />
+        </CardHeader>
 
-      <CardBody styles={{ padding: "0" }}>
-        <CardList>
+        <CardBody styles={{ padding: "0" }}>
+          <CardList>
 
-          {showAdminInfo && 
-          <>
-            <VoucherID voucher={voucher} />
-            <VoucherOwner voucher={voucher} />
-            <VoucherStateItem voucher={voucher} />
-            <VoucherLog voucher={voucher} />
-          </>}
+            {showAdminInfo && 
+            <>
+              <VoucherID voucher={voucher} />
+              <VoucherOwner voucher={voucher} />
+              <VoucherStateItem voucher={voucher} />
+              <VoucherLog voucher={voucher} />
+            </>}
 
-          {!showAdminInfo && 
-          <>
-            <VoucherOwner voucher={voucher} />
-            <VoucherStateItem voucher={voucher} />
-          </>}
-        </CardList>
+            {!showAdminInfo && 
+            <>
+              <VoucherOwner voucher={voucher} />
+              <VoucherStateItem voucher={voucher} />
+            </>}
+          </CardList>
 
-        <DescriptionSection />
-      </CardBody>
+          <DescriptionSection />
+        </CardBody>
 
-    </Card>
+      </Card>
+    </article>
   );
 }
 

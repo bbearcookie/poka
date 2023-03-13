@@ -21,7 +21,7 @@ function Index({  }: Props) {
   }, [navigate]);
 
   return (
-    <div className="VoucherListPage">
+    <main className="VoucherListPage">
       <TitleLabel title="소유권 목록" styles={{ marginBottom: "1em" }} />
       <Card>
         <CardBody>
@@ -49,7 +49,7 @@ function Index({  }: Props) {
           />
         </CardBody>
       </Card>
-    </div>
+    </main>
   );
 }
 

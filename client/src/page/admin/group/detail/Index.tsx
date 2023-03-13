@@ -12,12 +12,12 @@ function GroupDetailPage() {
   const { status, data: group, error } = useGroupQuery(groupId);
 
   return (
-    <div className="GroupDetailPage">
+    <main className="GroupDetailPage">
       <BackLabel to="/admin/group/list" styles={{ marginBottom: "2em" }}>그룹 목록</BackLabel>
       {status === 'success' && <Success res={group} groupId={groupId} /> }
       {status === 'error' && <ErrorCard error={error} /> }
       {status === 'loading' && <Loading />}
-    </div>
+    </main>
   );
 }
 

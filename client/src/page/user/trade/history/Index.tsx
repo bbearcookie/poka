@@ -18,11 +18,11 @@ function Index({  }: Props) {
   const [endDate, setEndDate] = useState(today.current);
 
   return (
-    <div className="TradeHistoryPage">
+    <main className="TradeHistoryPage">
       <TitleLabel title="교환 내역" styles={{ marginBottom: "2em" }} />
       <DateSelector todayDate={today.current} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
       <HistoryList startDate={startDate} endDate={endDate} />
-    </div>
+    </main>
   );
 }
 

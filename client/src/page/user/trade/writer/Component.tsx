@@ -13,12 +13,12 @@ interface Props {
 
 function Component({ titleText, onSubmit, form, formDispatch }: Props) {
   return (
-    <div className="TradeWriterPage">
+    <main className="TradeWriterPage">
       <h1 className="title-label">교환글 {titleText}</h1>
       <VoucherSection form={form} formDispatch={formDispatch} />
       <PhotocardSection form={form} formDispatch={formDispatch} />
       <ButtonSection titleText={titleText} handleSubmit={onSubmit} />
-    </div>
+    </main>
   );
 }
 

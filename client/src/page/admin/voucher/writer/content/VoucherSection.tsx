@@ -3,6 +3,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import InputMessage from '@component/form/InputMessage';
 import useModal from '@hook/useModal';
 import TitleModal from '@component/modal/TitleModal';
+import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import Button from '@component/form/Button';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
@@ -41,8 +42,7 @@ function VoucherSection({ state, dispatch }: Props) {
     <section className="VoucherSection">
       <Card styles={{ marginBottom: "2em" }}>
         <CardHeader>
-          <section className="label-section">
-            <h3 className="label">소유권 선택</h3>
+          <TitleLabel title="소유권 선택">
             <Button
               leftIcon={faPlus}
               styles={{
@@ -53,7 +53,7 @@ function VoucherSection({ state, dispatch }: Props) {
               }}
               onClick={openModal}
             >추가</Button>
-          </section>
+          </TitleLabel>
         </CardHeader>
         <CardBody>
           {state.form.vouchers.length > 0 && <PhotoList state={state} dispatch={dispatch} />}

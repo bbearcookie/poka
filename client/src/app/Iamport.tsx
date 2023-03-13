@@ -7,11 +7,7 @@ function Iamport() {
     IMP?.init(process.env.REACT_APP_IAMPORT_IMPCODE);
   }, []);
 
-  return (
-    <div>
-      
-    </div>
-  );
+  return <></>;
 }
 
 export default Iamport;

@@ -3,6 +3,7 @@ import Cropper from 'react-cropper';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
+import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import Button from '@component/form/Button';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import "cropperjs/dist/cropper.css";
@@ -11,7 +12,6 @@ import './Index.scss';
 interface Props {
   setCropper: React.Dispatch<React.SetStateAction<Cropper | undefined>>
 }
-const DefaultProps = {};
 
 function Upload({ setCropper }: Props) {
   const [image, setImage] = useState<string | ArrayBuffer | null>("https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg");
@@ -47,8 +47,7 @@ function Upload({ setCropper }: Props) {
   return (
     <Card styles={{ marginBottom: "2em" }}>
       <CardHeader>
-        <section className="title-section">
-          <h1 className="title-label">이미지 자르기</h1>
+        <TitleLabel title="이미지 자르기">
           <input type="file" accept=".jpg, .png" onChange={onChangeImageInput} ref={fileRef} />
           <Button
             leftIcon={faUpload}
@@ -58,7 +57,7 @@ function Upload({ setCropper }: Props) {
               padding: "0.75em 1em"
             }}
           >파일 선택</Button>
-        </section>
+        </TitleLabel>
       </CardHeader>
       <CardBody>
         <Cropper

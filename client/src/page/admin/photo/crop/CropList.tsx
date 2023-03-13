@@ -12,9 +12,7 @@ function CropList({ cropList }: Props) {
   return (
     <Card styles={{ marginTop: "2em" }}>
       <CardHeader>
-        <section className="title-section">
-          <h1 className="title-label">부분 이미지 목록</h1>
-        </section>
+        <h2 className="title">부분 이미지 목록</h2>
       </CardHeader>
       <CardBody>
         {cropList.map((item, idx) => (

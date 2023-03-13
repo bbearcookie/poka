@@ -26,20 +26,22 @@ function DateSelector({ todayDate, startDate, endDate, setStartDate, setEndDate 
   }, [setEndDate]);
 
   return (
-    <Card styles={{ marginBottom: "5em" }}>
-      <CardHeader>
-        <h1 className="title">조회할 기간</h1>
-      </CardHeader>
-      <CardBody>
-        <Calendar
-          todayDate={todayDate}
-          startDate={startDate}
-          endDate={endDate}
-          onChangeStartDate={onChangeStartDate}
-          onChangeEndDate={onChangeEndDate}
-        />
-      </CardBody>
-    </Card>
+    <section>
+      <Card styles={{ marginBottom: "5em" }}>
+        <CardHeader>
+          <h1 className="title">조회할 기간</h1>
+        </CardHeader>
+        <CardBody>
+          <Calendar
+            todayDate={todayDate}
+            startDate={startDate}
+            endDate={endDate}
+            onChangeStartDate={onChangeStartDate}
+            onChangeEndDate={onChangeEndDate}
+          />
+        </CardBody>
+      </Card>
+    </section>
   );
 }
 

@@ -17,7 +17,7 @@ function GroupListPage({  }: Props) {
   const { status, data: groups, error } = useGroupsQuery();
 
   return (
-    <section className="GroupListPage">
+    <main className="GroupListPage">
       <TitleLabel title="그룹 목록" styles={{ marginBottom: "1em" }}>
         <Link to="/admin/group/writer">
           <Button
@@ -50,8 +50,7 @@ function GroupListPage({  }: Props) {
           {status === 'error' && <tr><td>{getErrorMessage(error)}</td></tr>}
         </tbody>
       </Table>
-
-    </section>
+    </main>
   );
 }
 

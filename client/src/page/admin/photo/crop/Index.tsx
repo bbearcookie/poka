@@ -7,14 +7,13 @@ import Upload from './Upload';
 import './Index.scss';
 
 interface Props {}
-const DefaultProps = {};
 
 function PhotoCropPage({  }: Props) {
   const [cropList, setCropList] = useState<string[]>([]);
   const [cropper, setCropper] = useState<Cropper>();
 
   return (
-    <div className="PhotoCropPage">
+    <main className="PhotoCropPage">
       <Upload setCropper={setCropper} />
       <section className="card-section">
         {cropper && <ControlCard cropper={cropper} />}
@@ -22,7 +21,7 @@ function PhotoCropPage({  }: Props) {
         {cropper && <DownloadCard cropList={cropList} setCropList={setCropList} />}
       </section>
       <CropList cropList={cropList} />
-    </div>
+    </main>
   );
 }
 

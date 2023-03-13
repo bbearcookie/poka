@@ -17,9 +17,8 @@ import DropdownMenu from '@component/dropdown/DropdownMenu';
 import DropdownItem from '@component/dropdown/DropdownItem';
 import './Navbar.scss';
 
-interface Props {
-}
-const DefaultProps = {}
+interface Props {}
+
 function Navbar({  }: Props) {
   const show = useAppSelector((state) => state.sidebar.show);
   const { userId } = useAppSelector((state) => state.auth);
@@ -42,7 +41,7 @@ function Navbar({  }: Props) {
   }, [logoutMutation]);
 
   return (
-    <article className="Navbar">
+    <nav className="Navbar">
       
       {status === 'success' ?
       <>
@@ -85,7 +84,7 @@ function Navbar({  }: Props) {
           onClick={() => navigate('/login')}
         >로그인</Button>
       </>}
-    </article>
+    </nav>
   );
 }
 

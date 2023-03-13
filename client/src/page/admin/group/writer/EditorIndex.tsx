@@ -13,10 +13,10 @@ function GroupEditorPage({  }: Props) {
   const { status, data: group, error } = useGroupQuery(groupId);
 
   return (
-    <div className="GroupWriterPage">
+    <main className="GroupWriterPage">
       <TitleLabel title="그룹 수정" styles={{ marginBottom: "1em" }} />
       {status === 'success' && <Form groupId={groupId} name={group?.name} imageName={groupImage(group?.imageName)} />}
-    </div>
+    </main>
   );
 }
 

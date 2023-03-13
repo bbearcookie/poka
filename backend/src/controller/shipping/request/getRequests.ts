@@ -10,7 +10,7 @@ export const validator = [
 
 // 배송 요청 목록 조회
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
-  const itemPerPage = 20; // 페이지당 보여줄 내용 갯수
+  const itemPerPage = 5; // 페이지당 보여줄 내용 갯수
   const pageParam = req.query.pageParam ? Number(req.query.pageParam) : 0; // 페이지 번호
 
   const [shippings] = await selectShippingRequests(itemPerPage, pageParam);

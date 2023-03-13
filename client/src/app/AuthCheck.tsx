@@ -11,9 +11,7 @@ function AuthCheck() {
     if (user) postMutation.mutate({});
   }, []);
   
-  return (
-    <></>
-  );
+  return <></>;
 }
 
 export default AuthCheck;

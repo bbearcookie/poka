@@ -28,7 +28,7 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   const pageParam = req.query.pageParam ? Number(req.query.pageParam) : 0;
   const filter = req.query.filter as unknown as FilterType;
 
-  const trades = await selectTrades(filter.groupId, filter.memberId, filter.excludeUserId, filter.state, itemPerPage, pageParam);
+  const trades = await selectTrades(itemPerPage, pageParam, filter);
   return res.status(200).json({
     message: '거래글 목록을 조회했습니다.',
     trades,

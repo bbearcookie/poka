@@ -4,6 +4,7 @@ import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import { ModalHookType } from '@hook/useModal';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
+import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import Button from '@component/form/Button';
 import AddressEditor from '@component/address/editor/AddressEditor';
 import { State, Action } from '@component/address/editor/reducer';
@@ -13,7 +14,6 @@ interface Props {
   state: State;
   dispatch: React.Dispatch<Action>;
 }
-const DefaultProps = {};
 
 function AddressCard({ modal, state, dispatch }: Props) {
 
@@ -26,8 +26,7 @@ function AddressCard({ modal, state, dispatch }: Props) {
   return (
     <Card styles={{ marginBottom: "5em" }}>
       <CardHeader>
-        <section className="label-section">
-          <h1 className="title">배송지 입력</h1>
+        <TitleLabel title="배송지 입력">
           <Button
             leftIcon={faAdd}
             styles={{
@@ -38,7 +37,7 @@ function AddressCard({ modal, state, dispatch }: Props) {
             }}
             onClick={openModal}
           >가져오기</Button>
-        </section>
+        </TitleLabel>
       </CardHeader>
       <CardBody styles={{ padding: "0" }}>
         <AddressEditor state={state} dispatch={dispatch} showName={false} />

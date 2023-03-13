@@ -47,7 +47,7 @@ function PhotoWriterPage({  }: Props) {
   }, [state, postMutation]);
 
   return (
-    <div className="PhotoWriterPage">
+    <main className="PhotoWriterPage">
       <TitleLabel title="포토카드 등록" styles={{ marginBottom: "1em" }} />
       <form onSubmit={onSubmit}>
         <section className="info-section">
@@ -57,7 +57,7 @@ function PhotoWriterPage({  }: Props) {
         <PhotoList state={state} dispatch={dispatch} />
         <ButtonSection />
       </form>
-    </div>
+    </main>
   );
 }
 

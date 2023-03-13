@@ -20,7 +20,7 @@ function PhotoListPage({  }: Props) {
   }, [navigate]);
 
   return (
-    <section className="PhotoListPage">
+    <main className="PhotoListPage">
 
       <TitleLabel title="포토카드 목록" styles={{ marginBottom: "1em" }}>
         <Link to="/admin/photo/writer">
@@ -41,7 +41,7 @@ function PhotoListPage({  }: Props) {
         </CardBody>
       </Card>
       
-    </section>
+    </main>
   );
 }
 

@@ -15,10 +15,10 @@ function Index({  }: Props) {
   const { data: shipping, status } = useShippingRequestQuery(requestId);
 
   return (
-    <div className="ShippingDetailPage">
+    <main className="ShippingDetailPage">
       <BackLabel styles={{ marginBottom: "1em" }}>배송 요청 목록</BackLabel>
       {status === 'success' && <Success res={shipping} />}
-    </div>
+    </main>
   );
 }
 

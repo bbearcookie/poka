@@ -15,10 +15,10 @@ function Index({  }: Props) {
   console.log(voucher);
 
   return (
-    <div className="UserVoucherDetailPage">
+    <main className="UserVoucherDetailPage">
       <BackLabel to="/voucher/list" styles={{ marginBottom: "2em" }}>소유권 목록</BackLabel>
       {status === 'success' && <Success voucher={voucher} />}
-    </div>
+    </main>
   );
 }
 

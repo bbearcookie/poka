@@ -17,6 +17,7 @@ export const selectShippingRequests = async (itemPerPage: number, pageParam: num
     FROM ShippingRequest as R
     INNER JOIN Payment as P ON R.payment_id=P.payment_id
     INNER JOIN User as U ON R.user_id=U.user_id
+    ORDER BY R.written_time DESC
     LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
 
     interface DataType extends ShippingListItemType, RowDataPacket {}

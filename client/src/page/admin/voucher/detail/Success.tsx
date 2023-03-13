@@ -7,7 +7,6 @@ import VoucherRemove from './content/VoucherRemove';
 interface Props {
   voucher: VoucherResType;
 }
-const DefaultProps = {};
 
 function Success({ voucher }: Props) {
   if (!voucher) return <></>;
