@@ -6,7 +6,7 @@ import { FilterType } from '@controller/voucher/getVouchers';
 
 // 소유권 목록 조회
 export const selectVouchers = async (
-  itemPerPage: number = 20,
+  itemPerPage: number,
   pageParam: number,
   filter: FilterType
 ) => {

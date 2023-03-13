@@ -1,6 +1,6 @@
 import { PaymentStateType } from "@type/payment";
 
-type RequestStateType = 'waiting' | 'shipped';
+export type RequestStateType = 'waiting' | 'shipped';
 
 export interface ShippingAddressType {
   addressId: number;

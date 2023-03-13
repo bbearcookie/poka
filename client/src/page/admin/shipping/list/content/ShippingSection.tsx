@@ -1,8 +1,10 @@
-import React, { Fragment } from 'react';
-import { InfiniteData } from '@tanstack/react-query';
+import React, { useState, Fragment } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import * as queryKey from '@api/queryKey';
+import { useUpdateEffect } from 'react-use';
 import useSearcher from '@component/search/useSearcher';
 import Searcher from '@component/search/Searcher';
-import useShippingsQuery, { ResType } from '@api/query/shipping/useShippingsQuery';
+import useShippingsQuery, { FilterType } from '@api/query/shipping/useShippingsQuery';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
@@ -10,15 +12,42 @@ import Table from '@component/table/Table';
 import Col from '@component/table/styles/Col';
 import NextPageFetcher from '@component/list/content/NextPageFetcher';
 import Shipping from './Shipping';
+import SkeletonShipping from './SkeletonShipping';
 
 interface Props {}
 
 function ShippingSection({  }: Props) {
   const { filter, keyword, filterDispatch, keywordDispatch } = useSearcher();
-  const { data: shippings, isFetching, hasNextPage, refetch, fetchNextPage } = useShippingsQuery();
+  const [refine, setRefine] = useState<FilterType>({
+    userName: [],
+    paymentState: filter.paymentState,
+    shippingState: filter.shippingState
+  });
+  const queryClient = useQueryClient();
+
+  const {
+    data: shippings,
+    isFetching, hasNextPage,
+    refetch, fetchNextPage
+  } = useShippingsQuery(refine, { enabled: filter.initialized });
+
+  // 데이터 리패칭
+  useUpdateEffect(() => {
+    queryClient.removeQueries(queryKey.shippingKeys.all);
+    refetch();
+  }, [refine]);
+  
+  // 검색 조건 변경시 새로운 필터 적용
+  useUpdateEffect(() => {
+    setRefine({
+      userName: keyword.keywords.filter(k => k.category === 'userName').map(k => k.value),
+      shippingState: filter.shippingState,
+      paymentState: filter.paymentState
+    });
+  }, [filter, keyword]);
 
   return (
-    <Card className="shipping-section">
+    <Card>
       <CardHeader styles={{ padding: "1em 1em 0 1em"}}>
         <Searcher
           category={{
@@ -65,6 +94,7 @@ function ShippingSection({  }: Props) {
                 {...r}
               />)}
             </Fragment>)}
+            {isFetching && Array.from({ length: 10 }).map((_, i) => <SkeletonShipping key={i} />)}
           </tbody>
         </Table>
         <NextPageFetcher hasNextPage={hasNextPage} fetchNextPage={fetchNextPage} />

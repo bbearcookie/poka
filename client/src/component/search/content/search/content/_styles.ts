@@ -39,7 +39,7 @@ export const StyledInput = styled.input`
   border: 1px solid #E5E7EB;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  font-size: 1rem;
+  font-size: 1em;
   
   &:focus {
     outline: none;
