@@ -1,6 +1,6 @@
 import React from 'react';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
-import ShippingSection from './content/ShippingSection';
+import ShippingSection from './ShippingSection';
 import './Index.scss';
 
 interface Props {}

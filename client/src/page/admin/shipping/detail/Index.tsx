@@ -9,9 +9,11 @@ function Index() {
   const { requestId } = useParams() as any;
   const { data: shipping, status } = useShippingRequestQuery(requestId);
 
+
+
   return (
-    <main className="ShippingDetailPage">
-      <BackLabel styles={{ marginBottom: "1em" }}>배송 요청 목록</BackLabel>
+    <main className="AdminShippingDetailPage">
+      <BackLabel to="/admin/shipping/list" styles={{ marginBottom: "1em" }}>배송 요청 목록</BackLabel>
       {status === 'success' && <Success res={shipping} />}
     </main>
   );

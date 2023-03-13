@@ -11,12 +11,10 @@ import CardBody from '@component/card/basic/CardBody';
 import Table from '@component/table/Table';
 import Col from '@component/table/styles/Col';
 import NextPageFetcher from '@component/list/content/NextPageFetcher';
-import Shipping from './Shipping';
-import SkeletonShipping from './SkeletonShipping';
+import Shipping from './content/Shipping';
+import SkeletonShipping from './content/SkeletonShipping';
 
-interface Props {}
-
-function ShippingSection({  }: Props) {
+function ShippingSection() {
   const { filter, keyword, filterDispatch, keywordDispatch } = useSearcher();
   const [refine, setRefine] = useState<FilterType>({
     userName: [],

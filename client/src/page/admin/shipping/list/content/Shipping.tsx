@@ -22,9 +22,10 @@ interface Props {
 function Shipping({ requestId, username, nickname, userImageName, shippingState, paymentState, voucherAmount, writtenTime }: Props) {
   const navigate = useNavigate();
 
+  // 상세 페이지 이동
   const onClick = useCallback(() => {
-    console.log(`TODO: ${requestId} 상세 이동`);
-  }, [requestId]);
+    navigate(`/admin/shipping/detail/${requestId}`)
+  }, [navigate, requestId]);
 
   return (
     <StyledShipping onClick={onClick}>
@@ -50,9 +51,7 @@ function Shipping({ requestId, username, nickname, userImageName, shippingState,
       <td>{voucherAmount}장</td>
       <td>{getYearMonthDay(new Date(writtenTime))}</td>
       <td>
-        <Link className="action-section" to="#">
-          <IconButton icon={faArrowRight} />
-        </Link>
+        <IconButton icon={faArrowRight} />
       </td>
     </StyledShipping>
   );
