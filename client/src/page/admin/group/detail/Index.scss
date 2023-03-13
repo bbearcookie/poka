@@ -1,5 +1,7 @@
+@import '@util/common';
+
 .GroupDetailPage {
-  padding: 5em 10%;
+  @include contents;
 
   a {
     text-decoration: none;

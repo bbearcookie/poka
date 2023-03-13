@@ -74,7 +74,7 @@ const StyledButton = styled.button<StylesProps>`
   padding: ${p => p.padding ? p.padding : '1em'};
   font-family: inherit;
   border: 0;
-  font-size: ${p => p.fontSize};
+  font-size: ${p => p.fontSize ? p.fontSize : '0.9em'};
   border-radius: ${p => p.borderRadius ? p.borderRadius : '0.3rem'};
   box-sizing: ${p => p.boxSizing};
   box-shadow: 1px 1px 0 rgb(0, 0, 0, 0.5);

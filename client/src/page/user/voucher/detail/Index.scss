@@ -1,5 +1,7 @@
+@import '@util/common';
+
 .UserVoucherDetailPage {
-  padding: 5em 10%;
+  @include contents;
 
   .button-section {
     display: flex;

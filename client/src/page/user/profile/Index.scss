@@ -1,5 +1,7 @@
+@import '@util/common';
+
 .ProfilePage {
-  padding: 5em 10%;
+  @include contents;
 
   .label {
     margin: 0 0 0.5em 0;

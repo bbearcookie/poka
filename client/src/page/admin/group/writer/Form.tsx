@@ -132,6 +132,22 @@ function Form({ name = DefaultProps.name, imageName = DefaultProps.imageName, gr
 
   return (
     <form onSubmit={onSubmit}>
+
+      <section>
+        <Card className="logo-card" styles={{ marginBottom: "2em" }}>
+          <CardBody>
+            <h1 className="title">로고 이미지</h1>
+            <ImageUploader
+              value={input.image}
+              onChange={changeImage}
+              errorMessage={inputMessage.image}
+              description={<p className="description">파일 업로드<br/>Drag & Drop</p>}
+              styles={{ height: "20em" }}
+            />
+          </CardBody>
+        </Card>
+      </section>
+
       <section>
         <Card styles={{ marginBottom: "2em" }}>
           <CardBody>
@@ -154,21 +170,6 @@ function Form({ name = DefaultProps.name, imageName = DefaultProps.imageName, gr
               <InputMessage styles={{margin: "0.5em 0 0 0.8em"}}>{inputMessage.name}</InputMessage>
             </Input>
             <p className="description">아이돌 그룹의 이름을 지정합니다. 이 이름은 사용자가 포토카드를 찾거나, 관리자가 포토카드 정보를 관리할 때 사용됩니다.</p>
-          </CardBody>
-        </Card>
-      </section>
-
-      <section>
-        <Card className="logo-card">
-          <CardBody>
-            <h1 className="title">로고 이미지</h1>
-            <ImageUploader
-              value={input.image}
-              onChange={changeImage}
-              errorMessage={inputMessage.image}
-              description={<p className="description">파일 업로드<br/>Drag & Drop</p>}
-              styles={{ height: "20em" }}
-            />
           </CardBody>
         </Card>
       </section>

@@ -1,3 +1,6 @@
+@import '@util/common';
+
 .InventoryPage {
-  padding: 5em 1.5em;
+  @include contents;
+  padding: 4em 5vh;
 }

@@ -1,5 +1,7 @@
+@import '@util/common';
+
 .GroupWriterPage {
-  padding: 5em 1.5em;
+  @include contents;
 
   .Card {
     .label { margin: 0 0 1em 0; }

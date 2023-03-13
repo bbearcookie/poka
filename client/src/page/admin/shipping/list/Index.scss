@@ -1,11 +1,5 @@
+@import '@util/common';
+
 .AdminShippingListPage {
-  padding: 5em 10vh;
-
-  @media screen and (max-width: 70rem) {
-    padding: 5em 5vh;
-
-    .shipping-section {
-      font-size: 0.9em;
-    }
-  }
+  @include contents;
 }

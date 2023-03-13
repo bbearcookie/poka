@@ -1,5 +1,7 @@
+@import '@util/common';
+
 .TradeWriterPage {
-  padding: 5em 10%;
+  @include contents;
 
   .title-label {
     margin: 0 0 1em 0;

@@ -1,5 +1,7 @@
+@import '@util/common';
+
 .PhotoCropPage {
-  padding: 5em 1.5em;
+  @include contents;
 
   .label {
     margin: 0;

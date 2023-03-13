@@ -1,5 +1,7 @@
+@import '@util/common';
+
 .VoucherWriterPage {
-  padding: 5em 1.5em;
+  @include contents;
 
   .button-section {
     display: flex;

@@ -8,7 +8,7 @@
 }
 
 .TradeListPage {
-  padding: 2em 10%;
+  @include contents;
 
   .group-select {
     @include select;

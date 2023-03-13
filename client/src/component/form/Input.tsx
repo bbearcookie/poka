@@ -93,7 +93,7 @@ const StyledInputWrapper = styled.div<StylesProps>`
     border: ${p => p.border ? p.border : '1px solid hsl(222, 9%, 78%)'};
     border-radius: 5px;
     font-family: inherit;
-    font-size: 1rem;
+    font-size: 1em;
     text-align: ${p => p.textAlign};
 
     &::placeholder { color: ${p => p.placeholderColor} }

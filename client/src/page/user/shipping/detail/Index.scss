@@ -1,5 +1,7 @@
+@import '@util/common';
+
 .ShippingDetailPage {
-  padding: 5em 10%;
+  @include contents;
 
   .button-section {
     margin-top: 5em;
