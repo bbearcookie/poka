@@ -10,11 +10,10 @@ import { ItemSection } from '@component/list/content/_styles';
 interface Props {
   res: ResType;
 }
-const DefaultProps = {};
 
 function VoucherSection({ res }: Props) {
   return (
-    <Card className="VoucherSection">
+    <Card>
       <CardHeader>
         <h1 className="title">요청한 소유권</h1>
       </CardHeader>

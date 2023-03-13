@@ -2,9 +2,9 @@ import React, { useCallback } from 'react';
 import { ModalHookType } from '@hook/useModal';
 import TitleModal from '@component/modal/TitleModal';
 import Button from '@component/form/Button';
-import Address from '@component/address/Address';
+import Address from '@component/shipping/address/Address';
 import { ResType } from '@api/query/shipping/useShippingAddressesQuery';
-import { State, Action } from '@component/address/editor/reducer';
+import { State, Action } from '@component/shipping/address/editor/reducer';
 
 interface Props {
   addresses: ResType;
@@ -12,7 +12,6 @@ interface Props {
   state: State;
   dispatch: React.Dispatch<Action>;
 }
-const DefaultProps = {};
 
 function AddressModal({ addresses, modal, state, dispatch }: Props) {
 

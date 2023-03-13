@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { State, Action, FormType } from '@component/address/editor/reducer';
+import { State, Action, FormType } from '@component/shipping/address/editor/reducer';
 import Name from './content/Name';
 import Recipient from './content/Recipient';
 import Contact from './content/Contact';

@@ -5,7 +5,7 @@ import CardBody from '@component/card/basic/CardBody';
 import CardList from '@component/card/basic/CardList';
 import CardListItem from '@component/card/basic/CardListItem';
 import UserProfile from '@component/profile/UserProfile';
-import Address from '@component/address/Address';
+import Address from '@component/shipping/address/Address';
 import { getFormattedTime } from '@util/date';
 import StateLabel from '@component/label/stateLabel/StateLabel';
 import { ResType } from '@api/query/shipping/useShippingRequestQuery';

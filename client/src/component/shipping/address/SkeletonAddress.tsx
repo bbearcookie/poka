@@ -5,12 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faPhone, faInfoCircle, faEdit, faClose, faUser, faHouse } from '@fortawesome/free-solid-svg-icons';
 import { StyledWrapper, ContentSection, IconSection } from './Address';
 
-interface Props {
-
-}
-const DefaultProps = {};
-
-function SkeletonAddress({  }: Props) {
+function SkeletonAddress() {
   return (
     <StyledWrapper>
       <SkeletonItem styles={{ height: "1.35em", margin: "0 0 1em 0" }} />

@@ -7,7 +7,6 @@ import { ShippingAddressType } from '@type/shipping';
 interface Props {
   address: ShippingAddressType;
 }
-const DefaultProps = {};
 
 function AddressPrime({ address }: Props) {
 

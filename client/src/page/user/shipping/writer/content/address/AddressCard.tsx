@@ -6,8 +6,8 @@ import { ModalHookType } from '@hook/useModal';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import Button from '@component/form/Button';
-import AddressEditor from '@component/address/editor/AddressEditor';
-import { State, Action } from '@component/address/editor/reducer';
+import AddressEditor from '@component/shipping/address/editor/AddressEditor';
+import { State, Action } from '@component/shipping/address/editor/reducer';
 
 interface Props {
   modal: ModalHookType;

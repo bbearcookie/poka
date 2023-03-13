@@ -7,7 +7,6 @@ import UserEditor from './content/editor/UserEditor';
 interface Props {
   user: UserResType;
 }
-const DefaultProps = {};
 
 function Success({ user }: Props) {
   const [editMode, setEditMode] = useState(false);

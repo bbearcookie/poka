@@ -2,10 +2,9 @@ import React from 'react';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
-import SkeletonAddress from '@component/address/SkeletonAddress';
+import SkeletonAddress from '@component/shipping/address/SkeletonAddress';
 
 interface Props {}
-const DefaultProps = {};
 
 function Loading({  }: Props) {
   return (

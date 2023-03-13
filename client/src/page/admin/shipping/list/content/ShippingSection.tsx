@@ -54,7 +54,6 @@ function ShippingSection({  }: Props) {
             userName: "사용자 아이디"
           }}
           options={{
-            voucherState: true,
             shippingState: true,
             paymentState: true
           }}

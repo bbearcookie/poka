@@ -9,7 +9,6 @@ import { ShippingAddressType } from '@type/shipping';
 interface Props {
   address: ShippingAddressType;
 }
-const DefaultProps = {};
 
 function AddressRemove({ address }: Props) {
   const removeModal = useModal();

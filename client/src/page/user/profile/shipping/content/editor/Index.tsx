@@ -6,8 +6,8 @@ import useAddShippingAddress, { ResType } from '@api/mutation/shipping/useAddShi
 import { AxiosResponse, AxiosError } from 'axios';
 import { ResponseError } from '@type/response';
 import Button from '@component/form/Button';
-import reducer, { initialState, FormType } from '@component/address/editor/reducer';
-import AddressEditor from '@component/address/editor/AddressEditor';
+import reducer, { initialState, FormType } from '@component/shipping/address/editor/reducer';
+import AddressEditor from '@component/shipping/address/editor/AddressEditor';
 import { ShippingAddressType } from '@type/shipping';
 
 interface Props {
@@ -21,8 +21,6 @@ function Index({ address, closeEditor }: Props) {
     draft.form = address;
   }));
   const { userId } = useAppSelector(state => state.auth);
-
-  console.log(state);
 
   // API 요청 성공시
   const onSuccess = useCallback((res: AxiosResponse<ResType, any>) => {
