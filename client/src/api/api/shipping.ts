@@ -74,3 +74,8 @@ export const refundShippingPayment = async (param: refundShippingPaymentParam) =
   const res = await client.post(url);
   return res;
 }
+export const approveShippingRequest = async (requestId: number) => {
+  const url = `/api/shipping/request/${requestId}/approve`;
+  const res = await client.post(url);
+  return res;
+}

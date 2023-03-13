@@ -7,6 +7,7 @@ import * as getRequests from '@controller/shipping/request/getRequests';
 import * as postRequest from '@controller/shipping/request/postRequest';
 import * as deleteRequest from '@controller/shipping/request/deleteRequest';
 import * as getRequestDetail from '@controller/shipping/request/getRequestDetail';
+import * as postApprove from '@controller/shipping/request/postApprove';
 
 import * as postPayment from '@controller/shipping/payment/postPayment';
 import * as postRefund from '@controller/shipping/payment/postRefund';
@@ -29,6 +30,6 @@ router.route('/request/:requestId')
 
 router.post('/request/:requestId/payment', postPayment.validator, postPayment.controller);
 router.post('/request/:requestId/refund', postRefund.validator, postRefund.controller);
-
+router.post('/request/:requestId/approve', postApprove.validator, postApprove.controller);
 
 export default router;

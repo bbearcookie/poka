@@ -21,7 +21,7 @@ function Remove({ res, redirectTo }: Props) {
 
   // 삭제 요청
   const deleteMutation = useDeleteShippingRequest(res.shipping.requestId, res.vouchers.map(e => e.voucherId),
-    (res) => navigate('/shipping/list'),
+    (res) => navigate(redirectTo),
     (err) => {
       modal.setErrorMessage(getErrorMessage(err));
     }
@@ -58,17 +58,17 @@ function Remove({ res, redirectTo }: Props) {
           iconMargin: "1em"
         }}
         onClick={openModal}
-      >취소</Button>
+      >삭제</Button>
 
       <ConfirmModal
         hook={modal}
-        titleName="배송요청 취소"
+        titleName="배송요청 삭제"
         confirmText="예"
         cancelText="아니오"
         cardStyles={{ maxWidth: "100vh" }}
         handleConfirm={onCancel}
       >
-        <p className="text">관리자에게 요청했던 배송요청을 삭제하고 취소합니다.</p>
+        <p className="text">관리자에게 요청한 배송요청을 삭제하고 취소합니다.</p>
         <p className="text">아직 관리자가 배송처리하지 않은 경우에만 가능하며,</p>
         <p className="text">요청한 소유권들은 다시 교환 가능한 상태가 됩니다.</p>
         {res.shipping.paymentState !== 'waiting' && <p className="text"><br/>결제된 배송비는 환불처리 됩니다.</p>}
