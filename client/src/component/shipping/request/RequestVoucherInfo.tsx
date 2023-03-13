@@ -1,30 +1,34 @@
 import React from 'react';
-import Card from '@component/card/basic/Card';
+import Card, { StylesProps as CardStyles } from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { ResType } from '@api/query/shipping/useShippingRequestQuery';
 import PhotoCard from '@component/photocard/photo/PhotoCard';
 import { ItemSection } from '@component/list/content/_styles';
+import { VoucherType } from '@type/voucher';
+import { IconType } from '@type/icon';
 
 interface Props {
-  res: ResType;
+  vouchers: VoucherType[];
+  icon?: IconType;
+  handleClick?: (id: number) => void;
+  cardStyles?: CardStyles;
 }
 
-function VoucherSection({ res }: Props) {
+function RequestVoucherInfo({ vouchers, icon, handleClick, cardStyles }: Props) {
   return (
-    <Card>
+    <Card styles={cardStyles}>
       <CardHeader>
         <h1 className="title">요청한 소유권</h1>
       </CardHeader>
       <CardBody>
         <ItemSection>
-          {res.vouchers.map(voucher =>
+          {vouchers.map(voucher =>
             <PhotoCard
               {...voucher}
               key={voucher.voucherId}
               photoName={voucher.name}
-              icon={{ svg: faArrowRight, tooltip: '상세 보기' }}
+              icon={icon}
+              handleClick={handleClick}
           />)}
         </ItemSection>
       </CardBody>
@@ -32,4 +36,4 @@ function VoucherSection({ res }: Props) {
   );
 }
 
-export default VoucherSection;
+export default RequestVoucherInfo;

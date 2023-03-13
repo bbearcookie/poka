@@ -1,7 +1,6 @@
 import React from 'react';
 import Card, { StylesProps as CardStyles } from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
-import CardBody from '@component/card/basic/CardBody';
 import CardList from '@component/card/basic/CardList';
 import CardListItem from '@component/card/basic/CardListItem';
 import UserProfile from '@component/profile/UserProfile';
