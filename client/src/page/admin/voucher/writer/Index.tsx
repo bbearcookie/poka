@@ -8,9 +8,7 @@ import SubmitSection from './content/ButtonSection';
 import reducer, { initialState } from './reducer';
 import './Index.scss';
 
-interface Props {}
-
-function Index({  }: Props) {
+function Index() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
 
@@ -36,10 +34,8 @@ function Index({  }: Props) {
     dispatch({ type: 'CLEAR_MESSAGE' });
 
     postMutation.mutate({
-      body: {
-        username: state.form.username,
-        vouchers: state.form.vouchers.map(item => ({ photocardId: item.photocardId, amount: item.amount }))
-      }
+      username: state.form.username,
+      vouchers: state.form.vouchers.map(item => ({ photocardId: item.photocardId, amount: item.amount }))
     });
   }, [state, postMutation]);
 

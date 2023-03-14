@@ -5,10 +5,6 @@ import { fetchVoucherLogsDetail } from '@api/api/voucher';
 import { VoucherLogType } from '@type/voucher';
 import * as queryKey from '@api/queryKey';
 
-export interface ParamType {
-  pageParam: number;
-}
-
 export interface ResType {
   message: string;
   paging: {

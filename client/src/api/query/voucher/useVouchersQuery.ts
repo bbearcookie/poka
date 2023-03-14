@@ -15,11 +15,6 @@ export interface FilterType {
   voucherState: VoucherStateKey;
 }
 
-export interface ParamType {
-  pageParam: number;
-  filter: FilterType;
-}
-
 export interface ResType {
   message: string;
   paging: {

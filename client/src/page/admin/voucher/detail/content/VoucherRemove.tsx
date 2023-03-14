@@ -9,7 +9,6 @@ import ConfirmModal from '@component/modal/ConfirmModal';
 interface Props {
   voucherId: number;
 }
-const DefaultProps = {};
 
 function VoucherRemove({ voucherId }: Props) {
   const removeModal = useModal();
@@ -17,6 +16,7 @@ function VoucherRemove({ voucherId }: Props) {
 
   // 데이터 삭제 요청
   const deleteMutation = useDeleteVoucher(
+    voucherId,
     (res) => navigate('/admin/voucher/list'),
     (err) => removeModal.setErrorMessage(getErrorMessage(err))
   );
