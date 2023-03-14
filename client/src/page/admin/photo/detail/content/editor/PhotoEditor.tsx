@@ -17,7 +17,6 @@ interface Props {
   photocardId: number;
   closeEditor: () => void;
 }
-const DefaultProps = {};
 
 function PhotoEditor({ photo, photocardId, closeEditor }: Props) {
   const [state, dispatch] = useReducer(reducer, produce(initialState, draft => {
@@ -30,6 +29,7 @@ function PhotoEditor({ photo, photocardId, closeEditor }: Props) {
 
   // 데이터 수정 요청
   const putMutation = useModifyPhoto<keyof FormType>(
+    photocardId,
     (res) => closeEditor(),
     (err) => {
       err.response?.data.errors.forEach((e) => {
@@ -43,13 +43,10 @@ function PhotoEditor({ photo, photocardId, closeEditor }: Props) {
     e.preventDefault();
     console.log(state);
     putMutation.mutate({
-      photocardId,
-      body: {
-       ...state.form,
-       image: state.form.image.file
-      }
+      ...state.form,
+      image: state.form.image.file
     });
-  }, [photocardId, state, putMutation]);
+  }, [state, putMutation]);
 
   return (
     <Card className="PhotoEditor" styles={{ marginBottom: "5em" }}>

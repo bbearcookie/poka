@@ -4,11 +4,6 @@ import { addPhotos } from '@api/api/photo';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ResponseError } from "@type/response";
 import { getErrorMessage } from '@util/request';
-import * as queryKey from '@api/queryKey';
-
-export interface ParamType {
-  body: FormData;
-}
 
 interface ResType { message: string; }
 
@@ -19,9 +14,9 @@ export default function useAddPhotos<TParam>(
 UseMutationResult<
   AxiosResponse<ResType>,
   AxiosError<ResponseError<TParam>>,
-  ParamType
+  FormData
 > {
-  return useMutation(addPhotos, {
+  return useMutation(body => addPhotos(body), {
     onSuccess: (res: AxiosResponse<ResType>) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
       if (onSuccess) onSuccess(res);

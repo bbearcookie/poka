@@ -9,9 +9,7 @@ import ButtonSection from './content/ButtonSection';
 import reducer, { initialState } from './reducer';
 import './Index.scss';
 
-interface Props {}
-
-function PhotoWriterPage({  }: Props) {
+function PhotoWriterPage() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
 
@@ -42,7 +40,7 @@ function PhotoWriterPage({  }: Props) {
       formData.append('name[]', photo.name);
       formData.append('image[]', photo.imageFile);
     });
-    postMutation.mutate({ body: formData });
+    postMutation.mutate(formData);
 
   }, [state, postMutation]);
 
