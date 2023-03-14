@@ -5,16 +5,16 @@ import { ResponseError } from "@type/response";
 import { getErrorMessage } from '@util/request';
 import { signup } from '@api/api/auth';
 
-export interface ParamType {
-  body: {
-    username: string;
-    nickname: string;
-    password: string;
-    passwordCheck: string;
-  }
+interface BodyType {
+  username: string;
+  nickname: string;
+  password: string;
+  passwordCheck: string;
 }
 
-interface ResType { message: string; }
+interface ResType {
+  message: string;
+}
 
 export default function useSignup<TParam>(
   onSuccess?: (res: AxiosResponse<ResType>) => void,
@@ -23,9 +23,9 @@ export default function useSignup<TParam>(
 UseMutationResult<
   AxiosResponse<ResType>,
   AxiosError<ResponseError<TParam>>,
-  ParamType
+  BodyType
 > {
-  return useMutation(signup, {
+  return useMutation(body => signup(body), {
     onSuccess: (res: AxiosResponse<ResType>) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
       if (onSuccess) onSuccess(res);

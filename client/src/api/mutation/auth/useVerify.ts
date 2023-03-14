@@ -9,8 +9,6 @@ import { login } from '@util/auth/authSlice';
 import { removeUser } from '@util/auth/auth';
 import { verify } from '@api/api/auth';
 
-export interface ParamType {}
-
 interface ResType {
   message: string;
   user: LoginTokenPayloadType;
@@ -22,8 +20,7 @@ export default function useVerify<TParam>(
 ): 
 UseMutationResult<
   AxiosResponse<ResType>,
-  AxiosError<ResponseError<TParam>>,
-  ParamType
+  AxiosError<ResponseError<TParam>>
 > {
   const dispatch = useAppDispatch();
 

@@ -6,10 +6,7 @@ import Button from '@component/form/Button';
 import InputMessage from '@component/form/InputMessage';
 import reducer, { initialState, FormType } from './reducer';
 
-interface Props {}
-const DefaultProps = {};
-
-function Form({  }: Props) {
+function Form() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
 
@@ -39,9 +36,7 @@ function Form({  }: Props) {
   // 폼 전송 이벤트
   const onSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
-    postMutation.mutate({
-      body: { ...state.form }
-    });
+    postMutation.mutate({ ...state.form });
   }, [state, postMutation]);
 
   return (

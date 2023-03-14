@@ -7,9 +7,9 @@ import { useAppDispatch } from '@app/redux/reduxHooks';
 import { logout } from '@util/auth/authSlice';
 import { logout as logoutFn } from '@api/api/auth';
 
-export interface ParamType {}
-
-interface ResType { message: string; }
+interface ResType {
+  message: string;
+}
 
 export default function useLogout<TParam>(
   onSuccess?: (res: AxiosResponse<ResType>) => void,
@@ -17,8 +17,7 @@ export default function useLogout<TParam>(
 ): 
 UseMutationResult<
   AxiosResponse<ResType>,
-  AxiosError<ResponseError<TParam>>,
-  ParamType
+  AxiosError<ResponseError<TParam>>
 > {
   const dispatch = useAppDispatch();
 

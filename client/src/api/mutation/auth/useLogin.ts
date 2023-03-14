@@ -8,11 +8,9 @@ import { LoginTokenPayloadType } from '@type/user';
 import { login } from '@util/auth/authSlice';
 import { login as loginFn } from '@api/api/auth';
 
-export interface ParamType {
-  body: {
-    username: string;
-    password: string;
-  }
+interface BodyType {
+  username: string;
+  password: string;
 }
 
 interface ResType {
@@ -27,11 +25,11 @@ export default function useLogin<TParam>(
 UseMutationResult<
   AxiosResponse<ResType>,
   AxiosError<ResponseError<TParam>>,
-  ParamType
+  BodyType
 > {
   const dispatch = useAppDispatch();
 
-  return useMutation(loginFn, {
+  return useMutation(body => loginFn(body), {
     onSuccess: (res: AxiosResponse<ResType>) => {
       toast.success(res.data.message, { autoClose: 2000, position: toast.POSITION.TOP_CENTER });
       dispatch(login(res.data.user));
