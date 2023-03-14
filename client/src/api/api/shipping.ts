@@ -1,13 +1,13 @@
 import { client } from '@util/request';
-import { ParamType as ChangePrimeAddressParam } from '@api/mutation/shipping/useChangePrimeAddress';
-import { ParamType as modifyShippingAddressParam } from '@api/mutation/shipping/useModifyShippingAddress';
-import { ParamType as addShippingAddressParam } from '@api/mutation/shipping/useAddShippingAddress';
-import { ParamType as deleteShippingAddressParam } from '@api/mutation/shipping/useDeleteShippingAddress';
+import { ParamType as ChangePrimeAddressParam } from '@api/mutation/shipping/address/useChangePrimeAddress';
+import { ParamType as modifyShippingAddressParam } from '@api/mutation/shipping/address/useModifyShippingAddress';
+import { ParamType as addShippingAddressParam } from '@api/mutation/shipping/address/useAddShippingAddress';
+import { ParamType as deleteShippingAddressParam } from '@api/mutation/shipping/address/useDeleteShippingAddress';
 import { ParamType as ShippingsParam } from '@api/query/shipping/useShippingsQuery';
-import { ParamType as addShippingParam } from '@api/mutation/shipping/useAddShippingRequest';
-import { ParamType as deleteShippingRequestParam } from '@api/mutation/shipping/useDeleteShippingRequest';
-import { ParamType as checkShippingPaymentParam } from '@api/mutation/shipping/useCheckShippingPayment';
-import { ParamType as refundShippingPaymentParam } from '@api/mutation/shipping/useRefundShippingPayment';
+import { ParamType as addShippingParam } from '@api/mutation/shipping/request/useAddShippingRequest';
+import { ParamType as deleteShippingRequestParam } from '@api/mutation/shipping/request/useDeleteShippingRequest';
+import { ParamType as checkShippingPaymentParam } from '@api/mutation/shipping/payment/useCheckShippingPayment';
+import { ParamType as refundShippingPaymentParam } from '@api/mutation/shipping/payment/useRefundShippingPayment';
 
 export const fetchUserShippingAddress = async (userId: number) => {
   const url = `/api/user/${userId}/shipping-address`;

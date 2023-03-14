@@ -1,8 +1,8 @@
 import React, { useCallback, useReducer } from 'react';
 import produce from 'immer';
 import { useAppSelector } from '@app/redux/reduxHooks';
-import useModifyShippingAddress from '@api/mutation/shipping/useModifyShippingAddress';
-import useAddShippingAddress, { ResType } from '@api/mutation/shipping/useAddShippingAddress';
+import useModifyShippingAddress from '@api/mutation/shipping/address/useModifyShippingAddress';
+import useAddShippingAddress, { ResType } from '@api/mutation/shipping/address/useAddShippingAddress';
 import { AxiosResponse, AxiosError } from 'axios';
 import { ResponseError } from '@type/response';
 import Button from '@component/form/Button';

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import useCheckShippingPayment from '@api/mutation/shipping/useCheckShippingPayment';
+import useCheckShippingPayment from '@api/mutation/shipping/payment/useCheckShippingPayment';
 import { toast } from 'react-toastify';
 import { ResType } from '@api/query/shipping/useShippingRequestQuery';
 import { faCoins } from '@fortawesome/free-solid-svg-icons';

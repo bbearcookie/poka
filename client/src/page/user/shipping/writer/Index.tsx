@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import produce from 'immer';
 import qs from 'qs';
 import addressReducer, { initialState as AddressInitState, FormType as AddressFormType } from '@component/shipping/address/editor/reducer';
-import useAddShippingRequest from '@api/mutation/shipping/useAddShippingRequest';
+import useAddShippingRequest from '@api/mutation/shipping/request/useAddShippingRequest';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import VoucherSection from './content/voucher/VoucherSection';
 import AddressSection from './content/address/Index';

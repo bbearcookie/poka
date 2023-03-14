@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useDeleteShippingRequest from '@api/mutation/shipping/useDeleteShippingRequest';
-import useRefundShippingPayment from '@api/mutation/shipping/useRefundShippingPayment';
+import useDeleteShippingRequest from '@api/mutation/shipping/request/useDeleteShippingRequest';
+import useRefundShippingPayment from '@api/mutation/shipping/payment/useRefundShippingPayment';
 import { ResType } from '@api/query/shipping/useShippingRequestQuery';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { getErrorMessage } from '@util/request';

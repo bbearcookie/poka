@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import useApproveShippingRequest from '@api/mutation/shipping/useApproveShippingRequest';
+import useApproveShippingRequest from '@api/mutation/shipping/request/useApproveShippingRequest';
 import { ResType } from '@api/query/shipping/useShippingRequestQuery';
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons';
 import ConfirmModal from '@component/modal/ConfirmModal';
