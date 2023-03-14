@@ -10,11 +10,6 @@ interface FilterType {
   endDate: Date;
 }
 
-export interface ParamType {
-  pageParam: number;
-  filter: FilterType;
-}
-
 export interface ResType {
   message: string;
   paging: {

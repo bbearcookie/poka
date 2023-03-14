@@ -11,7 +11,6 @@ import RemoveCard from '@component/card/RemoveCard';
 interface Props {
   trade: TradeType;
 }
-const DefaultProps = {};
 
 function TradeRemove({ trade }: Props) {
   const { userId } = useAppSelector(state => state.auth);
@@ -20,6 +19,7 @@ function TradeRemove({ trade }: Props) {
 
   // 데이터 삭제 요청
   const deleteMutation = useDeleteTrade(
+    trade.tradeId,
     (res) => navigate('/trade/list'),
     (err) => removeModal.setErrorMessage(getErrorMessage(err))
   );

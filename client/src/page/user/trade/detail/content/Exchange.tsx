@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import useTradeExchangeQuery from '@api/query/trade/useTradeExchangeQuery';
 import useExchangeTrade from '@api/mutation/trade/useExchangeTrade';
@@ -14,13 +13,11 @@ import ConfirmModal from '@component/modal/ConfirmModal';
 interface Props {
   trade: TradeType;
 }
-const DefaultProps = {};
 
 function Exchange({ trade }: Props) {
   const { userId } = useAppSelector(state => state.auth);
   const [select, setSelect] = useState<{ [x: number]: boolean }>({ });
   const modal = useModal();
-  const navigate = useNavigate();
 
   const { data: exchange, status } = useTradeExchangeQuery(trade.tradeId, {
     enabled: function() {
@@ -34,6 +31,7 @@ function Exchange({ trade }: Props) {
   });
 
   const postMutation = useExchangeTrade(
+    trade.tradeId,
     (res) => { modal.close(); },
     (err) => { modal.setErrorMessage(getErrorMessage(err)); }
   );
@@ -54,13 +52,8 @@ function Exchange({ trade }: Props) {
   // 교환
   const handleExchange = useCallback(() => {
     const vouchers = Object.entries(select).filter(item => item[1]).map(item => Number(item[0]));
-    postMutation.mutate({
-      tradeId: trade.tradeId,
-      body: {
-        vouchers
-      }
-    })
-  }, [select, postMutation, trade]);
+    postMutation.mutate({ vouchers });
+  }, [select, postMutation]);
 
   return (
     <>

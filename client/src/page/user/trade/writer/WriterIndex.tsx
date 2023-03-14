@@ -7,10 +7,7 @@ import Component from './Component';
 import { initialState, reducer, FormType } from './reducer';
 import './Index.scss';
 
-interface Props {}
-const DefaultProps = {};
-
-function WriterIndex({  }: Props) {
+function WriterIndex() {
   const querystring = qs.parse(window.location.search, { ignoreQueryPrefix: true });
   const voucherId = Number(querystring.voucherId) || 0;
   const [form, formDispatch] = useReducer(reducer, initialState, produce(draft => {
@@ -29,11 +26,9 @@ function WriterIndex({  }: Props) {
 
   const onSubmit = useCallback(() => {
     postMutation.mutate({
-      body: {
-        haveVoucherId: form.data.haveVoucherId,
-        wantPhotocardIds: form.data.wantPhotocardIds,
-        amount: form.data.amount
-      }
+      haveVoucherId: form.data.haveVoucherId,
+      wantPhotocardIds: form.data.wantPhotocardIds,
+      amount: form.data.amount
     });
   }, [form, postMutation]);
 
