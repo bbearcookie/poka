@@ -11,7 +11,6 @@ interface Props {
   member: MemberType;
   memberId: number;
 }
-const DefaultProps = {};
 
 function MemberRemove({ member, memberId }: Props) {
   const removeModal = useModal();
@@ -19,6 +18,7 @@ function MemberRemove({ member, memberId }: Props) {
 
   // 데이터 삭제 요청
   const deleteMutation = useDeleteMember(
+    memberId,
     (res) => navigate(`/admin/group/detail/${res.data.groupId}`),
     (err) => removeModal.setErrorMessage(getErrorMessage(err))
   );

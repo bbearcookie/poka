@@ -6,10 +6,6 @@ import { ResponseError } from "@type/response";
 import { getErrorMessage } from '@util/request';
 import * as queryKey from '@api/queryKey';
 
-export interface ParamType {
-  memberId: number;
-}
-
 interface ResType {
   message: string;
   groupId: number;
@@ -17,17 +13,17 @@ interface ResType {
 }
 
 export default function useDeleteMember<TParam>(
+  memberId: number,
   onSuccess?: (res: AxiosResponse<ResType>) => void,
   onError?: (err: AxiosError<ResponseError<TParam>, any>) => void
 ): 
 UseMutationResult<
   AxiosResponse<ResType>,
-  AxiosError<ResponseError<TParam>>,
-  ParamType
+  AxiosError<ResponseError<TParam>>
 > {
   const queryClient = useQueryClient();
 
-  return useMutation(deleteMember, {
+  return useMutation(() => deleteMember(memberId), {
     onSuccess: (res: AxiosResponse<ResType>) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
       queryClient.invalidateQueries(queryKey.groupKeys.all);

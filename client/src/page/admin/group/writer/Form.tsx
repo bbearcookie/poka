@@ -59,6 +59,7 @@ function Form({ name = DefaultProps.name, imageName = DefaultProps.imageName, gr
 
   // 데이터 수정 요청
   const putMutation = useModifyGroup<keyof InputType>(
+    groupId || 0,
     (res) => navigate(`/admin/group/detail/${groupId}`),
     onMutationError
   );
@@ -105,20 +106,15 @@ function Form({ name = DefaultProps.name, imageName = DefaultProps.imageName, gr
     // 그룹 수정중이면 수정 요청
     if (groupId) {
       putMutation.mutate({
-        groupId,
-        body: {
-          name: input.name,
-          image: input.image.file
-        }
+        name: input.name,
+        image: input.image.file
       });
     
     // 새로운 그룹 작성중이면 추가 요청
     } else {
       postMutation.mutate({
-        body: {
-          name: input.name,
-          image: input.image.file
-        }
+        name: input.name,
+        image: input.image.file
       });
     }
 

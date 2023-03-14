@@ -1,34 +1,36 @@
-import { client } from "@util/request";
-import { ParamType as AddMemberParam } from '@api/mutation/member/useAddMember';
-import { ParamType as ModifyGroupParam } from '@api/mutation/member/useModifyMember';
-import { ParamType as DeleteGroupParam } from '@api/mutation/member/useDeleteMember';
+import { client } from '@util/request';
 
+// 멤버 목록 조회
 export const fetchMembers = async () => {
   const url = `/api/member`;
   const res = await client.get(url);
   return res.data;
 }
 
+// 멤버 상세 조회
 export const fetchMemberDetail = async (memberId: number) => {
   const url = `/api/member/${memberId}`;
   const res = await client.get(url);
   return res.data;
 }
 
-export const addMember = async (param: AddMemberParam) => {
-  const url = `/api/group/${param.groupId}/member`;
-  const res = await client.post(url, param.body);
+// 멤버 추가
+export const addMember = async (groupId: number, body: object) => {
+  const url = `/api/group/${groupId}/member`;
+  const res = await client.post(url, body);
   return res;
 }
 
-export const modifyMember = async (param: ModifyGroupParam) => {
-  const url = `/api/member/${param.memberId}`;
-  const res = await client.put(url, param.body);
+// 멤버 수정
+export const modifyMember = async (memberId: number, body: object) => {
+  const url = `/api/member/${memberId}`;
+  const res = await client.put(url, body);
   return res;
 }
 
-export const deleteMember = async (param: DeleteGroupParam) => {
-  const url = `/api/member/${param.memberId}`;
+// 멤버 삭제
+export const deleteMember = async (memberId: number) => {
+  const url = `/api/member/${memberId}`;
   const res = await client.delete(url);
   return res;
 }

@@ -19,12 +19,14 @@ function MemberEditor({ memberId, groupId, defaultValue = '', closeEditor }: Pro
 
   // 데이터 추가 요청
   const addMutation = useAddMember(
+    groupId,
     (res) => closeEditor(),
     (err) => setMessage(getErrorMessage(err))
   );
 
   // 데이터 수정 요청
   const modifyMutation = useModifyMember(
+    memberId || 0,
     (res) => closeEditor(),
     (err) => setMessage(getErrorMessage(err))
   );
@@ -36,18 +38,12 @@ function MemberEditor({ memberId, groupId, defaultValue = '', closeEditor }: Pro
   const onSubmit = useCallback(() => {
     // 수정 요청
     if (memberId) {
-      modifyMutation.mutate({
-        memberId,
-        body: { name: input }
-      });
+      modifyMutation.mutate({ name: input });
     // 추가 요청
     } else {
-      addMutation.mutate({
-        groupId,
-        body: { name: input }
-      });
+      addMutation.mutate({ name: input });
     }
-  }, [input, groupId, memberId, addMutation, modifyMutation]);
+  }, [input, memberId, addMutation, modifyMutation]);
 
   return (
     <tr>

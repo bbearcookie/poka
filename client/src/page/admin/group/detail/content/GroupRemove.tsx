@@ -16,7 +16,10 @@ function GroupRemove({ group, groupId }: Props) {
   const navigate = useNavigate();
 
   // 데이터 삭제 요청
-  const deleteMutation = useDeleteGroup((res) => navigate('/admin/group/list'));
+  const deleteMutation = useDeleteGroup(
+    groupId,
+    (res) => navigate('/admin/group/list')
+  );
 
   // 그룹 삭제
   const removeGroup = useCallback(() => {

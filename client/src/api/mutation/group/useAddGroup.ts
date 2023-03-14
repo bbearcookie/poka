@@ -5,11 +5,9 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { ResponseError } from "@type/response";
 import { getErrorMessage } from '@util/request';
 
-export interface ParamType {
-  body: {
-    name: string;
-    image: File | null;
-  }
+interface BodyType {
+  name: string;
+  image: File | null;
 }
 
 interface ResType { message: string; }
@@ -21,9 +19,9 @@ export default function useAddGroup<TParam>(
 UseMutationResult<
   AxiosResponse<ResType>,
   AxiosError<ResponseError<TParam>>,
-  ParamType
+  BodyType
 > {
-  return useMutation(addGroup, {
+  return useMutation(body => addGroup(body), {
     onSuccess: (res: AxiosResponse<ResType>) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
       if (onSuccess) onSuccess(res);
