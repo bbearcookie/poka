@@ -20,7 +20,7 @@ function Remove({ res, redirectTo }: Props) {
   const navigate = useNavigate();
 
   // 삭제 요청
-  const deleteMutation = useDeleteShippingRequest(res.shipping.requestId, res.vouchers.map(e => e.voucherId),
+  const deleteMutation = useDeleteShippingRequest(res.shipping.requestId,
     (res) => navigate(redirectTo),
     (err) => {
       modal.setErrorMessage(getErrorMessage(err));
@@ -28,8 +28,8 @@ function Remove({ res, redirectTo }: Props) {
   );
 
   // 환불 요청
-  const refundMutation = useRefundShippingPayment(
-    (r) => deleteMutation.mutate({ requestId: res.shipping.requestId })
+  const refundMutation = useRefundShippingPayment(res.shipping.requestId,
+    (res) => deleteMutation.mutate({})
   );
 
   // 모달 열기
@@ -42,10 +42,10 @@ function Remove({ res, redirectTo }: Props) {
   const onCancel = useCallback(() => {
     // 아직 결제하지 않은 경우 바로 삭제
     if (res.shipping.paymentState === 'waiting')
-      deleteMutation.mutate({ requestId: res.shipping.requestId });
+      deleteMutation.mutate({});
     // 결제한 경우 환불 후 삭제
     else
-      refundMutation.mutate({ requestId: res.shipping.requestId });
+      refundMutation.mutate({});
   }, [res, deleteMutation, refundMutation]);
 
   return (

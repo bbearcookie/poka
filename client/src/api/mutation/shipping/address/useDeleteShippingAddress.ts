@@ -4,36 +4,33 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { ResponseError } from "@type/response";
 import { getErrorMessage } from '@util/request';
 import * as queryKey from '@api/queryKey';
-import { deleteShippingAddress } from '@api/api/shipping';
+import { deleteShippingAddress } from '@api/api/shipping/address';
 
-export interface ParamType {
-  addressId: number;
+interface ResType {
+  message: string;
 }
 
-interface ResType { message: string; }
-
 export default function useDeleteShippingAddress<TParam>(
-  userId: number,
+  addressId: number,
   onSuccess?: (res: AxiosResponse<ResType>) => void,
   onError?: (err: AxiosError<ResponseError<TParam>, any>) => void
 ): 
 UseMutationResult<
   AxiosResponse<ResType>,
-  AxiosError<ResponseError<TParam>>,
-  ParamType
+  AxiosError<ResponseError<TParam>>
 > {
   const queryClient = useQueryClient();
 
-  return useMutation(deleteShippingAddress, {
+  return useMutation(() => deleteShippingAddress(addressId), {
     onSuccess: (res: AxiosResponse<ResType>) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-      queryClient.invalidateQueries(queryKey.userKeys.address(userId));
       queryClient.invalidateQueries(queryKey.addressKeys.all);
+      queryClient.invalidateQueries(queryKey.addressKeys.detail(addressId));
       if (onSuccess) onSuccess(res);
     },
     onError: (err) => {
       toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
       if (onError) onError(err);
     }
-  })
+  });
 }

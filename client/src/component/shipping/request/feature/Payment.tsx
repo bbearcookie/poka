@@ -11,7 +11,7 @@ interface Props {
 
 // 결제 기능
 function Payment({ res }: Props) {
-  const checkMutation = useCheckShippingPayment();
+  const checkMutation = useCheckShippingPayment(res.shipping.requestId);
 
   // 결제 하기
   const handlePayment = useCallback(() => {
@@ -26,10 +26,7 @@ function Payment({ res }: Props) {
 
       // 결제 성공시 백엔드에 결제 결과 검증 요청
       if (rsp.success) {
-        checkMutation.mutate({
-          requestId: res.shipping.requestId,
-          body: { impUID: rsp.imp_uid || '' }
-        });
+        checkMutation.mutate({ impUID: rsp.imp_uid || '' });
       // 결제 실패시 원인 출력
       } else {
         console.error(`결제 실패(${rsp.error_code}) ${rsp.error_msg}`);

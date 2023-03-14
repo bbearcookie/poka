@@ -14,7 +14,7 @@ function AddressRemove({ address }: Props) {
   const removeModal = useModal();
 
   // 데이터 삭제 요청
-  const deleteMutation = useDeleteShippingAddress(address.userId);
+  const deleteMutation = useDeleteShippingAddress(address.addressId);
 
   // 삭제 이벤트
   const handleRemove = useCallback(() => {

@@ -5,25 +5,23 @@ import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ResponseError } from "@type/response";
 import { getErrorMessage } from '@util/request';
-import { addShippingRequest } from '@api/api/shipping';
+import { addShippingRequest } from '@api/api/shipping/request';
 import * as queryKey from '@api/queryKey';
 
-export interface ParamType {
-  body: {
-    voucherIds: number[];
-    address: {
-      name: string;
-      recipient: string;
-      contact: string;
-      postcode: string;
-      address: string;
-      addressDetail: string;
-      requirement: string;
-    }
+interface BodyType {
+  voucherIds: number[];
+  address: {
+    name: string;
+    recipient: string;
+    contact: string;
+    postcode: string;
+    address: string;
+    addressDetail: string;
+    requirement: string;
   };
 }
 
-export interface ResType {
+interface ResType {
   message: string;
   requestId: number;
 }
@@ -35,12 +33,12 @@ export default function useAddShippingRequest<TParam>(
 UseMutationResult<
   AxiosResponse<ResType>,
   AxiosError<ResponseError<TParam>>,
-  ParamType
+  BodyType
 > {
   const queryClient = useQueryClient();
-  const voucherIds: React.MutableRefObject<number[]> = useRef([]);
+  const voucherIds = useRef<number[]>([]);
 
-  return useMutation(addShippingRequest, {
+  return useMutation((body) => addShippingRequest(body), {
     onSuccess: (res: AxiosResponse<ResType>) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
       voucherIds.current.forEach(v => queryClient.invalidateQueries(queryKey.voucherKeys.detail(v)));
@@ -52,7 +50,7 @@ UseMutationResult<
       if (onError) onError(err);
     },
     onMutate: (params) => {
-      voucherIds.current = params.body.voucherIds;
+      voucherIds.current = params.voucherIds;
     }
   });
 }

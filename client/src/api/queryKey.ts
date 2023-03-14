@@ -24,7 +24,6 @@ export const voucherKeys = {
 export const userKeys = {
   all: ["user"] as const,
   profile: (userId: number) => [...userKeys.all, "profile", userId] as const,
-  address: (userId: number) => [...userKeys.all, "address", userId] as const,
   tradeHistory: (userId: number) => [...userKeys.all, "trade-history", userId] as const,
 }
 

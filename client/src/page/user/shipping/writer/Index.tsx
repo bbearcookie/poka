@@ -11,9 +11,7 @@ import ButtonSection from './content/ButtonSection';
 import reducer, { initialState, FormType } from './reducer';
 import './Index.scss';
 
-interface Props {}
-
-function Index({  }: Props) {
+function Index() {
   const querystring = qs.parse(window.location.search, { ignoreQueryPrefix: true });
   const [state, dispatch] = useReducer(reducer, produce(initialState, draft => {
     if (Number(querystring.voucherId)) draft.data.voucherIds = [Number(querystring.voucherId)];
@@ -45,10 +43,8 @@ function Index({  }: Props) {
   const onSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     addMutation.mutate({
-      body: {
-        voucherIds: state.data.voucherIds,
-        address: addressState.form
-      }
+      voucherIds: state.data.voucherIds,
+      address: addressState.form
     });
   }, [addMutation, state, addressState]);
 

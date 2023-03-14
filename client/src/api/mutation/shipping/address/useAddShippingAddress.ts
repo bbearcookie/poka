@@ -1,45 +1,42 @@
-import { useRef } from 'react';
 import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ResponseError } from "@type/response";
 import { getErrorMessage } from '@util/request';
 import * as queryKey from '@api/queryKey';
-import { addShippingAddress } from '@api/api/shipping';
+import { addShippingAddress } from '@api/api/shipping/address';
 
-export interface ParamType {
-  userId: number;
-  body: {
-    address: {
-      name: string;
-      recipient: string;
-      contact: string;
-      postcode: string;
-      address: string;
-      addressDetail: string;
-      requirement: string;
-    }
-  };
+interface BodyType {
+  address: {
+    name: string;
+    recipient: string;
+    contact: string;
+    postcode: string;
+    address: string;
+    addressDetail: string;
+    requirement: string;
+  }
 }
 
-export interface ResType { message: string; }
+export interface ResType {
+  message: string;
+}
 
 export default function useAddShippingAddress<TParam>(
+  userId: number,
   onSuccess?: (res: AxiosResponse<ResType>) => void,
   onError?: (err: AxiosError<ResponseError<TParam>, any>) => void
 ): 
 UseMutationResult<
   AxiosResponse<ResType>,
   AxiosError<ResponseError<TParam>>,
-  ParamType
+  BodyType
 > {
-  const userId = useRef(0);
   const queryClient = useQueryClient();
 
-  return useMutation(addShippingAddress, {
+  return useMutation(body => addShippingAddress(userId, body), {
     onSuccess: (res: AxiosResponse<ResType>) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-      queryClient.invalidateQueries(queryKey.userKeys.address(userId.current));
       queryClient.invalidateQueries(queryKey.addressKeys.all);
       if (onSuccess) onSuccess(res);
     },
@@ -47,8 +44,5 @@ UseMutationResult<
       toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
       if (onError) onError(err);
     },
-    onMutate: (params) => {
-      userId.current = params.userId;
-    }
-  })
+  });
 }

@@ -42,10 +42,10 @@ function Index({ address, closeEditor }: Props) {
   }, []);
 
   // 데이터 추가 요청
-  const postMutation = useAddShippingAddress(onSuccess, onError);
+  const postMutation = useAddShippingAddress(userId, onSuccess, onError);
 
   // 데이터 수정 요청
-  const putMutation = useModifyShippingAddress(userId, onSuccess, onError);
+  const putMutation = useModifyShippingAddress(address?.addressId || 0, onSuccess, onError);
 
   // 폼 전송 이벤트
   const onSubmit = useCallback((e: React.FormEvent) => {
@@ -60,13 +60,15 @@ function Index({ address, closeEditor }: Props) {
       addressDetail: state.form.addressDetail,
       requirement: state.form.requirement
     }
+
+    console.log(state.form);
     
     // 수정 모드일경우
-    if (address) putMutation.mutate({ addressId: address.addressId, body: { address: data } });
+    if (address) putMutation.mutate({ address: data });
     // 작성 모드일경우
-    else postMutation.mutate({ userId, body: { address: data } });
+    else postMutation.mutate({ address: data });
 
-  }, [address, state, userId, postMutation, putMutation]);
+  }, [address, state, postMutation, putMutation]);
 
   return (
     <AddressEditor state={state} dispatch={dispatch}>

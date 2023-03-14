@@ -1,7 +1,7 @@
 import { useInfiniteQuery, UseInfiniteQueryOptions, UseInfiniteQueryResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { ResponseError } from '@type/response';
-import { fetchShippings } from '@api/api/shipping';
+import { fetchShippings } from '@api/api/shipping/request';
 import { ShippingListItemType } from '@type/shipping';
 import { ShippingStateKey, PaymentStateKey } from '@component/label/stateLabel/_types';
 import * as queryKey from '@api/queryKey';
@@ -10,11 +10,6 @@ export interface FilterType {
   userName: string[];
   shippingState: ShippingStateKey;
   paymentState: PaymentStateKey;
-}
-
-export interface ParamType {
-  pageParam: number;
-  filter: FilterType;
 }
 
 export interface ResType {

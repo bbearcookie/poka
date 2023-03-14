@@ -4,9 +4,11 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { ResponseError } from "@type/response";
 import { getErrorMessage } from '@util/request';
 import * as queryKey from '@api/queryKey';
-import { approveShippingRequest } from '@api/api/shipping';
+import { approveShippingRequest } from '@api/api/shipping/request';
 
-interface ResType { message: string; }
+interface ResType {
+  message: string;
+}
 
 export default function useApproveShippingRequest<TParam>(
   requestId: number,
