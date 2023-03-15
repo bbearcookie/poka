@@ -26,7 +26,7 @@ export const validator = [
 
 // 배송 요청 목록 조회
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
-  const itemPerPage = 10;
+  const itemPerPage = 20;
   const pageParam = req.query.pageParam ? Number(req.query.pageParam) : 0;
   const filter = req.query.filter as unknown as FilterType;
 

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import IconButton from '@component/form/IconButton';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { getYearMonthDay } from '@util/date';
@@ -17,15 +17,22 @@ interface Props {
   paymentState: PaymentStateKey;
   voucherAmount: number;
   writtenTime: string;
+  to?: string;
 }
 
-function Shipping({ requestId, username, nickname, userImageName, shippingState, paymentState, voucherAmount, writtenTime }: Props) {
+function Shipping({
+  requestId,
+  username, nickname, userImageName,
+  shippingState, paymentState,
+  voucherAmount, writtenTime,
+  to
+}: Props) {
   const navigate = useNavigate();
 
   // 상세 페이지 이동
   const onClick = useCallback(() => {
-    navigate(`/admin/shipping/detail/${requestId}`)
-  }, [navigate, requestId]);
+    if (to) navigate(`${to}/${requestId}`);
+  }, [navigate, requestId, to]);
 
   return (
     <StyledShipping onClick={onClick}>
