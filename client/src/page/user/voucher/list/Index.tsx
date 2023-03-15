@@ -23,7 +23,7 @@ function Index({  }: Props) {
       type: 'ADD_KEYWORD',
       value: { category: 'userName', title: '소유자', value: username, show: false }
     });
-  }, [username]);
+  }, [username, keywordDispatch]);
 
   // 상세 페이지로 이동
   const showDetailPage = useCallback((voucherId: number) => {
