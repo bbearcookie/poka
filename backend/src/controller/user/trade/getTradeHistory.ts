@@ -5,7 +5,7 @@ import { isLoggedIn } from '@validator/middleware/auth';
 import { havePageParam } from '@validator/chain/page';
 import { filterSanitizer } from '@validator/chain/filter';
 import { isAdminOrOwner } from '@validator/function/auth';
-import { LoginTokenType } from '@type/user';
+import { LoginToken } from '@type/user';
 import { selectUserTradeHistory } from '@service/trade/history/select';
 
 export type FilterType = {
@@ -27,7 +27,7 @@ export const validator = [
 // 사용자의 교환 내역 조회
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
   const itemPerPage = 20;
-  const loggedUser = req.user as LoginTokenType;
+  const loggedUser = req.user as LoginToken;
   const userId = Number(req.params.userId);
   const pageParam = req.query.pageParam ? Number(req.query.pageParam) : 0;
   const filter = req.query.filter as unknown as FilterType;

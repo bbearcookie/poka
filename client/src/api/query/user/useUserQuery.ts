@@ -2,10 +2,10 @@ import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query
 import { AxiosError } from 'axios';
 import { ResponseError } from '@type/response';
 import { fetchUserDetail } from '@api/api/user';
-import { UserType } from '@type/user';
+import { User } from '@type/user';
 import * as queryKey from '@api/queryKey';
 
-export interface ResType extends UserType {
+export interface ResType extends User {
   message: string;
 }
 

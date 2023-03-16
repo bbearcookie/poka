@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { LoginTokenPayloadType, LoginTokenType } from '@type/user';
+import { LoginToken } from '@type/user';
 
 // 로그인 토큰 생성
-export function createLoginToken(payload: LoginTokenPayloadType) {
+export function createLoginToken(payload: Pick<LoginToken, 'userId' | 'username' | 'strategy' | 'role'>) {
   if (!process.env.TOKEN_SECRET_KEY) throw new Error("TOKEN_SECRET_KEY is undefined");
   if (!process.env.ACCESS_TOKEN_EXPIRES) throw new Error("ACCESS_TOKEN_EXPIRES is undefined");
 
@@ -13,12 +13,12 @@ export function createLoginToken(payload: LoginTokenPayloadType) {
 }
 
 // 토큰 검증
-export function verifyToken(token: string) {
+export function verifyToken(token: string): LoginToken {
   if (!process.env.TOKEN_SECRET_KEY) throw new Error("TOKEN_SECRET_KEY is undefined");
   if (!token) throw new Error("로그인 상태가 아니에요.");
 
   try {
-    const payload = jwt.verify(token, process.env.TOKEN_SECRET_KEY) as LoginTokenType;
+    const payload = jwt.verify(token, process.env.TOKEN_SECRET_KEY) as LoginToken;
     return payload;
   } catch (err) {
     const error = (err as jwt.VerifyErrors);
@@ -45,7 +45,7 @@ export function checkLoggedIn(req: Request, res: Response) {
 }
 
 // 관리자이거나, 로그인 한 사람이 리소스의 주인인지를 반환하는 함수
-export function isAdminOrOwner(user: LoginTokenType, ownerUserId: number) {
+export function isAdminOrOwner(user: LoginToken, ownerUserId: number) {
   if (user.role === 'admin' || user.userId === ownerUserId) return true;
   return false;
 }

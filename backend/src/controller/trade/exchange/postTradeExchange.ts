@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { param, body } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { isLoggedIn } from '@validator/middleware/auth';
-import { LoginTokenType } from '@type/user';
+import { LoginToken } from '@type/user';
 import { selectTradeDetail } from '@service/trade/select';
 import { selectVoucherDetail } from '@service/voucher/select';
 import { exchangeTrade } from '@service/trade/update';
@@ -18,7 +18,7 @@ export const validator = [
 
 // 교환
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
-  const loggedUser = req.user as LoginTokenType;
+  const loggedUser = req.user as LoginToken;
   const tradeId = Number(req.params.tradeId);
   const vouchers = req.body.vouchers as number[];
 

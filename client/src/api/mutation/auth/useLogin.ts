@@ -4,7 +4,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { ResponseError } from "@type/response";
 import { getErrorMessage } from '@util/request';
 import { useAppDispatch } from '@app/redux/reduxHooks';
-import { LoginTokenPayloadType } from '@type/user';
+import { LoginToken } from '@type/user';
 import { login } from '@util/auth/authSlice';
 import { login as loginFn } from '@api/api/auth';
 
@@ -15,7 +15,7 @@ interface BodyType {
 
 interface ResType {
   message: string;
-  user: LoginTokenPayloadType;
+  user: LoginToken;
 }
 
 export default function useLogin<TParam>(

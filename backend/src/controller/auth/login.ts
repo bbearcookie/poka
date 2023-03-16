@@ -4,7 +4,7 @@ import { validate } from '@validator/middleware/response';
 import { createResponseMessage } from '@validator/function/response';
 import { encryptText } from '@util/encrypt';
 import { createLoginToken } from '@validator/function/auth';
-import { LoginTokenPayloadType } from '@type/user';
+import { LoginToken } from '@type/user';
 import { selectUserDetailByUsername } from '@service/user/select';
 
 export const validator = [
@@ -26,7 +26,7 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   const encryptedPassword = encryptText(password, user.salt);
   if (user.password !== encryptedPassword) return res.status(409).json(createResponseMessage("password", "비밀번호가 일치하지 않아요."));
 
-  const payload: LoginTokenPayloadType = {
+  const payload = {
     userId: user.userId,
     username: user.username,
     role: user.role,

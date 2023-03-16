@@ -3,7 +3,7 @@ import { param } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { isLoggedIn } from '@validator/middleware/auth';
 import { isAdminOrOwner } from '@validator/function/auth';
-import { LoginTokenType } from '@type/user';
+import { LoginToken } from '@type/user';
 import { selectShippingAddressDetail, selectUserShippingAddresses } from '@service/shipping/address/select';
 import { deleteShippingAddress } from '@service/shipping/address/delete';
 import { updateShippingAddressPrime } from '@service/shipping/address/update';
@@ -16,7 +16,7 @@ export const validator = [
 
 // 사용자 배송지 삭제
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
-  const loggedUser = req.user as LoginTokenType;
+  const loggedUser = req.user as LoginToken;
   const addressId = Number(req.params.addressId);
 
   const [[address]] = await selectShippingAddressDetail(addressId);

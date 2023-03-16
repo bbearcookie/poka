@@ -3,7 +3,7 @@ import { param } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { createResponseMessage } from '@validator/function/response';
 import { isAdminOrOwner } from '@validator/function/auth';
-import { LoginTokenType } from '@type/user';
+import { LoginToken } from '@type/user';
 import { validator as postTradeValidator } from '@controller/trade/postTrade';
 import { selectUserDetailByUserID } from '@service/user/select';
 import { selectTradeDetail } from '@service/trade/select';
@@ -18,7 +18,7 @@ export const validator = [
 
 // 교환글 수정
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
-  const loggedUser = req.user as LoginTokenType;
+  const loggedUser = req.user as LoginToken;
   const tradeId = Number(req.params.tradeId);
   const amount = req.body.amount as number;
   const haveVoucherId = req.body.haveVoucherId as number;

@@ -1,12 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { LoginTokenPayloadType } from "@type/user";
+import { LoginToken } from "@type/user";
 import { saveUser, removeUser } from './auth';
 
 const name = 'auth';
 
-interface State extends LoginTokenPayloadType {}
-
-const initialState: State = {
+const initialState: Pick<LoginToken, 'userId' | 'username' | 'role' | 'strategy'> = {
   userId: 0,
   username: '',
   role: '',
@@ -18,7 +16,7 @@ export const slice = createSlice({
   initialState,
   reducers: {
     // 로그인시 상태 값 저장
-    login: (state, { payload }: PayloadAction<LoginTokenPayloadType>) => {
+    login: (state, { payload }: PayloadAction<LoginToken>) => {
       state.userId = payload.userId;
       state.username = payload.username;
       state.role = payload.role;

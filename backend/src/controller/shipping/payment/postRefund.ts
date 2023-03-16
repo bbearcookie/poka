@@ -4,7 +4,7 @@ import { validate } from '@validator/middleware/response';
 import { isLoggedIn } from '@validator/middleware/auth';
 import { getToken, refundPayment } from '@util/iamport';
 import { isAdminOrOwner } from '@validator/function/auth';
-import { LoginTokenType } from '@type/user';
+import { LoginToken } from '@type/user';
 import { selectShippingRequestDetail } from '@service/shipping/request/select';
 import { selectPaymentDetail } from '@service/shipping/payment/select';
 import { updatePaymentState } from '@service/shipping/payment/update';
@@ -17,7 +17,7 @@ export const validator = [
 
 // 배송비 환불
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
-  const loggedUser = req.user as LoginTokenType;
+  const loggedUser = req.user as LoginToken;
   const requestId = Number(req.params.requestId);
 
   // 배송 요청 정보

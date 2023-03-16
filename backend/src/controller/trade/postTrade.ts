@@ -3,7 +3,7 @@ import { body } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { isLoggedIn } from '@validator/middleware/auth';
 import { createResponseMessage } from '@validator/function/response';
-import { LoginTokenType } from '@type/user';
+import { LoginToken } from '@type/user';
 import { selectUserDetailByUserID } from '@service/user/select';
 import { selectVoucherDetail } from '@service/voucher/select';
 import { selectPhotoDetail } from '@service/photo/select';
@@ -26,7 +26,7 @@ export const validator = [
 
 // 교환글 작성
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
-  const loggedUser = req.user as LoginTokenType;
+  const loggedUser = req.user as LoginToken;
   const amount = req.body.amount as number;
   const haveVoucherId = req.body.haveVoucherId as number;
   const wantPhotocardIds = req.body.wantPhotocardIds as number[];

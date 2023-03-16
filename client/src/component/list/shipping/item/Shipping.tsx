@@ -7,12 +7,12 @@ import UserProfile from '@component/profile/UserProfile';
 import StateLabel from '@component/label/stateLabel/StateLabel';
 import { StyledShipping } from './_styles';
 import { Payment, ShippingRequest } from '@type/shipping';
-import { UserType } from '@type/user';
+import { User } from '@type/user';
 
 interface Props {
   request: ShippingRequest;
   payment: Pick<Payment, 'state'>;
-  author: UserType,
+  author: User,
   voucherAmount: number;
   to?: string;
 }

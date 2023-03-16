@@ -3,7 +3,7 @@ import { param } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { isLoggedIn } from '@validator/middleware/auth';
 import { isAdminOrOwner } from '@validator/function/auth';
-import { LoginTokenType } from '@type/user';
+import { LoginToken } from '@type/user';
 import { selectTradeDetail } from '@service/trade/select';
 import { deleteTrade } from '@service/trade/delete';
 
@@ -15,7 +15,7 @@ export const validator = [
 
 // 교환글 삭제
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
-  const loggedUser = req.user as LoginTokenType;
+  const loggedUser = req.user as LoginToken;
   const tradeId = Number(req.params.tradeId);
 
   const [[trade]] = await selectTradeDetail(tradeId);

@@ -1,7 +1,5 @@
 import db from '@config/database';
-import { RowDataPacket } from 'mysql2';
 import { makeSalt, encryptText } from '@util/encrypt';
-import { UserType } from '@type/user';
 
 // 사용자 데이터 추가
 export const insertUser = async (username: string, nickname: string, password: string) => {

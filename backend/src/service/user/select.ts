@@ -1,6 +1,6 @@
 import db from '@config/database';
 import { RowDataPacket } from 'mysql2';
-import { UserType } from '@type/user';
+import { UserDetail } from '@type/user';
 
 // 아이디 이름으로 사용자 상세 조회
 export const selectUserDetailByUsername = async (username: string) => {
@@ -8,12 +8,20 @@ export const selectUserDetailByUsername = async (username: string) => {
 
   try {
     let sql = `
-    SELECT user_id as userId, username, nickname, password, salt, role, strategy, registered_time as registeredTime, image_name as imageName
+    SELECT
+      user_id as userId,
+      username,
+      nickname,
+      password,
+      salt,
+      role,
+      strategy,
+      registered_time as registeredTime,
+      image_name as imageName
     FROM User
     WHERE username=${con.escape(username)}`;
 
-    interface DataType extends UserType, RowDataPacket {}
-    return await con.query<DataType[]>(sql);
+    return await con.query<(UserDetail & RowDataPacket)[]>(sql);
   } catch (err) {
     throw err;
   } finally {
@@ -27,12 +35,20 @@ export const selectUserDetailByUserID = async (userId: number) => {
 
   try {
     let sql = `
-    SELECT user_id as userId, username, nickname, password, salt, role, strategy, registered_time as registeredTime, image_name as imageName
+    SELECT
+      user_id as userId,
+      username,
+      nickname,
+      password,
+      salt,
+      role,
+      strategy,
+      registered_time as registeredTime,
+      image_name as imageName
     FROM User
     WHERE user_id=${con.escape(userId)}`;
 
-    interface DataType extends UserType, RowDataPacket {}
-    return await con.query<DataType[]>(sql);
+    return await con.query<(UserDetail & RowDataPacket)[]>(sql);
   } catch (err) {
     throw err;
   } finally {

@@ -3,7 +3,7 @@ import { param } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { isLoggedIn } from '@validator/middleware/auth';
 import { isAdminOrOwner } from '@validator/function/auth';
-import { LoginTokenType } from '@type/user';
+import { LoginToken } from '@type/user';
 import { selectShippingRequestDetail } from '@service/shipping/request/select';
 import { deleteShippingRequest } from '@service/shipping/request/delete';
 import { selectShippingRequestVoucherIds } from '@service/voucher/select';
@@ -16,7 +16,7 @@ export const validator = [
 
 // 배송 요청 삭제
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
-  const loggedUser = req.user as LoginTokenType;
+  const loggedUser = req.user as LoginToken;
   const requestId = Number(req.params.requestId);
   
   // 배송 요청 관련 유효성 검사

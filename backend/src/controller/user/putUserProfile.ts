@@ -6,7 +6,7 @@ import { validate } from '@validator/middleware/response';
 import imageUploader, { USER_IMAGE_DIR } from '@uploader/image.uploader';
 import { isLoggedIn } from '@validator/middleware/auth';
 import { isAdminOrOwner } from '@validator/function/auth';
-import { LoginTokenType } from '@type/user';
+import { LoginToken } from '@type/user';
 import { getTimestampFilename, removeFile } from '@util/multer';
 import { selectUserDetailByUserID } from '@service/user/select';
 import { updateUserProfile } from '@service/user/update';
@@ -26,7 +26,7 @@ export const validator = [
 
 // 사용자 프로필 변경
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
-  const loggedUser = req.user as LoginTokenType;
+  const loggedUser = req.user as LoginToken;
   const userId = Number(req.params.userId);
   const nickname = req.body.nickname as unknown as string;
   const file = req.file;

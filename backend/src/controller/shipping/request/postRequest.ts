@@ -3,7 +3,7 @@ import { body } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { isLoggedIn } from '@validator/middleware/auth';
 import { createResponseMessage } from '@validator/function/response';
-import { LoginTokenType } from '@type/user';
+import { LoginToken } from '@type/user';
 import { AddressForm } from '@controller/user/address/postAddress';
 import { selectVoucherDetail } from '@service/voucher/select';
 import { insertShippingRequest } from '@service/shipping/request/insert';
@@ -17,7 +17,7 @@ export const validator = [
 
 // 배송 요청 작성
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
-  const loggedUser = req.user as LoginTokenType;
+  const loggedUser = req.user as LoginToken;
   const voucherIds = req.body.voucherIds as number[];
   const address = AddressForm.form(req);
 

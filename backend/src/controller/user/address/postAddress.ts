@@ -3,7 +3,7 @@ import { param, body } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { isLoggedIn } from '@validator/middleware/auth';
 import { isAdminOrOwner } from '@validator/function/auth';
-import { LoginTokenType } from '@type/user';
+import { LoginToken } from '@type/user';
 import { selectUserDetailByUserID } from '@service/user/select';
 import { selectUserShippingAddresses } from '@service/shipping/address/select';
 import { insertUserShippingAddress } from '@service/shipping/address/insert';
@@ -64,7 +64,7 @@ export const validator = [
 
 // 사용자의 새로운 배송 정보 추가
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
-  const loggedUser = req.user as LoginTokenType;
+  const loggedUser = req.user as LoginToken;
   const userId = Number(req.params.userId);
   const form = AddressForm.form(req);
 

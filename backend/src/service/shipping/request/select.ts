@@ -3,7 +3,6 @@ import { RowDataPacket } from 'mysql2';
 import { WhereSQL } from '@util/database';
 import { ShippingRequestDetail, ShippingRequestItem } from '@type/shipping';
 import { FilterType } from '@controller/shipping/request/getRequests';
-import { UserType } from '@type/user';
 
 // 배송 요청 목록 조회
 export const selectShippingRequests = async (
