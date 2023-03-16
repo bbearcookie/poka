@@ -1,4 +1,4 @@
-import { PhotoType } from '@type/photo';
+import { Photo } from '@type/photo';
 
 export interface VoucherSimpleType {
   voucherId: number;
@@ -7,7 +7,7 @@ export interface VoucherSimpleType {
   state: 'available' | 'trading' | 'shipping' | 'shipped';
 }
 
-export interface VoucherType extends PhotoType, VoucherSimpleType {
+export interface VoucherType extends Photo, VoucherSimpleType {
   username: string;
   nickname: string;
 }

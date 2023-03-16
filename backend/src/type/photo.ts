@@ -1,9 +1,11 @@
-export interface PhotoType {
+import { Group } from '@type/group';
+import { Member } from '@type/member';
+
+// 포토카드 타입
+export interface Photo {
   photocardId: number;
-  memberId: number;
-  groupId: number;
   name: string;
-  groupName: string;
-  memberName: string;
   imageName: string;
-};
+  groupData: Pick<Group, 'groupId' | 'name'>;
+  memberData: Pick<Member, 'memberId' | 'name'>;
+}

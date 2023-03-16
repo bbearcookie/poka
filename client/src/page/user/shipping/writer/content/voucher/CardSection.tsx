@@ -66,8 +66,8 @@ function CardSection({ state, dispatch, modal }: Props) {
             showOwner={false}
             voucherId={voucher.data.voucherId}
             photoName={voucher.data.name}
-            groupName={voucher.data.groupName}
-            memberName={voucher.data.memberName}
+            groupName={voucher.data.groupData.name}
+            memberName={voucher.data.memberData.name}
             imageName={voucher.data.imageName}
             username={voucher.data.username}
             voucherState={voucher.data.state}

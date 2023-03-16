@@ -16,7 +16,6 @@ interface Props {
   state: State;
   dispatch: React.Dispatch<Action>;
 }
-const DefaultProps = {};
 
 function PhotoItem({ photo, idx, state, dispatch }: Props) {
 
@@ -40,8 +39,8 @@ function PhotoItem({ photo, idx, state, dispatch }: Props) {
     <PhotoCard
       photocardId={photo.photocardId}
       photoName={photo.name}
-      groupName={photo.groupName}
-      memberName={photo.memberName}
+      groupName={photo.groupData.name}
+      memberName={photo.memberData.name}
       imageName={photo.imageName}
       icon={{ svg: faClose, tooltip: '취소' }}
       handleClick={handleRemove}

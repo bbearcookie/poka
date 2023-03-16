@@ -2,7 +2,7 @@ import { useInfiniteQuery, UseInfiniteQueryOptions, UseInfiniteQueryResult } fro
 import { AxiosError } from 'axios';
 import { ResponseError } from '@type/response';
 import { fetchPhotos } from '@api/api/photo';
-import { PhotoType } from '@type/photo';
+import { Photo } from '@type/photo';
 import * as queryKey from '@api/queryKey';
 
 export interface FilterType {
@@ -17,7 +17,7 @@ export interface ResType {
     pageParam: number;
     hasNextPage: boolean;
   };
-  photos: PhotoType[];
+  photos: Photo[];
 }
 
 export default function usePhotosQuery(

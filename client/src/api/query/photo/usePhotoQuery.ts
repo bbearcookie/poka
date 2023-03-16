@@ -1,11 +1,11 @@
 import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { ResponseError } from '@type/response';
-import { PhotoType } from '@type/photo';
+import { Photo } from '@type/photo';
 import { fetchPhotoDetail } from '@api/api/photo';
 import * as queryKey from '@api/queryKey';
 
-export interface ResType extends PhotoType {
+export interface ResType extends Photo {
   message: string;
 }
 

@@ -57,8 +57,8 @@ function CardSection({ form, formDispatch, addModal }: Props) {
           {status === 'success' && voucher &&
           <PhotoInfoCard
             photoName={voucher.name}
-            groupName={voucher.groupName}
-            memberName={voucher.memberName}
+            groupName={voucher.groupData.name}
+            memberName={voucher.memberData.name}
             imageName={voucher.imageName}
             cardStyles={{ boxShadow: "none", border: "none" }}
           />}

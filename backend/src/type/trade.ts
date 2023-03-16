@@ -1,5 +1,3 @@
-import { PhotoType } from '@type/photo';
-
 export type TradeStateType = 'trading' | 'traded';
 
 // TODO: 아래 타입들은 새로 작성중인 타입들임.

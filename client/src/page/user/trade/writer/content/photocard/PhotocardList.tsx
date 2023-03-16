@@ -26,8 +26,8 @@ function PhotocardList({ form, formDispatch, photos, removeWantPhotocardId }: Pr
             key={photo.data.photocardId}
             photocardId={photo.data.photocardId}
             photoName={photo.data.name}
-            groupName={photo.data.groupName}
-            memberName={photo.data.memberName}
+            groupName={photo.data.groupData.name}
+            memberName={photo.data.memberData.name}
             imageName={photo.data.imageName}
             icon={{ svg: faClose, tooltip: '취소' }}
             handleClick={removeWantPhotocardId}

@@ -82,8 +82,8 @@ function Exchange({ trade }: Props) {
             key={voucher.voucherId}
             voucherId={voucher.voucherId}
             photoName={voucher.name}
-            groupName={voucher.groupName}
-            memberName={voucher.memberName}
+            groupName={voucher.groupData.name}
+            memberName={voucher.memberData.name}
             imageName={voucher.imageName}
             username={voucher.username}
             voucherState={voucher.state}

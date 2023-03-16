@@ -1,4 +1,4 @@
-import { UserType } from '@type/user';
+import { User } from '@type/user';
 
 export type PaymentState = 'waiting' | 'paid' | 'forgeried';
 type RequestState = 'waiting' | 'shipped';
@@ -38,7 +38,7 @@ export interface ShippingRequestDetail {
   request: ShippingRequest;
   address: Pick<Address, 'recipient' | 'contact' | 'postcode' | 'address' | 'addressDetail' | 'requirement'>;
   payment: Payment;
-  author: Pick<UserType, 'userId' | 'username' | 'nickname' | 'imageName'>;
+  author: Pick<User, 'userId' | 'username' | 'nickname' | 'imageName'>;
 }
 
 // 배송 요청 목록 아이템 타입
@@ -46,6 +46,6 @@ export interface ShippingRequestItem {
   request: ShippingRequest;
   address: Pick<Address, 'recipient' | 'contact' | 'postcode' | 'address' | 'addressDetail' | 'requirement'>;
   payment: Pick<Payment, 'state'>;
-  author: Pick<UserType, 'userId' | 'username' | 'nickname' | 'imageName'>;
+  author: Pick<User, 'userId' | 'username' | 'nickname' | 'imageName'>;
   voucherAmount: number;
 }

@@ -70,8 +70,8 @@ function VoucherList({
           key={v.voucherId}
           voucherId={v.voucherId}
           showOwner={showOwner}
-          groupName={v.groupName}
-          memberName={v.memberName}
+          groupName={v.groupData.name}
+          memberName={v.memberData.name}
           photoName={v.name}
           username={v.username}
           imageName={v.imageName}

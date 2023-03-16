@@ -21,8 +21,8 @@ interface Props {
 function PhotoEditor({ photo, photocardId, closeEditor }: Props) {
   const [state, dispatch] = useReducer(reducer, produce(initialState, draft => {
     draft.form.name = photo.name;
-    draft.form.groupId = photo.groupId;
-    draft.form.memberId = photo.memberId;
+    draft.form.groupId = photo.groupData.groupId;
+    draft.form.memberId = photo.memberData.memberId;
     draft.form.image.previewURL = photoImage(photo.imageName);
     draft.form.image.initialURL = photoImage(photo.imageName);
   }));

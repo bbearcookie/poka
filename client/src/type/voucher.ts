@@ -1,6 +1,6 @@
-import { PhotoType } from '@type/photo';
+import { Photo } from '@type/photo';
 
-export interface VoucherType extends PhotoType {
+export interface VoucherType extends Photo {
   voucherId: number;
   userId: number;
   state: 'available' | 'trading' | 'shipping' | 'shipped';

@@ -15,8 +15,8 @@ function Success({ voucher }: Props) {
     <>
       <PhotoInfoCard
         photoName={voucher.name}
-        groupName={voucher.groupName}
-        memberName={voucher.memberName}
+        groupName={voucher.groupData.name}
+        memberName={voucher.memberData.name}
         imageName={voucher.imageName}
         cardStyles={{ margin: "0 auto 5em auto" }}
       />

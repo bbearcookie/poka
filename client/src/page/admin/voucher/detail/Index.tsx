@@ -5,10 +5,7 @@ import BackLabel from '@component/label/BackLabel';
 import Success from './Success';
 import './Index.scss';
 
-interface Props {}
-const DefaultProps = {};
-
-function VoucherDetailPage({  }: Props) {
+function VoucherDetailPage() {
   const { voucherId } = useParams() as any;
   const { status, data: voucher, error } = useVoucherQuery(voucherId);
   

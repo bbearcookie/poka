@@ -53,8 +53,8 @@ function PhotoList({ filter, keyword, icon, handleSelect }: Props) {
           key={p.photocardId}
           photocardId={p.photocardId}
           photoName={p.name}
-          groupName={p.groupName}
-          memberName={p.memberName}
+          groupName={p.groupData.name}
+          memberName={p.memberData.name}
           imageName={p.imageName}
           icon={icon}
           handleClick={handleSelect}

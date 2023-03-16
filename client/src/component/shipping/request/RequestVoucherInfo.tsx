@@ -22,13 +22,15 @@ function RequestVoucherInfo({ vouchers, icon, handleClick, cardStyles }: Props) 
       </CardHeader>
       <CardBody>
         <ItemSection>
-          {vouchers.map(voucher =>
+          {vouchers.map(v =>
             <PhotoCard
-              {...voucher}
-              key={voucher.voucherId}
-              photoName={voucher.name}
+              key={v.voucherId}
+              photoName={v.name}
+              groupName={v.groupData.name}
+              memberName={v.memberData.name}
               icon={icon}
               handleClick={handleClick}
+              {...v}
           />)}
         </ItemSection>
       </CardBody>
