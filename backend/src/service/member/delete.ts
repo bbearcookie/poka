@@ -5,7 +5,10 @@ export const deleteMember = async (memberId: number) => {
   const con = await db.getConnection();
 
   try {
-    let sql = `DELETE FROM MemberData WHERE member_id=${con.escape(memberId)}`;
+    let sql = `
+    DELETE FROM MemberData
+    WHERE member_id=${con.escape(memberId)}`;
+    
     return await con.execute(sql);
   } catch (err) {
     throw err;

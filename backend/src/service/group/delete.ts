@@ -5,7 +5,11 @@ export const deleteGroup = async (groupId: number) => {
   const con = await db.getConnection();
 
   try {
-    let sql = `DELETE FROM GroupData WHERE group_id=${con.escape(groupId)}`;
+    let sql = `
+    DELETE
+    FROM GroupData
+    WHERE group_id=${con.escape(groupId)}`;
+    
     return await con.execute(sql);
   } catch (err) {
     throw err;

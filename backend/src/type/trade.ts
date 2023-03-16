@@ -1,4 +1,23 @@
+import { PhotoType } from '@type/photo';
+
 export type TradeStateType = 'trading' | 'traded';
+
+// TODO: 아래 타입들은 새로 작성중인 타입들임.
+// // 교환글 타입
+// export interface Trade {
+//   tradeId: number;
+//   state: TradeStateType;
+//   amount: number;
+//   writtenTime: string;
+//   tradedTime: string;
+// }
+
+// // 교환글 상세 타입
+// export interface TradeDetail {
+//   trade: Trade;
+//   userId: number;
+//   photo: Pick<PhotoType, 'photocardId' | 'name' | 'memberId'>
+// }
 
 export interface TradeType {
   tradeId: number;

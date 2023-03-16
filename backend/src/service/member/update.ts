@@ -1,5 +1,4 @@
 import db from '@config/database';
-import { ResultSetHeader, RowDataPacket } from 'mysql2';
 
 // 멤버 정보 수정
 export const updateMember = async (memberId: number, name: string) => {
