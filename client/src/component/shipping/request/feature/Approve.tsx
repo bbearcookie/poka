@@ -14,7 +14,7 @@ interface Props {
 // 관리자의 배송 완료 처리 기능
 function Approve({ res }: Props) {
   const modal = useModal();
-  const approveMutation = useApproveShippingRequest(res.shipping.requestId);
+  const approveMutation = useApproveShippingRequest(res.shipping.request.requestId);
 
   // 배송 완료 처리
   const handleApprove = useCallback(() => {
@@ -38,7 +38,7 @@ function Approve({ res }: Props) {
           iconMargin: "1em"
         }}
         onClick={openModal}
-        disabled={res.shipping.paymentState !== 'paid'}
+        disabled={res.shipping.payment.state !== 'paid'}
       >발송 완료</Button>
 
       <ConfirmModal

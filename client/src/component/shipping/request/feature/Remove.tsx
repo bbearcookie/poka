@@ -20,7 +20,7 @@ function Remove({ res, redirectTo }: Props) {
   const navigate = useNavigate();
 
   // 삭제 요청
-  const deleteMutation = useDeleteShippingRequest(res.shipping.requestId,
+  const deleteMutation = useDeleteShippingRequest(res.shipping.request.requestId,
     (res) => navigate(redirectTo),
     (err) => {
       modal.setErrorMessage(getErrorMessage(err));
@@ -28,7 +28,7 @@ function Remove({ res, redirectTo }: Props) {
   );
 
   // 환불 요청
-  const refundMutation = useRefundShippingPayment(res.shipping.requestId,
+  const refundMutation = useRefundShippingPayment(res.shipping.request.requestId,
     (res) => deleteMutation.mutate({})
   );
 
@@ -41,7 +41,7 @@ function Remove({ res, redirectTo }: Props) {
   // 배송요청 취소
   const onCancel = useCallback(() => {
     // 아직 결제하지 않은 경우 바로 삭제
-    if (res.shipping.paymentState === 'waiting')
+    if (res.shipping.payment.state === 'waiting')
       deleteMutation.mutate({});
     // 결제한 경우 환불 후 삭제
     else
@@ -71,7 +71,7 @@ function Remove({ res, redirectTo }: Props) {
         <p className="text">관리자에게 요청한 배송요청을 삭제하고 취소합니다.</p>
         <p className="text">아직 관리자가 배송처리하지 않은 경우에만 가능하며,</p>
         <p className="text">요청한 소유권들은 다시 교환 가능한 상태가 됩니다.</p>
-        {res.shipping.paymentState !== 'waiting' && <p className="text"><br/>결제된 배송비는 환불처리 됩니다.</p>}
+        {res.shipping.payment.state !== 'waiting' && <p className="text"><br/>결제된 배송비는 환불처리 됩니다.</p>}
       </ConfirmModal>
     </>
   );

@@ -2,7 +2,7 @@ import { useInfiniteQuery, UseInfiniteQueryOptions, UseInfiniteQueryResult } fro
 import { AxiosError } from 'axios';
 import { ResponseError } from '@type/response';
 import { fetchShippings } from '@api/api/shipping/request';
-import { ShippingListItemType } from '@type/shipping';
+import { ShippingRequestItem } from '@type/shipping';
 import { ShippingStateKey, PaymentStateKey } from '@component/label/stateLabel/_types';
 import * as queryKey from '@api/queryKey';
 
@@ -18,7 +18,7 @@ export interface ResType {
     pageParam: number;
     hasNextPage: boolean;
   };
-  shippings: ShippingListItemType[];
+  shippings: ShippingRequestItem[];
 }
 
 export default function useShippingsQuery(

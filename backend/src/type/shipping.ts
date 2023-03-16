@@ -1,8 +1,10 @@
-import { PaymentStateType } from "@type/payment";
+import { UserType } from '@type/user';
 
-export type RequestStateType = 'waiting' | 'shipped';
+export type PaymentState = 'waiting' | 'paid' | 'forgeried';
+type RequestState = 'waiting' | 'shipped';
 
-export interface ShippingAddressType {
+// 배송 주소 타입
+export interface Address {
   addressId: number;
   userId: number;
   name: string;
@@ -15,34 +17,35 @@ export interface ShippingAddressType {
   prime: number;
 }
 
-export interface ShippingRequestType {
-  requestId: number;
-  requestState: RequestStateType;
-  paymentState: PaymentStateType;
-  recipient: string;
-  contact: string;
-  postcode: string;
-  address: string;
-  addressDetail: string;
-  requirement: string;
-  writtenTime: string;
-  userId: number;
-  username: string;
-  nickname: string;
-  userImageName: string;
+// 결제 타입
+export interface Payment {
   paymentId: number;
   merchantUID: string;
+  impUID: string;
   amount: number;
+  state: PaymentState;
 }
 
-export interface ShippingListItemType {
+// 배송 요청 타입
+export interface ShippingRequest {
   requestId: number;
-  requestState: RequestStateType;
-  paymentState: PaymentStateType;
-  userId: number;
-  username: string;
-  nickname: string;
-  userImageName: string;
-  voucherAmount: number;
+  state: RequestState;
   writtenTime: string;
+}
+
+// 배송 요청 상세 타입
+export interface ShippingRequestDetail {
+  request: ShippingRequest;
+  address: Pick<Address, 'recipient' | 'contact' | 'postcode' | 'address' | 'addressDetail' | 'requirement'>;
+  payment: Payment;
+  author: Pick<UserType, 'userId' | 'username' | 'nickname' | 'imageName'>;
+}
+
+// 배송 요청 목록 아이템 타입
+export interface ShippingRequestItem {
+  request: ShippingRequest;
+  address: Pick<Address, 'recipient' | 'contact' | 'postcode' | 'address' | 'addressDetail' | 'requirement'>;
+  payment: Pick<Payment, 'state'>;
+  author: Pick<UserType, 'userId' | 'username' | 'nickname' | 'imageName'>;
+  voucherAmount: number;
 }

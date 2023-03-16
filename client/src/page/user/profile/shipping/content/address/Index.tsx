@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShippingAddressType } from '@type/shipping';
+import { Address as AddressType } from '@type/shipping';
 import IconButton from '@component/form/IconButton';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import Address, { IconSection } from '@component/shipping/address/Address';
@@ -7,7 +7,7 @@ import AddressPrime from './content/AddressPrime';
 import AddressRemove from './content/AddressRemove';
 
 interface Props {
-  address: ShippingAddressType;
+  address: AddressType;
   startEditor?: () => void;
 }
 

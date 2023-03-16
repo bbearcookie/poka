@@ -11,16 +11,16 @@ interface Props {
 
 // 결제 기능
 function Payment({ res }: Props) {
-  const checkMutation = useCheckShippingPayment(res.shipping.requestId);
+  const checkMutation = useCheckShippingPayment(res.shipping.request.requestId);
 
   // 결제 하기
   const handlePayment = useCallback(() => {
     window.IMP?.request_pay({
-      amount: res.shipping.amount,
-      buyer_tel: res.shipping.contact,
-      merchant_uid: res.shipping.merchantUID,
+      amount: res.shipping.payment.amount,
+      buyer_tel: res.shipping.address.contact,
+      merchant_uid: res.shipping.payment.merchantUID,
       buyer_email: '',
-      buyer_name: res.shipping.recipient,
+      buyer_name: res.shipping.address.recipient,
       name: '배송비',
     }, rsp => {
 

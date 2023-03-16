@@ -11,7 +11,7 @@ function Index() {
 
   return (
     <main className="ShippingDetailPage">
-      <BackLabel styles={{ marginBottom: "1em" }}>배송 요청 목록</BackLabel>
+      <BackLabel styles={{ marginBottom: "1em" }} to="/shipping/list">배송 요청 목록</BackLabel>
       {status === 'success' && <Success res={shipping} />}
     </main>
   );

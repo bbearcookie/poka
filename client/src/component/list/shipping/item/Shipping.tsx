@@ -5,61 +5,44 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { getYearMonthDay } from '@util/date';
 import UserProfile from '@component/profile/UserProfile';
 import StateLabel from '@component/label/stateLabel/StateLabel';
-import { ShippingStateKey, PaymentStateKey } from '@component/label/stateLabel/_types';
 import { StyledShipping } from './_styles';
+import { Payment, ShippingRequest } from '@type/shipping';
+import { UserType } from '@type/user';
 
 interface Props {
-  requestId: number;
-  username: string;
-  nickname: string;
-  userImageName: string;
-  shippingState: ShippingStateKey;
-  paymentState: PaymentStateKey;
+  request: ShippingRequest;
+  payment: Pick<Payment, 'state'>;
+  author: UserType,
   voucherAmount: number;
-  writtenTime: string;
   to?: string;
 }
 
-function Shipping({
-  requestId,
-  username, nickname, userImageName,
-  shippingState, paymentState,
-  voucherAmount, writtenTime,
-  to
-}: Props) {
+function Shipping({ request, payment, author, voucherAmount, to }: Props) {
   const navigate = useNavigate();
 
   // 상세 페이지 이동
   const onClick = useCallback(() => {
-    if (to) navigate(`${to}/${requestId}`);
-  }, [navigate, requestId, to]);
+    if (to) navigate(`${to}/${request.requestId}`);
+  }, [navigate, request, to]);
 
   return (
     <StyledShipping onClick={onClick}>
-      <td>
-        <UserProfile
-          username={username}
-          nickname={nickname}
-          imageName={userImageName}
-        />
-      </td>
+      <td><UserProfile {...author} /></td>
       <td>
         <StateLabel
-          state={{ type: "shipping", key: shippingState }}
+          state={{ type: "shipping", key: request.state }}
           styles={{ padding: "0.5em" }}
         />
       </td>
       <td>
         <StateLabel
-          state={{ type: "payment", key: paymentState }}
+          state={{ type: "payment", key: payment.state }}
           styles={{ padding: "0.5em" }}
         />
       </td>
       <td>{voucherAmount}장</td>
-      <td>{getYearMonthDay(new Date(writtenTime))}</td>
-      <td>
-        <IconButton icon={faArrowRight} />
-      </td>
+      <td>{getYearMonthDay(new Date(request.writtenTime))}</td>
+      <td><IconButton icon={faArrowRight} /></td>
     </StyledShipping>
   );
 }

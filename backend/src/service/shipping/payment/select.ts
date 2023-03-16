@@ -1,6 +1,6 @@
 import db from '@config/database';
 import { RowDataPacket } from 'mysql2';
-import { PaymentType } from '@type/payment';
+import { Payment } from '@type/shipping';
 
 // 결제 정보 상세 조회
 export const selectPaymentDetail = async (paymentId: number) => {
@@ -8,11 +8,16 @@ export const selectPaymentDetail = async (paymentId: number) => {
 
   try {
     let sql = `
-    SELECT payment_id as paymentId, merchant_uid as merchantUID, imp_uid as impUID, amount, state
+    SELECT
+      payment_id as paymentId,
+      merchant_uid as merchantUID,
+      imp_uid as impUID,
+      amount,
+      state
     FROM Payment
     WHERE payment_id=${con.escape(paymentId)}`;
 
-    interface DataType extends PaymentType, RowDataPacket {}
+    interface DataType extends Payment, RowDataPacket {}
 
     return await con.query<DataType[]>(sql);
   } catch (err) {

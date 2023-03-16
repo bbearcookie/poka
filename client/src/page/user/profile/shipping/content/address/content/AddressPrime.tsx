@@ -2,10 +2,10 @@ import React, { useCallback } from 'react';
 import useChangePrimeAddress from '@api/mutation/shipping/address/useChangePrimeAddress';
 import IconButton from '@component/form/IconButton';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
-import { ShippingAddressType } from '@type/shipping';
+import { Address } from '@type/shipping';
 
 interface Props {
-  address: ShippingAddressType;
+  address: Address;
 }
 
 function AddressPrime({ address }: Props) {

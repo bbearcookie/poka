@@ -8,10 +8,10 @@ import { ResponseError } from '@type/response';
 import Button from '@component/form/Button';
 import reducer, { initialState, FormType } from '@component/shipping/address/editor/reducer';
 import AddressEditor from '@component/shipping/address/editor/AddressEditor';
-import { ShippingAddressType } from '@type/shipping';
+import { Address as AddressType } from '@type/shipping';
 
 interface Props {
-  address?: ShippingAddressType;
+  address?: AddressType;
   closeEditor: () => void;
 }
 

@@ -18,10 +18,11 @@ interface Props {
 function Address({ name, address, addressDetail, contact, recipient, requirement, prime = 0, styles, children }: Props) {
   return (
     <StyledWrapper {...styles}>
+      {name && 
       <ContentSection className="name-section">
         <NameLabel>{name}</NameLabel>
         {prime === 1 && <PrimeLabel>기본배송지</PrimeLabel>}
-      </ContentSection>
+      </ContentSection>}
       <ContentSection>
         <FontAwesomeIcon icon={faLocationDot} width="1.5em" height="1.5em" color="#2678F3" />
         <span className="text">{address} {addressDetail}</span>

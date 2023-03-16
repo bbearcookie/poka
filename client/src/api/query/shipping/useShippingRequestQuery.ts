@@ -3,12 +3,12 @@ import { AxiosError } from 'axios';
 import { ResponseError } from '@type/response';
 import { fetchShippingRequestDetail } from '@api/api/shipping/request';
 import * as queryKey from '@api/queryKey';
-import { ShippingRequestType } from '@type/shipping';
+import { ShippingRequestDetail } from '@type/shipping';
 import { VoucherType } from '@type/voucher';
 
 export interface ResType {
   message: string;
-  shipping: ShippingRequestType;
+  shipping: ShippingRequestDetail;
   vouchers: VoucherType[];
 }
 

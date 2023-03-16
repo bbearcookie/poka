@@ -1,13 +1,13 @@
 import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { ResponseError } from '@type/response';
-import { ShippingAddressType } from '@type/shipping';
+import { Address } from '@type/shipping';
 import { fetchUserShippingAddresses } from '@api/api/shipping/address';
 import * as queryKey from '@api/queryKey';
 
 export interface ResType {
   message: string;
-  addresses: ShippingAddressType[];
+  addresses: Address[];
 }
 
 export default function useShippingAddressesQuery(
