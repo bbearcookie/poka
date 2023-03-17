@@ -1,15 +1,14 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import useUserQuery from '@api/query/user/useUserQuery';
-import { VoucherLogType } from '@type/voucher';
+import { VoucherLog } from '@type/voucher';
 import { getFormattedTime } from '@util/date';
 import Issued from '../Issued';
 import Traded from '../Traded';
 
 interface Props {
-  log: VoucherLogType;
+  log: VoucherLog;
 }
-const DefaultProps = {};
 
 function Log({ log }: Props) {
   const originUser = useUserQuery(log.originUserId);

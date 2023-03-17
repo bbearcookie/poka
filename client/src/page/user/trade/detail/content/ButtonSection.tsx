@@ -7,7 +7,6 @@ import Exchange from './Exchange';
 interface Props {
   trade: TradeType;
 }
-const DefaultProps = {};
 
 function ButtonSection({ trade }: Props) {
   const { userId } = useAppSelector(state => state.auth);

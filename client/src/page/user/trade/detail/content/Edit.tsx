@@ -7,7 +7,6 @@ import Button from '@component/form/Button';
 interface Props {
   trade: TradeType;
 }
-const DefaultProps = {};
 
 function Edit({ trade }: Props) {
   const navigate = useNavigate();

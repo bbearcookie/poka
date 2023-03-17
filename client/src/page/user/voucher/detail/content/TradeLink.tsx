@@ -2,16 +2,15 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import useVoucherTradeQuery from '@api/query/voucher/useVoucherTradeQuery';
 import Button from '@component/form/Button';
-import { ResType as VoucherResType } from '@api/query/voucher/useVoucherQuery';
+import { ResType } from '@api/query/voucher/useVoucherQuery';
 import { faShareNodes } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
-  voucher: VoucherResType;
+  res: ResType;
 }
-const DefaultProps = {};
 
-function TradeLink({ voucher }: Props) {
-  const { data: trade, status } = useVoucherTradeQuery(voucher.voucherId);
+function TradeLink({ res }: Props) {
+  const { data: trade, status } = useVoucherTradeQuery(res.voucher.voucherId);
   const location = useLocation();
 
   return (

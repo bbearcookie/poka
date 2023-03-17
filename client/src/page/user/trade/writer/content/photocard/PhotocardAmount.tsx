@@ -7,7 +7,6 @@ interface Props {
   form: FormState;
   formDispatch: React.Dispatch<FormAction>;
 }
-const DefaultProps = {};
 
 function PhotocardAmount({ form, formDispatch }: Props) {
 

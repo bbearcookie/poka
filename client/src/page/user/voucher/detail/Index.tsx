@@ -12,7 +12,7 @@ function Index() {
   return (
     <main className="UserVoucherDetailPage">
       <BackLabel to="/voucher/list" styles={{ marginBottom: "2em" }}>소유권 목록</BackLabel>
-      {status === 'success' && <Success voucher={voucher} />}
+      {status === 'success' && <Success res={voucher} />}
     </main>
   );
 }

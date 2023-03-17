@@ -2,7 +2,7 @@ import { useInfiniteQuery, UseInfiniteQueryOptions, UseInfiniteQueryResult } fro
 import { AxiosError } from 'axios';
 import { ResponseError } from '@type/response';
 import { fetchVoucherLogsDetail } from '@api/api/voucher';
-import { VoucherLogType } from '@type/voucher';
+import { VoucherLog } from '@type/voucher';
 import * as queryKey from '@api/queryKey';
 
 export interface ResType {
@@ -11,7 +11,7 @@ export interface ResType {
     pageParam: number;
     hasNextPage: boolean;
   };
-  logs: VoucherLogType[];
+  logs: VoucherLog[];
 }
 
 export default function useVoucherLogsQuery(

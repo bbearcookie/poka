@@ -10,9 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import './Index.scss';
 
-interface Props {}
-
-function Index({  }: Props) {
+function Index() {
   const { filter, keyword, filterDispatch, keywordDispatch } = useSearcher();
   const username = useAppSelector(state => state.auth.username);
   const navigate = useNavigate();

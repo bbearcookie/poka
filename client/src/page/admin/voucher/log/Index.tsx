@@ -4,10 +4,7 @@ import BackLabel from '@component/label/BackLabel';
 import LogList from './content/LogList';
 import './Index.scss';
 
-interface Props {}
-const DefaultProps = {};
-
-function Index({  }: Props) {
+function Index() {
   const { voucherId } = useParams() as any;
 
   return (

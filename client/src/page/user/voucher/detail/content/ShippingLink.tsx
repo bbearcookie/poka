@@ -1,17 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@component/form/Button';
-import { ResType as VoucherResType } from '@api/query/voucher/useVoucherQuery';
+import { ResType } from '@api/query/voucher/useVoucherQuery';
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
-  voucher: VoucherResType;
+  res: ResType;
 }
-const DefaultProps = {};
 
-function ShippingLink({ voucher }: Props) {
+function ShippingLink({ res }: Props) {
   return (
-    <Link to={`/shipping/writer?voucherId=${voucher.voucherId}`}>
+    <Link to={`/shipping/writer?voucherId=${res.voucher.voucherId}`}>
       <Button
         leftIcon={faTruckFast}
         styles={{

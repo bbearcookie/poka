@@ -60,17 +60,17 @@ function CardSection({ state, dispatch, modal }: Props) {
       <CardBody>
         <ItemSection marginBottom="2em">
           {loading && Array.from({ length: 10 }).map((_, idx) => <SkeletonVoucherCard key={idx} />)}
-          {!loading && vouchers.map(voucher => voucher.status === "success" &&
+          {!loading && vouchers.map(v => v.status === "success" &&
           <VoucherCard
-            key={voucher.data.voucherId}
+            key={v.data.voucher.voucherId}
             showOwner={false}
-            voucherId={voucher.data.voucherId}
-            photoName={voucher.data.name}
-            groupName={voucher.data.groupData.name}
-            memberName={voucher.data.memberData.name}
-            imageName={voucher.data.imageName}
-            username={voucher.data.username}
-            voucherState={voucher.data.state}
+            voucherId={v.data.voucher.voucherId}
+            photoName={v.data.photo.name}
+            groupName={v.data.photo.groupData.name}
+            memberName={v.data.photo.memberData.name}
+            imageName={v.data.photo.imageName}
+            username={v.data.owner.username}
+            voucherState={v.data.voucher.state}
             icon={{ svg: faClose, tooltip: '취소' }}
             handleClick={onCancel}
           />)}

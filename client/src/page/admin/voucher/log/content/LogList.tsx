@@ -11,7 +11,6 @@ import SkeletonLog from './log/SkeletonLog';
 interface Props {
   voucherId: number;
 }
-const DefaultProps = {};
 
 function LogList({ voucherId }: Props) {
   const [viewRef, inView] = useInView();

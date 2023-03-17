@@ -8,13 +8,13 @@ import UserProfile from '@component/profile/UserProfile';
 import { userImage } from '@api/resource';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import StateLabel from '@component/label/stateLabel/StateLabel';
-import { ResType as VoucherResType } from '@api/query/voucher/useVoucherQuery';
+import { ResType } from '@api/query/voucher/useVoucherQuery';
 
 interface Props {
-  voucher: VoucherResType;
+  res: ResType;
 }
 
-function VoucherInfo({ voucher }: Props) {
+function VoucherInfo({ res }: Props) {
   return (
     <Card className="VoucherInfo" styles={{ marginBottom: "5em" }}>
       <CardHeader><h1>소유권 정보</h1></CardHeader>
@@ -23,26 +23,26 @@ function VoucherInfo({ voucher }: Props) {
         <ul>
           <li className="info">
             <div className="subtitle">소유권ID</div>
-            <div className="body">{voucher?.voucherId}</div>
+            <div className="body">{res.voucher.voucherId}</div>
           </li>
           <li className="info">
             <div className="subtitle">소유자</div>
             <div className="body">
               <section className="user-section">
-                <UserProfile nickname={voucher?.nickname} username={voucher?.username} imageName={userImage(voucher?.userImageName)} />
+                <UserProfile {...res.owner} />
               </section>
             </div>
           </li>
           <li className="info">
             <div className="subtitle">상태</div>
             <div className="body">
-              <StateLabel className="state-label" state={{ type: "voucher", key: voucher.state || "" }}/>
+              <StateLabel className="state-label" state={{ type: "voucher", key: res.voucher.state || "" }}/>
             </div>
           </li>
           <li className="info">
             <div className="subtitle">기록</div>
             <div className="body">
-              <Link to={`/admin/voucher/log/${voucher?.voucherId}`}>
+              <Link to={`/admin/voucher/log/${res.voucher.voucherId}`}>
                 <Button
                   rightIcon={faArrowRight}
                   styles={{

@@ -2,12 +2,12 @@ import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query
 import { AxiosError } from 'axios';
 import { ResponseError } from '@type/response';
 import * as queryKey from '@api/queryKey';
-import { VoucherType } from '@type/voucher';
+import { VoucherItem } from '@type/voucher';
 import { fetchTradeExchange } from '@api/api/trade';
 
 export interface ResType {
   message: string;
-  vouchers: VoucherType[];
+  vouchers: VoucherItem[];
 }
 
 export default function useTradeExchangeQuery(

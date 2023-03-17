@@ -67,15 +67,15 @@ function VoucherList({
       <Fragment key={i}>
         {page.vouchers.map(v =>
         <VoucherCard
-          key={v.voucherId}
-          voucherId={v.voucherId}
+          key={v.voucher.voucherId}
           showOwner={showOwner}
-          groupName={v.groupData.name}
-          memberName={v.memberData.name}
-          photoName={v.name}
-          username={v.username}
-          imageName={v.imageName}
-          voucherState={v.state}
+          voucherId={v.voucher.voucherId}
+          groupName={v.photo.groupData.name}
+          memberName={v.photo.memberData.name}
+          photoName={v.photo.name}
+          username={v.owner.username}
+          imageName={v.photo.imageName}
+          voucherState={v.voucher.state}
           icon={icon}
           handleClick={handleSelect}
         />)}

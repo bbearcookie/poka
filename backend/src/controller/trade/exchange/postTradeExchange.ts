@@ -33,14 +33,14 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   // 교환글 소유권 확인
   const [[voucher]] = await selectVoucherDetail(trade.voucherId);
   if (!voucher) return res.status(404).json({ message: '교환글의 소유권이 존재하지 않아요.' });
-  if (voucher.userId !== trade.userId) return res.status(404).json({ message: '교환글의 작성자가 소유권의 실 소유주가 아니에요.' });
+  if (voucher.owner.userId !== trade.userId) return res.status(404).json({ message: '교환글의 작성자가 소유권의 실 소유주가 아니에요.' });
   
   // 소유권 확인
   for (let voucherId of vouchers) {
     const [[voucher]] = await selectVoucherDetail(voucherId);
     if (!trade) return res.status(404).json({ message: '사용하려는 소유권이 존재하지 않아요.' });
-    if (voucher.userId !== loggedUser.userId) return res.status(403).json({ message: '사용하려는 소유권이 당신의 것이 아니에요.' });
-    if (voucher.state !== 'available') return res.status(400).json({ message: '사용하려는 소유권이 교환 가능한 상태가 아니에요.' });
+    if (voucher.owner.userId !== loggedUser.userId) return res.status(403).json({ message: '사용하려는 소유권이 당신의 것이 아니에요.' });
+    if (voucher.voucher.state !== 'available') return res.status(400).json({ message: '사용하려는 소유권이 교환 가능한 상태가 아니에요.' });
   }
 
   // 교환 진행

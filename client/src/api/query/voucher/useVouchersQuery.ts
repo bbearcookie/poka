@@ -3,7 +3,7 @@ import { AxiosError } from 'axios';
 import { ResponseError } from '@type/response';
 import { fetchVouchers } from '@api/api/voucher';
 import { VoucherStateKey } from '@component/label/stateLabel/_types';
-import { VoucherType } from '@type/voucher';
+import { VoucherItem } from '@type/voucher';
 import * as queryKey from '@api/queryKey';
 
 export interface FilterType {
@@ -21,7 +21,7 @@ export interface ResType {
     pageParam: number;
     hasNextPage: boolean;
   };
-  vouchers: VoucherType[];
+  vouchers: VoucherItem[];
 }
 
 export default function useVouchersQuery(

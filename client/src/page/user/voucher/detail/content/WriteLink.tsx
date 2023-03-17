@@ -1,17 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@component/form/Button';
-import { ResType as VoucherResType } from '@api/query/voucher/useVoucherQuery';
+import { ResType } from '@api/query/voucher/useVoucherQuery';
 import { faShareNodes } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
-  voucher: VoucherResType;
+  res: ResType;
 }
-const DefaultProps = {};
 
-function WriteLink({ voucher }: Props) {
+function WriteLink({ res }: Props) {
   return (
-    <Link to={`/trade/writer?voucherId=${voucher.voucherId}`}>
+    <Link to={`/trade/writer?voucherId=${res.voucher.voucherId}`}>
       <Button
         leftIcon={faShareNodes}
         styles={{

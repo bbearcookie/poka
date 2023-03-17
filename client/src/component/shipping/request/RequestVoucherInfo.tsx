@@ -4,11 +4,11 @@ import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import PhotoCard from '@component/photocard/photo/PhotoCard';
 import { ItemSection } from '@component/list/content/_styles';
-import { VoucherType } from '@type/voucher';
+import { VoucherItem } from '@type/voucher';
 import { IconType } from '@type/icon';
 
 interface Props {
-  vouchers: VoucherType[];
+  vouchers: VoucherItem[];
   icon?: IconType;
   handleClick?: (id: number) => void;
   cardStyles?: CardStyles;
@@ -24,13 +24,13 @@ function RequestVoucherInfo({ vouchers, icon, handleClick, cardStyles }: Props) 
         <ItemSection>
           {vouchers.map(v =>
             <PhotoCard
-              key={v.voucherId}
-              photoName={v.name}
-              groupName={v.groupData.name}
-              memberName={v.memberData.name}
+              key={v.voucher.voucherId}
+              photoName={v.photo.name}
+              groupName={v.photo.groupData.name}
+              memberName={v.photo.memberData.name}
               icon={icon}
               handleClick={handleClick}
-              {...v}
+              {...v.photo}
           />)}
         </ItemSection>
       </CardBody>

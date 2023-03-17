@@ -1,23 +1,22 @@
 import React from 'react';
-import { ResType as VoucherResType } from '@api/query/voucher/useVoucherQuery';
+import { ResType } from '@api/query/voucher/useVoucherQuery';
 import WriteLink from './WriteLink';
 import TradeLink from './TradeLink';
 import ShippingLink from './ShippingLink';
 
 interface Props {
-  voucher: VoucherResType;
+  res: ResType;
 }
-const DefaultProps = {};
 
-function ButtonSection({ voucher }: Props) {
+function ButtonSection({ res }: Props) {
   return (
     <section className="button-section">
-      {voucher.state === 'available' && 
+      {res.voucher.state === 'available' && 
       <>
-        <WriteLink voucher={voucher} />
-        <ShippingLink voucher={voucher} />
+        <WriteLink res={res} />
+        <ShippingLink res={res} />
       </>}
-      {voucher.state === 'trading' && <TradeLink voucher={voucher} />}
+      {res.voucher.state === 'trading' && <TradeLink res={res} />}
     </section>
   );
 }

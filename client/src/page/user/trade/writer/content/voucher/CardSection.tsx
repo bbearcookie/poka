@@ -56,10 +56,10 @@ function CardSection({ form, formDispatch, addModal }: Props) {
         <ItemSection>
           {status === 'success' && voucher &&
           <PhotoInfoCard
-            photoName={voucher.name}
-            groupName={voucher.groupData.name}
-            memberName={voucher.memberData.name}
-            imageName={voucher.imageName}
+            photoName={voucher.photo.name}
+            groupName={voucher.photo.groupData.name}
+            memberName={voucher.photo.memberData.name}
+            imageName={voucher.photo.imageName}
             cardStyles={{ boxShadow: "none", border: "none" }}
           />}
           {status === 'loading' && form.data.haveVoucherId > 0 && <SkeletonPhotoInfoCard cardStyles={{ boxShadow: "none", border: "none" }} />}

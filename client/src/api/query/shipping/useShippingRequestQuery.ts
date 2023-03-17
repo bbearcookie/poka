@@ -4,12 +4,12 @@ import { ResponseError } from '@type/response';
 import { fetchShippingRequestDetail } from '@api/api/shipping/request';
 import * as queryKey from '@api/queryKey';
 import { ShippingRequestDetail } from '@type/shipping';
-import { VoucherType } from '@type/voucher';
+import { VoucherItem } from '@type/voucher';
 
 export interface ResType {
   message: string;
   shipping: ShippingRequestDetail;
-  vouchers: VoucherType[];
+  vouchers: VoucherItem[];
 }
 
 export default function useShippingRequestQuery(

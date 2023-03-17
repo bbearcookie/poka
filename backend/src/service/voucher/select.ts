@@ -1,7 +1,7 @@
 import db from '@config/database';
 import { RowDataPacket } from 'mysql2';
 import { WhereSQL } from '@util/database';
-import { VoucherType, VoucherSimpleType } from '@type/voucher';
+import { VoucherItem } from '@type/voucher';
 import { FilterType } from '@controller/voucher/getVouchers';
 
 // 소유권 목록 조회
@@ -16,16 +16,36 @@ export const selectVouchers = async (
     const where = new WhereSQL();
 
     let sql = `
-    SELECT V.voucher_id as voucherId, V.state,
-    P.photocard_id as photocardId, P.name, P.image_name as imageName,
-    M.member_id as memberId, M.name as memberName,
-    G.group_id as groupId, G.name as groupName,
-    U.username, U.nickname, U.user_id as userId
+    SELECT
+      JSON_OBJECT(
+        'voucherId', V.voucher_id,
+        'state', V.state,
+        'createdTime', V.created_time
+      ) as voucher,
+      JSON_OBJECT(
+        'photocardId', P.photocard_id,
+        'name', P.name,
+        'imageName', P.image_name,
+        'groupData', JSON_OBJECT(
+          'groupId', G.group_id,
+          'name', G.name
+        ),
+        'memberData', JSON_OBJECT(
+          'memberId', M.member_id,
+          'name', M.name
+        )
+      ) as photo,
+      JSON_OBJECT(
+        'userId', U.user_id,
+        'username', U.username,
+        'nickname', U.nickname,
+        'imageName', U.image_name
+      ) as owner
     FROM Voucher as V
     INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
     INNER JOIN MemberData as M ON P.member_id=M.member_id
     INNER JOIN GroupData as G ON M.group_id=G.group_id
-    INNER JOIN User as U ON V.user_id=U.user_id `
+    INNER JOIN User as U ON V.user_id=U.user_id `;
 
     // 소유권 상태 조건
     if (filter.voucherState && filter.voucherState !== 'all') {
@@ -99,8 +119,7 @@ export const selectVouchers = async (
     // 페이지 조건
     sql += `LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
 
-    interface DataType extends VoucherType, RowDataPacket {}
-    return await con.query<DataType[]>(sql);
+    return await con.query<(VoucherItem & RowDataPacket)[]>(sql);
   } catch (err) {
     con.rollback();
     throw err;
@@ -115,14 +134,41 @@ export const selectVoucherDetail = async (voucherId: number | number[]) => {
 
   try {
     let sql = `
-    SELECT voucher_id as voucherId, photocard_id as photocardId, user_id as userId, state
-    FROM Voucher `;
+    SELECT
+      JSON_OBJECT(
+        'voucherId', V.voucher_id,
+        'state', V.state,
+        'createdTime', V.created_time
+      ) as voucher,
+      JSON_OBJECT(
+        'photocardId', P.photocard_id,
+        'name', P.name,
+        'imageName', P.image_name,
+        'groupData', JSON_OBJECT(
+          'groupId', G.group_id,
+          'name', G.name
+        ),
+        'memberData', JSON_OBJECT(
+          'memberId', M.member_id,
+          'name', M.name
+        )
+      ) as photo,
+      JSON_OBJECT(
+        'userId', U.user_id,
+        'username', U.username,
+        'nickname', U.nickname,
+        'imageName', U.image_name
+      ) as owner
+    FROM Voucher as V
+    INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
+    INNER JOIN MemberData as M ON P.member_id=M.member_id
+    INNER JOIN GroupData as G ON M.group_id=G.group_id
+    INNER JOIN User as U ON V.user_id=U.user_id `;
 
     if (Array.isArray(voucherId)) sql += `WHERE voucher_id IN (${con.escape(voucherId)})`;
     else sql += `WHERE voucher_id=${con.escape(voucherId)}`;
 
-    interface DataType extends RowDataPacket, VoucherSimpleType {}
-    return await con.query<DataType[]>(sql);
+    return await con.query<(VoucherItem & RowDataPacket)[]>(sql);
   } catch (err) {
     throw err;
   } finally {
@@ -136,9 +182,31 @@ export const selectHaveVouchersOfTrade = async (userId: number, photoIds: number
 
   try {
     let sql = `
-    SELECT V.voucher_id as voucherId, V.user_id as userId, V.state, U.username, U.nickname,
-    P.image_name as imageName, P.photocard_id as photocardId, M.member_id as memberId, G.group_id as groupId,
-    P.name, M.name as memberName, G.name as groupName
+    SELECT
+      JSON_OBJECT(
+        'voucherId', V.voucher_id,
+        'state', V.state,
+        'createdTime', V.created_time
+      ) as voucher,
+      JSON_OBJECT(
+        'photocardId', P.photocard_id,
+        'name', P.name,
+        'imageName', P.image_name,
+        'groupData', JSON_OBJECT(
+          'groupId', G.group_id,
+          'name', G.name
+        ),
+        'memberData', JSON_OBJECT(
+          'memberId', M.member_id,
+          'name', M.name
+        )
+      ) as photo,
+      JSON_OBJECT(
+        'userId', U.user_id,
+        'username', U.username,
+        'nickname', U.nickname,
+        'imageName', U.image_name
+      ) as owner
     FROM Voucher as V
     INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
     INNER JOIN MemberData as M ON P.member_id=M.member_id
@@ -149,8 +217,7 @@ export const selectHaveVouchersOfTrade = async (userId: number, photoIds: number
     AND V.state='available'
     GROUP BY P.photocard_id`;
 
-    interface DataType extends RowDataPacket { }
-    return await con.query<DataType[]>(sql);
+    return await con.query<(VoucherItem & RowDataPacket)[]>(sql);
   } catch (err) {
     throw err;
   } finally {
@@ -164,11 +231,31 @@ export const selectShippingRequestVoucherIds = async (requestId: number) => {
 
   try {
     let sql = `
-    SELECT P.photocard_id as photocardId, P.name, P.image_name as imageName,
-    G.group_id as groupId, G.name as groupName,
-    M.member_id as memberId, M.name as memberName,
-    V.voucher_id as voucherId, V.state,
-    U.username, U.nickname, U.image_name as userImageName
+    SELECT
+      JSON_OBJECT(
+        'voucherId', V.voucher_id,
+        'state', V.state,
+        'createdTime', V.created_time
+      ) as voucher,
+      JSON_OBJECT(
+        'photocardId', P.photocard_id,
+        'name', P.name,
+        'imageName', P.image_name,
+        'groupData', JSON_OBJECT(
+          'groupId', G.group_id,
+          'name', G.name
+        ),
+        'memberData', JSON_OBJECT(
+          'memberId', M.member_id,
+          'name', M.name
+        )
+      ) as photo,
+      JSON_OBJECT(
+        'userId', U.user_id,
+        'username', U.username,
+        'nickname', U.nickname,
+        'imageName', U.image_name
+      ) as owner
     FROM ShippingRequestVoucher as R
     INNER JOIN Voucher as V ON R.voucher_id=V.voucher_id
     INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
@@ -177,8 +264,7 @@ export const selectShippingRequestVoucherIds = async (requestId: number) => {
     INNER JOIN User as U ON V.user_id=U.user_id
     WHERE R.request_id=${con.escape(requestId)}`;
 
-    interface DataType extends VoucherType, RowDataPacket {}
-    return await con.query<DataType[]>(sql);
+    return await con.query<(VoucherItem & RowDataPacket)[]>(sql);
   } catch (err) {
     throw err;
   } finally {

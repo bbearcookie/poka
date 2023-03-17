@@ -1,16 +1,15 @@
 import React from 'react';
 import useUserQuery from '@api/query/user/useUserQuery';
 import { ResType as UserResType } from '@api/query/user/useUserQuery';
-import { VoucherLogType } from '@type/voucher';
+import { VoucherLog } from '@type/voucher';
 import { userImage } from '@api/resource';
 import UserProfile from '@component/profile/UserProfile';
 import SkeletonUserProfile from '@component/profile/SkeletonUserProfile';
 
 interface Props {
-  log: VoucherLogType;
+  log: VoucherLog;
   originUser: UserResType;
 }
-const DefaultProps = {};
 
 function Traded({ originUser, log }: Props) {
   const { data: destUser } = useUserQuery(log.destUserId);

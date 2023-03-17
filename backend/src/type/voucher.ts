@@ -1,22 +1,28 @@
 import { Photo } from '@type/photo';
+import { User } from '@type/user';
 
-export interface VoucherSimpleType {
+type VoucherState = 'available' | 'trading' | 'shipping' | 'shipped';
+
+// 소유권 타입
+export interface Voucher {
   voucherId: number;
-  photocardId: number;
-  userId: number;
-  state: 'available' | 'trading' | 'shipping' | 'shipped';
+  state: VoucherState;
+  createdTime: string;
 }
 
-export interface VoucherType extends Photo, VoucherSimpleType {
-  username: string;
-  nickname: string;
+// 소유권 목록 타입
+export interface VoucherItem {
+  voucher: Voucher;
+  photo: Photo;
+  owner: User;
 }
 
-export interface VoucherLogType {
+// 소유권 기록 타입
+export interface VoucherLog {
   logId: number;
+  type: 'issued' | 'traded' | 'shipped';
   voucherId: number;
   originUserId: number;
   destUserId: number;
-  type: 'issued' | 'traded' | 'shipped';
   loggedTime: string;
 }

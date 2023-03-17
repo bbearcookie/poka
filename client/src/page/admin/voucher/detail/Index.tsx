@@ -12,7 +12,7 @@ function VoucherDetailPage() {
   return (
     <main className="VoucherDetailPage">
       <BackLabel to="/admin/voucher/list" styles={{ marginBottom: "2em" }}>소유권 목록</BackLabel>
-      {status === 'success' && <Success voucher={voucher} />}
+      {status === 'success' && <Success res={voucher} />}
     </main>
   );
 }
