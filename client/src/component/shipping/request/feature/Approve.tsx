@@ -14,7 +14,7 @@ interface Props {
 // 관리자의 배송 완료 처리 기능
 function Approve({ res }: Props) {
   const modal = useModal();
-  const approveMutation = useApproveShippingRequest(res.shipping.request.requestId);
+  const approveMutation = useApproveShippingRequest(res.shipping.requestId);
 
   // 배송 완료 처리
   const handleApprove = useCallback(() => {

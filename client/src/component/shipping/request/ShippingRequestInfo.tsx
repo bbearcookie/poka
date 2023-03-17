@@ -22,9 +22,9 @@ function ShippingRequestInfo({ shipping, cardStyles }: Props) {
       </CardHeader>
 
       <CardListItem title="배송상태">
-        <StateLabel state={{ type: "shipping", key: shipping.request.state }} styles={{ width: "6em", margin: "0 0.5em 0.2em 0" }} />
-        {shipping.request.state === 'waiting' && <p className="description">관리자의 처리를 기다리는 상태입니다.</p>}
-        {shipping.request.state === 'shipped' && <p className="description">관리자가 포토카드를 발송한 상태입니다.</p>}
+        <StateLabel state={{ type: "shipping", key: shipping.state }} styles={{ width: "6em", margin: "0 0.5em 0.2em 0" }} />
+        {shipping.state === 'waiting' && <p className="description">관리자의 처리를 기다리는 상태입니다.</p>}
+        {shipping.state === 'shipped' && <p className="description">관리자가 포토카드를 발송한 상태입니다.</p>}
       </CardListItem>
 
       <CardListItem title="결제상태">
@@ -45,7 +45,7 @@ function ShippingRequestInfo({ shipping, cardStyles }: Props) {
           />
         </CardListItem>
         <CardListItem title="요청일">
-          <p className="description">{getFormattedTime(new Date(shipping.request.writtenTime))}</p>
+          <p className="description">{getFormattedTime(new Date(shipping.writtenTime))}</p>
         </CardListItem>
       </CardList>
 

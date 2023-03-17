@@ -11,8 +11,7 @@ export interface Voucher {
 }
 
 // 소유권 목록 타입
-export interface VoucherItem {
-  voucher: Voucher;
+export interface VoucherItem extends Voucher {
   photo: Photo;
   owner: User;
 }

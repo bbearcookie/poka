@@ -11,7 +11,7 @@ interface Props {
 
 // 결제 기능
 function Payment({ res }: Props) {
-  const checkMutation = useCheckShippingPayment(res.shipping.request.requestId);
+  const checkMutation = useCheckShippingPayment(res.shipping.requestId);
 
   // 결제 하기
   const handlePayment = useCallback(() => {

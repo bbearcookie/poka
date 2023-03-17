@@ -24,7 +24,7 @@ function RequestVoucherInfo({ vouchers, icon, handleClick, cardStyles }: Props) 
         <ItemSection>
           {vouchers.map(v =>
             <PhotoCard
-              key={v.voucher.voucherId}
+              key={v.voucherId}
               photoName={v.photo.name}
               groupName={v.photo.groupData.name}
               memberName={v.photo.memberData.name}

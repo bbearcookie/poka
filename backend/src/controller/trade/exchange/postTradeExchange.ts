@@ -40,7 +40,7 @@ export const controller = async (req: Request, res: Response, next: NextFunction
     const [[voucher]] = await selectVoucherDetail(voucherId);
     if (!trade) return res.status(404).json({ message: '사용하려는 소유권이 존재하지 않아요.' });
     if (voucher.owner.userId !== loggedUser.userId) return res.status(403).json({ message: '사용하려는 소유권이 당신의 것이 아니에요.' });
-    if (voucher.voucher.state !== 'available') return res.status(400).json({ message: '사용하려는 소유권이 교환 가능한 상태가 아니에요.' });
+    if (voucher.state !== 'available') return res.status(400).json({ message: '사용하려는 소유권이 교환 가능한 상태가 아니에요.' });
   }
 
   // 교환 진행

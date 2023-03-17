@@ -32,7 +32,7 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   await deleteShippingRequest(requestId, shipping.paymentId);
   return res.status(200).json({
     message: '배송 요청을 취소했어요.',
-    voucherIds: vouchers.length > 0 ? vouchers.map(v => v.voucher.voucherId) : []
+    voucherIds: vouchers.length > 0 ? vouchers.map(v => v.voucherId) : []
   });
   
   next();

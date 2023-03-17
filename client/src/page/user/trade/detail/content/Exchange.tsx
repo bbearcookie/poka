@@ -26,7 +26,7 @@ function Exchange({ trade }: Props) {
       return true;
     }(),
     onSuccess: (data) => {
-      setSelect(Object.fromEntries(data.vouchers.map(item => [item.voucher.voucherId, false])));
+      setSelect(Object.fromEntries(data.vouchers.map(item => [item.voucherId, false])));
     }
   });
 
@@ -79,22 +79,22 @@ function Exchange({ trade }: Props) {
         <section className="photo-section">
           {exchange?.vouchers.map(v => 
           <VoucherCard
-            key={v.voucher.voucherId}
-            voucherId={v.voucher.voucherId}
+            key={v.voucherId}
+            voucherId={v.voucherId}
             photoName={v.photo.name}
             groupName={v.photo.groupData.name}
             memberName={v.photo.memberData.name}
             imageName={v.photo.imageName}
             username={v.owner.username}
-            voucherState={v.voucher.state}
+            voucherState={v.state}
             showOwner={false}
             styles={{ flexDirection: "row" }}
           >
             <div className="space" />
             <input
               type="checkbox"
-              value={v.voucher.voucherId}
-              checked={select[v.voucher.voucherId] ? true : false}
+              value={v.voucherId}
+              checked={select[v.voucherId] ? true : false}
               onChange={onChangeSelect}
               readOnly
             />

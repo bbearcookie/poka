@@ -5,7 +5,6 @@ import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Button from '@component/form/Button';
 import UserProfile from '@component/profile/UserProfile';
-import { userImage } from '@api/resource';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import StateLabel from '@component/label/stateLabel/StateLabel';
 import { ResType } from '@api/query/voucher/useVoucherQuery';
@@ -23,7 +22,7 @@ function VoucherInfo({ res }: Props) {
         <ul>
           <li className="info">
             <div className="subtitle">소유권ID</div>
-            <div className="body">{res.voucher.voucherId}</div>
+            <div className="body">{res.voucherId}</div>
           </li>
           <li className="info">
             <div className="subtitle">소유자</div>
@@ -36,13 +35,13 @@ function VoucherInfo({ res }: Props) {
           <li className="info">
             <div className="subtitle">상태</div>
             <div className="body">
-              <StateLabel className="state-label" state={{ type: "voucher", key: res.voucher.state || "" }}/>
+              <StateLabel className="state-label" state={{ type: "voucher", key: res.state || "" }}/>
             </div>
           </li>
           <li className="info">
             <div className="subtitle">기록</div>
             <div className="body">
-              <Link to={`/admin/voucher/log/${res.voucher.voucherId}`}>
+              <Link to={`/admin/voucher/log/${res.voucherId}`}>
                 <Button
                   rightIcon={faArrowRight}
                   styles={{

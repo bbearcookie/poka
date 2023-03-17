@@ -27,7 +27,7 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   vouchers.forEach(voucher => {
     if (loggedUser.userId !== voucher.owner.userId)
       return res.status(403).json(createResponseMessage('voucherIds', '당신의 소유권이 아니에요.'));
-    if (voucher.voucher.state !== 'available')
+    if (voucher.state !== 'available')
       return res.status(403).json(createResponseMessage('voucherIds', '배송 요청하려는 소유권 중에 이용가능 상태가 아닌 소유권이 있어요.'));
   });
 

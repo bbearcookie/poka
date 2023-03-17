@@ -3,9 +3,7 @@ import styled from 'styled-components';
 import CardBody from '@component/card/basic/CardBody';
 import StateLabel from '@component/label/stateLabel/StateLabel';
 
-interface Props {}
-
-function DescriptionSection({  }: Props) {
+function DescriptionSection() {
   return (
     <CardBody styles={{ color: "#65748b" }}>
       <p className="description">상태는 플랫폼 내에서 발급된 이 소유권의 상태를 나타냅니다.</p>

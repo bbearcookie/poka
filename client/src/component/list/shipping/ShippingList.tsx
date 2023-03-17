@@ -72,8 +72,13 @@ function ShippingList({ to, filter, keyword }: Props) {
           <Fragment key={i}>
             {page.shippings.map(r =>
             <Shipping
-              key={r.request.requestId}
+              key={r.requestId}
               to={to}
+              request={{
+                requestId: r.requestId,
+                state: r.state,
+                writtenTime: r.writtenTime
+              }}
               {...r}
             />)}
           </Fragment>)}

@@ -10,7 +10,7 @@ interface Props {
 }
 
 function TradeLink({ res }: Props) {
-  const { data: trade, status } = useVoucherTradeQuery(res.voucher.voucherId);
+  const { data: trade, status } = useVoucherTradeQuery(res.voucherId);
   const location = useLocation();
 
   return (

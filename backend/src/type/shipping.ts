@@ -34,18 +34,16 @@ export interface ShippingRequest {
 }
 
 // 배송 요청 상세 타입
-export interface ShippingRequestDetail {
-  request: ShippingRequest;
+export interface ShippingRequestDetail extends ShippingRequest {
   address: Pick<Address, 'recipient' | 'contact' | 'postcode' | 'address' | 'addressDetail' | 'requirement'>;
   payment: Payment;
-  author: Pick<User, 'userId' | 'username' | 'nickname' | 'imageName'>;
+  author: User;
 }
 
 // 배송 요청 목록 아이템 타입
-export interface ShippingRequestItem {
-  request: ShippingRequest;
+export interface ShippingRequestItem  extends ShippingRequest {
   address: Pick<Address, 'recipient' | 'contact' | 'postcode' | 'address' | 'addressDetail' | 'requirement'>;
   payment: Pick<Payment, 'state'>;
-  author: Pick<User, 'userId' | 'username' | 'nickname' | 'imageName'>;
+  author: User;
   voucherAmount: number;
 }

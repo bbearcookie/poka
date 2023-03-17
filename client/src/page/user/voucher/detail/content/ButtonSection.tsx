@@ -11,12 +11,12 @@ interface Props {
 function ButtonSection({ res }: Props) {
   return (
     <section className="button-section">
-      {res.voucher.state === 'available' && 
+      {res.state === 'available' && 
       <>
         <WriteLink res={res} />
         <ShippingLink res={res} />
       </>}
-      {res.voucher.state === 'trading' && <TradeLink res={res} />}
+      {res.state === 'trading' && <TradeLink res={res} />}
     </section>
   );
 }

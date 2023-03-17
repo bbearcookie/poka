@@ -24,8 +24,8 @@ function Success({ res }: Props) {
         cardStyles={{ marginBottom: "5em" }}
       />
       <ButtonSection>
-        {res.shipping.request.state !== "shipped" && <Approve res={res} />}
-        {res.shipping.request.state !== "shipped" && <Remove res={res} redirectTo="/admin/shipping/list" />}
+        {res.shipping.state !== "shipped" && <Approve res={res} />}
+        {res.shipping.state !== "shipped" && <Remove res={res} redirectTo="/admin/shipping/list" />}
       </ButtonSection>
     </>
   );

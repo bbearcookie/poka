@@ -10,7 +10,7 @@ interface Props {
 
 function ShippingLink({ res }: Props) {
   return (
-    <Link to={`/shipping/writer?voucherId=${res.voucher.voucherId}`}>
+    <Link to={`/shipping/writer?voucherId=${res.voucherId}`}>
       <Button
         leftIcon={faTruckFast}
         styles={{

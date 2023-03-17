@@ -60,7 +60,7 @@ export default VoucherInfoCard;
 function VoucherID({ res }: { res: ResType }) {
   return (
     <CardListItem title="소유권ID">
-      {res.voucher.voucherId}
+      {res.voucherId}
     </CardListItem>
   )
 }
@@ -77,7 +77,7 @@ function VoucherStateItem({ res }: { res: ResType }) {
   return (
     <CardListItem title="상태">
       <StateLabel
-        state={{ type: "voucher", key: res.voucher.state }}
+        state={{ type: "voucher", key: res.state }}
         styles={{ width: "6em", margin: "0" }}
       />
     </CardListItem>
@@ -87,7 +87,7 @@ function VoucherStateItem({ res }: { res: ResType }) {
 function VoucherLog({ res }: { res: ResType }) {
   return (
     <CardListItem title="기록">
-      <Link to={`/admin/voucher/log/${res.voucher.voucherId}`}>
+      <Link to={`/admin/voucher/log/${res.voucherId}`}>
         <Button
           rightIcon={faArrowRight}
           styles={{

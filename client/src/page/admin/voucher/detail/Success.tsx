@@ -21,7 +21,7 @@ function Success({ res }: Props) {
         cardStyles={{ margin: "0 auto 5em auto" }}
       />
       <VoucherInfoCard res={res} showAdminInfo={true} />
-      <VoucherRemove voucherId={res.voucher.voucherId} />
+      <VoucherRemove voucherId={res.voucherId} />
     </>
   );
 }

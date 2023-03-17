@@ -25,7 +25,7 @@ function Success({ res }: Props) {
       />
       <ButtonSection>
         {res.shipping.payment.state === "waiting" && <Payment res={res} />}
-        {res.shipping.request.state !== "shipped" && <Remove res={res} redirectTo="/shipping/list" />}
+        {res.shipping.state !== "shipped" && <Remove res={res} redirectTo="/shipping/list" />}
       </ButtonSection>
     </>
   );

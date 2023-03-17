@@ -10,7 +10,7 @@ interface Props {
 
 function WriteLink({ res }: Props) {
   return (
-    <Link to={`/trade/writer?voucherId=${res.voucher.voucherId}`}>
+    <Link to={`/trade/writer?voucherId=${res.voucherId}`}>
       <Button
         leftIcon={faShareNodes}
         styles={{

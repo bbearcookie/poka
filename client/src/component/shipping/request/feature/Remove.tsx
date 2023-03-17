@@ -20,7 +20,7 @@ function Remove({ res, redirectTo }: Props) {
   const navigate = useNavigate();
 
   // 삭제 요청
-  const deleteMutation = useDeleteShippingRequest(res.shipping.request.requestId,
+  const deleteMutation = useDeleteShippingRequest(res.shipping.requestId,
     (res) => navigate(redirectTo),
     (err) => {
       modal.setErrorMessage(getErrorMessage(err));
@@ -28,7 +28,7 @@ function Remove({ res, redirectTo }: Props) {
   );
 
   // 환불 요청
-  const refundMutation = useRefundShippingPayment(res.shipping.request.requestId,
+  const refundMutation = useRefundShippingPayment(res.shipping.requestId,
     (res) => deleteMutation.mutate({})
   );
 

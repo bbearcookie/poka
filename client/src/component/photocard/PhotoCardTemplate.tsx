@@ -16,7 +16,6 @@ interface Props {
   cardStyles?: StylesProps;
   children?: React.ReactNode;
 }
-const DefaultProps = {};
 
 function PhotoCardTemplate({ className, photoName, memberName, groupName, imageName, iconNode, cardStyles, children }: Props) {
   return (
