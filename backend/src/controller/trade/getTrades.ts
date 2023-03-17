@@ -3,14 +3,14 @@ import { query } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { havePageParam } from '@validator/chain/page';
 import { filterSanitizer } from '@validator/chain/filter';
-import { TradeStateType } from '@type/trade';
+import { TradeState } from '@type/trade';
 import { selectTrades } from '@service/trade/select';
 
 export type FilterType = {
   groupId: number;
   memberId: number;
   excludeUserId: number;
-  state: TradeStateType;
+  state: TradeState;
 }
 
 export const validator = [
@@ -29,6 +29,7 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   const filter = req.query.filter as unknown as FilterType;
 
   const trades = await selectTrades(itemPerPage, pageParam, filter);
+
   return res.status(200).json({
     message: '거래글 목록을 조회했습니다.',
     trades,
@@ -37,6 +38,5 @@ export const controller = async (req: Request, res: Response, next: NextFunction
       hasNextPage: trades.length === itemPerPage
     }
   });
-
   next();
 }

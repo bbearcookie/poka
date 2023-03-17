@@ -23,7 +23,7 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   if (trade.state !== 'trading') return res.status(400).json({ message: '이미 교환이 완료된 교환글은 삭제할 수 없어요.' });
   if (!isAdminOrOwner(loggedUser, trade.userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
 
-  await deleteTrade(trade);
+  await deleteTrade(trade.tradeId, trade.voucherId);
   return res.status(200).json({ message: '교환글을 삭제했어요.' });
 
   next();

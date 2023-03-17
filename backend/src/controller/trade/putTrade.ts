@@ -32,7 +32,7 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   const [[trade]] = await selectTradeDetail(tradeId);
   if (!trade) return res.status(404).json({ message: '삭제하려는 교환글이 존재하지 않아요.' });
   if (trade.state !== 'trading') return res.status(400).json({ message: '이미 교환이 완료된 교환글은 삭제할 수 없어요.' });
-  if (!isAdminOrOwner(loggedUser, trade.user_id)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
+  if (!isAdminOrOwner(loggedUser, trade.userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
 
   // 소유권 정보 확인
   const [[voucher]] = await selectVoucherDetail(haveVoucherId);
@@ -49,7 +49,7 @@ export const controller = async (req: Request, res: Response, next: NextFunction
 
   // 교환글 수정
   await updateTrade({
-    trade,
+    tradeId: trade.tradeId,
     voucherId: haveVoucherId,
     amount,
     wantPhotocardIds

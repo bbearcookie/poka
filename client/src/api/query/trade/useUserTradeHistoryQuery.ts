@@ -2,7 +2,7 @@ import { useInfiniteQuery, UseInfiniteQueryOptions, UseInfiniteQueryResult } fro
 import { AxiosError } from 'axios';
 import { ResponseError } from '@type/response';
 import * as queryKey from '@api/queryKey';
-import { TradeHistoryType } from '@type/trade';
+import { TradeHistory } from '@type/trade';
 import { fetchUserTradeHistory } from '@api/api/trade';
 
 interface FilterType {
@@ -16,7 +16,7 @@ export interface ResType {
     pageParam: number;
     hasNextPage: boolean;
   };
-  histories: TradeHistoryType[];
+  histories: TradeHistory[];
 }
 
 export default function useUserTradeHistoryQuery(

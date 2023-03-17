@@ -4,15 +4,13 @@ import DateSelector from './content/DateSelector';
 import HistoryList from './content/HistoryList';
 import './Index.scss';
 
-interface Props {}
-
 function getToday() {
   let today = new Date(Date.now());
   today.setHours(0, 0, 0, 0);
   return today;
 }
 
-function Index({  }: Props) {
+function Index() {
   const today = useRef(getToday());
   const [startDate, setStartDate] = useState(new Date(getToday().setDate(today.current.getDate() - 30)));
   const [endDate, setEndDate] = useState(today.current);

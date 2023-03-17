@@ -6,13 +6,12 @@ import CardBody from '@component/card/basic/CardBody';
 import IconButton from '@component/form/IconButton';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { photoImage } from '@api/resource';
-import { TradeListItemType } from '@type/trade';
+import { TradeItem } from '@type/trade';
 import { getElaspedTime } from '@util/date';
 
 interface Props {
-  trade: TradeListItemType;
+  trade: TradeItem;
 }
-const DefaultProps = {};
 
 function TradeCard({ trade }: Props) {
   const navigate = useNavigate();
@@ -32,12 +31,12 @@ function TradeCard({ trade }: Props) {
         <Body>
           <img
             width="150" height="224"
-            src={photoImage(trade.imageName)}
+            src={photoImage(trade.photo.imageName)}
             alt="이미지" />
           <ContentSection>
-            <PhotoName>{trade.photoName}</PhotoName>
-            <MemberName>{trade.memberName}</MemberName>
-            <NameLabel className="NameLabel">{trade.groupName}</NameLabel>
+            <PhotoName>{trade.photo.name}</PhotoName>
+            <MemberName>{trade.photo.memberData.name}</MemberName>
+            <NameLabel className="NameLabel">{trade.photo.groupData.name}</NameLabel>
             <GrayText>{getElaspedTime(new Date(trade.writtenTime))}</GrayText>
             <Space />
             <GrayText>교환할 수 있는 멤버</GrayText>

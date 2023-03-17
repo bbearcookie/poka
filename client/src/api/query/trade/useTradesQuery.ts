@@ -4,7 +4,7 @@ import { ResponseError } from '@type/response';
 import * as queryKey from '@api/queryKey';
 import { fetchTrades } from '@api/api/trade';
 import { TradeStateKey } from '@component/label/stateLabel/_types';
-import { TradeListItemType } from '@type/trade';
+import { TradeItem } from '@type/trade';
 
 interface FilterType {
   groupId: number;
@@ -19,7 +19,7 @@ export interface ResType {
     pageParam: number;
     hasNextPage: boolean;
   };
-  trades: TradeListItemType[];
+  trades: TradeItem[];
 }
 
 export default function useTradesQuery(

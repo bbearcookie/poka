@@ -23,7 +23,6 @@ interface Props {
   },
   loggedTime: Date;
 }
-const DefaultProps = {};
 
 function History({ photo, destUser, originUser, loggedTime }: Props) {
   return (

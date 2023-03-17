@@ -4,12 +4,7 @@ import SkeletonItem from '@component/skeleton/SkeletonItem';
 import SkeletonUserProfile from '@component/profile/SkeletonUserProfile';
 import SkeletonPhotoInfoCard from '@component/photocard/photo/SkeletonPhotoInfoCard';
 
-interface Props {
-
-}
-const DefaultProps = {};
-
-function SkeletonHistory({  }: Props) {
+function SkeletonHistory() {
   return (
     <>
       <CardListItem title={<SkeletonItem styles={{ height: "1.75em" }} />} styles={{ borderBottom: "none" }}>

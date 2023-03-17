@@ -3,7 +3,6 @@ import { ResultSetHeader } from 'mysql2';
 import { Photo } from '@type/photo';
 import { WhereSQL } from '@util/database';
 import { FilterType } from '@controller/photo/getPhotos';
-import { WantcardType } from '@type/trade';
 
 // 포토카드 목록 조회
 export const selectPhotos = async (
@@ -117,16 +116,25 @@ export const selectWantCardsOfTrade = async (tradeId: number) => {
 
   try {
     let sql = `
-    SELECT P.image_name as imageName, 
-    P.name as photoName, M.name as memberName, G.name as groupName,
-    P.photocard_id as photocardId, M.member_id as memberId, G.group_id as groupId
-    FROM TradeWantcard as T
-    INNER JOIN Photocard as P ON T.photocard_id=P.photocard_id
+    SELECT
+      P.photocard_id as photocardId,
+      P.name as name,
+      P.image_name as imageName,
+      JSON_OBJECT(
+        'memberId', M.member_id,
+        'name', M.name
+      ) as memberData,
+      JSON_OBJECT(
+        'groupId', G.group_id,
+        'name', G.name
+      ) as groupData
+    FROM TradeWantcard as W
+    INNER JOIN Photocard as P ON W.photocard_id=P.photocard_id
     INNER JOIN MemberData as M ON P.member_id=M.member_id
     INNER JOIN GroupData as G ON M.group_id=G.group_id
-    WHERE T.trade_id=${con.escape(tradeId)}`
+    WHERE W.trade_id=${con.escape(tradeId)}`;
 
-    return await con.query<WantcardType[] & ResultSetHeader>(sql);
+    return await con.query<Photo[] & ResultSetHeader>(sql);
   } catch (err) {
     throw err;
   } finally {

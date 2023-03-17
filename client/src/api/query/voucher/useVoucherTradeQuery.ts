@@ -1,11 +1,11 @@
 import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { ResponseError } from '@type/response';
-import { TradeType } from '@type/trade';
+import { TradeDetail } from '@type/trade';
 import * as queryKey from '@api/queryKey';
 import { fetchVoucherTradeDetail } from '@api/api/voucher';
 
-export interface ResType extends TradeType {
+export interface ResType extends TradeDetail {
   message: string;
 }
 

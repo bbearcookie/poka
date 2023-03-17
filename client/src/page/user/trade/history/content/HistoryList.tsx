@@ -8,7 +8,6 @@ import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import CardList from '@component/card/basic/CardList';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import NextPageFetcher from '@component/list/content/NextPageFetcher';
 import History from './History';
 import SkeletonHistory from './SkeletonHistory';
@@ -17,7 +16,6 @@ interface Props {
   startDate: Date;
   endDate: Date;
 }
-const DefaultProps = {};
 
 function HistoryList({ startDate, endDate }: Props) {
   const queryClient = useQueryClient();
@@ -48,21 +46,13 @@ function HistoryList({ startDate, endDate }: Props) {
               <History
                 key={item.logId}
                 photo={{
-                  photoName: item.photoName,
-                  groupName: item.groupName,
-                  memberName: item.memberName,
-                  imageName: item.photoImageName
+                  photoName: item.photo.name,
+                  groupName: item.photo.groupData.name,
+                  memberName: item.photo.memberData.name,
+                  imageName: item.photo.imageName
                 }}
-                destUser={{
-                  username: item.destUserName,
-                  nickname: item.destUserNickname,
-                  imageName: item.destUserImageName
-                }}
-                originUser={{
-                  username: item.originUserName,
-                  nickname: item.originUserNickname,
-                  imageName: item.originUserImageName
-                }}
+                destUser={{ ...item.destUser }}
+                originUser={{ ...item.originUser }}
                 loggedTime={new Date(item.loggedTime)}
               />)}
             </Fragment>)}

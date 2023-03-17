@@ -2,12 +2,13 @@ import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query
 import { AxiosError } from 'axios';
 import { ResponseError } from '@type/response';
 import * as queryKey from '@api/queryKey';
-import { TradeType, WantcardType } from '@type/trade';
+import { Photo } from '@type/photo';
+import { TradeDetail } from '@type/trade';
 import { fetchTradeDetail } from '@api/api/trade';
 
-export interface ResType extends TradeType {
+export interface ResType extends TradeDetail {
   message: string;
-  wantcards: WantcardType[];
+  wantcards: Photo[];
 }
 
 export default function useTradeQuery(

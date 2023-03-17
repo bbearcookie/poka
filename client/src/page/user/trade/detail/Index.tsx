@@ -6,9 +6,7 @@ import BackLabel from '@component/label/BackLabel';
 import Success from './Success';
 import './Index.scss';
 
-interface Props {}
-
-function Index({  }: Props) {
+function Index() {
   const { tradeId } = useParams() as any;
   const location = useLocation() as Location;
   const { data: trade, status } = useTradeQuery(tradeId);

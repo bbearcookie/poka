@@ -1,53 +1,39 @@
-import { TradeStateKey } from "@component/label/stateLabel/_types";
+import { Photo } from '@type/photo';
+import { Member } from '@type/member';
+import { User } from '@type/user';
 
-export interface TradeType {
+export type TradeState = 'trading' | 'traded';
+
+// 교환글 타입
+export interface Trade {
   tradeId: number;
-  userId: number;
-  voucherId: number;
-  state: TradeStateKey;
+  state: TradeState;
   amount: number;
   writtenTime: string;
   tradedTime: string;
-  photocardId: number;
-  memberId: number;
-  photoName: string;
-  memberName: string;
-  groupName: string;
-  imageName: string;
 }
 
-export interface WantcardType {
-  photocardId: number;
-  memberId: number;
-  groupId: number;
-  photoName: string;
-  memberName: string;
-  groupName: string;
-  imageName: string;
+// 교환글 상세 타입
+export interface TradeDetail extends Trade {
+  userId: number;
+  voucherId: number;
+  photo: Photo;
 }
 
-export interface TradeListItemType extends TradeType {
-  wantMembers: {
-    memberId: number;
-    name: string;
-  }[];
+// 교환글이 원하는 멤버 타입
+export type WantMember = Pick<Member, 'memberId' | 'name'>;
+
+// 교환글 목록 아이템 타입
+export interface TradeItem extends TradeDetail {
+  wantMembers: WantMember[];
 }
 
-export interface TradeHistoryType {
+// 교환 내역 타입
+export interface TradeHistory {
   logId: number;
   voucherId: number;
-  photocardId: number;
-  photoImageName: string;
-  photoName: string;
-  memberName: string;
-  groupName: string;
-  originUserId: number;
-  originUserName: string;
-  originUserNickname: string;
-  originUserImageName: string;
-  destUserId: number;
-  destUserName: string;
-  destUserNickname: string;
-  destUserImageName: string;
-  loggedTime: Date;
+  photo: Photo;
+  originUser: User;
+  destUser: User;
+  loggedTime: string;
 }

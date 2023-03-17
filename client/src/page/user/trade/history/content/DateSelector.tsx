@@ -11,7 +11,6 @@ interface Props {
   setStartDate: React.Dispatch<React.SetStateAction<Date>>;
   setEndDate: React.Dispatch<React.SetStateAction<Date>>;
 }
-const DefaultProps = {};
 
 function DateSelector({ todayDate, startDate, endDate, setStartDate, setEndDate }: Props) {
   const onChangeStartDate = useCallback((date: Date | null, e: React.SyntheticEvent<any, Event> | undefined) => {

@@ -45,7 +45,8 @@ export const controller = async (req: Request, res: Response, next: NextFunction
 
   // 교환 진행
   await exchangeTrade({
-    trade,
+    tradeId: trade.tradeId,
+    voucherId: trade.voucherId,
     userId: loggedUser.userId,
     voucherIds: vouchers
   });

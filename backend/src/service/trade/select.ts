@@ -1,22 +1,43 @@
 import db from '@config/database';
-import { RowDataPacket } from 'mysql2';
+import { ResultSetHeader } from 'mysql2';
 import { WhereSQL } from '@util/database';
-import { TradeStateType, TradeType, TradeListItemType } from '@type/trade';
+import { TradeDetail, TradeItem, WantMember } from '@type/trade';
 import { FilterType } from '@controller/trade/getTrades';
 
 // 교환글 목록 조회
-export const selectTrades = async (itemPerPage: number, pageParam: number, filter: FilterType) => {
+// TODO: wantMembers 데이터 넣어야함
+export const selectTrades = async (
+  itemPerPage: number,
+  pageParam: number,
+  filter: FilterType
+) => {
   const con = await db.getConnection();
 
   try {
-    let sql;
     const where = new WhereSQL();
 
-    sql = `
-    SELECT T.trade_id as tradeId, T.user_id as userId, T.voucher_id as voucherId,
-    T.state, T.amount, T.written_time as writtenTime, T.traded_time as tradedTime,
-    P.photocard_id as photocardId, M.member_id as memberId,
-    P.name as photoName, M.name as memberName, G.name as groupName, P.image_name as imageName
+    let sql = `
+    SELECT
+      T.trade_id as tradeId,
+      T.state as state,
+      T.amount as amount,
+      T.written_time as writtenTime,
+      T.traded_time as tradedTime,
+      T.user_id as userId,
+      T.voucher_id as voucherId,
+      JSON_OBJECT(
+        'photocardId', P.photocard_id,
+        'name', P.name,
+        'imageName', P.image_name,
+        'groupData', JSON_OBJECT(
+          'groupId', G.group_id,
+          'name', G.name
+        ),
+        'memberData', JSON_OBJECT(
+          'memberId', M.member_id,
+          'name', M.name
+        )
+      ) as photo
     FROM Trade as T
     INNER JOIN Voucher as V ON T.voucher_id=V.voucher_id
     INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
@@ -62,28 +83,45 @@ export const selectTrades = async (itemPerPage: number, pageParam: number, filte
     // 페이지 조건
     sql += `LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
 
-    interface TradeDataType extends RowDataPacket, TradeType {}
-    const [trades] = await con.query<TradeDataType[]>(sql);
+    const [trades] = await con.query<TradeDetail[] & ResultSetHeader>(sql);
+    const result: TradeItem[] = []
 
     for (let i = 0; i < trades.length; i++) {
-      sql = `
+      let sql = `
       SELECT M.member_id as memberId, M.name
       FROM TradeWantcard as T
       INNER JOIN Photocard as P ON T.photocard_id=P.photocard_id
       INNER JOIN MemberData as M ON P.member_id=M.member_id
       WHERE T.trade_id=${con.escape(trades[i].tradeId)}
       GROUP BY M.name`
-      
-      interface WantMemberType extends RowDataPacket {
-        memberId: number;
-        name: string;
-      }
 
-      const [wantMembers] = await con.query<WantMemberType[]>(sql);
-      trades[i] = { ...trades[i], wantMembers }
+      const [wantMembers] = await con.query<WantMember[] & ResultSetHeader>(sql);
+      result[i] = { ...trades[i], wantMembers };
     }
 
-    return trades as TradeListItemType[];
+    return result;
+
+    // const [trades] = await con.query<TradeDetail[] & ResultSetHeader>(sql);
+
+    // for (let i = 0; i < trades.length; i++) {
+    //   sql = `
+    //   SELECT M.member_id as memberId, M.name
+    //   FROM TradeWantcard as T
+    //   INNER JOIN Photocard as P ON T.photocard_id=P.photocard_id
+    //   INNER JOIN MemberData as M ON P.member_id=M.member_id
+    //   WHERE T.trade_id=${con.escape(trades[i].tradeId)}
+    //   GROUP BY M.name`
+      
+    //   interface WantMemberType extends RowDataPacket {
+    //     memberId: number;
+    //     name: string;
+    //   }
+
+    //   const [wantMembers] = await con.query<WantMemberType[]>(sql);
+    //   trades[i] = { ...trades[i], wantMembers }
+    // }
+
+    // return trades as TradeListItemType[];
   } catch (err) {
     throw err;
   } finally {
@@ -97,10 +135,27 @@ export const selectTradeDetail = async (tradeId: number) => {
 
   try {
     let sql = `
-    SELECT T.trade_id as tradeId, T.user_id as userId, T.voucher_id as voucherId,
-    T.state, T.amount, T.written_time as writtenTime, T.traded_time as tradedTime,
-    P.photocard_id as photocardId, M.member_id as memberId,
-    P.name as photoName, M.name as memberName, G.name as groupName, P.image_name as imageName
+    SELECT
+      T.trade_id as tradeId,
+      T.state as state,
+      T.amount as amount,
+      T.written_time as writtenTime,
+      T.traded_time as tradedTime,
+      T.user_id as userId,
+      T.voucher_id as voucherId,
+      JSON_OBJECT(
+        'photocardId', P.photocard_id,
+        'name', P.name,
+        'imageName', P.image_name,
+        'groupData', JSON_OBJECT(
+          'groupId', G.group_id,
+          'name', G.name
+        ),
+        'memberData', JSON_OBJECT(
+          'memberId', M.member_id,
+          'name', M.name
+        )
+      ) as photo
     FROM Trade as T
     INNER JOIN Voucher as V ON T.voucher_id=V.voucher_id
     INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
@@ -108,8 +163,7 @@ export const selectTradeDetail = async (tradeId: number) => {
     INNER JOIN GroupData as G ON M.group_id=G.group_id
     WHERE T.trade_id=${con.escape(tradeId)}`;
 
-    interface DataType extends RowDataPacket, TradeType {}
-    return await con.query<DataType[]>(sql);
+    return await con.query<TradeDetail[] & ResultSetHeader>(sql);
   } catch (err) {
     throw err;
   } finally {
@@ -123,10 +177,27 @@ export const selectTradeDetailByVoucherID = async (voucherId: number) => {
 
   try {
     let sql = `
-    SELECT T.trade_id as tradeId, T.user_id as userId, T.voucher_id as voucherId,
-    T.state, T.amount, T.written_time as writtenTime, T.traded_time as tradedTime,
-    P.photocard_id as photocardId, M.member_id as memberId,
-    P.name as photoName, M.name as memberName, G.name as groupName, P.image_name as imageName
+    SELECT
+      T.trade_id as tradeId,
+      T.state as state,
+      T.amount as amount,
+      T.written_time as writtenTime,
+      T.traded_time as tradedTime,
+      T.user_id as userId,
+      T.voucher_id as voucherId,
+      JSON_OBJECT(
+        'photocardId', P.photocard_id,
+        'name', P.name,
+        'imageName', P.image_name,
+        'groupData', JSON_OBJECT(
+          'groupId', G.group_id,
+          'name', G.name
+        ),
+        'memberData', JSON_OBJECT(
+          'memberId', M.member_id,
+          'name', M.name
+        )
+      ) as photo
     FROM Trade as T
     INNER JOIN Voucher as V ON T.voucher_id=V.voucher_id
     INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
@@ -135,8 +206,7 @@ export const selectTradeDetailByVoucherID = async (voucherId: number) => {
     WHERE T.voucher_id=${con.escape(voucherId)} AND T.state='trading'
     ORDER BY T.written_time DESC`;
 
-    interface DataType extends RowDataPacket, TradeType {}
-    return await con.query<DataType[]>(sql);
+    return await con.query<TradeDetail[] & ResultSetHeader>(sql);
   } catch (err) {
     throw err;
   } finally {
