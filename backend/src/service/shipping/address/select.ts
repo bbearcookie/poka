@@ -1,5 +1,5 @@
 import db from '@config/database';
-import { RowDataPacket } from 'mysql2';
+import { ResultSetHeader } from 'mysql2';
 import { Address } from '@type/shipping';
 
 // 특정 사용자의 모든 배송지 조회
@@ -23,8 +23,7 @@ export const selectUserShippingAddresses = async (userId: number) => {
     WHERE user_id=${con.escape(userId)}
     ORDER BY prime DESC, address_id`;
 
-    interface DataType extends Address, RowDataPacket {}
-    return await con.query<DataType[]>(sql);
+    return await con.query<Address[] & ResultSetHeader>(sql);
   } catch (err) {
     throw err;
   } finally {
@@ -52,8 +51,7 @@ export const selectShippingAddressDetail = async (addressId: number) => {
     FROM ShippingAddress
     WHERE address_id=${con.escape(addressId)}`;
 
-    interface DataType extends Address, RowDataPacket {}
-    return await con.query<DataType[]>(sql);
+    return await con.query<Address[] & ResultSetHeader>(sql);
   } catch (err) {
     throw err;
   } finally {

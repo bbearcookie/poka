@@ -1,5 +1,5 @@
 import db from '@config/database';
-import { RowDataPacket } from 'mysql2';
+import { ResultSetHeader } from 'mysql2';
 import { WhereSQL } from '@util/database';
 import { VoucherItem } from '@type/voucher';
 import { FilterType } from '@controller/voucher/getVouchers';
@@ -119,7 +119,7 @@ export const selectVouchers = async (
     // 페이지 조건
     sql += `LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
 
-    return await con.query<(VoucherItem & RowDataPacket)[]>(sql);
+    return await con.query<VoucherItem[] & ResultSetHeader>(sql);
   } catch (err) {
     con.rollback();
     throw err;
@@ -168,7 +168,7 @@ export const selectVoucherDetail = async (voucherId: number | number[]) => {
     if (Array.isArray(voucherId)) sql += `WHERE voucher_id IN (${con.escape(voucherId)})`;
     else sql += `WHERE voucher_id=${con.escape(voucherId)}`;
 
-    return await con.query<(VoucherItem & RowDataPacket)[]>(sql);
+    return await con.query<VoucherItem[] & ResultSetHeader>(sql);
   } catch (err) {
     throw err;
   } finally {
@@ -217,7 +217,7 @@ export const selectHaveVouchersOfTrade = async (userId: number, photoIds: number
     AND V.state='available'
     GROUP BY P.photocard_id`;
 
-    return await con.query<(VoucherItem & RowDataPacket)[]>(sql);
+    return await con.query<VoucherItem[] & ResultSetHeader>(sql);
   } catch (err) {
     throw err;
   } finally {
@@ -264,7 +264,7 @@ export const selectShippingRequestVoucherIds = async (requestId: number) => {
     INNER JOIN User as U ON V.user_id=U.user_id
     WHERE R.request_id=${con.escape(requestId)}`;
 
-    return await con.query<(VoucherItem & RowDataPacket)[]>(sql);
+    return await con.query<VoucherItem[] & ResultSetHeader>(sql);
   } catch (err) {
     throw err;
   } finally {

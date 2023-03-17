@@ -1,5 +1,5 @@
 import db from '@config/database';
-import { ResultSetHeader, RowDataPacket } from 'mysql2';
+import { ResultSetHeader } from 'mysql2';
 
 // 특정 그룹에 멤버 추가
 export const insertMember = async (groupId: number, name: string) => {

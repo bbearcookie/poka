@@ -1,5 +1,5 @@
 import db from '@config/database';
-import { RowDataPacket } from 'mysql2';
+import { ResultSetHeader } from 'mysql2';
 import { UserDetail } from '@type/user';
 
 // 아이디 이름으로 사용자 상세 조회
@@ -21,7 +21,7 @@ export const selectUserDetailByUsername = async (username: string) => {
     FROM User
     WHERE username=${con.escape(username)}`;
 
-    return await con.query<(UserDetail & RowDataPacket)[]>(sql);
+    return await con.query<UserDetail[] & ResultSetHeader>(sql);
   } catch (err) {
     throw err;
   } finally {
@@ -48,7 +48,7 @@ export const selectUserDetailByUserID = async (userId: number) => {
     FROM User
     WHERE user_id=${con.escape(userId)}`;
 
-    return await con.query<(UserDetail & RowDataPacket)[]>(sql);
+    return await con.query<UserDetail[] & ResultSetHeader>(sql);
   } catch (err) {
     throw err;
   } finally {

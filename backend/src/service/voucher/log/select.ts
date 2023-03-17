@@ -1,5 +1,5 @@
 import db from '@config/database';
-import { RowDataPacket } from 'mysql2';
+import { ResultSetHeader } from 'mysql2';
 import { VoucherLog } from '@type/voucher';
 
 // 소유권 기록 상세 조회
@@ -24,7 +24,7 @@ export const selectVoucherLogDetail = async (
     ORDER BY logged_time DESC
     LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
 
-    return await con.query<(VoucherLog & RowDataPacket)[]>(sql);
+    return await con.query<VoucherLog[] & ResultSetHeader>(sql);
   } catch (err) {
     throw err;
   } finally {

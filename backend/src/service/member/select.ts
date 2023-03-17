@@ -1,5 +1,5 @@
 import db from '@config/database';
-import { RowDataPacket } from 'mysql2';
+import { ResultSetHeader } from 'mysql2';
 import { Member, MemberItem } from '@type/member';
 
 // 모든 멤버 목록 조회
@@ -15,7 +15,7 @@ export const selectMembers = async () => {
     FROM MemberData
     ORDER BY group_id`;
 
-    return await con.query<(Member & RowDataPacket)[]>(sql);
+    return await con.query<Member[] & ResultSetHeader>(sql);
   } catch (err) {
     throw err;
   } finally {
@@ -39,7 +39,7 @@ export const selectMemberDetail = async (memberId: number) => {
     FROM MemberData as M
     WHERE M.member_id=${con.escape(memberId)}`;
 
-    return await con.query<(MemberItem & RowDataPacket)[]>(sql);
+    return await con.query<MemberItem[] & ResultSetHeader>(sql);
   } catch (err) {
     throw err;
   } finally {
@@ -63,7 +63,7 @@ export const selectMembersOfGroup = async (groupId: number) => {
     FROM MemberData as M
     WHERE M.group_id=${con.escape(groupId)}`
 
-    return await con.query<(MemberItem & RowDataPacket)[]>(sql);
+    return await con.query<MemberItem[] & ResultSetHeader>(sql);
   } catch (err) {
     throw err;
   } finally {

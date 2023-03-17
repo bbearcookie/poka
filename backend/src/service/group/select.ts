@@ -1,5 +1,5 @@
 import db from '@config/database';
-import { RowDataPacket } from 'mysql2';
+import { ResultSetHeader } from 'mysql2';
 import { Group, GroupItem } from '@type/group';
 
 // 전체 그룹 목록 조회
@@ -17,7 +17,7 @@ export const selectGroups = async () => {
       WHERE M.group_id=G.group_id) as memberCount
     FROM GroupData AS G`
 
-    return await con.query<(GroupItem & RowDataPacket)[]>(sql);
+    return await con.query<GroupItem[] & ResultSetHeader>(sql);
   } catch (err) {
     throw err;
   } finally {
@@ -38,7 +38,7 @@ export const selectGroupDetail = async (groupId: number) => {
     FROM GroupData
     WHERE group_id=${con.escape(groupId)}`
 
-    return await con.query<(Group & RowDataPacket)[]>(sql);
+    return await con.query<Group[] & ResultSetHeader>(sql);
   } catch (err) {
     throw err;
   } finally {

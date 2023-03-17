@@ -52,7 +52,7 @@ export const controller = async (req: Request, res: Response, next: NextFunction
 
     // 기존의 이미지 파일 삭제
     if (process.env.INIT_CWD) {
-      try { fs.rm(path.join(process.env.INIT_CWD, USER_IMAGE_DIR, user.image_name)) }
+      try { fs.rm(path.join(process.env.INIT_CWD, USER_IMAGE_DIR, user.imageName)) }
       catch (err) { console.error(err); }
     }
   }

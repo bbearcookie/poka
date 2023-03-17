@@ -1,5 +1,5 @@
 import db from '@config/database';
-import { RowDataPacket } from 'mysql2';
+import { ResultSetHeader } from 'mysql2';
 import { Photo } from '@type/photo';
 import { WhereSQL } from '@util/database';
 import { FilterType } from '@controller/photo/getPhotos';
@@ -71,9 +71,7 @@ export const selectPhotos = async (
     // 페이지 조건
     sql += `LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
 
-    interface DataType extends Photo, RowDataPacket {}
-
-    return await con.query<DataType[]>(sql);
+    return await con.query<Photo[] & ResultSetHeader>(sql);
   } catch (err) {
     con.rollback();
     throw err;
@@ -105,9 +103,7 @@ export const selectPhotoDetail = async (photocardId: number) => {
     INNER JOIN GroupData as G ON M.group_id=G.group_id
     WHERE photocard_id=${con.escape(photocardId)}`;
 
-    interface DataType extends Photo, RowDataPacket {}
-
-    return await con.query<DataType[]>(sql);
+    return await con.query<Photo[] & ResultSetHeader>(sql);
   } catch (err) {
     throw err;
   } finally {
@@ -130,8 +126,7 @@ export const selectWantCardsOfTrade = async (tradeId: number) => {
     INNER JOIN GroupData as G ON M.group_id=G.group_id
     WHERE T.trade_id=${con.escape(tradeId)}`
 
-    interface DataType extends RowDataPacket, WantcardType {}
-    return await con.query<DataType[]>(sql);
+    return await con.query<WantcardType[] & ResultSetHeader>(sql);
   } catch (err) {
     throw err;
   } finally {
