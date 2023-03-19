@@ -8,7 +8,8 @@ export const updatePaymentState = async (paymentId: number, state: PaymentState)
   try {
     let sql = `
     UPDATE Payment
-    set state=${con.escape(state)}
+    SET
+      state=${con.escape(state)}
     WHERE payment_id=${con.escape(paymentId)}`;
     
     return await con.execute(sql);
@@ -26,7 +27,8 @@ export const updatePaymentimpUID = async (paymentId: number, impUID: string) => 
   try {
     let sql = `
     UPDATE Payment
-    SET imp_uid=${con.escape(impUID)}
+    SET
+      imp_uid=${con.escape(impUID)}
     WHERE payment_id=${con.escape(paymentId)}`;
 
     return await con.execute(sql);

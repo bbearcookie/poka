@@ -10,8 +10,17 @@ export const insertUser = async (username: string, nickname: string, password: s
     const encryptedPassword = encryptText(password, salt);
     
     let sql = `
-    INSERT INTO User (username, nickname, password, salt)
-    VALUES (${con.escape(username)}, ${con.escape(nickname)}, ${con.escape(encryptedPassword)}, ${con.escape(salt)})`
+    INSERT INTO User(
+      username,
+      nickname,
+      password,
+      salt
+    ) VALUES (
+      ${con.escape(username)},
+      ${con.escape(nickname)},
+      ${con.escape(encryptedPassword)},
+      ${con.escape(salt)}
+    )`;
     
     return await con.execute(sql);
   } catch (err) {

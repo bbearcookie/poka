@@ -18,13 +18,14 @@ export const updateShippingAddress = async (
   try {
     let sql = `
     UPDATE ShippingAddress
-    SET name=${con.escape(form.name)},
-    recipient=${con.escape(form.recipient)},
-    contact=${con.escape(form.contact)},
-    postcode=${con.escape(form.postcode)},
-    address=${con.escape(form.address)},
-    address_detail=${con.escape(form.addressDetail)},
-    requirement=${con.escape(form.requirement)}
+    SET
+      name=${con.escape(form.name)},
+      recipient=${con.escape(form.recipient)},
+      contact=${con.escape(form.contact)},
+      postcode=${con.escape(form.postcode)},
+      address=${con.escape(form.address)},
+      address_detail=${con.escape(form.addressDetail)},
+      requirement=${con.escape(form.requirement)}
     WHERE address_id=${con.escape(addressId)}`;
     
     return await con.execute(sql);
@@ -42,7 +43,8 @@ export const updateUserShippingAddressPrimeFalse = async (userId: number) => {
   try {
     let sql = `
     UPDATE ShippingAddress
-    SET prime=0
+    SET
+      prime=0
     WHERE user_id=${con.escape(userId)}`;
 
     return await con.execute(sql);
@@ -60,7 +62,8 @@ export const updateShippingAddressPrime = async (addressId: number, prime: numbe
   try {
     let sql = `
     UPDATE ShippingAddress
-    SET prime=${con.escape(prime)}
+    SET
+      prime=${con.escape(prime)}
     WHERE address_id=${con.escape(addressId)}`;
 
     return await con.execute(sql);

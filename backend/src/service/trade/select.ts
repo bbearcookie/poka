@@ -83,23 +83,32 @@ export const selectTrades = async (
     // 페이지 조건
     sql += `LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
 
+    // 교환글 목록 가져오기
     const [trades] = await con.query<TradeDetail[] & ResultSetHeader>(sql);
-    const result: TradeItem[] = []
 
-    for (let i = 0; i < trades.length; i++) {
-      let sql = `
-      SELECT M.member_id as memberId, M.name
-      FROM TradeWantcard as T
-      INNER JOIN Photocard as P ON T.photocard_id=P.photocard_id
-      INNER JOIN MemberData as M ON P.member_id=M.member_id
-      WHERE T.trade_id=${con.escape(trades[i].tradeId)}
-      GROUP BY M.name`
+    // 각 교환글이 원하는 멤버 정보 가져오기
+    const loadWantMembers = trades.map(t => (
+      new Promise(async (resolve, reject) => {
+        let sql = `
+        SELECT
+          M.member_id as memberId,
+          M.name
+        FROM TradeWantcard as T
+        INNER JOIN Photocard as P ON T.photocard_id=P.photocard_id
+        INNER JOIN MemberData as M ON P.member_id=M.member_id
+        WHERE T.trade_id=${con.escape(t.tradeId)}
+        GROUP BY M.name`;
+        
+        try {
+          const [wantMembers] = await con.query<WantMember[] & ResultSetHeader>(sql);
+          resolve({ ...t, wantMembers });
+        } catch (err) {
+          reject(err);
+        }
+      })
+    ));
 
-      const [wantMembers] = await con.query<WantMember[] & ResultSetHeader>(sql);
-      result[i] = { ...trades[i], wantMembers };
-    }
-
-    return result;
+    return await Promise.all(loadWantMembers);
   } catch (err) {
     throw err;
   } finally {

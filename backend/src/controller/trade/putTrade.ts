@@ -49,7 +49,7 @@ export const controller = async (req: Request, res: Response, next: NextFunction
 
   // 교환글 수정
   await updateTrade({
-    tradeId: trade.tradeId,
+    trade,
     voucherId: haveVoucherId,
     amount,
     wantPhotocardIds

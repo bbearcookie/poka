@@ -11,28 +11,47 @@ export const writeTrade = async ({ userId, voucherId, amount, wantPhotocardIds }
     await con.beginTransaction();
     let sql;
 
-    // 소유권 상태를 trading으로 변경
-    sql = `
-    UPDATE Voucher
-    SET state=${con.escape('trading')}
-    WHERE voucher_id=${con.escape(voucherId)}`
-    await con.execute(sql);
-
     // 교환글 작성
     sql = `
-    INSERT INTO Trade (user_id, voucher_id, amount)
-    VALUES (${con.escape(userId)}, ${con.escape(voucherId)}, ${con.escape(amount)})`
-    const [result] = await con.execute(sql);
-    const tradeId = (result as ResultSetHeader).insertId;
+    INSERT INTO Trade(
+      user_id,
+      voucher_id,
+      amount
+    ) VALUES (
+      ${con.escape(userId)},
+      ${con.escape(voucherId)},
+      ${con.escape(amount)}
+    )`
+    const [result] = await con.execute<ResultSetHeader>(sql);
+
+    // 소유권 상태를 trading으로 변경
+    const updateVoucher = new Promise((resolve, reject) => {
+      let sql = `
+      UPDATE Voucher
+      SET
+        state=${con.escape('trading')}
+      WHERE voucher_id=${con.escape(voucherId)}`
+
+      con.execute(sql).then(resolve).catch(reject);
+    });
 
     // 교환글이 원하는 포토카드 정보 작성
-    for (let photoId of wantPhotocardIds) {
-      sql = `
-      INSERT INTO TradeWantcard (trade_id, photocard_id)
-      VALUES (${con.escape(tradeId)}, ${con.escape(photoId)})`;
-      await con.execute(sql);
-    }
+    const insertWantcards = wantPhotocardIds.map(photocardId => (
+      new Promise((resolve, reject) => {
+        let sql = `
+        INSERT INTO TradeWantcard(
+          trade_id,
+          photocard_id
+        ) VALUES (
+          ${con.escape(result.insertId)},
+          ${con.escape(photocardId)}
+        )`;
 
+        con.execute(sql).then(resolve).catch(reject);
+      })
+    ));
+
+    await Promise.all([updateVoucher, ...insertWantcards]);
     con.commit();
   } catch (err) {
     con.rollback();

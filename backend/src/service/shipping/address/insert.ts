@@ -10,9 +10,17 @@ export const insertUserShippingAddress = async (
 
   try {
     let sql = `
-    INSERT INTO ShippingAddress 
-    (user_id, name, recipient, contact, postcode, address, address_detail, requirement, prime)
-    VALUES (
+    INSERT INTO ShippingAddress(
+      user_id,
+      name,
+      recipient,
+      contact,
+      postcode,
+      address,
+      address_detail,
+      requirement,
+      prime
+    ) VALUES (
       ${con.escape(userId)}, 
       ${con.escape(form.name)}, 
       ${con.escape(form.recipient)}, 

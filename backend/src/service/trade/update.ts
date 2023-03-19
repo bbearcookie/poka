@@ -1,10 +1,10 @@
 
 import db from '@config/database';
-import { Trade } from '@type/trade';
+import { TradeDetail } from '@type/trade';
 
 // 교환글 수정
-export const updateTrade = async ({ tradeId, voucherId, amount, wantPhotocardIds }: {
-  tradeId: number;
+export const updateTrade = async ({ trade, voucherId, amount, wantPhotocardIds }: {
+  trade: TradeDetail;
   voucherId: number;
   amount: number;
   wantPhotocardIds: number[];
@@ -13,41 +13,73 @@ export const updateTrade = async ({ tradeId, voucherId, amount, wantPhotocardIds
 
   try {
     await con.beginTransaction();
-    let sql;
 
     // 기존 소유권 상태를 available로 변경
-    sql = `
-    UPDATE Voucher
-    SET state=${con.escape('available')}
-    WHERE voucher_id=${con.escape(voucherId)}`
-    await con.execute(sql);
+    const updateExistingVoucher = new Promise((resolve, reject) => {
+      let sql = `
+      UPDATE Voucher
+      SET
+        state=${con.escape('available')}
+      WHERE voucher_id=${con.escape(trade.voucherId)}`
 
-    // 기존 wantPhotocard 모두 제거
-    sql = `DELETE FROM TradeWantcard WHERE trade_id=${tradeId}`
-    await con.execute(sql);
+      con.execute(sql).then(resolve).catch(reject);
+    });
 
     // 새로운 소유권 사용상태 변경
-    sql = `
-    UPDATE Voucher
-    SET state=${con.escape('trading')}
-    WHERE voucher_id=${con.escape(voucherId)}`
-    await con.execute(sql);
+    const updateNewVoucher = new Promise((resolve, reject) => {
+      let sql = `
+      UPDATE Voucher
+      SET
+        state=${con.escape('trading')}
+      WHERE voucher_id=${con.escape(voucherId)}`
+
+      con.execute(sql).then(resolve).catch(reject);
+    });
+
+    // 기존 wantPhotocard 모두 제거
+    const deleteExistingWantcard = new Promise((resolve, reject) => {
+      let sql = `
+      DELETE FROM TradeWantcard
+      WHERE trade_id=${trade.tradeId}`
+
+      con.execute(sql).then(resolve).catch(reject);
+    });
 
     // 교환글 수정
-    sql = `
-    UPDATE Trade
-    SET voucher_id=${con.escape(voucherId)}, amount=${con.escape(amount)}
-    WHERE trade_id=${con.escape(tradeId)}`
-    await con.execute(sql);
+    const updateTrade = new Promise((resolve, reject) => {
+      let sql = `
+      UPDATE Trade
+      SET
+        voucher_id=${con.escape(voucherId)},
+        amount=${con.escape(amount)}
+      WHERE trade_id=${con.escape(trade.tradeId)}`
+
+      con.execute(sql).then(resolve).catch(reject);
+    });
 
     // 교환글이 원하는 포토카드 정보 작성
-    for (let photoId of wantPhotocardIds) {
-      sql = `
-      INSERT INTO TradeWantcard (trade_id, photocard_id)
-      VALUES (${con.escape(tradeId)}, ${con.escape(photoId)})`;
-      await con.execute(sql);
-    }
-    
+    const insertWantcards = wantPhotocardIds.map(photocardId => (
+      new Promise((resolve, reject) => {
+        let sql = `
+        INSERT INTO TradeWantcard(
+          trade_id,
+          photocard_id
+        ) VALUES (
+          ${con.escape(trade.tradeId)},
+          ${con.escape(photocardId)}
+        )`;
+
+        con.execute(sql).then(resolve).catch(reject);
+      })
+    ));
+
+    await Promise.all([
+      updateExistingVoucher,
+      updateNewVoucher,
+      deleteExistingWantcard,
+      updateTrade,
+      ...insertWantcards]);
+
     con.commit();
   } catch (err) {
     con.rollback();
@@ -68,40 +100,93 @@ export const exchangeTrade = async ({ tradeId, voucherId, userId, voucherIds }: 
 
   try {
     await con.beginTransaction();
-    let sql;
 
     // 교환글 상태 변경, 교환일 변경
-    sql = 
-    `UPDATE Trade
-    SET state='traded', traded_time=now()
-    WHERE trade_id=${con.escape(tradeId)}`;
-    await con.execute(sql);
+    const updateTrade = new Promise((resolve, reject) => {
+      let sql = `
+      UPDATE Trade
+      SET
+        state='traded',
+        traded_time=now()
+      WHERE trade_id=${con.escape(tradeId)}`;
 
-    // 교환글의 소유권 변경
-    sql = `
-    UPDATE Voucher
-    SET user_id=${userId}, state='available'
-    WHERE voucher_id=${con.escape(voucherId)}`;
-    await con.execute(sql);
-
-    sql = `
-    INSERT INTO VoucherLog (voucher_id, origin_user_id, dest_user_id, type)
-    VALUES (${con.escape(voucherId)}, ${con.escape(userId)}, ${con.escape(userId)}, 'traded')`;
-    await con.execute(sql);
-
-    // 사용자의 소유권 변경
-    for (let voucherId of voucherIds) {
-      sql = `
+      con.execute(sql).then(resolve).catch(reject);
+    });
+    
+    // 교환글에 등록된 소유권의 주인과 상태 변경
+    const updateTradeVoucher = new Promise((resolve, reject) => {
+      let sql = `
       UPDATE Voucher
-      SET user_id=${con.escape(userId)}, state='available'
+      SET
+        user_id=${userId},
+        state='available'
       WHERE voucher_id=${con.escape(voucherId)}`;
-      await con.execute(sql);
 
-      sql = `
-      INSERT INTO VoucherLog (voucher_id, origin_user_id, dest_user_id, type)
-      VALUES (${con.escape(voucherId)}, ${con.escape(userId)}, ${con.escape(userId)}, 'traded')`;
-      await con.execute(sql);
-    }
+      con.execute(sql).then(resolve).catch(reject);
+    });
+
+    // 교환 기록 추가
+    const insertVoucherLog = new Promise((resolve, reject) => {
+      let sql = `
+      INSERT INTO VoucherLog(
+        voucher_id,
+        origin_user_id,
+        dest_user_id,
+        type
+      ) VALUES (
+        ${con.escape(voucherId)},
+        ${con.escape(userId)},
+        ${con.escape(userId)},
+        'traded'
+      )`;
+
+      con.execute(sql).then(resolve).catch(reject);
+    });
+
+    // 교환 신청한 사용자의 소유권 변경 및 기록 작성
+    const updateVouchers = voucherIds.map(voucherId => (
+      new Promise((resolve, reject) => {
+
+        // 소유권 변경
+        const updateVoucher = new Promise((resolve, reject) => {
+          let sql = `
+          UPDATE Voucher
+          SET
+            user_id=${con.escape(userId)},
+            state='available'
+          WHERE voucher_id=${con.escape(voucherId)}`;
+
+          con.execute(sql).then(resolve).catch(reject);
+        });
+
+        // 교환 기록 작성
+        const insertLog = new Promise((resolve, reject) => {
+          let sql = `
+          INSERT INTO VoucherLog(
+            voucher_id,
+            origin_user_id,
+            dest_user_id,
+            type
+          ) VALUES (
+            ${con.escape(voucherId)},
+            ${con.escape(userId)},
+            ${con.escape(userId)},
+            'traded'
+          )`;
+
+          con.execute(sql).then(resolve).catch(reject);
+        });
+
+        Promise.all([updateVoucher, insertLog]).then(resolve).catch(reject);
+      })
+    ));
+
+    await Promise.all([
+      updateTrade,
+      updateTradeVoucher,
+      insertVoucherLog,
+      ...updateVouchers
+    ]);
 
     con.commit();
   } catch (err) {

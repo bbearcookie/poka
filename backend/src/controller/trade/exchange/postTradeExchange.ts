@@ -27,8 +27,7 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   if (!trade) return res.status(404).json({ message: '해당 교환글이 존재하지 않아요.' });
   if (trade.state !== 'trading') return res.status(400).json({ message: '이미 교환이 완료된 교환글이에요.' });
   if (trade.userId === loggedUser.userId) return res.status(403).json({ message: '자신이 작성한 교환글이에요.' });
-  if (vouchers.length < trade.amount) return res.status(403).json({ message: `사용할 소유권을 ${trade.amount}개 선택해주세요.` });
-  if (vouchers.length > trade.amount) return res.status(403).json({ message: `사용할 소유권을 ${trade.amount}개만 선택해주세요.` });
+  if (vouchers.length !== trade.amount) return res.status(403).json({ message: `사용할 소유권을 ${trade.amount}개 선택해주세요.` });
 
   // 교환글 소유권 확인
   const [[voucher]] = await selectVoucherDetail(trade.voucherId);
