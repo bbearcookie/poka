@@ -41,21 +41,19 @@ function ShippingSection() {
       <CardBody styles={{ padding: "0" }}>
         <Table styles={{ itemHeight: "1em", itemPadding: "1em" }}>
           <colgroup>
-            <Col width="25%" />
+            <Col width="30%" />
+            <Col width="20%" />
             <Col width="15%" />
             <Col width="15%" />
-            <Col width="10%" />
-            <Col width="25%" />
-            <Col width="10%" />
+            <Col width="15%" />
           </colgroup>
           <thead>
             <tr>
               <th>요청자</th>
-              <th>배송 상태</th>
+              <th>요청 소유권</th>
               <th>결제 상태</th>
-              <th>수량</th>
+              <th>배송 상태</th>
               <th>요청일</th>
-              <th>액션</th>
             </tr>
           </thead>
           <tbody>
@@ -65,6 +63,7 @@ function ShippingSection() {
               <Shipping
                 key={r.requestId}
                 to="/admin/shipping/detail"
+                showOwner={true}
                 request={{
                   requestId: r.requestId,
                   state: r.state,

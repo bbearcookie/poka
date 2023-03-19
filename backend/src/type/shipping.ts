@@ -41,9 +41,9 @@ export interface ShippingRequestDetail extends ShippingRequest {
 }
 
 // 배송 요청 목록 아이템 타입
-export interface ShippingRequestItem  extends ShippingRequest {
+export interface ShippingRequestItem extends ShippingRequest {
   address: Pick<Address, 'recipient' | 'contact' | 'postcode' | 'address' | 'addressDetail' | 'requirement'>;
   payment: Pick<Payment, 'state'>;
   author: User;
-  voucherAmount: number;
+  voucherImageName: string;
 }

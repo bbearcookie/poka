@@ -23,18 +23,18 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   // 배송 요청 정보
   const [[shipping]] = await selectShippingRequestDetail(requestId);
   if (!shipping) return res.status(404).json({ message: '해당 배송 요청을 찾지 못했어요.' });
-  if (!isAdminOrOwner(loggedUser, shipping.userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
-  if (shipping.requestState !== 'waiting') return res.status(400).json({ message: '관리자가 이미 배송 처리한 경우에는 취소할 수 없어요.' });
+  if (!isAdminOrOwner(loggedUser, shipping.author.userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
+  if (shipping.state !== 'waiting') return res.status(400).json({ message: '관리자가 이미 배송 처리한 경우에는 취소할 수 없어요.' });
 
   // 포트원 액세스 토큰 발급
   const token = await getToken();
 
   // 결제 정보 확인
-  const [[payment]] = await selectPaymentDetail(shipping.paymentId);
+  const [[payment]] = await selectPaymentDetail(shipping.payment.paymentId);
   if (!payment) return res.status(404).json({ message: '해당 결제 정보를 찾지 못했어요.' });
 
   // 포트원 환불 요청
-  const refundData = await refundPayment(payment.impUID, shipping.amount, '배송 요청 취소', token);
+  const refundData = await refundPayment(payment.impUID, shipping.payment.amount, '배송 요청 취소', token);
   if (!refundData.response) return res.status(400).json({ message: refundData.message });
 
   // 결제 상태 변경

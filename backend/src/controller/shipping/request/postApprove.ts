@@ -17,8 +17,8 @@ export const controller = async (req: Request, res: Response, next: NextFunction
 
   const [[shipping]] = await selectShippingRequestDetail(requestId);
   if (!shipping) return res.status(404).json({ message: '해당 배송 요청을 찾지 못했어요.' });
-  if (shipping.paymentState !== 'paid') return res.status(403).json({ message: '아직 결제되지 않은 배송 요청은 발송 완료할 수 없어요.' });
-  if (shipping.requestState === 'shipped') return res.status(403).json({ message: '이미 완료 처리된 요청이에요.' });
+  if (shipping.payment.state !== 'paid') return res.status(403).json({ message: '아직 결제되지 않은 배송 요청은 발송 완료할 수 없어요.' });
+  if (shipping.state === 'shipped') return res.status(403).json({ message: '이미 완료 처리된 요청이에요.' });
 
   // 발송 완료 처리
   await approveShippingRequest(requestId);

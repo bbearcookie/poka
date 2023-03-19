@@ -45,5 +45,5 @@ export interface ShippingRequestItem extends ShippingRequest {
   address: Pick<Address, 'recipient' | 'contact' | 'postcode' | 'address' | 'addressDetail' | 'requirement'>;
   payment: Pick<Payment, 'state'>;
   author: User;
-  voucherAmount: number;
+  voucherImageName: string;
 }

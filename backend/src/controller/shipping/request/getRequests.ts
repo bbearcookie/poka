@@ -30,7 +30,8 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   const pageParam = req.query.pageParam ? Number(req.query.pageParam) : 0;
   const filter = req.query.filter as unknown as FilterType;
 
-  const [shippings] = await selectShippingRequests(itemPerPage, pageParam, filter);
+  const shippings = await selectShippingRequests(itemPerPage, pageParam, filter);
+  // console.log(shippings);
 
   return res.status(200).json({
     message: '배송 요청 목록을 조회했어요.',

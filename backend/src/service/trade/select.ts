@@ -100,28 +100,6 @@ export const selectTrades = async (
     }
 
     return result;
-
-    // const [trades] = await con.query<TradeDetail[] & ResultSetHeader>(sql);
-
-    // for (let i = 0; i < trades.length; i++) {
-    //   sql = `
-    //   SELECT M.member_id as memberId, M.name
-    //   FROM TradeWantcard as T
-    //   INNER JOIN Photocard as P ON T.photocard_id=P.photocard_id
-    //   INNER JOIN MemberData as M ON P.member_id=M.member_id
-    //   WHERE T.trade_id=${con.escape(trades[i].tradeId)}
-    //   GROUP BY M.name`
-      
-    //   interface WantMemberType extends RowDataPacket {
-    //     memberId: number;
-    //     name: string;
-    //   }
-
-    //   const [wantMembers] = await con.query<WantMemberType[]>(sql);
-    //   trades[i] = { ...trades[i], wantMembers }
-    // }
-
-    // return trades as TradeListItemType[];
   } catch (err) {
     throw err;
   } finally {

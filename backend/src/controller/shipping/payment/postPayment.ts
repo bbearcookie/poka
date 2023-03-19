@@ -28,14 +28,14 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   if (!payment) return res.status(404).json({ message: '포트원 결제 정보를 찾지 못했어요.' });
 
   // impUID를 DB에 저장
-  await updatePaymentimpUID(shipping.paymentId, impUID);
+  await updatePaymentimpUID(shipping.payment.paymentId, impUID);
 
   // 결제 금액이 일치하면 결제 완료 처리. 다르면 위조 처리.
-  if (payment.amount === shipping.amount && payment.status === 'paid') {
-    await updatePaymentState(shipping.paymentId, 'paid');
+  if (payment.amount === shipping.payment.amount && payment.status === 'paid') {
+    await updatePaymentState(shipping.payment.paymentId, 'paid');
     return res.status(200).json({ message: '배송비가 결제되었어요.' });
   } else {
-    await updatePaymentState(shipping.paymentId, 'forgeried');
+    await updatePaymentState(shipping.payment.paymentId, 'forgeried');
     return res.status(200).json({ message: '위조된 결과가 확인되었어요.' });
   }
 
