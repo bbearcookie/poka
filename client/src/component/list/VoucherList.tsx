@@ -65,7 +65,7 @@ function VoucherList({
     <ItemSection>
       {vouchers?.pages.map((page, i) =>
       <Fragment key={i}>
-        {page.vouchers.map(v =>
+        {page.vouchers.map((v, j) =>
         <VoucherCard
           key={v.voucherId}
           showOwner={showOwner}

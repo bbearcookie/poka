@@ -5,9 +5,9 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { getYearMonthDay } from '@util/date';
 import UserProfile from '@component/profile/UserProfile';
 import StateLabel from '@component/label/stateLabel/StateLabel';
-import { StyledShipping } from './_styles';
 import { Payment, ShippingRequest } from '@type/shipping';
 import { User } from '@type/user';
+import { StyledShipping, PhotoImg } from './_styles';
 
 interface Props {
   request: ShippingRequest;

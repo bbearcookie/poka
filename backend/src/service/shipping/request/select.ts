@@ -18,11 +18,9 @@ export const selectShippingRequests = async (
 
     sql = `
     SELECT
-      JSON_OBJECT(
-        'requestId', R.request_id,
-        'state', R.state,
-        'writtenTime', R.written_time
-      ) as request,
+      R.request_id as requestId,
+      R.state as state,
+      R.written_time as writtenTime,
       JSON_OBJECT(
         'recipient', R.recipient,
         'contact', R.contact,
@@ -92,11 +90,9 @@ export const selectShippingRequestDetail = async (
   try {
     let sql = `
     SELECT
-      JSON_OBJECT(
-        'requestId', R.request_id,
-        'state', R.state,
-        'writtenTime', R.written_time
-      ) as request,
+      R.request_id as requestId,
+      R.state as state,
+      R.written_time as writtenTime,
       JSON_OBJECT(
         'recipient', R.recipient,
         'contact', R.contact,

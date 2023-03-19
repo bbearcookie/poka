@@ -17,11 +17,9 @@ export const selectVouchers = async (
 
     let sql = `
     SELECT
-      JSON_OBJECT(
-        'voucherId', V.voucher_id,
-        'state', V.state,
-        'createdTime', V.created_time
-      ) as voucher,
+      V.voucher_id as voucherId,
+      V.state as state,
+      V.created_time as createdTime,
       JSON_OBJECT(
         'photocardId', P.photocard_id,
         'name', P.name,
@@ -135,11 +133,9 @@ export const selectVoucherDetail = async (voucherId: number | number[]) => {
   try {
     let sql = `
     SELECT
-      JSON_OBJECT(
-        'voucherId', V.voucher_id,
-        'state', V.state,
-        'createdTime', V.created_time
-      ) as voucher,
+      V.voucher_id as voucherId,
+      V.state as state,
+      V.created_time as createdTime,
       JSON_OBJECT(
         'photocardId', P.photocard_id,
         'name', P.name,
@@ -182,12 +178,10 @@ export const selectHaveVouchersOfTrade = async (userId: number, photoIds: number
 
   try {
     let sql = `
-    SELECT
-      JSON_OBJECT(
-        'voucherId', V.voucher_id,
-        'state', V.state,
-        'createdTime', V.created_time
-      ) as voucher,
+      SELECT
+      V.voucher_id as voucherId,
+      V.state as state,
+      V.created_time as createdTime,
       JSON_OBJECT(
         'photocardId', P.photocard_id,
         'name', P.name,
@@ -232,11 +226,9 @@ export const selectShippingRequestVoucherIds = async (requestId: number) => {
   try {
     let sql = `
     SELECT
-      JSON_OBJECT(
-        'voucherId', V.voucher_id,
-        'state', V.state,
-        'createdTime', V.created_time
-      ) as voucher,
+      V.voucher_id as voucherId,
+      V.state as state,
+      V.created_time as createdTime,
       JSON_OBJECT(
         'photocardId', P.photocard_id,
         'name', P.name,

@@ -25,7 +25,6 @@ export default function useShippingsQuery(
   filter: FilterType,
   options?: UseInfiniteQueryOptions<ResType, AxiosError<ResponseError>>
 ): UseInfiniteQueryResult<ResType, AxiosError<ResponseError>> {
-
   return useInfiniteQuery<ResType, AxiosError<ResponseError>>({
     queryKey: queryKey.shippingKeys.all,
     queryFn: ({ pageParam = 0 }) => fetchShippings({ pageParam, filter }),

@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import useSearcher from '@component/search/useSearcher';
+import useShippingList from '@component/list/shipping/useShippingList';
 import Searcher from '@component/search/Searcher';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
-import ShippingList from '@component/list/shipping/ShippingList';
+import Table from '@component/table/Table';
+import Col from '@component/table/styles/Col';
+import Shipping from '@component/list/shipping/item/Shipping';
+import SkeletonShipping from '@component/list/shipping/item/SkeletonShipping';
+import NextPageFetcher from '@component/list/content/NextPageFetcher';
 
 function ShippingSection() {
   const { filter, keyword, filterDispatch, keywordDispatch } = useSearcher();
+
+  const {
+    data: shippings,
+    isFetching,
+    hasNextPage,
+    fetchNextPage
+  } = useShippingList(filter, keyword);
 
   return (
     <Card>
@@ -27,7 +39,44 @@ function ShippingSection() {
         />
       </CardHeader>
       <CardBody styles={{ padding: "0" }}>
-        <ShippingList filter={filter} keyword={keyword} to="/admin/shipping/detail" />
+        <Table styles={{ itemHeight: "1em", itemPadding: "1em" }}>
+          <colgroup>
+            <Col width="25%" />
+            <Col width="15%" />
+            <Col width="15%" />
+            <Col width="10%" />
+            <Col width="25%" />
+            <Col width="10%" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>요청자</th>
+              <th>배송 상태</th>
+              <th>결제 상태</th>
+              <th>수량</th>
+              <th>요청일</th>
+              <th>액션</th>
+            </tr>
+          </thead>
+          <tbody>
+            {shippings?.pages.map((page, i) =>
+            <Fragment key={i}>
+              {page.shippings.map(r =>
+              <Shipping
+                key={r.requestId}
+                to="/admin/shipping/detail"
+                request={{
+                  requestId: r.requestId,
+                  state: r.state,
+                  writtenTime: r.writtenTime
+                }}
+                {...r}
+              />)}
+            </Fragment>)}
+            {isFetching && Array.from({ length: 10 }).map((_, i) => <SkeletonShipping key={i} />)}
+          </tbody>
+        </Table>
+        <NextPageFetcher hasNextPage={hasNextPage} fetchNextPage={fetchNextPage} />
       </CardBody>
     </Card>
   );

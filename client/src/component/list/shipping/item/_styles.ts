@@ -8,3 +8,8 @@ export const StyledShipping = styled.tr`
     background-color: rgb(249, 249, 250);
   }
 `
+
+export const PhotoImg = styled.img`
+  width: 4.7em;
+  height: 7em;
+`
