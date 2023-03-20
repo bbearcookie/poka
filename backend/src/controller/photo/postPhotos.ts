@@ -9,15 +9,13 @@ import { getTimestampFilename, removeFile } from '@util/multer';
 import { insertPhotos } from '@service/photo/insert';
 import { updateImagename } from '@service/photo/update';
 
-export const uploader = imageUploader('images[]', PHOTO_IMAGE_DIR);
-
 interface Body {
   groupId: number;
   memberId: number;
   names: string[];
 }
 
-export const validator = [
+const validator = [
   isAdmin,
   body('groupId')
     .customSanitizer(v => Number(v))
@@ -37,8 +35,7 @@ export const validator = [
   validate
 ]
 
-// 포토카드 추가
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const { groupId, memberId, names } = req.body as Body;
   const files = req.files as Express.Multer.File[];
 
@@ -61,3 +58,15 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   return res.status(200).json({ message: '새로운 포토카드를 등록했어요.' });
   next();
 }
+
+const uploader = imageUploader('images[]', PHOTO_IMAGE_DIR);
+
+// 포토카드 추가
+const postPhotos = [
+  uploader.array,
+  uploader.errorHandler,
+  ...validator,
+  controller
+];
+
+export default postPhotos;

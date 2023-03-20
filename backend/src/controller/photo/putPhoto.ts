@@ -9,8 +9,6 @@ import { getTimestampFilename, removeFile } from '@util/multer';
 import { selectPhotoDetail } from '@service/photo/select';
 import { updatePhoto } from '@service/photo/update';
 
-export const uploader = imageUploader('image', PHOTO_IMAGE_DIR);
-
 interface Params {
   photocardId: number;
 }
@@ -21,7 +19,7 @@ interface Body {
   name: string;
 }
 
-export const validator = [
+const validator = [
   isAdmin,
   param('photocardId')
     .customSanitizer(v => Number(v))
@@ -43,8 +41,7 @@ export const validator = [
   validate
 ]
 
-// 포토카드 데이터 수정
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const { photocardId } = req.params as unknown as Params;
   const { groupId, memberId, name } = req.body as Body;
   const file = req.file;
@@ -71,3 +68,15 @@ export const controller = async (req: Request, res: Response, next: NextFunction
 
   next();
 }
+
+const uploader = imageUploader('image', PHOTO_IMAGE_DIR);
+
+// 포토카드 데이터 수정
+const putPhoto = [
+  uploader.single,
+  uploader.errorHandler,
+  ...validator,
+  controller
+];
+
+export default putPhoto;

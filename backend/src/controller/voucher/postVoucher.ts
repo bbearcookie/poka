@@ -14,7 +14,7 @@ interface Body {
   }[];
 }
 
-export const validator = [
+const validator = [
   isAdmin,
   body('username')
     .trim().toLowerCase()
@@ -31,8 +31,7 @@ export const validator = [
   validate
 ]
 
-// 소유권 발급
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const { username, vouchers } = req.body as Body;
 
   const [[user]] = await selectUserDetailByUsername(username);
@@ -42,3 +41,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   return res.status(200).json({ message: `${user.username} 사용자에게 소유권을 발급했어요.` });
   next();
 }
+
+// 소유권 발급
+const postVoucher = [
+  ...validator,
+  controller
+];
+
+export default postVoucher;

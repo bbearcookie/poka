@@ -6,13 +6,13 @@ import { validate } from '@validator/middleware/response';
 import { isAdmin } from '@validator/middleware/auth';
 import { PHOTO_IMAGE_DIR } from '@uploader/image.uploader';
 import { selectPhotoDetail } from '@service/photo/select';
-import { deletePhoto } from '@service/photo/delete';
+import { deletePhoto as deletePhotoService } from '@service/photo/delete';
 
 type Params = {
   photocardId: number;
 }
 
-export const validator = [
+const validator = [
   isAdmin,
   param('photocardId')
     .customSanitizer(v => Number(v))
@@ -20,8 +20,7 @@ export const validator = [
   validate
 ]
 
-// 포토카드 데이터 삭제
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const { photocardId } = req.params as unknown as Params;
 
   const [[photo]] = await selectPhotoDetail(photocardId);
@@ -33,7 +32,15 @@ export const controller = async (req: Request, res: Response, next: NextFunction
     catch (err) { console.error(err); }
   }
 
-  await deletePhoto(photocardId);
+  await deletePhotoService(photocardId);
   return res.status(200).json({ message: `포토카드 ${photo.name} 을(를) 삭제했어요.` });
   next();
 }
+
+// 포토카드 데이터 삭제
+const deletePhoto = [
+  ...validator,
+  controller
+];
+
+export default deletePhoto;

@@ -13,7 +13,7 @@ interface Query {
   pageParam: number;
 }
 
-export const validator = [
+const validator = [
   isAdmin,
   param('voucherId')
     .customSanitizer(v => Number(v))
@@ -24,8 +24,7 @@ export const validator = [
   validate
 ]
 
-// 소유권 기록 조회
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const { voucherId } = req.params as unknown as Params;
   const itemPerPage = 5;
   const { pageParam } = req.query as unknown as Query;
@@ -45,3 +44,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   
   next();
 }
+
+// 소유권 기록 조회
+const getVoucherLogDetail = [
+  ...validator,
+  controller
+];
+
+export default getVoucherLogDetail;

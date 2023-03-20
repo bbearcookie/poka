@@ -18,7 +18,7 @@ interface Query {
   filter: FilterType;
 }
 
-export const validator = [
+const validator = [
   ...filterSanitizer,
 
   query('pageParam')
@@ -61,8 +61,7 @@ export const validator = [
   validate
 ]
 
-// 전체 소유권 목록 조회
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const itemPerPage = 20;
   const { pageParam, filter } = req.query as unknown as Query;
 
@@ -78,3 +77,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
 
   next();
 }
+
+// 전체 소유권 목록 조회
+const getVouchers = [
+  ...validator,
+  controller
+];
+
+export default getVouchers;

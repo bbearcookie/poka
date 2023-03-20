@@ -15,7 +15,7 @@ type Query = {
   filter: FilterType;
 }
 
-export const validator = [
+const validator = [
   ...filterSanitizer,
   
   query('pageParam')
@@ -43,8 +43,7 @@ export const validator = [
   validate
 ]
 
-// 포토카드 목록 조회
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const itemPerPage = 20;
   const { pageParam, filter } = req.query as unknown as Query;
 
@@ -61,3 +60,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
 
   next();
 }
+
+// 포토카드 목록 조회
+const getPhotos = [
+  ...validator,
+  controller
+];
+
+export default getPhotos;

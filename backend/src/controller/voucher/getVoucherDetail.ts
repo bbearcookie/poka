@@ -7,15 +7,14 @@ interface Params {
   voucherId: number;
 }
 
-export const validator = [
+const validator = [
   param('voucherId')
     .customSanitizer(v => Number(v))
     .isNumeric().withMessage('소유권 ID는 숫자여야 해요.'),
   validate
 ]
 
-// 소유권 상세 조회
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const { voucherId } = req.params as unknown as Params;
 
   const [[voucher]] = await selectVoucherDetail(voucherId);
@@ -27,3 +26,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   });
   next();
 }
+
+// 소유권 상세 조회
+const getVoucherDetail = [
+  ...validator,
+  controller
+];
+
+export default getVoucherDetail;

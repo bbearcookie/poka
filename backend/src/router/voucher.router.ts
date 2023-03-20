@@ -1,23 +1,22 @@
 import express from 'express';
-import * as getVouchers from '@controller/voucher/getVouchers';
-import * as getVoucherDetail from '@controller/voucher/getVoucherDetail';
-import * as deleteVoucher from '@controller/voucher/deleteVoucher';
-import * as postVoucher from '@controller/voucher/postVoucher';
-import * as getVoucherLogDetail from '@controller/voucher/log/getVoucherLogDetail';
-import * as getTradeDetailByVoucherId from '@controller/voucher/trade/getTradeDetailByVoucherId';
+import getVouchers from '@controller/voucher/getVouchers';
+import getVoucherDetail from '@controller/voucher/getVoucherDetail';
+import deleteVoucher from '@controller/voucher/deleteVoucher';
+import postVoucher from '@controller/voucher/postVoucher';
+import getVoucherLogDetail from '@controller/voucher/log/getVoucherLogDetail';
+import getTradeDetailByVoucherId from '@controller/voucher/trade/getTradeDetailByVoucherId';
 
 const router = express.Router();
 
 router.route('/')
-  .get(getVouchers.validator, getVouchers.controller)
-  .post(postVoucher.validator, postVoucher.controller);
+  .get(getVouchers)
+  .post(postVoucher);
 
 router.route('/:voucherId')
-  .get(getVoucherDetail.validator, getVoucherDetail.controller)
-  .delete(deleteVoucher.validator, deleteVoucher.controller);
+  .get(getVoucherDetail)
+  .delete(deleteVoucher);
 
-router.get('/:voucherId/log', getVoucherLogDetail.validator, getVoucherLogDetail.controller);
-
-router.get('/:voucherId/trade', getTradeDetailByVoucherId.validator, getTradeDetailByVoucherId.controller);
+router.get('/:voucherId/log', getVoucherLogDetail);
+router.get('/:voucherId/trade', getTradeDetailByVoucherId);
 
 export default router;
