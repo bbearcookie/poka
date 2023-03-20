@@ -1,4 +1,4 @@
-import multer, { MulterError } from 'multer';
+import multer from 'multer';
 import fs from 'fs/promises';
 import fsAsync from 'fs';
 

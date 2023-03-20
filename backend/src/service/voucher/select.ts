@@ -1,4 +1,5 @@
 import db from '@config/database';
+import { PoolConnection } from 'mysql2/promise';
 import { ResultSetHeader } from 'mysql2';
 import { WhereSQL } from '@util/database';
 import { VoucherItem } from '@type/voucher';
@@ -10,9 +11,10 @@ export const selectVouchers = async (
   pageParam: number,
   filter: FilterType
 ) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
     const where = new WhereSQL();
 
     let sql = `
@@ -57,6 +59,8 @@ export const selectVouchers = async (
     if (filter.photoName.length > 0) {
       where.pushString('(');
       filter.photoName.forEach((item, idx) => {
+        if (!con) throw new Error('undefined db connection');
+
         where.push({
           query: `P.name LIKE ${con.escape(`%${item}%`)}`,
           operator: idx < filter.photoName.length - 1 ? 'OR' : ''
@@ -72,6 +76,8 @@ export const selectVouchers = async (
     if (filter.userName.length > 0) {
       where.pushString('(');
       filter.userName.forEach((item, idx) => {
+        if (!con) throw new Error('undefined db connection');
+
         where.push({
           query: `U.username = ${con.escape(item)}`,
           operator: idx < filter.userName.length - 1 ? 'OR' : ''
@@ -119,18 +125,19 @@ export const selectVouchers = async (
 
     return await con.query<VoucherItem[] & ResultSetHeader>(sql);
   } catch (err) {
-    con.rollback();
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 };
 
 // 소유권 상세 조회
 export const selectVoucherDetail = async (voucherId: number | number[]) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     SELECT
       V.voucher_id as voucherId,
@@ -168,15 +175,17 @@ export const selectVoucherDetail = async (voucherId: number | number[]) => {
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }
 
 // 특정 교환글이 원하는 포토카드 중에서 사용자가 소지한 소유권 조회
 export const selectHaveVouchersOfTrade = async (userId: number, photoIds: number[]) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
       SELECT
       V.voucher_id as voucherId,
@@ -215,15 +224,17 @@ export const selectHaveVouchersOfTrade = async (userId: number, photoIds: number
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }
 
 // 배송 요청이 원하는 소유권 정보 조회
 export const selectShippingRequestVoucherIds = async (requestId: number) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     SELECT
       V.voucher_id as voucherId,
@@ -260,6 +271,6 @@ export const selectShippingRequestVoucherIds = async (requestId: number) => {
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }

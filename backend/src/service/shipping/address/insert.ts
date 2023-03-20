@@ -1,4 +1,5 @@
 import db from '@config/database';
+import { PoolConnection } from 'mysql2/promise';
 import { AddressFormType } from '@controller/user/address/postAddress';
 
 // 사용자 배송지 추가
@@ -6,9 +7,11 @@ export const insertUserShippingAddress = async (
   userId: number,
   form: AddressFormType
 ) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     INSERT INTO ShippingAddress(
       user_id,
@@ -36,6 +39,6 @@ export const insertUserShippingAddress = async (
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }

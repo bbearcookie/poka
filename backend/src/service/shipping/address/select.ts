@@ -1,12 +1,15 @@
 import db from '@config/database';
+import { PoolConnection } from 'mysql2/promise';
 import { ResultSetHeader } from 'mysql2';
 import { Address } from '@type/shipping';
 
 // 특정 사용자의 모든 배송지 조회
 export const selectUserShippingAddresses = async (userId: number) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     SELECT
       address_id as addressId,
@@ -27,15 +30,17 @@ export const selectUserShippingAddresses = async (userId: number) => {
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }
 
 // 배송지 정보 상세 조회
 export const selectShippingAddressDetail = async (addressId: number) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     SELECT
       address_id as addressId,
@@ -55,6 +60,6 @@ export const selectShippingAddressDetail = async (addressId: number) => {
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }

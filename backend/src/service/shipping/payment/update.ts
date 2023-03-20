@@ -1,11 +1,14 @@
 import db from '@config/database';
+import { PoolConnection } from 'mysql2/promise';
 import { PaymentState } from '@type/shipping';
 
 // 결제 정보 상태 변경
 export const updatePaymentState = async (paymentId: number, state: PaymentState) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     UPDATE Payment
     SET
@@ -16,15 +19,17 @@ export const updatePaymentState = async (paymentId: number, state: PaymentState)
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }
 
 // 결제 정보 impUID 변경
 export const updatePaymentimpUID = async (paymentId: number, impUID: string) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     UPDATE Payment
     SET
@@ -35,6 +40,6 @@ export const updatePaymentimpUID = async (paymentId: number, impUID: string) => 
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }

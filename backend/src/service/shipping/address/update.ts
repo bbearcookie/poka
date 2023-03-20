@@ -1,4 +1,5 @@
 import db from '@config/database';
+import { PoolConnection } from 'mysql2/promise';
 
 // 사용자 배송지 수정
 export const updateShippingAddress = async (
@@ -13,9 +14,11 @@ export const updateShippingAddress = async (
     requirement: string;
   }
 ) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     UPDATE ShippingAddress
     SET
@@ -32,15 +35,17 @@ export const updateShippingAddress = async (
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }
 
 // 특정 사용자의 기본 배송지 모두 해제
 export const updateUserShippingAddressPrimeFalse = async (userId: number) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     UPDATE ShippingAddress
     SET
@@ -51,15 +56,17 @@ export const updateUserShippingAddressPrimeFalse = async (userId: number) => {
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }
 
 // 사용자 기본 배송지 정보 변경
 export const updateShippingAddressPrime = async (addressId: number, prime: number) => {
-  const con = await db.getConnection();
-
+  let con: PoolConnection | undefined;
+  
   try {
+    con = await db.getConnection();
+
     let sql = `
     UPDATE ShippingAddress
     SET
@@ -70,6 +77,6 @@ export const updateShippingAddressPrime = async (addressId: number, prime: numbe
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }

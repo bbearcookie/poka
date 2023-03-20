@@ -1,16 +1,19 @@
 import db from '@config/database';
+import { PoolConnection } from 'mysql2/promise';
 import { ResultSetHeader } from 'mysql2';
 
 // 발송 완료 처리
 export const approveShippingRequest = async (requestId: number) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
     await con.beginTransaction();
-    let sql;
 
     // 소유권 상태 변경
     const updateVoucher = new Promise(async (resolve, reject) => {
+      if (!con) throw new Error('undefined db connection');
+
       try {
         let sql;
 
@@ -40,7 +43,9 @@ export const approveShippingRequest = async (requestId: number) => {
 
     // 배송 요청 상태 변경
     const updateRequest = new Promise((resolve, reject) => {
-      sql = `
+      if (!con) return reject(new Error('undefined db connection'));
+
+      let sql = `
       UPDATE ShippingRequest
       SET
         state='shipped'
@@ -52,9 +57,9 @@ export const approveShippingRequest = async (requestId: number) => {
     await Promise.all([updateVoucher, updateRequest]);
     con.commit();
   } catch (err) {
-    con.rollback();
+    con?.rollback();
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }

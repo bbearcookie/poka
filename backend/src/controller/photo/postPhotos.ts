@@ -9,7 +9,7 @@ import { getTimestampFilename, removeFile } from '@util/multer';
 import { insertPhotos } from '@service/photo/insert';
 import { updateImagename } from '@service/photo/update';
 
-export const uploader = imageUploader('image[]', PHOTO_IMAGE_DIR);
+export const uploader = imageUploader('images[]', PHOTO_IMAGE_DIR);
 
 export const validator = [
   isAdmin,
@@ -19,8 +19,8 @@ export const validator = [
   body('memberId')
     .isNumeric().withMessage("멤버 ID는 숫자여야 해요.").bail()
     .custom((value: number, { req }) => value != 0).withMessage("멤버를 선택해주세요.").bail(),
-  body('name').isArray({ min: 1 }).withMessage('포토카드를 등록해주세요.'),
-  body('name.*').trim()
+  body('names').isArray({ min: 1 }).withMessage('포토카드를 등록해주세요.'),
+  body('names.*').trim()
     .notEmpty().withMessage('포토카드 이름이 비어있어요.').bail()
     .isString().withMessage('포토카드 이름은 문자열이어야 해요.').bail()
     .isLength({ min: 1, max: 100 }).withMessage('포토카드 이름은 최대 100글자까지 입력할 수 있어요.').bail(),
@@ -31,15 +31,15 @@ export const validator = [
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
   const groupId = Number(req.body.groupId);
   const memberId = Number(req.body.memberId);
-  const name = req.body.name as unknown as string[];
+  const names = req.body['names'] as unknown as string[];
   const files = req.files as Express.Multer.File[];
 
   try {
-    let insertIds = await insertPhotos(memberId, name);
+    let insertIds = await insertPhotos(memberId, names);
 
     // 임시 파일명 변경
-    insertIds.forEach((insertId, idx) => {
-      const file = files[idx];
+    insertIds.forEach((insertId, i) => {
+      const file = files[i];
       const newFilename = getTimestampFilename(insertId.toString(), file.mimetype);
       try { fs.rename(file.path, path.join(file.destination, newFilename)) }
       catch (err) { console.error(err); }

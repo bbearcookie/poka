@@ -1,10 +1,13 @@
 import db from '@config/database';
+import { PoolConnection } from 'mysql2/promise';
 
 // 사용자 프로필 수정
 export const updateUserProfile = async (userId: number, nickname: string, imageName: string | undefined) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     UPDATE User
     SET nickname=${con.escape(nickname)} `;
@@ -15,6 +18,6 @@ export const updateUserProfile = async (userId: number, nickname: string, imageN
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }

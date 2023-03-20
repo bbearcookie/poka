@@ -1,4 +1,5 @@
 import db from '@config/database';
+import { PoolConnection } from 'mysql2/promise';
 import { ResultSetHeader } from 'mysql2';
 
 // 사용자에게 소유권 발급
@@ -9,14 +10,17 @@ export const insertVouchers = async (
     amount: number;
   }[]
 ) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
     await con.beginTransaction();
     
     // 단일 소유권 생성 후 발급 로그를 작성하는 프로미스를 반환하는 함수
     const createVoucher = (photocardId: number) => 
       new Promise(async (resolve, reject) => {
+        if (!con) throw new Error('undefined db connection');
+
         try {
           let sql;
   
@@ -64,11 +68,12 @@ export const insertVouchers = async (
 
       })
     )));
+    
     con.commit();
   } catch (err) {
-    con.rollback;
+    con?.rollback;
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 };

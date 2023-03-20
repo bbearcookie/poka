@@ -1,4 +1,5 @@
 import db from '@config/database';
+import { PoolConnection } from 'mysql2/promise';
 import { ResultSetHeader } from 'mysql2';
 import { makeSalt } from '@util/encrypt';
 
@@ -15,11 +16,11 @@ export const insertShippingRequest = async (
     requirement: string;
   }
 ) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
     await con.beginTransaction();
-    let sql;
 
     // 중복되지 않은 결제 UID 생성
     let merchantUID;
@@ -37,7 +38,7 @@ export const insertShippingRequest = async (
     }
 
     // 결제 정보 생성
-    sql = `
+    let sql = `
     INSERT INTO Payment(
       merchant_uid,
       amount
@@ -76,7 +77,9 @@ export const insertShippingRequest = async (
 
         // 소유권 상태 배송대기 상태로 변경.
         const updateVoucher = new Promise((resolve, reject) => {
-          sql = `
+          if (!con) return reject(new Error('undefined connection'));
+
+          let sql = `
           UPDATE Voucher
           SET
             state='shipping'
@@ -87,7 +90,9 @@ export const insertShippingRequest = async (
 
         // 배송 요청하는 소유권 정보 생성
         const insertRequestVoucher = new Promise((resolve, reject) => {
-          sql = `
+          if (!con) return reject(new Error('undefined connection'));
+
+          let sql = `
           INSERT INTO ShippingRequestVoucher(
             request_id,
             voucher_id
@@ -107,9 +112,9 @@ export const insertShippingRequest = async (
     con.commit();
     return request.insertId;
   } catch (err) {
-    con.rollback();
+    con?.rollback();
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }

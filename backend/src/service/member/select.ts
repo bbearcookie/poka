@@ -1,12 +1,15 @@
 import db from '@config/database';
+import { PoolConnection } from 'mysql2/promise';
 import { ResultSetHeader } from 'mysql2';
 import { Member, MemberItem } from '@type/member';
 
 // 모든 멤버 목록 조회
 export const selectMembers = async () => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     SELECT
       member_id as memberId,
@@ -19,15 +22,17 @@ export const selectMembers = async () => {
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }
 
 // 특정 멤버 상세 정보 확인
 export const selectMemberDetail = async (memberId: number) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     SELECT
       M.member_id as memberId,
@@ -43,15 +48,17 @@ export const selectMemberDetail = async (memberId: number) => {
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }
 
 // 특정 그룹의 모든 멤버 조회
 export const selectMembersOfGroup = async (groupId: number) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     SELECT
       M.group_id as groupId,
@@ -67,6 +74,6 @@ export const selectMembersOfGroup = async (groupId: number) => {
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }

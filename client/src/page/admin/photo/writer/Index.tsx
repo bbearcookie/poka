@@ -20,8 +20,8 @@ function PhotoWriterPage() {
       err.response?.data.errors.forEach((item) => {
         if (item.param === 'groupId' || item.param === 'memberId') {
           dispatch({ type: 'SET_MESSAGE', payload: { target: item.param, value: item.message } });
-        } else if (item.param.substring(0, 4) === 'name') {
-          const pattern = /name\[([\d]+)\]/g;
+        } else if (item.param.substring(0, 5) === 'names') {
+          const pattern = /names\[([\d]+)\]/g;
           const index = Number(pattern.exec(item.param)?.at(1));
           dispatch({ type: 'SET_PHOTO_MESSAGE', idx: index, message: item.message });
         }
@@ -37,8 +37,8 @@ function PhotoWriterPage() {
     formData.set('groupId', state.form.groupId.toString());
     formData.set('memberId', state.form.memberId.toString());
     state.form.photos.forEach((photo) => {
-      formData.append('name[]', photo.name);
-      formData.append('image[]', photo.imageFile);
+      formData.append('names[]', photo.name);
+      formData.append('images[]', photo.imageFile);
     });
     postMutation.mutate(formData);
 

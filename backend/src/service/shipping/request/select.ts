@@ -1,4 +1,5 @@
 import db from '@config/database';
+import { PoolConnection } from 'mysql2/promise';
 import { ResultSetHeader } from 'mysql2';
 import { WhereSQL } from '@util/database';
 import { ShippingRequestDetail, ShippingRequestItem } from '@type/shipping';
@@ -10,13 +11,13 @@ export const selectShippingRequests = async (
   pageParam: number,
   filter: FilterType
 ) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
     const where = new WhereSQL();
-    let sql;
 
-    sql = `
+    let sql = `
     SELECT
       R.request_id as requestId,
       R.state as state,
@@ -79,18 +80,19 @@ export const selectShippingRequests = async (
     // 각 배송 요청에 등록된 첫 번째 소유권의 포토카드 이미지 가져오기
     const loadVouchers = requests.map(r => (
       new Promise<ShippingRequestItem>(async (resolve, reject) => {
-        let sql = `
-        SELECT
-          image_name as imageName
-        FROM ShippingRequestVoucher as RV
-        INNER JOIN Voucher as V ON RV.voucher_id=V.voucher_id
-        INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
-        WHERE RV.request_id=${con.escape(r.requestId)}
-        ORDER BY V.voucher_id`;
-        interface Voucher { imageName: string; };
-
+        if (!con) throw new Error('undefined connection');
 
         try {
+          let sql = `
+          SELECT
+            image_name as imageName
+          FROM ShippingRequestVoucher as RV
+          INNER JOIN Voucher as V ON RV.voucher_id=V.voucher_id
+          INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
+          WHERE RV.request_id=${con.escape(r.requestId)}
+          ORDER BY V.voucher_id`;
+
+          interface Voucher { imageName: string; };
           const [[voucher]] = await con.query<Voucher[] & ResultSetHeader>(sql);
           resolve({ ...r, voucherImageName: voucher.imageName });
         } catch (err) {
@@ -103,7 +105,7 @@ export const selectShippingRequests = async (
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }
 
@@ -111,9 +113,11 @@ export const selectShippingRequests = async (
 export const selectShippingRequestDetail = async (
   requestId: number
 ) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     SELECT
       R.request_id as requestId,
@@ -149,6 +153,6 @@ export const selectShippingRequestDetail = async (
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }

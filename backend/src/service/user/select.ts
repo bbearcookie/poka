@@ -1,12 +1,15 @@
 import db from '@config/database';
+import { PoolConnection } from 'mysql2/promise';
 import { ResultSetHeader } from 'mysql2';
 import { UserDetail } from '@type/user';
 
 // 아이디 이름으로 사용자 상세 조회
 export const selectUserDetailByUsername = async (username: string) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     SELECT
       user_id as userId,
@@ -25,15 +28,17 @@ export const selectUserDetailByUsername = async (username: string) => {
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }
 
 // PK로 사용자 상세 조회
 export const selectUserDetailByUserID = async (userId: number) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     SELECT
       user_id as userId,
@@ -52,6 +57,6 @@ export const selectUserDetailByUserID = async (userId: number) => {
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }

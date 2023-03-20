@@ -1,5 +1,6 @@
 import db from '@config/database';
-import { ResultSetHeader, RowDataPacket } from 'mysql2';
+import { PoolConnection } from 'mysql2/promise';
+import { ResultSetHeader } from 'mysql2';
 import { FilterType } from '@controller/user/trade/getTradeHistory';
 import { TradeHistory } from '@type/trade';
 
@@ -10,9 +11,11 @@ export const selectUserTradeHistory = async (
   userId: number,
   filter: FilterType
 ) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     SELECT
       L.log_id as logId,
@@ -60,6 +63,6 @@ export const selectUserTradeHistory = async (
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }

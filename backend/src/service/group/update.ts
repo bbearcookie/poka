@@ -1,10 +1,17 @@
 import db from '@config/database';
+import { PoolConnection } from 'mysql2/promise';
 
 // 그룹 데이터 수정
-export const updateGroup = async (groupId: number, name: string, imageName: string | undefined) => {
-  const con = await db.getConnection();
+export const updateGroup = async (
+  groupId: number,
+  name: string,
+  imageName: string | undefined
+) => {
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+    
     let sql = `
     UPDATE GroupData
     SET name=${con.escape(name)} `;
@@ -15,15 +22,20 @@ export const updateGroup = async (groupId: number, name: string, imageName: stri
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 };
 
 // 그룹 이미지 파일 이름 변경 적용
-export const updateImagename = async (groupId: number, imageName: string) => {
-  const con = await db.getConnection();
+export const updateImagename = async (
+  groupId: number,
+  imageName: string
+) => {
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     UPDATE GroupData
     SET image_name=${con.escape(imageName)}
@@ -33,7 +45,6 @@ export const updateImagename = async (groupId: number, imageName: string) => {
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
-
 };

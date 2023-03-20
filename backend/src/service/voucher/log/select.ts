@@ -1,4 +1,5 @@
 import db from '@config/database';
+import { PoolConnection } from 'mysql2/promise';
 import { ResultSetHeader } from 'mysql2';
 import { VoucherLog } from '@type/voucher';
 
@@ -8,9 +9,11 @@ export const selectVoucherLogDetail = async (
   itemPerPage: number,
   pageParam: number
 ) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     SELECT
       log_id as logId,
@@ -28,6 +31,6 @@ export const selectVoucherLogDetail = async (
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }

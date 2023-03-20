@@ -1,10 +1,13 @@
 import db from '@config/database';
+import { PoolConnection } from 'mysql2/promise';
 
 // 소유권 삭제
 export const deleteVoucher = async (voucherId: number) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     DELETE FROM Voucher
     WHERE voucher_id=${con.escape(voucherId)}`;
@@ -13,6 +16,6 @@ export const deleteVoucher = async (voucherId: number) => {
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }

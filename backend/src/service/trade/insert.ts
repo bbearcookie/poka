@@ -1,18 +1,27 @@
 import db from '@config/database';
+import { PoolConnection } from 'mysql2/promise';
 import { ResultSetHeader } from 'mysql2';
 
 // 교환글 작성
-export const writeTrade = async ({ userId, voucherId, amount, wantPhotocardIds }:
-  { userId: number; voucherId: number; amount: number; wantPhotocardIds: number[]; }
-) => {
-  const con = await db.getConnection();
+export const writeTrade = async ({
+  userId,
+  voucherId,
+  amount,
+  wantPhotocardIds
+}: {
+  userId: number;
+  voucherId: number;
+  amount: number;
+  wantPhotocardIds: number[];
+}) => {
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
     await con.beginTransaction();
-    let sql;
 
     // 교환글 작성
-    sql = `
+    let sql = `
     INSERT INTO Trade(
       user_id,
       voucher_id,
@@ -26,6 +35,8 @@ export const writeTrade = async ({ userId, voucherId, amount, wantPhotocardIds }
 
     // 소유권 상태를 trading으로 변경
     const updateVoucher = new Promise((resolve, reject) => {
+      if (!con) return reject(new Error('undefined db connection'));
+
       let sql = `
       UPDATE Voucher
       SET
@@ -38,6 +49,8 @@ export const writeTrade = async ({ userId, voucherId, amount, wantPhotocardIds }
     // 교환글이 원하는 포토카드 정보 작성
     const insertWantcards = wantPhotocardIds.map(photocardId => (
       new Promise((resolve, reject) => {
+        if (!con) return reject(new Error('undefined db connection'));
+
         let sql = `
         INSERT INTO TradeWantcard(
           trade_id,
@@ -54,9 +67,9 @@ export const writeTrade = async ({ userId, voucherId, amount, wantPhotocardIds }
     await Promise.all([updateVoucher, ...insertWantcards]);
     con.commit();
   } catch (err) {
-    con.rollback();
+    con?.rollback();
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }

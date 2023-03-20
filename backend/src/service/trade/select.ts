@@ -1,7 +1,8 @@
 import db from '@config/database';
+import { PoolConnection } from 'mysql2/promise';
 import { ResultSetHeader } from 'mysql2';
 import { WhereSQL } from '@util/database';
-import { TradeDetail, TradeItem, WantMember } from '@type/trade';
+import { TradeDetail, WantMember } from '@type/trade';
 import { FilterType } from '@controller/trade/getTrades';
 
 // 교환글 목록 조회
@@ -11,9 +12,10 @@ export const selectTrades = async (
   pageParam: number,
   filter: FilterType
 ) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
     const where = new WhereSQL();
 
     let sql = `
@@ -89,6 +91,8 @@ export const selectTrades = async (
     // 각 교환글이 원하는 멤버 정보 가져오기
     const loadWantMembers = trades.map(t => (
       new Promise(async (resolve, reject) => {
+        if (!con) return reject(new Error('undefined db connection'));
+
         let sql = `
         SELECT
           M.member_id as memberId,
@@ -112,15 +116,17 @@ export const selectTrades = async (
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }
 
 // 교환글 상세 조회
 export const selectTradeDetail = async (tradeId: number) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     SELECT
       T.trade_id as tradeId,
@@ -154,15 +160,17 @@ export const selectTradeDetail = async (tradeId: number) => {
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }
 
 // 소유권 ID를 가지고 아직 성사되지 않은 교환글 상세 조회
 export const selectTradeDetailByVoucherID = async (voucherId: number) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     SELECT
       T.trade_id as tradeId,
@@ -197,6 +205,6 @@ export const selectTradeDetailByVoucherID = async (voucherId: number) => {
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }

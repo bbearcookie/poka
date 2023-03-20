@@ -1,4 +1,5 @@
 import db from '@config/database';
+import { PoolConnection } from 'mysql2/promise';
 import { ResultSetHeader } from 'mysql2';
 import { Photo } from '@type/photo';
 import { WhereSQL } from '@util/database';
@@ -10,9 +11,10 @@ export const selectPhotos = async (
   pageParam: number,
   filter: FilterType
 ) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
     const where = new WhereSQL();
 
     let sql = `
@@ -35,12 +37,12 @@ export const selectPhotos = async (
     // 포토카드 이름 조건
     if (filter.photoName.length > 0) {
       where.pushString('(');
-      filter.photoName.forEach((item, idx) => {
+      for (let i = 0; i < filter.photoName.length; i++) {
         where.push({
-          query: `P.name LIKE ${con.escape(`%${item}%`)}`,
-          operator: idx < filter.photoName.length - 1 ? 'OR' : ''
+          query: `P.name LIKE ${con.escape(`%${filter.photoName[i]}%`)}`,
+          operator: i < filter.photoName.length - 1 ? 'OR' : ''
         });
-      });
+      }
       where.push({
         query: ')',
         operator: 'AND'
@@ -65,25 +67,25 @@ export const selectPhotos = async (
 
     // 조건 처리
     sql += where.toString();
-    sql += `ORDER BY photocard_id `;
-
-    // 페이지 조건
-    sql += `LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
+    sql += `
+    ORDER BY photocard_id
+    LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
 
     return await con.query<Photo[] & ResultSetHeader>(sql);
   } catch (err) {
-    con.rollback();
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }
 
 // 포토카드 상세 조회
 export const selectPhotoDetail = async (photocardId: number) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     SELECT
       P.photocard_id as photocardId,
@@ -106,15 +108,17 @@ export const selectPhotoDetail = async (photocardId: number) => {
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }
 
 // 교환글이 원하는 포토카드 목록 조회
 export const selectWantCardsOfTrade = async (tradeId: number) => {
-  const con = await db.getConnection();
+  let con: PoolConnection | undefined;
 
   try {
+    con = await db.getConnection();
+
     let sql = `
     SELECT
       P.photocard_id as photocardId,
@@ -138,6 +142,6 @@ export const selectWantCardsOfTrade = async (tradeId: number) => {
   } catch (err) {
     throw err;
   } finally {
-    con.release();
+    con?.release();
   }
 }
