@@ -7,16 +7,22 @@ import { selectTradeDetail } from '@service/trade/select';
 import { selectWantCardsOfTrade } from '@service/photo/select';
 import { selectHaveVouchersOfTrade } from '@service/voucher/select';
 
+interface Params {
+  tradeId: number;
+}
+
 export const validator = [
   isLoggedIn,
-  param('tradeId').isNumeric().withMessage('교환글 ID는 숫자여야 해요.'),
+  param('tradeId')
+    .customSanitizer(v => Number(v))
+    .isNumeric().withMessage('교환글 ID는 숫자여야 해요.'),
   validate
 ]
 
 // 로그인 한 사용자가 가지고 있는 소유권 중에서 해당 교환글과 교환이 가능한 소유권 조회 
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
-  const tradeId = Number(req.params.tradeId);
+  const { tradeId } = req.params as unknown as Params;
 
   // 교환글 확인
   const [[trade]] = await selectTradeDetail(tradeId);

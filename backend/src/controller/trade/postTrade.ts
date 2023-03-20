@@ -9,27 +9,40 @@ import { selectVoucherDetail } from '@service/voucher/select';
 import { selectPhotoDetail } from '@service/photo/select';
 import { writeTrade } from '@service/trade/insert';
 
-export const validator = [
-  isLoggedIn,
+export interface Body {
+  haveVoucherId: number;
+  wantPhotocardIds: number[];
+  amount: number;
+}
+
+export const BodyValidator = [
   body('haveVoucherId')
+    .customSanitizer(v => Number(v))
     .isNumeric().withMessage('소유권 ID는 숫자여야 해요.').bail()
     .custom((value) => Number(value) > 0).withMessage('등록할 소유권을 선택해주세요.').bail(),
   body('wantPhotocardIds')
     .not().isEmpty().withMessage('받을 포토카드를 선택해주세요.').bail()
     .isArray({ max: 10 }).withMessage('받을 포토카드의 종류는 최대 10종류까지 선택할 수 있어요.').bail(),
+  body('wantPhotocardIds.*')
+    .customSanitizer(v => Number(v))
+    .isNumeric().withMessage('받을 포토카드 ID는 숫자여야 해요.'),
   body('amount')
-    .isNumeric().withMessage('수량은 숫자여야 해요.')
-    .custom((value) => Number(value) > 0).withMessage('받을 포토카드의 수량을 입력해주세요.').bail()
-    .custom((value, { req }) => Number(value) <= req.body.wantPhotocardIds.length).withMessage('수량은 받을 포토카드로 선택한 종류의 갯수를 초과할 수 없어요.').bail(),
+    .customSanitizer(v => Number(v))
+    .isNumeric().withMessage('수량은 숫자여야 해요.').bail()
+    .custom(v => v > 0).withMessage('받을 포토카드의 수량을 입력해주세요.').bail()
+    .custom((v, { req }) => v <= req.body.wantPhotocardIds.length).withMessage('수량은 받을 포토카드로 선택한 종류의 갯수를 초과할 수 없어요.').bail(),
+]
+
+export const validator = [
+  isLoggedIn,
+  ...BodyValidator,
   validate
 ]
 
 // 교환글 작성
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
-  const amount = req.body.amount as number;
-  const haveVoucherId = req.body.haveVoucherId as number;
-  const wantPhotocardIds = req.body.wantPhotocardIds as number[];
+  const { haveVoucherId, wantPhotocardIds, amount } = req.body as Body;
 
   // 사용자 정보 확인
   const [[user]] = await selectUserDetailByUserID(loggedUser.userId);

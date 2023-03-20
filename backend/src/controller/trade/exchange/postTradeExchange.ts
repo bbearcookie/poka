@@ -7,20 +7,32 @@ import { selectTradeDetail } from '@service/trade/select';
 import { selectVoucherDetail } from '@service/voucher/select';
 import { exchangeTrade } from '@service/trade/update';
 
+interface Params {
+  tradeId: number;
+}
+
+interface Body {
+  vouchers: number[];
+}
+
 export const validator = [
   isLoggedIn,
-  param('tradeId').isNumeric().withMessage('교환글 ID는 숫자여야 해요.').bail(),
-  body('vouchers').isArray({ min: 1 }).withMessage('교환할 소유권을 선택해주세요.').bail(),
+  param('tradeId')
+    .customSanitizer(v => Number(v))
+    .isNumeric().withMessage('교환글 ID는 숫자여야 해요.'),
+  body('vouchers')
+    .isArray({ min: 1 }).withMessage('교환할 소유권을 선택해주세요.'),
   body('vouchers.*')
-    .isNumeric().withMessage('소유권 ID는 숫자여야 해요.').bail(),
+    .customSanitizer(v => Number(v))
+    .isNumeric().withMessage('소유권 ID는 숫자여야 해요.'),
   validate
 ]
 
 // 교환
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
-  const tradeId = Number(req.params.tradeId);
-  const vouchers = req.body.vouchers as number[];
+  const { tradeId } = req.params as unknown as Params;
+  const { vouchers } = req.body as Body;
 
   // 교환글 확인
   const [[trade]] = await selectTradeDetail(tradeId);

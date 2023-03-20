@@ -1,29 +1,36 @@
 import { NextFunction, Request, Response } from 'express';
 import { param } from 'express-validator';
+import { isLoggedIn } from '@validator/middleware/auth';
 import { validate } from '@validator/middleware/response';
 import { createResponseMessage } from '@validator/function/response';
 import { isAdminOrOwner } from '@validator/function/auth';
 import { LoginToken } from '@type/user';
-import { validator as postTradeValidator } from '@controller/trade/postTrade';
+import { Body, BodyValidator } from '@controller/trade/postTrade';
 import { selectUserDetailByUserID } from '@service/user/select';
 import { selectTradeDetail } from '@service/trade/select';
 import { selectVoucherDetail } from '@service/voucher/select';
 import { selectPhotoDetail } from '@service/photo/select';
 import { updateTrade } from '@service/trade/update';
 
+interface Params {
+  tradeId: number;
+}
+
 export const validator = [
-  ...postTradeValidator,
-  param('tradeId').isNumeric().withMessage('교환글 ID는 숫자여야 해요.'),
+  isLoggedIn,
+  ...BodyValidator,
+  param('tradeId')
+    .customSanitizer(v => Number(v))
+    .isNumeric().withMessage('교환글 ID는 숫자여야 해요.'),
+  validate
 ]
 
 // 교환글 수정
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
-  const tradeId = Number(req.params.tradeId);
-  const amount = req.body.amount as number;
-  const haveVoucherId = req.body.haveVoucherId as number;
-  const wantPhotocardIds = req.body.wantPhotocardIds as number[];
-
+  const { tradeId } = req.params as unknown as Params;
+  const { haveVoucherId, wantPhotocardIds, amount } = req.body as Body;
+  
   // 사용자 정보 확인
   const [[user]] = await selectUserDetailByUserID(loggedUser.userId);
   if (!user) return res.status(404).json({ message: '로그인한 사용자의 정보가 올바르지 않아요.' });

@@ -94,7 +94,7 @@ export const selectShippingRequests = async (
 
           interface Voucher { imageName: string; };
           const [[voucher]] = await con.query<Voucher[] & ResultSetHeader>(sql);
-          resolve({ ...r, voucherImageName: voucher.imageName });
+          resolve({ ...r, voucherImageName: voucher?.imageName });
         } catch (err) {
           reject(err);
         }

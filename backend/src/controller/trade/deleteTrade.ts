@@ -7,16 +7,22 @@ import { LoginToken } from '@type/user';
 import { selectTradeDetail } from '@service/trade/select';
 import { deleteTrade } from '@service/trade/delete';
 
+interface Params {
+  tradeId: number;
+}
+
 export const validator = [
   isLoggedIn,
-  param('tradeId').isNumeric().withMessage('교환글 ID는 숫자여야 해요.'),
+  param('tradeId')
+    .customSanitizer(v => Number(v))
+    .isNumeric().withMessage('교환글 ID는 숫자여야 해요.'),
   validate
 ]
 
 // 교환글 삭제
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
-  const tradeId = Number(req.params.tradeId);
+  const { tradeId } = req.params as unknown as Params;
 
   const [[trade]] = await selectTradeDetail(tradeId);
   if (!trade) return res.status(404).json({ message: '삭제하려는 교환글이 존재하지 않아요.' });

@@ -1,32 +1,47 @@
 import { NextFunction, Request, Response } from 'express';
 import { query } from 'express-validator';
 import { validate } from '@validator/middleware/response';
-import { havePageParam } from '@validator/chain/page';
 import { filterSanitizer } from '@validator/chain/filter';
-import { TradeState } from '@type/trade';
 import { selectTrades } from '@service/trade/select';
 
 export type FilterType = {
   groupId: number;
   memberId: number;
   excludeUserId: number;
-  state: TradeState;
+  state: 'trading' | 'traded';
+}
+
+interface Query {
+  pageParam: number;
+  filter: FilterType;
 }
 
 export const validator = [
-  ...havePageParam,
   ...filterSanitizer,
-  query('filter.groupId').isNumeric().withMessage('검색 필터가 잘못되었어요.').bail(),
-  query('filter.memberId').isNumeric().withMessage('검색 필터가 잘못되었어요.').bail(),
-  query('filter.excludeUserId').isNumeric().withMessage('검색 필터가 잘못되었어요.').bail(),
+
+  query('pageParam')
+    .default(0)
+    .isNumeric().withMessage('pageParam이 숫자가 아니에요').bail(),
+
+  query('filter.groupId')
+    .customSanitizer(v => Number(v))
+    .isNumeric().withMessage('검색 필터가 잘못되었어요.').bail(),
+  
+  query('filter.memberId')
+    .customSanitizer(v => Number(v))
+    .isNumeric().withMessage('검색 필터가 잘못되었어요.').bail(),
+
+  query('filter.excludeUserId')
+    .customSanitizer(v => Number(v))
+    .isNumeric().withMessage('검색 필터가 잘못되었어요.').bail(),
+
   validate
 ]
 
 // 교환글 목록 조회
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
   const itemPerPage = 10;
-  const pageParam = req.query.pageParam ? Number(req.query.pageParam) : 0;
-  const filter = req.query.filter as unknown as FilterType;
+  const { pageParam, filter } = req.query as unknown as Query;
 
   const trades = await selectTrades(itemPerPage, pageParam, filter);
 
