@@ -2,36 +2,49 @@ import { NextFunction, Request, Response } from 'express';
 import { query } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { filterSanitizer } from '@validator/chain/filter';
-import { havePageParam } from '@validator/chain/page';
 import { selectShippingRequests } from '@service/shipping/request/select';
 
 export type FilterType = {
-  userName: string[];
+  userNames: string[];
   shippingState: 'all' | 'waiting' | 'shipped';
   paymentState: 'all' | 'waiting' | 'paid' | 'forgeried';
 }
 
+interface Query {
+  pageParam: number;
+  filter: FilterType;
+}
+
 export const validator = [
-  ...havePageParam,
   ...filterSanitizer,
-  query('filter.userName').isArray().withMessage('검색 필터가 잘못되었어요.').bail(),
+
+  query('pageParam')
+    .default(0)
+    .isNumeric().withMessage('pageParam이 숫자가 아니에요').bail(),
+
+  query('filter.userNames')
+    .isArray().withMessage('사용자 아이디 필터가 잘못되었어요.').bail(),
+  query('filter.userNames.*')
+    .trim()
+    .isString().withMessage('사용자 아이디는 문자열이어야 해요.').bail(),
+
   query('filter.shippingState')
-    .custom((value) => ['all', 'waiting', 'shipped'].includes(value))
-    .withMessage('검색 필터가 잘못되었어요.').bail(),
+    .custom(v => ['all', 'waiting', 'shipped'].includes(v))
+    .withMessage('배송 상태 필터가 잘못되었어요.').bail(),
+
   query('filter.paymentState')
-    .custom((value) => ['all', 'waiting', 'paid', 'forgeried'].includes(value))
-    .withMessage('검색 필터가 잘못되었어요.').bail(),
+    .custom(v => ['all', 'waiting', 'paid', 'forgeried'].includes(v))
+    .withMessage('결제 상태 필터가 잘못되었어요.').bail(),
+
   validate
 ]
 
 // 배송 요청 목록 조회
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
   const itemPerPage = 20;
-  const pageParam = req.query.pageParam ? Number(req.query.pageParam) : 0;
-  const filter = req.query.filter as unknown as FilterType;
+  const { pageParam, filter } = req.query as unknown as Query;
 
   const shippings = await selectShippingRequests(itemPerPage, pageParam, filter);
-  // console.log(shippings);
 
   return res.status(200).json({
     message: '배송 요청 목록을 조회했어요.',

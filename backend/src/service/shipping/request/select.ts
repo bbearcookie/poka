@@ -47,9 +47,9 @@ export const selectShippingRequests = async (
     INNER JOIN User as U ON R.user_id=U.user_id `;
 
     // 사용자 아이디 조건
-    if (filter.userName.length > 0) {
+    if (filter.userNames.length > 0) {
       where.push({
-        query: `U.username IN (${con.escape(filter.userName)})`,
+        query: `U.username IN (${con.escape(filter.userNames)})`,
         operator: 'AND'
       });
     }

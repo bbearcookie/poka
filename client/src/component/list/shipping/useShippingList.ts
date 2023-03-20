@@ -12,7 +12,7 @@ export default function useShippingList(
   keyword: KeywordState
 ) {
   const [refine, setRefine] = useState<FilterType>({
-    userName: [],
+    userNames: [],
     paymentState: filter.paymentState,
     shippingState: filter.shippingState
   });
@@ -28,7 +28,7 @@ export default function useShippingList(
   // 검색 조건 변경시 새로운 필터 적용
   useUpdateEffect(() => {
     setRefine({
-      userName: keyword.keywords.filter(k => k.category === 'userName').map(k => k.value),
+      userNames: keyword.keywords.filter(k => k.category === 'userName').map(k => k.value),
       shippingState: filter.shippingState,
       paymentState: filter.paymentState
     });

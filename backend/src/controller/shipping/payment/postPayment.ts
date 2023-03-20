@@ -5,16 +5,28 @@ import { getToken, getPaymentData } from '@util/iamport';
 import { selectShippingRequestDetail } from '@service/shipping/request/select';
 import { updatePaymentimpUID, updatePaymentState } from '@service/shipping/payment/update';
 
+interface Params {
+  requestId: number;
+}
+
+interface Body {
+  impUID: string;
+}
+
 export const validator = [
-  param('requestId').isNumeric().withMessage('요청 ID는 숫자여야 해요.'),
-  body('impUID').notEmpty().withMessage('impUID가 없어요.'),
+  param('requestId')
+    .customSanitizer(v => Number(v))
+    .isNumeric().withMessage('요청 ID는 숫자여야 해요.'),
+  body('impUID')
+    .trim()
+    .notEmpty().withMessage('impUID가 없어요.'),
   validate
 ]
 
 // 배송 요청의 결제 검증 후 완료 처리
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
-  const requestId = Number(req.params.requestId);
-  const impUID = req.body.impUID;
+  const { requestId } = req.params as unknown as Params;
+  const { impUID } = req.body as Body;
 
   // 배송 요청 정보
   const [[shipping]] = await selectShippingRequestDetail(requestId);

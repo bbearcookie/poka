@@ -5,15 +5,21 @@ import { selectShippingRequestDetail } from '@service/shipping/request/select';
 import { approveShippingRequest } from '@service/shipping/request/update';
 import { isAdmin } from '@validator/middleware/auth';
 
+interface Params {
+  requestId: number;
+}
+
 export const validator = [
   isAdmin,
-  param('requestId').isNumeric().withMessage('요청 ID는 숫자여야 해요.'),
+  param('requestId')
+    .customSanitizer(v => Number(v))
+    .isNumeric().withMessage('요청 ID는 숫자여야 해요.'),
   validate
 ]
 
 // 발송 완료 처리
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
-  const requestId = Number(req.params.requestId);
+  const { requestId } = req.params as unknown as Params;
 
   const [[shipping]] = await selectShippingRequestDetail(requestId);
   if (!shipping) return res.status(404).json({ message: '해당 배송 요청을 찾지 못했어요.' });

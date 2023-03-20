@@ -9,16 +9,22 @@ import { selectShippingRequestDetail } from '@service/shipping/request/select';
 import { selectPaymentDetail } from '@service/shipping/payment/select';
 import { updatePaymentState } from '@service/shipping/payment/update';
 
+interface Params {
+  requestId: number;
+}
+
 export const validator = [
   isLoggedIn,
-  param('requestId').isNumeric().withMessage('요청 ID는 숫자여야 해요.'),
+  param('requestId')
+    .customSanitizer(v => Number(v))
+    .isNumeric().withMessage('요청 ID는 숫자여야 해요.'),
   validate
 ]
 
 // 배송비 환불
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
-  const requestId = Number(req.params.requestId);
+  const { requestId } = req.params as unknown as Params;
 
   // 배송 요청 정보
   const [[shipping]] = await selectShippingRequestDetail(requestId);

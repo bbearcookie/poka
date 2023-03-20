@@ -7,7 +7,7 @@ import { ShippingStateKey, PaymentStateKey } from '@component/label/stateLabel/_
 import * as queryKey from '@api/queryKey';
 
 export interface FilterType {
-  userName: string[];
+  userNames: string[];
   shippingState: ShippingStateKey;
   paymentState: PaymentStateKey;
 }
