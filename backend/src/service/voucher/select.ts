@@ -56,14 +56,14 @@ export const selectVouchers = async (
     }
 
     // 포토카드 이름 조건
-    if (filter.photoName.length > 0) {
+    if (filter.photoNames.length > 0) {
       where.pushString('(');
-      filter.photoName.forEach((item, idx) => {
+      filter.photoNames.forEach((item, idx) => {
         if (!con) throw new Error('undefined db connection');
 
         where.push({
           query: `P.name LIKE ${con.escape(`%${item}%`)}`,
-          operator: idx < filter.photoName.length - 1 ? 'OR' : ''
+          operator: idx < filter.photoNames.length - 1 ? 'OR' : ''
         });
       });
       where.push({
@@ -73,14 +73,14 @@ export const selectVouchers = async (
     }
 
     // 사용자 아이디 조건
-    if (filter.userName.length > 0) {
+    if (filter.userNames.length > 0) {
       where.pushString('(');
-      filter.userName.forEach((item, idx) => {
+      filter.userNames.forEach((item, idx) => {
         if (!con) throw new Error('undefined db connection');
 
         where.push({
           query: `U.username = ${con.escape(item)}`,
-          operator: idx < filter.userName.length - 1 ? 'OR' : ''
+          operator: idx < filter.userNames.length - 1 ? 'OR' : ''
         });
       });
       where.push({
@@ -90,25 +90,25 @@ export const selectVouchers = async (
     }
 
     // 그룹ID 조건
-    if (filter.groupId.length > 0) {
+    if (filter.groupIds.length > 0) {
       where.push({
-        query: `G.group_id IN (${con.escape(filter.groupId)})`,
+        query: `G.group_id IN (${con.escape(filter.groupIds)})`,
         operator: 'AND'
       });
     }
 
     // 멤버ID 조건
-    if (filter.memberId.length > 0) {
+    if (filter.memberIds.length > 0) {
       where.push({
-        query: `M.member_id IN (${con.escape(filter.memberId)})`,
+        query: `M.member_id IN (${con.escape(filter.memberIds)})`,
         operator: 'AND'
       })
     }
 
     // 소유권 제외 조건
-    if (filter.excludeVoucherId.length > 0) {
+    if (filter.excludeVoucherIds.length > 0) {
       where.push({
-        query: `V.voucher_id NOT IN (${con.escape(filter.excludeVoucherId)})`,
+        query: `V.voucher_id NOT IN (${con.escape(filter.excludeVoucherIds)})`,
         operator: 'AND'
       });
     }

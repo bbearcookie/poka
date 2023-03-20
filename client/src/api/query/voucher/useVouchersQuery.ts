@@ -7,11 +7,11 @@ import { VoucherItem } from '@type/voucher';
 import * as queryKey from '@api/queryKey';
 
 export interface FilterType {
-  groupId: number[];
-  memberId: number[];
-  excludeVoucherId: number[];
-  photoName: string[];
-  userName: string[];
+  groupIds: number[];
+  memberIds: number[];
+  excludeVoucherIds: number[];
+  photoNames: string[];
+  userNames: string[];
   voucherState: VoucherStateKey;
 }
 

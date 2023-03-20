@@ -24,7 +24,7 @@ function ModalSection({ state, dispatch, modal }: Props) {
       type: 'ADD_KEYWORD',
       value: { category: 'userName', title: '소유자', value: username, show: false }
     });
-  }, [username]);
+  }, [username, keywordDispatch]);
 
   // 사용할 소유권 선택
   const onSelectVoucher = useCallback((id: number) => {
@@ -52,7 +52,7 @@ function ModalSection({ state, dispatch, modal }: Props) {
         filter={filter}
         keyword={keyword}
         showOwner={false}
-        excludeVoucherId={state.data.voucherIds}
+        excludeVoucherIds={state.data.voucherIds}
         icon={{ svg: faPlus }}
         handleSelect={onSelectVoucher}
       />}

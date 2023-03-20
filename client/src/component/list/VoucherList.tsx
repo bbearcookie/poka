@@ -15,7 +15,7 @@ interface Props {
   filter: FilterState;
   keyword: KeywordState;
   showOwner?: boolean;
-  excludeVoucherId?: number[];
+  excludeVoucherIds?: number[];
   icon?: IconType;
   handleSelect?: (voucherId: number) => void;
 }
@@ -24,18 +24,18 @@ function VoucherList({
   filter,
   keyword,
   showOwner = true,
-  excludeVoucherId,
+  excludeVoucherIds,
   icon,
   handleSelect
 }: Props) {
   const queryClient = useQueryClient();
   const [refine, setRefine] = useState<FilterType>({
-    groupId: [],
-    memberId: [],
-    photoName: [],
-    userName: [],
+    groupIds: [],
+    memberIds: [],
+    photoNames: [],
+    userNames: [],
+    excludeVoucherIds: excludeVoucherIds || [],
     voucherState: filter.voucherState,
-    excludeVoucherId: excludeVoucherId || [],
   });
 
   // 데이터 가져오기
@@ -52,14 +52,14 @@ function VoucherList({
   // 검색 조건 변경시 새로운 필터 적용
   useUpdateEffect(() => {
     setRefine({
-      groupId: filter.groups.filter(g => g.checked).map(g => g.id),
-      memberId: filter.members.filter(m => m.checked).map(m => m.id),
-      photoName: keyword.keywords.filter(k => k.category === 'photoName').map(k => k.value),
-      userName: keyword.keywords.filter(k => k.category === 'userName').map(k => k.value),
-      excludeVoucherId: excludeVoucherId || [],
+      groupIds: filter.groups.filter(g => g.checked).map(g => g.id),
+      memberIds: filter.members.filter(m => m.checked).map(m => m.id),
+      photoNames: keyword.keywords.filter(k => k.category === 'photoName').map(k => k.value),
+      userNames: keyword.keywords.filter(k => k.category === 'userName').map(k => k.value),
+      excludeVoucherIds: excludeVoucherIds || [],
       voucherState: filter.voucherState
     });
-  }, [filter, keyword, excludeVoucherId]);
+  }, [filter, keyword, excludeVoucherIds]);
 
   return (
     <ItemSection>
