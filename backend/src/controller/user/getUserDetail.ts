@@ -3,8 +3,13 @@ import { param } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { selectUserDetailByUserID } from '@service/user/select';
 
+interface Params {
+  userId: number;
+}
+
 export const validator = [
   param('userId')
+    .customSanitizer(v => Number(v))
     .isNumeric().withMessage('userId는 숫자여야 해요.')
     .custom((value) => parseInt(value) > 0).withMessage('userId가 정상적이지 않아요.'),
   validate
@@ -12,7 +17,7 @@ export const validator = [
 
 // 사용자 상세 정보 조회
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
-  const userId = Number(req.params.userId);
+  const { userId } = req.params as unknown as Params;
 
   const [[user]] = await selectUserDetailByUserID(userId);
   if (!user) return res.status(404).json({ message: '해당 사용자의 데이터가 서버에 존재하지 않아요.' });

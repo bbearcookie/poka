@@ -3,14 +3,22 @@ import { param } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { isLoggedIn } from '@validator/middleware/auth';
 import { isAdminOrOwner } from '@validator/function/auth';
-import { AddressForm } from '@controller/user/address/postAddress';
+import { AddressForm, AddressFormValidator } from '@controller/user/address/postAddress';
 import { LoginToken } from '@type/user';
 import { selectShippingAddressDetail } from '@service/shipping/address/select';
 import { updateShippingAddress } from '@service/shipping/address/update';
 
+interface Params {
+  addressId: number;
+}
+
+interface Body {
+  address: AddressForm;
+}
+
 export const validator = [
   isLoggedIn,
-  ...AddressForm.validator,
+  ...AddressFormValidator,
   param('addressId')
     .isNumeric().withMessage('배송지 ID는 숫자여야 해요.')
     .custom((value) => parseInt(value) > 0).withMessage('배송지 ID가 정상적이지 않아요.'),
@@ -20,8 +28,8 @@ export const validator = [
 // 사용자 배송지 수정
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
-  const addressId = Number(req.params.addressId);
-  const form = AddressForm.form(req);
+  const { addressId } = req.params as unknown as Params;
+  const { address: form } = req.body as Body;
 
   const [[address]] = await selectShippingAddressDetail(addressId);
   if (!address) return res.status(404).json({ message: '수정하려는 배송지의 데이터가 서버에 존재하지 않아요.' });

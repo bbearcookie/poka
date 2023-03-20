@@ -4,22 +4,30 @@ import { validate } from '@validator/middleware/response';
 import { isLoggedIn } from '@validator/middleware/auth';
 import { createResponseMessage } from '@validator/function/response';
 import { LoginToken } from '@type/user';
-import { AddressForm } from '@controller/user/address/postAddress';
+import { AddressForm, AddressFormValidator } from '@controller/user/address/postAddress';
 import { selectVoucherDetail } from '@service/voucher/select';
 import { insertShippingRequest } from '@service/shipping/request/insert';
 
+interface Body {
+  address: AddressForm;
+  voucherIds: number[];
+}
+
 export const validator = [
   isLoggedIn,
-  body('voucherIds').isArray({ min: 1 }).withMessage('소유권을 선택해주세요.'),
-  ...AddressForm.validator,
+  ...AddressFormValidator,
+  body('voucherIds')
+    .isArray({ min: 1 }).withMessage('소유권을 선택해주세요.'),
+  body('voucherIds.*')
+    .customSanitizer(v => Number(v))
+    .isNumeric().withMessage('소유권 ID는 숫자여야 해요.'),
   validate
 ]
 
 // 배송 요청 작성
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
-  const voucherIds = req.body.voucherIds as number[];
-  const address = AddressForm.form(req);
+  const { address, voucherIds } = req.body as Body;
 
   // 소유권 유효성 검사
   const [vouchers] = await selectVoucherDetail(voucherIds);

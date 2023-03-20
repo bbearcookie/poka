@@ -8,16 +8,22 @@ import { selectShippingAddressDetail, selectUserShippingAddresses } from '@servi
 import { deleteShippingAddress } from '@service/shipping/address/delete';
 import { updateShippingAddressPrime } from '@service/shipping/address/update';
 
+interface Params {
+  addressId: number;
+}
+
 export const validator = [
   isLoggedIn,
-  param('addressId').isNumeric().withMessage('배송지 ID는 숫자여야 해요.'),
+  param('addressId')
+    .customSanitizer(v => Number(v))
+    .isNumeric().withMessage('배송지 ID는 숫자여야 해요.'),
   validate
 ]
 
 // 사용자 배송지 삭제
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
-  const addressId = Number(req.params.addressId);
+  const { addressId } = req.params as unknown as Params;
 
   const [[address]] = await selectShippingAddressDetail(addressId);
   if (!address) return res.status(404).json({ message: '삭제하려는 배송지의 데이터가 서버에 존재하지 않아요.' });

@@ -1,11 +1,11 @@
 import db from '@config/database';
 import { PoolConnection } from 'mysql2/promise';
-import { AddressFormType } from '@controller/user/address/postAddress';
+import { AddressForm } from '@controller/user/address/postAddress';
 
 // 사용자 배송지 추가
 export const insertUserShippingAddress = async (
   userId: number,
-  form: AddressFormType
+  form: AddressForm
 ) => {
   let con: PoolConnection | undefined;
 

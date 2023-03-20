@@ -11,14 +11,24 @@ import { getTimestampFilename, removeFile } from '@util/multer';
 import { selectUserDetailByUserID } from '@service/user/select';
 import { updateUserProfile } from '@service/user/update';
 
-export const uploader = imageUploader('image', USER_IMAGE_DIR)
+export const uploader = imageUploader('image', USER_IMAGE_DIR);
+
+interface Params {
+  userId: number;
+}
+
+interface Body {
+  nickname: string;
+}
 
 export const validator = [
   isLoggedIn,
   param('userId')
+    .customSanitizer(v => Number(v))
     .isNumeric().withMessage('userId는 숫자여야 해요.')
     .custom((value) => parseInt(value) > 0).withMessage('userId가 정상적이지 않아요.'),
-  body('nickname').trim()
+  body('nickname')
+    .trim()
     .not().isEmpty().withMessage('닉네임이 비어있어요.')
     .isLength({ max: 20 }).withMessage('닉네임은 최대 20글자까지 입력할 수 있어요.'),
   validate
@@ -27,8 +37,8 @@ export const validator = [
 // 사용자 프로필 변경
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
-  const userId = Number(req.params.userId);
-  const nickname = req.body.nickname as unknown as string;
+  const { userId } = req.params as unknown as Params;
+  const { nickname } = req.body as Body;
   const file = req.file;
 
   const [[user]] = await selectUserDetailByUserID(userId);

@@ -7,9 +7,14 @@ import { LoginToken } from '@type/user';
 import { selectShippingAddressDetail } from '@service/shipping/address/select';
 import { updateShippingAddressPrime, updateUserShippingAddressPrimeFalse } from '@service/shipping/address/update';
 
+interface Params {
+  addressId: number;
+}
+
 export const validator = [
   isLoggedIn,
   param('addressId')
+    .customSanitizer(v => Number(v))
     .isNumeric().withMessage('배송지 ID는 숫자여야 해요.')
     .custom((value) => parseInt(value) > 0).withMessage('배송지 ID가 정상적이지 않아요.'),
   validate
@@ -18,7 +23,7 @@ export const validator = [
 // 사용자 기본 배송지 변경
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
-  const addressId = Number(req.params.addressId);
+  const { addressId } = req.params as unknown as Params;
 
   const [[address]] = await selectShippingAddressDetail(addressId);
   if (!address) return res.status(404).json({ message: '수정하려는 배송지의 데이터가 서버에 존재하지 않아요.' });
