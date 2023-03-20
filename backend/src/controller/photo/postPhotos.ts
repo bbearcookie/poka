@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { NextFunction, Request, Response } from 'express';
-import { body } from 'express-validator';
+import { check, body } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import imageUploader, { PHOTO_IMAGE_DIR } from '@uploader/image.uploader';
 import { isAdmin } from '@validator/middleware/auth';
@@ -11,16 +11,26 @@ import { updateImagename } from '@service/photo/update';
 
 export const uploader = imageUploader('images[]', PHOTO_IMAGE_DIR);
 
+interface Body {
+  groupId: number;
+  memberId: number;
+  names: string[];
+}
+
 export const validator = [
   isAdmin,
   body('groupId')
+    .customSanitizer(v => Number(v))
     .isNumeric().withMessage("그룹 ID는 숫자여야 해요.").bail()
-    .custom((value: number, { req }) => value != 0).withMessage("그룹을 선택해주세요.").bail(),
+    .custom(v => v > 0).withMessage("그룹을 선택해주세요.").bail(),
   body('memberId')
+    .customSanitizer(v => Number(v))
     .isNumeric().withMessage("멤버 ID는 숫자여야 해요.").bail()
-    .custom((value: number, { req }) => value != 0).withMessage("멤버를 선택해주세요.").bail(),
-  body('names').isArray({ min: 1 }).withMessage('포토카드를 등록해주세요.'),
-  body('names.*').trim()
+    .custom(v => v > 0).withMessage("멤버를 선택해주세요.").bail(),
+  body('names')
+    .isArray({ min: 1 }).withMessage('포토카드를 등록해주세요.'),
+  body('names.*')
+    .trim()
     .notEmpty().withMessage('포토카드 이름이 비어있어요.').bail()
     .isString().withMessage('포토카드 이름은 문자열이어야 해요.').bail()
     .isLength({ min: 1, max: 100 }).withMessage('포토카드 이름은 최대 100글자까지 입력할 수 있어요.').bail(),
@@ -29,9 +39,7 @@ export const validator = [
 
 // 포토카드 추가
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
-  const groupId = Number(req.body.groupId);
-  const memberId = Number(req.body.memberId);
-  const names = req.body['names'] as unknown as string[];
+  const { groupId, memberId, names } = req.body as Body;
   const files = req.files as Express.Multer.File[];
 
   try {

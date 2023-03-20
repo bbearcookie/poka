@@ -6,9 +6,9 @@ import { Photo } from '@type/photo';
 import * as queryKey from '@api/queryKey';
 
 export interface FilterType {
-  groupId: number[];
-  memberId: number[];
-  photoName: string[];
+  groupIds: number[];
+  memberIds: number[];
+  photoNames: string[];
 }
 
 export interface ResType {

@@ -35,12 +35,12 @@ export const selectPhotos = async (
     INNER JOIN GroupData as G ON M.group_id=G.group_id `;
 
     // 포토카드 이름 조건
-    if (filter.photoName.length > 0) {
+    if (filter.photoNames.length > 0) {
       where.pushString('(');
-      for (let i = 0; i < filter.photoName.length; i++) {
+      for (let i = 0; i < filter.photoNames.length; i++) {
         where.push({
-          query: `P.name LIKE ${con.escape(`%${filter.photoName[i]}%`)}`,
-          operator: i < filter.photoName.length - 1 ? 'OR' : ''
+          query: `P.name LIKE ${con.escape(`%${filter.photoNames[i]}%`)}`,
+          operator: i < filter.photoNames.length - 1 ? 'OR' : ''
         });
       }
       where.push({
@@ -50,17 +50,17 @@ export const selectPhotos = async (
     }
 
     // 그룹ID 조건
-    if (filter.groupId.length > 0) {
+    if (filter.groupIds.length > 0) {
       where.push({
-        query: `G.group_id IN (${con.escape(filter.groupId)})`,
+        query: `G.group_id IN (${con.escape(filter.groupIds)})`,
         operator: 'AND'
       });
     }
 
     // 멤버ID 조건
-    if (filter.memberId.length > 0) {
+    if (filter.memberIds.length > 0) {
       where.push({
-        query: `M.member_id IN (${con.escape(filter.memberId)})`,
+        query: `M.member_id IN (${con.escape(filter.memberIds)})`,
         operator: 'AND'
       })
     }

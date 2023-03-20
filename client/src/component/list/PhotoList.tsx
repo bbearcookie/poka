@@ -21,9 +21,9 @@ interface Props {
 function PhotoList({ filter, keyword, icon, handleSelect }: Props) {
   const queryClient = useQueryClient();
   const [refine, setRefine] = useState<FilterType>({
-    groupId: [],
-    memberId: [],
-    photoName: []
+    groupIds: [],
+    memberIds: [],
+    photoNames: []
   });
 
   const { data: photos, isFetching, hasNextPage, fetchNextPage, refetch }
@@ -38,9 +38,9 @@ function PhotoList({ filter, keyword, icon, handleSelect }: Props) {
   // 검색 조건 변경시 새로운 필터 적용
   useUpdateEffect(() => {
     setRefine({
-      groupId: filter.groups.filter(g => g.checked).map(g => g.id),
-      memberId: filter.members.filter(m => m.checked).map(m => m.id),
-      photoName: keyword.keywords.filter(k => k.category === 'photoName').map(k => k.value)
+      groupIds: filter.groups.filter(g => g.checked).map(g => g.id),
+      memberIds: filter.members.filter(m => m.checked).map(m => m.id),
+      photoNames: keyword.keywords.filter(k => k.category === 'photoName').map(k => k.value)
     });
   }, [filter, keyword]);
 

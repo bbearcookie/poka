@@ -11,16 +11,32 @@ import { updatePhoto } from '@service/photo/update';
 
 export const uploader = imageUploader('image', PHOTO_IMAGE_DIR);
 
+interface Params {
+  photocardId: number;
+}
+
+interface Body {
+  groupId: number;
+  memberId: number;
+  name: string;
+}
+
 export const validator = [
   isAdmin,
-  param('photocardId').isNumeric().withMessage('포토카드 ID는 숫자여야 해요.'),
+  param('photocardId')
+    .customSanitizer(v => Number(v))
+    .isNumeric().withMessage('포토카드 ID는 숫자여야 해요.')
+    .custom(v => v > 0).withMessage("포토카드 ID가 비정상적이에요.").bail(),
   body('groupId')
+    .customSanitizer(v => Number(v))
     .isNumeric().withMessage("그룹 ID는 숫자여야 해요.").bail()
-    .custom((value: number, { req }) => value != 0).withMessage("그룹을 선택해주세요.").bail(),
+    .custom(v => v > 0).withMessage("그룹을 선택해주세요.").bail(),
   body('memberId')
+    .customSanitizer(v => Number(v))
     .isNumeric().withMessage("멤버 ID는 숫자여야 해요.").bail()
-    .custom((value: number, { req }) => value != 0).withMessage("멤버를 선택해주세요.").bail(),
-  body('name').trim()
+    .custom(v => v > 0).withMessage("멤버를 선택해주세요.").bail(),
+  body('name')
+    .trim()
     .notEmpty().withMessage('포토카드 이름이 비어있어요.').bail()
     .isString().withMessage('포토카드 이름은 문자열이어야 해요.').bail()
     .isLength({ min: 1, max: 100 }).withMessage('포토카드 이름은 최대 100글자까지 입력할 수 있어요.').bail(),
@@ -29,10 +45,8 @@ export const validator = [
 
 // 포토카드 데이터 수정
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
-  const photocardId = Number(req.params.photocardId);
-  const groupId = Number(req.body.groupId);
-  const memberId = Number(req.body.memberId);
-  const name = req.body.name as unknown as string;
+  const { photocardId } = req.params as unknown as Params;
+  const { groupId, memberId, name } = req.body as Body;
   const file = req.file;
 
   const [[photo]] = await selectPhotoDetail(photocardId);
