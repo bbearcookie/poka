@@ -11,7 +11,7 @@ interface Body {
   password: string;
 }
 
-export const validator = [
+const validator = [
   body('username')
     .trim().toLowerCase()
     .not().isEmpty().withMessage('아이디가 비어있어요.').bail(),
@@ -20,8 +20,7 @@ export const validator = [
   validate
 ]
 
-// 로그인
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const { username, password } = req.body as Body;
 
   const [[user]] = await selectUserDetailByUsername(username);
@@ -43,3 +42,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   return res.status(200).json({ message: '로그인 성공!', user: payload });
   next();
 }
+
+// 로그인
+const login = [
+  ...validator,
+  controller
+];
+
+export default login;

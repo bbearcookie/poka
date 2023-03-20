@@ -1,8 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { verifyToken } from '@validator/function/auth';
 
-// 로그인 토큰 검증
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const accessToken = req.cookies.accessToken;
 
   try {
@@ -14,3 +13,10 @@ export const controller = async (req: Request, res: Response, next: NextFunction
 
   next();
 }
+
+// 로그인 토큰 검증
+const verify = [
+  controller
+];
+
+export default verify;

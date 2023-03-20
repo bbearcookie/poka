@@ -13,7 +13,7 @@ interface Body {
   name: string;
 }
 
-export const validator = [
+const validator = [
   isAdmin,
   param('groupId')
     .customSanitizer(v => Number(v))
@@ -25,8 +25,7 @@ export const validator = [
   validate
 ]
 
-// 그룹에 새 멤버 추가
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const { groupId } = req.params as unknown as Params;
   const { name } = req.body as Body;
 
@@ -37,3 +36,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   return res.status(200).json({ message: `${group.name} 그룹에 새로운 멤버 ${name}을(를) 추가했어요.`, memberId });
   next();
 }
+
+// 그룹에 새 멤버 추가
+const postMember = [
+  ...validator,
+  controller
+];
+
+export default postMember;

@@ -1,6 +1,6 @@
+import { NextFunction, Request, Response } from 'express';
 import fs from 'fs/promises';
 import path from 'path';
-import { NextFunction, Request, Response } from 'express';
 import { body } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import imageUploader from '@uploader/image.uploader';
@@ -14,9 +14,7 @@ interface Body {
   name: string;
 }
 
-export const uploader = imageUploader('image', GROUP_IMAGE_DIR);
-
-export const validator = [
+const validator = [
   isAdmin,
   body('name')
     .trim()
@@ -27,8 +25,7 @@ export const validator = [
   validate
 ]
 
-// 그룹 데이터 추가
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const { name } = req.body as Body;
   const file = req.file;
 
@@ -47,3 +44,15 @@ export const controller = async (req: Request, res: Response, next: NextFunction
 
   next();
 }
+
+const uploader = imageUploader('image', GROUP_IMAGE_DIR);
+
+// 그룹 데이터 추가
+const postGroup = [
+  uploader.single,
+  uploader.errorHandler,
+  ...validator,
+  controller
+];
+
+export default postGroup;

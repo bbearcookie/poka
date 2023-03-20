@@ -8,15 +8,14 @@ interface Params {
   memberId: number;
 }
 
-export const validator = [
+const validator = [
   param('memberId')
     .customSanitizer(v => Number(v))
     .isNumeric().withMessage('멤버 ID는 숫자여야 해요.'),
   validate
 ]
 
-// 멤버 상세 정보 조회
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const { memberId } = req.params as unknown as Params;
 
   const [[member]] = await selectMemberDetail(memberId);
@@ -32,3 +31,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
 
   next();
 }
+
+// 멤버 상세 정보 조회
+const getMember = [
+  ...validator,
+  controller
+];
+
+export default getMember;

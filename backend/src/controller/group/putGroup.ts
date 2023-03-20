@@ -18,9 +18,7 @@ interface Body {
   name: string;
 }
 
-export const uploader = imageUploader('image', GROUP_IMAGE_DIR);
-
-export const validator = [
+const validator = [
   isAdmin,
   param('groupId')
     .customSanitizer(v => Number(v))
@@ -32,8 +30,7 @@ export const validator = [
   validate
 ]
 
-// 그룹 데이터 수정
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const { groupId } = req.params as unknown as Params;
   const { name } = req.body as Body;
   const file = req.file;
@@ -61,3 +58,15 @@ export const controller = async (req: Request, res: Response, next: NextFunction
 
   next();
 }
+
+const uploader = imageUploader('image', GROUP_IMAGE_DIR);
+
+// 그룹 데이터 수정
+const putGroup = [
+  uploader.single,
+  uploader.errorHandler,
+  ...validator,
+  controller
+];
+
+export default putGroup;

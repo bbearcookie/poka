@@ -5,14 +5,14 @@ import { param } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { isAdmin } from '@validator/middleware/auth';
 import { selectGroupDetail } from '@service/group/select';
-import { deleteGroup } from '@service/group/delete';
+import { deleteGroup as deleteGroupService } from '@service/group/delete';
 import { GROUP_IMAGE_DIR } from '@uploader/image.uploader';
 
 interface Params {
   groupId: number;
 }
 
-export const validator = [
+const validator = [
   isAdmin,
   param('groupId')
     .customSanitizer(v => Number(v))
@@ -20,8 +20,7 @@ export const validator = [
   validate
 ]
 
-// 그룹 데이터 삭제
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const { groupId } = req.params as unknown as Params;
 
   const [[group]] = await selectGroupDetail(groupId);
@@ -33,7 +32,15 @@ export const controller = async (req: Request, res: Response, next: NextFunction
     catch (err) { console.error(err); }
   }
 
-  await deleteGroup(groupId);
+  await deleteGroupService(groupId);
   return res.status(200).json({ message: `그룹 ${group.name} 을(를) 삭제했어요.` });
   next();
 }
+
+// 그룹 데이터 삭제
+const deleteGroup = [
+  ...validator,
+  controller
+];
+
+export default deleteGroup;

@@ -13,7 +13,7 @@ interface Body {
   name: string;
 }
 
-export const validator = [
+const validator = [
   isAdmin,
   param('memberId')
     .customSanitizer(v => Number(v))
@@ -25,8 +25,7 @@ export const validator = [
   validate
 ]
 
-// 특정 멤버의 정보 수정
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const { memberId } = req.params as unknown as Params;
   const { name } = req.body as Body;
 
@@ -42,3 +41,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
 
   next();
 }
+
+// 특정 멤버의 정보 수정
+const putMember = [
+  ...validator,
+  controller
+];
+
+export default putMember;
