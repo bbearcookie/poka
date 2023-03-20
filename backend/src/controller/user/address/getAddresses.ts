@@ -7,9 +7,14 @@ import { selectUserDetailByUserID } from '@service/user/select';
 import { selectUserShippingAddresses } from '@service/shipping/address/select';
 import { LoginToken } from '@type/user';
 
+interface Params {
+  userId: number;
+}
+
 export const validator = [
   isLoggedIn,
   param('userId')
+    .customSanitizer(v => Number(v))
     .isNumeric().withMessage('userId 는 숫자여야 해요.')
     .custom((value) => parseInt(value) > 0).withMessage('userId 가 정상적이지 않아요.'),
   validate,
@@ -18,7 +23,7 @@ export const validator = [
 // 사용자의 배송 주소 목록 조회
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
-  const userId = Number(req.params.userId);
+  const { userId } = req.params as unknown as Params;
 
   const [[user]] = await selectUserDetailByUserID(userId);
   if (!user) return res.status(404).json({ message: '수정하려는 사용자의 데이터가 서버에 존재하지 않아요.' });

@@ -1,10 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { validate } from '@validator/middleware/response';
 import { selectGroups } from '@service/group/select';
-
-export const validator = [
-  validate
-]
 
 // 그룹 목록 조회
 export const controller = async (req: Request, res: Response, next: NextFunction) => {

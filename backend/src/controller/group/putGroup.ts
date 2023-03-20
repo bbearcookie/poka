@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { NextFunction, Request, Response } from 'express';
-import { body } from 'express-validator';
+import { body, param } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import imageUploader from '@uploader/image.uploader';
 import { getTimestampFilename } from '@util/multer';
@@ -10,11 +10,23 @@ import { isAdmin } from '@validator/middleware/auth';
 import { selectGroupDetail } from '@service/group/select';
 import { updateGroup } from '@service/group/update';
 
+interface Params {
+  groupId: number;
+}
+
+interface Body {
+  name: string;
+}
+
 export const uploader = imageUploader('image', GROUP_IMAGE_DIR);
 
 export const validator = [
   isAdmin,
-  body('name').trim()
+  param('groupId')
+    .customSanitizer(v => Number(v))
+    .isNumeric().withMessage('그룹 ID는 숫자여야 해요.'),
+  body('name')
+    .trim()
     .not().isEmpty().withMessage('이름이 비어있어요.')
     .isLength({ max: 20 }).withMessage('이름은 최대 20글자까지 입력할 수 있어요.'),
   validate
@@ -22,8 +34,8 @@ export const validator = [
 
 // 그룹 데이터 수정
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
-  const groupId = Number(req.params.groupId);
-  const name = req.body.name as unknown as string;
+  const { groupId } = req.params as unknown as Params;
+  const { name } = req.body as Body;
   const file = req.file;
 
   let [[group]] = await selectGroupDetail(groupId);

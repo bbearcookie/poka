@@ -10,20 +10,26 @@ import { isAdmin } from '@validator/middleware/auth';
 import { insertGroup } from '@service/group/insert';
 import { updateImagename } from '@service/group/update';
 
+interface Body {
+  name: string;
+}
+
 export const uploader = imageUploader('image', GROUP_IMAGE_DIR);
 
 export const validator = [
   isAdmin,
-  body('name').trim()
+  body('name')
+    .trim()
     .not().isEmpty().withMessage('이름이 비어있어요.')
     .isLength({ max: 20 }).withMessage('이름은 최대 20글자까지 입력할 수 있어요.'),
-  body('image').not().exists().withMessage('업로드 된 이미지가 없어요.'),
+  body('image')
+    .not().exists().withMessage('업로드 된 이미지가 없어요.'),
   validate
 ]
 
 // 그룹 데이터 추가
 export const controller = async (req: Request, res: Response, next: NextFunction) => {
-  const name = req.body.name as unknown as string;
+  const { name } = req.body as Body;
   const file = req.file;
 
   if (!file) throw new Error('이미지 파일 없음');

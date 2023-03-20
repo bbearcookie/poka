@@ -9,7 +9,7 @@ import * as postMember from '@controller/group/member/postMember';
 const router = express.Router();
 
 router.route('/')
-  .get(getGroups.validator, getGroups.controller)
+  .get(getGroups.controller)
   .post(
     postGroup.uploader.single,
     postGroup.uploader.errorHandler,

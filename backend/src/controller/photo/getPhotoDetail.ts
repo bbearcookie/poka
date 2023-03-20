@@ -9,6 +9,7 @@ type Params = {
 
 export const validator = [
   param('photocardId')
+    .customSanitizer(v => Number(v))
     .isNumeric().withMessage('포토카드 ID는 숫자여야 해요.'),
   validate
 ]

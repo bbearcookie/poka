@@ -17,6 +17,7 @@ type Query = {
 
 export const validator = [
   ...filterSanitizer,
+  
   query('pageParam')
     .default(0)
     .isNumeric().withMessage('pageParam이 숫자가 아니에요').bail(),
