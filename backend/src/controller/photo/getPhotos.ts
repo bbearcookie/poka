@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { query } from 'express-validator';
 import { validate } from '@validator/middleware/response';
-import { filterSanitizer } from '@validator/chain/filter';
+import { JSONSanitizer } from '@validator/sanitizer/common';
 import { selectPhotos } from '@service/photo/select';
 
 export type FilterType = {
@@ -16,11 +16,12 @@ type Query = {
 }
 
 const validator = [
-  ...filterSanitizer,
-  
   query('pageParam')
     .default(0)
     .isNumeric().withMessage('pageParam이 숫자가 아니에요').bail(),
+
+  query('filter')
+    .customSanitizer(JSONSanitizer),
 
   query('filter.photoNames')
     .isArray().withMessage('포토카드 이름 필터가 잘못되었어요.').bail(),

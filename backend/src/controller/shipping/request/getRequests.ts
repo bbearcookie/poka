@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { query } from 'express-validator';
 import { validate } from '@validator/middleware/response';
-import { filterSanitizer } from '@validator/chain/filter';
+import { JSONSanitizer } from '@validator/sanitizer/common';
 import { selectShippingRequests } from '@service/shipping/request/select';
 
 export type FilterType = {
@@ -16,11 +16,12 @@ interface Query {
 }
 
 const validator = [
-  ...filterSanitizer,
-
   query('pageParam')
     .default(0)
     .isNumeric().withMessage('pageParam이 숫자가 아니에요').bail(),
+  
+  query('filter')
+    .customSanitizer(JSONSanitizer),
 
   query('filter.userNames')
     .isArray().withMessage('사용자 아이디 필터가 잘못되었어요.').bail(),

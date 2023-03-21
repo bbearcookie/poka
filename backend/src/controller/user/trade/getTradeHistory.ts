@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { param, query } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { isLoggedIn } from '@validator/middleware/auth';
-import { filterSanitizer } from '@validator/chain/filter';
+import { JSONSanitizer } from '@validator/sanitizer/common';
 import { isAdminOrOwner } from '@validator/function/auth';
 import { LoginToken } from '@type/user';
 import { selectUserTradeHistory } from '@service/trade/history/select';
@@ -23,13 +23,14 @@ interface Query {
 
 const validator = [
   isLoggedIn,
-  ...filterSanitizer,
   param('userId')
     .customSanitizer(v => Number(v))
     .isNumeric().withMessage('사용자 ID는 숫자여야 해요.').bail(),
   query('pageParam')
     .default(0)
     .isNumeric().withMessage('pageParam이 숫자가 아니에요').bail(),
+  query('filter')
+    .customSanitizer(JSONSanitizer),
   query('filter')
     .isObject().withMessage('검색 필터가 잘못되었어요.').bail(),
   query('filter.startDate')
