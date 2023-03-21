@@ -3,7 +3,7 @@ import { useUpdateEffect } from 'react-use';
 import { useQueryClient } from '@tanstack/react-query';
 import * as queryKey from '@api/queryKey';
 import useTradesQuery from '@api/query/trade/useTradesQuery';
-import NextPageFetcher from '@component/list/NextPageFetcher';
+import NextPageFetcher from '@component/list/content/NextPageFetcher';
 import SkeletonTradeCard from '@component/trade/SkeletonTradeCard';
 import TradeCard from '@component/trade/TradeCard';
 import { State, Action } from '../reducer';
@@ -16,17 +16,17 @@ interface Props {
 const DefaultProps = {};
 
 function TradeSection({ state, dispatch }: Props) {
-  const { user_id } = useAppSelector(state => state.auth);
+  const { userId } = useAppSelector(state => state.auth);
   const queryClient = useQueryClient();
 
   const { data: trades, refetch, isFetching, fetchNextPage, hasNextPage } = useTradesQuery({
     groupId: state.select.groupId,
     memberId: state.select.memberId,
-    excludeUserId: user_id,
+    excludeUserId: userId,
     state: 'trading'
   },
   {
-    enabled: user_id !== 0
+    enabled: userId !== 0
   });
 
   // 검색 필터 변경시 데이터 리패칭
@@ -44,7 +44,7 @@ function TradeSection({ state, dispatch }: Props) {
       {trades?.pages.map((page, pageIdx) =>
       <Fragment key={pageIdx}>
         {page.trades.map(item =>
-          <TradeCard key={item.trade_id} trade={item} />
+          <TradeCard key={item.tradeId} trade={item} />
         )}
       </Fragment>)}
 

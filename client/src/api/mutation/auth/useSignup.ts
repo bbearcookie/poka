@@ -1,31 +1,31 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType } from '@util/request';
+import { ResponseError } from "@type/response";
 import { getErrorMessage } from '@util/request';
 import { signup } from '@api/api/auth';
 
-export interface ParamType {
-  body: {
-    username: string;
-    nickname: string;
-    password: string;
-    passwordCheck: string;
-  }
+interface BodyType {
+  username: string;
+  nickname: string;
+  password: string;
+  passwordCheck: string;
 }
 
-interface ResType { message: string; }
+interface ResType {
+  message: string;
+}
 
 export default function useSignup<TParam>(
   onSuccess?: (res: AxiosResponse<ResType>) => void,
-  onError?: (err: AxiosError<ErrorType<TParam>, any>) => void
+  onError?: (err: AxiosError<ResponseError<TParam>, any>) => void
 ): 
 UseMutationResult<
   AxiosResponse<ResType>,
-  AxiosError<ErrorType<TParam>>,
-  ParamType
+  AxiosError<ResponseError<TParam>>,
+  BodyType
 > {
-  return useMutation(signup, {
+  return useMutation(body => signup(body), {
     onSuccess: (res: AxiosResponse<ResType>) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
       if (onSuccess) onSuccess(res);

@@ -1,16 +1,14 @@
 import React, { useReducer, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import useAddVouchers from '@api/mutation/voucher/useAddVouchers';
 import UsernameSection from './content/UsernameSection';
 import VoucherSection from './content/VoucherSection';
-import SubmitSection from './content/SubmitSection';
+import SubmitSection from './content/ButtonSection';
 import reducer, { initialState } from './reducer';
 import './Index.scss';
 
-interface Props {}
-const DefaultProps = {};
-
-function Index({  }: Props) {
+function Index() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
 
@@ -32,27 +30,22 @@ function Index({  }: Props) {
   );
 
   // 폼 전송 이벤트
-  const onSubmit = useCallback(async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = useCallback(() => {
     dispatch({ type: 'CLEAR_MESSAGE' });
 
     postMutation.mutate({
-      body: {
-        username: state.form.username,
-        vouchers: state.form.vouchers.map(item => ({ photocardId: item.photocardId, amount: item.amount }))
-      }
+      username: state.form.username,
+      vouchers: state.form.vouchers.map(item => ({ photocardId: item.photocardId, amount: item.amount }))
     });
   }, [state, postMutation]);
 
   return (
-    <div className="VoucherWriterPage">
-      <h1 className="title-label">소유권 발급</h1>
-      <form onSubmit={onSubmit}>
-        <UsernameSection state={state} dispatch={dispatch} />
-        <VoucherSection state={state} dispatch={dispatch} />
-        <SubmitSection />
-      </form>
-    </div>
+    <main className="VoucherWriterPage">
+      <TitleLabel title="소유권 발급" styles={{ marginBottom: "1em" }} />
+      <UsernameSection state={state} dispatch={dispatch} />
+      <VoucherSection state={state} dispatch={dispatch} />
+      <SubmitSection handleSubmit={onSubmit} />
+    </main>
   );
 }
 

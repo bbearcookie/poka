@@ -8,7 +8,6 @@ import Loading from './Loading';
 import './Index.scss';
 
 interface Props {}
-const DefaultProps = {};
 
 function MemberDetailPage({  }: Props) {
   const { memberId } = useParams() as any;
@@ -20,15 +19,15 @@ function MemberDetailPage({  }: Props) {
   }, [navigate]);
 
   return (
-    <div className="MemberDetailPage">
-      {member && member.group_id ?
-        <BackLabel to={`/admin/group/detail/${member.group_id}`} styles={{ marginBottom: "2em" }}>{member.group_name}</BackLabel>
+    <main className="MemberDetailPage">
+      {member && member.groupId ?
+        <BackLabel to={`/admin/group/detail/${member.groupId}`} styles={{ marginBottom: "2em" }}>{member.groupName}</BackLabel>
       : <BackLabel onClick={toBackPage} styles={{ marginBottom: "2em" }}>뒤로가기</BackLabel>}
 
       {status === 'success' && <Success member={member} memberId={memberId} />}
       {status === 'loading' && <Loading />}
       {status === 'error' && <ErrorCard error={error} />}
-    </div>
+    </main>
   );
 }
 

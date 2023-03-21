@@ -12,7 +12,7 @@ const DefaultProps = {};
 
 function SignupPage({  }: Props) {
   return (
-    <div className="SignPage">
+    <main className="SignPage">
       <Card styles={{ width: "40rem" }}>
         <CardHeader>
           <section className="title-section">
@@ -33,7 +33,7 @@ function SignupPage({  }: Props) {
           </section>
         </CardFooter>
       </Card>
-    </div>
+    </main>
   );
 }
 

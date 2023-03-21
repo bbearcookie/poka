@@ -1,4 +1,5 @@
 import React from 'react';
+import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import Form from './Form';
 import './Index.scss';
 
@@ -7,10 +8,10 @@ const DefaultProps = {};
 
 function GroupWriterPage({  }: Props) {
   return (
-    <div className="GroupWriterPage">
-      <h1 className="title-label">그룹 등록</h1>
+    <main className="GroupWriterPage">
+      <TitleLabel title="그룹 등록" styles={{ marginBottom: "1em" }} />
       <Form />
-    </div>
+    </main>
   );
 }
 

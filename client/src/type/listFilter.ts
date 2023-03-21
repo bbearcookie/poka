@@ -1,11 +1,11 @@
-export interface GroupFilterType {
-  groupId: number;
+export interface FilterItemType {
+  id: number;
   name: string;
   checked: boolean;
 }
 
-export interface MemberFilterType {
-  memberId: number;
+export interface CheckItemType {
+  id: number;
   name: string;
   checked: boolean;
 }

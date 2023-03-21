@@ -6,10 +6,7 @@ import Button from '@component/form/Button';
 import InputMessage from '@component/form/InputMessage';
 import reducer, { initialState, FormType } from './reducer';
 
-interface Props {}
-const DefaultProps = {};
-
-function Form({  }: Props) {
+function Form() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
 
@@ -38,7 +35,7 @@ function Form({  }: Props) {
     e.preventDefault();
     console.log(state.form);
     postMutation.mutate({
-      body: { ...state.form }
+      ...state.form
     });
   }, [state, postMutation]);
 

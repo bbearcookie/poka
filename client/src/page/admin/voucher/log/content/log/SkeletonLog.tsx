@@ -2,10 +2,7 @@ import React from 'react';
 import SkeletonItem from '@component/skeleton/SkeletonItem';
 import SkeletonUserProfile from '@component/profile/SkeletonUserProfile';
 
-interface Props {}
-const DefaultProps = {};
-
-function SkeletonLog({  }: Props) {
+function SkeletonLog() {
   return (
     <li className="log">
       <div className="line">

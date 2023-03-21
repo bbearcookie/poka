@@ -2,15 +2,12 @@ import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-
 import { toast } from 'react-toastify';
 import { modifyMember } from '@api/api/member';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType } from '@util/request';
+import { ResponseError } from "@type/response";
 import { getErrorMessage } from '@util/request';
 import * as queryKey from '@api/queryKey';
 
-export interface ParamType {
-  memberId: number;
-  body: {
-    name: string;
-  }
+interface BodyType {
+  name: string;
 }
 
 interface ResType {
@@ -20,19 +17,19 @@ interface ResType {
 }
 
 export default function useModifyMember<TParam>(
+  memberId: number,
   onSuccess?: (res: AxiosResponse<ResType>) => void,
-  onError?: (err: AxiosError<ErrorType<TParam>, any>) => void
+  onError?: (err: AxiosError<ResponseError<TParam>, any>) => void
 ): 
 UseMutationResult<
   AxiosResponse<ResType>,
-  AxiosError<ErrorType<TParam>>,
-  ParamType
+  AxiosError<ResponseError<TParam>>,
+  BodyType
 > {
   const queryClient = useQueryClient();
 
-  return useMutation(modifyMember, {
+  return useMutation(body => modifyMember(memberId, body), {
     onSuccess: (res: AxiosResponse<ResType>) => {
-      toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
       queryClient.invalidateQueries(queryKey.groupKeys.all);
       queryClient.invalidateQueries(queryKey.groupKeys.detail(res.data.groupId));
       queryClient.invalidateQueries(queryKey.memberKeys.all);

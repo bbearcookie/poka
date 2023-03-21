@@ -13,10 +13,10 @@ function PhotoDetailPage({  }: Props) {
   const { status, data: photo, error } = usePhotoQuery(photocardId);
   
   return (
-    <div className="PhotoDetailPage">
+    <main className="PhotoDetailPage">
       <BackLabel to="/admin/photo/list" styles={{ marginBottom: "2em" }}>포토카드 목록</BackLabel>
       {status === 'success' && <Success photo={photo} photocardId={photocardId} />}
-    </div>
+    </main>
   );
 }
 

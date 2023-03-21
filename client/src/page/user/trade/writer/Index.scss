@@ -1,5 +1,7 @@
+@import '@util/common';
+
 .TradeWriterPage {
-  padding: 5em 10%;
+  @include contents;
 
   .title-label {
     margin: 0 0 1em 0;
@@ -18,20 +20,9 @@
     }
   }
 
-  .photo-section {
+  .voucher-section {
     display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 1em;
-
-    &:empty { display: none; }
-
-    .PhotoCard {
-      margin: 1em;
-
-      @media screen and (max-width: 80rem) {
-        margin: 1em auto;
-      }
-    }
+    margin-bottom: 5em;
   }
 
   .button-section {

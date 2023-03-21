@@ -5,18 +5,15 @@ import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Button from '@component/form/Button';
 import UserProfile from '@component/profile/UserProfile';
-import { userImage } from '@api/resource';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { VoucherStateLabel } from '@component/photocard/voucher/VoucherCard';
-import { VoucherStateKey, VoucherStateValue } from '@type/voucher';
-import { ResType as VoucherResType } from '@api/query/voucher/useVoucherQuery';
+import StateLabel from '@component/label/stateLabel/StateLabel';
+import { ResType } from '@api/query/voucher/useVoucherQuery';
 
 interface Props {
-  voucher: VoucherResType;
+  res: ResType;
 }
-const DefaultProps = {};
 
-function VoucherInfo({ voucher }: Props) {
+function VoucherInfo({ res }: Props) {
   return (
     <Card className="VoucherInfo" styles={{ marginBottom: "5em" }}>
       <CardHeader><h1>소유권 정보</h1></CardHeader>
@@ -25,28 +22,26 @@ function VoucherInfo({ voucher }: Props) {
         <ul>
           <li className="info">
             <div className="subtitle">소유권ID</div>
-            <div className="body">{voucher?.voucher_id}</div>
+            <div className="body">{res.voucherId}</div>
           </li>
           <li className="info">
             <div className="subtitle">소유자</div>
             <div className="body">
               <section className="user-section">
-                <UserProfile nickname={voucher?.nickname} username={voucher?.username} imageName={userImage(voucher?.user_image_name)} />
+                <UserProfile {...res.owner} />
               </section>
             </div>
           </li>
           <li className="info">
             <div className="subtitle">상태</div>
             <div className="body">
-              <VoucherStateLabel className="state-label" voucherState={voucher?.state || ''}>
-                {VoucherStateValue[voucher?.state.toUpperCase() as VoucherStateKey]}
-              </VoucherStateLabel>
+              <StateLabel className="state-label" state={{ type: "voucher", key: res.state || "" }}/>
             </div>
           </li>
           <li className="info">
             <div className="subtitle">기록</div>
             <div className="body">
-              <Link to={`/admin/voucher/log/${voucher?.voucher_id}`}>
+              <Link to={`/admin/voucher/log/${res.voucherId}`}>
                 <Button
                   rightIcon={faArrowRight}
                   styles={{
@@ -65,19 +60,19 @@ function VoucherInfo({ voucher }: Props) {
         <p className="description">상태는 플랫폼 내에서 발급된 이 소유권의 상태를 나타냅니다.</p>
         <br />
         <section className="state-description">
-          <VoucherStateLabel className="state-label" voucherState="available">{VoucherStateValue['available']}</VoucherStateLabel>
+          <StateLabel className="state-label" state={{ type: "voucher", key: "available" }} />
           <span className="description">사용자끼리 교환이 가능한 상태입니다.</span>
         </section>
         <section className="state-description">
-          <VoucherStateLabel className="state-label" voucherState="trading">{VoucherStateValue['trading']}</VoucherStateLabel>
+          <StateLabel className="state-label" state={{ type: "voucher", key: "trading" }} />
           <span>소유권으로 교환글을 등록한 상태입니다.</span>
         </section>
         <section className="state-description">
-          <VoucherStateLabel className="state-label" voucherState="shipping">{VoucherStateValue['shipping']}</VoucherStateLabel>
+          <StateLabel className="state-label" state={{ type: "voucher", key: "shipping" }} />
           <span>사용자가 소유권을 실물로 받기 위해 관리자에게 배송요청한 상태입니다.</span>
         </section>
         <section className="state-description">
-          <VoucherStateLabel className="state-label" voucherState="shipped">{VoucherStateValue['shipped']}</VoucherStateLabel>
+          <StateLabel className="state-label" state={{ type: "voucher", key: "shipped" }} />
           <span>관리자가 사용자에게 포토카드를 발송한 상태입니다.</span>
         </section>
       </CardBody>

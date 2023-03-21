@@ -1,0 +1,14 @@
+@import '@util/common';
+
+.ShippingWriterPage {
+  @include contents;
+
+  .voucher-section {
+    .ItemSection:empty { display: none; }
+  }
+
+  .button-section { 
+    display: flex;
+    justify-content: flex-end;
+  }
+}

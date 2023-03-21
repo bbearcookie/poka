@@ -19,7 +19,6 @@ interface Props {
 }
 const DefaultProps = {};
 function Button({ className, type = 'button', leftIcon, rightIcon, disabled, styles, onClick, children }: Props) {
-
   return (
     <StyledButton
       className={classNames(CLASS, className)}
@@ -62,7 +61,7 @@ interface StylesProps {
   iconMargin?: string; // 아이콘 크기가 달라서 마진을 직접 줘야하는 경우에 부여
   borderRadius?: string;
   fontSize?: string;
-  
+  boxSizing?: "content-box" | "border-box";
 }
 const StyledButton = styled.button<StylesProps>`
   width: ${p => p.width};
@@ -75,8 +74,9 @@ const StyledButton = styled.button<StylesProps>`
   padding: ${p => p.padding ? p.padding : '1em'};
   font-family: inherit;
   border: 0;
-  font-size: ${p => p.fontSize};
+  font-size: ${p => p.fontSize ? p.fontSize : '0.9em'};
   border-radius: ${p => p.borderRadius ? p.borderRadius : '0.3rem'};
+  box-sizing: ${p => p.boxSizing};
   box-shadow: 1px 1px 0 rgb(0, 0, 0, 0.5);
   cursor: pointer;
   user-select: none;

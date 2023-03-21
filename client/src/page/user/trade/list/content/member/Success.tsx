@@ -28,9 +28,9 @@ function Success({ group, state, dispatch }: Props) {
 
       {group.members.map(member => 
       <li
-        className={classNames({"active": state.select.memberId === member.member_id})}
-        key={member.member_id}
-        value={member.member_id}
+        className={classNames({"active": state.select.memberId === member.memberId})}
+        key={member.memberId}
+        value={member.memberId}
         onClick={onSelectMember}
       >
         {member.name}

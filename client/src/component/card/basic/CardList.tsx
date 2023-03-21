@@ -21,8 +21,9 @@ export default CardList;
 
 // 스타일 컴포넌트
 export interface StylesProps {
-
+  borderBottom?: string;
 }
 const StyledCardList = styled.ul<StylesProps>`
   margin: 0; padding: 0;
+  border-bottom: ${p => p.borderBottom};
 `

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import * as PopperJS from '@popperjs/core';
 
 interface Props {
+  className?: string;
   menuRef?: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
   popper?: {
     styles: {
@@ -22,10 +23,11 @@ interface Props {
 }
 const DefaultProps = {};
 
-function DropdownMenu({ menuRef, popper, styles, children }: Props) {
+function DropdownMenu({ className, menuRef, popper, styles, children }: Props) {
   return (
     <StyledDropdownMenu
       {...styles}
+      className={className}
       ref={menuRef}
       style={popper?.styles.popper}
       {...popper?.attributes.popper}

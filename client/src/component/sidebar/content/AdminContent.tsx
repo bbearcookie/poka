@@ -25,7 +25,7 @@ function AdminContent({  }: Props) {
           <ChildItem to="/admin/voucher/list" text="목록" />
           <ChildItem to="/admin/voucher/writer" text="발급" />
         </ParentItem>
-        <ChildItem to="/admin/shipping" icon={faTruckFast} text="배송" />
+        <ChildItem to="/admin/shipping/list" icon={faTruckFast} text="배송" />
       </ul>
       <ul className="category">
         <li className="subheader-label">데이터 관리</li>

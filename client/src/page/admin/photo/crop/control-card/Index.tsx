@@ -19,7 +19,7 @@ function ControlCard({ cropper }: Props) {
   return (
     <Card className="control-card">
       <CardBody>
-        <p className="label">영역 이동</p>
+        <h3 className="label">영역 이동</h3>
         <Form moveX={moveX} setMoveX={setMoveX} moveY={moveY} setMoveY={setMoveY} />
       </CardBody>
       <CardFooter>

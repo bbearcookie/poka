@@ -22,22 +22,26 @@ function PhotoInfoCard({ groupName, photoName, memberName, imageName, cardStyles
       styles={{
         width: "fit-content",
         textAlign: "center",
+        boxShadow: "0px 0px 10px 0px #C0C0C0",
         ...cardStyles
       }}
     >
       <CardBody>
-        <PhotoSection>
-          <img
-            width="150" height="224"
-            src={photoImage(imageName)}
-            alt="이미지"
-          />
-          <PhotoName width="9.5em"><p>{photoName}</p></PhotoName>
-          <MemberNameLabel>{memberName}</MemberNameLabel>
-          <GroupNameLabel>그룹: <GroupName>{groupName}</GroupName></GroupNameLabel>
-
-          {children}
-        </PhotoSection>
+        <StyledWrapper>
+          <ImageSection>
+            <img
+              width="150" height="224"
+              src={photoImage(imageName)}
+              alt="이미지"
+            />
+          </ImageSection>
+          <InfoSection>
+            <PhotoName width="9.5em"><p>{photoName}</p></PhotoName>
+            <MemberNameLabel>{memberName}</MemberNameLabel>
+            <GroupNameLabel>그룹: <GroupName>{groupName}</GroupName></GroupNameLabel>
+            {children}
+          </InfoSection>
+        </StyledWrapper>
       </CardBody>
     </Card>
   );
@@ -45,11 +49,24 @@ function PhotoInfoCard({ groupName, photoName, memberName, imageName, cardStyles
 
 export default PhotoInfoCard;
 
-const PhotoSection = styled.section`
+export const StyledWrapper = styled.section`
+  display: flex;
+  gap: 1em;
+
+  @media screen and (max-width: 40rem) {
+    flex-direction: column;
+  }
+`
+
+export const ImageSection = styled.section`
+  margin: 0 auto;
+`
+
+export const InfoSection = styled.section`
   display: flex;
   flex-direction: column;
-
-  img { margin: 0 auto; }
+  justify-content: center;
+  align-items: center;
 `
 
 const MemberNameLabel = styled.p`

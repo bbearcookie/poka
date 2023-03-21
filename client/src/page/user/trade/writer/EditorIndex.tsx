@@ -7,19 +7,15 @@ import { initialState, reducer, FormType } from './reducer';
 import Component from './Component';
 import './Index.scss';
 
-interface Props {
-
-}
-const DefaultProps = {};
-
-function EditorIndex({  }: Props) {
-  const { tradeId } = useParams();
+function EditorIndex() {
+  const { tradeId } = useParams() as any;
   const [form, formDispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
 
   const { data: trade, status } = useTradeQuery(Number(tradeId) || 0);
 
   const putMutation = useModifyTrade<keyof FormType>(
+    tradeId || 0,
     (res) => navigate(`/trade/detail/${tradeId}`),
     (err) => {
       err.response?.data.errors.forEach(item => {
@@ -31,23 +27,19 @@ function EditorIndex({  }: Props) {
   useEffect(() => {
     if (!trade) return;
     formDispatch({ type: 'SET_AMOUNT', payload: trade.amount });
-    formDispatch({ type: 'SET_VOUCHER_ID', payload: trade.voucher_id });
+    formDispatch({ type: 'SET_VOUCHER_ID', payload: trade.voucherId });
     trade.wantcards.forEach(item => {
-      formDispatch({ type: 'ADD_WANT_PHOTOCARD_ID', payload: item.photocard_id });
+      formDispatch({ type: 'ADD_WANT_PHOTOCARD_ID', payload: item.photocardId });
     })
   }, [trade]);
 
-  const onSubmit = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = useCallback(() => {
     putMutation.mutate({
-      tradeId: Number(tradeId),
-      body: {
-        haveVoucherId: form.data.haveVoucherId,
-        wantPhotocardIds: form.data.wantPhotocardIds,
-        amount: form.data.amount
-      }
+      haveVoucherId: form.data.haveVoucherId,
+      wantPhotocardIds: form.data.wantPhotocardIds,
+      amount: form.data.amount
     });
-  }, [form, putMutation, tradeId]);
+  }, [form, putMutation]);
 
   return (
     <Component

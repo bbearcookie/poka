@@ -1,6 +1,7 @@
 import React, { useReducer, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAddPhotos from '@api/mutation/photo/useAddPhotos';
+import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import SelectCard from './content/SelectCard';
 import Upload from './content/Upload';
 import PhotoList from './content/PhotoList';
@@ -8,10 +9,7 @@ import ButtonSection from './content/ButtonSection';
 import reducer, { initialState } from './reducer';
 import './Index.scss';
 
-interface Props {}
-const DefaultProps = {};
-
-function PhotoWriterPage({  }: Props) {
+function PhotoWriterPage() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
 
@@ -22,8 +20,8 @@ function PhotoWriterPage({  }: Props) {
       err.response?.data.errors.forEach((item) => {
         if (item.param === 'groupId' || item.param === 'memberId') {
           dispatch({ type: 'SET_MESSAGE', payload: { target: item.param, value: item.message } });
-        } else if (item.param.substring(0, 4) === 'name') {
-          const pattern = /name\[([\d]+)\]/g;
+        } else if (item.param.substring(0, 5) === 'names') {
+          const pattern = /names\[([\d]+)\]/g;
           const index = Number(pattern.exec(item.param)?.at(1));
           dispatch({ type: 'SET_PHOTO_MESSAGE', idx: index, message: item.message });
         }
@@ -39,16 +37,16 @@ function PhotoWriterPage({  }: Props) {
     formData.set('groupId', state.form.groupId.toString());
     formData.set('memberId', state.form.memberId.toString());
     state.form.photos.forEach((photo) => {
-      formData.append('name[]', photo.name);
-      formData.append('image[]', photo.imageFile);
+      formData.append('names[]', photo.name);
+      formData.append('images[]', photo.imageFile);
     });
-    postMutation.mutate({ body: formData });
+    postMutation.mutate(formData);
 
   }, [state, postMutation]);
 
   return (
-    <div className="PhotoWriterPage">
-      <h1 className="title-label">포토카드 등록</h1>
+    <main className="PhotoWriterPage">
+      <TitleLabel title="포토카드 등록" styles={{ marginBottom: "1em" }} />
       <form onSubmit={onSubmit}>
         <section className="info-section">
           <SelectCard state={state} dispatch={dispatch} />
@@ -57,7 +55,7 @@ function PhotoWriterPage({  }: Props) {
         <PhotoList state={state} dispatch={dispatch} />
         <ButtonSection />
       </form>
-    </div>
+    </main>
   );
 }
 

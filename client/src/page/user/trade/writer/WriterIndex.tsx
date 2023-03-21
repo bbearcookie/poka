@@ -1,18 +1,18 @@
-import React, { useEffect, useReducer, useCallback } from 'react';
+import React, { useReducer, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import produce from 'immer';
 import qs from 'qs';
 import useAddTrade from '@api/mutation/trade/useAddTrade';
 import Component from './Component';
 import { initialState, reducer, FormType } from './reducer';
 import './Index.scss';
 
-interface Props {}
-const DefaultProps = {};
-
-function WriterIndex({  }: Props) {
+function WriterIndex() {
   const querystring = qs.parse(window.location.search, { ignoreQueryPrefix: true });
   const voucherId = Number(querystring.voucherId) || 0;
-  const [form, formDispatch] = useReducer(reducer, initialState);
+  const [form, formDispatch] = useReducer(reducer, initialState, produce(draft => {
+    draft.data.haveVoucherId = voucherId;
+  }));
   const navigate = useNavigate();
 
   const postMutation = useAddTrade<keyof FormType>(
@@ -24,18 +24,11 @@ function WriterIndex({  }: Props) {
     }
   );
 
-  useEffect(() => {
-    formDispatch({ type: 'SET_VOUCHER_ID', payload: voucherId });
-  }, [voucherId]);
-
-  const onSubmit = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = useCallback(() => {
     postMutation.mutate({
-      body: {
-        haveVoucherId: form.data.haveVoucherId,
-        wantPhotocardIds: form.data.wantPhotocardIds,
-        amount: form.data.amount
-      }
+      haveVoucherId: form.data.haveVoucherId,
+      wantPhotocardIds: form.data.wantPhotocardIds,
+      amount: form.data.amount
     });
   }, [form, postMutation]);
 

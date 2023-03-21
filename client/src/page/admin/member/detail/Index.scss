@@ -1,5 +1,7 @@
+@import '@util/common';
+
 .MemberDetailPage {
-  padding: 5em 10%;
+  @include contents;
 
   .name-section {
     margin-bottom: 2rem;
@@ -14,16 +16,6 @@
       background-color: #E5E7EB;
       padding: 0 0.4em;
       border-radius: 5px;
-    }
-  }
-
-  .title-section {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-
-    .title-label {
-      flex-grow: 1;
     }
   }
 }

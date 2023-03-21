@@ -10,14 +10,16 @@ interface Props {
   group: GroupType;
   groupId: number;
 }
-const DefaultProps = {};
 
 function GroupRemove({ group, groupId }: Props) {
   const removeModal = useModal();
   const navigate = useNavigate();
 
   // 데이터 삭제 요청
-  const deleteMutation = useDeleteGroup((res) => navigate('/admin/group/list'));
+  const deleteMutation = useDeleteGroup(
+    groupId,
+    (res) => navigate('/admin/group/list')
+  );
 
   // 그룹 삭제
   const removeGroup = useCallback(() => {
@@ -25,7 +27,7 @@ function GroupRemove({ group, groupId }: Props) {
   }, [deleteMutation, groupId]);
 
   return (
-    <>
+    <section>
       <RemoveCard
         titleText="그룹 삭제"
         onClick={(e) => { e.stopPropagation(); removeModal.open(); }}
@@ -44,7 +46,7 @@ function GroupRemove({ group, groupId }: Props) {
         <p className="text">이 그룹을 삭제하면 연관된 멤버와 포토카드도 함께 지워져요.</p>
         <p className="text">정말로 {group?.name} 그룹을 삭제하시겠어요?</p>
       </ConfirmModal>
-    </>
+    </section>
   );
 }
 

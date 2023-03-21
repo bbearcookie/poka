@@ -1,40 +1,39 @@
-export interface TradeType {
-  trade_id: number;
-  user_id: number;
-  voucher_id: number;
-  state: TradeStateKey;
+import { Photo } from '@type/photo';
+import { Member } from '@type/member';
+import { User } from '@type/user';
+
+export type TradeState = 'trading' | 'traded';
+
+// 교환글 타입
+export interface Trade {
+  tradeId: number;
+  state: TradeState;
   amount: number;
-  written_time: string;
-  traded_time: string;
-  photocard_id: number;
-  image_name: string;
-  member_id: number;
-  photo_name: string;
-  member_name: string;
-  group_name: string;
+  writtenTime: string;
+  tradedTime: string;
 }
 
-export interface WantcardType {
-  photocard_id: number;
-  member_id: number;
-  group_id: number;
-  photo_name: string;
-  member_name: string;
-  group_name: string;
-  image_name: string;
+// 교환글 상세 타입
+export interface TradeDetail extends Trade {
+  userId: number;
+  voucherId: number;
+  photo: Photo;
 }
 
-export interface TradeListItemType extends TradeType {
-  wantMembers: {
-    member_id: number;
-    name: string;
-  }[];
+// 교환글이 원하는 멤버 타입
+export type WantMember = Pick<Member, 'memberId' | 'name'>;
+
+// 교환글 목록 아이템 타입
+export interface TradeItem extends TradeDetail {
+  wantMembers: WantMember[];
 }
 
-export type TradeStateKey = 'trading' | 'traded';
-export const TradeStateValue: {
-  [k in TradeStateKey]: string;
-} = {
-  trading: '대기중',
-  traded: '완료'
+// 교환 내역 타입
+export interface TradeHistory {
+  logId: number;
+  voucherId: number;
+  photo: Photo;
+  originUser: User;
+  destUser: User;
+  loggedTime: string;
 }

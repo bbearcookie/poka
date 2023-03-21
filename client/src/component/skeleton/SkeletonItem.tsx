@@ -1,14 +1,18 @@
 import React from 'react';
+import classNames from 'classnames';
 import styled from 'styled-components';
 
 interface Props {
+  className?: string;
   styles?: StylesProps;
 }
-const DefaultProps = {};
 
-function SkeletonItem({ styles }: Props) {
+function SkeletonItem({ className, styles }: Props) {
   return (
-    <StyledItem className="SkeletonItem" {...styles} />
+    <StyledItem
+      className={classNames("SkeletonItem", className)}
+      {...styles}
+    />
   );
 }
 
@@ -19,6 +23,7 @@ interface StylesProps {
   width?: string;
   maxWidth?: string;
   height?: string;
+  padding?: string;
   margin?: string;
   marginLeft?: string;
   marginRight?: string;
@@ -32,6 +37,7 @@ const StyledItem = styled.div<StylesProps>`
   width: ${p => p.width ? p.width : '5em'};
   max-width: ${p => p.maxWidth};
   height: ${p => p.height ? p.height : '1.25em'};
+  padding: ${p => p.padding};
   margin: ${p => p.margin};
   margin-top: ${p => p.marginTop};
   margin-bottom: ${p => p.marginBottom};

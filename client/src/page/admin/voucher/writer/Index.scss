@@ -1,29 +1,7 @@
+@import '@util/common';
+
 .VoucherWriterPage {
-  padding: 5em 1.5em;
-
-  .title-label {
-    margin: 0 0 1em 0;
-    font-size: 1.75rem;
-  }
-  
-  .label {
-    margin: 0.5em 0;
-  }
-
-  .label-section {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 1em;
-
-    .label { flex-grow: 1; }
-  }
-  
-  .PhotoList {
-    margin-top: 2em;
-    display: flex;
-    gap: 3em;
-  }
+  @include contents;
 
   .button-section {
     display: flex;

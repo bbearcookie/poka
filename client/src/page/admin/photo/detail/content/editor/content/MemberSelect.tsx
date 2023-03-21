@@ -32,7 +32,7 @@ function MemberSelect({ state, dispatch }: Props) {
       >
         <option value={0}>선택</option>
         {memberQuery.data?.members.map((item) => (
-          <option key={item.member_id} value={item.member_id}>{item.name}</option>
+          <option key={item.memberId} value={item.memberId}>{item.name}</option>
         ))}
       </Select>
       {state.message.memberId && <InputMessage>{state.message.memberId}</InputMessage>}

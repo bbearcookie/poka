@@ -11,15 +11,15 @@ import RemoveCard from '@component/card/RemoveCard';
 interface Props {
   trade: TradeType;
 }
-const DefaultProps = {};
 
 function TradeRemove({ trade }: Props) {
-  const auth = useAppSelector(state => state.auth);
+  const { userId } = useAppSelector(state => state.auth);
   const removeModal = useModal();
   const navigate = useNavigate();
 
   // 데이터 삭제 요청
   const deleteMutation = useDeleteTrade(
+    trade.tradeId,
     (res) => navigate('/trade/list'),
     (err) => removeModal.setErrorMessage(getErrorMessage(err))
   );
@@ -32,12 +32,12 @@ function TradeRemove({ trade }: Props) {
 
   // 교환글 삭제
   const removeTrade = useCallback(() => {
-    deleteMutation.mutate({ tradeId: trade.trade_id });
+    deleteMutation.mutate({ tradeId: trade.tradeId });
   }, [deleteMutation, trade]);
   
   return (
     <>
-      {trade.state === 'trading' && trade.user_id === auth.user_id &&
+      {trade.state === 'trading' && trade.userId === userId &&
       <RemoveCard
         titleText="교환글 삭제"
         cardStyles={{ marginBottom: "5em" }}

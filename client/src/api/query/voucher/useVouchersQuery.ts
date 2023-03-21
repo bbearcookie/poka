@@ -1,21 +1,18 @@
 import { useInfiniteQuery, UseInfiniteQueryOptions, UseInfiniteQueryResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { ErrorType } from '@util/request';
+import { ResponseError } from '@type/response';
 import { fetchVouchers } from '@api/api/voucher';
-import { VoucherStateKey } from "@type/voucher";
-import { FilterType } from '@component/list/voucher/voucherListSlice';
-import { VoucherType } from '@type/voucher';
+import { VoucherStateKey } from '@component/label/stateLabel/_types';
+import { VoucherItem } from '@type/voucher';
 import * as queryKey from '@api/queryKey';
 
-export interface ParamType {
-  pageParam: number;
-  filter: {
-    GROUP_ID: number[];
-    MEMBER_ID: number[];
-    PHOTO_NAME: string[];
-    USER_NAME: string[];
-    VOUCHER_STATE: VoucherStateKey;
-  }
+export interface FilterType {
+  groupIds: number[];
+  memberIds: number[];
+  excludeVoucherIds: number[];
+  photoNames: string[];
+  userNames: string[];
+  voucherState: VoucherStateKey;
 }
 
 export interface ResType {
@@ -24,31 +21,16 @@ export interface ResType {
     pageParam: number;
     hasNextPage: boolean;
   };
-  vouchers: VoucherType[];
+  vouchers: VoucherItem[];
 }
 
 export default function useVouchersQuery(
   filter: FilterType,
-  options?: UseInfiniteQueryOptions<ResType, AxiosError<ErrorType>>
-): UseInfiniteQueryResult<ResType, AxiosError<ErrorType>> {
-
-  // console.log(filter);
-
-  const refinedFilter = {
-    GROUP_ID: filter.groups
-      .filter(item => item.checked)
-      .map(item => item.groupId),
-    MEMBER_ID: filter.members
-      .filter(item => item.checked)
-      .map(item => item.memberId),
-    PHOTO_NAME: filter.names.map(item => item.value),
-    USER_NAME: filter.usernames.map(item => item.value),
-    VOUCHER_STATE: filter.state
-  }
-
-  return useInfiniteQuery<ResType, AxiosError<ErrorType>>({
+  options?: UseInfiniteQueryOptions<ResType, AxiosError<ResponseError>>
+): UseInfiniteQueryResult<ResType, AxiosError<ResponseError>> {
+  return useInfiniteQuery<ResType, AxiosError<ResponseError>>({
     queryKey: queryKey.voucherKeys.all,
-    queryFn: ({ pageParam = 0 }) => fetchVouchers({ pageParam, filter: refinedFilter }),
+    queryFn: ({ pageParam = 0 }) => fetchVouchers({ pageParam, filter }),
     getNextPageParam: (lastPage, pages) => {
       return lastPage.paging.hasNextPage && lastPage.paging.pageParam + 1;
     },

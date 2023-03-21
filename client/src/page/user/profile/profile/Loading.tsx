@@ -4,7 +4,6 @@ import CardBody from '@component/card/basic/CardBody';
 import SkeletonUserProfile from '@component/profile/SkeletonUserProfile';
 
 interface Props {}
-const DefaultProps = {};
 
 function Loading({  }: Props) {
   return (

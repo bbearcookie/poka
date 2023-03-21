@@ -1,15 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { WantcardType } from '@type/trade';
+import { Photo } from '@type/photo';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
-import PhotoInfoCard from '@component/photocard/photo/PhotoInfoCard';
+import PhotoCard from '@component/photocard/photo/PhotoCard';
 
 interface Props {
-  wantcards: WantcardType[];
+  wantcards: Photo[];
 }
-const DefaultProps = {};
 
 function TradeWantCard({ wantcards }: Props) {
   return (
@@ -18,12 +17,13 @@ function TradeWantCard({ wantcards }: Props) {
       <CardBody>
         <PhotoSection>
           {wantcards.map(card => 
-          <PhotoInfoCard
-            key={card.photocard_id}
-            photoName={card.photo_name}
-            memberName={card.member_name}
-            groupName={card.group_name}
-            imageName={card.image_name}
+          <PhotoCard
+            photocardId={card.photocardId}
+            key={card.photocardId}
+            photoName={card.name}
+            memberName={card.memberData.name}
+            groupName={card.groupData.name}
+            imageName={card.imageName}
           />)}
         </PhotoSection>
       </CardBody>

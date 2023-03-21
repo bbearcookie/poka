@@ -1,18 +1,14 @@
 import { useInfiniteQuery, UseInfiniteQueryOptions, UseInfiniteQueryResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { ErrorType } from '@util/request';
+import { ResponseError } from '@type/response';
 import { fetchPhotos } from '@api/api/photo';
-import { FilterType } from '@component/list/photo/photoListCardSlice';
-import { PhotoType } from '@type/photo';
+import { Photo } from '@type/photo';
 import * as queryKey from '@api/queryKey';
 
-export interface ParamType {
-  pageParam: number;
-  filter: {
-    GROUP_ID: number[];
-    MEMBER_ID: number[];
-    PHOTO_NAME: string[];
-  }
+export interface FilterType {
+  groupIds: number[];
+  memberIds: number[];
+  photoNames: string[];
 }
 
 export interface ResType {
@@ -21,27 +17,17 @@ export interface ResType {
     pageParam: number;
     hasNextPage: boolean;
   };
-  photos: PhotoType[];
+  photos: Photo[];
 }
 
 export default function usePhotosQuery(
   filter: FilterType,
-  options?: UseInfiniteQueryOptions<ResType, AxiosError<ErrorType>>
-): UseInfiniteQueryResult<ResType, AxiosError<ErrorType>> {
+  options?: UseInfiniteQueryOptions<ResType, AxiosError<ResponseError>>
+): UseInfiniteQueryResult<ResType, AxiosError<ResponseError>> {
 
-  const refinedFilter = {
-    GROUP_ID: filter.groups
-      .filter(item => item.checked)
-      .map(item => item.groupId),
-    MEMBER_ID: filter.members
-      .filter(item => item.checked)
-      .map(item => item.memberId),
-    PHOTO_NAME: filter.names.map(item => item.value)
-  }
-
-  return useInfiniteQuery<ResType, AxiosError<ErrorType>>({
+  return useInfiniteQuery<ResType, AxiosError<ResponseError>>({
     queryKey: queryKey.photoKeys.all,
-    queryFn: ({ pageParam = 0 }) => fetchPhotos({ pageParam, filter: refinedFilter }),
+    queryFn: ({ pageParam = 0 }) => fetchPhotos({ pageParam, filter }),
     getNextPageParam: (lastPage, pages) => {
       return lastPage.paging.hasNextPage && lastPage.paging.pageParam + 1;
     },

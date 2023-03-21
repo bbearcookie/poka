@@ -38,6 +38,7 @@ function UserEditor({
 
   // 데이터 수정 요청
   const putMutation = useModifyUserProfile<keyof FormType>(
+    userId,
     (res) => closeEditor(),
     (err) => {
       err.response?.data.errors.forEach((e) => {
@@ -62,13 +63,10 @@ function UserEditor({
   // 전송 이벤트
   const onSubmit = useCallback(() => {
     putMutation.mutate({
-      userId,
-      body: {
-        nickname: state.form.nickname,
-        image: state.form.image.file
-      }
+      nickname: state.form.nickname,
+      image: state.form.image.file
     });
-  }, [state, userId, putMutation]);
+  }, [state, putMutation]);
 
   return (
     <Card styles={{ marginBottom: "5em" }}>

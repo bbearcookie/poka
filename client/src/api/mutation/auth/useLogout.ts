@@ -1,24 +1,23 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ErrorType } from '@util/request';
+import { ResponseError } from "@type/response";
 import { getErrorMessage } from '@util/request';
 import { useAppDispatch } from '@app/redux/reduxHooks';
 import { logout } from '@util/auth/authSlice';
 import { logout as logoutFn } from '@api/api/auth';
 
-export interface ParamType {}
-
-interface ResType { message: string; }
+interface ResType {
+  message: string;
+}
 
 export default function useLogout<TParam>(
   onSuccess?: (res: AxiosResponse<ResType>) => void,
-  onError?: (err: AxiosError<ErrorType<TParam>, any>) => void
+  onError?: (err: AxiosError<ResponseError<TParam>, any>) => void
 ): 
 UseMutationResult<
   AxiosResponse<ResType>,
-  AxiosError<ErrorType<TParam>>,
-  ParamType
+  AxiosError<ResponseError<TParam>>
 > {
   const dispatch = useAppDispatch();
 

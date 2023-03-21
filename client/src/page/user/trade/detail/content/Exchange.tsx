@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import useTradeExchangeQuery from '@api/query/trade/useTradeExchangeQuery';
 import useExchangeTrade from '@api/mutation/trade/useExchangeTrade';
@@ -8,33 +7,31 @@ import { faArrowsSpin } from '@fortawesome/free-solid-svg-icons';
 import { getErrorMessage } from '@util/request';
 import VoucherCard from '@component/photocard/voucher/VoucherCard';
 import Button from '@component/form/Button';
-import Input from '@component/form/Input';
 import useModal from '@hook/useModal';
 import ConfirmModal from '@component/modal/ConfirmModal';
 
 interface Props {
   trade: TradeType;
 }
-const DefaultProps = {};
 
 function Exchange({ trade }: Props) {
-  const auth = useAppSelector(state => state.auth);
+  const { userId } = useAppSelector(state => state.auth);
   const [select, setSelect] = useState<{ [x: number]: boolean }>({ });
   const modal = useModal();
-  const navigate = useNavigate();
 
-  const { data: exchange, status } = useTradeExchangeQuery(trade.trade_id, {
+  const { data: exchange, status } = useTradeExchangeQuery(trade.tradeId, {
     enabled: function() {
-      if (trade.trade_id === 0) return false;
-      if (trade.user_id === auth.user_id) return false;
+      if (trade.tradeId === 0) return false;
+      if (trade.userId === userId) return false;
       return true;
     }(),
     onSuccess: (data) => {
-      setSelect(Object.fromEntries(data.vouchers.map(item => [item.voucher_id, false])));
+      setSelect(Object.fromEntries(data.vouchers.map(item => [item.voucherId, false])));
     }
   });
 
   const postMutation = useExchangeTrade(
+    trade.tradeId,
     (res) => { modal.close(); },
     (err) => { modal.setErrorMessage(getErrorMessage(err)); }
   );
@@ -54,14 +51,9 @@ function Exchange({ trade }: Props) {
 
   // 교환
   const handleExchange = useCallback(() => {
-    const vouchers = Object.entries(select).filter(item => item[1]).map(item => Number(item[0]));
-    postMutation.mutate({
-      tradeId: trade.trade_id,
-      body: {
-        vouchers
-      }
-    })
-  }, [select, postMutation, trade]);
+    const voucherIds = Object.entries(select).filter(item => item[1]).map(item => Number(item[0]));
+    postMutation.mutate({ voucherIds });
+  }, [select, postMutation]);
 
   return (
     <>
@@ -85,24 +77,24 @@ function Exchange({ trade }: Props) {
         handleConfirm={handleExchange}
       >
         <section className="photo-section">
-          {exchange?.vouchers.map(voucher => 
+          {exchange?.vouchers.map(v => 
           <VoucherCard
-            key={voucher.voucher_id}
-            voucherId={voucher.voucher_id}
-            photoName={voucher.name}
-            groupName={voucher.group_name}
-            memberName={voucher.member_name}
-            imageName={voucher.image_name}
-            username={voucher.username}
-            voucherState={voucher.state}
+            key={v.voucherId}
+            voucherId={v.voucherId}
+            photoName={v.photo.name}
+            groupName={v.photo.groupData.name}
+            memberName={v.photo.memberData.name}
+            imageName={v.photo.imageName}
+            username={v.owner.username}
+            voucherState={v.state}
             showOwner={false}
             styles={{ flexDirection: "row" }}
           >
             <div className="space" />
             <input
               type="checkbox"
-              value={voucher.voucher_id}
-              checked={select[voucher.voucher_id] ? true : false}
+              value={v.voucherId}
+              checked={select[v.voucherId] ? true : false}
               onChange={onChangeSelect}
               readOnly
             />

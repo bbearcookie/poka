@@ -1,22 +1,21 @@
 import React from 'react';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { PhotoType } from '@type/photo';
+import { Photo } from '@type/photo';
 import Button from '@component/form/Button';
 import PhotoInfoCard from '@component/photocard/photo/PhotoInfoCard';
 
 interface Props {
-  photo: PhotoType;
+  photo: Photo;
   startEditor: () => void;
 }
-const DefaultProps = {};
 
 function PhotoInfo({ photo, startEditor }: Props) {
   return (
     <PhotoInfoCard
       photoName={photo.name}
-      groupName={photo.group_name}
-      memberName={photo.member_name}
-      imageName={photo.image_name}
+      groupName={photo.groupData.name}
+      memberName={photo.memberData.name}
+      imageName={photo.imageName}
       cardStyles={{ margin: "0 auto 5em auto" }}
     >
       <Button

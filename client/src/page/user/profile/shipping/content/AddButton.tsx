@@ -7,7 +7,6 @@ interface Props {
   addressLength: number;
   startEditor: () => void;
 }
-const DefaultProps = {};
 
 function AddButton({ addressLength, startEditor }: Props) {
 

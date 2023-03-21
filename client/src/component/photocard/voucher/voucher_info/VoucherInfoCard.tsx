@@ -1,94 +1,93 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Button from '@component/form/Button';
 import UserProfile from '@component/profile/UserProfile';
+import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import CardList from '@component/card/basic/CardList';
 import CardListItem from '@component/card/basic/CardListItem';
-import { userImage } from '@api/resource';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { VoucherStateLabel } from '@component/photocard/voucher/VoucherCard';
-import { VoucherStateKey, VoucherStateValue } from '@/type/voucher';
-import { ResType as VoucherResType } from '@api/query/voucher/useVoucherQuery';
+import StateLabel from '@component/label/stateLabel/StateLabel';
+import { ResType } from '@api/query/voucher/useVoucherQuery';
 import DescriptionSection from './content/DescriptionSection';
 
 interface Props {
-  voucher: VoucherResType;
+  res: ResType;
   showAdminInfo: boolean; // 관리자에게만 보여줄 정보를 출력할지의 여부
 }
 const DefaultProps = {
   showAdminInfo: false
 };
 
-function VoucherInfoCard({ voucher, showAdminInfo = DefaultProps.showAdminInfo }: Props) {
+function VoucherInfoCard({ res, showAdminInfo = DefaultProps.showAdminInfo }: Props) {
   return (
-    <Card styles={{ marginBottom: "5em" }}>
-      <CardHeader><h1>소유권 정보</h1></CardHeader>
+    <article>
+      <Card styles={{ marginBottom: "5em" }}>
+        <CardHeader>
+          <TitleLabel title="소유권 정보" />
+        </CardHeader>
 
-      <CardBody styles={{ padding: "0" }}>
-        <CardList>
+        <CardBody styles={{ padding: "0" }}>
+          <CardList>
 
-          {showAdminInfo && 
-          <>
-            <VoucherID voucher={voucher} />
-            <VoucherOwner voucher={voucher} />
-            <VoucherState voucher={voucher} />
-            <VoucherLog voucher={voucher} />
-          </>}
+            {showAdminInfo && 
+            <>
+              <VoucherID res={res} />
+              <VoucherOwner res={res} />
+              <VoucherStateItem res={res} />
+              <VoucherLog res={res} />
+            </>}
 
-          {!showAdminInfo && 
-          <>
-            <VoucherOwner voucher={voucher} />
-            <VoucherState voucher={voucher} />
-          </>}
-        </CardList>
+            {!showAdminInfo && 
+            <>
+              <VoucherOwner res={res} />
+              <VoucherStateItem res={res} />
+            </>}
+          </CardList>
 
-        <DescriptionSection />
-      </CardBody>
+          <DescriptionSection />
+        </CardBody>
 
-    </Card>
+      </Card>
+    </article>
   );
 }
 
 export default VoucherInfoCard;
 
-function VoucherID({ voucher }: { voucher: VoucherResType }) {
+function VoucherID({ res }: { res: ResType }) {
   return (
     <CardListItem title="소유권ID">
-      {voucher.voucher_id}
+      {res.voucherId}
     </CardListItem>
   )
 }
 
-function VoucherOwner({ voucher }: { voucher: VoucherResType }) {
+function VoucherOwner({ res }: { res: ResType }) {
   return (
     <CardListItem title="소유자">
-      <UserProfile
-        nickname={voucher?.nickname}
-        username={voucher?.username}
-        imageName={userImage(voucher?.user_image_name)}
+      <UserProfile {...res.owner} />
+    </CardListItem>
+  )
+}
+
+function VoucherStateItem({ res }: { res: ResType }) {
+  return (
+    <CardListItem title="상태">
+      <StateLabel
+        state={{ type: "voucher", key: res.state }}
+        styles={{ width: "6em", margin: "0" }}
       />
     </CardListItem>
   )
 }
 
-function VoucherState({ voucher }: { voucher: VoucherResType }) {
-  return (
-    <CardListItem title="상태">
-      <VoucherStateLabel voucherState={voucher.state} width="6em" textAlign="center">
-        {VoucherStateValue[voucher.state as VoucherStateKey]}
-      </VoucherStateLabel>
-    </CardListItem>
-  )
-}
-
-function VoucherLog({ voucher }: { voucher: VoucherResType }) {
+function VoucherLog({ res }: { res: ResType }) {
   return (
     <CardListItem title="기록">
-      <Link to={`/admin/voucher/log/${voucher?.voucher_id}`}>
+      <Link to={`/admin/voucher/log/${res.voucherId}`}>
         <Button
           rightIcon={faArrowRight}
           styles={{

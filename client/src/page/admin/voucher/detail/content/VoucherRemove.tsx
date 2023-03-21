@@ -9,7 +9,6 @@ import ConfirmModal from '@component/modal/ConfirmModal';
 interface Props {
   voucherId: number;
 }
-const DefaultProps = {};
 
 function VoucherRemove({ voucherId }: Props) {
   const removeModal = useModal();
@@ -17,6 +16,7 @@ function VoucherRemove({ voucherId }: Props) {
 
   // 데이터 삭제 요청
   const deleteMutation = useDeleteVoucher(
+    voucherId,
     (res) => navigate('/admin/voucher/list'),
     (err) => removeModal.setErrorMessage(getErrorMessage(err))
   );
@@ -27,7 +27,7 @@ function VoucherRemove({ voucherId }: Props) {
   }, [deleteMutation, voucherId]);
 
   return (
-    <>
+    <section>
       <RemoveCard
         titleText="소유권 삭제"
         onClick={(e) => { e.stopPropagation(); removeModal.open(); }}
@@ -46,7 +46,7 @@ function VoucherRemove({ voucherId }: Props) {
         <p className="text">이 소유권을 삭제하면 연관된 교환글도 함께 지워져요.</p>
         <p className="text">정말로 이 소유권을 삭제하시겠어요?</p>
       </ConfirmModal>
-    </>
+    </section>
   );
 }
 

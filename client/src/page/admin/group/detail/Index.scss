@@ -1,5 +1,7 @@
+@import '@util/common';
+
 .GroupDetailPage {
-  padding: 5em 10%;
+  @include contents;
 
   a {
     text-decoration: none;
@@ -10,28 +12,26 @@
     }
   }
 
-  .group-section {
+  .GroupProfile {
     margin: 2em 0;
     display: flex;
     align-items: center;
+    gap: 1em;
     flex-wrap: wrap;
 
-    .name-label {
+    .name {
       flex-grow: 1;
-      margin-left: 1em;
       font-size: 1.5rem;
       font-weight: bold;
     }
   }
 
-  .Table {
-    .action-section {
+  .MemberList {
+    .add-button {
       display: flex;
       justify-content: flex-end;
     }
   }
-
-  .f-right { display: flex; justify-content: flex-end; }
 
   @media screen and (max-width: 65rem) {
     padding: 5em 1em;

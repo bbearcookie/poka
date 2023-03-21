@@ -1,51 +1,56 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import classNames from 'classnames';
 
 // 인풋 컴포넌트
 interface Props {
-  type: React.HTMLInputTypeAttribute;
-  name: string;
+  type?: React.HTMLInputTypeAttribute;
+  name?: string;
   className?: string;
   value?: string | number | readonly string[] | undefined;
   autoComplete?: string;
   readOnly?: boolean;
   maxLength?: number;
+  min?: string | number;
   placeholder?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onClick?: React.MouseEventHandler<HTMLInputElement>;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
   styles?: StylesProps;
   children?: React.ReactNode;
 }
 const DefaultProps = {
   autoComplete: 'off',
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => {},
-  onBlur: (e: React.FocusEvent<HTMLInputElement>) => {},
 };
-function Input({
-  type, name, className, value,
-  autoComplete = DefaultProps.autoComplete,
-  readOnly, maxLength, placeholder,
-  onChange = DefaultProps.onChange,
-  onBlur = DefaultProps.onBlur,
-  styles, children }: Props) {  
-  return (
-    <StyledInputWrapper className={classNames('Input', className)} {...styles}>
-      <input
-        type={type}
-        name={name}
-        value={value}
-        placeholder={placeholder}
-        maxLength={maxLength}
-        autoComplete={autoComplete}
-        onChange={onChange}
-        onBlur={onBlur}
-        readOnly={readOnly}
-      />
-      {children}
-    </StyledInputWrapper>
-  );
-}
+
+const Input = forwardRef<HTMLInputElement, Props>((
+  {
+    type, name, className, value,
+    autoComplete = DefaultProps.autoComplete,
+    readOnly, maxLength, min, placeholder,
+    onClick, onChange, onBlur,
+    styles, children
+  }, ref) => {
+    return (
+      <StyledInputWrapper className={classNames('Input', className)} {...styles}>
+        <input
+          type={type}
+          name={name}
+          value={value}
+          placeholder={placeholder}
+          maxLength={maxLength}
+          autoComplete={autoComplete}
+          onClick={onClick}
+          onChange={onChange}
+          onBlur={onBlur}
+          readOnly={readOnly}
+          min={min}
+          ref={ref}
+        />
+        {children}
+      </StyledInputWrapper>
+    )
+});
 
 export default Input;
 
@@ -88,7 +93,7 @@ const StyledInputWrapper = styled.div<StylesProps>`
     border: ${p => p.border ? p.border : '1px solid hsl(222, 9%, 78%)'};
     border-radius: 5px;
     font-family: inherit;
-    font-size: 1rem;
+    font-size: 1em;
     text-align: ${p => p.textAlign};
 
     &::placeholder { color: ${p => p.placeholderColor} }

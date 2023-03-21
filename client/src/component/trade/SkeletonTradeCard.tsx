@@ -4,12 +4,7 @@ import CardBody from '@component/card/basic/CardBody';
 import { Body, ContentSection } from '@component/trade/TradeCard';
 import SkeletonItem from '@component/skeleton/SkeletonItem';
 
-interface Props {
-
-}
-const DefaultProps = {};
-
-function SkeletonTradeCard({  }: Props) {
+function SkeletonTradeCard() {
   return (
     <Card
       styles={{

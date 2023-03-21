@@ -3,15 +3,15 @@ import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import { AxiosError } from 'axios';
-import { ErrorType, getErrorMessage } from '@util/request';
+import { ResponseError } from '@type/response';
+import { getErrorMessage } from '@util/request';
 import { StylesProps as CardStyles } from '@component/card/basic/Card';
 
 interface Props {
   styles?: CardStyles;
-  error: AxiosError<ErrorType, any> | null
+  error: AxiosError<ResponseError, any> | null
   children?: React.ReactNode;
 }
-const DefaultProps = {};
 
 function ErrorCard({ styles, error, children }: Props) {
   return (

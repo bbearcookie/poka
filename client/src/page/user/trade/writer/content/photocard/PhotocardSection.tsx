@@ -8,9 +8,8 @@ import TitleModal from '@component/modal/TitleModal';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
-import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';
-import PhotoListCard from '@component/list/photo/PhotoListCard';
+import PhotoListWithFilter from '@component/list/PhotoListWithFilter';
 import PhotocardList from './PhotocardList';
 import PhotocardAmount from './PhotocardAmount';
 import { State as FormState, Action as FormAction } from '../../reducer';
@@ -21,7 +20,6 @@ interface Props {
   form: FormState;
   formDispatch: React.Dispatch<FormAction>;
 }
-const DefaultProps = {};
 
 function PhotocardSection({ form, formDispatch }: Props) {
   const addModal = useModal();
@@ -74,11 +72,10 @@ function PhotocardSection({ form, formDispatch }: Props) {
                 iconMargin: "1em"
               }}
               onClick={openModal}
-            >선택</Button>
+            >추가</Button>
           </section>
         </CardHeader>
         <CardBody>
-          
           <PhotocardList form={form} formDispatch={formDispatch} photos={photos} removeWantPhotocardId={removeWantPhotocardId} />
           {photos.length > 0 && <PhotocardAmount form={form} formDispatch={formDispatch} />}
           <p className="description">타인으로부터 받기를 원하는 포토카드의 종류와 수량을 선택합니다.</p>
@@ -88,12 +85,7 @@ function PhotocardSection({ form, formDispatch }: Props) {
       </Card>
 
       <TitleModal hook={addModal} titleName="포토카드 선택" styles={{ width: '75%' }}>
-        <PhotoListCard
-          resetOnMount={true}
-          icon={faAdd}
-          handleClickIcon={addWantPhotocardId}
-          cardStyles={{ border: "none" }}
-        />
+        <PhotoListWithFilter icon={{ svg: faAdd }} handleSelect={addWantPhotocardId} />
       </TitleModal>
     </>
   );

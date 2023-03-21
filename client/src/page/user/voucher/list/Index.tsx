@@ -1,33 +1,61 @@
-import React, { useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
+import { useAppSelector } from '@app/redux/reduxHooks';
+import Card from '@component/card/basic/Card';
+import CardBody from '@component/card/basic/CardBody';
+import useSearcher from '@component/search/useSearcher';
+import Searcher from '@component/search/Searcher';
+import VoucherList from '@component/list/VoucherList';
+import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import { useNavigate } from 'react-router-dom';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import VoucherListCard from '@component/list/voucher/VoucherListCard';
 import './Index.scss';
 
-interface Props {}
-const IndexDefaultProps = {};
-
-function Index({  }: Props) {
+function Index() {
+  const { filter, keyword, filterDispatch, keywordDispatch } = useSearcher();
+  const username = useAppSelector(state => state.auth.username);
   const navigate = useNavigate();
 
+  // 로그인 한 사용자의 소유권만 보이도록 기본 키워드 추가
+  useEffect(() => {
+    keywordDispatch({
+      type: 'ADD_KEYWORD',
+      value: { category: 'userName', title: '소유자', value: username, show: false }
+    });
+  }, [username, keywordDispatch]);
+
   // 상세 페이지로 이동
-  const handleClickDetailicon = useCallback((voucherId: number) => {
+  const showDetailPage = useCallback((voucherId: number) => {
     navigate(`/voucher/detail/${voucherId}`);
   }, [navigate]);
 
   return (
-    <div className="InventoryPage">
-    <h1 className="title-label">소유권 보관함</h1>
-      <VoucherListCard
-        // resetState={true}
-        icon={faArrowRight}
-        handleClickIcon={handleClickDetailicon}
-        defaultFilter={{
-          owner: 'mine',
-          state: 'all'
-        }}
-      />
-    </div>
+    <main className="InventoryPage">
+      <TitleLabel title="소유권 보관함" styles={{ marginBottom: "1em" }} />
+      <Card>
+        <CardBody>
+          <Searcher
+            options={{
+              group: true,
+              member: true,
+              voucherState: true
+            }}
+            filter={filter}
+            keyword={keyword}
+            filterDispatch={filterDispatch}
+            keywordDispatch={keywordDispatch}
+          />
+
+          {username && 
+          <VoucherList
+            filter={filter}
+            keyword={keyword}
+            showOwner={false}
+            icon={{ svg: faArrowRight }}
+            handleSelect={showDetailPage}
+          />}
+        </CardBody>
+      </Card>
+    </main>
   );
 }
 

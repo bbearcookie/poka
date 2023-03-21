@@ -1,18 +1,18 @@
 import React from 'react';
+import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import Profile from './profile/Index';
 import Shipping from './shipping/Index';
 import './Index.scss';
 
 interface Props {}
-const DefaultProps = {};
 
 function Index({  }: Props) {
   return (
-    <div className="ProfilePage">
-      <h1 className="title-label">마이페이지</h1>
+    <main className="ProfilePage">
+      <TitleLabel title="마이페이지" styles={{ marginBottom: "1em" }} />
       <Profile />
       <Shipping />
-    </div>
+    </main>
   );
 }
 

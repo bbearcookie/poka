@@ -9,16 +9,15 @@ import ButtonSection from './content/ButtonSection';
 interface Props {
   trade: TradeType;
 }
-const DefaultProps = {};
 
 function Success({ trade }: Props) {
   return (
     <>
       <PhotoInfoCard
-        photoName={trade.photo_name}
-        groupName={trade.group_name}
-        memberName={trade.member_name}
-        imageName={trade.image_name}
+        photoName={trade.photo.name}
+        groupName={trade.photo.groupData.name}
+        memberName={trade.photo.memberData.name}
+        imageName={trade.photo.imageName}
         cardStyles={{ margin: "0 auto 5em auto" }}
       />
       <TradeInfoCard trade={trade} />

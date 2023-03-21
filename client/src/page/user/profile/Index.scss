@@ -1,24 +1,11 @@
-.ProfilePage {
-  padding: 5em 10%;
-  
-  .title-label {
-    margin: 0 0 1em 0;
-    font-size: 1.75rem;
-  }
+@import '@util/common';
 
-  .subtitle-label {
-    margin: 0.5em 0;
-    font-size: 1.25rem;
-  }
+.ProfilePage {
+  @include contents;
 
   .label {
     margin: 0 0 0.5em 0;
     font-weight: bold;
-  }
-
-  .button-section {
-    display: flex;
-    justify-content: flex-end;
   }
 
   .profile-section {
@@ -36,102 +23,19 @@
         .space { flex-grow: 1; }
         .button-section { align-self: flex-end; }
       }
+
+      @media screen and (max-width: 30rem) { flex-direction: column; }
     }
   }
 
   .shipping-section {
-    .recipient-section {
+    .button-section {
       display: flex;
-      flex-direction: column;
-      flex-wrap: wrap;
-
-      .name {
-        font-size: 1.2rem;
-        font-weight: bold;
-      }
-      .prime-label {
-        font-size: 0.7rem;
-        color: #A39D9D;
-        border: 1px solid #A39D9D;
-        border-radius: 20px;
-        padding: 0.3em;
-        user-select: none;
-      }
-      .text { margin: 0 0 0.5em 0; }
-      .content-section {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        gap: 0.5em;
-      }
-      .name-section {
-        margin-bottom: 0.7em;
-      }
-      .icon-section {
-        display: flex;
-        flex-wrap: wrap;
-      }
+      justify-content: flex-end;
     }
-
-    .editor-section {
-      display: flex;
-      flex-direction: column;
-
-      .input-line {
-        display: flex;
-        margin-bottom: 0.5em;
-
-        .label-section {
-          width: 9.5em;
-          height: 2.5em;
-          line-height: 2em;
-          flex-shrink: 0;
-
-          .icon { margin-right: 0.25em; }
-        }
-
-        .input-section {
-          flex-grow: 1;
-          display: flex;
-          flex-direction: column;
-          flex-wrap: wrap;
-
-          .address-section {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5em;
-            margin-bottom: 0.5em;
-          }
-
-          .detail-address-section {
-            display: flex;
-            gap: 0.5em;
-
-            .Input { flex-basis: 50%; }
-          }
-        }
-      }
-
+    
+    .AddressEditor {
       .button-section { margin-top: 1em; }
-    }
-  }
-
-  @media screen and (max-width: 30rem) {
-    .profile-section {
-      .editor-section { flex-direction: column; }
-    }
-
-    .shipping-section {
-      .content-section { flex-direction: column; }
-    }
-  }
-
-  @media screen and (max-width: 50rem) {
-    .shipping-section {
-      .editor-section {
-        .input-line { flex-direction: column; }
-        .detail-address-section { flex-direction: column; }
-      }
     }
   }
 }

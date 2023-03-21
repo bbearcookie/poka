@@ -9,31 +9,28 @@ interface Props {
   state: State;
   dispatch: React.Dispatch<Action>;
 }
-const DefaultProps = {};
 
 function PhotoList({ state, dispatch }: Props) {
   return (
-    <Card styles={{ marginBottom: "2em" }}>
-      <CardHeader>
-        <h3 className="text">등록하려는 포토카드 목록</h3>
-      </CardHeader>
-
-      <CardBody>
-        <section className="photo-section">
-          {state.form.photos.map((photo) => (
-            <PhotoInfo
-              key={photo.idx}
-              idx={photo.idx}
-              src={String(photo.previewURL)}
-              message={photo.message}
-              state={state}
-              dispatch={dispatch}
-            />
-          ))}
-        </section>
-      </CardBody>
-
-    </Card>
+    <section>
+      <Card styles={{ marginBottom: "2em" }}>
+        <CardBody>
+          <h1 className="title">등록할 포토카드 정보</h1>
+          <section className="photo-section">
+            {state.form.photos.map((photo) => (
+              <PhotoInfo
+                key={photo.idx}
+                idx={photo.idx}
+                src={String(photo.previewURL)}
+                message={photo.message}
+                state={state}
+                dispatch={dispatch}
+              />
+            ))}
+          </section>
+        </CardBody>
+      </Card>
+    </section>
   );
 }
 

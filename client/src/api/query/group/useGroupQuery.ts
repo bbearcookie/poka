@@ -1,26 +1,26 @@
 import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { ErrorType } from '@util/request';
+import { ResponseError } from "@type/response";
 import { fetchGroupDetail } from '@api/api/group';
 import * as queryKey from '@api/queryKey';
 
 export interface ResType {
   message: string;
-  group_id: number;
+  groupId: number;
   name: string;
-  image_name: string;
+  imageName: string;
   members: {
-    group_id: number;
-    member_id: number;
+    groupId: number;
+    memberId: number;
     name: string;
-    photo_cnt: number;
+    photoCount: number;
   }[];
 }
 
 export default function useGroupQuery(
   groupId: number,
-  options?: UseQueryOptions<ResType, AxiosError<ErrorType>>
-): UseQueryResult<ResType, AxiosError<ErrorType>> {
+  options?: UseQueryOptions<ResType, AxiosError<ResponseError>>
+): UseQueryResult<ResType, AxiosError<ResponseError>> {
   return useQuery({
     queryKey: queryKey.groupKeys.detail(groupId),
     queryFn: () => fetchGroupDetail(groupId),

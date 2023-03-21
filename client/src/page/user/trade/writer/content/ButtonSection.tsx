@@ -4,10 +4,10 @@ import Button from '@component/form/Button';
 
 interface Props {
   titleText: string;
+  handleSubmit?: () => void;
 }
-const DefaultProps = {};
 
-function ButtonSection({ titleText }: Props) {
+function ButtonSection({ titleText, handleSubmit }: Props) {
   const navigate = useNavigate();
   
   const handleCancel = useCallback(() => {
@@ -25,12 +25,13 @@ function ButtonSection({ titleText }: Props) {
         onClick={handleCancel}
       >취소</Button>
       <Button
-        type="submit"
+        type="button"
         styles={{
           theme: "primary",
           padding: "1em 2em",
           marginLeft: "1em"
         }}
+        onClick={handleSubmit}
       >{titleText}</Button>
     </section>
   );

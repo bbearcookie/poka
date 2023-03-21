@@ -11,7 +11,6 @@ import SkeletonLog from './log/SkeletonLog';
 interface Props {
   voucherId: number;
 }
-const DefaultProps = {};
 
 function LogList({ voucherId }: Props) {
   const [viewRef, inView] = useInView();
@@ -39,7 +38,6 @@ function LogList({ voucherId }: Props) {
       <CardBody className="log-section" styles={{ padding: "0" }}>
         
         <ul>
-          {/* <SkeletonLog /> */}
           {isFetching && Array.from({length: 20}).map((_, idx) => (
             <SkeletonLog key={idx} />
           ))}
@@ -48,7 +46,7 @@ function LogList({ voucherId }: Props) {
         {logs?.pages.map((page, pageIdx) => 
           <ul key={pageIdx}>
             {page?.logs.map((item) => (
-              <Log key={item.log_id} log={item} />
+              <Log key={item.logId} log={item} />
             ))}
           </ul>
         )}

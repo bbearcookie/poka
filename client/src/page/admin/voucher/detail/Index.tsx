@@ -5,18 +5,15 @@ import BackLabel from '@component/label/BackLabel';
 import Success from './Success';
 import './Index.scss';
 
-interface Props {}
-const DefaultProps = {};
-
-function VoucherDetailPage({  }: Props) {
+function VoucherDetailPage() {
   const { voucherId } = useParams() as any;
   const { status, data: voucher, error } = useVoucherQuery(voucherId);
   
   return (
-    <div className="VoucherDetailPage">
+    <main className="VoucherDetailPage">
       <BackLabel to="/admin/voucher/list" styles={{ marginBottom: "2em" }}>소유권 목록</BackLabel>
-      {status === 'success' && <Success voucher={voucher} />}
-    </div>
+      {status === 'success' && <Success res={voucher} />}
+    </main>
   );
 }
 

@@ -2,20 +2,19 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import path from 'path';
-import { UserType } from '@util/jwt';
+import { LoginToken } from '@type/user';
 
 // 로그인 정보를 req.user 데이터를 넣기 위해 정의해줌
 declare global {
   namespace Express {
     interface Request {
-      user?: UserType;
+      user?: LoginToken;
     }
   }
 }
 
 export const app = express();
 require('express-async-errors'); // 비동기로 발생한 오류를 express가 잡을 수 있게 하여 공통 에러 핸들러에서 처리하도록 함.
-export const router = express.Router();
 
 // 기본 설정 함수
 export default function() {

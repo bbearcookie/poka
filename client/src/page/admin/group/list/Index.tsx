@@ -1,57 +1,56 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import Button from '@component/form/Button';
-import Table from '@component/table/Table';
-import TableHead from '@component/table/TableHead';
-import TableBody from '@component/table/TableBody';
-import TableHeadItem from '@component/table/TableHeadItem';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { AxiosError } from 'axios';
-import { ErrorType, getErrorMessage } from '@util/request';
 import useGroupsQuery from '@api/query/group/useGroupsQuery';
-import GroupList from './GroupList';
-import SkeletonGroupList from './SkeletonGroupList';
+import SkeletonGroup from './content/SkeletonGroup';
+import Table from '@component/table/Table';
+import Group from './content/Group';
+import Col from '@component/table/styles/Col';
+import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import { getErrorMessage } from '@util/request';
 import './Index.scss';
 
 interface Props {}
-const DefaultProps = {};
 
 function GroupListPage({  }: Props) {
   const { status, data: groups, error } = useGroupsQuery();
 
   return (
-    <section className="GroupListPage">
-      <div className="title-label-section">
-        <h1 className="title-label">그룹 목록</h1>
+    <main className="GroupListPage">
+      <TitleLabel title="그룹 목록" styles={{ marginBottom: "1em" }}>
         <Link to="/admin/group/writer">
           <Button
             leftIcon={faPlus}
             styles={{
               theme: "primary",
-              padding: "0.7em 1.3em",
+              padding: "0.6em 1.2em",
               iconMargin: "1em"
             }}
           >추가</Button>
         </Link>
-      </div>
+      </TitleLabel>
 
-      <Table>
-        <TableHead styles={{ height: "3rem" }}>
+      <Table styles={{ itemHeight: "1em", itemPadding: "1em" }}>
+        <colgroup>
+          <Col width="60%" />
+          <Col width="25%" />
+          <Col width="15%" />
+        </colgroup>
+        <thead>
           <tr>
-            <TableHeadItem styles={{ width: "60%", paddingLeft: "1.5em" }}>이름</TableHeadItem>
-            <TableHeadItem styles={{ width: "30%" }}>멤버</TableHeadItem>
-            <TableHeadItem styles={{ width: "10%", paddingRight: "1.5em", textAlign: "right" }}>액션</TableHeadItem>
+            <th>이름</th>
+            <th>멤버</th>
+            <th>액션</th>
           </tr>
-        </TableHead>
-        <TableBody styles={{ height: "5rem" }}>
-          {status === 'loading' && <SkeletonGroupList />}
-          {status === 'success' && <GroupList groups={groups} />}
-          {status === 'error' && <tr><td>{getErrorMessage(error)}</td><td/><td/></tr>}
-        </TableBody>
+        </thead>
+        <tbody>
+          {status === 'loading' && Array.from({ length: 10 }).map((_, i) => <SkeletonGroup key={i} />)}
+          {status === 'success' && groups.groups.map(g => <Group key={g.groupId} {...g} />)}
+          {status === 'error' && <tr><td>{getErrorMessage(error)}</td></tr>}
+        </tbody>
       </Table>
-
-    </section>
+    </main>
   );
 }
 

@@ -33,7 +33,7 @@ function GroupSelect({ state, dispatch }: Props) {
       >
         <option value={0}>선택</option>
         {groupQuery.data?.groups.map((item) => (
-          <option key={item.group_id} value={item.group_id}>{item.name}</option>
+          <option key={item.groupId} value={item.groupId}>{item.name}</option>
         ))}
       </Select>
       {state.message.groupId && <InputMessage>{state.message.groupId}</InputMessage>}

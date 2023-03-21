@@ -10,7 +10,6 @@ interface Props {
   setCropList: React.Dispatch<React.SetStateAction<string[]>>;
   children?: React.ReactNode;
 }
-const DefaultProps = {};
 
 function DownloadCard({ cropList, setCropList }: Props) {
   const [download, setDownload] = useState('');
@@ -18,7 +17,7 @@ function DownloadCard({ cropList, setCropList }: Props) {
   return (
     <Card>
       <CardBody>
-        <p className="label">다운로드</p>
+        <h3 className="label">다운로드</h3>
         <section className="input-line">
           <span className="input-label">파일명</span>
           <Input

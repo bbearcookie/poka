@@ -1,21 +1,11 @@
+@import '@util/common';
+
 .PhotoCropPage {
-  padding: 5em 1.5em;
+  @include contents;
 
   .label {
     margin: 0;
     font-weight: bold;
-  }
-
-  .title-section {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-
-    .title-label {
-      font-size: 1.25rem;
-      margin: 0;
-      flex-grow: 1;
-    }
   }
 
   .card-section {

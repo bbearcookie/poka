@@ -11,7 +11,6 @@ interface Props {
   member: MemberType;
   memberId: number;
 }
-const DefaultProps = {};
 
 function MemberRemove({ member, memberId }: Props) {
   const removeModal = useModal();
@@ -19,6 +18,7 @@ function MemberRemove({ member, memberId }: Props) {
 
   // 데이터 삭제 요청
   const deleteMutation = useDeleteMember(
+    memberId,
     (res) => navigate(`/admin/group/detail/${res.data.groupId}`),
     (err) => removeModal.setErrorMessage(getErrorMessage(err))
   );
@@ -29,7 +29,7 @@ function MemberRemove({ member, memberId }: Props) {
   }, [deleteMutation, memberId]);
 
   return (
-    <>
+    <section>
       <RemoveCard
         titleText="멤버 삭제"
         onClick={(e) => { e.stopPropagation(); removeModal.open(); }}
@@ -47,7 +47,7 @@ function MemberRemove({ member, memberId }: Props) {
         <p className="text">이 멤버를 삭제하면 연관된 포토카드도 함께 지워져요.</p>
         <p className="text">정말로 {member?.name} 멤버를 삭제하시겠어요?</p>
       </ConfirmModal>
-    </>
+    </section>
   );
 }
 

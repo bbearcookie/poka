@@ -6,23 +6,14 @@ import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 
 interface Props {
-  username?: string;
-  nickname?: string;
-  imageName?: string;
+  username: string;
+  nickname: string;
+  imageName: string;
   startEditor: () => void;
 }
-const DefaultProps = {
-  username: '',
-  nickname: '',
-  imageName: ''
-};
+const DefaultProps = {};
 
-function UserInfo({
-  username = DefaultProps.username,
-  nickname = DefaultProps.nickname,
-  imageName = DefaultProps.imageName,
-  startEditor
-}: Props) {
+function UserInfo({ username, nickname, imageName, startEditor }: Props) {
   return (
     <Card styles={{ marginBottom: "5em" }}>
       <CardBody>

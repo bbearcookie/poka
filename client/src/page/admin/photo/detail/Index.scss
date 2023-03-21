@@ -1,5 +1,7 @@
+@import '@util/common';
+
 .PhotoDetailPage {
-  padding: 5em 10%;
+  @include contents;
 
   .PhotoEditor {
     .photo-section {

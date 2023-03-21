@@ -7,20 +7,17 @@ import Success from './Success';
 import Loading from './Loading';
 import './Index.scss';
 
-interface Props {}
-const DefaultProps = {};
-
-function GroupDetailPage({  }: Props) {
+function GroupDetailPage() {
   const { groupId } = useParams() as any;
   const { status, data: group, error } = useGroupQuery(groupId);
 
   return (
-    <div className="GroupDetailPage">
+    <main className="GroupDetailPage">
       <BackLabel to="/admin/group/list" styles={{ marginBottom: "2em" }}>그룹 목록</BackLabel>
-      {status === 'success' && <Success group={group} groupId={groupId} /> }
+      {status === 'success' && <Success res={group} groupId={groupId} /> }
       {status === 'error' && <ErrorCard error={error} /> }
-      {status === 'loading' && <Loading /> }
-    </div>
+      {status === 'loading' && <Loading />}
+    </main>
   );
 }
 

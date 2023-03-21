@@ -7,13 +7,12 @@ import Button from '@component/form/Button';
 interface Props {
   trade: TradeType;
 }
-const DefaultProps = {};
 
 function Edit({ trade }: Props) {
   const navigate = useNavigate();
 
   const onClickEdit = useCallback(() => {
-    navigate(`/trade/editor/${trade.trade_id}`);
+    navigate(`/trade/editor/${trade.tradeId}`);
   }, [navigate, trade]);
 
   return (

@@ -11,7 +11,6 @@ interface Props {
   photo: PhotoResType;
   photocardId: number;
 }
-const DefaultProps = {};
 
 function PhotoRemove({ photo, photocardId }: Props) {
   const removeModal = useModal();
@@ -19,6 +18,7 @@ function PhotoRemove({ photo, photocardId }: Props) {
 
   // 데이터 삭제 요청
   const deleteMutation = useDeletePhoto(
+    photocardId,
     (res) => navigate('/admin/photo/list'),
     (err) => removeModal.setErrorMessage(getErrorMessage(err))
   );

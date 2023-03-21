@@ -1,5 +1,7 @@
+@import '@util/common';
+
 .UserTradeDetailPage {
-  padding: 5em 10%;
+  @include contents;
 
   .photo-section {
     display: flex;
