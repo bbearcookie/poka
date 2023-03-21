@@ -3,7 +3,7 @@ import { param } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { isLoggedIn } from '@validator/middleware/auth';
 import { isAdminOrOwner } from '@validator/function/auth';
-import { AddressForm, AddressFormValidator } from '@controller/user/address/postAddress';
+import { AddressForm, AddressFormValidator } from '@validator/chain/address';
 import { LoginToken } from '@type/user';
 import { selectShippingAddressDetail } from '@service/shipping/address/select';
 import { updateShippingAddress } from '@service/shipping/address/update';
@@ -16,7 +16,7 @@ interface Body {
   address: AddressForm;
 }
 
-export const validator = [
+const validator = [
   isLoggedIn,
   ...AddressFormValidator,
   param('addressId')
@@ -25,8 +25,7 @@ export const validator = [
   validate
 ]
 
-// 사용자 배송지 수정
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
   const { addressId } = req.params as unknown as Params;
   const { address: form } = req.body as Body;
@@ -41,3 +40,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   return res.status(200).json({ message: '배송지 정보를 수정했어요.' });
   next();
 }
+
+// 사용자 배송지 수정
+const putAddress = [
+  ...validator,
+  controller
+];
+
+export default putAddress;

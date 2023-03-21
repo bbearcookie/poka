@@ -11,7 +11,7 @@ interface Params {
   addressId: number;
 }
 
-export const validator = [
+const validator = [
   isLoggedIn,
   param('addressId')
     .customSanitizer(v => Number(v))
@@ -20,8 +20,7 @@ export const validator = [
   validate
 ]
 
-// 사용자 기본 배송지 변경
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
   const { addressId } = req.params as unknown as Params;
 
@@ -37,3 +36,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
 
   next();
 }
+
+// 사용자 기본 배송지 변경
+const patchAddressPrime = [
+  ...validator,
+  controller
+];
+
+export default patchAddressPrime;

@@ -11,7 +11,7 @@ interface Params {
   userId: number;
 }
 
-export const validator = [
+const validator = [
   isLoggedIn,
   param('userId')
     .customSanitizer(v => Number(v))
@@ -20,8 +20,7 @@ export const validator = [
   validate,
 ]
 
-// 사용자의 배송 주소 목록 조회
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
   const { userId } = req.params as unknown as Params;
 
@@ -35,3 +34,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   return res.status(200).json({ message: '해당 사용자의 배송지 목록을 조회했어요.', addresses });
   next();
 }
+
+// 사용자의 배송 주소 목록 조회
+const getAddresses = [
+  ...validator,
+  controller
+];
+
+export default getAddresses;

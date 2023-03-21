@@ -1,6 +1,6 @@
 import db from '@config/database';
 import { PoolConnection } from 'mysql2/promise';
-import { AddressForm } from '@controller/user/address/postAddress';
+import { AddressForm } from '@validator/chain/address';
 
 // 사용자 배송지 추가
 export const insertUserShippingAddress = async (

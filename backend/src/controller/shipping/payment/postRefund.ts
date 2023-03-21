@@ -13,7 +13,7 @@ interface Params {
   requestId: number;
 }
 
-export const validator = [
+const validator = [
   isLoggedIn,
   param('requestId')
     .customSanitizer(v => Number(v))
@@ -21,8 +21,7 @@ export const validator = [
   validate
 ]
 
-// 배송비 환불
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
   const { requestId } = req.params as unknown as Params;
 
@@ -48,3 +47,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   return res.status(200).json({ message: '결제 금액이 환불되었어요.' });
   next();
 }
+
+// 배송비 환불
+const postRefund = [
+  ...validator,
+  controller
+];
+
+export default postRefund;

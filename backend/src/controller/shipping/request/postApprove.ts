@@ -9,7 +9,7 @@ interface Params {
   requestId: number;
 }
 
-export const validator = [
+const validator = [
   isAdmin,
   param('requestId')
     .customSanitizer(v => Number(v))
@@ -17,8 +17,7 @@ export const validator = [
   validate
 ]
 
-// 발송 완료 처리
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const { requestId } = req.params as unknown as Params;
 
   const [[shipping]] = await selectShippingRequestDetail(requestId);
@@ -32,3 +31,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   return res.status(200).json({ message: '발송 완료 처리 되었어요.' });
   next();
 }
+
+// 발송 완료 처리
+const postApprove = [
+  ...validator,
+  controller
+];
+
+export default postApprove;

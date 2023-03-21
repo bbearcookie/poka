@@ -8,15 +8,14 @@ interface Params {
   requestId: number;
 }
 
-export const validator = [
+const validator = [
   param('requestId')
     .customSanitizer(v => Number(v))
     .isNumeric().withMessage('요청 ID는 숫자여야 해요.'),
   validate
 ]
 
-// 배송 요청 상세 조회
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const { requestId } = req.params as unknown as Params;
 
   // 배송 요청 상세 조회
@@ -33,3 +32,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   });
   next();
 }
+
+// 배송 요청 상세 조회
+const getRequestDetail = [
+  ...validator,
+  controller
+];
+
+export default getRequestDetail;

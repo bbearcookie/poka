@@ -1,35 +1,35 @@
 import express from 'express';
-import * as putAddress from '@controller/shipping/address/putAddress';
-import * as deleteAddress from '@controller/shipping/address/deleteAddress';
-import * as patchAddressPrime from '@controller/shipping/address/patchAddressPrime';
+import putAddress from '@controller/shipping/address/putAddress';
+import deleteAddress from '@controller/shipping/address/deleteAddress';
+import patchAddressPrime from '@controller/shipping/address/patchAddressPrime';
 
-import * as getRequests from '@controller/shipping/request/getRequests';
-import * as postRequest from '@controller/shipping/request/postRequest';
-import * as deleteRequest from '@controller/shipping/request/deleteRequest';
-import * as getRequestDetail from '@controller/shipping/request/getRequestDetail';
-import * as postApprove from '@controller/shipping/request/postApprove';
+import getRequests from '@controller/shipping/request/getRequests';
+import postRequest from '@controller/shipping/request/postRequest';
+import deleteRequest from '@controller/shipping/request/deleteRequest';
+import getRequestDetail from '@controller/shipping/request/getRequestDetail';
+import postApprove from '@controller/shipping/request/postApprove';
 
-import * as postPayment from '@controller/shipping/payment/postPayment';
-import * as postRefund from '@controller/shipping/payment/postRefund';
+import postPayment from '@controller/shipping/payment/postPayment';
+import postRefund from '@controller/shipping/payment/postRefund';
 
 const router = express.Router();
 
 router.route('/address/:addressId')
-  .put(putAddress.validator, putAddress.controller)
-  .delete(deleteAddress.validator, deleteAddress.controller);
+  .put(putAddress)
+  .delete(deleteAddress);
 
-router.patch('/address/:addressId/prime', patchAddressPrime.validator, patchAddressPrime.controller);
+router.patch('/address/:addressId/prime', patchAddressPrime);
 
 router.route('/request')
-  .get(getRequests.validator, getRequests.controller)
-  .post(postRequest.validator, postRequest.controller);
+  .get(getRequests)
+  .post(postRequest);
 
 router.route('/request/:requestId')
-  .get(getRequestDetail.validator, getRequestDetail.controller)
-  .delete(deleteRequest.validator, deleteRequest.controller);
+  .get(getRequestDetail)
+  .delete(deleteRequest);
 
-router.post('/request/:requestId/payment', postPayment.validator, postPayment.controller);
-router.post('/request/:requestId/refund', postRefund.validator, postRefund.controller);
-router.post('/request/:requestId/approve', postApprove.validator, postApprove.controller);
+router.post('/request/:requestId/payment', postPayment);
+router.post('/request/:requestId/refund', postRefund);
+router.post('/request/:requestId/approve', postApprove);
 
 export default router;

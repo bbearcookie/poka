@@ -13,7 +13,7 @@ interface Body {
   impUID: string;
 }
 
-export const validator = [
+const validator = [
   param('requestId')
     .customSanitizer(v => Number(v))
     .isNumeric().withMessage('요청 ID는 숫자여야 해요.'),
@@ -23,8 +23,7 @@ export const validator = [
   validate
 ]
 
-// 배송 요청의 결제 검증 후 완료 처리
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const { requestId } = req.params as unknown as Params;
   const { impUID } = req.body as Body;
 
@@ -53,3 +52,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
 
   next();
 }
+
+// 배송 요청의 결제 검증 후 완료 처리
+const postPayment = [
+  ...validator,
+  controller
+];
+
+export default postPayment;

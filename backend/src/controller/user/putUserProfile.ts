@@ -11,8 +11,6 @@ import { getTimestampFilename, removeFile } from '@util/multer';
 import { selectUserDetailByUserID } from '@service/user/select';
 import { updateUserProfile } from '@service/user/update';
 
-export const uploader = imageUploader('image', USER_IMAGE_DIR);
-
 interface Params {
   userId: number;
 }
@@ -21,7 +19,7 @@ interface Body {
   nickname: string;
 }
 
-export const validator = [
+const validator = [
   isLoggedIn,
   param('userId')
     .customSanitizer(v => Number(v))
@@ -34,8 +32,7 @@ export const validator = [
   validate
 ]
 
-// 사용자 프로필 변경
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
   const { userId } = req.params as unknown as Params;
   const { nickname } = req.body as Body;
@@ -72,3 +69,15 @@ export const controller = async (req: Request, res: Response, next: NextFunction
 
   next();
 }
+
+const uploader = imageUploader('image', USER_IMAGE_DIR);
+
+// 사용자 프로필 변경
+const putUserProfile = [
+  uploader.single,
+  uploader.errorHandler,
+  ...validator,
+  controller
+];
+
+export default putUserProfile;

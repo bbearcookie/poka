@@ -12,7 +12,7 @@ interface Params {
   addressId: number;
 }
 
-export const validator = [
+const validator = [
   isLoggedIn,
   param('addressId')
     .customSanitizer(v => Number(v))
@@ -20,8 +20,7 @@ export const validator = [
   validate
 ]
 
-// 사용자 배송지 삭제
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
   const { addressId } = req.params as unknown as Params;
 
@@ -41,3 +40,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   return res.status(200).json({ message: '배송지를 삭제했어요.' });
   next();
 }
+
+// 사용자 배송지 삭제
+const deleteAddress = [
+  ...validator,
+  controller
+];
+
+export default deleteAddress;

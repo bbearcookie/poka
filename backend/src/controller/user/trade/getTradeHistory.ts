@@ -21,7 +21,7 @@ interface Query {
   filter: FilterType;
 }
 
-export const validator = [
+const validator = [
   isLoggedIn,
   ...filterSanitizer,
   param('userId')
@@ -39,8 +39,7 @@ export const validator = [
   validate
 ]
 
-// 사용자의 교환 내역 조회
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const itemPerPage = 20;
   const loggedUser = req.user as LoginToken;
   const { userId } = req.params as unknown as Params;
@@ -62,3 +61,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
 
   next();
 }
+
+// 사용자의 교환 내역 조회
+const getTradeHistory = [
+  ...validator,
+  controller
+];
+
+export default getTradeHistory;

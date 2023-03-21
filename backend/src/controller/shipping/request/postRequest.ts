@@ -4,7 +4,7 @@ import { validate } from '@validator/middleware/response';
 import { isLoggedIn } from '@validator/middleware/auth';
 import { createResponseMessage } from '@validator/function/response';
 import { LoginToken } from '@type/user';
-import { AddressForm, AddressFormValidator } from '@controller/user/address/postAddress';
+import { AddressForm, AddressFormValidator } from '@validator/chain/address';
 import { selectVoucherDetail } from '@service/voucher/select';
 import { insertShippingRequest } from '@service/shipping/request/insert';
 
@@ -13,7 +13,7 @@ interface Body {
   voucherIds: number[];
 }
 
-export const validator = [
+const validator = [
   isLoggedIn,
   ...AddressFormValidator,
   body('voucherIds')
@@ -24,8 +24,7 @@ export const validator = [
   validate
 ]
 
-// 배송 요청 작성
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
   const { address, voucherIds } = req.body as Body;
 
@@ -44,3 +43,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   return res.status(200).json({ message: '배송 요청글을 작성했어요. 이어서 배송비를 결제해주세요.', requestId });
   next();
 }
+
+// 배송 요청 작성
+const postRequest = [
+  ...validator,
+  controller
+];
+
+export default postRequest;

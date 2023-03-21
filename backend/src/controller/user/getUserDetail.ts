@@ -7,7 +7,7 @@ interface Params {
   userId: number;
 }
 
-export const validator = [
+const validator = [
   param('userId')
     .customSanitizer(v => Number(v))
     .isNumeric().withMessage('userId는 숫자여야 해요.')
@@ -15,8 +15,7 @@ export const validator = [
   validate
 ]
 
-// 사용자 상세 정보 조회
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const { userId } = req.params as unknown as Params;
 
   const [[user]] = await selectUserDetailByUserID(userId);
@@ -32,3 +31,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
 
   next();
 }
+
+// 사용자 상세 정보 조회
+const getUserDetail = [
+  ...validator,
+  controller
+];
+
+export default getUserDetail;
