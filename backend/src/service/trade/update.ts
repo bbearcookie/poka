@@ -108,17 +108,23 @@ export const updateTrade = async ({
 
 // 교환 진행
 export const exchangeTrade = async ({
-  tradeId,
-  voucherId,
-  userId,
-  voucherIds
+  trade,
+  customer,
 }: {
-  tradeId: number;
-  voucherId: number;
-  userId: number;
-  voucherIds: number[];
+  trade: {
+    userId: number;
+    tradeId: number;
+    voucherId: number;
+  };
+  customer: {
+    userId: number;
+    voucherIds: number[];
+  }
 }) => {
   let con: PoolConnection | undefined;
+
+  console.log(trade);
+  console.log(customer);
 
   try {
     con = await db.getConnection();
@@ -133,7 +139,7 @@ export const exchangeTrade = async ({
       SET
         state='traded',
         traded_time=now()
-      WHERE trade_id=${con.escape(tradeId)}`;
+      WHERE trade_id=${con.escape(trade.tradeId)}`;
 
       con.execute(sql).then(resolve).catch(reject);
     });
@@ -145,9 +151,9 @@ export const exchangeTrade = async ({
       let sql = `
       UPDATE Voucher
       SET
-        user_id=${userId},
+        user_id=${con.escape(customer.userId)},
         state='available'
-      WHERE voucher_id=${con.escape(voucherId)}`;
+      WHERE voucher_id=${con.escape(trade.voucherId)}`;
 
       con.execute(sql).then(resolve).catch(reject);
     });
@@ -163,9 +169,9 @@ export const exchangeTrade = async ({
         dest_user_id,
         type
       ) VALUES (
-        ${con.escape(voucherId)},
-        ${con.escape(userId)},
-        ${con.escape(userId)},
+        ${con.escape(trade.voucherId)},
+        ${con.escape(trade.userId)},
+        ${con.escape(customer.userId)},
         'traded'
       )`;
 
@@ -173,7 +179,7 @@ export const exchangeTrade = async ({
     });
 
     // 교환 신청한 사용자의 소유권 변경 및 기록 작성
-    const updateVouchers = voucherIds.map(voucherId => (
+    const updateVouchers = customer.voucherIds.map(voucherId => (
       new Promise((resolve, reject) => {
 
         // 소유권 변경
@@ -183,7 +189,7 @@ export const exchangeTrade = async ({
           let sql = `
           UPDATE Voucher
           SET
-            user_id=${con.escape(userId)},
+            user_id=${con.escape(trade.userId)},
             state='available'
           WHERE voucher_id=${con.escape(voucherId)}`;
 
@@ -202,8 +208,8 @@ export const exchangeTrade = async ({
             type
           ) VALUES (
             ${con.escape(voucherId)},
-            ${con.escape(userId)},
-            ${con.escape(userId)},
+            ${con.escape(customer.userId)},
+            ${con.escape(trade.userId)},
             'traded'
           )`;
 

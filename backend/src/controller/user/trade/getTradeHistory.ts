@@ -25,18 +25,21 @@ const validator = [
   isLoggedIn,
   param('userId')
     .customSanitizer(v => Number(v))
-    .isNumeric().withMessage('사용자 ID는 숫자여야 해요.').bail(),
+    .isNumeric().withMessage('사용자 ID는 숫자여야 해요.'),
   query('pageParam')
     .default(0)
-    .isNumeric().withMessage('pageParam이 숫자가 아니에요').bail(),
+    .isNumeric().withMessage('pageParam이 숫자가 아니에요'),
   query('filter')
     .customSanitizer(JSONSanitizer),
   query('filter')
-    .isObject().withMessage('검색 필터가 잘못되었어요.').bail(),
+    .isObject().withMessage('검색 필터가 잘못되었어요.'),
   query('filter.startDate')
-    .isISO8601().toDate().withMessage('시작일은 날짜 형태여야해요.'),
+    .isISO8601().withMessage('시작일은 날짜 형태여야해요.').bail()
+    .toDate(),
   query('filter.endDate')
-    .isISO8601().toDate().withMessage('끝일은 날짜 형태여야해요.'),
+    .isISO8601().withMessage('끝일은 날짜 형태여야해요.').bail()
+    .toDate()
+    .custom((v: Date) => v.setDate(v.getDate() + 1)),
   validate
 ]
 

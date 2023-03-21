@@ -51,8 +51,8 @@ function Exchange({ trade }: Props) {
 
   // 교환
   const handleExchange = useCallback(() => {
-    const vouchers = Object.entries(select).filter(item => item[1]).map(item => Number(item[0]));
-    postMutation.mutate({ vouchers });
+    const voucherIds = Object.entries(select).filter(item => item[1]).map(item => Number(item[0]));
+    postMutation.mutate({ voucherIds });
   }, [select, postMutation]);
 
   return (

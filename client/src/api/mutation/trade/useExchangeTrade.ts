@@ -7,7 +7,7 @@ import * as queryKey from '@api/queryKey';
 import { exchangeTrade } from '@api/api/trade';
 
 interface BodyType {
-  vouchers: number[];
+  voucherIds: number[];
 }
 
 interface ResType {
