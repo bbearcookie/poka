@@ -6,18 +6,22 @@ import UserProfile from '@component/profile/UserProfile';
 import StateLabel from '@component/label/stateLabel/StateLabel';
 import { Payment, ShippingRequest } from '@type/shipping';
 import { User } from '@type/user';
-import { StyledShipping, PhotoImg } from './_styles';
+import { StyledShipping } from './_styles';
 
 interface Props {
   request: ShippingRequest;
   payment: Pick<Payment, 'state'>;
   author: User,
-  voucherImageName: string;
+  voucher: {
+    name: string;
+    imageName: string;
+    amount: number;
+  }
   showOwner?: boolean;
   to?: string;
 }
 
-function Shipping({ request, payment, author, voucherImageName, showOwner = false, to }: Props) {
+function Shipping({ request, payment, author, voucher, showOwner = false, to }: Props) {
   const navigate = useNavigate();
 
   // 상세 페이지 이동
@@ -28,7 +32,13 @@ function Shipping({ request, payment, author, voucherImageName, showOwner = fals
   return (
     <StyledShipping onClick={onClick}>
       {showOwner && <td><UserProfile {...author} /></td>}
-      <td><PhotoImg src={photoImage(voucherImageName)} alt="이미지" /></td>
+      <td>
+        <section className="photo-section">
+          <img className="img" src={photoImage(voucher.imageName)} alt="이미지" />
+          <p className="name"><b>{voucher.name}</b></p>
+          <p className="amount">포함 {voucher.amount}장</p>
+        </section>
+      </td>
       <td>
         <StateLabel
           state={{ type: "payment", key: payment.state }}

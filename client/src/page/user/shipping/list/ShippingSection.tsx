@@ -74,7 +74,9 @@ function ShippingSection() {
                   state: r.state,
                   writtenTime: r.writtenTime
                 }}
-                {...r}
+                voucher={{ ...r.voucher.represent, amount: r.voucher.amount }}
+                author={r.author}
+                payment={r.payment}
               />)}
             </Fragment>)}
             {isFetching && Array.from({ length: 10 }).map((_, i) => <SkeletonShipping key={i} />)}

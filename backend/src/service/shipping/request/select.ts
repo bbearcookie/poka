@@ -1,4 +1,5 @@
 import db from '@config/database';
+import produce from 'immer';
 import { PoolConnection } from 'mysql2/promise';
 import { ResultSetHeader } from 'mysql2';
 import { WhereSQL } from '@util/database';
@@ -39,9 +40,12 @@ export const selectShippingRequests = async (
         'nickname', U.nickname,
         'imageName', U.image_name
       ) as author,
-      (SELECT count(*)
-      FROM ShippingRequestVoucher as V
-      WHERE V.request_id=R.request_id) as voucherAmount
+      JSON_OBJECT(
+        'amount', 
+        (SELECT count(*)
+        FROM ShippingRequestVoucher as V
+        WHERE V.request_id=R.request_id)
+      ) as voucher
     FROM ShippingRequest as R
     INNER JOIN Payment as P ON R.payment_id=P.payment_id
     INNER JOIN User as U ON R.user_id=U.user_id `;
@@ -85,6 +89,7 @@ export const selectShippingRequests = async (
         try {
           let sql = `
           SELECT
+            name,
             image_name as imageName
           FROM ShippingRequestVoucher as RV
           INNER JOIN Voucher as V ON RV.voucher_id=V.voucher_id
@@ -92,9 +97,12 @@ export const selectShippingRequests = async (
           WHERE RV.request_id=${con.escape(r.requestId)}
           ORDER BY V.voucher_id`;
 
-          interface Voucher { imageName: string; };
+          interface Voucher { name: string; imageName: string; };
           const [[voucher]] = await con.query<Voucher[] & ResultSetHeader>(sql);
-          resolve({ ...r, voucherImageName: voucher?.imageName });
+
+          resolve(produce(r, draft => {
+            draft.voucher.represent = voucher;
+          }));
         } catch (err) {
           reject(err);
         }

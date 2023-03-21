@@ -7,9 +7,21 @@ export const StyledShipping = styled.tr`
   &:hover {
     background-color: rgb(249, 249, 250);
   }
-`
 
-export const PhotoImg = styled.img`
-  width: 4.7em;
-  height: 7em;
-`
+  .photo-section {
+    .img {
+      width: 4.7em;
+      height: 7em;
+    }
+
+    .name {
+      margin: 0.3em 0;
+    }
+
+    .amount {
+      margin: 0;
+      font-size: 0.75em;
+      color: #65748B;
+    }
+  }
+`;
