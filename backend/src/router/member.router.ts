@@ -10,6 +10,6 @@ router.get('/', getMembers);
 router.route('/:memberId')
   .get(getMember)
   .put(putMember)
-  .delete(deleteMember)
+  .delete(deleteMember);
 
 export default router;

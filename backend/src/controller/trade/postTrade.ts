@@ -8,39 +8,17 @@ import { selectUserDetailByUserID } from '@service/user/select';
 import { selectVoucherDetail } from '@service/voucher/select';
 import { selectPhotoDetail } from '@service/photo/select';
 import { writeTrade } from '@service/trade/insert';
+import { TradeForm, TradeFormValidator } from '@validator/chain/trade';
 
-export interface Body {
-  haveVoucherId: number;
-  wantPhotocardIds: number[];
-  amount: number;
-}
+interface Body extends TradeForm {}
 
-export const BodyValidator = [
-  body('haveVoucherId')
-    .customSanitizer(v => Number(v))
-    .isNumeric().withMessage('소유권 ID는 숫자여야 해요.').bail()
-    .custom((value) => Number(value) > 0).withMessage('등록할 소유권을 선택해주세요.').bail(),
-  body('wantPhotocardIds')
-    .not().isEmpty().withMessage('받을 포토카드를 선택해주세요.').bail()
-    .isArray({ max: 10 }).withMessage('받을 포토카드의 종류는 최대 10종류까지 선택할 수 있어요.').bail(),
-  body('wantPhotocardIds.*')
-    .customSanitizer(v => Number(v))
-    .isNumeric().withMessage('받을 포토카드 ID는 숫자여야 해요.'),
-  body('amount')
-    .customSanitizer(v => Number(v))
-    .isNumeric().withMessage('수량은 숫자여야 해요.').bail()
-    .custom(v => v > 0).withMessage('받을 포토카드의 수량을 입력해주세요.').bail()
-    .custom((v, { req }) => v <= req.body.wantPhotocardIds.length).withMessage('수량은 받을 포토카드로 선택한 종류의 갯수를 초과할 수 없어요.').bail(),
-]
-
-export const validator = [
+const validator = [
   isLoggedIn,
-  ...BodyValidator,
+  ...TradeFormValidator,
   validate
 ]
 
-// 교환글 작성
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
   const { haveVoucherId, wantPhotocardIds, amount } = req.body as Body;
 
@@ -72,3 +50,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   return res.status(200).json({ message: '교환글을 작성했어요.' });
   next();
 }
+
+// 교환글 작성
+const postTrade = [
+  ...validator,
+  controller
+];
+
+export default postTrade;

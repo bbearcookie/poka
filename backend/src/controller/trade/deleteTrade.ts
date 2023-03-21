@@ -5,13 +5,13 @@ import { isLoggedIn } from '@validator/middleware/auth';
 import { isAdminOrOwner } from '@validator/function/auth';
 import { LoginToken } from '@type/user';
 import { selectTradeDetail } from '@service/trade/select';
-import { deleteTrade } from '@service/trade/delete';
+import { deleteTrade as deleteTradeService } from '@service/trade/delete';
 
 interface Params {
   tradeId: number;
 }
 
-export const validator = [
+const validator = [
   isLoggedIn,
   param('tradeId')
     .customSanitizer(v => Number(v))
@@ -19,8 +19,7 @@ export const validator = [
   validate
 ]
 
-// 교환글 삭제
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
   const { tradeId } = req.params as unknown as Params;
 
@@ -29,8 +28,16 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   if (trade.state !== 'trading') return res.status(400).json({ message: '이미 교환이 완료된 교환글은 삭제할 수 없어요.' });
   if (!isAdminOrOwner(loggedUser, trade.userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
 
-  await deleteTrade(trade.tradeId, trade.voucherId);
+  await deleteTradeService(trade.tradeId, trade.voucherId);
   return res.status(200).json({ message: '교환글을 삭제했어요.' });
 
   next();
 }
+
+// 교환글 삭제
+const deleteTrade = [
+  ...validator,
+  controller
+]
+
+export default deleteTrade;

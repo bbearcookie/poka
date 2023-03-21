@@ -8,15 +8,14 @@ interface Params {
   tradeId: number;
 }
 
-export const validator = [
+const validator = [
   param('tradeId')
     .customSanitizer(v => Number(v))
     .isNumeric().withMessage('교환글 ID는 숫자여야 해요.'),
   validate
 ]
 
-// 교환글 상세 조회
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const { tradeId } = req.params as unknown as Params;
 
   const [[trade]] = await selectTradeDetail(tradeId);
@@ -31,3 +30,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
 
   next();
 }
+
+// 교환글 상세 조회
+const getTradeDetail = [
+  ...validator,
+  controller
+];
+
+export default getTradeDetail;

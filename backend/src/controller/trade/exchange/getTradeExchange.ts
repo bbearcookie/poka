@@ -11,7 +11,7 @@ interface Params {
   tradeId: number;
 }
 
-export const validator = [
+const validator = [
   isLoggedIn,
   param('tradeId')
     .customSanitizer(v => Number(v))
@@ -19,8 +19,7 @@ export const validator = [
   validate
 ]
 
-// 로그인 한 사용자가 가지고 있는 소유권 중에서 해당 교환글과 교환이 가능한 소유권 조회 
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
   const { tradeId } = req.params as unknown as Params;
 
@@ -41,3 +40,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   return res.status(200).json({ message: '교환 가능한 소유권을 조회했어요.', vouchers });
   next();
 }
+
+// 로그인 한 사용자가 가지고 있는 소유권 중에서 해당 교환글과 교환이 가능한 소유권 조회
+const getTradeExchange = [
+  ...validator,
+  controller
+]
+
+export default getTradeExchange;

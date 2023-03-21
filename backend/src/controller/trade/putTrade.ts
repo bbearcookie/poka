@@ -5,7 +5,7 @@ import { validate } from '@validator/middleware/response';
 import { createResponseMessage } from '@validator/function/response';
 import { isAdminOrOwner } from '@validator/function/auth';
 import { LoginToken } from '@type/user';
-import { Body, BodyValidator } from '@controller/trade/postTrade';
+import { TradeForm, TradeFormValidator } from '@validator/chain/trade';
 import { selectUserDetailByUserID } from '@service/user/select';
 import { selectTradeDetail } from '@service/trade/select';
 import { selectVoucherDetail } from '@service/voucher/select';
@@ -16,17 +16,18 @@ interface Params {
   tradeId: number;
 }
 
-export const validator = [
+interface Body extends TradeForm {}
+
+const validator = [
   isLoggedIn,
-  ...BodyValidator,
+  ...TradeFormValidator,
   param('tradeId')
     .customSanitizer(v => Number(v))
     .isNumeric().withMessage('교환글 ID는 숫자여야 해요.'),
   validate
 ]
 
-// 교환글 수정
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
   const { tradeId } = req.params as unknown as Params;
   const { haveVoucherId, wantPhotocardIds, amount } = req.body as Body;
@@ -65,3 +66,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   return res.status(200).json({ message: '교환글을 수정했어요.' });
   next();
 }
+
+// 교환글 수정
+const putTrade = [
+  ...validator,
+  controller
+];
+
+export default putTrade;

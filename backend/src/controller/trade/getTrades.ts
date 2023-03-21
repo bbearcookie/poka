@@ -16,7 +16,7 @@ interface Query {
   filter: FilterType;
 }
 
-export const validator = [
+const validator = [
   ...filterSanitizer,
 
   query('pageParam')
@@ -38,8 +38,7 @@ export const validator = [
   validate
 ]
 
-// 교환글 목록 조회
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const itemPerPage = 10;
   const { pageParam, filter } = req.query as unknown as Query;
 
@@ -55,3 +54,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   });
   next();
 }
+
+// 교환글 목록 조회
+const getTrades = [
+  ...validator,
+  controller
+];
+
+export default getTrades;

@@ -15,7 +15,7 @@ interface Body {
   vouchers: number[];
 }
 
-export const validator = [
+const validator = [
   isLoggedIn,
   param('tradeId')
     .customSanitizer(v => Number(v))
@@ -28,8 +28,7 @@ export const validator = [
   validate
 ]
 
-// 교환
-export const controller = async (req: Request, res: Response, next: NextFunction) => {
+const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
   const { tradeId } = req.params as unknown as Params;
   const { vouchers } = req.body as Body;
@@ -65,3 +64,11 @@ export const controller = async (req: Request, res: Response, next: NextFunction
   return res.status(200).json({ message: '교환이 완료되었어요.' });
   next();
 }
+
+// 교환 처리
+const postTradeExchange = [
+  ...validator,
+  controller
+];
+
+export default postTradeExchange;

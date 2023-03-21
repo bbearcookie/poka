@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.route('/')
   .get(getGroups)
-  .post(postGroup)
+  .post(postGroup);
 
 router.route('/:groupId')
   .get(getGroupDetail)
