@@ -4,8 +4,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import * as queryKey from '@api/queryKey';
 import usePhotosQuery, { FilterType } from '@api/query/photo/usePhotosQuery';
 import NextPageFetcher from '@component/list/content/NextPageFetcher';
-import PhotoCard from '@component/photocard/photo/PhotoCard';
-import SkeletonPhotoCard from '@component/photocard/photo/SkeletonPhotoCard';
+import PhotocardItem from '@component/photocard/new/item/PhotocardItem';
+import SkeletonPhotoCardItem from '@component/photocard/new/item/SkeletonPhotocardItem';
 import { IconType } from '@type/icon';
 import { State as FilterState } from '@component/search/content/filter/reducer';
 import { State as KeywordState } from '@component/search/content/keyword/reducer';
@@ -23,11 +23,16 @@ function PhotoList({ filter, keyword, icon, handleSelect }: Props) {
   const [refine, setRefine] = useState<FilterType>({
     groupIds: [],
     memberIds: [],
-    photoNames: []
+    photoNames: [],
   });
 
-  const { data: photos, isFetching, hasNextPage, fetchNextPage, refetch }
-  = usePhotosQuery(refine, { enabled: filter.initialized });
+  const {
+    data: photos,
+    isFetching,
+    hasNextPage,
+    fetchNextPage,
+    refetch,
+  } = usePhotosQuery(refine, { enabled: filter.initialized });
 
   // 데이터 리패칭
   useUpdateEffect(() => {
@@ -38,31 +43,38 @@ function PhotoList({ filter, keyword, icon, handleSelect }: Props) {
   // 검색 조건 변경시 새로운 필터 적용
   useUpdateEffect(() => {
     setRefine({
-      groupIds: filter.groups.filter(g => g.checked).map(g => g.id),
-      memberIds: filter.members.filter(m => m.checked).map(m => m.id),
-      photoNames: keyword.keywords.filter(k => k.category === 'photoName').map(k => k.value)
+      groupIds: filter.groups.filter((g) => g.checked).map((g) => g.id),
+      memberIds: filter.members.filter((m) => m.checked).map((m) => m.id),
+      photoNames: keyword.keywords
+        .filter((k) => k.category === 'photoName')
+        .map((k) => k.value),
     });
   }, [filter, keyword]);
 
   return (
     <ItemSection>
-      {photos?.pages.map((page, i) =>
-      <Fragment key={i}>
-        {page.photos.map(p =>
-        <PhotoCard
-          key={p.photocardId}
-          photocardId={p.photocardId}
-          photoName={p.name}
-          groupName={p.groupData.name}
-          memberName={p.memberData.name}
-          imageName={p.imageName}
-          icon={icon}
-          handleClick={handleSelect}
-        />)}
-      </Fragment>)}
+      {photos?.pages.map((page, i) => (
+        <Fragment key={i}>
+          {page.photos.map((p) => (
+            <PhotocardItem
+              {...p}
+              key={p.photocardId}
+              icon={icon}
+              onClick={handleSelect}
+            />
+          ))}
+        </Fragment>
+      ))}
 
-      {isFetching && Array.from({length: 20}).map((_, i) => <SkeletonPhotoCard key={i} />)}
-      <NextPageFetcher hasNextPage={hasNextPage} fetchNextPage={fetchNextPage} />
+      {isFetching &&
+        Array.from({ length: 20 }).map((_, i) => (
+          <SkeletonPhotoCardItem key={i} />
+        ))}
+
+      <NextPageFetcher
+        hasNextPage={hasNextPage}
+        fetchNextPage={fetchNextPage}
+      />
     </ItemSection>
   );
 }

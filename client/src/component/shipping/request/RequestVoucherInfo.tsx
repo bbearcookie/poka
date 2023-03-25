@@ -2,7 +2,7 @@ import React from 'react';
 import Card, { StylesProps as CardStyles } from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
-import PhotoCard from '@component/photocard/photo/PhotoCard';
+import PhotocardItem from '@component/photocard/new/item/PhotocardItem';
 import { ItemSection } from '@component/list/content/_styles';
 import { VoucherItem } from '@type/voucher';
 import { IconType } from '@type/icon';
@@ -14,7 +14,12 @@ interface Props {
   cardStyles?: CardStyles;
 }
 
-function RequestVoucherInfo({ vouchers, icon, handleClick, cardStyles }: Props) {
+function RequestVoucherInfo({
+  vouchers,
+  icon,
+  handleClick,
+  cardStyles,
+}: Props) {
   return (
     <Card styles={cardStyles}>
       <CardHeader>
@@ -22,16 +27,14 @@ function RequestVoucherInfo({ vouchers, icon, handleClick, cardStyles }: Props) 
       </CardHeader>
       <CardBody>
         <ItemSection>
-          {vouchers.map(v =>
-            <PhotoCard
-              key={v.voucherId}
-              photoName={v.photo.name}
-              groupName={v.photo.groupData.name}
-              memberName={v.photo.memberData.name}
-              icon={icon}
-              handleClick={handleClick}
+          {vouchers.map((v) => (
+            <PhotocardItem
               {...v.photo}
-          />)}
+              key={v.voucherId}
+              icon={icon}
+              onClick={handleClick}
+            />
+          ))}
         </ItemSection>
       </CardBody>
     </Card>

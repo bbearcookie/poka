@@ -3,7 +3,7 @@ import { ResType as PhotoResType } from '@api/query/photo/usePhotoQuery';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
-import PhotoCard from '@component/photocard/photo/PhotoCard';
+import PhotocardItem from '@component/photocard/new/item/PhotocardItem';
 import { State, Action } from '../../reducer';
 
 export interface PhotoItemType extends PhotoResType {
@@ -36,14 +36,10 @@ function PhotoItem({ photo, idx, state, dispatch }: Props) {
   }, [photo, dispatch]);
 
   return (
-    <PhotoCard
-      photocardId={photo.photocardId}
-      photoName={photo.name}
-      groupName={photo.groupData.name}
-      memberName={photo.memberData.name}
-      imageName={photo.imageName}
+    <PhotocardItem
+      {...photo}
       icon={{ svg: faClose, tooltip: '취소' }}
-      handleClick={handleRemove}
+      onClick={handleRemove}
     >
       <b>수량</b>
       <Input
@@ -61,7 +57,7 @@ function PhotoItem({ photo, idx, state, dispatch }: Props) {
       >
         <InputMessage styles={{ margin: '1em 0 0 0' }}>{state.form.vouchers[idx].message}</InputMessage>
       </Input>
-    </PhotoCard>
+    </PhotocardItem>
   );
 }
 

@@ -4,7 +4,7 @@ import { Photo } from '@type/photo';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
-import PhotoCard from '@component/photocard/photo/PhotoCard';
+import PhotocardItem from '@component/photocard/new/item/PhotocardItem';
 
 interface Props {
   wantcards: Photo[];
@@ -12,19 +12,15 @@ interface Props {
 
 function TradeWantCard({ wantcards }: Props) {
   return (
-    <Card className="TradeWantCard" styles={{ marginBottom: "5em" }}>
-      <CardHeader><h1 className="title">교환 가능한 포토카드</h1></CardHeader>
+    <Card className="TradeWantCard" styles={{ marginBottom: '5em' }}>
+      <CardHeader>
+        <h1 className="title">교환 가능한 포토카드</h1>
+      </CardHeader>
       <CardBody>
         <PhotoSection>
-          {wantcards.map(card => 
-          <PhotoCard
-            photocardId={card.photocardId}
-            key={card.photocardId}
-            photoName={card.name}
-            memberName={card.memberData.name}
-            groupName={card.groupData.name}
-            imageName={card.imageName}
-          />)}
+          {wantcards.map((card) => (
+            <PhotocardItem {...card} key={card.photocardId} />
+          ))}
         </PhotoSection>
       </CardBody>
     </Card>
@@ -38,4 +34,4 @@ const PhotoSection = styled.section`
   justify-content: center;
   flex-wrap: wrap;
   gap: 1em;
-`
+`;
