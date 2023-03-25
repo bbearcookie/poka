@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+// 포토카드 목록에서 보여줄 컴포넌트
 export const StylesPhotocardItem = styled.section`
   width: fit-content;
   border-radius: 10px;
@@ -7,35 +8,6 @@ export const StylesPhotocardItem = styled.section`
 
   .main {
     padding: 1.25em;
-
-    .img {
-      width: 9.375em;
-      height: 14em;
-    }
-
-    .name-section {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 1em 0;
-      padding: 0 0.5em;
-      width: 100%;
-      max-width: 9.375em;
-      height: 3.5em;
-      box-sizing: border-box;
-      border-radius: 5px;
-      background-color: #242a38;
-      color: white;
-
-      .name {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        text-align: center;
-        word-break: keep-all;
-        overflow: hidden;
-      }
-    }
 
     .info-section {
       display: flex;
@@ -45,9 +17,6 @@ export const StylesPhotocardItem = styled.section`
         display: flex;
         flex-direction: column;
         flex-grow: 1;
-
-        .member-name {
-        }
 
         .group-name {
           width: fit-content;
@@ -67,5 +36,42 @@ export const StylesPhotocardItem = styled.section`
   .footer {
     border-top: 1px solid #e5e7eb;
     padding: 1.25em;
+  }
+`;
+
+// 포토카드 이미지
+export interface PhotoImgStyles {
+  size?: number;
+}
+export const PhotoImg = styled.img<PhotoImgStyles>`
+  width: ${p => (p.size ? `calc(9.375em * ${p.size})` : '9.375em')};
+  height: ${p => (p.size ? `calc(14em * ${p.size})` : '14em')};
+`;
+
+// 포토카드 제목 부분
+export const PhotoName = styled.div<{
+  width?: string;
+  margin?: string;
+}>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: ${p => (p.margin ? p.margin : '1em 0')};
+  padding: 0 0.5em;
+  width: ${p => (p.width ? p.width : '100%')};
+  max-width: 9.375em;
+  height: 3.5em;
+  box-sizing: border-box;
+  border-radius: 5px;
+  background-color: #242a38;
+  color: white;
+
+  .name {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-align: center;
+    word-break: keep-all;
+    overflow: hidden;
   }
 `;

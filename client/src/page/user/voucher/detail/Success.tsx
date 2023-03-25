@@ -1,6 +1,6 @@
 import React from 'react';
 import VoucherInfoCard from '@component/photocard/voucher/voucher_info/VoucherInfoCard';
-import PhotoInfoCard from '@component/photocard/photo/PhotoInfoCard';
+import PhotoInfo from '@component/photocard/new/info/PhotoInfo';
 import { ResType } from '@api/query/voucher/useVoucherQuery';
 import ButtonSection from './content/ButtonSection';
 
@@ -13,12 +13,9 @@ function Success({ res }: Props) {
 
   return (
     <>
-      <PhotoInfoCard
-        photoName={res.photo.name}
-        groupName={res.photo.groupData.name}
-        memberName={res.photo.memberData.name}
-        imageName={res.photo.imageName}
-        cardStyles={{ margin: "0 auto 5em auto" }}
+      <PhotoInfo
+        {...res.photo}
+        styles={{ margin: '0 auto 5em auto' }}
       />
       <VoucherInfoCard res={res} showAdminInfo={false} />
       <ButtonSection res={res} />

@@ -2,13 +2,13 @@ import React from 'react';
 import CardListItem from '@component/card/basic/CardListItem';
 import SkeletonItem from '@component/skeleton/SkeletonItem';
 import SkeletonUserProfile from '@component/profile/SkeletonUserProfile';
-import SkeletonPhotoInfoCard from '@component/photocard/photo/SkeletonPhotoInfoCard';
+import SkeletonPhotoInfo from '@component/photocard/new/info/SkeletonPhotoInfo';
 
 function SkeletonHistory() {
   return (
     <>
       <CardListItem title={<SkeletonItem styles={{ height: "1.75em" }} />} styles={{ borderBottom: "none" }}>
-        <SkeletonPhotoInfoCard />
+        <SkeletonPhotoInfo imgStyles={{ size: 0.7 }} />
       </CardListItem>
       <CardListItem title={<SkeletonItem styles={{ height: "1.75em" }} />} styles={{ borderBottom: "none" }}>
         <SkeletonUserProfile />

@@ -2,7 +2,7 @@ import React from 'react';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { Photo } from '@type/photo';
 import Button from '@component/form/Button';
-import PhotoInfoCard from '@component/photocard/photo/PhotoInfoCard';
+import PhotoInfoComponent from '@component/photocard/new/info/PhotoInfo';
 
 interface Props {
   photo: Photo;
@@ -11,25 +11,20 @@ interface Props {
 
 function PhotoInfo({ photo, startEditor }: Props) {
   return (
-    <PhotoInfoCard
-      photoName={photo.name}
-      groupName={photo.groupData.name}
-      memberName={photo.memberData.name}
-      imageName={photo.imageName}
-      cardStyles={{ margin: "0 auto 5em auto" }}
-    >
+    <PhotoInfoComponent {...photo} styles={{ margin: '0 auto 5em auto' }}>
       <Button
         rightIcon={faPenToSquare}
         styles={{
-          width: "fit-content",
-          theme: "primary-outlined",
-          margin: "1.5em auto 0 auto",
-          padding: "0.7em 1.3em",
-          iconMargin: "1em"
+          width: 'fit-content',
+          theme: 'primary-outlined',
+          margin: '1.5em auto 0 auto',
+          padding: '0.7em 1.3em',
+          iconMargin: '1em',
         }}
-        onClick={startEditor}
-      >수정</Button>
-    </PhotoInfoCard>
+        onClick={startEditor}>
+        수정
+      </Button>
+    </PhotoInfoComponent>
   );
 }
 
