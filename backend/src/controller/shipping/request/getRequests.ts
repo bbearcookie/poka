@@ -18,6 +18,7 @@ interface Query {
 const validator = [
   query('pageParam')
     .default(0)
+    .customSanitizer(v => Number(v))
     .isNumeric().withMessage('pageParam이 숫자가 아니에요').bail(),
   
   query('filter')
