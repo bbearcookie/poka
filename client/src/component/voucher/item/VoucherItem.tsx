@@ -14,6 +14,7 @@ interface Props
   showOwner?: boolean;
   icon?: IconType;
   onClick?: (voucherId: number) => void;
+  item?: React.ReactNode;
 }
 
 function VoucherItem({
@@ -24,7 +25,8 @@ function VoucherItem({
   voucherState,
   showOwner = true,
   icon,
-  onClick = () => {},
+  item,
+  onClick = () => {}
 }: Props) {
   const handleClick = useCallback(() => {
     onClick(voucherId);
@@ -33,15 +35,21 @@ function VoucherItem({
   return (
     <PhotocardItem {...photo} icon={icon} onClick={handleClick}>
       <StylesVoucherItem>
-        <StateLabel
-          state={{ type: 'voucher', key: voucherState }}
-          styles={{ textAlign: 'start', width: 'fit-content', margin: '0' }}
-        />
-        {showOwner && (
-          <span className="owner-name">
-            <b>{owner.username}</b>
-          </span>
-        )}
+        <section className="info-section">
+          <StateLabel
+            state={{ type: 'voucher', key: voucherState }}
+            styles={{ textAlign: 'start', width: 'fit-content', margin: '0' }}
+          />
+          {showOwner && (
+            <span className="owner-name">
+              <b>{owner.username}</b>
+            </span>
+          )}
+        </section>
+
+        <section className="item-section">
+          {item}
+        </section>
       </StylesVoucherItem>
     </PhotocardItem>
   );

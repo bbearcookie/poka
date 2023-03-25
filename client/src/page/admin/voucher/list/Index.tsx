@@ -6,7 +6,6 @@ import CardBody from '@component/card/basic/CardBody';
 import useSearcher from '@component/search/useSearcher';
 import Searcher from '@component/search/Searcher';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
-import VoucherItem from '@component/voucher/item/VoucherItem';
 import VoucherList from '@component/list/VoucherList';
 import './Index.scss';
 

@@ -2,7 +2,11 @@ import React from 'react';
 import SkeletonItem from '@component/skeleton/SkeletonItem';
 import { StylesPhotocardItem } from './_styles';
 
-function SkeletonPhotoCardItem() {
+interface Props {
+  children?: React.ReactNode;
+}
+
+function SkeletonPhotocardItem({ children }: Props) {
   return (
     <StylesPhotocardItem>
       <main className="main">
@@ -15,8 +19,10 @@ function SkeletonPhotoCardItem() {
           </section>
         </section>
       </main>
+
+      {children && <footer className="footer">{children}</footer>}
     </StylesPhotocardItem>
   );
 }
 
-export default SkeletonPhotoCardItem;
+export default SkeletonPhotocardItem;
