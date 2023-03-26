@@ -20,7 +20,7 @@ function PhotocardList({ form, formDispatch, photos, removeWantPhotocardId }: Pr
       {photos.length > 0 &&
       <>
         <b className="label">종류</b>
-        <ItemSection margin="1em 0">
+        <ItemSection templateColumnsSize="minmax(11.25em, 1fr)" margin="1em 0">
           {photos.map((photo) => photo.status === 'success' && 
           <PhotocardItem
             {...photo.data}

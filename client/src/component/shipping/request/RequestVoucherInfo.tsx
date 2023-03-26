@@ -26,7 +26,7 @@ function RequestVoucherInfo({
         <h1 className="title">요청한 소유권</h1>
       </CardHeader>
       <CardBody>
-        <ItemSection>
+        <ItemSection templateColumnsSize="minmax(11.25em, 1fr)">
           {vouchers.map((v) => (
             <PhotocardItem
               {...v.photo}

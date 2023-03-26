@@ -74,7 +74,7 @@ function VoucherList({
   }, [filter, keyword, excludeVoucherIds]);
 
   return (
-    <ItemSection>
+    <ItemSection templateColumnsSize="minmax(11.25em, 1fr)">
       {vouchers?.pages.map((page, i) => (
         <Fragment key={i}>
           {page.vouchers.map((v, j) => (

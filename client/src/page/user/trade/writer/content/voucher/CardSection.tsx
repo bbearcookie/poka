@@ -57,32 +57,21 @@ function CardSection({ form, formDispatch, addModal }: Props) {
               padding: '0.7em 1.3em',
               iconMargin: '1em',
             }}
-            onClick={openModal}>
+            onClick={openModal}
+          >
             선택
           </Button>
         </section>
       </CardHeader>
       <CardBody>
-        <ItemSection>
+        <ItemSection templateColumnsSize="minmax(11.25em, 1fr)">
           {status === 'success' && voucher && (
-            <PhotoInfo
-              {...voucher.photo}
-              imgStyles={{ size: 0.7 }}
-              styles={{ margin: '0 0 1em 0' }}
-            />
+            <PhotoInfo {...voucher.photo} imgStyles={{ width: '10em' }} styles={{ margin: '0 0 1em 0' }} />
           )}
-          {status === 'loading' && form.data.haveVoucherId > 0 && (
-            <SkeletonPhotoInfo imgStyles={{ size: 0.7 }} />
-          )}
+          {status === 'loading' && form.data.haveVoucherId > 0 && <SkeletonPhotoInfo imgSize={{ width: '10em', height: '15.04em' }} />}
         </ItemSection>
-        {form.message.haveVoucherId && (
-          <InputMessage styles={{ margin: '0 0 0.5em 0' }}>
-            {form.message.haveVoucherId}
-          </InputMessage>
-        )}
-        <p className="description">
-          타인과 교환하기를 원하는 소유권을 선택합니다.
-        </p>
+        {form.message.haveVoucherId && <InputMessage styles={{ margin: '0 0 0.5em 0' }}>{form.message.haveVoucherId}</InputMessage>}
+        <p className="description">타인과 교환하기를 원하는 소유권을 선택합니다.</p>
       </CardBody>
     </Card>
   );

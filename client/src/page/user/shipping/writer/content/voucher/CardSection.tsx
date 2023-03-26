@@ -68,7 +68,7 @@ function CardSection({ state, dispatch, modal }: Props) {
         </TitleLabel>
       </CardHeader>
       <CardBody>
-        <ItemSection marginBottom="2em">
+        <ItemSection templateColumnsSize="minmax(11.25em, 1fr)" marginBottom="2em">
           {loading &&
             Array.from({ length: 10 }).map((_, idx) => (
               <SkeletonVoucherItem key={idx} showOwner={false} />

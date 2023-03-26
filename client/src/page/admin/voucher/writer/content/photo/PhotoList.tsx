@@ -25,7 +25,7 @@ function PhotoList({ state, dispatch }: Props) {
   });
 
   return (
-    <ItemSection margin="1em 0">
+    <ItemSection templateColumnsSize="minmax(11.25em, 1fr)" margin="1em 0">
       {photos.map((photo, idx) => {
         if (photo.data)
           return (

@@ -26,13 +26,7 @@ function PhotoList({ filter, keyword, icon, handleSelect }: Props) {
     photoNames: [],
   });
 
-  const {
-    data: photos,
-    isFetching,
-    hasNextPage,
-    fetchNextPage,
-    refetch,
-  } = usePhotosQuery(refine, { enabled: filter.initialized });
+  const { data: photos, isFetching, hasNextPage, fetchNextPage, refetch } = usePhotosQuery(refine, { enabled: filter.initialized });
 
   // 데이터 리패칭
   useUpdateEffect(() => {
@@ -43,38 +37,24 @@ function PhotoList({ filter, keyword, icon, handleSelect }: Props) {
   // 검색 조건 변경시 새로운 필터 적용
   useUpdateEffect(() => {
     setRefine({
-      groupIds: filter.groups.filter((g) => g.checked).map((g) => g.id),
-      memberIds: filter.members.filter((m) => m.checked).map((m) => m.id),
-      photoNames: keyword.keywords
-        .filter((k) => k.category === 'photoName')
-        .map((k) => k.value),
+      groupIds: filter.groups.filter(g => g.checked).map(g => g.id),
+      memberIds: filter.members.filter(m => m.checked).map(m => m.id),
+      photoNames: keyword.keywords.filter(k => k.category === 'photoName').map(k => k.value),
     });
   }, [filter, keyword]);
 
   return (
-    <ItemSection>
+    <ItemSection templateColumnsSize="minmax(11.25em, 1fr)">
       {photos?.pages.map((page, i) => (
         <Fragment key={i}>
-          {page.photos.map((p) => (
-            <PhotocardItem
-              {...p}
-              key={p.photocardId}
-              icon={icon}
-              onClick={handleSelect}
-            />
+          {page.photos.map(p => (
+            <PhotocardItem {...p} key={p.photocardId} icon={icon} onClick={handleSelect} />
           ))}
         </Fragment>
       ))}
 
-      {isFetching &&
-        Array.from({ length: 20 }).map((_, i) => (
-          <SkeletonPhotoCardItem key={i} />
-        ))}
-
-      <NextPageFetcher
-        hasNextPage={hasNextPage}
-        fetchNextPage={fetchNextPage}
-      />
+      {isFetching && Array.from({ length: 20 }).map((_, i) => <SkeletonPhotoCardItem key={i} />)}
+      <NextPageFetcher hasNextPage={hasNextPage} fetchNextPage={fetchNextPage} />
     </ItemSection>
   );
 }

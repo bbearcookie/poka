@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 // 포토카드 목록에서 보여줄 컴포넌트
 export const StylesPhotocardItem = styled.section`
-  width: fit-content;
+  width: 12em;
+  margin: 0 auto;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px #c0c0c0;
 
@@ -41,11 +42,11 @@ export const StylesPhotocardItem = styled.section`
 
 // 포토카드 이미지
 export interface PhotoImgStyles {
-  size?: number;
+  width?: string;
 }
 export const PhotoImg = styled.img<PhotoImgStyles>`
-  width: ${p => (p.size ? `calc(9.375em * ${p.size})` : '9.375em')};
-  height: ${p => (p.size ? `calc(14em * ${p.size})` : '14em')};
+  width: ${p => p.width ? p.width : '100%'};
+  aspect-ratio: 214 / 322;
 `;
 
 // 포토카드 제목 부분
