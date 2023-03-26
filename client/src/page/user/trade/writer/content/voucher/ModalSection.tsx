@@ -5,7 +5,7 @@ import { ModalHookType } from '@hook/useModal';
 import TitleModal from '@component/modal/TitleModal';
 import useSearcher from '@component/search/useSearcher';
 import Searcher from '@component/search/Searcher';
-import VoucherList from '@component/list/VoucherList';
+import VoucherList from '@component/list/voucher/VoucherList';
 import { State as FormState, Action as FormAction } from '../../reducer';
 
 interface Props {

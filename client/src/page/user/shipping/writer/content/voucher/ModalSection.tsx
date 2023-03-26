@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from 'react';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import useSearcher from '@component/search/useSearcher';
 import Searcher from '@component/search/Searcher';
-import VoucherList from '@component/list/VoucherList';
+import VoucherList from '@component/list/voucher/VoucherList';
 import TitleModal from '@component/modal/TitleModal';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ModalHookType } from '@hook/useModal';

@@ -9,7 +9,7 @@ import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Button from '@component/form/Button';
-import PhotoListWithFilter from '@component/list/PhotoListWithFilter';
+import PhotoListWithFilter from '@component/list/photo/PhotoListWithFilter';
 import PhotocardList from './PhotocardList';
 import PhotocardAmount from './PhotocardAmount';
 import { State as FormState, Action as FormAction } from '../../reducer';

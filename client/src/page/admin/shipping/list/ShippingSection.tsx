@@ -7,8 +7,8 @@ import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import Table from '@component/table/Table';
 import Col from '@component/table/styles/Col';
-import Shipping from '@component/list/shipping/item/Shipping';
-import SkeletonShipping from '@component/list/shipping/item/SkeletonShipping';
+import Shipping from '@component/shipping/item/Shipping';
+import SkeletonShipping from '@component/shipping/item/SkeletonShipping';
 import NextPageFetcher from '@component/list/content/NextPageFetcher';
 
 function ShippingSection() {
