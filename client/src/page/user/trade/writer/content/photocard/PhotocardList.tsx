@@ -1,6 +1,6 @@
 import React from 'react';
 import { UseQueryResult } from '@tanstack/react-query';
-import PhotocardItem from '@component/photocard/new/item/PhotocardItem';
+import PhotocardItem from '@component/photocard/item/PhotocardItem';
 import InputMessage from '@component/form/InputMessage';
 import { ItemSection } from '@component/list/content/_styles';
 import { faClose } from '@fortawesome/free-solid-svg-icons';

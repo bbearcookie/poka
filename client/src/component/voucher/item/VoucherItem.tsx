@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import PhotocardItem from '@component/photocard/new/item/PhotocardItem';
+import PhotocardItem from '@component/photocard/item/PhotocardItem';
 import StateLabel from '@component/label/stateLabel/StateLabel';
 import { VoucherItem as VoucherItemType, VoucherState } from '@type/voucher';
 import { IconType } from '@type/icon';

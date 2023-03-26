@@ -1,6 +1,6 @@
 import React from 'react';
 import SkeletonItem from '@component/skeleton/SkeletonItem';
-import SkeletonPhotocardItem from '@component/photocard/new/item/SkeletonPhotocardItem';
+import SkeletonPhotocardItem from '@component/photocard/item/SkeletonPhotocardItem';
 
 interface Props {
   showOwner?: boolean;

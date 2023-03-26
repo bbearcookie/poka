@@ -1,7 +1,7 @@
 import React from 'react';
 import CardListItem from '@component/card/basic/CardListItem';
-import SkeletonPhotoInfo from '@component/photocard/new/info/SkeletonPhotoInfo';
-import PhotoInfo from '@component/photocard/new/info/PhotoInfo';
+import SkeletonPhotoInfo from '@component/photocard/info/SkeletonPhotoInfo';
+import PhotoInfo from '@component/photocard/info/PhotoInfo';
 import UserProfile from '@component/profile/UserProfile';
 import { getFormattedTime } from '@util/date';
 import { Photo } from '@type/photo';

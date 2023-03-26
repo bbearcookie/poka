@@ -2,7 +2,7 @@ import React from 'react';
 import CardListItem from '@component/card/basic/CardListItem';
 import SkeletonItem from '@component/skeleton/SkeletonItem';
 import SkeletonUserProfile from '@component/profile/SkeletonUserProfile';
-import SkeletonPhotoInfo from '@component/photocard/new/info/SkeletonPhotoInfo';
+import SkeletonPhotoInfo from '@component/photocard/info/SkeletonPhotoInfo';
 
 function SkeletonHistory() {
   return (

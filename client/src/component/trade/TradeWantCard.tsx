@@ -4,7 +4,7 @@ import { Photo } from '@type/photo';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
-import PhotocardItem from '@component/photocard/new/item/PhotocardItem';
+import PhotocardItem from '@component/photocard/item/PhotocardItem';
 
 interface Props {
   wantcards: Photo[];

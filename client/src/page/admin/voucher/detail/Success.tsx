@@ -1,5 +1,5 @@
 import VoucherInfo from '@component/voucher/info/VoucherInfo';
-import PhotoInfo from '@component/photocard/new/info/PhotoInfo';
+import PhotoInfo from '@component/photocard/info/PhotoInfo';
 import { ResType } from '@api/query/voucher/useVoucherQuery';
 import VoucherRemove from './content/VoucherRemove';
 

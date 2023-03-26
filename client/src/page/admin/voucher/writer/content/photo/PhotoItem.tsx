@@ -3,7 +3,7 @@ import { ResType as PhotoResType } from '@api/query/photo/usePhotoQuery';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
-import PhotocardItem from '@component/photocard/new/item/PhotocardItem';
+import PhotocardItem from '@component/photocard/item/PhotocardItem';
 import { State, Action } from '../../reducer';
 
 export interface PhotoItemType extends PhotoResType {
