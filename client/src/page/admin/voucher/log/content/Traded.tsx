@@ -1,8 +1,6 @@
-import React from 'react';
 import useUserQuery from '@api/query/user/useUserQuery';
 import { ResType as UserResType } from '@api/query/user/useUserQuery';
 import { VoucherLog } from '@type/voucher';
-import { userImage } from '@api/resource';
 import UserProfile from '@component/profile/UserProfile';
 import SkeletonUserProfile from '@component/profile/SkeletonUserProfile';
 
@@ -22,7 +20,7 @@ function Traded({ originUser, log }: Props) {
         <UserProfile
           username={destUser.username}
           nickname={destUser.nickname}
-          imageName={userImage(destUser.imageName)}
+          imageName={destUser.imageName}
         />}
         {!destUser && <SkeletonUserProfile />}
       </div>
@@ -32,7 +30,7 @@ function Traded({ originUser, log }: Props) {
         <UserProfile
           username={originUser.username}
           nickname={originUser.nickname}
-          imageName={userImage(originUser.imageName)}
+          imageName={originUser.imageName}
         />}
         {!originUser && <SkeletonUserProfile />}
       </div>

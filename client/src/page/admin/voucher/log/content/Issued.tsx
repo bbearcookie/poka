@@ -1,4 +1,3 @@
-import React from 'react';
 import { ResType as UserResType } from '@api/query/user/useUserQuery';
 import UserProfile from '@component/profile/UserProfile';
 import SkeletonUserProfile from '@component/profile/SkeletonUserProfile';
