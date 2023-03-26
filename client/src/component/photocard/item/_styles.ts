@@ -3,7 +3,6 @@ import styled from 'styled-components';
 // 포토카드 목록에서 보여줄 컴포넌트
 export const StylesPhotocardItem = styled.section`
   width: 12em;
-  margin: 0 auto;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px #c0c0c0;
 

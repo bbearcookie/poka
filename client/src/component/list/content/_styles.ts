@@ -16,4 +16,8 @@ export const ItemSection = styled.section<ItemSectionProps>`
   &:empty {
     display: none;
   }
+
+  @media screen and (max-width: 50rem) {
+    justify-items: center;
+  }
 `;
