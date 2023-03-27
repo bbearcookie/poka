@@ -6,28 +6,34 @@ import useTradesQuery from '@api/query/trade/useTradesQuery';
 import NextPageFetcher from '@component/list/content/NextPageFetcher';
 import SkeletonTradeCard from '@component/trade/SkeletonTradeCard';
 import TradeCard from '@component/trade/TradeCard';
-import { State, Action } from '../reducer';
 import { useAppSelector } from '@app/redux/reduxHooks';
 
 interface Props {
-  state: State;
-  dispatch: React.Dispatch<Action>;
+  groupId: number;
+  memberId: number;
 }
-const DefaultProps = {};
 
-function TradeSection({ state, dispatch }: Props) {
+function TradeSection({ groupId, memberId }: Props) {
   const { userId } = useAppSelector(state => state.auth);
   const queryClient = useQueryClient();
 
-  const { data: trades, refetch, isFetching, fetchNextPage, hasNextPage } = useTradesQuery({
-    groupId: state.select.groupId,
-    memberId: state.select.memberId,
-    excludeUserId: userId,
-    state: 'trading'
-  },
-  {
-    enabled: userId !== 0
-  });
+  const {
+    data: trades,
+    refetch,
+    isFetching,
+    fetchNextPage,
+    hasNextPage,
+  } = useTradesQuery(
+    {
+      groupId,
+      memberId,
+      excludeUserId: userId,
+      state: 'trading',
+    },
+    {
+      enabled: userId !== 0,
+    }
+  );
 
   // 검색 필터 변경시 데이터 리패칭
   const handleRefetch = useCallback(async () => {
@@ -36,21 +42,19 @@ function TradeSection({ state, dispatch }: Props) {
   }, [queryClient, refetch]);
   useUpdateEffect(() => {
     handleRefetch();
-  }, [state.select]);
+  }, [groupId, memberId]);
 
   return (
     <section className="trade-section">
-
-      {trades?.pages.map((page, pageIdx) =>
-      <Fragment key={pageIdx}>
-        {page.trades.map(item =>
-          <TradeCard key={item.tradeId} trade={item} />
-        )}
-      </Fragment>)}
-
-      {isFetching && Array.from({length: 20}).map((_, idx) => (
-        <SkeletonTradeCard key={idx} />
+      {trades?.pages.map((page, pageIdx) => (
+        <Fragment key={pageIdx}>
+          {page.trades.map(item => (
+            <TradeCard key={item.tradeId} trade={item} />
+          ))}
+        </Fragment>
       ))}
+
+      {isFetching && Array.from({ length: 20 }).map((_, idx) => <SkeletonTradeCard key={idx} />)}
 
       <NextPageFetcher hasNextPage={hasNextPage} fetchNextPage={fetchNextPage} />
     </section>
