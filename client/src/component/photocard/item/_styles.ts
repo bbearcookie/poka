@@ -1,10 +1,17 @@
 import styled from 'styled-components';
 
 // 포토카드 목록에서 보여줄 컴포넌트
-export const StylesPhotocardItem = styled.section`
+export interface StylesPhotocardItemProps {
+  backgroundColor?: string;
+  border?: string;
+  boxShadow?: string;
+}
+export const StylesPhotocardItem = styled.section<StylesPhotocardItemProps>`
   width: 12em;
+  background-color: ${p => p.backgroundColor};
+  border: ${p => p.border};
   border-radius: 10px;
-  box-shadow: 0px 0px 10px 0px #c0c0c0;
+  box-shadow: ${p => p.boxShadow || '0px 0px 10px 0px #c0c0c0'};
 
   .main {
     padding: 1.25em;
@@ -34,8 +41,8 @@ export const StylesPhotocardItem = styled.section`
   }
 
   .footer {
-    border-top: 1px solid #e5e7eb;
     padding: 1.25em;
+    border-top: 1px solid #e5e7eb;
   }
 `;
 
@@ -44,7 +51,7 @@ export interface PhotoImgStyles {
   width?: string;
 }
 export const PhotoImg = styled.img<PhotoImgStyles>`
-  width: ${p => p.width ? p.width : '100%'};
+  width: ${p => p.width || '100%'};
   aspect-ratio: 214 / 322;
 `;
 
@@ -56,9 +63,9 @@ export const PhotoName = styled.div<{
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: ${p => (p.margin ? p.margin : '1em 0')};
+  margin: ${p => p.margin || '1em 0'};
   padding: 0 0.5em;
-  width: ${p => (p.width ? p.width : '100%')};
+  width: ${p => p.width || '100%'};
   max-width: 9.375em;
   height: 3.5em;
   box-sizing: border-box;

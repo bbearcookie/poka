@@ -3,21 +3,32 @@ import { photoImage } from '@api/resource';
 import IconButton from '@component/form/IconButton';
 import { Photo } from '@type/photo';
 import { IconType } from '@type/icon';
-import { StylesPhotocardItem, PhotoName, PhotoImg } from './_styles';
+import { StylesPhotocardItem, StylesPhotocardItemProps, PhotoName, PhotoImg } from './_styles';
 
 interface Props extends Photo {
   icon?: IconType;
   onClick?: (photocardId: number) => void;
+  styles?: StylesPhotocardItemProps;
   children?: React.ReactNode;
 }
 
-function PhotocardItem({ photocardId, name, imageName, groupData, memberData, icon, onClick = () => {}, children }: Props) {
+function PhotocardItem({
+  photocardId,
+  name,
+  imageName,
+  groupData,
+  memberData,
+  icon,
+  onClick = () => {},
+  styles,
+  children
+}: Props) {
   const handleClick = useCallback(() => {
     onClick(photocardId);
   }, [photocardId, onClick]);
 
   return (
-    <StylesPhotocardItem>
+    <StylesPhotocardItem {...styles}>
       <main className="main">
         <PhotoImg className="img" src={photoImage(imageName)} alt="이미지" />
 
@@ -34,7 +45,9 @@ function PhotocardItem({ photocardId, name, imageName, groupData, memberData, ic
           </section>
 
           <section className="icon-section">
-            {icon && <IconButton icon={icon.svg} tooltip={icon.tooltip} size="lg" onClick={handleClick} />}
+            {icon && (
+              <IconButton icon={icon.svg} tooltip={icon.tooltip} size="lg" onClick={handleClick} />
+            )}
           </section>
         </section>
       </main>
