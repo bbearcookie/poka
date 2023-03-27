@@ -40,11 +40,11 @@ function TradeCard({ trade }: Props) {
             <GrayText>{getElaspedTime(new Date(trade.writtenTime))}</GrayText>
             <Space />
             <GrayText>교환할 수 있는 멤버</GrayText>
-            <WantMemberSection className="WantMemberSection">
+            {/* <WantMemberSection className="WantMemberSection">
               {trade.wantMembers.map(item =>
                 <NameLabel key={item.memberId} className="NameLabel">{item.name}</NameLabel>)
               }
-            </WantMemberSection>
+            </WantMemberSection> */}
           </ContentSection>
           <IconSection>
             <IconButton icon={faArrowRight} size="lg" tooltip="자세히 보기" onClick={onClickIcon} />

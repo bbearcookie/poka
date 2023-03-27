@@ -2,16 +2,12 @@ import db from '@config/database';
 import { PoolConnection } from 'mysql2/promise';
 import { ResultSetHeader } from 'mysql2';
 import { WhereSQL } from '@util/database';
-import { TradeDetail, WantMember } from '@type/trade';
+import { Photo } from '@type/photo';
+import { TradeDetail } from '@type/trade';
 import { FilterType } from '@controller/trade/getTrades';
 
 // 교환글 목록 조회
-// TODO: wantMembers 데이터 넣어야함
-export const selectTrades = async (
-  itemPerPage: number,
-  pageParam: number,
-  filter: FilterType
-) => {
+export const selectTrades = async (itemPerPage: number, pageParam: number, filter: FilterType) => {
   let con: PoolConnection | undefined;
 
   try {
@@ -25,8 +21,13 @@ export const selectTrades = async (
       T.amount as amount,
       T.written_time as writtenTime,
       T.traded_time as tradedTime,
-      T.user_id as userId,
       T.voucher_id as voucherId,
+      JSON_OBJECT(
+        'userId', U.user_id,
+        'username', U.username,
+        'nickname', U.nickname,
+        'imageName', U.image_name
+      ) as author,
       JSON_OBJECT(
         'photocardId', P.photocard_id,
         'name', P.name,
@@ -44,13 +45,14 @@ export const selectTrades = async (
     INNER JOIN Voucher as V ON T.voucher_id=V.voucher_id
     INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
     INNER JOIN MemberData as M ON P.member_id=M.member_id
-    INNER JOIN GroupData as G ON M.group_id=G.group_id `;
+    INNER JOIN GroupData as G ON M.group_id=G.group_id
+    INNER JOIN User as U ON T.user_id=U.user_id `;
 
     // 그룹ID 조건
     if (filter.groupId > 0) {
       where.push({
         query: `M.group_id=${con.escape(filter.groupId)}`,
-        operator: 'AND'
+        operator: 'AND',
       });
     }
 
@@ -58,7 +60,7 @@ export const selectTrades = async (
     if (filter.memberId > 0) {
       where.push({
         query: `M.member_id=${con.escape(filter.memberId)}`,
-        operator: 'AND'
+        operator: 'AND',
       });
     }
 
@@ -66,7 +68,7 @@ export const selectTrades = async (
     if (filter.excludeUserId !== 0) {
       where.push({
         query: `NOT T.user_id=${con.escape(filter.excludeUserId)}`,
-        operator: 'AND'
+        operator: 'AND',
       });
     }
 
@@ -74,7 +76,7 @@ export const selectTrades = async (
     if (filter.state) {
       where.push({
         query: `T.state=${con.escape(filter.state)}`,
-        operator: 'AND'
+        operator: 'AND',
       });
     }
 
@@ -89,28 +91,38 @@ export const selectTrades = async (
     const [trades] = await con.query<TradeDetail[] & ResultSetHeader>(sql);
 
     // 각 교환글이 원하는 멤버 정보 가져오기
-    const loadWantMembers = trades.map(t => (
-      new Promise(async (resolve, reject) => {
-        if (!con) return reject(new Error('undefined db connection'));
+    const loadWantMembers = trades.map(
+      t =>
+        new Promise(async (resolve, reject) => {
+          if (!con) return reject(new Error('undefined db connection'));
 
-        let sql = `
-        SELECT
-          M.member_id as memberId,
-          M.name
-        FROM TradeWantcard as T
-        INNER JOIN Photocard as P ON T.photocard_id=P.photocard_id
-        INNER JOIN MemberData as M ON P.member_id=M.member_id
-        WHERE T.trade_id=${con.escape(t.tradeId)}
-        GROUP BY M.name`;
-        
-        try {
-          const [wantMembers] = await con.query<WantMember[] & ResultSetHeader>(sql);
-          resolve({ ...t, wantMembers });
-        } catch (err) {
-          reject(err);
-        }
-      })
-    ));
+          let sql = `
+          SELECT
+            P.photocard_id as photocardId,
+            P.name,
+            P.image_name as imageName,
+            JSON_OBJECT(
+              'memberId', M.member_id,
+              'name', M.name
+            ) as memberData,
+            JSON_OBJECT(
+              'groupId', G.group_id,
+              'name', G.name
+            ) as groupData
+          FROM TradeWantcard as T
+          INNER JOIN Photocard as P ON T.photocard_id=P.photocard_id
+          INNER JOIN MemberData as M ON P.member_id=M.member_id
+          INNER JOIN GroupData as G ON M.group_id=G.group_id`;
+
+          try {
+            const [wantcards] = await con.query<Photo[] & ResultSetHeader>(sql);
+            resolve({ ...t, wantcards });
+          } catch (err) {
+            reject(err);
+          }
+
+        })
+    );
 
     return await Promise.all(loadWantMembers);
   } catch (err) {
@@ -118,7 +130,7 @@ export const selectTrades = async (
   } finally {
     con?.release();
   }
-}
+};
 
 // 교환글 상세 조회
 export const selectTradeDetail = async (tradeId: number) => {
@@ -162,7 +174,7 @@ export const selectTradeDetail = async (tradeId: number) => {
   } finally {
     con?.release();
   }
-}
+};
 
 // 소유권 ID를 가지고 아직 성사되지 않은 교환글 상세 조회
 export const selectTradeDetailByVoucherID = async (voucherId: number) => {
@@ -207,4 +219,4 @@ export const selectTradeDetailByVoucherID = async (voucherId: number) => {
   } finally {
     con?.release();
   }
-}
+};

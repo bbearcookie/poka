@@ -20,12 +20,11 @@ export interface TradeDetail extends Trade {
   photo: Photo;
 }
 
-// 교환글이 원하는 멤버 타입
-export type WantMember = Pick<Member, 'memberId' | 'name'>;
-
 // 교환글 목록 아이템 타입
-export interface TradeItem extends TradeDetail {
-  wantMembers: WantMember[];
+export interface TradeItem extends Trade {
+  photo: Photo;
+  author: User;
+  wantcards: Photo[];
 }
 
 // 교환 내역 타입
