@@ -1,6 +1,6 @@
 import React from 'react';
 import { ResType as TradeType } from '@api/query/trade/useTradeQuery';
-import PhotoInfo from '@component/photocard/info/PhotoInfo';
+import PhotoInfo from '@component/photocard/newinfo/PhotoInfo';
 import TradeInfoCard from '@component/trade/TradeInfoCard';
 import TradeWantCard from '@component/trade/TradeWantCard';
 import TradeRemove from './content/TradeRemove';

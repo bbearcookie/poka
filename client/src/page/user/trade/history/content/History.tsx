@@ -1,6 +1,6 @@
 import React from 'react';
 import CardListItem from '@component/card/basic/CardListItem';
-import PhotoInfo from '@component/photocard/info/PhotoInfo';
+import PhotoInfo from '@component/photocard/newinfo/PhotoInfo';
 import UserProfile from '@component/profile/UserProfile';
 import { getFormattedTime } from '@util/date';
 import { Photo } from '@type/photo';
@@ -24,7 +24,8 @@ function History({ photo, destUser, originUser, loggedTime }: Props) {
   return (
     <>
       <CardListItem title="포토카드" styles={{ borderBottom: 'none' }}>
-        <PhotoInfo {...photo} imgStyles={{ width: '7em' }} />
+        <PhotoInfo {...photo} />
+        {/* <PhotoInfo {...photo} imgStyles={{ width: '7em' }} /> */}
       </CardListItem>
       <CardListItem title="새 소유자" styles={{ borderBottom: 'none' }}>
         <UserProfile {...destUser} />

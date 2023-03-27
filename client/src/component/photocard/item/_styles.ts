@@ -59,6 +59,7 @@ export const PhotoImg = styled.img<PhotoImgStyles>`
 export const PhotoName = styled.div<{
   width?: string;
   margin?: string;
+  boxSizing?: 'content-box' | 'border-box';
 }>`
   display: flex;
   justify-content: center;
@@ -66,9 +67,8 @@ export const PhotoName = styled.div<{
   margin: ${p => p.margin || '1em 0'};
   padding: 0 0.5em;
   width: ${p => p.width || '100%'};
-  max-width: 9.375em;
   height: 3.5em;
-  box-sizing: border-box;
+  box-sizing: ${p => p.boxSizing || 'border-box'};
   border-radius: 5px;
   background-color: #242a38;
   color: white;

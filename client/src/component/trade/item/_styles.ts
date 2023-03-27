@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { PhotoImg as DefaultPhotoImg } from '@component/photocard/item/_styles';
-import { Profile } from '@component/profile/UserProfile';
 import { anchorReset } from '@util/_commonStyles';
 
 export const PhotoSection = styled.section``;
@@ -10,8 +8,8 @@ export const InfoSection = styled.section``;
 export const StyledTradeItem = styled(Link)`
   ${anchorReset}
   display: flex;
+  flex-direction: column;
   padding: 1em;
-  gap: 2em;
   box-shadow: 0px 0px 10px 0px #c0c0c0;
   border-radius: 10px;
   cursor: pointer;
@@ -23,6 +21,8 @@ export const StyledTradeItem = styled(Link)`
   }
 
   ${PhotoSection} {
+    margin: 0 auto;
+
     .written-time {
       margin: 0.2em 0;
       font-size: 0.8rem;
@@ -36,41 +36,27 @@ export const StyledTradeItem = styled(Link)`
     width: 100%;
 
     .author-section {
-      flex-grow: 1;
+      margin: 1em 0;
 
       .author-label {
         margin: 0.5em 0;
       }
     }
 
-    .description {
-      font-size: 0.8rem;
-      color: #a6a6a6;
-    }
-
     .want-section {
-      display: grid;
-      gap: 1em;
-      grid-template-columns: repeat(auto-fill, minmax(5em, 1fr));
-      justify-items: center;
-    }
-  }
+      margin: 1em 0;
 
-  @media screen and (max-width: 30rem) {
-    flex-direction: column;
-    align-items: center;
+      .want-label {
+        font-size: 0.8rem;
+        color: #a6a6a6;
+      }
 
-    ${Profile} {
-      justify-content: center;
-    }
-
-    ${InfoSection} {
-      .author-section {
-        align-items: center;
-        text-align: center;
+      .images {
+        display: grid;
+        gap: 1em;
+        grid-template-columns: repeat(auto-fill, minmax(5em, 1fr));
+        justify-items: center;
       }
     }
   }
 `;
-
-export const PhotoImg = styled(DefaultPhotoImg)``;
