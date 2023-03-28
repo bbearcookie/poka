@@ -41,7 +41,7 @@ const controller = async (req: Request, res: Response, next: NextFunction) => {
   if (voucherIds.length !== trade.amount) return res.status(403).json({ message: `사용할 소유권을 ${trade.amount}개 선택해주세요.` });
 
   // 교환글 소유권 확인
-  const [[voucher]] = await selectVoucherDetail(trade.voucherId);
+  const [[voucher]] = await selectVoucherDetail(trade.voucher.voucherId);
   if (!voucher) return res.status(404).json({ message: '교환글의 소유권이 존재하지 않아요.' });
   if (voucher.owner.userId !== trade.userId) return res.status(404).json({ message: '교환글의 작성자가 소유권의 실 소유주가 아니에요.' });
   

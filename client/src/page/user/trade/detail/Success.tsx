@@ -13,7 +13,7 @@ interface Props {
 function Success({ trade }: Props) {
   return (
     <>
-      <PhotoInfo {...trade.photo} styles={{ margin: '0 auto 5em auto' }} />
+      <PhotoInfo {...trade.voucher} styles={{ margin: '0 auto 5em auto' }} />
       <TradeInfoCard trade={trade} />
       <TradeWantCard wantcards={trade.wantcards} />
       <TradeRemove trade={trade} />

@@ -28,7 +28,7 @@ export const updateTrade = async ({
       UPDATE Voucher
       SET
         state=${con.escape('available')}
-      WHERE voucher_id=${con.escape(trade.voucherId)}`
+      WHERE voucher_id=${con.escape(trade.voucher.voucherId)}`
 
       con.execute(sql).then(resolve).catch(reject);
     });
@@ -111,20 +111,13 @@ export const exchangeTrade = async ({
   trade,
   customer,
 }: {
-  trade: {
-    userId: number;
-    tradeId: number;
-    voucherId: number;
-  };
+  trade: TradeDetail,
   customer: {
     userId: number;
     voucherIds: number[];
   }
 }) => {
   let con: PoolConnection | undefined;
-
-  console.log(trade);
-  console.log(customer);
 
   try {
     con = await db.getConnection();
@@ -153,7 +146,7 @@ export const exchangeTrade = async ({
       SET
         user_id=${con.escape(customer.userId)},
         state='available'
-      WHERE voucher_id=${con.escape(trade.voucherId)}`;
+      WHERE voucher_id=${con.escape(trade.voucher.voucherId)}`;
 
       con.execute(sql).then(resolve).catch(reject);
     });
@@ -169,7 +162,7 @@ export const exchangeTrade = async ({
         dest_user_id,
         type
       ) VALUES (
-        ${con.escape(trade.voucherId)},
+        ${con.escape(trade.voucher.voucherId)},
         ${con.escape(trade.userId)},
         ${con.escape(customer.userId)},
         'traded'

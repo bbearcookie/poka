@@ -15,7 +15,7 @@ interface Props extends Omit<TradeItemType, 'state'> {
 }
 
 function TradeItem({
-  photo,
+  voucher,
   author,
   amount,
   tradedTime,
@@ -28,7 +28,7 @@ function TradeItem({
     <StyledTradeItem to={to}>
       <PhotoSection>
         <PhotocardItem
-          {...photo}
+          {...voucher}
           styles={{
             boxShadow: '0',
             border: '1px solid #e5e7eb',

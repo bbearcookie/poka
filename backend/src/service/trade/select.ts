@@ -3,7 +3,7 @@ import { PoolConnection } from 'mysql2/promise';
 import { ResultSetHeader } from 'mysql2';
 import { WhereSQL } from '@util/database';
 import { Photo } from '@type/photo';
-import { TradeDetail } from '@type/trade';
+import { TradeDetail, TradeItem } from '@type/trade';
 import { FilterType } from '@controller/trade/getTrades';
 
 // 교환글 목록 조회
@@ -21,14 +21,8 @@ export const selectTrades = async (itemPerPage: number, pageParam: number, filte
       T.amount as amount,
       T.written_time as writtenTime,
       T.traded_time as tradedTime,
-      T.voucher_id as voucherId,
       JSON_OBJECT(
-        'userId', U.user_id,
-        'username', U.username,
-        'nickname', U.nickname,
-        'imageName', U.image_name
-      ) as author,
-      JSON_OBJECT(
+        'voucherId', V.voucher_id,
         'photocardId', P.photocard_id,
         'name', P.name,
         'imageName', P.image_name,
@@ -40,7 +34,13 @@ export const selectTrades = async (itemPerPage: number, pageParam: number, filte
           'memberId', M.member_id,
           'name', M.name
         )
-      ) as photo
+      ) as voucher,
+      JSON_OBJECT(
+        'userId', U.user_id,
+        'username', U.username,
+        'nickname', U.nickname,
+        'imageName', U.image_name
+      ) as author
     FROM Trade as T
     INNER JOIN Voucher as V ON T.voucher_id=V.voucher_id
     INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
@@ -88,7 +88,7 @@ export const selectTrades = async (itemPerPage: number, pageParam: number, filte
     sql += `LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
 
     // 교환글 목록 가져오기
-    const [trades] = await con.query<TradeDetail[] & ResultSetHeader>(sql);
+    const [trades] = await con.query<Omit<TradeItem, 'wantcards'>[] & ResultSetHeader>(sql);
 
     // 각 교환글이 원하는 멤버 정보 가져오기
     const loadWantMembers = trades.map(
@@ -143,13 +143,13 @@ export const selectTradeDetail = async (tradeId: number) => {
     let sql = `
     SELECT
       T.trade_id as tradeId,
+      T.user_id as userId,
       T.state as state,
       T.amount as amount,
       T.written_time as writtenTime,
       T.traded_time as tradedTime,
-      T.user_id as userId,
-      T.voucher_id as voucherId,
       JSON_OBJECT(
+        'voucherId', V.voucher_id,
         'photocardId', P.photocard_id,
         'name', P.name,
         'imageName', P.image_name,
@@ -161,7 +161,7 @@ export const selectTradeDetail = async (tradeId: number) => {
           'memberId', M.member_id,
           'name', M.name
         )
-      ) as photo
+      ) as voucher
     FROM Trade as T
     INNER JOIN Voucher as V ON T.voucher_id=V.voucher_id
     INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
@@ -187,13 +187,13 @@ export const selectTradeDetailByVoucherID = async (voucherId: number) => {
     let sql = `
     SELECT
       T.trade_id as tradeId,
+      T.user_id as userId,
       T.state as state,
       T.amount as amount,
       T.written_time as writtenTime,
       T.traded_time as tradedTime,
-      T.user_id as userId,
-      T.voucher_id as voucherId,
       JSON_OBJECT(
+        'voucherId', V.voucher_id,
         'photocardId', P.photocard_id,
         'name', P.name,
         'imageName', P.image_name,
@@ -205,7 +205,7 @@ export const selectTradeDetailByVoucherID = async (voucherId: number) => {
           'memberId', M.member_id,
           'name', M.name
         )
-      ) as photo
+      ) as voucher
     FROM Trade as T
     INNER JOIN Voucher as V ON T.voucher_id=V.voucher_id
     INNER JOIN Photocard as P ON V.photocard_id=P.photocard_id
