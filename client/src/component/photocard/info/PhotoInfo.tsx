@@ -1,13 +1,12 @@
 import React from 'react';
 import { Photo } from '@type/photo';
 import { photoImage } from '@api/resource';
-import { PhotoImg, PhotoImgStyles, PhotoName } from '../item/_styles';
-import { StyledPhotoInfo, PhotoInfoStyles } from './_styles';
+import { PhotoImg, PhotoName } from '@component/photocard/item/_styles';
+import { StyledPhotoInfo, StyledPhotoInfoProps } from './_styles';
 
 interface Props extends Photo {
-  imgStyles?: PhotoImgStyles;
-  styles?: PhotoInfoStyles;
   children?: React.ReactNode;
+  styles?: StyledPhotoInfoProps;
 }
 
 function PhotoInfo({
@@ -16,33 +15,29 @@ function PhotoInfo({
   imageName,
   groupData,
   memberData,
-  imgStyles,
   styles,
   children,
 }: Props) {
   return (
     <StyledPhotoInfo {...styles}>
-      <section className="image-section">
-        <PhotoImg {...imgStyles} src={photoImage(imageName)} alt="이미지" />
-      </section>
+      <main className="main">
+        <PhotoImg src={photoImage(imageName)} alt="이미지" />
+      </main>
 
-      <section className="name-section">
-        <PhotoName width="9.5em" margin="0.15em 0">
+      <aside className="aside">
+        <PhotoName margin="0 0 1em 0">
           <p className="name">{name}</p>
         </PhotoName>
 
-        <section className="info-section">
-          <p className="member-name">
+        <section className="member-section">
+          <span className="member-name">
             <b>{memberData.name}</b>
-          </p>
-
-          <p className="group-name">
-            그룹: <span className="group-label">{groupData.name}</span>
-          </p>
+          </span>
+          <span className="group-name">{groupData.name}</span>
         </section>
 
-        {children}
-      </section>
+        {children && <footer className="footer">{children}</footer>}
+      </aside>
     </StyledPhotoInfo>
   );
 }

@@ -8,7 +8,7 @@ function SkeletonHistory() {
   return (
     <>
       <CardListItem title={<SkeletonItem styles={{ height: '1.75em' }} />} styles={{ borderBottom: 'none' }}>
-        <SkeletonPhotoInfo imgSize={{ width: '7em', height: '10.5325em' }} />
+        <SkeletonPhotoInfo />
       </CardListItem>
       <CardListItem title={<SkeletonItem styles={{ height: '1.75em' }} />} styles={{ borderBottom: 'none' }}>
         <SkeletonUserProfile />

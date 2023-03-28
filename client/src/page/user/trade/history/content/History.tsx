@@ -1,6 +1,6 @@
 import React from 'react';
 import CardListItem from '@component/card/basic/CardListItem';
-import PhotoInfo from '@component/photocard/newinfo/PhotoInfo';
+import PhotoInfo from '@component/photocard/info/PhotoInfo';
 import UserProfile from '@component/profile/UserProfile';
 import { getFormattedTime } from '@util/date';
 import { Photo } from '@type/photo';

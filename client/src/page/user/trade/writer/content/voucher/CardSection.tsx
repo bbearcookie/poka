@@ -66,9 +66,9 @@ function CardSection({ form, formDispatch, addModal }: Props) {
       <CardBody>
         <ItemSection templateColumnsSize="minmax(11.25em, 1fr)">
           {status === 'success' && voucher && (
-            <PhotoInfo {...voucher.photo} imgStyles={{ width: '10em' }} styles={{ margin: '0 0 1em 0' }} />
+            <PhotoInfo {...voucher.photo} styles={{ margin: '0 0 1em 0' }} />
           )}
-          {status === 'loading' && form.data.haveVoucherId > 0 && <SkeletonPhotoInfo imgSize={{ width: '10em', height: '15.04em' }} />}
+          {status === 'loading' && form.data.haveVoucherId > 0 && <SkeletonPhotoInfo />}
         </ItemSection>
         {form.message.haveVoucherId && <InputMessage styles={{ margin: '0 0 0.5em 0' }}>{form.message.haveVoucherId}</InputMessage>}
         <p className="description">타인과 교환하기를 원하는 소유권을 선택합니다.</p>

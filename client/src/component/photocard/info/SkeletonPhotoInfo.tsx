@@ -1,33 +1,27 @@
 import React from 'react';
 import SkeletonItem from '@component/skeleton/SkeletonItem';
-import { PhotoName } from '../item/_styles';
-import { StyledPhotoInfo, PhotoInfoStyles } from './_styles';
+import { PhotoName } from '@component/photocard/item/_styles';
+import { StyledPhotoInfo, StyledPhotoInfoProps } from './_styles';
 
 interface Props {
-  imgSize?: {
-    width: string;
-    height: string;
-  }
-  styles?: PhotoInfoStyles;
+  styles?: StyledPhotoInfoProps;
 }
 
-function SkeletonPhotoInfo({ imgSize, styles }: Props) {
+function SkeletonPhotoInfo({ styles }: Props) {
   return (
     <StyledPhotoInfo {...styles}>
-      <section className="image-section">
-        <SkeletonItem styles={{ ...imgSize }} />
-      </section>
-      <section className="name-section">
-        <PhotoName width="9.5em" margin="0.15em 0" />
-        <section className="info-section">
-          <p className="member-name">
-            <SkeletonItem styles={{ margin: '0 auto' }} />
-          </p>
-          <p className="group-name">
-            <SkeletonItem styles={{ margin: '0 auto' }} />
-          </p>
+      <main className="main">
+        <SkeletonItem styles={{ width: '100%', aspectRatio: '214 / 322' }} />
+      </main>
+
+      <aside className="aside">
+        <PhotoName margin="0 0 1em 0" />
+
+        <section className="member-section">
+          <SkeletonItem styles={{ width: '7em', height: '1.5em', margin: '0.25em 0' }} />
+          <SkeletonItem styles={{ width: '7em', height: '1.5em', margin: '0.25em 0' }} />
         </section>
-      </section>
+      </aside>
     </StyledPhotoInfo>
   );
 }
