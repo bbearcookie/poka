@@ -4,7 +4,7 @@ import { validate } from '@validator/middleware/response';
 import { createResponseMessage } from '@validator/function/response';
 import { encryptText } from '@util/encrypt';
 import { createLoginToken } from '@validator/function/auth';
-import { selectUserDetailByUsername } from '@service/user/select';
+import { selectUserDetail } from '@service/user/select';
 
 interface Body {
   username: string;
@@ -23,7 +23,7 @@ const validator = [
 const controller = async (req: Request, res: Response, next: NextFunction) => {
   const { username, password } = req.body as Body;
 
-  const [[user]] = await selectUserDetailByUsername(username);
+  const [[user]] = await selectUserDetail(username);
   if (!user) return res.status(409).json(createResponseMessage("username", "가입되지 않은 아이디에요."));
 
   const encryptedPassword = encryptText(password, user.salt);

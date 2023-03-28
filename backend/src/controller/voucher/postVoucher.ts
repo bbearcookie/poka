@@ -3,7 +3,7 @@ import { body } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { isAdmin } from '@validator/middleware/auth';
 import { createResponseMessage } from '@validator/function/response';
-import { selectUserDetailByUsername } from '@service/user/select';
+import { selectUser } from '@service/user/select';
 import { insertVouchers } from '@service/voucher/insert';
 
 interface Body {
@@ -34,7 +34,7 @@ const validator = [
 const controller = async (req: Request, res: Response, next: NextFunction) => {
   const { username, vouchers } = req.body as Body;
 
-  const [[user]] = await selectUserDetailByUsername(username);
+  const [[user]] = await selectUser(username);
   if (!user) return res.status(404).json(createResponseMessage("username", "가입되지 않은 사용자에요."));
 
   await insertVouchers(user.userId, vouchers);

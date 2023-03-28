@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { body } from 'express-validator';
 import { createResponseMessage } from '@validator/function/response';
-import { selectUserDetailByUsername } from '@service/user/select';
+import { selectUser } from '@service/user/select';
 import { insertUser } from '@service/user/insert';
 import { validate } from '@validator/middleware/response';
 
@@ -32,7 +32,7 @@ const validator = [
 const controller = async (req: Request, res: Response, next: NextFunction) => {
   const { username, nickname, password, passwordCheck } = req.body as Body;
 
-  const [[user]] = await selectUserDetailByUsername(username);
+  const [[user]] = await selectUser(username);
   if (user) return res.status(409).json(createResponseMessage("username", "이미 사용중인 아이디에요."));
 
   await insertUser(username, nickname, password);

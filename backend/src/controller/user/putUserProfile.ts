@@ -8,7 +8,7 @@ import { isLoggedIn } from '@validator/middleware/auth';
 import { isAdminOrOwner } from '@validator/function/auth';
 import { LoginToken } from '@type/user';
 import { getTimestampFilename, removeFile } from '@util/multer';
-import { selectUserDetailByUserID } from '@service/user/select';
+import { selectUser } from '@service/user/select';
 import { updateUserProfile } from '@service/user/update';
 
 interface Params {
@@ -38,7 +38,7 @@ const controller = async (req: Request, res: Response, next: NextFunction) => {
   const { nickname } = req.body as Body;
   const file = req.file;
 
-  const [[user]] = await selectUserDetailByUserID(userId);
+  const [[user]] = await selectUser(userId);
   if (!user) {
     removeFile(file);
     return res.status(404).json({ message: '수정하려는 사용자의 데이터가 서버에 존재하지 않아요.' });

@@ -3,7 +3,7 @@ import { param } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { isLoggedIn } from '@validator/middleware/auth';
 import { isAdminOrOwner } from '@validator/function/auth';
-import { selectUserDetailByUserID } from '@service/user/select';
+import { selectUser } from '@service/user/select';
 import { selectUserShippingAddresses } from '@service/shipping/address/select';
 import { LoginToken } from '@type/user';
 
@@ -24,7 +24,7 @@ const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
   const { userId } = req.params as unknown as Params;
 
-  const [[user]] = await selectUserDetailByUserID(userId);
+  const [[user]] = await selectUser(userId);
   if (!user) return res.status(404).json({ message: '수정하려는 사용자의 데이터가 서버에 존재하지 않아요.' });
 
   // 관리자이거나, 자기 자신의 정보에 대한 경우에만 접근 가능
