@@ -1,28 +1,33 @@
 import React from 'react';
 import { PhotoImg } from '@component/photocard/item/_styles';
-import PhotoInfo from '@component/photocard/newinfo/PhotoInfo';
+import PhotocardItem from '@component/photocard/item/PhotocardItem';
 import StateLabel from '@component/label/stateLabel/StateLabel';
 import UserProfile from '@component/profile/UserProfile';
-import { Photo } from '@type/photo';
 import { getElaspedTime } from '@util/date';
 import { TradeStateKey } from '@component/label/stateLabel/_types';
-import { User } from '@type/user';
+import { TradeItem as TradeItemType } from '@type/trade';
 import { StyledTradeItem, PhotoSection, InfoSection } from './_styles';
 import { photoImage } from '@api/resource';
 
-interface Props {
-  photo: Photo;
-  author: User;
-  writtenTime: string;
+interface Props extends Omit<TradeItemType, 'state'> {
   tradeState: TradeStateKey;
   to?: string;
 }
 
-function TradeItem({ photo, author, writtenTime, tradeState, to = '#' }: Props) {
+function TradeItem({
+  photo,
+  author,
+  amount,
+  tradedTime,
+  writtenTime,
+  wantcards,
+  tradeState,
+  to = '#',
+}: Props) {
   return (
     <StyledTradeItem to={to}>
       <PhotoSection>
-        <PhotoInfo
+        <PhotocardItem
           {...photo}
           styles={{
             boxShadow: '0',
@@ -32,25 +37,23 @@ function TradeItem({ photo, author, writtenTime, tradeState, to = '#' }: Props) 
         >
           <StateLabel state={{ type: 'trade', key: tradeState }} />
           <p className="written-time">{getElaspedTime(new Date(writtenTime))}</p>
-        </PhotoInfo>
+        </PhotocardItem>
       </PhotoSection>
 
       <InfoSection>
         <section className="want-section">
           <p className="want-label">
-            <b>아래 카드 중에서 1장이랑 교환 원해요!</b>
+            <b>아래 카드 중에서 {amount}장이랑 교환하길 원해요!</b>
           </p>
           <section className="images">
-            <PhotoImg width="5em" src={photoImage('39_1659339397868.png')} alt="이미지" />
-            <PhotoImg width="5em" src={photoImage('39_1659339397868.png')} alt="이미지" />
-            <PhotoImg width="5em" src={photoImage('39_1659339397868.png')} alt="이미지" />
-            <PhotoImg width="5em" src={photoImage('39_1659339397868.png')} alt="이미지" />
-            <PhotoImg width="5em" src={photoImage('39_1659339397868.png')} alt="이미지" />
-            <PhotoImg width="5em" src={photoImage('39_1659339397868.png')} alt="이미지" />
-            <PhotoImg width="5em" src={photoImage('39_1659339397868.png')} alt="이미지" />
-            <PhotoImg width="5em" src={photoImage('39_1659339397868.png')} alt="이미지" />
-            <PhotoImg width="5em" src={photoImage('39_1659339397868.png')} alt="이미지" />
-            <PhotoImg width="5em" src={photoImage('39_1659339397868.png')} alt="이미지" />
+            {wantcards.map(cards => (
+              <PhotoImg
+                key={cards.photocardId}
+                width="5em"
+                src={photoImage(cards.imageName)}
+                alt={cards.name}
+              />
+            ))}
           </section>
         </section>
 

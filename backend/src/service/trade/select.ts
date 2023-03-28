@@ -112,7 +112,8 @@ export const selectTrades = async (itemPerPage: number, pageParam: number, filte
           FROM TradeWantcard as T
           INNER JOIN Photocard as P ON T.photocard_id=P.photocard_id
           INNER JOIN MemberData as M ON P.member_id=M.member_id
-          INNER JOIN GroupData as G ON M.group_id=G.group_id`;
+          INNER JOIN GroupData as G ON M.group_id=G.group_id
+          WHERE T.trade_id=${t.tradeId}`;
 
           try {
             const [wantcards] = await con.query<Photo[] & ResultSetHeader>(sql);

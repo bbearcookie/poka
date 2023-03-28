@@ -21,6 +21,7 @@ export const StyledTradeItem = styled(Link)`
   }
 
   ${PhotoSection} {
+    display: flex;
     margin: 0 auto;
 
     .written-time {
@@ -35,16 +36,9 @@ export const StyledTradeItem = styled(Link)`
     flex-direction: column;
     width: 100%;
 
-    .author-section {
-      margin: 1em 0;
-
-      .author-label {
-        margin: 0.5em 0;
-      }
-    }
-
     .want-section {
       margin: 1em 0;
+      flex-grow: 1;
 
       .want-label {
         font-size: 0.8rem;
@@ -56,6 +50,14 @@ export const StyledTradeItem = styled(Link)`
         gap: 1em;
         grid-template-columns: repeat(auto-fill, minmax(5em, 1fr));
         justify-items: center;
+      }
+    }
+
+    .author-section {
+      margin: 1em 0;
+
+      .author-label {
+        margin: 0.5em 0;
       }
     }
   }

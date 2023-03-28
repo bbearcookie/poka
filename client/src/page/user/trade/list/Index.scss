@@ -7,16 +7,4 @@
     display: flex;
     justify-content: flex-end;
   }
-
-  .trade-section {
-    display: grid;
-    justify-content: space-between;
-    grid-template-columns: 48% 48%;
-    column-gap: 2em;
-    gap: 2em;
-
-    @media screen and (max-width: 75rem) {
-      grid-template-columns: 100%;
-    }
-  }
 }
