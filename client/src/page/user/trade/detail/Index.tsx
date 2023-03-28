@@ -5,7 +5,8 @@ import PhotoInfo from '@component/photocard/info/PhotoInfo';
 import TradeInfo from '@component/trade/info/TradeInfo';
 import useTradeQuery from '@api/query/trade/useTradeQuery';
 import BackLabel from '@component/label/BackLabel';
-import Success from './Success';
+import TradeRemove from './content/TradeRemove';
+import ButtonSection from './content/ButtonSection';
 import './Index.scss';
 
 function Index() {
@@ -20,6 +21,8 @@ function Index() {
         <>
           <PhotoInfo {...trade.voucher} styles={{ margin: '0 auto 5em auto' }} />
           <TradeInfo {...trade} tradeState={trade.state} />
+          <TradeRemove trade={trade} />
+          <ButtonSection trade={trade} />
         </>
       )}
     </main>

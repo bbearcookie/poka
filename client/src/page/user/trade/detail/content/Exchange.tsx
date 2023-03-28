@@ -2,20 +2,21 @@ import React, { useState, useCallback } from 'react';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import useTradeExchangeQuery from '@api/query/trade/useTradeExchangeQuery';
 import useExchangeTrade from '@api/mutation/trade/useExchangeTrade';
-import { ResType as TradeType } from '@api/query/trade/useTradeQuery';
+import { TradeItem } from '@type/trade';
 import { faArrowsSpin } from '@fortawesome/free-solid-svg-icons';
 import { getErrorMessage } from '@util/request';
+import { ItemSection } from '@component/list/content/_styles';
 import VoucherItem from '@component/voucher/item/VoucherItem';
 import Button from '@component/form/Button';
 import useModal from '@hook/useModal';
 import ConfirmModal from '@component/modal/ConfirmModal';
 
 interface Props {
-  trade: TradeType;
+  trade: TradeItem;
 }
 
 function Exchange({ trade }: Props) {
-  const { userId } = useAppSelector((state) => state.auth);
+  const { userId } = useAppSelector(state => state.auth);
   const [select, setSelect] = useState<{ [x: number]: boolean }>({});
   const modal = useModal();
 
@@ -25,19 +26,17 @@ function Exchange({ trade }: Props) {
       if (trade.author.userId === userId) return false;
       return true;
     })(),
-    onSuccess: (data) => {
-      setSelect(
-        Object.fromEntries(data.vouchers.map((item) => [item.voucherId, false]))
-      );
+    onSuccess: data => {
+      setSelect(Object.fromEntries(data.vouchers.map(item => [item.voucherId, false])));
     },
   });
 
   const postMutation = useExchangeTrade(
     trade.tradeId,
-    (res) => {
+    res => {
       modal.close();
     },
-    (err) => {
+    err => {
       modal.setErrorMessage(getErrorMessage(err));
     }
   );
@@ -64,19 +63,15 @@ function Exchange({ trade }: Props) {
   // 교환
   const handleExchange = useCallback(() => {
     const voucherIds = Object.entries(select)
-      .filter((item) => item[1])
-      .map((item) => Number(item[0]));
+      .filter(item => item[1])
+      .map(item => Number(item[0]));
     postMutation.mutate({ voucherIds });
   }, [select, postMutation]);
 
   return (
     <>
       <Button
-        disabled={
-          status === 'success' && exchange.vouchers.length >= trade.amount
-            ? false
-            : true
-        }
+        disabled={status === 'success' && exchange.vouchers.length >= trade.amount ? false : true}
         leftIcon={faArrowsSpin}
         onClick={openModal}
         styles={{
@@ -93,11 +88,11 @@ function Exchange({ trade }: Props) {
         titleName="교환할 소유권 선택"
         confirmText="교환"
         confirmButtonTheme="pink"
-        cardStyles={{ maxWidth: '100vh' }}
+        cardStyles={{ width: "100vh" }}
         handleConfirm={handleExchange}
       >
-        <section className="photo-section">
-          {exchange?.vouchers.map((v) => (
+        <ItemSection templateColumnsSize="minmax(11.25em, 1fr)" marginBottom="1em">
+          {exchange?.vouchers.map(v => (
             <VoucherItem
               {...v}
               key={v.voucherId}
@@ -115,10 +110,9 @@ function Exchange({ trade }: Props) {
               }
             />
           ))}
-        </section>
+        </ItemSection>
         <p className="description">
-          가지고 있는 포토카드 중에서 상대방과 교환하려고 하는 것을{' '}
-          {trade.amount}개 선택해주세요.
+          가지고 있는 포토카드 중에서 상대방과 교환하려고 하는 것을 {trade.amount}개 선택해주세요.
         </p>
       </ConfirmModal>
     </>
