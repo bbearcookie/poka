@@ -16,16 +16,16 @@ export interface Trade {
 
 // 교환글 상세 타입
 export interface TradeDetail extends Omit<Trade, 'voucherId'> {
-  voucher: {
+  voucher: Photo & {
     voucherId: number;
-  } & Photo;
+  };
 }
 
 // 교환글 목록 아이템 타입
 export interface TradeItem extends Omit<Trade, 'userId' | 'voucherId'> {
-  voucher: {
+  voucher: Photo & {
     voucherId: number;
-  } & Photo;
+  };
   author: User;
   wantcards: Photo[];
 }

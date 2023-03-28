@@ -37,7 +37,7 @@ function TradeRemove({ trade }: Props) {
   
   return (
     <>
-      {trade.state === 'trading' && trade.userId === userId &&
+      {trade.state === 'trading' && trade.author.userId === userId &&
       <RemoveCard
         titleText="교환글 삭제"
         cardStyles={{ marginBottom: "5em" }}

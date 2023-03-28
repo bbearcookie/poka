@@ -22,7 +22,7 @@ function Exchange({ trade }: Props) {
   const { data: exchange, status } = useTradeExchangeQuery(trade.tradeId, {
     enabled: (function () {
       if (trade.tradeId === 0) return false;
-      if (trade.userId === userId) return false;
+      if (trade.author.userId === userId) return false;
       return true;
     })(),
     onSuccess: (data) => {

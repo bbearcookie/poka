@@ -16,7 +16,7 @@ interface Props {
 }
 
 function TradeInfoCard({ trade }: Props) {
-  const { data: user, status } = useUserQuery(trade.userId);
+  const { data: user, status } = useUserQuery(trade.author.userId);
 
   return (
     <Card className="TradeInfoCard" styles={{ marginBottom: "5em" }}>
