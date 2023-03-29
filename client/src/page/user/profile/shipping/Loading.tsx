@@ -4,9 +4,7 @@ import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 import SkeletonAddress from '@component/shipping/address/SkeletonAddress';
 
-interface Props {}
-
-function Loading({  }: Props) {
+function Loading() {
   return (
     <Card styles={{ marginBottom: "5em" }}>
       <CardHeader>

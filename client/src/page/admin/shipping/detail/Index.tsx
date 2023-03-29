@@ -6,7 +6,7 @@ import Success from './Success';
 import './Index.scss';
 
 function Index() {
-  const { requestId } = useParams() as any;
+  const requestId = Number(useParams().requestId);
   const { data: shipping, status } = useShippingRequestQuery(requestId);
 
   return (

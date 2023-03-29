@@ -11,7 +11,6 @@ interface Props {
   imageName: string;
   startEditor: () => void;
 }
-const DefaultProps = {};
 
 function UserInfo({ username, nickname, imageName, startEditor }: Props) {
   return (

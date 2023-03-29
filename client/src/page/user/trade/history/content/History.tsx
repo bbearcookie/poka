@@ -25,7 +25,6 @@ function History({ photo, destUser, originUser, loggedTime }: Props) {
     <>
       <CardListItem title="포토카드" styles={{ borderBottom: 'none' }}>
         <PhotoInfo {...photo} />
-        {/* <PhotoInfo {...photo} imgStyles={{ width: '7em' }} /> */}
       </CardListItem>
       <CardListItem title="새 소유자" styles={{ borderBottom: 'none' }}>
         <UserProfile {...destUser} />

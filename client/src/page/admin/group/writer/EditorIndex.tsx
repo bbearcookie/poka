@@ -6,10 +6,8 @@ import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import Form from './Form';
 import './Index.scss';
 
-interface Props {}
-
-function GroupEditorPage({  }: Props) {
-  const { groupId } = useParams() as any;
+function Index() {
+  const groupId = Number(useParams().groupId);
   const { status, data: group, error } = useGroupQuery(groupId);
 
   return (
@@ -20,4 +18,4 @@ function GroupEditorPage({  }: Props) {
   );
 }
 
-export default GroupEditorPage;
+export default Index;

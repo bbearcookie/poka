@@ -26,7 +26,7 @@ function Index() {
         </Link>
       </section>
 
-      <TradeList to="/trade/detail" {...selector} />
+      <TradeList {...selector} to="/trade/detail" />
     </main>
   );
 }

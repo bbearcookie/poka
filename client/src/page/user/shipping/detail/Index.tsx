@@ -1,4 +1,3 @@
-import React from 'react';
 import { useParams } from 'react-router-dom';
 import useShippingRequestQuery from '@api/query/shipping/useShippingRequestQuery';
 import BackLabel from '@component/label/BackLabel';
@@ -6,7 +5,7 @@ import Success from './Success';
 import './Index.scss';
 
 function Index() {
-  const { requestId } = useParams() as any;
+  const requestId = Number(useParams().requestId);
   const { data: shipping, status } = useShippingRequestQuery(requestId);
 
   return (

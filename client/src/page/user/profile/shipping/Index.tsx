@@ -5,10 +5,7 @@ import ErrorCard from '@component/card/ErrorCard';
 import Loading from './Loading';
 import Success from './Success';
 
-interface Props {}
-const DefaultProps = {};
-
-function Index({  }: Props) {
+function Index() {
   const { userId } = useAppSelector(state => state.auth);
   const { status, data: addresses, error } = useShippingAddresses(userId);
 

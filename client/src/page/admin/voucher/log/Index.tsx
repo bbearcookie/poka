@@ -4,7 +4,7 @@ import LogList from './content/LogList';
 import './Index.scss';
 
 function Index() {
-  const { voucherId } = useParams() as any;
+  const voucherId = Number(useParams().voucherId);
 
   return (
     <main className="VoucherLogPage">

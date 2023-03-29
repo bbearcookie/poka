@@ -6,7 +6,7 @@ import Success from './Success';
 import './Index.scss';
 
 function Index() {
-  const { photocardId } = useParams() as any;
+  const photocardId = Number(useParams().photocardId);
   const { status, data: photo, error } = usePhotoQuery(photocardId);
   
   return (

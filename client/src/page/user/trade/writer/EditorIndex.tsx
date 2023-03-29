@@ -8,7 +8,7 @@ import Component from './Component';
 import './Index.scss';
 
 function EditorIndex() {
-  const { tradeId } = useParams() as any;
+  const tradeId = Number(useParams().tradeId);
   const [form, formDispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
 
