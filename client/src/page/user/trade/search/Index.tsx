@@ -11,7 +11,7 @@ function Index() {
   const selector = useIdolSelector();
 
   return (
-    <main className="TradeListPage">
+    <main className="TradeSearchPage">
       <TitleLabel title="교환 찾기" styles={{ marginBottom: '2em' }} />
       <IdolSelector hook={selector} />
 

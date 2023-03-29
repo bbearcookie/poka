@@ -10,15 +10,10 @@ import {
   faPersonCircleQuestion,
   faArrowsSpin,
   faUser,
-  faMagnifyingGlass
+  faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
 
-interface Props {
-  children?: React.ReactNode;
-}
-const DefaultProps = {};
-
-function UserContent({}: Props) {
+function UserContent() {
   return (
     <>
       <ul className="category">
@@ -28,7 +23,7 @@ function UserContent({}: Props) {
       <ul className="category">
         <li className="subheader-label">포토카드 교환</li>
         <ChildItem to="/trade/mine" icon={faUser} text="내 교환" />
-        <ChildItem to="/trade/list" icon={faMagnifyingGlass} text="찾기" />
+        <ChildItem to="/trade/search" icon={faMagnifyingGlass} text="찾기" />
         <ChildItem to="/trade/history" icon={faTimeline} text="기록" />
       </ul>
       <ul className="category">
