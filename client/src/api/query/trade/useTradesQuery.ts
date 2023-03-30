@@ -1,7 +1,11 @@
-import { useInfiniteQuery, UseInfiniteQueryOptions, UseInfiniteQueryResult } from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  UseInfiniteQueryOptions,
+  UseInfiniteQueryResult,
+} from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { ResponseError } from '@type/response';
-import * as queryKey from '@api/queryKey';
+import { tradeKeys } from '@api/queryKey';
 import { fetchTrades } from '@api/api/trade';
 import { TradeStateKey } from '@component/label/stateLabel/_types';
 import { TradeItem } from '@type/trade';
@@ -24,17 +28,17 @@ export interface ResType {
 }
 
 export default function useTradesQuery(
+  queryKey: ReturnType<typeof tradeKeys.search> | ReturnType<typeof tradeKeys.mine>,
   filter: FilterType,
   options?: UseInfiniteQueryOptions<ResType, AxiosError<ResponseError>>
 ): UseInfiniteQueryResult<ResType, AxiosError<ResponseError>> {
-
   return useInfiniteQuery<ResType, AxiosError<ResponseError>>({
-    queryKey: queryKey.tradeKeys.all,
+    queryKey,
     queryFn: ({ pageParam = 0 }) => fetchTrades({ pageParam, filter }),
     getNextPageParam: (lastPage, pages) => {
       return lastPage.paging.hasNextPage && lastPage.paging.pageParam + 1;
     },
     refetchOnWindowFocus: false,
-    ...options
+    ...options,
   });
 }

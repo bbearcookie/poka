@@ -2,6 +2,7 @@ import React from 'react';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import TradeList from '@component/list/trade/TradeList';
+import * as queryKey from '@api/queryKey';
 import { StyledIndex } from './_styles';
 
 function Index() {
@@ -12,6 +13,7 @@ function Index() {
       <TitleLabel title="내가 등록한 교환" styles={{ marginBottom: '2em' }} />
 
       <TradeList
+        queryKey={queryKey.tradeKeys.mine()}
         location={{
           to: '/trade/detail',
           state: {

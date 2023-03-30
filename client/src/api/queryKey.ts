@@ -34,9 +34,11 @@ export const addressKeys = {
 
 export const tradeKeys = {
   all: ["trade"] as const,
+  search: () => [...tradeKeys.all, "search"] as const, // 교환 찾기에서 보여줄 교환글 목록
+  mine: () => [...tradeKeys.all, "mine"] as const, // 내 교환에서 보여줄 교환글 목록
+  writerVoucher: (voucherId: number) => [...tradeKeys.all, "writer", ...voucherKeys.detail(voucherId)] as const, // 교환글 작성 화면에서 사용할 소유권의 상세 정보
   detail: (tradeId: number) => [...tradeKeys.all, tradeId] as const,
   exchange: (tradeId: number) => [...tradeKeys.detail(tradeId), "exchange"] as const, // 로그인된 사용자가 특정 교환글이 원하는 포토카드 중에서 가지고 있는 소유권 정보
-  writerVoucher: (voucherId: number) => ["trade", "writer", ...voucherKeys.detail(voucherId)] as const, // 교환글 작성 화면에서 사용할 소유권의 상세 정보
 }
 
 export const shippingKeys = {

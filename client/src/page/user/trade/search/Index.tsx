@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '@app/redux/reduxHooks';
+import * as queryKey from '@api/queryKey';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import useIdolSelector from '@component/selector/useIdolSelector';
 import IdolSelector from '@component/selector/IdolSelector';
@@ -6,7 +8,6 @@ import TradeList from '@component/list/trade/TradeList';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import Button from '@component/form/Button';
 import './Index.scss';
-import { useAppSelector } from '@app/redux/reduxHooks';
 
 function Index() {
   const { userId } = useAppSelector(state => state.auth);
@@ -29,6 +30,7 @@ function Index() {
       </section>
 
       <TradeList
+        queryKey={queryKey.tradeKeys.mine()}
         location={{
           to: '/trade/detail',
           state: {
