@@ -3,10 +3,7 @@ import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import Form from './Form';
 import './Index.scss';
 
-interface Props {}
-const DefaultProps = {};
-
-function GroupWriterPage({  }: Props) {
+function Index() {
   return (
     <main className="GroupWriterPage">
       <TitleLabel title="그룹 등록" styles={{ marginBottom: "1em" }} />
@@ -15,4 +12,4 @@ function GroupWriterPage({  }: Props) {
   );
 }
 
-export default GroupWriterPage;
+export default Index;

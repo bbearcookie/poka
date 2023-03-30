@@ -4,7 +4,7 @@ import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
 import useSearcher from '@component/search/useSearcher';
 import Searcher from '@component/search/Searcher';
-import VoucherList from '@component/list/VoucherList';
+import VoucherList from '@component/list/voucher/VoucherList';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import { useNavigate } from 'react-router-dom';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';

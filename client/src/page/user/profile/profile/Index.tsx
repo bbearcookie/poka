@@ -5,10 +5,7 @@ import ErrorCard from '@component/card/ErrorCard';
 import Success from './Success';
 import Loading from './Loading';
 
-interface Props {}
-const DefaultProps = {};
-
-function Profile({  }: Props) {
+function Index() {
   const { userId } = useAppSelector(state => state.auth);
   const { status, data: user, error } = useUserQuery(userId);
 
@@ -21,4 +18,4 @@ function Profile({  }: Props) {
   );
 }
 
-export default Profile;
+export default Index;

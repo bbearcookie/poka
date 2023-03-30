@@ -7,10 +7,7 @@ import CardFooter from '@component/card/basic/CardFooter';
 import Form from './Form';
 import '../SignPage.scss';
 
-interface Props {}
-const DefaultProps = {};
-
-function SignupPage({  }: Props) {
+function Index() {
   return (
     <main className="SignPage">
       <Card styles={{ width: "40rem" }}>
@@ -37,4 +34,4 @@ function SignupPage({  }: Props) {
   );
 }
 
-export default SignupPage;
+export default Index;

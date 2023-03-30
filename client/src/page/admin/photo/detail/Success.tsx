@@ -8,7 +8,6 @@ interface Props {
   photo: PhotoResType;
   photocardId: number;
 }
-const DefaultProps = {};
 
 function Success({ photo, photocardId }: Props) {
   const [editMode, setEditMode] = useState(false);
@@ -19,10 +18,14 @@ function Success({ photo, photocardId }: Props) {
 
   return (
     <>
-      {editMode ?
-        <PhotoEditor photo={photo} photocardId={photocardId} closeEditor={closeEditor} /> :
-        photo && <PhotoInfo photo={photo} startEditor={startEditor} />
-      }
+      {editMode && (
+        <PhotoEditor
+          photo={photo}
+          photocardId={photocardId}
+          closeEditor={closeEditor}
+        />
+      )}
+      {!editMode && <PhotoInfo photo={photo} startEditor={startEditor} />}
       <PhotoRemove photo={photo} photocardId={photocardId} />
     </>
   );

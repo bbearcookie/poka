@@ -1,6 +1,6 @@
 import React from 'react';
 import { UseQueryResult } from '@tanstack/react-query';
-import PhotoCard from '@component/photocard/photo/PhotoCard';
+import PhotocardItem from '@component/photocard/item/PhotocardItem';
 import InputMessage from '@component/form/InputMessage';
 import { ItemSection } from '@component/list/content/_styles';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
@@ -20,17 +20,13 @@ function PhotocardList({ form, formDispatch, photos, removeWantPhotocardId }: Pr
       {photos.length > 0 &&
       <>
         <b className="label">종류</b>
-        <ItemSection margin="1em 0">
+        <ItemSection templateColumnsSize="minmax(11.25em, 1fr)" margin="1em 0">
           {photos.map((photo) => photo.status === 'success' && 
-          <PhotoCard
+          <PhotocardItem
+            {...photo.data}
             key={photo.data.photocardId}
-            photocardId={photo.data.photocardId}
-            photoName={photo.data.name}
-            groupName={photo.data.groupData.name}
-            memberName={photo.data.memberData.name}
-            imageName={photo.data.imageName}
             icon={{ svg: faClose, tooltip: '취소' }}
-            handleClick={removeWantPhotocardId}
+            onClick={removeWantPhotocardId}
           />)}
         </ItemSection>
       </>}

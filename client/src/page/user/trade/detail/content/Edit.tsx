@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ResType as TradeType } from '@api/query/trade/useTradeQuery';
+import { TradeItem } from '@type/trade';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import Button from '@component/form/Button';
 
 interface Props {
-  trade: TradeType;
+  trade: TradeItem;
 }
 
 function Edit({ trade }: Props) {
@@ -20,11 +20,13 @@ function Edit({ trade }: Props) {
       leftIcon={faEdit}
       onClick={onClickEdit}
       styles={{
-        theme: "primary",
-        width: "7em",
-        iconMargin: "1em"
+        theme: 'primary',
+        width: '7em',
+        iconMargin: '1em',
       }}
-    >수정</Button>
+    >
+      수정
+    </Button>
   );
 }
 

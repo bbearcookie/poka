@@ -7,7 +7,8 @@ import VoucherListPage from '@page/user/voucher/list/Index';
 import VoucherDetailPage from '@page/user/voucher/detail/Index';
 import TradeWriterPage from '@page/user/trade/writer/WriterIndex';
 import TradeEditorPage from '@page/user/trade/writer/EditorIndex';
-import TradeListPage from '@page/user/trade/list/Index';
+import TradeMinePage from '@page/user/trade/mine/Index';
+import TradeSearchPage from '@page/user/trade/search/Index';
 import TradeDetailPage from '@page/user/trade/detail/Index';
 import TradeHistoryPage from '@page/user/trade/history/Index';
 import ShippingWriterPage from '@page/user/shipping/writer/Index';
@@ -35,7 +36,8 @@ function UserRouter() {
         <Route path="/voucher/detail/:voucherId" element={<VoucherDetailPage />} />
         <Route path="/trade/writer" element={<TradeWriterPage />} />
         <Route path="/trade/editor/:tradeId" element={<TradeEditorPage />} />
-        <Route path="/trade/list" element={<TradeListPage />} />
+        <Route path="/trade/mine" element={<TradeMinePage />} />
+        <Route path="/trade/search" element={<TradeSearchPage />} />
         <Route path="/trade/detail/:tradeId" element={<TradeDetailPage />} />
         <Route path="/trade/history" element={<TradeHistoryPage />} />
         <Route path="/shipping/list" element={<ShippingListPage />} />

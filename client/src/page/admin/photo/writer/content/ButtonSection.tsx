@@ -2,10 +2,7 @@ import React, { useCallback } from 'react';
 import Button from '@component/form/Button';
 import { useNavigate } from 'react-router-dom';
 
-interface Props {}
-const DefaultProps = {};
-
-function ButtonSection({  }: Props) {
+function ButtonSection() {
   const navigate = useNavigate();
 
   const handleCancel = useCallback(() => {

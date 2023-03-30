@@ -8,7 +8,7 @@ import Component from './Component';
 import './Index.scss';
 
 function EditorIndex() {
-  const { tradeId } = useParams() as any;
+  const tradeId = Number(useParams().tradeId);
   const [form, formDispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ function EditorIndex() {
   useEffect(() => {
     if (!trade) return;
     formDispatch({ type: 'SET_AMOUNT', payload: trade.amount });
-    formDispatch({ type: 'SET_VOUCHER_ID', payload: trade.voucherId });
+    formDispatch({ type: 'SET_VOUCHER_ID', payload: trade.voucher.voucherId });
     trade.wantcards.forEach(item => {
       formDispatch({ type: 'ADD_WANT_PHOTOCARD_ID', payload: item.photocardId });
     })

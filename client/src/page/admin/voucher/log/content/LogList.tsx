@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useUpdateEffect } from 'react-use';
 import useVoucherLogsQuery from '@api/query/voucher/useVoucherLogsQuery';
 import { useInView } from 'react-intersection-observer';

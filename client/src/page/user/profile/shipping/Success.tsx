@@ -10,7 +10,6 @@ import Address from './content/address/Index';
 interface Props {
   addresses: AddressesResType;
 }
-const DefaultProps = {};
 
 function Success({ addresses }: Props) {
   const [editorTarget, setEditorTarget] = useState<number | boolean>(false); // 수정 모드일 경우 현재 수정중인 memberId를 나타낸다.

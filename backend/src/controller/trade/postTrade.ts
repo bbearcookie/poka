@@ -4,7 +4,7 @@ import { validate } from '@validator/middleware/response';
 import { isLoggedIn } from '@validator/middleware/auth';
 import { createResponseMessage } from '@validator/function/response';
 import { LoginToken } from '@type/user';
-import { selectUserDetailByUserID } from '@service/user/select';
+import { selectUser } from '@service/user/select';
 import { selectVoucherDetail } from '@service/voucher/select';
 import { selectPhotoDetail } from '@service/photo/select';
 import { writeTrade } from '@service/trade/insert';
@@ -23,7 +23,7 @@ const controller = async (req: Request, res: Response, next: NextFunction) => {
   const { haveVoucherId, wantPhotocardIds, amount } = req.body as Body;
 
   // 사용자 정보 확인
-  const [[user]] = await selectUserDetailByUserID(loggedUser.userId);
+  const [[user]] = await selectUser(loggedUser.userId);
   if (!user) return res.status(404).json({ message: '로그인한 사용자의 정보가 올바르지 않아요.' });
 
   // 소유권 정보 확인

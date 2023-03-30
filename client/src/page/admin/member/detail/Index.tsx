@@ -7,10 +7,8 @@ import Success from './Success';
 import Loading from './Loading';
 import './Index.scss';
 
-interface Props {}
-
-function MemberDetailPage({  }: Props) {
-  const { memberId } = useParams() as any;
+function Index() {
+  const memberId = Number(useParams().memberId);
   const { status, data: member, error } = useMemberQuery(memberId);
   const navigate = useNavigate();
 
@@ -31,4 +29,4 @@ function MemberDetailPage({  }: Props) {
   );
 }
 
-export default MemberDetailPage;
+export default Index;

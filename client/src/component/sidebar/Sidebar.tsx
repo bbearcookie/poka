@@ -10,7 +10,6 @@ import './Sidebar.scss';
 interface Props {
   mode: 'USER' | 'ADMIN';
 }
-const DefaultProps = {};
 
 function Sidebar({ mode }: Props) {
   const show = useAppSelector((state) => state.sidebar.show);

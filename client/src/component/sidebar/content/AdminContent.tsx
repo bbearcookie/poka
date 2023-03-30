@@ -2,11 +2,7 @@ import React from 'react';
 import { ChildItem, ParentItem } from '@component/sidebar/ListItem';
 import { faUser, faCommentAlt, faQuestionCircle, faArrowsSpin, faVcard, faTruckFast, faPeopleGroup, faInfoCircle, faCut } from '@fortawesome/free-solid-svg-icons';
 
-interface Props {
-}
-const DefaultProps = {};
-
-function AdminContent({  }: Props) {
+function AdminContent() {
   return (
     <>
       <ul className="category">

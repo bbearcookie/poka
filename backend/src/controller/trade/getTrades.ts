@@ -7,9 +7,10 @@ import { selectTrades } from '@service/trade/select';
 export type FilterType = {
   groupId: number;
   memberId: number;
+  userId: number;
   excludeUserId: number;
-  state: 'trading' | 'traded';
-}
+  state: 'all' | 'trading' | 'traded';
+};
 
 interface Query {
   pageParam: number;
@@ -19,25 +20,50 @@ interface Query {
 const validator = [
   query('pageParam')
     .default(0)
-    .isNumeric().withMessage('pageParam이 숫자가 아니에요').bail(),
+    .customSanitizer(v => Number(v))
+    .isNumeric()
+    .withMessage('pageParam이 숫자가 아니에요')
+    .bail(),
 
-  query('filter')
-    .customSanitizer(JSONSanitizer),
+  query('filter').customSanitizer(JSONSanitizer),
 
   query('filter.groupId')
+    .default(0)
     .customSanitizer(v => Number(v))
-    .isNumeric().withMessage('검색 필터가 잘못되었어요.').bail(),
-  
+    .isNumeric()
+    .withMessage('검색 필터가 잘못되었어요.')
+    .bail(),
+
   query('filter.memberId')
+    .default(0)
     .customSanitizer(v => Number(v))
-    .isNumeric().withMessage('검색 필터가 잘못되었어요.').bail(),
+    .isNumeric()
+    .withMessage('검색 필터가 잘못되었어요.')
+    .bail(),
+
+  query('filter.userId')
+    .default(0)
+    .customSanitizer(v => Number(v))
+    .isNumeric()
+    .withMessage('검색 필터가 잘못되었어요.')
+    .bail(),
 
   query('filter.excludeUserId')
+    .default(0)
     .customSanitizer(v => Number(v))
-    .isNumeric().withMessage('검색 필터가 잘못되었어요.').bail(),
+    .isNumeric()
+    .withMessage('검색 필터가 잘못되었어요.')
+    .bail(),
 
-  validate
-]
+  query('filter.state')
+    .default('')
+    .trim()
+    .isString()
+    .withMessage('검색 필터가 잘못되었어요.')
+    .bail(),
+
+  validate,
+];
 
 const controller = async (req: Request, res: Response, next: NextFunction) => {
   const itemPerPage = 10;
@@ -50,16 +76,13 @@ const controller = async (req: Request, res: Response, next: NextFunction) => {
     trades,
     paging: {
       pageParam,
-      hasNextPage: trades.length === itemPerPage
-    }
+      hasNextPage: trades.length === itemPerPage,
+    },
   });
   next();
-}
+};
 
 // 교환글 목록 조회
-const getTrades = [
-  ...validator,
-  controller
-];
+const getTrades = [...validator, controller];
 
 export default getTrades;

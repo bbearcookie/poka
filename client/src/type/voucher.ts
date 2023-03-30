@@ -1,7 +1,7 @@
 import { Photo } from '@type/photo';
 import { User } from '@type/user';
 
-type VoucherState = 'available' | 'trading' | 'shipping' | 'shipped';
+export type VoucherState = 'available' | 'trading' | 'shipping' | 'shipped';
 
 // 소유권 타입
 export interface Voucher {

@@ -33,6 +33,7 @@ export interface StylesProps {
   marginBottom?: string;
   marginLeft?: string;
   marginRight?: string;
+  padding?: string;
   textAlign?: string;
   backgroundColor?: string;
   boxShadow?: string;
@@ -51,6 +52,7 @@ const StyledCard = styled.article<StylesProps>`
   margin-bottom: ${p => p.marginBottom};
   margin-left: ${p => p.marginLeft};
   margin-right: ${p => p.marginRight};
+  padding: ${p => p.padding};
   background-color: ${p => p.backgroundColor ? p.backgroundColor : 'white'};
   box-shadow: ${p => p.boxShadow};
   text-align: ${p => p.textAlign};

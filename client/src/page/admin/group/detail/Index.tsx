@@ -8,7 +8,7 @@ import Loading from './Loading';
 import './Index.scss';
 
 function GroupDetailPage() {
-  const { groupId } = useParams() as any;
+  const groupId = Number(useParams().groupId);
   const { status, data: group, error } = useGroupQuery(groupId);
 
   return (

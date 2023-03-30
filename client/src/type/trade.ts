@@ -1,5 +1,4 @@
 import { Photo } from '@type/photo';
-import { Member } from '@type/member';
 import { User } from '@type/user';
 
 export type TradeState = 'trading' | 'traded';
@@ -7,6 +6,8 @@ export type TradeState = 'trading' | 'traded';
 // 교환글 타입
 export interface Trade {
   tradeId: number;
+  userId: number;
+  voucherId: number;
   state: TradeState;
   amount: number;
   writtenTime: string;
@@ -14,18 +15,19 @@ export interface Trade {
 }
 
 // 교환글 상세 타입
-export interface TradeDetail extends Trade {
-  userId: number;
-  voucherId: number;
-  photo: Photo;
+export interface TradeDetail extends Omit<Trade, 'voucherId'> {
+  voucher: Photo & {
+    voucherId: number;
+  };
 }
 
-// 교환글이 원하는 멤버 타입
-export type WantMember = Pick<Member, 'memberId' | 'name'>;
-
 // 교환글 목록 아이템 타입
-export interface TradeItem extends TradeDetail {
-  wantMembers: WantMember[];
+export interface TradeItem extends Omit<Trade, 'userId' | 'voucherId'> {
+  voucher: Photo & {
+    voucherId: number;
+  };
+  author: User;
+  wantcards: Photo[];
 }
 
 // 교환 내역 타입

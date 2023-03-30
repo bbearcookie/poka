@@ -1,11 +1,11 @@
 import React from 'react';
 import { useAppSelector } from '@app/redux/reduxHooks';
-import { ResType as TradeType } from '@api/query/trade/useTradeQuery';
+import { TradeItem } from '@type/trade';
 import Edit from './Edit';
 import Exchange from './Exchange';
 
 interface Props {
-  trade: TradeType;
+  trade: TradeItem;
 }
 
 function ButtonSection({ trade }: Props) {
@@ -15,8 +15,8 @@ function ButtonSection({ trade }: Props) {
     <div className="button-section">
       {trade.state === 'trading' &&
       <>
-        {trade.userId === userId && <Edit trade={trade} />}
-        {trade.userId !== userId && <Exchange trade={trade} />}
+        {trade.author.userId === userId && <Edit trade={trade} />}
+        {trade.author.userId !== userId && <Exchange trade={trade} />}
       </>}
     </div>
   );

@@ -1,6 +1,5 @@
-import React from 'react';
-import VoucherInfoCard from '@component/photocard/voucher/voucher_info/VoucherInfoCard';
-import PhotoInfoCard from '@component/photocard/photo/PhotoInfoCard';
+import VoucherInfo from '@component/voucher/info/VoucherInfo';
+import PhotoInfo from '@component/photocard/info/PhotoInfo';
 import { ResType } from '@api/query/voucher/useVoucherQuery';
 import VoucherRemove from './content/VoucherRemove';
 
@@ -13,14 +12,12 @@ function Success({ res }: Props) {
 
   return (
     <>
-      <PhotoInfoCard
-        photoName={res.photo.name}
-        groupName={res.photo.groupData.name}
-        memberName={res.photo.memberData.name}
-        imageName={res.photo.imageName}
-        cardStyles={{ margin: "0 auto 5em auto" }}
+      <PhotoInfo {...res.photo} styles={{ margin: '0 auto 5em auto' }} />
+      <VoucherInfo
+        displayType="admin"
+        voucher={res}
+        styles={{ marginBottom: '5em' }}
       />
-      <VoucherInfoCard res={res} showAdminInfo={true} />
       <VoucherRemove voucherId={res.voucherId} />
     </>
   );

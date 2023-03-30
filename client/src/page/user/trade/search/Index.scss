@@ -1,0 +1,10 @@
+@import '@util/common';
+
+.TradeSearchPage {
+  @include contents;
+
+  .add-button-section {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

@@ -9,18 +9,12 @@ interface Props {
   styles?: StylesProps;
   children?: React.ReactNode;
 }
-const DefaultProps = {};
 
 function CardListItem({ className, title, styles, children }: Props) {
   return (
-    <StyledCardListItem
-      className={classNames("CardListItem", className)}
-      {...styles}
-    >
+    <StyledCardListItem className={classNames('CardListItem', className)} {...styles}>
       <TitleLabel>{title}</TitleLabel>
-      <section>
-        {children}
-      </section>
+      <section>{children}</section>
     </StyledCardListItem>
   );
 }
@@ -34,7 +28,7 @@ export interface StylesProps {
 }
 const StyledCardListItem = styled.li<StylesProps>`
   display: flex;
-  border-bottom: ${p => p.borderBottom ? p.borderBottom : "1px solid #E5E7EB"};
+  border-bottom: ${p => p.borderBottom || '1px solid #E5E7EB'};
   padding: 1.5em;
   color: ${p => p.color};
 
@@ -42,12 +36,12 @@ const StyledCardListItem = styled.li<StylesProps>`
     flex-direction: column;
     gap: 0.5em;
   }
-`
+`;
 
 export interface TitleStyles {
   flexBasis?: string;
 }
 const TitleLabel = styled.div<TitleStyles>`
-  flex-basis: ${p => p.flexBasis ? p.flexBasis : "30%"};
+  flex-basis: ${p => p.flexBasis || '30%'};
   color: #121828;
-`
+`;

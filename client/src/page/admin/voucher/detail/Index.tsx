@@ -6,7 +6,7 @@ import Success from './Success';
 import './Index.scss';
 
 function VoucherDetailPage() {
-  const { voucherId } = useParams() as any;
+  const voucherId = Number(useParams().voucherId);
   const { status, data: voucher, error } = useVoucherQuery(voucherId);
   
   return (

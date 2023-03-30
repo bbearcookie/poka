@@ -45,12 +45,7 @@ function HistoryList({ startDate, endDate }: Props) {
               {page?.histories.map((item) => 
               <History
                 key={item.logId}
-                photo={{
-                  photoName: item.photo.name,
-                  groupName: item.photo.groupData.name,
-                  memberName: item.photo.memberData.name,
-                  imageName: item.photo.imageName
-                }}
+                photo={item.photo}
                 destUser={{ ...item.destUser }}
                 originUser={{ ...item.originUser }}
                 loggedTime={new Date(item.loggedTime)}

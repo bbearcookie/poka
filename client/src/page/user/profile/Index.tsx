@@ -4,9 +4,7 @@ import Profile from './profile/Index';
 import Shipping from './shipping/Index';
 import './Index.scss';
 
-interface Props {}
-
-function Index({  }: Props) {
+function Index() {
   return (
     <main className="ProfilePage">
       <TitleLabel title="마이페이지" styles={{ marginBottom: "1em" }} />

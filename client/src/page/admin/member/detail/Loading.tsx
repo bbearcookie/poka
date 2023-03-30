@@ -4,10 +4,7 @@ import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
 
-interface Props {}
-const DefaultProps = {};
-
-function Loading({  }: Props) {
+function Loading() {
   return (
     <>
       <section className="name-section">

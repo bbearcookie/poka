@@ -10,7 +10,7 @@ export interface LabelProps {
   color?: string;
 }
 
-const Label = styled.p<LabelProps>`
+const Label = styled.span<LabelProps>`
   width: ${p => p.width};
   padding: ${p => p.padding ? p.padding : '0.3em'};
   margin: ${p => p.margin};

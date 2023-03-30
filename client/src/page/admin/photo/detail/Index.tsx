@@ -5,11 +5,8 @@ import BackLabel from '@component/label/BackLabel';
 import Success from './Success';
 import './Index.scss';
 
-interface Props {}
-const DefaultProps = {};
-
-function PhotoDetailPage({  }: Props) {
-  const { photocardId } = useParams() as any;
+function Index() {
+  const photocardId = Number(useParams().photocardId);
   const { status, data: photo, error } = usePhotoQuery(photocardId);
   
   return (
@@ -20,4 +17,4 @@ function PhotoDetailPage({  }: Props) {
   );
 }
 
-export default PhotoDetailPage;
+export default Index;
