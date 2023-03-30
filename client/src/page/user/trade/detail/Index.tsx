@@ -12,12 +12,17 @@ import './Index.scss';
 function Index() {
   const tradeId = Number(useParams().tradeId);
   const location = useLocation();
-  const prevURI = (location.state as LocationState | null)?.prevURI;
+  const prev = (location.state as LocationState | null)?.prev;
   const { data: trade, status } = useTradeQuery(tradeId);
 
   return (
     <main className="UserTradeDetailPage">
-      <Back prevURI={prevURI} />
+      {prev && (
+        <BackLabel to={prev.url} styles={{ marginBottom: '2em' }}>
+          {prev.text}
+        </BackLabel>
+      )}
+
       {status === 'success' && (
         <>
           <PhotoInfo {...trade.voucher} styles={{ margin: '0 auto 5em auto' }} />
@@ -27,23 +32,6 @@ function Index() {
         </>
       )}
     </main>
-  );
-}
-
-function Back({ prevURI }: { prevURI?: string }) {
-  if (prevURI) {
-    if (/voucher/.test(prevURI))
-      return (
-        <BackLabel to={prevURI} styles={{ marginBottom: '2em' }}>
-          소유권 상세정보
-        </BackLabel>
-      );
-  }
-
-  return (
-    <BackLabel to="/trade/list" styles={{ marginBottom: '2em' }}>
-      교환글 목록
-    </BackLabel>
   );
 }
 

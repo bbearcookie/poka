@@ -65,7 +65,15 @@ export const selectTrades = async (itemPerPage: number, pageParam: number, filte
     }
 
     // 작성자 ID 조건
-    if (filter.excludeUserId !== 0) {
+    if (filter.userId > 0) {
+      where.push({
+        query: `U.user_id=${con.escape(filter.userId)}`,
+        operator: 'AND',
+      });
+    }
+
+    // 작성자 제외 ID 조건
+    if (filter.excludeUserId > 0) {
       where.push({
         query: `NOT T.user_id=${con.escape(filter.excludeUserId)}`,
         operator: 'AND',
@@ -73,7 +81,7 @@ export const selectTrades = async (itemPerPage: number, pageParam: number, filte
     }
 
     // 거래글 상태 조건
-    if (filter.state) {
+    if (filter.state && filter.state !== 'all') {
       where.push({
         query: `T.state=${con.escape(filter.state)}`,
         operator: 'AND',
@@ -121,7 +129,6 @@ export const selectTrades = async (itemPerPage: number, pageParam: number, filte
           } catch (err) {
             reject(err);
           }
-
         })
     );
 

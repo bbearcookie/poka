@@ -8,10 +8,14 @@ import { TradeStateKey } from '@component/label/stateLabel/_types';
 import { TradeItem as TradeItemType } from '@type/trade';
 import { StyledTradeItem, PhotoSection, InfoSection } from './_styles';
 import { photoImage } from '@api/resource';
+import { LocationState } from '@type/react-router';
 
 interface Props extends Omit<TradeItemType, 'state'> {
   tradeState: TradeStateKey;
-  to?: string;
+  location?: {
+    to: string;
+    state?: LocationState;
+  }
 }
 
 function TradeItem({
@@ -22,10 +26,10 @@ function TradeItem({
   writtenTime,
   wantcards,
   tradeState,
-  to = '#',
+  location = { to: '#' },
 }: Props) {
   return (
-    <StyledTradeItem to={to}>
+    <StyledTradeItem {...location}>
       <PhotoSection>
         <PhotocardItem
           {...voucher}

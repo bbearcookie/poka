@@ -13,7 +13,9 @@ interface Props {
 function TradeLink({ res }: Props) {
   const { data: trade, status } = useVoucherTradeQuery(res.voucherId);
   const location = useLocation();
-  const locationState: LocationState = { prevURI: location.pathname };
+  const locationState: LocationState = {
+    prev: { url: location.pathname, text: '소유권 상세정보' },
+  };
 
   return (
     <>

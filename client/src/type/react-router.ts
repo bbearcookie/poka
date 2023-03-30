@@ -1,3 +1,6 @@
 export interface LocationState {
-  prevURI?: string;
+  prev?: {
+    url: string;
+    text: string;
+  }
 }

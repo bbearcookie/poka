@@ -6,11 +6,12 @@ import { fetchTrades } from '@api/api/trade';
 import { TradeStateKey } from '@component/label/stateLabel/_types';
 import { TradeItem } from '@type/trade';
 
-interface FilterType {
-  groupId: number;
-  memberId: number;
-  excludeUserId: number;
-  state: TradeStateKey;
+export interface FilterType {
+  groupId?: number;
+  memberId?: number;
+  userId?: number;
+  excludeUserId?: number;
+  state?: TradeStateKey;
 }
 
 export interface ResType {

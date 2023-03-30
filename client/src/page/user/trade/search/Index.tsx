@@ -6,8 +6,10 @@ import TradeList from '@component/list/trade/TradeList';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import Button from '@component/form/Button';
 import './Index.scss';
+import { useAppSelector } from '@app/redux/reduxHooks';
 
 function Index() {
+  const { userId } = useAppSelector(state => state.auth);
   const selector = useIdolSelector();
 
   return (
@@ -26,7 +28,18 @@ function Index() {
         </Link>
       </section>
 
-      <TradeList {...selector} to="/trade/detail" />
+      <TradeList
+        location={{
+          to: '/trade/detail',
+          state: {
+            prev: {
+              url: '/trade/search',
+              text: '교환 찾기',
+            },
+          },
+        }}
+        filter={{ ...selector, state: 'trading', excludeUserId: userId }}
+      />
     </main>
   );
 }

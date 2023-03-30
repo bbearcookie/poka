@@ -1,20 +1,24 @@
 import { Fragment, useCallback } from 'react';
+import produce from 'immer';
 import { useUpdateEffect } from 'react-use';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import { useQueryClient } from '@tanstack/react-query';
 import TradeItem from '@component/trade/item/TradeItem';
 import NextPageFetcher from '@component/list/content/NextPageFetcher';
-import useTradesQuery from '@api/query/trade/useTradesQuery';
+import useTradesQuery, { FilterType } from '@api/query/trade/useTradesQuery';
 import * as queryKey from '@api/queryKey';
 import { StyledTradeList } from './_styles';
+import { LocationState } from '@type/react-router';
 
 interface Props {
-  groupId: number;
-  memberId: number;
-  to?: string;
+  filter: FilterType;
+  location?: {
+    to: string;
+    state?: LocationState;
+  };
 }
 
-function TradeList({ groupId, memberId, to }: Props) {
+function TradeList({ filter, location = { to: '#' } }: Props) {
   const { userId } = useAppSelector(state => state.auth);
   const queryClient = useQueryClient();
 
@@ -24,10 +28,7 @@ function TradeList({ groupId, memberId, to }: Props) {
     hasNextPage,
     refetch,
     fetchNextPage,
-  } = useTradesQuery(
-    { groupId, memberId, excludeUserId: userId, state: 'trading' },
-    { enabled: userId !== 0 }
-  );
+  } = useTradesQuery(filter, { enabled: userId !== 0 });
 
   // 검색 필터 변경시 데이터 리패칭
   const handleRefetch = useCallback(async () => {
@@ -36,7 +37,7 @@ function TradeList({ groupId, memberId, to }: Props) {
   }, [queryClient, refetch]);
   useUpdateEffect(() => {
     handleRefetch();
-  }, [groupId, memberId]);
+  }, [filter]);
 
   return (
     <StyledTradeList>
@@ -45,9 +46,11 @@ function TradeList({ groupId, memberId, to }: Props) {
           {page.trades.map(trade => (
             <TradeItem
               key={trade.tradeId}
-              to={to ? `${to}/${trade.tradeId}` : to}
-              {...trade}
+              location={produce(location, draft => {
+                draft.to = `${location.to}/${trade.tradeId}`;
+              })}
               tradeState={trade.state}
+              {...trade}
             />
           ))}
         </Fragment>
