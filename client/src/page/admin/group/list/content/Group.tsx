@@ -3,6 +3,7 @@ import { groupImage } from '@api/resource';
 import { Link } from 'react-router-dom';
 import IconButton from '@component/form/IconButton';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { StyledGroup } from './_styles';
 
 interface Props {
   groupId: number;
@@ -13,7 +14,7 @@ interface Props {
 
 function Group({ groupId, name, imageName, memberCount }: Props) {
   return (
-    <tr className="Group">
+    <StyledGroup>
       <td>
         <Link className="name-section" to={`/admin/group/detail/${groupId}`}>
           <img src={groupImage(imageName)} width="60" height="60" alt={name} />
@@ -26,7 +27,7 @@ function Group({ groupId, name, imageName, memberCount }: Props) {
           <IconButton icon={faArrowRight} />
         </Link>
       </td>
-    </tr>
+    </StyledGroup>
   );
 }
 

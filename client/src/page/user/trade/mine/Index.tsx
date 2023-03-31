@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import TradeList from '@component/list/trade/TradeList';

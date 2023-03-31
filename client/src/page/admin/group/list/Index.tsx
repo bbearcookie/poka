@@ -9,15 +9,13 @@ import Group from './content/Group';
 import Col from '@component/table/styles/Col';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import { getErrorMessage } from '@util/request';
-import './Index.scss';
+import { StyledIndex } from './_styles';
 
-interface Props {}
-
-function GroupListPage({  }: Props) {
+function Index() {
   const { status, data: groups, error } = useGroupsQuery();
 
   return (
-    <main className="GroupListPage">
+    <StyledIndex>
       <TitleLabel title="그룹 목록" styles={{ marginBottom: "1em" }}>
         <Link to="/admin/group/writer">
           <Button
@@ -50,8 +48,8 @@ function GroupListPage({  }: Props) {
           {status === 'error' && <tr><td>{getErrorMessage(error)}</td></tr>}
         </tbody>
       </Table>
-    </main>
+    </StyledIndex>
   );
 }
 
-export default GroupListPage;
+export default Index;

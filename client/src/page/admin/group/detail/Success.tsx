@@ -1,4 +1,3 @@
-import React from 'react';
 import { ResType } from '@api/query/group/useGroupQuery';
 import GroupRemove from './content/GroupRemove';
 import GroupProfile from './content/GroupProfile';

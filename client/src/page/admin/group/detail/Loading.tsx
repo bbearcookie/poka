@@ -1,4 +1,3 @@
-import React from 'react';
 import SkeletonItem from '@component/skeleton/SkeletonItem';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
