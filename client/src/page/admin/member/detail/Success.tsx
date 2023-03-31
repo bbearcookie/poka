@@ -1,4 +1,3 @@
-import React from 'react';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { ResType as MemberType } from '@api/query/member/useMemberQuery';
 import Button from '@component/form/Button';

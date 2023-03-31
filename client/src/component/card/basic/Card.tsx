@@ -7,7 +7,6 @@ interface Props {
   styles?: StylesProps;
   children?: React.ReactNode;
 }
-const DefaultProps = {};
 
 function Card({ className, styles, children }: Props) {
   return (
@@ -22,6 +21,7 @@ export default Card;
 // 스타일 컴포넌트
 export interface StylesProps {
   display?: string;
+  flexGrow?: string;
   width?: string;
   minWidth?: string;
   maxWidth?: string;
@@ -41,6 +41,7 @@ export interface StylesProps {
 }
 const StyledCard = styled.article<StylesProps>`
   display: ${p => p.display};
+  flex-grow: ${p => p.flexGrow};
   width: ${p => p.width};
   min-width: ${p => p.minWidth};
   max-width: ${p => p.maxWidth};

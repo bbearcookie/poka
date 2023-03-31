@@ -7,17 +7,17 @@ import Upload from './content/Upload';
 import PhotoList from './content/PhotoList';
 import ButtonSection from './content/ButtonSection';
 import reducer, { initialState } from './reducer';
-import './Index.scss';
+import { StyledIndex } from './_styles';
 
-function PhotoWriterPage() {
+function Index() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
 
   // 데이터 추가 요청
   const postMutation = useAddPhotos<string>(
-    (res) => navigate('/admin/photo/list'),
-    (err) => {
-      err.response?.data.errors.forEach((item) => {
+    res => navigate('/admin/photo/list'),
+    err => {
+      err.response?.data.errors.forEach(item => {
         if (item.param === 'groupId' || item.param === 'memberId') {
           dispatch({ type: 'SET_MESSAGE', payload: { target: item.param, value: item.message } });
         } else if (item.param.substring(0, 5) === 'names') {
@@ -25,28 +25,30 @@ function PhotoWriterPage() {
           const index = Number(pattern.exec(item.param)?.at(1));
           dispatch({ type: 'SET_PHOTO_MESSAGE', idx: index, message: item.message });
         }
-      })
+      });
     }
   );
 
   // 전송시 작동
-  const onSubmit = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
 
-    const formData = new FormData();
-    formData.set('groupId', state.form.groupId.toString());
-    formData.set('memberId', state.form.memberId.toString());
-    state.form.photos.forEach((photo) => {
-      formData.append('names[]', photo.name);
-      formData.append('images[]', photo.imageFile);
-    });
-    postMutation.mutate(formData);
-
-  }, [state, postMutation]);
+      const formData = new FormData();
+      formData.set('groupId', state.form.groupId.toString());
+      formData.set('memberId', state.form.memberId.toString());
+      state.form.photos.forEach(photo => {
+        formData.append('names[]', photo.name);
+        formData.append('images[]', photo.imageFile);
+      });
+      postMutation.mutate(formData);
+    },
+    [state, postMutation]
+  );
 
   return (
-    <main className="PhotoWriterPage">
-      <TitleLabel title="포토카드 등록" styles={{ marginBottom: "1em" }} />
+    <StyledIndex>
+      <TitleLabel title="포토카드 등록" styles={{ marginBottom: '1em' }} />
       <form onSubmit={onSubmit}>
         <section className="info-section">
           <SelectCard state={state} dispatch={dispatch} />
@@ -55,8 +57,8 @@ function PhotoWriterPage() {
         <PhotoList state={state} dispatch={dispatch} />
         <ButtonSection />
       </form>
-    </main>
+    </StyledIndex>
   );
 }
 
-export default PhotoWriterPage;
+export default Index;

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getErrorMessage } from '@util/request';
 import useDeletePhoto from '@api/mutation/photo/useDeletePhoto';
@@ -19,8 +19,8 @@ function PhotoRemove({ photo, photocardId }: Props) {
   // 데이터 삭제 요청
   const deleteMutation = useDeletePhoto(
     photocardId,
-    (res) => navigate('/admin/photo/list'),
-    (err) => removeModal.setErrorMessage(getErrorMessage(err))
+    res => navigate('/admin/photo/list'),
+    err => removeModal.setErrorMessage(getErrorMessage(err))
   );
 
   // 포토카드 삭제
@@ -32,14 +32,19 @@ function PhotoRemove({ photo, photocardId }: Props) {
     <>
       <RemoveCard
         titleText="포토카드 삭제"
-        onClick={(e) => { e.stopPropagation(); removeModal.open(); }}
+        onClick={e => {
+          e.stopPropagation();
+          removeModal.open();
+        }}
       >
-        <p className="description">해당 포토카드를 삭제하면 연관된 사용자의 소유권도 모두 지워지니 신중히 삭제해주세요.</p>
+        <p className="description">
+          해당 포토카드를 삭제하면 연관된 사용자의 소유권도 모두 지워지니 신중히 삭제해주세요.
+        </p>
       </RemoveCard>
 
       <ConfirmModal
         hook={removeModal}
-        cardStyles={{ maxWidth: "100vh" }}
+        cardStyles={{ maxWidth: '100vh' }}
         titleName="포토카드 삭제"
         confirmText="삭제"
         handleConfirm={removePhotocard}

@@ -7,7 +7,6 @@ interface Props {
   styles?: StylesProps;
   children?: React.ReactNode;
 }
-const DefaultProps = {};
 
 export function CardBody({ className, styles, children }: Props) {
   return (

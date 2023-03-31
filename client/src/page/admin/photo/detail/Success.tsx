@@ -19,11 +19,7 @@ function Success({ photo, photocardId }: Props) {
   return (
     <>
       {editMode && (
-        <PhotoEditor
-          photo={photo}
-          photocardId={photocardId}
-          closeEditor={closeEditor}
-        />
+        <PhotoEditor photo={photo} photocardId={photocardId} closeEditor={closeEditor} />
       )}
       {!editMode && <PhotoInfo photo={photo} startEditor={startEditor} />}
       <PhotoRemove photo={photo} photocardId={photocardId} />
