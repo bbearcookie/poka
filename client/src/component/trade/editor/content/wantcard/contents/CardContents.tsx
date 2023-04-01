@@ -16,7 +16,7 @@ interface Props {
 function CardContents({ state, dispatch }: Props) {
   const photos = useQueries({
     queries: state.data.wantPhotocardIds.map(photocardId => ({
-      queryKey: queryKey.tradeKeys.writerWantcard(photocardId),
+      queryKey: queryKey.photoKeys.detail(photocardId),
       queryFn: async () => {
         return (await fetchPhotoDetail(photocardId)) as Promise<ResType>;
       },

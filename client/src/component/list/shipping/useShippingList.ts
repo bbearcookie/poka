@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useUpdateEffect } from 'react-use';
 import { useQueryClient } from '@tanstack/react-query';
 import { State as FilterState } from '@component/search/content/filter/reducer';

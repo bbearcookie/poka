@@ -29,7 +29,7 @@ export default function useVouchersQuery(
   options?: UseInfiniteQueryOptions<ResType, AxiosError<ResponseError>>
 ): UseInfiniteQueryResult<ResType, AxiosError<ResponseError>> {
   return useInfiniteQuery<ResType, AxiosError<ResponseError>>({
-    queryKey: queryKey.voucherKeys.all,
+    queryKey: queryKey.voucherKeys.list(filter),
     queryFn: ({ pageParam = 0 }) => fetchVouchers({ pageParam, filter }),
     getNextPageParam: (lastPage, pages) => {
       return lastPage.paging.hasNextPage && lastPage.paging.pageParam + 1;

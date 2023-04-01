@@ -2,7 +2,6 @@ import { useCallback } from 'react';
 import useVoucherQuery from '@api/query/voucher/useVoucherQuery';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { ModalHookType } from '@hook/useModal';
-import * as queryKey from '@api/queryKey';
 import Card from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
@@ -25,7 +24,6 @@ function CardWrapper({ ableToChange, modal, state, dispatch }: Props) {
   const { status, data: voucher } = useVoucherQuery(state.data.voucherId, {
     onError: err =>
       dispatch({ type: 'SET_MESSAGE', target: 'voucherId', value: getErrorMessage(err) }),
-    queryKey: queryKey.tradeKeys.writerVoucher(state.data.voucherId),
   });
 
   const openModal = useCallback(() => {

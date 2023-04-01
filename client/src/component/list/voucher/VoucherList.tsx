@@ -1,7 +1,5 @@
-import React, { Fragment, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { useUpdateEffect } from 'react-use';
-import { useQueryClient } from '@tanstack/react-query';
-import * as queryKey from '@api/queryKey';
 import useVouchersQuery, { FilterType } from '@api/query/voucher/useVouchersQuery';
 import { State as FilterState } from '@component/search/content/filter/reducer';
 import { State as KeywordState } from '@component/search/content/keyword/reducer';
@@ -28,7 +26,6 @@ function VoucherList({
   icon,
   handleSelect,
 }: Props) {
-  const queryClient = useQueryClient();
   const [refine, setRefine] = useState<FilterType>({
     groupIds: [],
     memberIds: [],
@@ -51,7 +48,6 @@ function VoucherList({
 
   // 데이터 리패칭
   useUpdateEffect(() => {
-    queryClient.removeQueries(queryKey.voucherKeys.all);
     refetch();
   }, [refine]);
 
