@@ -7,18 +7,18 @@ import IdolSelector from '@component/selector/IdolSelector';
 import TradeList from '@component/list/trade/TradeList';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import Button from '@component/form/Button';
-import './Index.scss';
+import { StyledIndex } from './_styles';
 
 function Index() {
   const { userId } = useAppSelector(state => state.auth);
   const selector = useIdolSelector();
 
   return (
-    <main className="TradeSearchPage">
+    <StyledIndex>
       <TitleLabel title="교환 찾기" styles={{ marginBottom: '2em' }} />
       <IdolSelector hook={selector} />
 
-      <section className="add-button-section">
+      <section className="button-section">
         <Link to="/trade/writer">
           <Button
             leftIcon={faPen}
@@ -42,7 +42,7 @@ function Index() {
         }}
         filter={{ ...selector, state: 'trading', excludeUserId: userId }}
       />
-    </main>
+    </StyledIndex>
   );
 }
 

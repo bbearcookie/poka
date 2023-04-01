@@ -10,6 +10,7 @@ import VoucherItem from '@component/voucher/item/VoucherItem';
 import Button from '@component/form/Button';
 import useModal from '@hook/useModal';
 import ConfirmModal from '@component/modal/ConfirmModal';
+import { CheckBoxInput } from './_styles';
 
 interface Props {
   trade: TradeItem;
@@ -88,7 +89,7 @@ function Exchange({ trade }: Props) {
         titleName="교환할 소유권 선택"
         confirmText="교환"
         confirmButtonTheme="pink"
-        cardStyles={{ width: "100vh" }}
+        cardStyles={{ width: '100vh' }}
         handleConfirm={handleExchange}
       >
         <ItemSection templateColumnsSize="minmax(11.25em, 1fr)" marginBottom="1em">
@@ -100,12 +101,10 @@ function Exchange({ trade }: Props) {
               voucherState={v.state}
               showOwner={false}
               item={
-                <input
-                  type="checkbox"
+                <CheckBoxInput
                   value={v.voucherId}
                   checked={select[v.voucherId] ? true : false}
                   onChange={onChangeSelect}
-                  readOnly
                 />
               }
             />

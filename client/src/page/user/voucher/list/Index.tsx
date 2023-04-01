@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import Card from '@component/card/basic/Card';
 import CardBody from '@component/card/basic/CardBody';
@@ -8,7 +8,7 @@ import VoucherList from '@component/list/voucher/VoucherList';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import { useNavigate } from 'react-router-dom';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import './Index.scss';
+import { StyledIndex } from './_styles';
 
 function Index() {
   const { filter, keyword, filterDispatch, keywordDispatch } = useSearcher();
@@ -29,7 +29,7 @@ function Index() {
   }, [navigate]);
 
   return (
-    <main className="InventoryPage">
+    <StyledIndex>
       <TitleLabel title="소유권 보관함" styles={{ marginBottom: "1em" }} />
       <Card>
         <CardBody>
@@ -55,7 +55,7 @@ function Index() {
           />}
         </CardBody>
       </Card>
-    </main>
+    </StyledIndex>
   );
 }
 

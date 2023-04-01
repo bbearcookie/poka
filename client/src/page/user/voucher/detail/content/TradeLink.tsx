@@ -17,22 +17,20 @@ function TradeLink({ res }: Props) {
     prev: { url: location.pathname, text: '소유권 상세정보' },
   };
 
+  if (status !== 'success') return <></>;
+
   return (
-    <>
-      {status === 'success' && (
-        <Link to={`/trade/detail/${trade.tradeId}`} state={locationState}>
-          <Button
-            leftIcon={faShareNodes}
-            styles={{
-              theme: 'mint',
-              iconMargin: '3em',
-            }}
-          >
-            교환글 보기
-          </Button>
-        </Link>
-      )}
-    </>
+    <Link to={`/trade/detail/${trade.tradeId}`} state={locationState}>
+      <Button
+        leftIcon={faShareNodes}
+        styles={{
+          theme: 'mint',
+          iconMargin: '3em',
+        }}
+      >
+        교환글 보기
+      </Button>
+    </Link>
   );
 }
 
