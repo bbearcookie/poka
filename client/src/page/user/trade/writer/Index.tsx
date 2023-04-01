@@ -31,7 +31,7 @@ function Index() {
 
   return (
     <StyledIndex>
-      <TitleLabel title="교환 등록하기" styles={{ marginBottom: '2em' }} />
+      <TitleLabel title="교환 등록" styles={{ marginBottom: '2em' }} />
       <div className="voucher-section">
         <Voucher state={state} dispatch={dispatch} />
       </div>

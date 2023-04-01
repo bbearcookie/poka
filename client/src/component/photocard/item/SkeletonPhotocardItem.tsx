@@ -14,11 +14,8 @@ function SkeletonPhotocardItem({ children }: Props) {
         <PhotoName />
         <section className="info-section">
           <section className="member-section">
-            <SkeletonItem
-              className="member-name"
-              styles={{ height: '1.312em' }}
-            />
-            <SkeletonItem styles={{ margin: '0.4em 0 0.4em 0', height: '1.312em' }} />
+            <SkeletonItem className="member-name" styles={{ width: '5em', height: '1.312em' }} />
+            <SkeletonItem styles={{ margin: '0.4em 0 0.4em 0', width: '5em', height: '1.312em' }} />
           </section>
         </section>
       </main>

@@ -5,9 +5,8 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import ProfilePage from '@page/user/profile/Index';
 import VoucherListPage from '@page/user/voucher/list/Index';
 import VoucherDetailPage from '@page/user/voucher/detail/Index';
-import NewTradeWriterPage from '@page/user/trade/new-writer/Index';
-import TradeWriterPage from '@page/user/trade/writer/WriterIndex';
-import TradeEditorPage from '@page/user/trade/writer/EditorIndex';
+import TradeWriterPage from '@page/user/trade/writer/Index';
+import TradeEditorPage from '@page/user/trade/editor/Index';
 import TradeMinePage from '@page/user/trade/mine/Index';
 import TradeSearchPage from '@page/user/trade/search/Index';
 import TradeDetailPage from '@page/user/trade/detail/Index';
@@ -35,7 +34,6 @@ function UserRouter() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/voucher/list" element={<VoucherListPage />} />
         <Route path="/voucher/detail/:voucherId" element={<VoucherDetailPage />} />
-        <Route path="/trade/writer/new" element={<NewTradeWriterPage />} />
         <Route path="/trade/writer" element={<TradeWriterPage />} />
         <Route path="/trade/editor/:tradeId" element={<TradeEditorPage />} />
         <Route path="/trade/mine" element={<TradeMinePage />} />

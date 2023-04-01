@@ -27,10 +27,11 @@ export const initialState: State = {
 };
 
 export type Action =
+  | { type: 'SET_DATA'; payload: FormType }
   | { type: 'SET_VOUCHER_ID'; payload: number }
   | { type: 'SET_AMOUNT'; payload: number }
-  | { type: 'ADD_WANT_PHOTOCARD_ID'; payload: number }
-  | { type: 'REMOVE_WANT_PHOTOCARD_ID'; payload: number }
+  | { type: 'ADD_PHOTO'; payload: number }
+  | { type: 'REMOVE_PHOTO'; payload: number }
   | {
       type: 'SET_MESSAGE';
       target: keyof FormType;
@@ -39,6 +40,12 @@ export type Action =
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
+    // 전체 폼 값 변경
+    case 'SET_DATA':
+      return produce(state, draft => {
+        draft.data = action.payload;
+      });
+
     // 사용할 소유권 선택
     case 'SET_VOUCHER_ID':
       return produce(state, draft => {
@@ -52,7 +59,7 @@ export const reducer = (state: State, action: Action): State => {
       });
 
     // 받으려는 포토카드 추가
-    case 'ADD_WANT_PHOTOCARD_ID':
+    case 'ADD_PHOTO':
       return produce(state, draft => {
         if (state.data.wantPhotocardIds.includes(action.payload))
           draft.data.wantPhotocardIds = state.data.wantPhotocardIds;
@@ -60,7 +67,7 @@ export const reducer = (state: State, action: Action): State => {
       });
 
     // 받으려는 포토카드에서 특정 포토카드 제거
-    case 'REMOVE_WANT_PHOTOCARD_ID':
+    case 'REMOVE_PHOTO':
       return produce(state, draft => {
         draft.data.wantPhotocardIds = state.data.wantPhotocardIds.filter(
           item => item !== action.payload

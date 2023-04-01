@@ -22,7 +22,7 @@ function Modal({ modal, state, dispatch }: Props) {
           autoClose: 2000,
           position: toast.POSITION.BOTTOM_RIGHT,
         });
-      dispatch({ type: 'ADD_WANT_PHOTOCARD_ID', payload: photocardId });
+      dispatch({ type: 'ADD_PHOTO', payload: photocardId });
       dispatch({ type: 'SET_MESSAGE', target: 'wantPhotocardIds', value: '' });
       dispatch({ type: 'SET_MESSAGE', target: 'amount', value: '' });
       modal.close();
