@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import { useState, Fragment } from 'react';
 import { useUpdateEffect } from 'react-use';
 import usePhotosQuery, { FilterType } from '@api/query/photo/usePhotosQuery';
 import NextPageFetcher from '@component/list/content/NextPageFetcher';

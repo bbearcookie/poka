@@ -30,7 +30,6 @@ function Index() {
       </section>
 
       <TradeList
-        queryKey={queryKey.tradeKeys.mine()}
         location={{
           to: '/trade/detail',
           state: {

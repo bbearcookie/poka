@@ -12,7 +12,6 @@ function Index() {
       <TitleLabel title="내가 등록한 교환" styles={{ marginBottom: '2em' }} />
 
       <TradeList
-        queryKey={queryKey.tradeKeys.mine()}
         location={{
           to: '/trade/detail',
           state: {

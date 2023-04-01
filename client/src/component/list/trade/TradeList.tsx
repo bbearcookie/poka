@@ -2,16 +2,13 @@ import { Fragment, useCallback } from 'react';
 import produce from 'immer';
 import { useUpdateEffect } from 'react-use';
 import { useAppSelector } from '@app/redux/reduxHooks';
-import { useQueryClient } from '@tanstack/react-query';
 import TradeItem from '@component/trade/item/TradeItem';
 import NextPageFetcher from '@component/list/content/NextPageFetcher';
 import useTradesQuery, { FilterType } from '@api/query/trade/useTradesQuery';
-import { tradeKeys } from '@api/queryKey';
 import { StyledTradeList } from './_styles';
 import { LocationState } from '@type/react-router';
 
 interface Props {
-  queryKey: ReturnType<typeof tradeKeys.mine> | ReturnType<typeof tradeKeys.search>;
   filter: FilterType;
   location?: {
     to: string;
@@ -19,9 +16,8 @@ interface Props {
   };
 }
 
-function TradeList({ queryKey, filter, location = { to: '#' } }: Props) {
+function TradeList({ filter, location = { to: '#' } }: Props) {
   const { userId } = useAppSelector(state => state.auth);
-  const queryClient = useQueryClient();
 
   const {
     data: trades,
@@ -29,13 +25,12 @@ function TradeList({ queryKey, filter, location = { to: '#' } }: Props) {
     hasNextPage,
     refetch,
     fetchNextPage,
-  } = useTradesQuery(queryKey, filter, { enabled: userId !== 0 });
+  } = useTradesQuery(filter, { enabled: userId !== 0 });
 
   // 검색 필터 변경시 데이터 리패칭
   const handleRefetch = useCallback(async () => {
-    queryClient.removeQueries(queryKey);
     refetch();
-  }, [queryClient, refetch, queryKey]);
+  }, [refetch]);
   useUpdateEffect(() => {
     handleRefetch();
   }, [filter]);

@@ -1,4 +1,3 @@
-import React from 'react';
 import { IconType } from '@type/icon';
 import useSearcher from '@component/search/useSearcher';
 import Searcher from '@component/search/Searcher';
