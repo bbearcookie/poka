@@ -7,7 +7,16 @@ export const VoucherStateText: {
   trading: '교환중',
   shipping: '배송대기',
   shipped: '배송완료',
-}
+};
+
+export type VoucherLogStateKey = 'issued' | 'traded' | 'shipped';
+export const VoucherLogStateText: {
+  [k in VoucherLogStateKey]: string;
+} = {
+  issued: '발급',
+  traded: '교환',
+  shipped: '배송'
+};
 
 export type TradeStateKey = 'all' | 'trading' | 'traded';
 export const TradeStateText: {
@@ -15,8 +24,8 @@ export const TradeStateText: {
 } = {
   all: '전체',
   trading: '대기중',
-  traded: '완료'
-}
+  traded: '완료',
+};
 
 export type ShippingStateKey = 'all' | 'waiting' | 'shipped';
 export const ShippingStateText: {
@@ -24,8 +33,8 @@ export const ShippingStateText: {
 } = {
   all: '전체',
   waiting: '대기중',
-  shipped: '완료'
-}
+  shipped: '완료',
+};
 
 export type PaymentStateKey = 'all' | 'waiting' | 'paid' | 'forgeried';
 export const PaymentStateText: {
@@ -35,4 +44,4 @@ export const PaymentStateText: {
   waiting: '미결제',
   paid: '완료',
   forgeried: '위조',
-}
+};

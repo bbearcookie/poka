@@ -2,23 +2,19 @@ import React from 'react';
 import { Profile } from './UserProfile';
 import SkeletonItem from '@component/skeleton/SkeletonItem';
 
-interface Props {
-}
-const DefaultProps = {};
-
-function SkeletonUserProfile({  }: Props) {
+function SkeletonUserProfile() {
   return (
     <Profile>
       <SkeletonItem
         styles={{
-          width: "75px",
-          height: "75px",
-          borderRadius: "50px"
+          width: '75px',
+          height: '75px',
+          borderRadius: '50px',
         }}
       />
       <div>
-        <SkeletonItem styles={{ margin: "0.5rem 0" }} />
-        <SkeletonItem styles={{ margin: "0.5rem 0" }} />
+        <SkeletonItem styles={{ width: '7em', height: '1.5em', margin: '0.5rem 0' }} />
+        <SkeletonItem styles={{ width: '7em', height: '1.5em', margin: '0.5rem 0' }} />
       </div>
     </Profile>
   );

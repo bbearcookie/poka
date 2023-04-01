@@ -7,7 +7,6 @@ interface Props {
   styles?: StylesProps;
   children?: React.ReactNode;
 }
-const DefaultProps = {};
 
 function CardList({ className, styles, children }: Props) {
   return (
