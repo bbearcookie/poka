@@ -1,4 +1,3 @@
-import React from 'react';
 import { ResType } from '@api/query/shipping/useShippingRequestQuery';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import ShippingRequestInfo from '@component/shipping/request/ShippingRequestInfo';

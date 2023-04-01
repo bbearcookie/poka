@@ -3,18 +3,18 @@ import useVoucherQuery from '@api/query/voucher/useVoucherQuery';
 import { useParams } from 'react-router-dom';
 import BackLabel from '@component/label/BackLabel';
 import Success from './Success';
-import './Index.scss';
+import { StyledIndex } from './_styles';
 
-function VoucherDetailPage() {
+function Index() {
   const voucherId = Number(useParams().voucherId);
-  const { status, data: voucher, error } = useVoucherQuery(voucherId);
+  const { status, data: voucher } = useVoucherQuery(voucherId);
   
   return (
-    <main className="VoucherDetailPage">
+    <StyledIndex>
       <BackLabel to="/admin/voucher/list" styles={{ marginBottom: "2em" }}>소유권 목록</BackLabel>
       {status === 'success' && <Success res={voucher} />}
-    </main>
+    </StyledIndex>
   );
 }
 
-export default VoucherDetailPage;
+export default Index;

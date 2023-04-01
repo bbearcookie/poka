@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import Card from '@component/card/basic/Card';
@@ -7,7 +7,7 @@ import useSearcher from '@component/search/useSearcher';
 import Searcher from '@component/search/Searcher';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import VoucherList from '@component/list/voucher/VoucherList';
-import './Index.scss';
+import { StyledIndex } from './_styles';
 
 function Index() {
   const { filter, keyword, filterDispatch, keywordDispatch } = useSearcher();
@@ -22,7 +22,7 @@ function Index() {
   );
 
   return (
-    <main className="VoucherListPage">
+    <StyledIndex>
       <TitleLabel title="소유권 목록" styles={{ marginBottom: '1em' }} />
 
       <Card>
@@ -51,7 +51,7 @@ function Index() {
           />
         </CardBody>
       </Card>
-    </main>
+    </StyledIndex>
   );
 }
 
