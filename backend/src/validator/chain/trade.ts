@@ -1,13 +1,13 @@
 import { body } from 'express-validator';
 
 export interface TradeForm {
-  haveVoucherId: number;
+  voucherId: number;
   wantPhotocardIds: number[];
   amount: number;
 }
 
 export const TradeFormValidator = [
-  body('haveVoucherId')
+  body('voucherId')
     .customSanitizer(v => Number(v))
     .isNumeric().withMessage('소유권 ID는 숫자여야 해요.').bail()
     .custom((value) => Number(value) > 0).withMessage('등록할 소유권을 선택해주세요.').bail(),

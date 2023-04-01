@@ -10,14 +10,18 @@ import './Index.scss';
 function WriterIndex() {
   const querystring = qs.parse(window.location.search, { ignoreQueryPrefix: true });
   const voucherId = Number(querystring.voucherId) || 0;
-  const [form, formDispatch] = useReducer(reducer, initialState, produce(draft => {
-    draft.data.haveVoucherId = voucherId;
-  }));
+  const [form, formDispatch] = useReducer(
+    reducer,
+    initialState,
+    produce(draft => {
+      draft.data.haveVoucherId = voucherId;
+    })
+  );
   const navigate = useNavigate();
 
   const postMutation = useAddTrade<keyof FormType>(
-    (res) => navigate('/trade/list'),
-    (err) => {
+    res => navigate('/trade/list'),
+    err => {
       err.response?.data.errors.forEach(item => {
         formDispatch({ type: 'SET_MESSAGE', target: item.param, value: item.message });
       });
@@ -25,21 +29,14 @@ function WriterIndex() {
   );
 
   const onSubmit = useCallback(() => {
-    postMutation.mutate({
-      haveVoucherId: form.data.haveVoucherId,
-      wantPhotocardIds: form.data.wantPhotocardIds,
-      amount: form.data.amount
-    });
+    // postMutation.mutate({
+    //   voucherId: form.data.haveVoucherId,
+    //   wantPhotocardIds: form.data.wantPhotocardIds,
+    //   amount: form.data.amount,
+    // });
   }, [form, postMutation]);
 
-  return (
-    <Component
-      titleText="등록"
-      form={form}
-      formDispatch={formDispatch}
-      onSubmit={onSubmit}
-    />
-  );
+  return <Component titleText="등록" form={form} formDispatch={formDispatch} onSubmit={onSubmit} />;
 }
 
 export default WriterIndex;

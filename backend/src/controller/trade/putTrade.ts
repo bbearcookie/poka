@@ -30,7 +30,7 @@ const validator = [
 const controller = async (req: Request, res: Response, next: NextFunction) => {
   const loggedUser = req.user as LoginToken;
   const { tradeId } = req.params as unknown as Params;
-  const { haveVoucherId, wantPhotocardIds, amount } = req.body as Body;
+  const { voucherId, wantPhotocardIds, amount } = req.body as Body;
   
   // 사용자 정보 확인
   const [[user]] = await selectUser(loggedUser.userId);
@@ -43,10 +43,10 @@ const controller = async (req: Request, res: Response, next: NextFunction) => {
   if (!isAdminOrOwner(loggedUser, trade.userId)) return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
 
   // 소유권 정보 확인
-  const [[voucher]] = await selectVoucherDetail(haveVoucherId);
-  if (!voucher) return res.status(404).json(createResponseMessage('haveVoucherId', '사용하려는 소유권이 존재하지 않아요.'));
-  if (voucher.state !== 'available' && voucher.voucherId !== trade.voucher.voucherId) return res.status(404).json(createResponseMessage('haveVoucherId', '사용하려는 소유권이 이용 가능한 상태가 아니에요.'));
-  if (voucher.owner.userId !== user.userId) return res.status(404).json(createResponseMessage('haveVoucherId', '사용하려는 소유권이 당신의 것이 아니에요.'));
+  const [[voucher]] = await selectVoucherDetail(voucherId);
+  if (!voucher) return res.status(404).json(createResponseMessage('voucherId', '사용하려는 소유권이 존재하지 않아요.'));
+  if (voucher.state !== 'available' && voucher.voucherId !== trade.voucher.voucherId) return res.status(404).json(createResponseMessage('voucherId', '사용하려는 소유권이 이용 가능한 상태가 아니에요.'));
+  if (voucher.owner.userId !== user.userId) return res.status(404).json(createResponseMessage('voucherId', '사용하려는 소유권이 당신의 것이 아니에요.'));
 
   // 받을 포토카드와 일치하는 소유권은 사용 불가능
   for (let photoId of wantPhotocardIds) {
@@ -58,7 +58,7 @@ const controller = async (req: Request, res: Response, next: NextFunction) => {
   // 교환글 수정
   await updateTrade({
     trade,
-    voucherId: haveVoucherId,
+    voucherId,
     amount,
     wantPhotocardIds
   });

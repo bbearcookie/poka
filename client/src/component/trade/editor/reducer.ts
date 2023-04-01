@@ -1,7 +1,7 @@
 import produce from 'immer';
 
 export interface FormType {
-  haveVoucherId: number;
+  voucherId: number;
   wantPhotocardIds: number[];
   amount: number;
 }
@@ -15,12 +15,12 @@ export interface State {
 
 export const initialState: State = {
   data: {
-    haveVoucherId: 0,
+    voucherId: 0,
     wantPhotocardIds: [],
     amount: 0,
   },
   message: {
-    haveVoucherId: '',
+    voucherId: '',
     wantPhotocardIds: '',
     amount: '',
   },
@@ -42,7 +42,7 @@ export const reducer = (state: State, action: Action): State => {
     // 사용할 소유권 선택
     case 'SET_VOUCHER_ID':
       return produce(state, draft => {
-        draft.data.haveVoucherId = action.payload;
+        draft.data.voucherId = action.payload;
       });
 
     // 받으려는 포토카드 수량 설정
@@ -72,6 +72,7 @@ export const reducer = (state: State, action: Action): State => {
       return produce(state, draft => {
         draft.message[action.target] = action.value;
       });
+
     default:
       return { ...state };
   }

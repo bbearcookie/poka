@@ -16,13 +16,13 @@ function EditorIndex() {
 
   const putMutation = useModifyTrade<keyof FormType>(
     tradeId || 0,
-    (res) => navigate(`/trade/detail/${tradeId}`),
-    (err) => {
+    res => navigate(`/trade/detail/${tradeId}`),
+    err => {
       err.response?.data.errors.forEach(item => {
         formDispatch({ type: 'SET_MESSAGE', target: item.param, value: item.message });
       });
     }
-  )
+  );
 
   useEffect(() => {
     if (!trade) return;
@@ -30,25 +30,18 @@ function EditorIndex() {
     formDispatch({ type: 'SET_VOUCHER_ID', payload: trade.voucher.voucherId });
     trade.wantcards.forEach(item => {
       formDispatch({ type: 'ADD_WANT_PHOTOCARD_ID', payload: item.photocardId });
-    })
+    });
   }, [trade]);
 
   const onSubmit = useCallback(() => {
     putMutation.mutate({
       haveVoucherId: form.data.haveVoucherId,
       wantPhotocardIds: form.data.wantPhotocardIds,
-      amount: form.data.amount
+      amount: form.data.amount,
     });
   }, [form, putMutation]);
 
-  return (
-    <Component
-      titleText="수정"
-      form={form}
-      formDispatch={formDispatch}
-      onSubmit={onSubmit}
-    />
-  );
+  return <Component titleText="수정" form={form} formDispatch={formDispatch} onSubmit={onSubmit} />;
 }
 
 export default EditorIndex;

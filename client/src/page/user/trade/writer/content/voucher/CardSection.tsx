@@ -70,7 +70,11 @@ function CardSection({ form, formDispatch, addModal }: Props) {
           )}
           {status === 'loading' && form.data.haveVoucherId > 0 && <SkeletonPhotoInfo />}
         </ItemSection>
-        {form.message.haveVoucherId && <InputMessage styles={{ margin: '0 0 0.5em 0' }}>{form.message.haveVoucherId}</InputMessage>}
+        {form.message.haveVoucherId && (
+          <InputMessage styles={{ margin: '0 0 0.5em 0' }}>
+            {form.message.haveVoucherId}
+          </InputMessage>
+        )}
         <p className="description">타인과 교환하기를 원하는 소유권을 선택합니다.</p>
       </CardBody>
     </Card>

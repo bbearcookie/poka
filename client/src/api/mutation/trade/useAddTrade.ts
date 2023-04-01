@@ -6,7 +6,7 @@ import { getErrorMessage } from '@util/request';
 import { addTrade } from '@api/api/trade';
 
 interface BodyType {
-  haveVoucherId: number;
+  voucherId: number;
   wantPhotocardIds: number[];
   amount: number;
 }

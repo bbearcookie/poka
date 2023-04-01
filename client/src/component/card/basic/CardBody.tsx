@@ -35,5 +35,6 @@ const StyledCardBody = styled.main<StylesProps>`
   min-height: ${p => p.minHeight};
   color: ${p => p.color};
 
+  &:empty { display: none; }
   .title { margin: 0 0 1em 0; }
 `
