@@ -5,7 +5,7 @@ import * as queryKey from '@api/queryKey';
 import { TradeHistory } from '@type/trade';
 import { fetchUserTradeHistory } from '@api/api/trade';
 
-interface FilterType {
+export interface FilterType {
   startDate: Date;
   endDate: Date;
 }
@@ -25,7 +25,7 @@ export default function useUserTradeHistoryQuery(
   options?: UseInfiniteQueryOptions<ResType, AxiosError<ResponseError>>
 ): UseInfiniteQueryResult<ResType, AxiosError<ResponseError>> {
   return useInfiniteQuery<ResType, AxiosError<ResponseError>>({
-    queryKey: queryKey.userKeys.tradeHistory(userId),
+    queryKey: queryKey.tradeKeys.history(filter),
     queryFn: ({ pageParam = 0 }) => fetchUserTradeHistory(userId, { pageParam, filter }),
     getNextPageParam: (lastPage, pages) => {
       return lastPage.paging.hasNextPage && lastPage.paging.pageParam + 1;

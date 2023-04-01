@@ -2,6 +2,7 @@ import { FilterType as VoucherFilter } from '@api/query/voucher/useVouchersQuery
 import { FilterType as PhotoFilter } from '@api/query/photo/usePhotosQuery';
 import { FilterType as ShippingFilter } from '@api/query/shipping/useShippingsQuery';
 import { FilterType as TradeFilter } from '@api/query/trade/useTradesQuery';
+import { FilterType as TradeHistoryFilter } from '@api/query/trade/useUserTradeHistoryQuery';
 
 export const groupKeys = {
   all: ['group'] as const,
@@ -31,7 +32,6 @@ export const voucherKeys = {
 export const userKeys = {
   all: ['user'] as const,
   profile: (userId: number) => [...userKeys.all, 'profile', userId] as const,
-  tradeHistory: (userId: number) => [...userKeys.all, 'trade-history', userId] as const,
 };
 
 export const addressKeys = {
@@ -43,6 +43,7 @@ export const tradeKeys = {
   all: ['trade'] as const,
   list: (filter: TradeFilter) => [...tradeKeys.all, 'list', filter] as const,
   detail: (tradeId: number) => [...tradeKeys.all, tradeId] as const,
+  history: (filter: TradeHistoryFilter) => [...tradeKeys.all, 'history', filter] as const, // 교환 내역 목록
   exchange: (tradeId: number) => [...tradeKeys.detail(tradeId), 'exchange'] as const, // 로그인된 사용자가 특정 교환글이 원하는 포토카드 중에서 가지고 있는 소유권 정보
 };
 

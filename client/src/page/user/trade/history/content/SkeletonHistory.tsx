@@ -7,16 +7,28 @@ import SkeletonPhotoInfo from '@component/photocard/info/SkeletonPhotoInfo';
 function SkeletonHistory() {
   return (
     <>
-      <CardListItem title={<SkeletonItem styles={{ height: '1.75em' }} />} styles={{ borderBottom: 'none' }}>
+      <CardListItem
+        title={<SkeletonItem styles={{ width: '5em', height: '1.75em' }} />}
+        styles={{ borderBottom: 'none' }}
+      >
         <SkeletonPhotoInfo />
       </CardListItem>
-      <CardListItem title={<SkeletonItem styles={{ height: '1.75em' }} />} styles={{ borderBottom: 'none' }}>
+      <CardListItem
+        title={<SkeletonItem styles={{ width: '5em', height: '1.75em' }} />}
+        styles={{ borderBottom: 'none' }}
+      >
         <SkeletonUserProfile />
       </CardListItem>
-      <CardListItem title={<SkeletonItem styles={{ height: '1.75em' }} />} styles={{ borderBottom: 'none' }}>
+      <CardListItem
+        title={<SkeletonItem styles={{ width: '5em', height: '1.75em' }} />}
+        styles={{ borderBottom: 'none' }}
+      >
         <SkeletonUserProfile />
       </CardListItem>
-      <CardListItem title={<SkeletonItem styles={{ height: '1.75em' }} />} styles={{ borderBottom: 'none' }}>
+      <CardListItem
+        title={<SkeletonItem styles={{ width: '5em', height: '1.75em' }} />}
+        styles={{ borderBottom: 'none' }}
+      >
         <SkeletonItem styles={{ width: '15em', height: '1.75em' }} />
       </CardListItem>
     </>
