@@ -2,9 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { useUpdateEffect } from 'react-use';
 import { useQueryClient } from '@tanstack/react-query';
 import * as queryKey from '@api/queryKey';
-import useVouchersQuery, {
-  FilterType,
-} from '@api/query/voucher/useVouchersQuery';
+import useVouchersQuery, { FilterType } from '@api/query/voucher/useVouchersQuery';
 import { State as FilterState } from '@component/search/content/filter/reducer';
 import { State as KeywordState } from '@component/search/content/keyword/reducer';
 import { IconType } from '@type/icon';
@@ -60,14 +58,10 @@ function VoucherList({
   // 검색 조건 변경시 새로운 필터 적용
   useUpdateEffect(() => {
     setRefine({
-      groupIds: filter.groups.filter((g) => g.checked).map((g) => g.id),
-      memberIds: filter.members.filter((m) => m.checked).map((m) => m.id),
-      photoNames: keyword.keywords
-        .filter((k) => k.category === 'photoName')
-        .map((k) => k.value),
-      userNames: keyword.keywords
-        .filter((k) => k.category === 'userName')
-        .map((k) => k.value),
+      groupIds: filter.groups.filter(g => g.checked).map(g => g.id),
+      memberIds: filter.members.filter(m => m.checked).map(m => m.id),
+      photoNames: keyword.keywords.filter(k => k.category === 'photoName').map(k => k.value),
+      userNames: keyword.keywords.filter(k => k.category === 'userName').map(k => k.value),
       excludeVoucherIds: excludeVoucherIds || [],
       voucherState: filter.voucherState,
     });
@@ -95,10 +89,7 @@ function VoucherList({
           <SkeletonVoucherItem key={i} showOwner={showOwner} />
         ))}
 
-      <NextPageFetcher
-        hasNextPage={hasNextPage}
-        fetchNextPage={fetchNextPage}
-      />
+      <NextPageFetcher hasNextPage={hasNextPage} fetchNextPage={fetchNextPage} />
     </ItemSection>
   );
 }

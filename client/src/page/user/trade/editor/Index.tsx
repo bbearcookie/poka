@@ -77,7 +77,7 @@ function Index() {
       <StyledIndex>
         <TitleLabel title="교환 수정" styles={{ marginBottom: '2em' }} />
         <div className="voucher-section">
-          <Voucher state={state} dispatch={dispatch} />
+          <Voucher ableToChange={false} state={state} dispatch={dispatch} />
         </div>
         <div className="wantcard-section">
           <WantPhotocard state={state} dispatch={dispatch} />

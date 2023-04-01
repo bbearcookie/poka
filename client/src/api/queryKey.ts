@@ -36,7 +36,7 @@ export const tradeKeys = {
   all: ['trade'] as const,
   search: () => [...tradeKeys.all, 'search'] as const, // 교환 찾기에서 보여줄 교환글 목록
   mine: () => [...tradeKeys.all, 'mine'] as const, // 내 교환에서 보여줄 교환글 목록
-  writerVoucher: () => [...tradeKeys.all, 'writer', ...voucherKeys.all] as const, // 교환글 작성 화면에서 사용할 소유권의 상세 정보
+  writerVoucher: (voucherId: number) => [...tradeKeys.all, 'writer', ...voucherKeys.detail(voucherId)] as const, // 교환글 작성 화면에서 사용할 소유권의 상세 정보
   writerWantcard: (photocardId: number) =>
     [...tradeKeys.all, 'writer', ...photoKeys.detail(photocardId)] as const, // 교환글 작성 화면에서 사용할 소유권의 상세 정보
   detail: (tradeId: number) => [...tradeKeys.all, tradeId] as const,

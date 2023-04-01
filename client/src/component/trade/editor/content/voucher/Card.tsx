@@ -15,16 +15,17 @@ import { getErrorMessage } from '@util/request';
 import { State, Action } from '../../reducer';
 
 interface Props {
+  ableToChange?: boolean;
   modal: ModalHookType;
   state: State;
   dispatch: React.Dispatch<Action>;
 }
 
-function CardWrapper({ modal, state, dispatch }: Props) {
+function CardWrapper({ ableToChange, modal, state, dispatch }: Props) {
   const { status, data: voucher } = useVoucherQuery(state.data.voucherId, {
     onError: err =>
       dispatch({ type: 'SET_MESSAGE', target: 'voucherId', value: getErrorMessage(err) }),
-    queryKey: queryKey.tradeKeys.writerVoucher()
+    queryKey: queryKey.tradeKeys.writerVoucher(state.data.voucherId),
   });
 
   const openModal = useCallback(() => {
@@ -37,18 +38,20 @@ function CardWrapper({ modal, state, dispatch }: Props) {
     <Card>
       <CardHeader>
         <TitleLabel title="등록할 소유권">
-          <Button
-            leftIcon={faAdd}
-            styles={{
-              height: 'fit-content',
-              theme: 'primary',
-              padding: '0.7em 1.3em',
-              iconMargin: '1em',
-            }}
-            onClick={openModal}
-          >
-            선택
-          </Button>
+          {ableToChange && (
+            <Button
+              leftIcon={faAdd}
+              styles={{
+                height: 'fit-content',
+                theme: 'primary',
+                padding: '0.7em 1.3em',
+                iconMargin: '1em',
+              }}
+              onClick={openModal}
+            >
+              선택
+            </Button>
+          )}
         </TitleLabel>
       </CardHeader>
       <CardBody>
