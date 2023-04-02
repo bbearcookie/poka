@@ -8,7 +8,7 @@ export interface FormType {
 
 export interface State {
   form: FormType;
-  message: {[k in keyof FormType]: string};
+  message: { [k in keyof FormType]: string };
 }
 
 export const initialState: State = {
@@ -17,25 +17,25 @@ export const initialState: State = {
     image: {
       file: null,
       initialURL: '',
-      previewURL: ''
-    }
+      previewURL: '',
+    },
   },
   message: {
     nickname: '',
-    image: ''
-  }
-}
+    image: '',
+  },
+};
 
 export type Action =
-| { type: 'SET_NICKNAME'; nickname: string; }
-| { type: 'SET_IMAGE'; image: Image; }
-| { 
-  type: 'SET_MESSAGE';
-  target: keyof FormType;
-  value: string;
-}
+  | { type: 'SET_NICKNAME'; nickname: string }
+  | { type: 'SET_IMAGE'; image: Image }
+  | {
+      type: 'SET_MESSAGE';
+      target: keyof FormType;
+      value: string;
+    };
 
-const reducer = (state: State, action: Action): State => {
+export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'SET_NICKNAME':
       return produce(state, draft => {
@@ -44,7 +44,7 @@ const reducer = (state: State, action: Action): State => {
     case 'SET_IMAGE':
       return produce(state, draft => {
         draft.form.image = action.image;
-      })
+      });
     case 'SET_MESSAGE':
       return produce(state, draft => {
         draft.message[action.target] = action.value;
@@ -52,5 +52,4 @@ const reducer = (state: State, action: Action): State => {
     default:
       return state;
   }
-}
-export default reducer;
+};

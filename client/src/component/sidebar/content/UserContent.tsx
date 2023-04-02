@@ -34,7 +34,7 @@ function UserContent() {
       </ul>
       <ul className="category">
         <li className="subheader-label">마이페이지</li>
-        <ChildItem to="/profile" icon={faIdCard} text="프로필" />
+        <ChildItem to="/myinfo" icon={faIdCard} text="내 정보" />
         <ChildItem to="/question" icon={faPersonCircleQuestion} text="문의사항" />
       </ul>
     </>

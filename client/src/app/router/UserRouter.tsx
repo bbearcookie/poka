@@ -2,7 +2,7 @@ import React from 'react';
 import { getUser } from '@util/auth/auth';
 import { useAppSelector } from "@app/redux/reduxHooks";
 import { Route, Routes, Navigate } from "react-router-dom";
-import ProfilePage from '@page/user/profile/Index';
+import MyInfoPage from '@page/user/myinfo/Index';
 import VoucherListPage from '@page/user/voucher/list/Index';
 import VoucherDetailPage from '@page/user/voucher/detail/Index';
 import TradeWriterPage from '@page/user/trade/writer/Index';
@@ -31,7 +31,7 @@ function UserRouter() {
             <div>{role}</div>
           </>
         } />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/myinfo" element={<MyInfoPage />} />
         <Route path="/voucher/list" element={<VoucherListPage />} />
         <Route path="/voucher/detail/:voucherId" element={<VoucherDetailPage />} />
         <Route path="/trade/writer" element={<TradeWriterPage />} />

@@ -20,8 +20,6 @@ function ErrorCard({ styles, error }: Props) {
       </CardHeader>
       <CardBody>
         <p>{typeof error === 'string' ? error : getErrorMessage(error)}</p>
-        {/* {error && <p>{getErrorMessage(error)}</p>} */}
-        {/* {!error && <p>오류 발생</p>} */}
       </CardBody>
     </Card>
   );
