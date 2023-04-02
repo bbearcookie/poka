@@ -12,8 +12,8 @@ function Index() {
     <StyledIndex>
       <TitleLabel title="마이페이지" styles={{ marginBottom: "1em" }} />
       <Profile userId={userId} />
-      {/* <NewShipping userId={userId} /> */}
-      <Shipping />
+      <NewShipping userId={userId} />
+      {/* <Shipping /> */}
     </StyledIndex>
   );
 }

@@ -2,26 +2,27 @@ import React from 'react';
 import Address from '@component/shipping/address/item/Address';
 import { IconSection } from '@component/shipping/address/item/_styles';
 import { Address as AddressType } from '@type/shipping';
-import Prime from './Prime';
-import Edit from './Edit';
-import Remove from './Remove';
+import Prime from './content/Prime';
+import Edit from './content/Edit';
+import Remove from './content/Remove';
 
-interface Props extends AddressType {
+interface Props {
+  address: AddressType
   startEditor: () => void;
 }
 
-function AddressInfo(props: Props) {
-  const { addressId, startEditor } = props;
+function Info(props: Props) {
+  const { address, startEditor } = props;
 
   return (
-    <Address {...props}>
+    <Address {...address}>
       <IconSection>
-        <Prime addressId={addressId} />
+        <Prime addressId={address.addressId} />
         <Edit startEditor={startEditor} />
-        <Remove {...props} />
+        <Remove {...address} />
       </IconSection>
     </Address>
   );
 }
 
-export default AddressInfo;
+export default Info;

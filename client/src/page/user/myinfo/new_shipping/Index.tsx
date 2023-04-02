@@ -1,6 +1,6 @@
 import React from 'react';
 import useShippingAddresses from '@api/query/shipping/useShippingAddressesQuery';
-import Success from './Sucecss';
+import Success from './Success';
 
 interface Props {
   userId: number;
@@ -11,7 +11,7 @@ function Index({ userId }: Props) {
 
   return (
     <div className="shipping-section">
-      {status === 'success' && <Success res={addresses} />}
+      {status === 'success' && <Success res={addresses} userId={userId} />}
     </div>
   );
 }

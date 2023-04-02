@@ -6,7 +6,7 @@ import useAddShippingAddress, { ResType } from '@api/mutation/shipping/address/u
 import { AxiosResponse, AxiosError } from 'axios';
 import { ResponseError } from '@type/response';
 import Button from '@component/form/Button';
-import reducer, { initialState, FormType } from '@component/shipping/address/editor/reducer';
+import { reducer, initialState, FormType } from '@component/shipping/address/editor/reducer';
 import AddressEditor from '@component/shipping/address/editor/AddressEditor';
 import { Address as AddressType } from '@type/shipping';
 
@@ -62,7 +62,7 @@ function Index({ address, closeEditor }: Props) {
     }
     
     // 수정 모드일경우
-    if (address) putMutation.mutate({ address: data });
+    if (address) putMutation.mutate({ address: state.form });
     // 작성 모드일경우
     else postMutation.mutate({ address: data });
 
