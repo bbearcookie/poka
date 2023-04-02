@@ -1,14 +1,18 @@
-import React from 'react';
+import { useAppSelector } from '@app/redux/reduxHooks';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import Profile from './profile/Index';
+import NewShipping from './new_shipping/Index';
 import Shipping from './shipping/Index';
 import { StyledIndex } from './_styles';
 
 function Index() {
+  const { userId } = useAppSelector(state => state.auth);
+
   return (
-    <StyledIndex className="ProfilePage">
+    <StyledIndex>
       <TitleLabel title="마이페이지" styles={{ marginBottom: "1em" }} />
-      <Profile />
+      <Profile userId={userId} />
+      {/* <NewShipping userId={userId} /> */}
       <Shipping />
     </StyledIndex>
   );

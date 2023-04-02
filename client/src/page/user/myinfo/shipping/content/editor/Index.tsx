@@ -60,8 +60,6 @@ function Index({ address, closeEditor }: Props) {
       addressDetail: state.form.addressDetail,
       requirement: state.form.requirement
     }
-
-    console.log(state.form);
     
     // 수정 모드일경우
     if (address) putMutation.mutate({ address: data });

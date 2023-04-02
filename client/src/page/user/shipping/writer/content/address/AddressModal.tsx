@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { ModalHookType } from '@hook/useModal';
 import TitleModal from '@component/modal/TitleModal';
 import Button from '@component/form/Button';
-import Address from '@component/shipping/address/Address';
+import Address from '@component/shipping/address/item/Address';
 import { ResType } from '@api/query/shipping/useShippingAddressesQuery';
 import { State, Action } from '@component/shipping/address/editor/reducer';
 

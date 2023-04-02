@@ -4,8 +4,11 @@ import ErrorCard from '@component/card/ErrorCard';
 import SkeletonUserProfileInfo from '@component/profile/info/SkeletonUserProfileInfo';
 import Success from './Success';
 
-function Index() {
-  const { userId } = useAppSelector(state => state.auth);
+interface Props {
+  userId: number;
+}
+
+function Index({ userId }: Props) {
   const { status, data: user, error } = useUserQuery(userId);
 
   return (
