@@ -1,18 +1,17 @@
 import React from 'react';
-import Card from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
-import CardBody from '@component/card/basic/CardBody';
+import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import { Card, CardHeader } from '@component/card/new/Card';
 import SkeletonAddress from '@component/shipping/address/item/SkeletonAddress';
 
 function Loading() {
   return (
-    <Card styles={{ marginBottom: "5em" }}>
+    <Card>
       <CardHeader>
-        <h1 className="subtitle-label">배송 정보</h1>
+        <TitleLabel title="배송 정보" />
       </CardHeader>
-      <CardBody styles={{ padding: "0" }}>
-        {Array.from({ length: 5 }).map((_, idx) => <SkeletonAddress key={idx} />)}
-      </CardBody>
+      {Array.from({ length: 5 }).map((_, idx) => (
+        <SkeletonAddress key={idx} />
+      ))}
     </Card>
   );
 }

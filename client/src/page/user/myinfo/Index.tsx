@@ -1,7 +1,6 @@
 import { useAppSelector } from '@app/redux/reduxHooks';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import Profile from './profile/Index';
-import NewShipping from './new_shipping/Index';
 import Shipping from './shipping/Index';
 import { StyledIndex } from './_styles';
 
@@ -12,8 +11,7 @@ function Index() {
     <StyledIndex>
       <TitleLabel title="마이페이지" styles={{ marginBottom: "1em" }} />
       <Profile userId={userId} />
-      <NewShipping userId={userId} />
-      {/* <Shipping /> */}
+      <Shipping userId={userId} />
     </StyledIndex>
   );
 }

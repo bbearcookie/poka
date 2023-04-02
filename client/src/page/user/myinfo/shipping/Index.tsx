@@ -1,20 +1,20 @@
 import React from 'react';
 import useShippingAddresses from '@api/query/shipping/useShippingAddressesQuery';
-import { useAppSelector } from '@app/redux/reduxHooks';
-import ErrorCard from '@component/card/ErrorCard';
-import Loading from './Loading';
 import Success from './Success';
+import Loading from './Loading';
 
-function Index() {
-  const { userId } = useAppSelector(state => state.auth);
+interface Props {
+  userId: number;
+}
+
+function Index({ userId }: Props) {
   const { status, data: addresses, error } = useShippingAddresses(userId);
 
   return (
-    <section className="shipping-section">
-      {status === 'success' && <Success addresses={addresses} />}
+    <div className="shipping-section">
+      {status === 'success' && <Success res={addresses} userId={userId} />}
       {status === 'loading' && <Loading />}
-      {status === 'error' && <ErrorCard error={error} /> }
-    </section>
+    </div>
   );
 }
 
