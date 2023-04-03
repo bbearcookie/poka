@@ -6,7 +6,7 @@ import VoucherList from '@component/list/voucher/VoucherList';
 import TitleModal from '@component/modal/TitleModal';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ModalHookType } from '@hook/useModal';
-import { State, Action } from '../../reducer';
+import { State, Action } from '@page/user/shipping/writer/reducer';
 
 interface Props {
   state: State;

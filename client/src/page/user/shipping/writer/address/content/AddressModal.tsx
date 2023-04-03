@@ -5,6 +5,7 @@ import Button from '@component/form/Button';
 import Address from '@component/shipping/address/item/Address';
 import { ResType } from '@api/query/shipping/useShippingAddressesQuery';
 import { State, Action } from '@component/shipping/address/editor/reducer';
+import { StyledButtonSection } from '../../_styles';
 
 interface Props {
   addresses: ResType;
@@ -26,7 +27,7 @@ function AddressModal({ addresses, modal, state, dispatch }: Props) {
     <TitleModal hook={modal} titleName="배송지 가져오기" cardBodyStyles={{ padding: "0" }} styles={{ minWidth: "50%" }}>
       {addresses.addresses.map((address, idx) =>
       <Address key={address.addressId} {...address}>
-        <section className="button-section">
+        <StyledButtonSection>
           <Button
             styles={{
               height: "fit-content",
@@ -37,7 +38,7 @@ function AddressModal({ addresses, modal, state, dispatch }: Props) {
             }}
             onClick={() => applyAddress(idx)}
           >적용</Button>
-        </section>
+        </StyledButtonSection>
       </Address>)}
     </TitleModal>
   );

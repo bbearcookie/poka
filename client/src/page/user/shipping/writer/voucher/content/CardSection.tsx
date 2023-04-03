@@ -14,7 +14,7 @@ import Button from '@component/form/Button';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import { ItemSection } from '@component/list/content/_styles';
 import * as queryKey from '@api/queryKey';
-import { State, Action } from '../../reducer';
+import { State, Action } from '@page/user/shipping/writer/reducer';
 
 interface Props {
   state: State;

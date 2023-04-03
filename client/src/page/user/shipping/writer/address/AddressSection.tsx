@@ -3,8 +3,8 @@ import useShippingAddresses from '@api/query/shipping/useShippingAddressesQuery'
 import useModal from '@hook/useModal';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import { State, Action } from '@component/shipping/address/editor/reducer';
-import AddressCard from './AddressCard';
-import AddressModal from './AddressModal';
+import AddressCard from './content/AddressCard';
+import AddressModal from './content/AddressModal';
 
 interface Props {
   state: State;
@@ -17,10 +17,10 @@ function AddressSection({ state, dispatch }: Props) {
   const { status, data: addresses, error } = useShippingAddresses(userId);
   
   return (
-    <section className="address-section">
+    <>
       <AddressCard modal={addressModal} state={state} dispatch={dispatch} />
       {status === "success" && <AddressModal addresses={addresses} modal={addressModal} state={state} dispatch={dispatch} />}
-    </section>
+    </>
   );
 }
 
