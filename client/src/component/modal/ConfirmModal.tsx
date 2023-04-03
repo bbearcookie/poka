@@ -6,8 +6,7 @@ import Modal, {
 } from '@component/modal/basic/Modal';
 import Button from '@component/form/Button';
 import Card, { StylesProps as CardStyles } from '@component/card/basic/Card';
-import { CardHeader, CardBody } from '@component/card/basic/_styles';
-import CardFooter from '@component/card/basic/CardFooter';
+import { CardHeader, CardBody, CardFooter } from '@component/card/basic/_styles';
 import { ButtonTheme } from '@component/form/Button';
 import ModalHeader from './basic/ModalHeader';
 
@@ -43,7 +42,7 @@ function ConfirmModal({
           <ModalHeader titleName={titleName} handleClose={hook.close} />
         </CardHeader>
         <CardBody>{children}</CardBody>
-        <CardFooter styles={{ padding: '0 1.25em 1.25em 1.25em' }}>
+        <CardFooter>
           {hook.errorMessage && <ErrorLabel>{hook.errorMessage}</ErrorLabel>}
           <ButtonSection>
             <Button

@@ -1,7 +1,5 @@
 import React from 'react';
-import Card from '@component/card/basic/Card';
-import CardBody from '@component/card/basic/CardBody';
-import CardFooter from '@component/card/basic/CardFooter';
+import { Card, CardBody, CardFooter } from '@component/card/basic/_styles';
 import Crop from './Crop';
 
 interface Props {
@@ -9,7 +7,6 @@ interface Props {
   cropList: string[];
   setCropList: React.Dispatch<React.SetStateAction<string[]>>;
 }
-const DefaultProps = {};
 
 function CropCard({ cropper, cropList, setCropList }: Props) {
   return (

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import Input from '@component/form/Input';
 
 interface Props {
@@ -7,7 +7,6 @@ interface Props {
   setMoveX: React.Dispatch<React.SetStateAction<number>>;
   setMoveY: React.Dispatch<React.SetStateAction<number>>;
 }
-const DefaultProps = {};
 
 function Form({ moveX, setMoveX, moveY, setMoveY }: Props) {
   return (

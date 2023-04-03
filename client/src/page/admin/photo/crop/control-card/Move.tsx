@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 import Button from '@component/form/Button';
 
 interface Props {
@@ -6,7 +6,6 @@ interface Props {
   moveX: number;
   moveY: number;
 }
-const DefaultProps = {};
 
 function Move({ cropper, moveX, moveY }: Props) {
 

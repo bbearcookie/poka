@@ -37,6 +37,7 @@ export const CardBody = styled.main`
 `;
 
 export const CardFooter = styled.footer`
+  padding: 1.5em;
   border-top: 1px solid #e5e7eb;
 `;
 

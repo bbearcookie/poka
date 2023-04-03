@@ -7,7 +7,6 @@ interface Props {
   downloadName: string;
   children?: React.ReactNode;
 }
-const DefaultProps = {};
 
 function Download({ cropList, setCropList, downloadName }: Props) {
   const fileRefs = useRef<HTMLAnchorElement[] | null[]>([]);

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import Input from '@component/form/Input';
-import Card from '@component/card/basic/Card';
-import CardBody from '@component/card/basic/CardBody';
-import CardFooter from '@component/card/basic/CardFooter';
+import { Card, CardBody, CardFooter } from '@component/card/basic/_styles';
 import Download from './Download';
 
 interface Props {
