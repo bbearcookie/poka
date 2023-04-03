@@ -1,7 +1,6 @@
 import React from 'react';
 import Card, { StylesProps as CardStyles } from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
-import CardList from '@component/card/basic/CardList';
+import { CardHeader, CardList } from '@component/card/basic/_styles';
 import CardListItem from '@component/card/basic/CardListItem';
 import UserProfile from '@component/profile/UserProfile';
 import Address from '@component/shipping/address/item/Address';

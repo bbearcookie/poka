@@ -30,8 +30,33 @@ export const CardBody = styled.main`
   &:empty {
     display: none;
   }
-  
+
   .title {
     margin: 0 0 1em 0;
   }
+`;
+
+export const CardFooter = styled.footer`
+  border-top: 1px solid #e5e7eb;
+`;
+
+export const CardList = styled.ul`
+  margin: 0;
+  padding: 0;
+`;
+
+export const CardListItem = styled.li`
+  display: flex;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 1.5em;
+
+  @media screen and (max-width: 65rem) {
+    flex-direction: column;
+    gap: 0.5em;
+  }
+`;
+
+export const ItemTitle = styled.div`
+  flex-basis: 30%;
+  color: #121828;
 `;

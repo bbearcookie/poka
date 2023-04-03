@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Card } from '@component/card/new/Card';
+import { Card } from '@component/card/basic/_styles';
 
 export const StyledUserProfileEditor = styled(Card)`
   display: flex;

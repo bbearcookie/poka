@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { ResType } from '@api/query/shipping/useShippingAddressesQuery';
-import { Card, CardHeader } from '@component/card/new/Card';
+import { Card, CardHeader } from '@component/card/basic/_styles';
 import Info from './info/Info';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import Editor from './editor/Editor';

@@ -1,6 +1,5 @@
-import React from 'react';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
-import { Card, CardHeader } from '@component/card/new/Card';
+import { Card, CardHeader } from '@component/card/basic/_styles';
 import SkeletonAddress from '@component/shipping/address/item/SkeletonAddress';
 
 function Loading() {

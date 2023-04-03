@@ -1,8 +1,8 @@
 import React from 'react';
-import CardListItem from '@component/card/basic/CardListItem';
 import useUserQuery from '@api/query/user/useUserQuery';
 import { VoucherLog as VoucherLogType } from '@type/voucher';
 import { getFormattedTime } from '@util/date';
+import CardListItem from '@component/card/basic/CardListItem';
 import UserProfile from '@component/profile/UserProfile';
 import SkeletonUserProfile from '@component/profile/SkeletonUserProfile';
 import StateLabel from '@component/label/stateLabel/StateLabel';
@@ -13,10 +13,10 @@ interface Props extends VoucherLogType {}
 function VoucherLog({ logId, type, voucherId, originUserId, destUserId, loggedTime }: Props) {
   return (
     <StyledLog>
-      <CardListItem title="내용" styles={{ borderBottom: 'none' }}>
+      <CardListItem title="내용">
         <StateLabel state={{ type: 'voucherLog', key: type }} styles={{ width: '5em' }} />
       </CardListItem>
-      <CardListItem title="시간" styles={{ borderBottom: 'none', color: '#65748B' }}>
+      <CardListItem title="시간">
         {getFormattedTime(new Date(loggedTime))}
       </CardListItem>
 
@@ -37,10 +37,10 @@ function BothUser({ originUserId, destUserId }: { originUserId: number; destUser
 
   if (destUser.status !== 'success' && originUser.status !== 'success') {
     <>
-      <CardListItem title="새 소유자" styles={{ borderBottom: 'none' }}>
+      <CardListItem title="새 소유자">
         <SkeletonUserProfile />
       </CardListItem>
-      <CardListItem title="기존 소유자" styles={{ borderBottom: 'none' }}>
+      <CardListItem title="기존 소유자">
         <SkeletonUserProfile />
       </CardListItem>
     </>;
@@ -48,10 +48,10 @@ function BothUser({ originUserId, destUserId }: { originUserId: number; destUser
 
   return (
     <>
-      <CardListItem title="새 소유자" styles={{ borderBottom: "none" }}>
+      <CardListItem title="새 소유자">
         <UserProfile {...destUser.data} />
       </CardListItem>
-      <CardListItem title="기존 소유자" styles={{ borderBottom: "none" }}>
+      <CardListItem title="기존 소유자">
         <UserProfile {...originUser.data} />
       </CardListItem>
     </>
@@ -63,14 +63,14 @@ function OriginUser({ originUserId }: { originUserId: number }) {
 
   if (originUser.status === 'success') {
     return (
-      <CardListItem title="소유자" styles={{ borderBottom: "none" }}>
+      <CardListItem title="소유자">
         <UserProfile {...originUser.data} />
       </CardListItem>
     );
   }
 
   return (
-    <CardListItem title="소유자" styles={{ borderBottom: "none" }}>
+    <CardListItem title="소유자">
       <SkeletonUserProfile />
     </CardListItem>
   );

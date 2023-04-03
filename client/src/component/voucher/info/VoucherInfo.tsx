@@ -2,7 +2,7 @@ import { VoucherItem } from '@type/voucher';
 import Card, { StylesProps } from '@component/card/basic/Card';
 import CardHeader from '@component/card/basic/CardHeader';
 import CardBody from '@component/card/basic/CardBody';
-import CardList from '@component/card/basic/CardList';
+import { CardList } from '@component/card/basic/_styles';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import {
   VoucherID,
