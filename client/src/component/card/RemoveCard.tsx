@@ -1,20 +1,19 @@
 import React from 'react';
-import Card, { StylesProps as CardStyles } from '@component/card/basic/Card';
 import { CardHeader, CardBody } from '@component/card/basic/_styles';
 import Button from '@component/form/Button';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { RemoveCard as StyledRemoveCard } from './_styles';
 
 interface Props {
   titleText?: string;
   buttonText?: string;
   onClick?: React.MouseEventHandler;
-  cardStyles?: CardStyles;
   children?: React.ReactNode;
 }
 
-function RemoveCard({ titleText, buttonText = '삭제', onClick, cardStyles, children }: Props) {
+function RemoveCard({ titleText, buttonText = '삭제', onClick, children }: Props) {
   return (
-    <Card styles={cardStyles}>
+    <StyledRemoveCard>
       <CardHeader>
         <h1 className="title">{titleText}</h1>
       </CardHeader>
@@ -33,7 +32,7 @@ function RemoveCard({ titleText, buttonText = '삭제', onClick, cardStyles, chi
         </Button>
         {children}
       </CardBody>
-    </Card>
+    </StyledRemoveCard>
   );
 }
 

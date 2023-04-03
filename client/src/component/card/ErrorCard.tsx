@@ -1,26 +1,22 @@
-import Card from '@component/card/basic/Card';
 import { CardHeader, CardBody } from '@component/card/basic/_styles';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import { AxiosError } from 'axios';
 import { ResponseError } from '@type/response';
 import { getErrorMessage } from '@util/request';
-import { StylesProps as CardStyles } from '@component/card/basic/Card';
+import { ErrorCard as StyledErrorCard } from './_styles';
 
 interface Props {
   error: AxiosError<ResponseError, any> | string;
-  styles?: CardStyles;
 }
 
-function ErrorCard({ styles, error }: Props) {
+function ErrorCard({ error }: Props) {
   return (
-    <Card styles={styles}>
+    <StyledErrorCard>
       <CardHeader>
         <TitleLabel title="Error" />
       </CardHeader>
-      <CardBody>
-        <p>{typeof error === 'string' ? error : getErrorMessage(error)}</p>
-      </CardBody>
-    </Card>
+      <CardBody>{typeof error === 'string' ? error : getErrorMessage(error)}</CardBody>
+    </StyledErrorCard>
   );
 }
 
