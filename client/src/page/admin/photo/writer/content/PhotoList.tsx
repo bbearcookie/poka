@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from '@component/card/basic/Card';
-import CardBody from '@component/card/basic/CardBody';
+import { CardBody } from '@component/card/basic/_styles';
 import PhotoInfo from './PhotoInfo';
 import { State, Action } from '../reducer';
 import { PhotoSection } from './_styles';

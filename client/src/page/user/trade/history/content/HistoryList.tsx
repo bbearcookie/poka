@@ -3,7 +3,6 @@ import { useUpdateEffect } from 'react-use';
 import useUserTradeHistoryQuery from '@api/query/trade/useUserTradeHistoryQuery';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import { Card, CardHeader, CardList } from '@component/card/basic/_styles';
-import CardBody from '@component/card/basic/CardBody';
 import NextPageFetcher from '@component/list/content/NextPageFetcher';
 import History from './History';
 import SkeletonHistory from './SkeletonHistory';
@@ -44,28 +43,26 @@ function HistoryList({ startDate, endDate }: Props) {
         <CardHeader>
           <h1 className="title">기록</h1>
         </CardHeader>
-        <CardBody styles={{ padding: '0' }}>
-          <CardList>
-            {histories?.pages.map((page, pageIdx) => (
-              <Fragment key={pageIdx}>
-                {page?.histories.map(item => (
-                  <History
-                    key={item.logId}
-                    photo={item.photo}
-                    destUser={{ ...item.destUser }}
-                    originUser={{ ...item.originUser }}
-                    loggedTime={new Date(item.loggedTime)}
-                  />
-                ))}
-              </Fragment>
-            ))}
+        <CardList>
+          {histories?.pages.map((page, pageIdx) => (
+            <Fragment key={pageIdx}>
+              {page?.histories.map(item => (
+                <History
+                  key={item.logId}
+                  photo={item.photo}
+                  destUser={{ ...item.destUser }}
+                  originUser={{ ...item.originUser }}
+                  loggedTime={new Date(item.loggedTime)}
+                />
+              ))}
+            </Fragment>
+          ))}
 
-            {isFetching &&
-              Array.from({ length: 10 }).map((item, idx) => <SkeletonHistory key={idx} />)}
+          {isFetching &&
+            Array.from({ length: 10 }).map((item, idx) => <SkeletonHistory key={idx} />)}
 
-            <NextPageFetcher fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} />
-          </CardList>
-        </CardBody>
+          <NextPageFetcher fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} />
+        </CardList>
       </Card>
     </section>
   );

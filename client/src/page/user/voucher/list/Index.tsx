@@ -1,7 +1,6 @@
 import { useEffect, useCallback } from 'react';
 import { useAppSelector } from '@app/redux/reduxHooks';
-import Card from '@component/card/basic/Card';
-import CardBody from '@component/card/basic/CardBody';
+import { Card, CardBody } from '@component/card/basic/_styles';
 import useSearcher from '@component/search/useSearcher';
 import Searcher from '@component/search/Searcher';
 import VoucherList from '@component/list/voucher/VoucherList';

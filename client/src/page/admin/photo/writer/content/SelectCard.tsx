@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import useGroupsQuery from '@api/query/group/useGroupsQuery';
 import useGroupQuery from '@api/query/group/useGroupQuery';
 import Card from '@component/card/basic/Card';
-import CardBody from '@component/card/basic/CardBody';
+import { CardBody } from '@component/card/basic/_styles';
 import Select from '@component/form/Select';
 import InputMessage from '@component/form/InputMessage';
 import { State, Action } from '../reducer';

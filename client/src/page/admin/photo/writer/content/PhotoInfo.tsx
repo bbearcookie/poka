@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 import Card from '@component/card/basic/Card';
-import CardBody from '@component/card/basic/CardBody';
+import { CardBody } from '@component/card/basic/_styles';
 import Button from '@component/form/Button';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { State, Action } from '../reducer';

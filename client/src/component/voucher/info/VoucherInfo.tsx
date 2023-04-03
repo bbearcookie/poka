@@ -1,16 +1,13 @@
 import { VoucherItem } from '@type/voucher';
 import Card, { StylesProps } from '@component/card/basic/Card';
 import { CardHeader } from '@component/card/basic/_styles';
-import CardBody from '@component/card/basic/CardBody';
 import { CardList } from '@component/card/basic/_styles';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
-import {
-  VoucherID,
-  VoucherOwner,
-  VoucherState,
-  VoucherLog,
-  Description,
-} from './_contents';
+import VoucherID from './content/VoucherID';
+import VoucherOwner from './content/VoucherOwner';
+import VoucherState from './content/VoucherState';
+import VoucherLog from './content/VoucherLog';
+import Description from './content/Description';
 
 interface Props {
   voucher: VoucherItem;
@@ -28,23 +25,21 @@ function VoucherInfo(props: Props) {
           <TitleLabel title="소유권 정보" />
         </CardHeader>
 
-        <CardBody styles={{ padding: '0' }}>
-          {displayType === 'admin' && (
-            <CardList>
-              <VoucherID {...voucher} />
-              <VoucherOwner {...voucher} />
-              <VoucherState voucherState={voucher.state} />
-              <VoucherLog {...voucher} />
-            </CardList>
-          )}
+        {displayType === 'admin' && (
+          <CardList>
+            <VoucherID {...voucher} />
+            <VoucherOwner {...voucher} />
+            <VoucherState voucherState={voucher.state} />
+            <VoucherLog {...voucher} />
+          </CardList>
+        )}
 
-          {displayType === 'user' && (
-            <CardList>
-              <VoucherOwner {...voucher} />
-              <VoucherState voucherState={voucher.state} />
-            </CardList>
-          )}
-        </CardBody>
+        {displayType === 'user' && (
+          <CardList>
+            <VoucherOwner {...voucher} />
+            <VoucherState voucherState={voucher.state} />
+          </CardList>
+        )}
 
         <Description />
       </Card>

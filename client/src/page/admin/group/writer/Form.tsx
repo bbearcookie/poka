@@ -5,8 +5,7 @@ import { ResponseError } from '@type/response';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';
-import Card from '@component/card/basic/Card';
-import CardBody from '@component/card/basic/CardBody';
+import { Card, CardBody } from '@component/card/basic/_styles';
 import ImageUploader, { Image } from '@component/form/uploader/ImageUploader';
 import useAddGroup from '@api/mutation/group/useAddGroup';
 import useModifyGroup from '@api/mutation/group/useModifyGroup';
@@ -130,7 +129,7 @@ function Form({ name = DefaultProps.name, imageName = DefaultProps.imageName, gr
     <form onSubmit={onSubmit}>
 
       <section>
-        <Card className="logo-card" styles={{ marginBottom: "2em" }}>
+        <Card className="logo-card">
           <CardBody>
             <h1 className="title">로고 이미지</h1>
             <ImageUploader
@@ -145,7 +144,7 @@ function Form({ name = DefaultProps.name, imageName = DefaultProps.imageName, gr
       </section>
 
       <section>
-        <Card styles={{ marginBottom: "2em" }}>
+        <Card className="contents-card">
           <CardBody>
             <h1 className="title">이름</h1>
             <Input

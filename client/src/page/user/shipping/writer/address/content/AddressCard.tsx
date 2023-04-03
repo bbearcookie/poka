@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import Card from '@component/card/basic/Card';
 import { CardHeader } from '@component/card/basic/_styles';
-import CardBody from '@component/card/basic/CardBody';
+import { CardBody } from '@component/card/basic/_styles';
 import { ModalHookType } from '@hook/useModal';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
@@ -39,9 +39,7 @@ function AddressCard({ modal, state, dispatch }: Props) {
           >가져오기</Button>
         </TitleLabel>
       </CardHeader>
-      <CardBody styles={{ padding: "0" }}>
-        <AddressEditor state={state} dispatch={dispatch} showName={false} />
-      </CardBody>
+      <AddressEditor state={state} dispatch={dispatch} showName={false} />
       <CardBody>
         <p className="description">물품이 도착할 주소를 지정합니다.</p>
       </CardBody>
