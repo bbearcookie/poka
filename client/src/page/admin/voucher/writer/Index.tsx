@@ -1,4 +1,4 @@
-import React, { useReducer, useCallback } from 'react';
+import { useReducer, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import useAddVouchers from '@api/mutation/voucher/useAddVouchers';

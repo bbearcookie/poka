@@ -3,8 +3,7 @@ import { ResType as MemberType } from '@api/query/member/useMemberQuery';
 import Button from '@component/form/Button';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import Card from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
-import CardBody from '@component/card/basic/CardBody';
+import { CardHeader, CardBody } from '@component/card/basic/_styles';
 import MemberRemove from './content/MemberRemove';
 
 interface Props {

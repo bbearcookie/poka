@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import Card from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
-import CardBody from '@component/card/basic/CardBody';
+import { CardHeader, CardBody } from '@component/card/basic/_styles';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 import { State, Action } from '../reducer';
@@ -10,7 +9,6 @@ interface Props {
   state: State;
   dispatch: React.Dispatch<Action>;
 }
-const DefaultProps = {};
 
 function UsernameSection({ state, dispatch }: Props) {
 

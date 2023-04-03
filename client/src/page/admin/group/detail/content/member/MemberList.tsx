@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ResType } from '@api/query/group/useGroupQuery';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Card from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
+import { CardHeader } from '@component/card/basic/_styles';
 import Table from '@component/table/Table';
 import Col from '@component/table/styles/Col';
 import Button from '@component/form/Button';

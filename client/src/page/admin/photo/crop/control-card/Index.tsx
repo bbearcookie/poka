@@ -1,8 +1,6 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import Card from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
-import CardBody from '@component/card/basic/CardBody';
-import CardFooter from '@component/card/basic/CardFooter';
+import { CardBody, CardFooter } from '@component/card/basic/_styles';
 import Form from './Form';
 import Move from './Move';
 
@@ -10,7 +8,6 @@ interface Props {
   cropper: Cropper,
   children?: React.ReactNode;
 }
-const DefaultProps = {};
 
 function ControlCard({ cropper }: Props) {
   const [moveX, setMoveX] = useState(0);

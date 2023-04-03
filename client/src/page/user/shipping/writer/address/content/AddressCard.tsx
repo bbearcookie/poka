@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import Card from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
+import { CardHeader } from '@component/card/basic/_styles';
 import CardBody from '@component/card/basic/CardBody';
 import { ModalHookType } from '@hook/useModal';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';

@@ -7,7 +7,7 @@ import { ModalHookType } from '@hook/useModal';
 import VoucherItem from '@component/voucher/item/VoucherItem';
 import SkeletonVoucherItem from '@component/voucher/item/SkeletonVoucherItem';
 import Card from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
+import { CardHeader } from '@component/card/basic/_styles';
 import CardBody from '@component/card/basic/CardBody';
 import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';

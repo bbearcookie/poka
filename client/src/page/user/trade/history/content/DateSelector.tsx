@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import Card from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
-import CardBody from '@component/card/basic/CardBody';
+import { CardHeader, CardBody } from '@component/card/basic/_styles';
 import Calendar from '@component/calendar/Calendar';
 
 interface Props {

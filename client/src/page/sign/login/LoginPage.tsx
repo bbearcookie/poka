@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Card from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
-import CardBody from '@component/card/basic/CardBody';
-import CardFooter from '@component/card/basic/CardFooter';
+import { CardHeader, CardBody, CardFooter } from '@component/card/basic/_styles';
 import Form from './Form';
 import '../SignPage.scss';
 

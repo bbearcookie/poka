@@ -35,7 +35,7 @@ function ModalSection({ state, dispatch, modal }: Props) {
   }, [state, dispatch]);
 
   return (
-    <TitleModal hook={modal} titleName="소유권 선택" styles={{ width: "75%" }} cardBodyStyles={{ minHeight: "100vh" }}>
+    <TitleModal hook={modal} titleName="소유권 선택" styles={{ width: "75%" }}>
       <Searcher
         options={{
           group: true,

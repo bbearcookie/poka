@@ -1,4 +1,3 @@
-import React from 'react';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import ShippingSection from './ShippingSection';
 import { StyledIndex } from './_styles';

@@ -3,8 +3,7 @@ import useSearcher from '@component/search/useSearcher';
 import useShippingList from '@component/list/shipping/useShippingList';
 import Searcher from '@component/search/Searcher';
 import Card from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
-import CardBody from '@component/card/basic/CardBody';
+import { CardHeader, CardBody } from '@component/card/basic/_styles';
 import Table from '@component/table/Table';
 import Col from '@component/table/styles/Col';
 import Shipping from '@component/shipping/item/Shipping';
@@ -23,7 +22,7 @@ function ShippingSection() {
 
   return (
     <Card>
-      <CardHeader styles={{ padding: "1em 1em 0 1em"}}>
+      <CardHeader className="search-header">
         <Searcher
           category={{
             userName: "사용자 아이디"
@@ -38,7 +37,7 @@ function ShippingSection() {
           keywordDispatch={keywordDispatch}
         />
       </CardHeader>
-      <CardBody styles={{ padding: "0" }}>
+      <CardBody className="item-section">
         <Table styles={{ itemHeight: "1em", itemPadding: "1em" }}>
           <colgroup>
             <Col width="30%" />

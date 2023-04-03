@@ -1,7 +1,6 @@
 import React from 'react';
 import Card, { StylesProps as CardStyles } from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
-import CardBody from '@component/card/basic/CardBody';
+import { CardHeader, CardBody } from '@component/card/basic/_styles';
 import PhotocardItem from '@component/photocard/item/PhotocardItem';
 import { ItemSection } from '@component/list/content/_styles';
 import { VoucherItem } from '@type/voucher';

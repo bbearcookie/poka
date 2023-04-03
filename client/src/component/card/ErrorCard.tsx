@@ -1,6 +1,5 @@
 import Card from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
-import CardBody from '@component/card/basic/CardBody';
+import { CardHeader, CardBody } from '@component/card/basic/_styles';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import { AxiosError } from 'axios';
 import { ResponseError } from '@type/response';

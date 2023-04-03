@@ -24,7 +24,7 @@ function AddressModal({ addresses, modal, state, dispatch }: Props) {
   }, [addresses, dispatch, modal]);
 
   return (
-    <TitleModal hook={modal} titleName="배송지 가져오기" cardBodyStyles={{ padding: "0" }} styles={{ minWidth: "50%" }}>
+    <TitleModal hook={modal} titleName="배송지 가져오기" styles={{ minWidth: "50%" }}>
       {addresses.addresses.map((address, idx) =>
       <Address key={address.addressId} {...address}>
         <StyledButtonSection>

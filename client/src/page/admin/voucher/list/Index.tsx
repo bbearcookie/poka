@@ -1,8 +1,7 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import Card from '@component/card/basic/Card';
-import CardBody from '@component/card/basic/CardBody';
+import { Card, CardBody } from '@component/card/basic/_styles';
 import useSearcher from '@component/search/useSearcher';
 import Searcher from '@component/search/Searcher';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
