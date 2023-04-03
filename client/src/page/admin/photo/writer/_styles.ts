@@ -13,6 +13,14 @@ export const StyledIndex = styled.main`
     }
   }
 
+  .PhotoList {
+    margin-bottom: 2em;
+  }
+
+  .SelectCard {
+    flex-grow: 1;
+  }
+
   .info-section {
     display: flex;
     gap: 1em;

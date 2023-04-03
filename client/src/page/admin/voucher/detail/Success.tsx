@@ -16,7 +16,6 @@ function Success({ res }: Props) {
       <VoucherInfo
         displayType="admin"
         voucher={res}
-        styles={{ marginBottom: '5em' }}
       />
       <VoucherRemove voucherId={res.voucherId} />
     </>

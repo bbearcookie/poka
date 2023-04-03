@@ -53,7 +53,6 @@ function TradeRemove({ trade }: Props) {
         hook={removeModal}
         titleName="교환글 삭제"
         confirmText="삭제"
-        cardStyles={{ maxWidth: '100vh' }}
         handleConfirm={removeTrade}
       >
         <p className="text">

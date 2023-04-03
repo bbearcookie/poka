@@ -1,9 +1,8 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import useSearcher from '@component/search/useSearcher';
 import useShippingList from '@component/list/shipping/useShippingList';
 import Searcher from '@component/search/Searcher';
-import Card from '@component/card/basic/Card';
-import { CardHeader, CardBody } from '@component/card/basic/_styles';
+import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
 import Table from '@component/table/Table';
 import Col from '@component/table/styles/Col';
 import Shipping from '@component/shipping/item/Shipping';

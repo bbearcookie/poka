@@ -44,7 +44,6 @@ function PhotoRemove({ photo, photocardId }: Props) {
 
       <ConfirmModal
         hook={removeModal}
-        cardStyles={{ maxWidth: '100vh' }}
         titleName="포토카드 삭제"
         confirmText="삭제"
         handleConfirm={removePhotocard}

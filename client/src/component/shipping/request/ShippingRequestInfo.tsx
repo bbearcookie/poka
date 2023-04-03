@@ -1,5 +1,4 @@
 import React from 'react';
-import Card, { StylesProps as CardStyles } from '@component/card/basic/Card';
 import { CardHeader, CardList } from '@component/card/basic/_styles';
 import CardListItem from '@component/card/basic/CardListItem';
 import UserProfile from '@component/profile/UserProfile';
@@ -7,15 +6,15 @@ import Address from '@component/shipping/address/item/Address';
 import { getFormattedTime } from '@util/date';
 import StateLabel from '@component/label/stateLabel/StateLabel';
 import { ShippingRequestDetail } from '@type/shipping';
+import { ShippingRequestInfo as StyledShippingRequestInfo } from './_styles';
 
 interface Props {
   shipping: ShippingRequestDetail;
-  cardStyles?: CardStyles;
 }
 
-function ShippingRequestInfo({ shipping, cardStyles }: Props) {
+function ShippingRequestInfo({ shipping }: Props) {
   return (
-    <Card styles={cardStyles}>
+    <StyledShippingRequestInfo>
       <CardHeader>
         <h1 className="title">배송요청 정보</h1>
       </CardHeader>
@@ -60,7 +59,7 @@ function ShippingRequestInfo({ shipping, cardStyles }: Props) {
           <p className="description">{getFormattedTime(new Date(shipping.writtenTime))}</p>
         </CardListItem>
       </CardList>
-    </Card>
+    </StyledShippingRequestInfo>
   );
 }
 

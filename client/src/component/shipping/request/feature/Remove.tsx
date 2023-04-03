@@ -65,7 +65,6 @@ function Remove({ res, redirectTo }: Props) {
         titleName="배송요청 삭제"
         confirmText="예"
         cancelText="아니오"
-        cardStyles={{ maxWidth: "100vh" }}
         handleConfirm={onCancel}
       >
         <p className="text">관리자에게 요청한 배송요청을 삭제하고 취소합니다.</p>

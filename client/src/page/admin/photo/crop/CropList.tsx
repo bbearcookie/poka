@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
-import Card from '@component/card/basic/Card';
-import { CardHeader, CardBody } from '@component/card/basic/_styles';
+import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
 
 interface Props {
   cropList: string[];
@@ -8,7 +7,7 @@ interface Props {
 
 function CropList({ cropList }: Props) {
   return (
-    <Card styles={{ marginTop: "2em" }}>
+    <Card className="CropList">
       <CardHeader>
         <h2 className="title">부분 이미지 목록</h2>
       </CardHeader>

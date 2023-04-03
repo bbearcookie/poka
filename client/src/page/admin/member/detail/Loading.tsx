@@ -1,6 +1,5 @@
 import SkeletonItem from '@component/skeleton/SkeletonItem';
-import Card from '@component/card/basic/Card';
-import { CardHeader, CardBody } from '@component/card/basic/_styles';
+import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
 
 function Loading() {
   return (
@@ -9,7 +8,7 @@ function Loading() {
         <SkeletonItem styles={{ height: "2em", marginBottom: "0.5em" }} />
         <SkeletonItem styles={{ height: "1.2em" }} />
 
-        <Card styles={{ marginTop: "2.3em", marginBottom: "5em" }}>
+        <Card>
           <CardHeader>
             <section className="title-section">
               <h3 className="title-label">등록된 포토카드</h3>
@@ -20,7 +19,7 @@ function Loading() {
           </CardBody>
         </Card>
 
-        <Card styles={{ marginTop: "2.3em", marginBottom: "5em" }}>
+        <Card>
           <CardHeader>
             <section className="title-section">
               <h3 className="title-label">멤버 삭제</h3>

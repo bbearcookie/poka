@@ -89,7 +89,6 @@ function Exchange({ trade }: Props) {
         titleName="교환할 소유권 선택"
         confirmText="교환"
         confirmButtonTheme="pink"
-        cardStyles={{ width: '100vh' }}
         handleConfirm={handleExchange}
       >
         <ItemSection templateColumnsSize="minmax(11.25em, 1fr)" marginBottom="1em">

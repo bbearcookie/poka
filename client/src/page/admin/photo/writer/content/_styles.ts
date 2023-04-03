@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Card, CardBody } from '@component/card/basic/_styles';
 
 export const StyledButtonSection = styled.section`
   display: flex;
@@ -10,7 +11,11 @@ export const StyledPhotoInfo = styled.div`
     margin-top: 1em;
   }
 
-  .CardBody {
+  ${Card} {
+    margin: 0 1em 2em 1em;
+  }
+
+  ${CardBody} {
     display: flex;
     flex-direction: column;
     align-items: center;

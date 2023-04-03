@@ -1,4 +1,3 @@
-import React from 'react';
 import VoucherInfo from '@component/voucher/info/VoucherInfo';
 import PhotoInfo from '@component/photocard/info/PhotoInfo';
 import { ResType } from '@api/query/voucher/useVoucherQuery';
@@ -17,7 +16,6 @@ function Success({ res }: Props) {
       <VoucherInfo
         displayType="user"
         voucher={res}
-        styles={{ marginBottom: '5em' }}
       />
       <ButtonSection res={res} />
     </>

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { ResType as PhotoResType } from '@api/query/photo/usePhotoQuery';
 import PhotoInfo from './content/PhotoInfo';
 import PhotoEditor from './content/editor/PhotoEditor';

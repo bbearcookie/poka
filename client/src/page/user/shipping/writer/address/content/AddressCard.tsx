@@ -1,7 +1,5 @@
 import React, { useCallback } from 'react';
-import Card from '@component/card/basic/Card';
-import { CardHeader } from '@component/card/basic/_styles';
-import { CardBody } from '@component/card/basic/_styles';
+import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
 import { ModalHookType } from '@hook/useModal';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
@@ -24,7 +22,7 @@ function AddressCard({ modal, state, dispatch }: Props) {
   }, [modal]);
 
   return (
-    <Card styles={{ marginBottom: "5em" }}>
+    <Card className="AddressCard">
       <CardHeader>
         <TitleLabel title="배송지 입력">
           <Button

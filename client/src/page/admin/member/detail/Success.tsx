@@ -2,8 +2,7 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { ResType as MemberType } from '@api/query/member/useMemberQuery';
 import Button from '@component/form/Button';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
-import Card from '@component/card/basic/Card';
-import { CardHeader, CardBody } from '@component/card/basic/_styles';
+import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
 import MemberRemove from './content/MemberRemove';
 
 interface Props {
@@ -19,7 +18,7 @@ function Success({ member, memberId }: Props) {
         <p>그룹: <span className="group-name-label">{member?.groupName}</span></p>
       </section>
 
-      <Card styles={{ marginBottom: "5em" }}>
+      <Card>
         <CardHeader>
           <TitleLabel title="등록된 포토카드">
             <Button

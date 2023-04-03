@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
-import Card from '@component/card/basic/Card';
-import { CardBody } from '@component/card/basic/_styles';
+import { Card, CardBody } from '@component/card/basic/_styles';
 import Button from '@component/form/Button';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { State, Action } from '../reducer';
@@ -41,7 +40,7 @@ function PhotoInfo({ idx, src, message, state, dispatch }: Props) {
 
   return (
     <StyledPhotoInfo>
-      <Card styles={{ margin: '0 1em 2em 1em' }}>
+      <Card>
         <CardBody>
           <img width="215" height="320" src={src} alt="포토카드" />
 

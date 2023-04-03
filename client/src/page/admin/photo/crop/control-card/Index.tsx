@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import Card from '@component/card/basic/Card';
-import { CardBody, CardFooter } from '@component/card/basic/_styles';
+import { Card, CardBody, CardFooter } from '@component/card/basic/_styles';
 import Form from './Form';
 import Move from './Move';
 

@@ -7,4 +7,8 @@ export const StyledIndex = styled.main`
   a {
     ${anchorReset}
   }
+
+  .MemberList {
+    margin-bottom: 5em;
+  }
 `;

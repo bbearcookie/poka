@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react';
 import useGroupsQuery from '@api/query/group/useGroupsQuery';
 import useGroupQuery from '@api/query/group/useGroupQuery';
-import Card from '@component/card/basic/Card';
-import { CardBody } from '@component/card/basic/_styles';
+import { Card, CardBody } from '@component/card/basic/_styles';
 import Select from '@component/form/Select';
 import InputMessage from '@component/form/InputMessage';
 import { State, Action } from '../reducer';
@@ -38,7 +37,7 @@ function SelectCard({ state, dispatch }: Props) {
   );
 
   return (
-    <Card styles={{ flexGrow: '1' }}>
+    <Card className="SelectCard">
       <CardBody>
         <TitleLabel title="그룹 멤버 정보" styles={{ marginBottom: '1em' }} />
 

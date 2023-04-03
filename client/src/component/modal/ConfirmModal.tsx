@@ -5,8 +5,7 @@ import Modal, {
   StylesProps as ModalStyles,
 } from '@component/modal/basic/Modal';
 import Button from '@component/form/Button';
-import Card, { StylesProps as CardStyles } from '@component/card/basic/Card';
-import { CardHeader, CardBody, CardFooter } from '@component/card/basic/_styles';
+import { Card, CardHeader, CardBody, CardFooter } from '@component/card/basic/_styles';
 import { ButtonTheme } from '@component/form/Button';
 import ModalHeader from './basic/ModalHeader';
 
@@ -17,7 +16,6 @@ interface Props extends ModalProps {
   handleConfirm?: () => void;
   cancelText?: string;
   cancelButtonTheme?: ButtonTheme;
-  cardStyles?: CardStyles;
   modalStyles?: ModalStyles;
   children?: React.ReactNode;
 }
@@ -31,13 +29,12 @@ function ConfirmModal({
   handleConfirm,
   cancelText = '취소',
   cancelButtonTheme = 'gray',
-  cardStyles,
   modalStyles,
   children,
 }: Props) {
   return (
     <Modal hook={hook} location={location} styles={modalStyles}>
-      <Card styles={cardStyles}>
+      <Card>
         <CardHeader>
           <ModalHeader titleName={titleName} handleClose={hook.close} />
         </CardHeader>

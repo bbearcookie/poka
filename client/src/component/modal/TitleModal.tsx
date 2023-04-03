@@ -1,7 +1,6 @@
 import React from 'react';
 import Modal, { Props as ModalProps } from '@component/modal/basic/Modal';
-import Card from '@component/card/basic/Card';
-import { CardHeader, CardBody } from '@component/card/basic/_styles';
+import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
 import ModalHeader from './basic/ModalHeader';
 
 interface Props extends ModalProps {

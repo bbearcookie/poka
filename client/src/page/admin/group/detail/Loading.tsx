@@ -1,6 +1,5 @@
 import SkeletonItem from '@component/skeleton/SkeletonItem';
-import Card from '@component/card/basic/Card';
-import { CardHeader } from '@component/card/basic/_styles';
+import { Card, CardHeader } from '@component/card/basic/_styles';
 import Table from '@component/table/Table';
 import Col from '@component/table/styles/Col';
 
@@ -16,7 +15,7 @@ function Loading() {
         />
         <SkeletonItem styles={{ width: '5em', margin: '1.62em 0' }} />
       </div>
-      <Card className="MemberList" styles={{ marginBottom: '5em' }}>
+      <Card className="MemberList">
         <CardHeader>
           <div className="title">그룹의 멤버</div>
         </CardHeader>

@@ -12,4 +12,13 @@ export const StyledGroupProfile = styled.section`
     font-size: 1.5rem;
     font-weight: bold;
   }
+
+  .MemberList {
+    margin-bottom: 5em;
+  }
+`;
+
+export const ButtonSection = styled.section`
+  display: flex;
+  justify-content: flex-end;
 `;

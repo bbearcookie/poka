@@ -1,8 +1,7 @@
 import React, { useReducer, useCallback } from 'react';
 import produce from 'immer';
 import { photoImage } from '@api/resource';
-import Card from '@component/card/basic/Card';
-import { CardBody } from '@component/card/basic/_styles';
+import { Card, CardBody } from '@component/card/basic/_styles';
 import useModifyPhoto from '@api/mutation/photo/useModifyPhoto';
 import { ResType as PhotoResType } from '@api/query/photo/usePhotoQuery';
 import reducer, { initialState, FormType } from './reducer';
@@ -56,7 +55,7 @@ function PhotoEditor({ photo, photocardId, closeEditor }: Props) {
   );
 
   return (
-    <Card styles={{ marginBottom: '5em' }}>
+    <Card className="PhotoEditor">
       <CardBody>
         <form onSubmit={onSubmit}>
           <PhotoSection>

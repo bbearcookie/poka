@@ -1,14 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Card from '@component/card/basic/Card';
-import { CardHeader, CardBody, CardFooter } from '@component/card/basic/_styles';
+import { Card, CardHeader, CardBody, CardFooter } from '@component/card/basic/_styles';
 import Form from './Form';
 import '../SignPage.scss';
 
 function Index() {
   return (
     <main className="SignPage">
-      <Card styles={{ width: "40rem" }}>
+      <Card className="Card">
         <CardHeader>
           <section className="title-section">
             <img src="/poka_logo.png" alt="아이콘" />

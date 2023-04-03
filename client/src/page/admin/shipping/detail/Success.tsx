@@ -13,18 +13,14 @@ interface Props {
 function Success({ res }: Props) {
   return (
     <>
-      <ShippingRequestInfo
-        shipping={res.shipping}
-        cardStyles={{ marginBottom: "5em" }}
-      />
+      <ShippingRequestInfo shipping={res.shipping} />
       <RequestVoucherInfo
         vouchers={res.vouchers}
-        icon={{ svg: faArrowRight, tooltip: "상세 보기" }}
-        cardStyles={{ marginBottom: "5em" }}
+        icon={{ svg: faArrowRight, tooltip: '상세 보기' }}
       />
       <ButtonSection>
-        {res.shipping.state !== "shipped" && <Approve res={res} />}
-        {res.shipping.state !== "shipped" && <Remove res={res} redirectTo="/admin/shipping/list" />}
+        {res.shipping.state !== 'shipped' && <Approve res={res} />}
+        {res.shipping.state !== 'shipped' && <Remove res={res} redirectTo="/admin/shipping/list" />}
       </ButtonSection>
     </>
   );

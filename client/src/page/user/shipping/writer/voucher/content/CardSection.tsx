@@ -6,8 +6,7 @@ import { faAdd, faClose } from '@fortawesome/free-solid-svg-icons';
 import { ModalHookType } from '@hook/useModal';
 import VoucherItem from '@component/voucher/item/VoucherItem';
 import SkeletonVoucherItem from '@component/voucher/item/SkeletonVoucherItem';
-import Card from '@component/card/basic/Card';
-import { CardHeader, CardBody } from '@component/card/basic/_styles';
+import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
 import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
@@ -46,7 +45,7 @@ function CardSection({ state, dispatch, modal }: Props) {
   );
 
   return (
-    <Card styles={{ marginBottom: '5em' }}>
+    <Card className="CardSection">
       <CardHeader>
         <TitleLabel title="소유권 선택">
           <Button

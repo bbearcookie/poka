@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useRef } from 'react';
 import Cropper from 'react-cropper';
-import Card from '@component/card/basic/Card';
-import { CardHeader, CardBody } from '@component/card/basic/_styles';
+import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import Button from '@component/form/Button';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
@@ -44,7 +43,7 @@ function Upload({ setCropper }: Props) {
   }, [changeFile]);
 
   return (
-    <Card styles={{ marginBottom: "2em" }}>
+    <Card className="Upload">
       <CardHeader>
         <TitleLabel title="이미지 자르기">
           <input type="file" accept=".jpg, .png" onChange={onChangeImageInput} ref={fileRef} />
