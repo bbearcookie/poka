@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { ModalHookType } from '@hook/useModal';
 
-export type LocationType = {
+type LocationType = {
   horizontal: 'LEFT' | 'CENTER' | 'RIGHT';
   vertical: 'TOP' | 'CENTER' | 'BOTTOM';
 }

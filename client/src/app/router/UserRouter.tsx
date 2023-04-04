@@ -14,6 +14,7 @@ import TradeHistoryPage from '@page/user/trade/history/Index';
 import ShippingWriterPage from '@page/user/shipping/writer/Index';
 import ShippingDetailPage from '@page/user/shipping/detail/Index';
 import ShippingListPage from '@page/user/shipping/list/Index';
+import TestPage from '@page/user/TestPage';
 
 function UserRouter() {
   const { username, strategy, role } = useAppSelector((state) => state.auth);
@@ -31,6 +32,7 @@ function UserRouter() {
             <div>{role}</div>
           </>
         } />
+        <Route path="/test" element={<TestPage />} />
         <Route path="/myinfo" element={<MyInfoPage />} />
         <Route path="/voucher/list" element={<VoucherListPage />} />
         <Route path="/voucher/detail/:voucherId" element={<VoucherDetailPage />} />
