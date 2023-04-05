@@ -13,7 +13,6 @@ interface Props {
 }
 
 function Modal({ modal, state, dispatch }: Props) {
-  
   // 받으려는 포토카드 추가
   const addPhoto = useCallback(
     (photocardId: number) => {
@@ -31,7 +30,7 @@ function Modal({ modal, state, dispatch }: Props) {
   );
 
   return (
-    <TitleModal hook={modal} title="포토카드 선택">
+    <TitleModal hook={modal} title="포토카드 선택" cssProp={{ width: '75vw' }}>
       <PhotoListWithFilter icon={{ svg: faAdd }} handleSelect={addPhoto} />
     </TitleModal>
   );

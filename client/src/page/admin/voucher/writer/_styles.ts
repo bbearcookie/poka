@@ -13,8 +13,4 @@ export const StyledIndex = styled.main`
     display: flex;
     justify-content: right;
   }
-
-  .TitleModal {
-    width: 75%;
-  }
 `;

@@ -73,7 +73,7 @@ function VoucherSection({ state, dispatch }: Props) {
         </CardBody>
       </Card>
 
-      <TitleModal hook={addModal} title="소유권 선택">
+      <TitleModal hook={addModal} title="소유권 선택" cssProp={{ width: '75vw' }}>
         <PhotoListWithFilter icon={{ svg: faPlus }} handleSelect={handleAddVoucher} />
       </TitleModal>
     </>

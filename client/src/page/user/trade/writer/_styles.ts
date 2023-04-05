@@ -12,8 +12,4 @@ export const StyledIndex = styled.main`
   .wantcard-section {
     margin-bottom: 5em;
   }
-
-  .TitleModal {
-    width: 75%;
-  }
 `;

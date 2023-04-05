@@ -24,12 +24,13 @@ function Modal({ className, hook, children }: Props) {
     return () => document.body.removeEventListener('mousedown', closeModal);
   }, [hook]);
 
-  return (
+  return createPortal(
     <Background hook={hook}>
       <StyledModal className={className} ref={ref} hook={hook}>
         {children}
       </StyledModal>
-    </Background>
+    </Background>,
+    document.getElementById('modal') || document.body
   );
 }
 
