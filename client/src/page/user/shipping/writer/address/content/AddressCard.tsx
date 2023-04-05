@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
-import { ModalHookType } from '@hook/useModal';
+import { ModalHook } from '@component/new_modal/useModal';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import Button from '@component/form/Button';
@@ -8,7 +8,7 @@ import AddressEditor from '@component/shipping/address/editor/AddressEditor';
 import { State, Action } from '@component/shipping/address/editor/reducer';
 
 interface Props {
-  modal: ModalHookType;
+  modal: ModalHook;
   state: State;
   dispatch: React.Dispatch<Action>;
 }

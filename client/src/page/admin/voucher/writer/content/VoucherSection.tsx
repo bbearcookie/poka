@@ -1,8 +1,8 @@
 import React, { useRef, useCallback } from 'react';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import InputMessage from '@component/form/InputMessage';
-import useModal from '@hook/useModal';
-import TitleModal from '@component/modal/TitleModal';
+import useModal from '@component/new_modal/useModal';
+import TitleModal from '@component/new_modal/TitleModal';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import Button from '@component/form/Button';
 import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
@@ -73,7 +73,7 @@ function VoucherSection({ state, dispatch }: Props) {
         </CardBody>
       </Card>
 
-      <TitleModal hook={addModal} titleName="소유권 선택" styles={{ width: '75%' }}>
+      <TitleModal hook={addModal} title="소유권 선택">
         <PhotoListWithFilter icon={{ svg: faPlus }} handleSelect={handleAddVoucher} />
       </TitleModal>
     </>

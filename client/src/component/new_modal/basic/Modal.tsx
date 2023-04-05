@@ -3,18 +3,13 @@ import { createPortal } from 'react-dom';
 import { ModalHook } from '@component/new_modal/useModal';
 import { Background, Modal as StyledModal } from './_styles';
 
-export interface Position {
-  horizontal: 'LEFT' | 'CENTER' | 'RIGHT';
-  vertical: 'TOP' | 'CENTER' | 'BOTTOM';
-}
-
 export interface Props {
+  className?: string;
   hook: ModalHook;
-  position?: Position;
   children?: React.ReactNode;
 }
 
-function Modal({ hook, position = { horizontal: 'CENTER', vertical: 'CENTER' }, children }: Props) {
+function Modal({ className, hook, children }: Props) {
   const ref = useRef<HTMLDivElement>(null);
 
   // 모달의 바깥 영역이 클릭되면 모달을 닫는다
@@ -30,16 +25,11 @@ function Modal({ hook, position = { horizontal: 'CENTER', vertical: 'CENTER' }, 
   }, [hook]);
 
   return (
-    <>
-      {createPortal(
-        <Background hook={hook}>
-          <StyledModal ref={ref} position={position} isOpen={hook.isOpen}>
-            {children}
-          </StyledModal>
-        </Background>,
-        document.getElementById('modal') || document.body
-      )}
-    </>
+    <Background hook={hook}>
+      <StyledModal className={className} ref={ref} hook={hook}>
+        {children}
+      </StyledModal>
+    </Background>
   );
 }
 

@@ -3,7 +3,7 @@ import { useQueries } from '@tanstack/react-query';
 import { ResType as VoucherResType } from '@api/query/voucher/useVoucherQuery';
 import { fetchVoucherDetail } from '@api/api/voucher';
 import { faAdd, faClose } from '@fortawesome/free-solid-svg-icons';
-import { ModalHookType } from '@hook/useModal';
+import { ModalHook } from '@component/new_modal/useModal';
 import VoucherItem from '@component/voucher/item/VoucherItem';
 import SkeletonVoucherItem from '@component/voucher/item/SkeletonVoucherItem';
 import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
@@ -17,7 +17,7 @@ import { State, Action } from '@page/user/shipping/writer/reducer';
 interface Props {
   state: State;
   dispatch: React.Dispatch<Action>;
-  modal: ModalHookType;
+  modal: ModalHook;
 }
 
 function CardSection({ state, dispatch, modal }: Props) {

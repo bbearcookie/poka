@@ -7,6 +7,10 @@ export const StyledIndex = styled.main`
   .AddressCard {
     margin-bottom: 5em;
   }
+
+  .TitleModal {
+    width: 75%;
+  }
 `
 export const StyledButtonSection = styled.div`
   display: flex;

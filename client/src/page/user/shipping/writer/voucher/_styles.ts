@@ -8,4 +8,8 @@ export const StyledVoucherSection = styled.div`
   .CardSection {
     margin-bottom: 5em;
   }
+
+  .TitleModal {
+    width: 75%;
+  }
 `;

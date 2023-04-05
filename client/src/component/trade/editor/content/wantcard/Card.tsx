@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
-import { ModalHookType } from '@hook/useModal';
+import { ModalHook } from '@component/new_modal/useModal';
 import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
 import Button from '@component/form/Button';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
@@ -9,7 +9,7 @@ import { State, Action } from '@component/trade/editor/reducer';
 import CardContents from './contents/CardContents';
 
 interface Props {
-  modal: ModalHookType;
+  modal: ModalHook;
   state: State;
   dispatch: React.Dispatch<Action>;
 }

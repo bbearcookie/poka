@@ -2,12 +2,12 @@ import React, { useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import PhotoListWithFilter from '@component/list/photo/PhotoListWithFilter';
-import TitleModal from '@component/modal/TitleModal';
+import TitleModal from '@component/new_modal/TitleModal';
 import { State, Action } from '../../reducer';
-import { ModalHookType } from '@hook/useModal';
+import { ModalHook } from '@component/new_modal/useModal';
 
 interface Props {
-  modal: ModalHookType;
+  modal: ModalHook;
   state: State;
   dispatch: React.Dispatch<Action>;
 }
@@ -31,7 +31,7 @@ function Modal({ modal, state, dispatch }: Props) {
   );
 
   return (
-    <TitleModal hook={modal} titleName="포토카드 선택" styles={{ width: '75%' }}>
+    <TitleModal hook={modal} title="포토카드 선택">
       <PhotoListWithFilter icon={{ svg: faAdd }} handleSelect={addPhoto} />
     </TitleModal>
   );

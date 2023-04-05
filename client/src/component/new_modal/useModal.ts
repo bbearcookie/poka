@@ -1,22 +1,28 @@
 import React, { useState, useCallback } from 'react';
 
+interface Position {
+  horizontal: 'LEFT' | 'CENTER' | 'RIGHT';
+  vertical: 'TOP' | 'CENTER' | 'BOTTOM';
+}
+
 export interface ModalHook {
-  isOpen: boolean;
+  position: Position;
+  isOpened: boolean;
+  errorMessage: string;
   open: () => void;
   close: () => void;
-  errorMessage: string;
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function useModal(): ModalHook {
-  const [isOpen, setIsOpen] = useState(false);
+function useModal(position: Position = { horizontal: 'CENTER', vertical: 'CENTER' }): ModalHook {
+  const [isOpened, setIsOpened] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   // 모달 ON / OFF
-  const open = useCallback(() => setIsOpen(true), []);
-  const close = useCallback(() => setIsOpen(false), []);
+  const open = useCallback(() => setIsOpened(true), []);
+  const close = useCallback(() => setIsOpened(false), []);
 
-  return { isOpen, open, close, errorMessage, setErrorMessage };
+  return { position, isOpened, errorMessage, open, close, setErrorMessage };
 }
 
 export default useModal;

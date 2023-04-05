@@ -3,15 +3,15 @@ import { useAppSelector } from '@app/redux/reduxHooks';
 import useSearcher from '@component/search/useSearcher';
 import Searcher from '@component/search/Searcher';
 import VoucherList from '@component/list/voucher/VoucherList';
-import TitleModal from '@component/modal/TitleModal';
+import TitleModal from '@component/new_modal/TitleModal';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { ModalHookType } from '@hook/useModal';
+import { ModalHook } from '@component/new_modal/useModal';
 import { State, Action } from '@page/user/shipping/writer/reducer';
 
 interface Props {
   state: State;
   dispatch: React.Dispatch<Action>;
-  modal: ModalHookType;
+  modal: ModalHook;
 }
 
 function ModalSection({ state, dispatch, modal }: Props) {
@@ -35,7 +35,7 @@ function ModalSection({ state, dispatch, modal }: Props) {
   }, [state, dispatch]);
 
   return (
-    <TitleModal hook={modal} titleName="소유권 선택" styles={{ width: "75%" }}>
+    <TitleModal hook={modal} title="소유권 선택">
       <Searcher
         options={{
           group: true,

@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import useVoucherQuery from '@api/query/voucher/useVoucherQuery';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
-import { ModalHookType } from '@hook/useModal';
+import { ModalHook } from '@component/new_modal/useModal';
 import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
 import Button from '@component/form/Button';
 import PhotoInfo from '@component/photocard/info/PhotoInfo';
@@ -13,7 +13,7 @@ import { State, Action } from '../../reducer';
 
 interface Props {
   ableToChange?: boolean;
-  modal: ModalHookType;
+  modal: ModalHook;
   state: State;
   dispatch: React.Dispatch<Action>;
 }

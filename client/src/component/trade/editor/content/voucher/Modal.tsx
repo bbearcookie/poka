@@ -3,13 +3,13 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import useSearcher from '@component/search/useSearcher';
 import Searcher from '@component/search/Searcher';
-import TitleModal from '@component/modal/TitleModal';
+import TitleModal from '@component/new_modal/TitleModal';
 import VoucherList from '@component/list/voucher/VoucherList';
 import { State, Action } from '../../reducer';
-import { ModalHookType } from '@hook/useModal';
+import { ModalHook } from '@component/new_modal/useModal';
 
 interface Props {
-  modal: ModalHookType;
+  modal: ModalHook;
   state: State;
   dispatch: React.Dispatch<Action>;
 }
@@ -40,7 +40,7 @@ function Modal({ modal, state, dispatch }: Props) {
   );
 
   return (
-    <TitleModal hook={modal} titleName="소유권 선택" styles={{ width: '75%' }}>
+    <TitleModal hook={modal} title="소유권 선택">
       <Searcher
         options={{
           group: true,

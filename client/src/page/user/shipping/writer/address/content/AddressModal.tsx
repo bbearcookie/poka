@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
-import { ModalHookType } from '@hook/useModal';
-import TitleModal from '@component/modal/TitleModal';
+import { ModalHook } from '@component/new_modal/useModal';
+import TitleModal from '@component/new_modal/TitleModal';
 import Button from '@component/form/Button';
 import Address from '@component/shipping/address/item/Address';
 import { ResType } from '@api/query/shipping/useShippingAddressesQuery';
@@ -9,7 +9,7 @@ import { StyledButtonSection } from '../../_styles';
 
 interface Props {
   addresses: ResType;
-  modal: ModalHookType;
+  modal: ModalHook;
   state: State;
   dispatch: React.Dispatch<Action>;
 }
@@ -24,7 +24,7 @@ function AddressModal({ addresses, modal, state, dispatch }: Props) {
   }, [addresses, dispatch, modal]);
 
   return (
-    <TitleModal hook={modal} titleName="배송지 가져오기" styles={{ minWidth: "50%" }}>
+    <TitleModal hook={modal} title="배송지 가져오기">
       {addresses.addresses.map((address, idx) =>
       <Address key={address.addressId} {...address}>
         <StyledButtonSection>
