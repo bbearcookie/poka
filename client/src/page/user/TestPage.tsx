@@ -25,7 +25,7 @@ function TestPage() {
       <ConfirmModal
         hook={modal}
         title="타이틀.."
-        cssProp={{ width: '75%', background: 'yellow' }}
+        cssProp={{ width: '50vw' }}
       >
         <div>ㅎㅎ 내용</div>
         <div>ㅎㅎ 내용</div>

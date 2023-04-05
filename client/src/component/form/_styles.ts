@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 
+export const InputMessage = styled.p`
+  margin: 0.2em 0;
+  color: red;
+`;
+
 interface ButtonSectionProps {
   margin?: string;
   marginTop?: string;
@@ -18,4 +23,4 @@ export const ButtonSection = styled.section<ButtonSectionProps>`
   justify-content: flex-end;
   flex-wrap: wrap;
   gap: 1em;
-`
+`;
