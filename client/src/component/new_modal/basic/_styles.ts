@@ -1,4 +1,6 @@
 import styled, { css } from 'styled-components';
+import { TitleLabel } from '@component/label/titleLabel/_styles';
+import { CardHeader } from '@component/card/basic/_styles';
 import { ModalHook } from '@component/new_modal/useModal';
 import { Position } from './Modal';
 import { scrollbar } from '@util/_commonStyles';
@@ -7,39 +9,46 @@ import { scrollbar } from '@util/_commonStyles';
 const transformHeight = '3em';
 
 export const Background = styled.div<{ hook: ModalHook }>`
+  display: flex;
   width: 100%;
-  height: calc(100% + ${transformHeight});
+  height: 100%;
   padding: 1em;
+  box-sizing: border-box;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.4);
   top: 0;
   left: 0;
   z-index: 99;
-  transition: opacity 0.2s ease-out, visibility 0.2s ease-out, transform 0.2s ease-out;
 
+  transition: opacity 0.2s ease-out, visibility 0.2s ease-out;
   opacity: ${p => (p.hook.isOpen ? 1 : 0)};
   visibility: ${p => (p.hook.isOpen ? 'visible' : 'hidden')};
-  transform: ${p => (p.hook.isOpen ? 'translateY(0)' : `translateY(calc(-${transformHeight}))`)};
 `;
 
-export const Modal = styled.div<{ position: Position }>`
+export const Modal = styled.div<{ position: Position; isOpen: boolean }>`
   width: fit-content;
-  max-height: 90%;
+  height: fit-content;
+  max-height: calc(100% - ${transformHeight});
+  padding: 1em;
   overflow: auto;
+
+  transition: transform 0.2s ease-out;
+  transform: ${p => (p.isOpen ? 'translateY(0)' : `translateY(calc(-${transformHeight}))`)};
 
   // 모달 세로 위치 조정
   ${p => {
     switch (p.position.vertical) {
       case 'TOP':
-        return css``;
+        return css`
+          align-self: flex-start;
+        `;
       case 'CENTER':
         return css`
-          margin-top: auto;
-          margin-bottom: auto;
+          align-self: center;
         `;
       case 'BOTTOM':
         return css`
-          margin-top: auto;
+          align-self: flex-end;
         `;
     }
   }}
@@ -62,4 +71,13 @@ export const Modal = styled.div<{ position: Position }>`
   }}
 
   ${scrollbar}
+`;
+
+export const ModalHeader = styled(CardHeader)`
+  display: flex;
+  align-items: center;
+
+  ${TitleLabel} {
+    flex-grow: 1;
+  }
 `;

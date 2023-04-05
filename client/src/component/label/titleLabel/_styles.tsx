@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export interface Props {
   margin?: string;
@@ -8,7 +8,7 @@ export interface Props {
   marginRight?: string;
 }
 
-export const StyledTitle = styled.div<Props>`
+export const TitleLabel = styled.div<Props>`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -25,4 +25,4 @@ export const StyledTitle = styled.div<Props>`
     flex-grow: 1;
     margin: 0;
   }
-`
+`;

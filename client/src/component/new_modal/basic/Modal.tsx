@@ -8,7 +8,7 @@ export interface Position {
   vertical: 'TOP' | 'CENTER' | 'BOTTOM';
 }
 
-interface Props {
+export interface Props {
   hook: ModalHook;
   position?: Position;
   children?: React.ReactNode;
@@ -33,7 +33,7 @@ function Modal({ hook, position = { horizontal: 'CENTER', vertical: 'CENTER' }, 
     <>
       {createPortal(
         <Background hook={hook}>
-          <StyledModal ref={ref} position={position}>
+          <StyledModal ref={ref} position={position} isOpen={hook.isOpen}>
             {children}
           </StyledModal>
         </Background>,

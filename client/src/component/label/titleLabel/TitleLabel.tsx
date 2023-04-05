@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyledTitle, Props as StylesProps } from './_styles';
+import { TitleLabel as StyledTitleLabel, Props as StylesProps } from './_styles';
 
 interface Props {
   title?: string;
@@ -9,10 +9,10 @@ interface Props {
 
 function TitleLabel({ title, styles, children }: Props) {
   return (
-    <StyledTitle {...styles}>
+    <StyledTitleLabel {...styles}>
       <h1 className="title">{title}</h1>
       {children}
-    </StyledTitle>
+    </StyledTitleLabel>
   );
 }
 
