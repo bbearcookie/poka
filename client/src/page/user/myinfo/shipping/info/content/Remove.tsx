@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import useDeleteShippingAddress from '@api/mutation/shipping/address/useDeleteShippingAddress';
-import useModal from '@hook/useModal';
-import ConfirmModal from '@component/modal/ConfirmModal';
+import useModal from '@component/new_modal/useModal';
+import ConfirmModal from '@component/new_modal/ConfirmModal';
 import IconButton from '@component/form/IconButton';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { Address } from '@type/shipping';
@@ -18,7 +18,7 @@ function Remove({ addressId, name, address, addressDetail }: Props) {
   const handleRemove = useCallback(() => {
     deleteMutation.mutate({ addressId });
   }, [addressId, deleteMutation]);
-  
+
   return (
     <>
       <IconButton
@@ -26,18 +26,26 @@ function Remove({ addressId, name, address, addressDetail }: Props) {
         height="1em"
         icon={faClose}
         tooltip="삭제"
-        onClick={(e) => { e.stopPropagation(); modal.open(); }}
+        onClick={e => {
+          e.stopPropagation();
+          modal.open();
+        }}
         styles={{ display: 'inline' }}
       />
 
       <ConfirmModal
         hook={modal}
-        titleName="배송지 삭제"
-        confirmText="삭제"
-        handleConfirm={handleRemove}
+        title="배송지 삭제"
+        confirm={{ text: '삭제', buttonTheme: "danger", onClick: handleRemove }}
       >
-        <p className="text">정말로 <b>{name}</b> 배송지를 삭제하시겠어요?</p>
-        <p className="text"><i>{address} {addressDetail}</i></p>
+        <p className="text">
+          정말로 <b>{name}</b> 배송지를 삭제하시겠어요?
+        </p>
+        <p className="text">
+          <i>
+            {address} {addressDetail}
+          </i>
+        </p>
       </ConfirmModal>
     </>
   );

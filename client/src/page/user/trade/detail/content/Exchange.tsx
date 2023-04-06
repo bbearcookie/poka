@@ -8,8 +8,8 @@ import { getErrorMessage } from '@util/request';
 import { ItemSection } from '@component/list/content/_styles';
 import VoucherItem from '@component/voucher/item/VoucherItem';
 import Button from '@component/form/Button';
-import useModal from '@hook/useModal';
-import ConfirmModal from '@component/modal/ConfirmModal';
+import useModal from '@component/new_modal/useModal';
+import ConfirmModal from '@component/new_modal/ConfirmModal';
 import { CheckBoxInput } from './_styles';
 
 interface Props {
@@ -86,10 +86,8 @@ function Exchange({ trade }: Props) {
 
       <ConfirmModal
         hook={modal}
-        titleName="교환할 소유권 선택"
-        confirmText="교환"
-        confirmButtonTheme="pink"
-        handleConfirm={handleExchange}
+        title="교환할 소유권 선택"
+        confirm={{ text: "교환", buttonTheme: "pink", onClick: handleExchange }}
       >
         <ItemSection templateColumnsSize="minmax(11.25em, 1fr)" marginBottom="1em">
           {exchange?.vouchers.map(v => (
