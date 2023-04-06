@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import useModal from '@component/new_modal/useModal';
-import ConfirmModal from '@component/new_modal/ConfirmModal';
+import useModal from '@component/modal/useModal';
+import ConfirmModal from '@component/modal/ConfirmModal';
 import { StyledIndex } from './_styles';
 
 function TestPage() {

@@ -6,8 +6,8 @@ import { ResType } from '@api/query/shipping/useShippingRequestQuery';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { getErrorMessage } from '@util/request';
 import Button from '@component/form/Button';
-import ConfirmModal from '@component/new_modal/ConfirmModal';
-import useModal from '@component/new_modal/useModal';
+import ConfirmModal from '@component/modal/ConfirmModal';
+import useModal from '@component/modal/useModal';
 
 interface Props {
   res: ResType;

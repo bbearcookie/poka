@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import useDeleteShippingAddress from '@api/mutation/shipping/address/useDeleteShippingAddress';
-import useModal from '@component/new_modal/useModal';
-import ConfirmModal from '@component/new_modal/ConfirmModal';
+import useModal from '@component/modal/useModal';
+import ConfirmModal from '@component/modal/ConfirmModal';
 import IconButton from '@component/form/IconButton';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { Address } from '@type/shipping';

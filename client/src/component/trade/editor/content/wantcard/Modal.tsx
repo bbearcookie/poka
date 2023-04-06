@@ -2,9 +2,9 @@ import React, { useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import PhotoListWithFilter from '@component/list/photo/PhotoListWithFilter';
-import TitleModal from '@component/new_modal/TitleModal';
+import TitleModal from '@component/modal/TitleModal';
 import { State, Action } from '../../reducer';
-import { ModalHook } from '@component/new_modal/useModal';
+import { ModalHook } from '@component/modal/useModal';
 
 interface Props {
   modal: ModalHook;

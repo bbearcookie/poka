@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { getErrorMessage } from '@util/request';
 import useDeleteVoucher from '@api/mutation/voucher/useDeleteVoucher';
 import RemoveCard from '@component/card/RemoveCard';
-import useModal from '@component/new_modal/useModal';
-import ConfirmModal from '@component/new_modal/ConfirmModal';
+import useModal from '@component/modal/useModal';
+import ConfirmModal from '@component/modal/ConfirmModal';
 
 interface Props {
   voucherId: number;

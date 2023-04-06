@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getErrorMessage } from '@util/request';
-import useModal from '@component/new_modal/useModal';
-import ConfirmModal from '@component/new_modal/ConfirmModal';
+import useModal from '@component/modal/useModal';
+import ConfirmModal from '@component/modal/ConfirmModal';
 import RemoveCard from '@component/card/RemoveCard';
 import { ResType as MemberType } from '@api/query/member/useMemberQuery';
 import useDeleteMember from '@api/mutation/member/useDeleteMember';

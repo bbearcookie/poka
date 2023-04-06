@@ -1,5 +1,5 @@
 import React from 'react';
-import useModal from '@component/new_modal/useModal';
+import useModal from '@component/modal/useModal';
 import { State, Action } from './reducer';
 import Card from './content/wantcard/Card';
 import Modal from './content/wantcard/Modal';

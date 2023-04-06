@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import useApproveShippingRequest from '@api/mutation/shipping/request/useApproveShippingRequest';
 import { ResType } from '@api/query/shipping/useShippingRequestQuery';
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons';
-import ConfirmModal from '@component/new_modal/ConfirmModal';
-import useModal from '@component/new_modal/useModal';
+import ConfirmModal from '@component/modal/ConfirmModal';
+import useModal from '@component/modal/useModal';
 import Button from '@component/form/Button';
 
 interface Props {

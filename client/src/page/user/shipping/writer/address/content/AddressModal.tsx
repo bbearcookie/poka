@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
-import { ModalHook } from '@component/new_modal/useModal';
-import TitleModal from '@component/new_modal/TitleModal';
+import { ModalHook } from '@component/modal/useModal';
+import TitleModal from '@component/modal/TitleModal';
 import Button from '@component/form/Button';
 import Address from '@component/shipping/address/item/Address';
 import { ResType } from '@api/query/shipping/useShippingAddressesQuery';

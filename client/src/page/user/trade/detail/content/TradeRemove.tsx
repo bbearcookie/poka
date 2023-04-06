@@ -4,8 +4,8 @@ import { TradeItem } from '@type/trade';
 import { getErrorMessage } from '@util/request';
 import useDeleteTrade from '@api/mutation/trade/useDeleteTrade';
 import { useAppSelector } from '@app/redux/reduxHooks';
-import useModal from '@component/new_modal/useModal';
-import ConfirmModal from '@component/new_modal/ConfirmModal';
+import useModal from '@component/modal/useModal';
+import ConfirmModal from '@component/modal/ConfirmModal';
 import RemoveCard from '@component/card/RemoveCard';
 
 interface Props {

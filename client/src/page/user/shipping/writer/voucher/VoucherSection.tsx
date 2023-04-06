@@ -1,5 +1,5 @@
 import React from 'react';
-import useModal from '@component/new_modal/useModal';
+import useModal from '@component/modal/useModal';
 import CardSection from './content/CardSection';
 import ModalSection from './content/ModalSection';
 import { State, Action } from '@page/user/shipping/writer/reducer';

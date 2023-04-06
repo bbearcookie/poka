@@ -3,7 +3,7 @@ import { useQueries } from '@tanstack/react-query';
 import { ResType as VoucherResType } from '@api/query/voucher/useVoucherQuery';
 import { fetchVoucherDetail } from '@api/api/voucher';
 import { faAdd, faClose } from '@fortawesome/free-solid-svg-icons';
-import { ModalHook } from '@component/new_modal/useModal';
+import { ModalHook } from '@component/modal/useModal';
 import VoucherItem from '@component/voucher/item/VoucherItem';
 import SkeletonVoucherItem from '@component/voucher/item/SkeletonVoucherItem';
 import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';

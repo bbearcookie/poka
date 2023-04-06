@@ -8,8 +8,8 @@ import { getErrorMessage } from '@util/request';
 import { ItemSection } from '@component/list/content/_styles';
 import VoucherItem from '@component/voucher/item/VoucherItem';
 import Button from '@component/form/Button';
-import useModal from '@component/new_modal/useModal';
-import ConfirmModal from '@component/new_modal/ConfirmModal';
+import useModal from '@component/modal/useModal';
+import ConfirmModal from '@component/modal/ConfirmModal';
 import { CheckBoxInput } from './_styles';
 
 interface Props {

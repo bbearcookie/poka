@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { TitleLabel } from '@component/label/titleLabel/_styles';
 import { CardHeader } from '@component/card/basic/_styles';
-import { ModalHook } from '@component/new_modal/useModal';
+import { ModalHook } from '@component/modal/useModal';
 import { scrollbar } from '@util/_commonStyles';
 
 export const Background = styled.div<{ hook: ModalHook }>`

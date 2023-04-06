@@ -3,9 +3,9 @@ import { useAppSelector } from '@app/redux/reduxHooks';
 import useSearcher from '@component/search/useSearcher';
 import Searcher from '@component/search/Searcher';
 import VoucherList from '@component/list/voucher/VoucherList';
-import TitleModal from '@component/new_modal/TitleModal';
+import TitleModal from '@component/modal/TitleModal';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { ModalHook } from '@component/new_modal/useModal';
+import { ModalHook } from '@component/modal/useModal';
 import { State, Action } from '@page/user/shipping/writer/reducer';
 
 interface Props {

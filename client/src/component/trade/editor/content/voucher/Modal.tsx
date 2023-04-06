@@ -3,10 +3,10 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { useAppSelector } from '@app/redux/reduxHooks';
 import useSearcher from '@component/search/useSearcher';
 import Searcher from '@component/search/Searcher';
-import TitleModal from '@component/new_modal/TitleModal';
+import TitleModal from '@component/modal/TitleModal';
 import VoucherList from '@component/list/voucher/VoucherList';
 import { State, Action } from '../../reducer';
-import { ModalHook } from '@component/new_modal/useModal';
+import { ModalHook } from '@component/modal/useModal';
 
 interface Props {
   modal: ModalHook;

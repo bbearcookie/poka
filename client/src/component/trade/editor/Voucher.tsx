@@ -1,4 +1,4 @@
-import useModal from '@component/new_modal/useModal';
+import useModal from '@component/modal/useModal';
 import Card from './content/voucher/Card';
 import Modal from './content/voucher/Modal';
 import { State, Action } from './reducer';

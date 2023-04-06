@@ -2,8 +2,8 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getErrorMessage } from '@util/request';
 import useDeletePhoto from '@api/mutation/photo/useDeletePhoto';
-import useModal from '@component/new_modal/useModal';
-import ConfirmModal from '@component/new_modal/ConfirmModal';
+import useModal from '@component/modal/useModal';
+import ConfirmModal from '@component/modal/ConfirmModal';
 import RemoveCard from '@component/card/RemoveCard';
 import { ResType as PhotoResType } from '@api/query/photo/usePhotoQuery';
 
