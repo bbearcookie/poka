@@ -59,12 +59,13 @@ function Success({ res }: Props) {
         dispatch={dispatch}
         handleCancel={closeEditor}
         handleSubmit={handleSubmit}
+        cssProp={{ marginBottom: '5em' }}
       />
     );
   // 읽기 모드 출력
   else
     return (
-      <UserProfileInfo {...res}>
+      <UserProfileInfo {...res} cssProp={{ marginBottom: '5em' }}>
         <Button
           rightIcon={faPenToSquare}
           styles={{

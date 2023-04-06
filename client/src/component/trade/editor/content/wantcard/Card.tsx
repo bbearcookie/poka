@@ -7,14 +7,16 @@ import Button from '@component/form/Button';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import { State, Action } from '@component/trade/editor/reducer';
 import CardContents from './contents/CardContents';
+import { CSSProp } from 'styled-components';
 
 interface Props {
   modal: ModalHook;
   state: State;
   dispatch: React.Dispatch<Action>;
+  cssProp?: CSSProp;
 }
 
-function CardWrapper({ modal, state, dispatch }: Props) {
+function CardWrapper({ modal, state, dispatch, cssProp }: Props) {
   const openModal = useCallback(() => {
     if (state.data.wantPhotocardIds.length >= 10)
       return toast.error('받으려는 포토카드는 최대 10종류만 선택할 수 있어요.', {
@@ -28,7 +30,7 @@ function CardWrapper({ modal, state, dispatch }: Props) {
   }, [modal, state]);
 
   return (
-    <Card>
+    <Card css={cssProp}>
       <CardHeader>
         <TitleLabel title="받을 포토카드">
           <Button

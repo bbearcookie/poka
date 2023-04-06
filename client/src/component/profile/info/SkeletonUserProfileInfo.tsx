@@ -4,7 +4,7 @@ import SkeletonUserProfile from '../SkeletonUserProfile';
 
 function SkeletonUserProfileInfo() {
   return (
-    <StyledUserProfileInfo>
+    <StyledUserProfileInfo css={{ marginBottom: '5em' }}>
       <SkeletonUserProfile />
     </StyledUserProfileInfo>
   );

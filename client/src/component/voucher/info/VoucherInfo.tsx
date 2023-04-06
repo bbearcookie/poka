@@ -1,6 +1,6 @@
 import { VoucherItem } from '@type/voucher';
-import { Card, CardHeader } from '@component/card/basic/_styles';
-import { CardList } from '@component/card/basic/_styles';
+import { CSSProp } from 'styled-components';
+import { CardHeader, CardList } from '@component/card/basic/_styles';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import VoucherID from './content/VoucherID';
 import VoucherOwner from './content/VoucherOwner';
@@ -12,11 +12,12 @@ import { VoucherInfo as StyledVoucherInfo } from './_styles';
 interface Props {
   voucher: VoucherItem;
   displayType: 'admin' | 'user';
+  cssProp?: CSSProp;
 }
 
-function VoucherInfo({ displayType, voucher }: Props) {
+function VoucherInfo({ voucher, displayType, cssProp }: Props) {
   return (
-    <StyledVoucherInfo>
+    <StyledVoucherInfo css={cssProp}>
       <CardHeader>
         <TitleLabel title="소유권 정보" />
       </CardHeader>

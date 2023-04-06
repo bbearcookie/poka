@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { contentsPadding } from '@util/_commonStyles';
-import { Card } from '@component/card/basic/_styles';
 
 export const StyledIndex = styled.main`
   ${contentsPadding}
@@ -21,11 +20,6 @@ export const StyledIndex = styled.main`
       background-color: #e5e7eb;
       padding: 0 0.4em;
       border-radius: 5px;
-    }
-
-    ${Card} {
-      margin-top: 2.3em;
-      margin-bottom: 5em;
     }
   }
 `;

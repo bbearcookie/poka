@@ -10,15 +10,17 @@ import InputMessage from '@component/form/InputMessage';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import { getErrorMessage } from '@util/request';
 import { State, Action } from '../../reducer';
+import { CSSProp } from 'styled-components';
 
 interface Props {
   ableToChange?: boolean;
   modal: ModalHook;
   state: State;
   dispatch: React.Dispatch<Action>;
+  cssProp?: CSSProp;
 }
 
-function CardWrapper({ ableToChange, modal, state, dispatch }: Props) {
+function CardWrapper({ ableToChange, modal, state, dispatch, cssProp }: Props) {
   const { status, data: voucher } = useVoucherQuery(state.data.voucherId, {
     onError: err =>
       dispatch({ type: 'SET_MESSAGE', target: 'voucherId', value: getErrorMessage(err) }),
@@ -31,7 +33,7 @@ function CardWrapper({ ableToChange, modal, state, dispatch }: Props) {
   }, [modal]);
 
   return (
-    <Card>
+    <Card css={cssProp}>
       <CardHeader>
         <TitleLabel title="등록할 소유권">
           {ableToChange && (
@@ -51,7 +53,7 @@ function CardWrapper({ ableToChange, modal, state, dispatch }: Props) {
         </TitleLabel>
       </CardHeader>
       <CardBody>
-        {status === 'success' && <PhotoInfo {...voucher.photo} styles={{ margin: '0 0 1em 0' }} />}
+        {status === 'success' && <PhotoInfo {...voucher.photo} cssProp={{ marginBottom: '1em' }} />}
         {status === 'loading' && state.data.voucherId > 0 && <SkeletonPhotoInfo />}
         {state.message.voucherId && (
           <InputMessage styles={{ margin: '0 0 0.5em 0' }}>{state.message.voucherId}</InputMessage>

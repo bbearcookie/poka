@@ -47,7 +47,7 @@ function VoucherSection({ state, dispatch }: Props) {
 
   return (
     <>
-      <Card className="voucher-section">
+      <Card css={{ marginBottom: '2em' }}>
         <CardHeader>
           <TitleLabel title="소유권 선택">
             <Button

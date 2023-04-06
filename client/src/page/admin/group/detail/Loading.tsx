@@ -15,7 +15,7 @@ function Loading() {
         />
         <SkeletonItem styles={{ width: '5em', margin: '1.62em 0' }} />
       </div>
-      <Card className="MemberList">
+      <Card css={{ marginBottom: '5em' }}>
         <CardHeader>
           <div className="title">그룹의 멤버</div>
         </CardHeader>

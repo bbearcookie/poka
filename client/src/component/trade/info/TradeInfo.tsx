@@ -25,7 +25,7 @@ function TradeInfo({
   writtenTime,
 }: Props) {
   return (
-    <StyledTradeInfo>
+    <StyledTradeInfo css={{ marginBottom: '5em' }}>
       <CardHeader>
         <TitleLabel title="교환글 정보" />
       </CardHeader>

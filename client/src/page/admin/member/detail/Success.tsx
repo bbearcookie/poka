@@ -15,18 +15,22 @@ function Success({ member, memberId }: Props) {
     <>
       <section className="name-section">
         <p className="name-label">{member?.name}</p>
-        <p>그룹: <span className="group-name-label">{member?.groupName}</span></p>
+        <p>
+          그룹: <span className="group-name-label">{member?.groupName}</span>
+        </p>
       </section>
 
-      <Card>
+      <Card css={{ marginBottom: '5em' }}>
         <CardHeader>
           <TitleLabel title="등록된 포토카드">
             <Button
               rightIcon={faArrowRight}
               styles={{
-                theme: "primary"
+                theme: 'primary',
               }}
-            >목록</Button>
+            >
+              목록
+            </Button>
           </TitleLabel>
         </CardHeader>
         <CardBody>

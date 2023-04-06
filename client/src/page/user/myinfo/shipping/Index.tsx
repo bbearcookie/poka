@@ -11,10 +11,10 @@ function Index({ userId }: Props) {
   const { status, data: addresses, error } = useShippingAddresses(userId);
 
   return (
-    <div className="shipping-section">
+    <>
       {status === 'success' && <Success res={addresses} userId={userId} />}
       {status === 'loading' && <Loading />}
-    </div>
+    </>
   );
 }
 

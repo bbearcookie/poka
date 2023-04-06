@@ -32,12 +32,12 @@ function Index() {
   return (
     <StyledIndex>
       <TitleLabel title="교환 등록" styles={{ marginBottom: '2em' }} />
-      <div className="voucher-section">
-        <Voucher state={state} dispatch={dispatch} />
-      </div>
-      <div className="wantcard-section">
-        <WantPhotocard state={state} dispatch={dispatch} />
-      </div>
+      <Voucher
+        state={state}
+        dispatch={dispatch}
+        cssProp={{ width: 'fit-content', marginBottom: '5em' }}
+      />
+      <WantPhotocard state={state} dispatch={dispatch} cssProp={{ marginBottom: '5em' }} />
       <ButtonSection handleSubmit={handleSubmit} handleCancel={handleCancel} />
     </StyledIndex>
   );

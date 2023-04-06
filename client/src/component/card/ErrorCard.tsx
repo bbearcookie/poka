@@ -11,7 +11,7 @@ interface Props {
 
 function ErrorCard({ error }: Props) {
   return (
-    <StyledErrorCard>
+    <StyledErrorCard css={{ marginBottom: '5em' }}>
       <CardHeader>
         <TitleLabel title="Error" />
       </CardHeader>

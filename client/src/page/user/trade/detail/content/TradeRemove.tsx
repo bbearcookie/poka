@@ -41,7 +41,7 @@ function TradeRemove({ trade }: Props) {
   return (
     <>
       {trade.state === 'trading' && trade.author.userId === userId && (
-        <RemoveCard titleText="교환글 삭제" onClick={openModal}>
+        <RemoveCard titleText="교환글 삭제" onClick={openModal} cssProp={{ marginBottom: '5em' }}>
           <p className="description">아직 교환이 성사되지 않은 경우에만 삭제 가능합니다.</p>
         </RemoveCard>
       )}
@@ -49,7 +49,7 @@ function TradeRemove({ trade }: Props) {
       <ConfirmModal
         hook={removeModal}
         title="교환글 삭제"
-        confirm={{ text: '삭제', buttonTheme: "danger", onClick: removeTrade }}
+        confirm={{ text: '삭제', buttonTheme: 'danger', onClick: removeTrade }}
       >
         <p className="text">
           교환글을 삭제하면 등록한 소유권의 상태는 다시 교환 가능한 상태로 바뀌어요.

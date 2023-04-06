@@ -55,7 +55,7 @@ function PhotoEditor({ photo, photocardId, closeEditor }: Props) {
   );
 
   return (
-    <Card className="PhotoEditor">
+    <Card css={{ marginBottom: '5em' }}>
       <CardBody>
         <form onSubmit={onSubmit}>
           <PhotoSection>

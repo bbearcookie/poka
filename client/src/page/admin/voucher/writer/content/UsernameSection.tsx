@@ -25,7 +25,7 @@ function UsernameSection({ state, dispatch }: Props) {
   );
 
   return (
-    <Card className="username-section">
+    <Card css={{ marginBottom: '2em' }}>
       <CardHeader>
         <h1 className="title">사용자 아이디</h1>
       </CardHeader>

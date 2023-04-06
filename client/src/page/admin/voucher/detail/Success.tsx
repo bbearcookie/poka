@@ -12,11 +12,8 @@ function Success({ res }: Props) {
 
   return (
     <>
-      <PhotoInfo {...res.photo} styles={{ margin: '0 auto 5em auto' }} />
-      <VoucherInfo
-        displayType="admin"
-        voucher={res}
-      />
+      <PhotoInfo {...res.photo} cssProp={{ margin: '0 auto 5em auto' }} />
+      <VoucherInfo displayType="admin" voucher={res} cssProp={{ marginBottom: '5em' }} />
       <VoucherRemove voucherId={res.voucherId} />
     </>
   );

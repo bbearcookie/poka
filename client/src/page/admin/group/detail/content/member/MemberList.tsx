@@ -27,7 +27,7 @@ function MemberList({ res }: Props) {
   const onClickAddMember = useCallback(() => startEditor(true), [startEditor]);
 
   return (
-    <Card className="MemberList">
+    <Card css={{ marginBottom: '5em' }}>
       <CardHeader>
         <h1 className="title">그룹의 멤버</h1>
       </CardHeader>

@@ -4,8 +4,4 @@ import { VoucherInfo } from "@component/voucher/info/_styles";
 
 export const StyledIndex = styled.main`
   ${contentsPadding}
-
-  ${VoucherInfo} {
-    margin-bottom: 5em;
-  }
 `;
