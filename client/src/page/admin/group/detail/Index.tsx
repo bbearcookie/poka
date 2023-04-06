@@ -12,9 +12,11 @@ function Index() {
 
   return (
     <StyledIndex>
-      <BackLabel to="/admin/group/list" styles={{ marginBottom: "2em" }}>그룹 목록</BackLabel>
-      {status === 'success' && <Success res={group} groupId={groupId} /> }
-      {status === 'error' && <ErrorCard error={error} /> }
+      <BackLabel to="/admin/group/list" styles={{ marginBottom: '2em' }}>
+        그룹 목록
+      </BackLabel>
+      {status === 'success' && <Success res={group} groupId={groupId} />}
+      {status === 'error' && <ErrorCard error={error} cssProp={{ marginBottom: '5em' }} />}
       {status === 'loading' && <Loading />}
     </StyledIndex>
   );

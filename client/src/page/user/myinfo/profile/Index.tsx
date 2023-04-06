@@ -14,7 +14,7 @@ function Index({ userId }: Props) {
     <>
       {status === 'success' && <Success res={user} />}
       {status === 'loading' && <SkeletonUserProfileInfo />}
-      {status === 'error' && <ErrorCard error={error} />}
+      {status === 'error' && <ErrorCard error={error} cssProp={{ marginBottom: '5em' }} />}
     </>
   );
 }

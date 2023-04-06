@@ -1,3 +1,4 @@
+import { CSSProp } from 'styled-components';
 import { CardHeader, CardBody } from '@component/card/basic/_styles';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import { AxiosError } from 'axios';
@@ -7,11 +8,12 @@ import { ErrorCard as StyledErrorCard } from './_styles';
 
 interface Props {
   error: AxiosError<ResponseError, any> | string;
+  cssProp?: CSSProp;
 }
 
-function ErrorCard({ error }: Props) {
+function ErrorCard({ error, cssProp }: Props) {
   return (
-    <StyledErrorCard css={{ marginBottom: '5em' }}>
+    <StyledErrorCard css={cssProp}>
       <CardHeader>
         <TitleLabel title="Error" />
       </CardHeader>

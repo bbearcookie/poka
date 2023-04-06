@@ -30,7 +30,7 @@ function Index() {
 
       {status === 'success' && <Success member={member} memberId={memberId} />}
       {status === 'loading' && <Loading />}
-      {status === 'error' && <ErrorCard error={error} />}
+      {status === 'error' && <ErrorCard error={error} cssProp={{ marginBottom: '5em' }} />}
     </StyledIndex>
   );
 }
