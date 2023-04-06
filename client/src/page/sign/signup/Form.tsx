@@ -12,32 +12,45 @@ function Form() {
 
   // 회원가입 요청
   const postMutation = useSignup<keyof FormType>(
-    (res) => navigate('/login'),
-    (err) => {
-      err.response?.data.errors.forEach((e) => {
+    res => navigate('/login'),
+    err => {
+      err.response?.data.errors.forEach(e => {
         dispatch({ type: 'SET_MESSAGE', target: e.param, value: e.message });
       });
     }
-  )
+  );
 
   // input 포커스 해제시 오류 메시지 제거
-  const blurInput = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
-    dispatch({ type: 'SET_MESSAGE', target: e.target.name as keyof FormType, value: '' });
-  }, [dispatch]);
+  const blurInput = useCallback(
+    (e: React.FocusEvent<HTMLInputElement>) => {
+      dispatch({ type: 'SET_MESSAGE', target: e.target.name as keyof FormType, value: '' });
+    },
+    [dispatch]
+  );
 
   // input 상태 값 변경
-  const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: 'SET_FORM_DATA', target: e.target.name as keyof FormType, value: e.target.value });
-  }, [dispatch]);
+  const changeInput = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      dispatch({
+        type: 'SET_FORM_DATA',
+        target: e.target.name as keyof FormType,
+        value: e.target.value,
+      });
+    },
+    [dispatch]
+  );
 
   // 폼 전송 이벤트
-  const onSubmit = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
-    console.log(state.form);
-    postMutation.mutate({
-      ...state.form
-    });
-  }, [state, postMutation]);
+  const onSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      console.log(state.form);
+      postMutation.mutate({
+        ...state.form,
+      });
+    },
+    [state, postMutation]
+  );
 
   return (
     <form onSubmit={onSubmit}>
@@ -53,10 +66,12 @@ function Form() {
           onBlur={blurInput}
           styles={{
             width: '100%',
-            height: '2.5rem'
+            height: '2.5rem',
           }}
         >
-          <InputMessage styles={{ margin: "0.5em 0 0 0.8em", wordBreak: 'break-all'}}>{state.message.username}</InputMessage>
+          <InputMessage styles={{ margin: '0.5em 0 0 0.8em', wordBreak: 'break-all' }}>
+            {state.message.username}
+          </InputMessage>
         </Input>
       </section>
 
@@ -72,10 +87,12 @@ function Form() {
           onBlur={blurInput}
           styles={{
             width: '100%',
-            height: '2.5rem'
+            height: '2.5rem',
           }}
         >
-          <InputMessage styles={{ margin: "0.5em 0 0 0.8em", wordBreak: 'break-all'}}>{state.message.nickname}</InputMessage>
+          <InputMessage styles={{ margin: '0.5em 0 0 0.8em', wordBreak: 'break-all' }}>
+            {state.message.nickname}
+          </InputMessage>
         </Input>
       </section>
 
@@ -90,11 +107,13 @@ function Form() {
           onChange={changeInput}
           onBlur={blurInput}
           styles={{
-            width: "100%",
-            height: "2.5rem"
+            width: '100%',
+            height: '2.5rem',
           }}
         >
-          <InputMessage styles={{ margin: "0.5em 0 0 0.8em", wordBreak: 'break-all'}}>{state.message.password}</InputMessage>
+          <InputMessage styles={{ margin: '0.5em 0 0 0.8em', wordBreak: 'break-all' }}>
+            {state.message.password}
+          </InputMessage>
         </Input>
       </section>
 
@@ -109,15 +128,19 @@ function Form() {
           onChange={changeInput}
           onBlur={blurInput}
           styles={{
-            width: "100%",
-            height: "2.5rem"
+            width: '100%',
+            height: '2.5rem',
           }}
         >
-          <InputMessage styles={{ margin: "0.5em 0 0 0.8em", wordBreak: 'break-all'}}>{state.message.passwordCheck}</InputMessage>
+          <InputMessage styles={{ margin: '0.5em 0 0 0.8em', wordBreak: 'break-all' }}>
+            {state.message.passwordCheck}
+          </InputMessage>
         </Input>
       </section>
 
-      <Button type="submit" styles={{ theme: "primary", width: "100%", marginTop: "2em" }}><b>가입하기</b></Button>
+      <Button buttonTheme='primary' type="submit" css={{ width: '100%', justifyContent: 'center', margin: '0 auto', marginTop: '2em' }}>
+        <b>가입하기</b>
+      </Button>
     </form>
   );
 }

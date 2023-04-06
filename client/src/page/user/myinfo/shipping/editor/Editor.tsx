@@ -54,22 +54,20 @@ function Editor({ address, closeEditor }: Props) {
     <AddressEditor state={state} dispatch={dispatch}>
       <ButtonSection>
         <Button
+          buttonTheme='primary'
           type="button"
           onClick={onSubmit}
-          styles={{
-            theme: 'primary',
+          css={{
             padding: '0.7em 1em',
-            marginLeft: '0.5em',
           }}
         >
           수정
         </Button>
         <Button
+          buttonTheme="gray-outlined"
           onClick={closeEditor}
-          styles={{
-            theme: 'gray-outlined',
+          css={{
             padding: '0.7em 1em',
-            marginLeft: '0.5em',
           }}
         >
           취소

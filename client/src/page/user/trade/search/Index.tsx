@@ -21,8 +21,10 @@ function Index() {
       <section className="button-section">
         <Link to="/trade/writer">
           <Button
+            buttonTheme="primary"
             leftIcon={faPen}
-            styles={{ theme: 'primary', marginBottom: '2em', iconMargin: '1em' }}
+            iconMargin="1em"
+            css={{ marginBottom: '2em' }}
           >
             등록
           </Button>

@@ -22,14 +22,14 @@ function AddButton({ addressLength, startEditor }: Props) {
   return (
     <ButtonSection>
       <Button
-        styles={{
-          theme: 'primary',
+        buttonTheme='primary'
+        leftIcon={faPlus}
+        iconMargin='1em'
+        onClick={onClick}
+        css={{
           margin: '1.57em',
           padding: '0.7em 1em',
-          iconMargin: '1em',
         }}
-        leftIcon={faPlus}
-        onClick={onClick}
       >
         추가
       </Button>

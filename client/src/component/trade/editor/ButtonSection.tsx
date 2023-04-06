@@ -10,21 +10,19 @@ function ButtonSection({ handleCancel, handleSubmit }: Props) {
   return (
     <StyledButtonSection>
       <Button
-        styles={{
-          theme: 'primary-outlined',
+        buttonTheme="primary-outlined"
+        css={{
           padding: '1em 2em',
-          marginLeft: '1em',
         }}
         onClick={handleCancel}
       >
         취소
       </Button>
       <Button
+        buttonTheme="primary"
         type="button"
-        styles={{
-          theme: 'primary',
+        css={{
           padding: '1em 2em',
-          marginLeft: '1em',
         }}
         onClick={handleSubmit}
       >

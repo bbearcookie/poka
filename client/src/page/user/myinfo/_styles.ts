@@ -8,4 +8,7 @@ export const StyledIndex = styled.main`
 export const ButtonSection = styled.div`
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 1em;
+  margin-top: 1em;
 `;

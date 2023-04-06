@@ -1,24 +1,26 @@
 import React from 'react';
-import { CardHeader, CardBody } from '@component/card/basic/_styles';
+import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
 import PhotocardItem from '@component/photocard/item/PhotocardItem';
 import { ItemSection } from '@component/list/content/_styles';
 import { VoucherItem } from '@type/voucher';
 import { IconType } from '@type/icon';
-import { RequestVoucherInfo as StyledRequestVoucherInfo } from './_styles';
+import { CSSProp } from 'styled-components';
 
 interface Props {
   vouchers: VoucherItem[];
   icon?: IconType;
   handleClick?: (id: number) => void;
+  cssProp?: CSSProp;
 }
 
 function RequestVoucherInfo({
   vouchers,
   icon,
   handleClick,
+  cssProp
 }: Props) {
   return (
-    <StyledRequestVoucherInfo>
+    <Card css={cssProp}>
       <CardHeader>
         <h1 className="title">요청한 소유권</h1>
       </CardHeader>
@@ -34,7 +36,7 @@ function RequestVoucherInfo({
           ))}
         </ItemSection>
       </CardBody>
-    </StyledRequestVoucherInfo>
+    </Card>
   );
 }
 

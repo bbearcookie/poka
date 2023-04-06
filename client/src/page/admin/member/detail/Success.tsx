@@ -23,12 +23,7 @@ function Success({ member, memberId }: Props) {
       <Card css={{ marginBottom: '5em' }}>
         <CardHeader>
           <TitleLabel title="등록된 포토카드">
-            <Button
-              rightIcon={faArrowRight}
-              styles={{
-                theme: 'primary',
-              }}
-            >
+            <Button buttonTheme="primary" rightIcon={faArrowRight} iconMargin="1em">
               목록
             </Button>
           </TitleLabel>

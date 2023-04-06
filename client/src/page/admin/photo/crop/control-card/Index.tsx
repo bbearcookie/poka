@@ -4,7 +4,7 @@ import Form from './Form';
 import Move from './Move';
 
 interface Props {
-  cropper: Cropper,
+  cropper: Cropper;
   children?: React.ReactNode;
 }
 
@@ -18,7 +18,7 @@ function ControlCard({ cropper }: Props) {
         <h3 className="label">영역 이동</h3>
         <Form moveX={moveX} setMoveX={setMoveX} moveY={moveY} setMoveY={setMoveY} />
       </CardBody>
-      <CardFooter>
+      <CardFooter css={{ display: 'flex', flexWrap: 'wrap', gap: '0.5em' }}>
         <Move cropper={cropper} moveX={moveX} moveY={moveY} />
       </CardFooter>
     </Card>

@@ -66,11 +66,11 @@ function MemberList({ res }: Props) {
       <ButtonSection>
         {editTarget !== true && (
           <Button
-            styles={{
-              theme: 'primary',
+            buttonTheme='primary'
+            iconMargin='1em'
+            css={{
               margin: '1.57em',
               padding: '0.7em 1em',
-              iconMargin: '1em',
             }}
             leftIcon={faPlus}
             onClick={onClickAddMember}

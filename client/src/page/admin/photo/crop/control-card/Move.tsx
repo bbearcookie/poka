@@ -59,38 +59,34 @@ function Move({ cropper, moveX, moveY }: Props) {
   return (
     <>
       <Button
+        buttonTheme='primary'
         onClick={() => handleMove('LEFT')}
-        styles={{
-          theme: "primary",
+        css={{
           padding: "0.3em",
-          marginRight: "0.5em",
           fontSize: "1rem"
         }}
       >←</Button>
       <Button
+        buttonTheme='primary'
         onClick={() => handleMove('RIGHT')}
-        styles={{
-          theme: "primary",
+        css={{
           padding: "0.3em",
-          marginRight: "0.5em",
           fontSize: "1rem"
         }}
       >→</Button>
       <Button
+        buttonTheme='primary'
         onClick={() => handleMove('UP')}
-        styles={{
-          theme: "primary",
+        css={{
           padding: "0.3em 0.5em",
-          marginRight: "0.5em",
           fontSize: "1rem"
         }}
       >↑</Button>
       <Button
+        buttonTheme='primary'
         onClick={() => handleMove('DOWN')}
-        styles={{
-          theme: "primary",
+        css={{
           padding: "0.3em 0.5em",
-          marginRight: "0.5em",
           fontSize: "1rem"
         }}
       >↓</Button>

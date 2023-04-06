@@ -23,11 +23,11 @@ function RemoveCard({ titleText, buttonText = '삭제', onClick, cssProp, childr
         <Button
           leftIcon={faTrashCan}
           onClick={onClick}
-          styles={{
-            theme: 'danger-outlined',
+          iconMargin='1em'
+          buttonTheme="danger-outlined"
+          css={{
             marginBottom: '1em',
             padding: '0.7em 1.3em',
-            iconMargin: '1em',
           }}
         >
           {buttonText}

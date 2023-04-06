@@ -67,11 +67,12 @@ function Success({ res }: Props) {
     return (
       <UserProfileInfo {...res} cssProp={{ marginBottom: '5em' }}>
         <Button
+          buttonTheme='primary-outlined'
           rightIcon={faPenToSquare}
-          styles={{
+          iconMargin='1em'
+          css={{
             width: 'fit-content',
             height: '3em',
-            theme: 'primary-outlined',
             padding: '0.7em 1.3em',
             iconMargin: '1em',
           }}

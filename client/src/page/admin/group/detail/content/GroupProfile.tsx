@@ -19,12 +19,14 @@ function GroupProfile({ groupId, name, imageName }: Props) {
       <Link to={`/admin/group/editor/${groupId}`}>
         <Button
           rightIcon={faPenToSquare}
-          styles={{
-            theme: "primary-outlined",
-            padding: "0.7em 1.3em",
-            iconMargin: "1em"
+          iconMargin='1em'
+          buttonTheme="primary-outlined"
+          css={{
+            padding: '0.7em 1.3em',
           }}
-        >수정</Button>
+        >
+          수정
+        </Button>
       </Link>
     </StyledGroupProfile>
   );

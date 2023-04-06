@@ -31,12 +31,9 @@ function Approve({ res }: Props) {
   return (
     <>
       <Button
+        buttonTheme='primary'
         leftIcon={faTruckFast}
-        styles={{
-          theme: "primary",
-          width: "10em",
-          iconMargin: "1em"
-        }}
+        iconMargin='1em'
         onClick={openModal}
         disabled={res.shipping.payment.state !== 'paid'}
       >발송 완료</Button>

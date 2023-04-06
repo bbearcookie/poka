@@ -34,12 +34,13 @@ function CardWrapper({ modal, state, dispatch, cssProp }: Props) {
       <CardHeader>
         <TitleLabel title="받을 포토카드">
           <Button
+            buttonTheme="primary"
             leftIcon={faAdd}
-            styles={{
+            iconMargin="1em"
+            css={{
               height: 'fit-content',
               theme: 'primary',
               padding: '0.7em 1.3em',
-              iconMargin: '1em',
             }}
             onClick={openModal}
           >

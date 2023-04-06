@@ -82,8 +82,8 @@ function PhotoInfo({ idx, src, message, state, dispatch }: Props) {
           <Button
             leftIcon={faTrashCan}
             onClick={handleRemove}
-            styles={{
-              theme: 'danger-outlined',
+            buttonTheme="danger-outlined"
+            css={{
               width: '5em',
               padding: '0.5em 0',
               marginTop: '1em',

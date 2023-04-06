@@ -17,12 +17,12 @@ function Edit({ trade }: Props) {
 
   return (
     <Button
+      buttonTheme='primary'
       leftIcon={faEdit}
+      iconMargin='1em'
       onClick={onClickEdit}
-      styles={{
-        theme: 'primary',
-        width: '7em',
-        iconMargin: '1em',
+      css={{
+        padding: "1em 1.5em"
       }}
     >
       수정

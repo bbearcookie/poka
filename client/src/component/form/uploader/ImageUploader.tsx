@@ -21,15 +21,25 @@ interface Props {
   children?: React.ReactNode;
 }
 const DefaultProps = {
-  errorMessage: ''
+  errorMessage: '',
 };
 
-function ImageUploader({ className, value, errorMessage = DefaultProps.errorMessage, description, onChange, styles, children }: Props) {
+function ImageUploader({
+  className,
+  value,
+  errorMessage = DefaultProps.errorMessage,
+  description,
+  onChange,
+  styles,
+  children,
+}: Props) {
   const [isDragging, setIsDragging] = useState(false);
   const imageRef = useRef<HTMLInputElement>(null);
 
   // 파일 선택창 보여주기
-  const showInput = useCallback(() => { imageRef.current?.click(); }, []);
+  const showInput = useCallback(() => {
+    imageRef.current?.click();
+  }, []);
 
   // 선택한 이미지 파일 초기화
   const resetImage = useCallback(() => {
@@ -40,34 +50,39 @@ function ImageUploader({ className, value, errorMessage = DefaultProps.errorMess
       file: null, // 실제 이미지 파일 초기화
       previewURL: value.initialURL, // 브라우저에 임시로 보여줄 이미지 URL 초기화
     });
-
   }, [onChange, value]);
 
   // 선택한 파일로 이미지 변경
-  const changeFile = useCallback((file: File) => {
-    const reader = new FileReader();
-    const acceptable = ['image/jpeg', 'image/png']; // 받을 수 있는 파일 타입 지정
+  const changeFile = useCallback(
+    (file: File) => {
+      const reader = new FileReader();
+      const acceptable = ['image/jpeg', 'image/png']; // 받을 수 있는 파일 타입 지정
 
-    if (acceptable.includes(file.type)) {
-      reader.onloadend = () => {
-        onChange({
-          ...value,
-          file: file, // 실제 이미지 파일 설정
-          previewURL: reader.result, // 브라우저에 임시로 보여줄 이미지 URL 설정
-        });
-      };
+      if (acceptable.includes(file.type)) {
+        reader.onloadend = () => {
+          onChange({
+            ...value,
+            file: file, // 실제 이미지 파일 설정
+            previewURL: reader.result, // 브라우저에 임시로 보여줄 이미지 URL 설정
+          });
+        };
 
-      reader.readAsDataURL(file);
-    } else {
-      alert('이미지 파일만 업로드할 수 있어요.');
-    }
-  }, [onChange, value]);
+        reader.readAsDataURL(file);
+      } else {
+        alert('이미지 파일만 업로드할 수 있어요.');
+      }
+    },
+    [onChange, value]
+  );
 
   // Input 파일 변경시 이미지 변경
-  const onChangeInput = useCallback((e: React.ChangeEvent) => {
-    const file = (e.target as HTMLInputElement).files?.item(0);
-    if (file) changeFile(file);
-  }, [changeFile]);
+  const onChangeInput = useCallback(
+    (e: React.ChangeEvent) => {
+      const file = (e.target as HTMLInputElement).files?.item(0);
+      if (file) changeFile(file);
+    },
+    [changeFile]
+  );
 
   // 파일로 드래그 하면 드래그 모드 ON (스타일 적용)
   const onDragOver = useCallback((e: React.DragEvent) => {
@@ -84,40 +99,52 @@ function ImageUploader({ className, value, errorMessage = DefaultProps.errorMess
   }, []);
 
   // 파일 드롭하면 이미지 변경
-  const onDrop = useCallback((e: React.DragEvent) => {
-    const file = e.dataTransfer.files.item(0);
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(false);
-    if (file) changeFile(file);
-  }, [changeFile]);
+  const onDrop = useCallback(
+    (e: React.DragEvent) => {
+      const file = e.dataTransfer.files.item(0);
+      e.preventDefault();
+      e.stopPropagation();
+      setIsDragging(false);
+      if (file) changeFile(file);
+    },
+    [changeFile]
+  );
 
   return (
-    <article className={classNames("ImageUploader", className)}>
-      <input type="file" accept=".jpg, .png" ref={imageRef} onChange={onChangeInput} style={{ display: "none" }} />
+    <article className={classNames('ImageUploader', className)}>
+      <input
+        type="file"
+        accept=".jpg, .png"
+        ref={imageRef}
+        onChange={onChangeInput}
+        style={{ display: 'none' }}
+      />
 
       <StyledImageUploader {...styles}>
-        {value.previewURL &&
-        <StyledImage {...styles}
-          src={String(value.previewURL)}
-          alt="업로드"
-          onDragOver={onDragOver}
-          onDragLeave={onDragLeave}
-          onDrop={onDrop}
-        />}
+        {value.previewURL && (
+          <StyledImage
+            {...styles}
+            src={String(value.previewURL)}
+            alt="업로드"
+            onDragOver={onDragOver}
+            onDragLeave={onDragLeave}
+            onDrop={onDrop}
+          />
+        )}
 
-        {!value.previewURL &&
-        <UploadSection
-          {...styles}
-          className={classNames({"isDragging": isDragging})}
-          onClick={showInput}
-          onDragOver={onDragOver}
-          onDragLeave={onDragLeave}
-          onDrop={onDrop}
-        >
-          <FontAwesomeIcon icon={faUpload} size="2x" />
-          {description && description}
-        </UploadSection>}
+        {!value.previewURL && (
+          <UploadSection
+            {...styles}
+            className={classNames({ isDragging: isDragging })}
+            onClick={showInput}
+            onDragOver={onDragOver}
+            onDragLeave={onDragLeave}
+            onDrop={onDrop}
+          >
+            <FontAwesomeIcon icon={faUpload} size="2x" />
+            {description && description}
+          </UploadSection>
+        )}
       </StyledImageUploader>
 
       <ErrorMessageLabel>{errorMessage}</ErrorMessageLabel>
@@ -125,24 +152,35 @@ function ImageUploader({ className, value, errorMessage = DefaultProps.errorMess
       <ButtonSection>
         <Button
           type="button"
+          buttonTheme='primary'
+          iconMargin='1em'
           leftIcon={faUpload}
           onClick={showInput}
-          styles={{
-            theme: "primary",
-            padding: "0.5em"
+          css={{
+            width: '100%',
+            justifyContent: 'center',
+            padding: '0.5em',
+            paddingRight: '2.2em'
           }}
-        >파일 선택</Button>
+        >
+          파일 선택
+        </Button>
         <Button
           type="button"
+          buttonTheme="primary-outlined"
           leftIcon={faTrashCan}
+          iconMargin='1em'
           onClick={resetImage}
-          styles={{
-            theme: "primary-outlined",
-            padding: "0.5em"
+          css={{
+            width: '100%',
+            justifyContent: 'center',
+            padding: '0.5em',
+            paddingRight: '2.2em'
           }}
-        >초기화</Button>
+        >
+          초기화
+        </Button>
       </ButtonSection>
-
     </article>
   );
 }
@@ -159,29 +197,36 @@ interface StyledImageUploaderProps {
 const StyledImageUploader = styled.article<StyledImageUploaderProps>`
   margin: 0 auto;
   width: ${p => p.width};
-`
+`;
 
 const UploadSection = styled.section<StyledImageUploaderProps>`
-  margin-bottom: 1em; padding: 1em;
+  margin-bottom: 1em;
+  padding: 1em;
   height: ${p => p.height};
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  background-color: #E5E7EB;
-  color: #65748B;
-  border: 2px dashed #E5E7EB;
-  border-radius: ${p => p.borderRadius ? p.borderRadius : '5px'};
+  background-color: #e5e7eb;
+  color: #65748b;
+  border: 2px dashed #e5e7eb;
+  border-radius: ${p => (p.borderRadius ? p.borderRadius : '5px')};
   text-align: center;
   user-select: none;
   cursor: pointer;
   transition: 0.1s all;
 
-  &.isDragging { background-color: #bfc1c6; }
-  &:hover { background-color: #dcdee1; }
-  svg { margin-bottom: 0.3em; }
-`
+  &.isDragging {
+    background-color: #bfc1c6;
+  }
+  &:hover {
+    background-color: #dcdee1;
+  }
+  svg {
+    margin-bottom: 0.3em;
+  }
+`;
 
 const StyledImage = styled.img<StyledImageUploaderProps>`
   margin-left: auto;
@@ -189,18 +234,21 @@ const StyledImage = styled.img<StyledImageUploaderProps>`
   width: 100%;
   height: ${p => p.height};
   border-radius: ${p => p.borderRadius};
-`
+`;
 
 const ButtonSection = styled.section`
   margin-top: 1em;
   display: flex;
+  align-items: center;
   flex-direction: column;
   gap: 1em;
 
-  .Button { border-radius: 50px; }
-`
+  .Button {
+    border-radius: 50px;
+  }
+`;
 
 const ErrorMessageLabel = styled.p`
   margin: 0.5em 0 0.5em 0.8em;
   color: red;
-`
+`;

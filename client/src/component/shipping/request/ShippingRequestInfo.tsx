@@ -1,20 +1,21 @@
 import React from 'react';
-import { CardHeader, CardList } from '@component/card/basic/_styles';
+import { Card, CardHeader, CardList } from '@component/card/basic/_styles';
 import CardListItem from '@component/card/basic/CardListItem';
 import UserProfile from '@component/profile/UserProfile';
 import Address from '@component/shipping/address/item/Address';
 import { getFormattedTime } from '@util/date';
 import StateLabel from '@component/label/stateLabel/StateLabel';
 import { ShippingRequestDetail } from '@type/shipping';
-import { ShippingRequestInfo as StyledShippingRequestInfo } from './_styles';
+import { CSSProp } from 'styled-components';
 
 interface Props {
   shipping: ShippingRequestDetail;
+  cssProp?: CSSProp;
 }
 
-function ShippingRequestInfo({ shipping }: Props) {
+function ShippingRequestInfo({ shipping, cssProp }: Props) {
   return (
-    <StyledShippingRequestInfo>
+    <Card css={cssProp}>
       <CardHeader>
         <h1 className="title">배송요청 정보</h1>
       </CardHeader>
@@ -53,13 +54,13 @@ function ShippingRequestInfo({ shipping }: Props) {
           <UserProfile {...shipping.author} />
         </CardListItem>
         <CardListItem title="배송주소">
-          <Address {...shipping.address} />
+          <Address {...shipping.address} cssProp={{ padding: '0', borderBottom: 'none' }} />
         </CardListItem>
         <CardListItem title="요청일">
           <p className="description">{getFormattedTime(new Date(shipping.writtenTime))}</p>
         </CardListItem>
       </CardList>
-    </StyledShippingRequestInfo>
+    </Card>
   );
 }
 

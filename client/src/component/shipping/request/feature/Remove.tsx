@@ -53,12 +53,9 @@ function Remove({ res, redirectTo }: Props) {
   return (
     <>
       <Button
+        buttonTheme="danger"
         leftIcon={faClose}
-        styles={{
-          theme: 'danger',
-          width: '7em',
-          iconMargin: '1em',
-        }}
+        iconMargin='1em'
         onClick={openModal}
       >
         삭제

@@ -7,6 +7,11 @@ export const StyledGroupProfile = styled.section`
   gap: 1em;
   flex-wrap: wrap;
 
+  .action-section {
+    display: flex;
+    gap: 1em;
+  }
+
   .name {
     flex-grow: 1;
     font-size: 1.5rem;

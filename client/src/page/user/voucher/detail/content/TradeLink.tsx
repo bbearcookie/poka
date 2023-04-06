@@ -23,8 +23,8 @@ function TradeLink({ res }: Props) {
     <Link to={`/trade/detail/${trade.tradeId}`} state={locationState}>
       <Button
         leftIcon={faShareNodes}
-        styles={{
-          theme: 'mint',
+        buttonTheme="mint"
+        css={{
           iconMargin: '3em',
         }}
       >

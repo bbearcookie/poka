@@ -38,12 +38,13 @@ function CardWrapper({ ableToChange, modal, state, dispatch, cssProp }: Props) {
         <TitleLabel title="등록할 소유권">
           {ableToChange && (
             <Button
+              buttonTheme='primary'
               leftIcon={faAdd}
-              styles={{
+              iconMargin='1em'
+              css={{
                 height: 'fit-content',
                 theme: 'primary',
                 padding: '0.7em 1.3em',
-                iconMargin: '1em',
               }}
               onClick={openModal}
             >

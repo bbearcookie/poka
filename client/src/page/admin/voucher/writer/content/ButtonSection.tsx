@@ -16,22 +16,26 @@ function ButtonSection({ handleSubmit }: Props) {
   return (
     <section className="button-section">
       <Button
-        styles={{
-          theme: "primary-outlined",
-          padding: "1em 2em",
-          marginLeft: "1em"
+        buttonTheme="primary-outlined"
+        iconMargin='1em'
+        css={{
+          padding: '1em 2em',
         }}
         onClick={handleCancel}
-      >취소</Button>
+      >
+        취소
+      </Button>
       <Button
+        buttonTheme="primary"
+        iconMargin='1em'
         type="button"
-        styles={{
-          theme: "primary",
-          padding: "1em 2em",
-          marginLeft: "1em"
+        css={{
+          padding: '1em 2em',
         }}
         onClick={handleSubmit}
-      >발급</Button>
+      >
+        발급
+      </Button>
     </section>
   );
 }

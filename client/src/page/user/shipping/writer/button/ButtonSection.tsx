@@ -13,8 +13,9 @@ function ButtonSection() {
   return (
     <StyledButtonSection>
       <Button
-        styles={{
-          theme: 'primary-outlined',
+        type="button"
+        buttonTheme="primary-outlined"
+        css={{
           padding: '1em 2em',
           marginLeft: '1em',
         }}
@@ -24,8 +25,8 @@ function ButtonSection() {
       </Button>
       <Button
         type="submit"
-        styles={{
-          theme: 'primary',
+        buttonTheme='primary'
+        css={{
           padding: '1em 2em',
           marginLeft: '1em',
         }}

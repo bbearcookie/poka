@@ -42,9 +42,11 @@ function Postcode({ state, dispatch }: Props) {
         }}
       />
       <Button
+        buttonTheme='primary'
         type="button"
-        styles={{
+        css={{
           width: '7em',
+          justifyContent: 'center',
           theme: 'gray',
           padding: '0.7em 1em',
         }}

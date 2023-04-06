@@ -22,20 +22,24 @@ function Download({ cropList, setCropList, downloadName }: Props) {
   return (
     <>
       <Button
+        buttonTheme='primary'
         onClick={handleDownload}
-        styles={{
-          theme: "primary",
-          padding: "0.65em 0.5em"
+        css={{
+          padding: '0.65em 0.5em',
         }}
-      >다운로드</Button>
+      >
+        다운로드
+      </Button>
       {cropList.map((item, idx) => (
         <Fragment key={idx}>
           <a
             className="download-link"
             href={item}
             download={downloadName}
-            ref={(el) => (fileRefs.current[idx] = el)}
-          >다운로드</a>
+            ref={el => (fileRefs.current[idx] = el)}
+          >
+            다운로드
+          </a>
         </Fragment>
       ))}
     </>

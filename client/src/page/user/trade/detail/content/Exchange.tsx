@@ -72,13 +72,13 @@ function Exchange({ trade }: Props) {
   return (
     <>
       <Button
+        buttonTheme="pink"
         disabled={status === 'success' && exchange.vouchers.length >= trade.amount ? false : true}
         leftIcon={faArrowsSpin}
+        iconMargin="1em"
         onClick={openModal}
-        styles={{
-          theme: 'pink',
-          width: '7em',
-          iconMargin: '1em',
+        css={{
+          width: '1em 1.5em',
         }}
       >
         교환
@@ -87,7 +87,7 @@ function Exchange({ trade }: Props) {
       <ConfirmModal
         hook={modal}
         title="교환할 소유권 선택"
-        confirm={{ text: "교환", buttonTheme: "pink", onClick: handleExchange }}
+        confirm={{ text: '교환', buttonTheme: 'pink', onClick: handleExchange }}
       >
         <ItemSection templateColumnsSize="minmax(11.25em, 1fr)" marginBottom="1em">
           {exchange?.vouchers.map(v => (

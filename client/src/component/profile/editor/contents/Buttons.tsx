@@ -9,9 +9,9 @@ function Buttons({ handleCancel, handleSubmit }: Props) {
   return (
     <footer className="button-section">
       <Button
-        styles={{
+        buttonTheme="primary-outlined"
+        css={{
           width: 'fit-content',
-          theme: 'primary-outlined',
           margin: '1em 1em 0 0',
           padding: '0.7em 1.3em',
           iconMargin: '1em',
@@ -21,9 +21,8 @@ function Buttons({ handleCancel, handleSubmit }: Props) {
         취소
       </Button>
       <Button
-        styles={{
+        css={{
           width: 'fit-content',
-          theme: 'primary',
           marginTop: '1em',
           padding: '0.7em 1.3em',
           iconMargin: '1em',

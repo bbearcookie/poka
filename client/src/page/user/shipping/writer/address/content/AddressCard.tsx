@@ -14,27 +14,32 @@ interface Props {
 }
 
 function AddressCard({ modal, state, dispatch }: Props) {
-
   // 모달 열기
-  const openModal = useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
-    modal.open();
-  }, [modal]);
+  const openModal = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      modal.open();
+    },
+    [modal]
+  );
 
   return (
-    <Card className="AddressCard">
+    <Card css={{ marginBottom: '5em' }}>
       <CardHeader>
         <TitleLabel title="배송지 입력">
           <Button
+            type="button"
+            buttonTheme='primary'
             leftIcon={faAdd}
-            styles={{
-              height: "fit-content",
-              theme: "primary",
-              padding: "0.7em 1em",
-              iconMargin: "1em"
+            iconMargin='1em'
+            css={{
+              height: 'fit-content',
+              padding: '0.7em 1em',
             }}
             onClick={openModal}
-          >가져오기</Button>
+          >
+            가져오기
+          </Button>
         </TitleLabel>
       </CardHeader>
       <AddressEditor state={state} dispatch={dispatch} showName={false} />

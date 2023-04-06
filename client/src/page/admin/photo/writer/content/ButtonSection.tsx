@@ -13,10 +13,9 @@ function ButtonSection() {
   return (
     <StyledButtonSection>
       <Button
-        styles={{
-          theme: 'primary-outlined',
+        buttonTheme="primary-outlined"
+        css={{
           padding: '1em 2em',
-          marginLeft: '1em',
         }}
         onClick={handleCancel}
       >
@@ -24,10 +23,9 @@ function ButtonSection() {
       </Button>
       <Button
         type="submit"
-        styles={{
-          theme: 'primary',
+        buttonTheme='primary'
+        css={{
           padding: '1em 2em',
-          marginLeft: '1em',
         }}
       >
         작성

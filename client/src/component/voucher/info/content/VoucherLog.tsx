@@ -12,11 +12,11 @@ function VoucherLog({ voucherId }: Props) {
     <CardListItem title="기록">
       <Link to={`/admin/voucher/log/${voucherId}`}>
         <Button
+          buttonTheme="primary"
           rightIcon={faArrowRight}
-          styles={{
-            theme: 'primary',
+          iconMargin="1em"
+          css={{
             padding: '0.7em 1.3em',
-            iconMargin: '1em',
           }}
         >
           조회

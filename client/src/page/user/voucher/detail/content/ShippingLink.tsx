@@ -12,12 +12,12 @@ function ShippingLink({ res }: Props) {
   return (
     <Link to={`/shipping/writer?voucherId=${res.voucherId}`}>
       <Button
+        buttonTheme="pink"
         leftIcon={faTruckFast}
-        styles={{
-          theme: "pink",
-          iconMargin: "3.6em"
-        }}
-      >배송 요청하기</Button>
+        iconMargin='3.6em'
+      >
+        배송 요청하기
+      </Button>
     </Link>
   );
 }

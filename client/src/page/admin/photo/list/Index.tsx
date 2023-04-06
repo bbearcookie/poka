@@ -24,9 +24,10 @@ function PhotoListPage() {
       <TitleLabel title="포토카드 목록" styles={{ marginBottom: '1em' }}>
         <Link to="/admin/photo/writer">
           <Button
+            buttonTheme='primary'
             leftIcon={faPlus}
-            styles={{
-              theme: 'primary',
+            iconMargin='1em'
+            css={{
               padding: '0.7em 1.3em',
               iconMargin: '1em',
             }}

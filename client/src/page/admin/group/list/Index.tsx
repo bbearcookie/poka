@@ -16,20 +16,22 @@ function Index() {
 
   return (
     <StyledIndex>
-      <TitleLabel title="그룹 목록" styles={{ marginBottom: "1em" }}>
+      <TitleLabel title="그룹 목록" styles={{ marginBottom: '1em' }}>
         <Link to="/admin/group/writer">
           <Button
             leftIcon={faPlus}
-            styles={{
-              theme: "primary",
-              padding: "0.6em 1.2em",
-              iconMargin: "1em"
+            buttonTheme='primary'
+            iconMargin="1em"
+            css={{
+              padding: '0.6em 1.2em',
             }}
-          >추가</Button>
+          >
+            추가
+          </Button>
         </Link>
       </TitleLabel>
 
-      <Table styles={{ itemHeight: "1em", itemPadding: "1em" }}>
+      <Table styles={{ itemHeight: '1em', itemPadding: '1em' }}>
         <colgroup>
           <Col width="60%" />
           <Col width="25%" />
@@ -43,9 +45,14 @@ function Index() {
           </tr>
         </thead>
         <tbody>
-          {status === 'loading' && Array.from({ length: 10 }).map((_, i) => <SkeletonGroup key={i} />)}
+          {status === 'loading' &&
+            Array.from({ length: 10 }).map((_, i) => <SkeletonGroup key={i} />)}
           {status === 'success' && groups.groups.map(g => <Group key={g.groupId} {...g} />)}
-          {status === 'error' && <tr><td>{getErrorMessage(error)}</td></tr>}
+          {status === 'error' && (
+            <tr>
+              <td>{getErrorMessage(error)}</td>
+            </tr>
+          )}
         </tbody>
       </Table>
     </StyledIndex>

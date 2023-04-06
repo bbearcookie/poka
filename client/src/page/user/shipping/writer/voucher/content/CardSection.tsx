@@ -23,21 +23,21 @@ interface Props {
 function CardSection({ state, dispatch, modal }: Props) {
   // 소유권 정보
   const vouchers = useQueries({
-    queries: state.data.voucherIds.map((voucherId) => ({
+    queries: state.data.voucherIds.map(voucherId => ({
       queryKey: queryKey.voucherKeys.detail(voucherId),
       queryFn: async () => {
         return (await fetchVoucherDetail(voucherId)) as Promise<VoucherResType>;
       },
     })),
   });
-  const loading = vouchers.some((result) => result.isLoading);
+  const loading = vouchers.some(result => result.isLoading);
 
   // 소유권 선택 해제
   const onCancel = useCallback(
     (voucherId: number) => {
       dispatch({
         type: 'SET_VOUCHER_ID',
-        voucherIds: state.data.voucherIds.filter((item) => item !== voucherId),
+        voucherIds: state.data.voucherIds.filter(item => item !== voucherId),
       });
       dispatch({ type: 'SET_MESSAGE', target: 'voucherIds', value: '' });
     },
@@ -45,18 +45,19 @@ function CardSection({ state, dispatch, modal }: Props) {
   );
 
   return (
-    <Card className="CardSection">
+    <Card css={{ marginBottom: '5em' }}>
       <CardHeader>
         <TitleLabel title="소유권 선택">
           <Button
+            type="button"
             leftIcon={faAdd}
-            styles={{
+            iconMargin='1em'
+            buttonTheme='primary'
+            css={{
               height: 'fit-content',
-              theme: 'primary',
               padding: '0.7em 1.3em',
-              iconMargin: '1em',
             }}
-            onClick={(e) => {
+            onClick={e => {
               e.stopPropagation();
               modal.open();
             }}
@@ -73,7 +74,7 @@ function CardSection({ state, dispatch, modal }: Props) {
             ))}
           {!loading &&
             vouchers.map(
-              (v) =>
+              v =>
                 v.status === 'success' && (
                   <VoucherItem
                     {...v.data}
@@ -87,9 +88,7 @@ function CardSection({ state, dispatch, modal }: Props) {
             )}
         </ItemSection>
         {state.message.voucherIds && (
-          <InputMessage styles={{ margin: '0 0 0.5em 0' }}>
-            {state.message.voucherIds}
-          </InputMessage>
+          <InputMessage styles={{ margin: '0 0 0.5em 0' }}>{state.message.voucherIds}</InputMessage>
         )}
         <p className="description">실물로 배송받으려는 소유권을 지정합니다.</p>
       </CardBody>

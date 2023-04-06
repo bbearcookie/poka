@@ -1,4 +1,3 @@
-import React from 'react';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import Form from './Form';
 import './Index.scss';

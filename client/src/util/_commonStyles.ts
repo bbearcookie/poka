@@ -19,19 +19,6 @@ export const scrollbar = css`
   }
 `;
 
-// a 태그 기본 스타일 초기화
-export const anchorReset = css`
-  color: inherit;
-  text-decoration: none;
-
-  &:hover,
-  &:active {
-    text-decoration: none;
-    color: inherit;
-    background-color: inherit;
-  }
-`;
-
 // 페이지 내용 패딩 스타일
 export const contentsPadding = css`
   padding: 4em 15vh;

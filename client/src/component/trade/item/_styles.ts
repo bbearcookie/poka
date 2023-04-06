@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { anchorReset } from '@util/_commonStyles';
 
 export const PhotoSection = styled.section``;
 export const InfoSection = styled.section``;
 
 export const StyledTradeItem = styled(Link)`
-  ${anchorReset}
   display: flex;
   flex-direction: column;
   padding: 1em;

@@ -37,12 +37,9 @@ function Payment({ res }: Props) {
 
   return (
     <Button
+      buttonTheme='primary'
+      iconMargin='1em'
       leftIcon={faCoins}
-      styles={{
-        theme: "primary",
-        width: "7em",
-        iconMargin: "1em"
-      }}
       onClick={handlePayment}
     >결제</Button>
   );

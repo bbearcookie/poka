@@ -13,10 +13,11 @@ interface Props {
 function Success({ res }: Props) {
   return (
     <>
-      <ShippingRequestInfo shipping={res.shipping} />
+      <ShippingRequestInfo shipping={res.shipping} cssProp={{ marginBottom: '5em' }} />
       <RequestVoucherInfo
         vouchers={res.vouchers}
         icon={{ svg: faArrowRight, tooltip: '상세 보기' }}
+        cssProp={{ marginBottom: '5em' }}
       />
       <ButtonSection>
         {res.shipping.state !== 'shipped' && <Approve res={res} />}

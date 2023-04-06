@@ -12,12 +12,12 @@ function WriteLink({ res }: Props) {
   return (
     <Link to={`/trade/writer?voucherId=${res.voucherId}`}>
       <Button
+        buttonTheme='primary'
         leftIcon={faShareNodes}
-        styles={{
-          theme: "primary",
-          iconMargin: "3em"
-        }}
-      >교환글 작성하기</Button>
+        iconMargin='3em'
+      >
+        교환글 작성하기
+      </Button>
     </Link>
   );
 }

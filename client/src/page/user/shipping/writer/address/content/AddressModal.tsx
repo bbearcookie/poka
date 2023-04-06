@@ -29,12 +29,11 @@ function AddressModal({ addresses, modal, state, dispatch }: Props) {
       <Address key={address.addressId} {...address}>
         <StyledButtonSection>
           <Button
-            styles={{
+            buttonTheme='primary'
+            css={{
               height: "fit-content",
-              theme: "primary",
               marginTop: "0.5em",
               padding: "0.7em 1em",
-              iconMargin: "1em"
             }}
             onClick={() => applyAddress(idx)}
           >적용</Button>

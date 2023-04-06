@@ -10,14 +10,14 @@ interface Props {
 
 function PhotoInfo({ photo, startEditor }: Props) {
   return (
-    <PhotoInfoComponent {...photo} css={{ margin: '0 auto 5em auto' }}>
+    <PhotoInfoComponent {...photo} cssProp={{ margin: '0 auto 5em auto' }}>
       <Button
         rightIcon={faPenToSquare}
-        styles={{
+        iconMargin='1em'
+        buttonTheme="primary-outlined"
+        css={{
           width: 'fit-content',
-          theme: 'primary-outlined',
           padding: '0.7em 1.3em',
-          iconMargin: '1em',
         }}
         onClick={startEditor}
       >

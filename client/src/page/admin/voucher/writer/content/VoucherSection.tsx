@@ -51,12 +51,12 @@ function VoucherSection({ state, dispatch }: Props) {
         <CardHeader>
           <TitleLabel title="소유권 선택">
             <Button
+              buttonTheme='primary'
               leftIcon={faPlus}
-              styles={{
+              iconMargin='1em'
+              css={{
                 height: 'fit-content',
-                theme: 'primary',
                 padding: '0.7em 1.3em',
-                iconMargin: '1em',
               }}
               onClick={openModal}
             >

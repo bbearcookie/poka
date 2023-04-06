@@ -5,8 +5,9 @@ export const StyledIndex = styled.main`
   ${contentsPadding}
 
   .button-section {
-    margin-top: 5em;
     display: flex;
+    flex-wrap: wrap;
     justify-content: right;
+    gap: 1em;
   }
 `;

@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faPhone, faInfoCircle, faUser } from '@fortawesome/free-solid-svg-icons';
 import { StyledAddress } from './_styles';
+import { CSSProp } from 'styled-components';
 
 interface Props {
   name?: string;
@@ -11,6 +12,7 @@ interface Props {
   contact?: string;
   requirement?: string;
   prime?: number;
+  cssProp?: CSSProp;
   children?: React.ReactNode;
 }
 
@@ -22,10 +24,11 @@ function Address({
   recipient,
   requirement,
   prime = 0,
+  cssProp,
   children,
 }: Props) {
   return (
-    <StyledAddress>
+    <StyledAddress css={cssProp}>
       {name && (
         <div className="content-section name-section">
           <span className="name">

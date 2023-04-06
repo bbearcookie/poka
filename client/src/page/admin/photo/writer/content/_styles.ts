@@ -3,7 +3,9 @@ import { Card, CardBody } from '@component/card/basic/_styles';
 
 export const StyledButtonSection = styled.section`
   display: flex;
-  justify-content: right;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 1em;
 `;
 
 export const StyledPhotoInfo = styled.div`

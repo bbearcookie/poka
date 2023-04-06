@@ -15,7 +15,7 @@ function CropCard({ cropper, cropList, setCropList }: Props) {
         <h3 className="label">자르기</h3>
         <p className="description">선택한 영역의 이미지를 잘라서 추출합니다</p>
       </CardBody>
-      <CardFooter>
+      <CardFooter css={{ display: 'flex', flexWrap: 'wrap', gap: '1em' }}>
         <Crop cropper={cropper} cropList={cropList} setCropList={setCropList} />
       </CardFooter>
     </Card>
