@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const InputMessage = styled.p`
-  margin: 0.2em 0;
+  margin: 0.5em 0;
   color: red;
 `;
 
