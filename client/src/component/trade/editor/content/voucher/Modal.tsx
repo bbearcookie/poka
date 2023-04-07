@@ -40,7 +40,7 @@ function Modal({ modal, state, dispatch }: Props) {
   );
 
   return (
-    <TitleModal hook={modal} title="소유권 선택" cssProp={{ width: '75vw' }}>
+    <TitleModal hook={modal} title="소유권 선택" css={{ width: '75vw' }}>
       <Searcher
         options={{
           group: true,

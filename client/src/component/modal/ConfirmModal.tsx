@@ -1,10 +1,10 @@
-import { CSSProp } from 'styled-components';
 import { InputMessage } from '@component/form/_styles';
+import styled from 'styled-components';
 import Button, { ButtonTheme } from '@component/form/button/Button';
 import ModalHeader from '@component/modal/basic/ModalHeader';
 import Modal, { Props as ModalProps } from '@component/modal/basic/Modal';
 import { Card, CardBody, CardFooter } from '@component/card/basic/_styles';
-import { ButtonSection } from './_styles';
+import { ButtonSection } from '@component/form/_styles';
 
 interface ButtonOptions {
   text?: string;
@@ -16,10 +16,9 @@ interface Props extends ModalProps {
   title?: string;
   confirm?: ButtonOptions;
   cancel?: ButtonOptions;
-  cssProp?: CSSProp;
 }
 
-function ConfirmModal({ hook, title, confirm, cancel, cssProp, children }: Props) {
+function ConfirmModal({ hook, title, confirm, cancel, children, ...rest }: Props) {
   confirm = {
     text: '확인',
     buttonTheme: 'primary',
@@ -36,7 +35,7 @@ function ConfirmModal({ hook, title, confirm, cancel, cssProp, children }: Props
 
   return (
     <Modal hook={hook}>
-      <Card css={cssProp}>
+      <Card {...rest}>
         <ModalHeader title={title} handleClose={hook.close} />
         <CardBody>{children}</CardBody>
         <CardFooter
@@ -61,4 +60,4 @@ function ConfirmModal({ hook, title, confirm, cancel, cssProp, children }: Props
   );
 }
 
-export default ConfirmModal;
+export default styled(ConfirmModal)<Props>``;

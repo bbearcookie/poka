@@ -27,7 +27,7 @@ function TestPage() {
       <ConfirmModal
         hook={modal}
         title="타이틀.."
-        cssProp={{ width: '50vw' }}
+        css={{ width: '50vw' }}
         confirm={{
           onClick: () => {
             console.log('ㅁㅇㄴㄹ');

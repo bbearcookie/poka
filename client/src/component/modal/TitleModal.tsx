@@ -1,17 +1,16 @@
-import { CSSProp } from 'styled-components';
+import styled from 'styled-components';
 import Modal, { Props as ModalProps } from '@component/modal/basic/Modal';
 import { Card, CardBody } from '@component/card/basic/_styles';
 import ModalHeader from '@component/modal/basic/ModalHeader';
 
 export interface Props extends ModalProps {
   title?: string;
-  cssProp?: CSSProp;
 }
 
-function TitleModal({ hook, title, cssProp, children }: Props) {
+function TitleModal({ hook, title, children, ...rest }: Props) {
   return (
     <Modal hook={hook}>
-      <Card css={cssProp}>
+      <Card {...rest}>
         <ModalHeader title={title} handleClose={hook.close} />
         <CardBody>{children}</CardBody>
       </Card>
@@ -19,4 +18,4 @@ function TitleModal({ hook, title, cssProp, children }: Props) {
   );
 }
 
-export default TitleModal;
+export default styled(TitleModal)<Props>``;

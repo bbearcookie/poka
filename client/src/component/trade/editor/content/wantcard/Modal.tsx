@@ -30,7 +30,7 @@ function Modal({ modal, state, dispatch }: Props) {
   );
 
   return (
-    <TitleModal hook={modal} title="포토카드 선택" cssProp={{ width: '75vw' }}>
+    <TitleModal hook={modal} title="포토카드 선택" css={{ width: '75vw' }}>
       <PhotoListWithFilter icon={{ svg: faAdd }} handleSelect={addPhoto} />
     </TitleModal>
   );
