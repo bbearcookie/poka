@@ -1,13 +1,6 @@
 import styled from 'styled-components';
 import { Card, CardBody } from '@component/card/basic/_styles';
 
-export const StyledButtonSection = styled.section`
-  display: flex;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-  gap: 1em;
-`;
-
 export const StyledPhotoInfo = styled.div`
   .name-section {
     margin-top: 1em;

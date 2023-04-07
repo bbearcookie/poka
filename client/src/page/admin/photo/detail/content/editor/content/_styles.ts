@@ -10,8 +10,3 @@ export const InputSection = styled.section`
 `;
 
 export const ImageSection = styled.section``;
-
-export const ButtonSection = styled.section`
-  display: flex;
-  align-self: flex-end;
-`;

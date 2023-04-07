@@ -8,7 +8,6 @@ interface Props {
   cropList: string[];
   setCropList: React.Dispatch<React.SetStateAction<string[]>>;
 }
-const DefaultProps = {};
 
 function Crop({ cropper, cropList, setCropList }: Props) {
   // 이미지의 해당 영역 자르기

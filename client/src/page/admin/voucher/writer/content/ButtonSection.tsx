@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@component/form/Button';
+import { ButtonSection as StyledButtonSection } from '@component/form/_styles';
 
 interface Props {
   handleSubmit: () => void;
@@ -14,7 +15,7 @@ function ButtonSection({ handleSubmit }: Props) {
   }, [navigate]);
 
   return (
-    <section className="button-section">
+    <StyledButtonSection>
       <Button
         buttonTheme="primary-outlined"
         iconMargin='1em'
@@ -36,7 +37,7 @@ function ButtonSection({ handleSubmit }: Props) {
       >
         발급
       </Button>
-    </section>
+    </StyledButtonSection>
   );
 }
 

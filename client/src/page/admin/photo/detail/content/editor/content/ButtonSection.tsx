@@ -1,5 +1,5 @@
 import Button from '@component/form/Button';
-import { ButtonSection as StyledButtonSection } from './_styles';
+import { ButtonSection as StyledButtonSection } from '@component/form/_styles';
 
 interface Props {
   closeEditor: () => void;

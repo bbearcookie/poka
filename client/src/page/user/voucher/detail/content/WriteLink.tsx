@@ -11,11 +11,7 @@ interface Props {
 function WriteLink({ res }: Props) {
   return (
     <Link to={`/trade/writer?voucherId=${res.voucherId}`}>
-      <Button
-        buttonTheme='primary'
-        leftIcon={faShareNodes}
-        iconMargin='3em'
-      >
+      <Button buttonTheme="primary" leftIcon={faShareNodes} iconMargin="3em">
         교환글 작성하기
       </Button>
     </Link>

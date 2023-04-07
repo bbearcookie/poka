@@ -1,4 +1,3 @@
-import React from 'react';
 import useGroupQuery from '@api/query/group/useGroupQuery';
 import { useParams } from 'react-router-dom';
 import { groupImage } from '@api/resource';

@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@component/form/Button';
-import { StyledButtonSection } from '../_styles';
+import { ButtonSection as StyledButtonSection } from '@component/form/_styles';
 
 function ButtonSection() {
   const navigate = useNavigate();
@@ -17,7 +17,6 @@ function ButtonSection() {
         buttonTheme="primary-outlined"
         css={{
           padding: '1em 2em',
-          marginLeft: '1em',
         }}
         onClick={handleCancel}
       >
@@ -25,10 +24,9 @@ function ButtonSection() {
       </Button>
       <Button
         type="submit"
-        buttonTheme='primary'
+        buttonTheme="primary"
         css={{
           padding: '1em 2em',
-          marginLeft: '1em',
         }}
       >
         등록

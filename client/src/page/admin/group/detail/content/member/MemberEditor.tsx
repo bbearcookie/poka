@@ -5,7 +5,7 @@ import useModifyMember from '@api/mutation/member/useModifyMember';
 import Input from '@component/form/Input';
 import InputMessage from '@component/form/InputMessage';
 import Button from '@component/form/Button';
-import { ButtonSection } from './_styles';
+import { ButtonSection } from '@component/form/_styles';
 
 interface Props {
   groupId: number;

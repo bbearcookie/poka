@@ -3,7 +3,7 @@ import useAddShippingAddress from '@api/mutation/shipping/address/useAddShipping
 import { reducer, initialState, FormType } from '@component/shipping/address/editor/reducer';
 import Button from '@component/form/Button';
 import AddressEditor from '@component/shipping/address/editor/AddressEditor';
-import { ButtonSection } from '@page/user/myinfo/_styles';
+import { ButtonSection } from '@component/form/_styles';
 
 interface Props {
   userId: number;
@@ -44,9 +44,9 @@ function Writer({ userId, closeEditor }: Props) {
 
   return (
     <AddressEditor state={state} dispatch={dispatch}>
-      <ButtonSection>
+      <ButtonSection css={{ marginTop: '2em' }}>
         <Button
-          buttonTheme='primary'
+          buttonTheme="primary"
           type="button"
           onClick={onSubmit}
           css={{

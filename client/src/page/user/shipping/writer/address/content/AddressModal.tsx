@@ -5,7 +5,7 @@ import Button from '@component/form/Button';
 import Address from '@component/shipping/address/item/Address';
 import { ResType } from '@api/query/shipping/useShippingAddressesQuery';
 import { State, Action } from '@component/shipping/address/editor/reducer';
-import { StyledButtonSection } from '../../_styles';
+import { ButtonSection } from '@component/form/_styles';
 
 interface Props {
   addresses: ResType;
@@ -27,7 +27,7 @@ function AddressModal({ addresses, modal, state, dispatch }: Props) {
     <TitleModal hook={modal} title="배송지 가져오기">
       {addresses.addresses.map((address, idx) =>
       <Address key={address.addressId} {...address}>
-        <StyledButtonSection>
+        <ButtonSection>
           <Button
             buttonTheme='primary'
             css={{
@@ -37,7 +37,7 @@ function AddressModal({ addresses, modal, state, dispatch }: Props) {
             }}
             onClick={() => applyAddress(idx)}
           >적용</Button>
-        </StyledButtonSection>
+        </ButtonSection>
       </Address>)}
     </TitleModal>
   );

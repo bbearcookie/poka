@@ -153,14 +153,13 @@ function ImageUploader({
         <Button
           type="button"
           buttonTheme='primary'
-          iconMargin='1em'
           leftIcon={faUpload}
+          iconMargin='1em'
           onClick={showInput}
           css={{
             width: '100%',
             justifyContent: 'center',
-            padding: '0.5em',
-            paddingRight: '2.2em'
+            padding: '0.5em 1em',
           }}
         >
           파일 선택
@@ -174,8 +173,7 @@ function ImageUploader({
           css={{
             width: '100%',
             justifyContent: 'center',
-            padding: '0.5em',
-            paddingRight: '2.2em'
+            padding: '0.5em 1em',
           }}
         >
           초기화

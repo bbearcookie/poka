@@ -11,11 +11,7 @@ interface Props {
 function ShippingLink({ res }: Props) {
   return (
     <Link to={`/shipping/writer?voucherId=${res.voucherId}`}>
-      <Button
-        buttonTheme="pink"
-        leftIcon={faTruckFast}
-        iconMargin='3.6em'
-      >
+      <Button buttonTheme="pink" leftIcon={faTruckFast} iconMargin="3.6em">
         배송 요청하기
       </Button>
     </Link>

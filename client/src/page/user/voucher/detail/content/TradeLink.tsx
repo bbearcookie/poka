@@ -21,13 +21,7 @@ function TradeLink({ res }: Props) {
 
   return (
     <Link to={`/trade/detail/${trade.tradeId}`} state={locationState}>
-      <Button
-        leftIcon={faShareNodes}
-        buttonTheme="mint"
-        css={{
-          iconMargin: '3em',
-        }}
-      >
+      <Button buttonTheme="mint" leftIcon={faShareNodes} iconMargin="3em">
         교환글 보기
       </Button>
     </Link>

@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import Button from '@component/form/Button';
 import { useNavigate } from 'react-router-dom';
-import { StyledButtonSection } from './_styles';
+import { ButtonSection as StyledButtonSection } from '@component/form/_styles';
 
 function ButtonSection() {
   const navigate = useNavigate();

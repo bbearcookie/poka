@@ -23,10 +23,6 @@ export const StyledUserProfileEditor = styled(Card)`
     .nickname-section {
       flex-grow: 1;
     }
-
-    .button-section {
-      align-self: flex-end;
-    }
   }
 
   @media screen and (max-width: 30rem) {

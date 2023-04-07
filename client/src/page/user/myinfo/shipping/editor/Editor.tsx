@@ -5,7 +5,7 @@ import { Address as AddressType } from '@type/shipping';
 import { reducer, initialState, FormType } from '@component/shipping/address/editor/reducer';
 import Button from '@component/form/Button';
 import AddressEditor from '@component/shipping/address/editor/AddressEditor';
-import { ButtonSection } from '@page/user/myinfo/_styles';
+import { ButtonSection } from '@component/form/_styles';
 
 interface Props {
   address: AddressType;
@@ -52,9 +52,9 @@ function Editor({ address, closeEditor }: Props) {
 
   return (
     <AddressEditor state={state} dispatch={dispatch}>
-      <ButtonSection>
+      <ButtonSection css={{ marginTop: '2em' }}>
         <Button
-          buttonTheme='primary'
+          buttonTheme="primary"
           type="button"
           onClick={onSubmit}
           css={{

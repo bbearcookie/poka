@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '@app/redux/reduxHooks';
-import * as queryKey from '@api/queryKey';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import useIdolSelector from '@component/selector/useIdolSelector';
 import IdolSelector from '@component/selector/IdolSelector';
 import TradeList from '@component/list/trade/TradeList';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import Button from '@component/form/Button';
+import { ButtonSection } from '@component/form/_styles';
 import { StyledIndex } from './_styles';
 
 function Index() {
@@ -18,7 +18,7 @@ function Index() {
       <TitleLabel title="교환 찾기" styles={{ marginBottom: '2em' }} />
       <IdolSelector hook={selector} />
 
-      <section className="button-section">
+      <ButtonSection>
         <Link to="/trade/writer">
           <Button
             buttonTheme="primary"
@@ -29,7 +29,7 @@ function Index() {
             등록
           </Button>
         </Link>
-      </section>
+      </ButtonSection>
 
       <TradeList
         location={{

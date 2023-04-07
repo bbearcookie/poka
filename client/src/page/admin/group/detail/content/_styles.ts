@@ -22,8 +22,3 @@ export const StyledGroupProfile = styled.section`
     margin-bottom: 5em;
   }
 `;
-
-export const ButtonSection = styled.section`
-  display: flex;
-  justify-content: flex-end;
-`;

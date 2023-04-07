@@ -82,6 +82,7 @@ function Navbar() {
           <div className="space" />
           <Button
             rightIcon={faArrowRightToBracket}
+            iconMargin='1em'
             buttonTheme="primary-outlined"
             onClick={() => navigate('/login')}
           >

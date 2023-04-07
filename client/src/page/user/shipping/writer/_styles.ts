@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { contentsPadding } from "@util/_commonStyles";
+import styled from 'styled-components';
+import { contentsPadding } from '@util/_commonStyles';
 
 export const StyledIndex = styled.main`
   ${contentsPadding}
@@ -7,8 +7,4 @@ export const StyledIndex = styled.main`
   .AddressCard {
     margin-bottom: 5em;
   }
-`
-export const StyledButtonSection = styled.div`
-  display: flex;
-  justify-content: flex-end;
 `;

@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Button from '@component/form/Button';
-import { ButtonSection } from '@page/user/myinfo/_styles';
+import { ButtonSection } from '@component/form/_styles';
 
 interface Props {
   addressLength: number;
@@ -20,11 +20,11 @@ function AddButton({ addressLength, startEditor }: Props) {
   }, [startEditor, addressLength]);
 
   return (
-    <ButtonSection>
+    <ButtonSection css={{ marginTop: '2em' }}>
       <Button
-        buttonTheme='primary'
+        buttonTheme="primary"
         leftIcon={faPlus}
-        iconMargin='1em'
+        iconMargin="1em"
         onClick={onClick}
         css={{
           margin: '1.57em',

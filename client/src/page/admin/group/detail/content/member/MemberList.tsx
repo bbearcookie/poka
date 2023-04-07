@@ -7,7 +7,7 @@ import Col from '@component/table/styles/Col';
 import Button from '@component/form/Button';
 import MemberEditor from './MemberEditor';
 import MemberInfo from './MemberInfo';
-import { ButtonSection } from '../_styles';
+import { ButtonSection } from '@component/form/_styles';
 
 interface Props {
   res: ResType;
