@@ -8,7 +8,7 @@ import {
   FormType as AddressFormType,
 } from '@component/shipping/address/editor/reducer';
 import useAddShippingRequest from '@api/mutation/shipping/request/useAddShippingRequest';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import VoucherSection from './voucher/VoucherSection';
 import AddressSection from './address/AddressSection';
 import ButtonSection from './button/ButtonSection';
@@ -66,7 +66,7 @@ function Index() {
 
   return (
     <StyledIndex>
-      <TitleLabel title="소유권 배송 요청" styles={{ marginBottom: '1em' }} />
+      <TitleLabel title="소유권 배송 요청" css={{ marginBottom: '1em' }} />
       <form onSubmit={onSubmit}>
         <VoucherSection state={state} dispatch={dispatch} />
         <AddressSection state={addressState} dispatch={addressDispatcher} />

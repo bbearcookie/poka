@@ -1,4 +1,4 @@
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import IconButton from '@component/form/iconButton/IconButton';
 import { ModalHeader as StyledModalHeader } from './_styles';
 import { faClose } from '@fortawesome/free-solid-svg-icons';

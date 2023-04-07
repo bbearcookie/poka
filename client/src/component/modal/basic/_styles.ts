@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { TitleLabel } from '@component/label/titleLabel/_styles';
+import TitleLabel from '@component/label/TitleLabel';
 import { CardHeader } from '@component/card/basic/_styles';
 import { ModalHook } from '@component/modal/useModal';
 import { scrollbar } from '@util/_commonStyles';

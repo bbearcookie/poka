@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { ResType } from '@api/query/shipping/useShippingAddressesQuery';
 import { Card, CardHeader } from '@component/card/basic/_styles';
 import Info from './info/Info';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import Editor from './editor/Editor';
 import AddButton from './button/AddButton';
 import Writer from './editor/Writer';

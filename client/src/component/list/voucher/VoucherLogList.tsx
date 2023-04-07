@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { Card, CardHeader, CardList } from '@component/card/basic/_styles';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import NextPageFetcher from '@component/list/content/NextPageFetcher';
 import useVoucherLogsQuery from '@api/query/voucher/useVoucherLogsQuery';
 import VoucherLog from '@component/voucher/log/VoucherLog';

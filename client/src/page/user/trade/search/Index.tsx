@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '@app/redux/reduxHooks';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import useIdolSelector from '@component/selector/useIdolSelector';
 import IdolSelector from '@component/selector/IdolSelector';
 import TradeList from '@component/list/trade/TradeList';
@@ -15,7 +15,7 @@ function Index() {
 
   return (
     <StyledIndex>
-      <TitleLabel title="교환 찾기" styles={{ marginBottom: '2em' }} />
+      <TitleLabel title="교환 찾기" css={{ marginBottom: '2em' }} />
       <IdolSelector hook={selector} />
 
       <ButtonSection>

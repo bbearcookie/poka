@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import DateSelector from './content/DateSelector';
 import HistoryList from './content/HistoryList';
 import { StyledIndex } from './_styles';
@@ -17,7 +17,7 @@ function Index() {
 
   return (
     <StyledIndex>
-      <TitleLabel title="교환 내역" styles={{ marginBottom: "2em" }} />
+      <TitleLabel title="교환 내역" css={{ marginBottom: "2em" }} />
       <DateSelector todayDate={today.current} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
       <HistoryList startDate={startDate} endDate={endDate} />
     </StyledIndex>

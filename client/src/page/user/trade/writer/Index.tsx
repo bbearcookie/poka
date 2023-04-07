@@ -2,7 +2,7 @@ import { useReducer, useCallback } from 'react';
 import useAddTrade from '@api/mutation/trade/useAddTrade';
 import { useNavigate } from 'react-router';
 import { reducer, initialState, FormType } from '@component/trade/editor/reducer';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import Voucher from '@component/trade/editor/Voucher';
 import WantPhotocard from '@component/trade/editor/WantPhotocard';
 import ButtonSection from '@component/trade/editor/ButtonSection';
@@ -31,7 +31,7 @@ function Index() {
 
   return (
     <StyledIndex>
-      <TitleLabel title="교환 등록" styles={{ marginBottom: '2em' }} />
+      <TitleLabel title="교환 등록" css={{ marginBottom: '2em' }} />
       <Voucher
         state={state}
         dispatch={dispatch}

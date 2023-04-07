@@ -4,7 +4,7 @@ import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { ModalHook } from '@component/modal/useModal';
 import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
 import Button from '@component/form/button/Button';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import { State, Action } from '@component/trade/editor/reducer';
 import CardContents from './contents/CardContents';
 import { CSSProp } from 'styled-components';

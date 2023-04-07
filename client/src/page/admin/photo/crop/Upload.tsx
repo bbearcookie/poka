@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useRef } from 'react';
 import Cropper from 'react-cropper';
 import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import Button from '@component/form/button/Button';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import 'cropperjs/dist/cropper.css';

@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { Card, CardBody } from '@component/card/basic/_styles';
 import Button from '@component/form/button/Button';
@@ -21,7 +21,7 @@ function PhotoListPage() {
 
   return (
     <StyledIndex>
-      <TitleLabel title="포토카드 목록" styles={{ marginBottom: '1em' }}>
+      <TitleLabel title="포토카드 목록" css={{ marginBottom: '1em' }}>
         <Link to="/admin/photo/writer">
           <Button
             buttonTheme='primary'

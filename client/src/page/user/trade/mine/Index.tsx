@@ -1,7 +1,6 @@
 import { useAppSelector } from '@app/redux/reduxHooks';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import TradeList from '@component/list/trade/TradeList';
-import * as queryKey from '@api/queryKey';
 import { StyledIndex } from './_styles';
 
 function Index() {
@@ -9,7 +8,7 @@ function Index() {
 
   return (
     <StyledIndex>
-      <TitleLabel title="내가 등록한 교환" styles={{ marginBottom: '2em' }} />
+      <TitleLabel title="내가 등록한 교환" css={{ marginBottom: '2em' }} />
 
       <TradeList
         location={{

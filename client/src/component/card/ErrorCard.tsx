@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import { AxiosError } from 'axios';
 import { ResponseError } from '@type/response';
 import { getErrorMessage } from '@util/request';

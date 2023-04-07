@@ -4,7 +4,7 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { Card, CardBody } from '@component/card/basic/_styles';
 import useSearcher from '@component/search/useSearcher';
 import Searcher from '@component/search/Searcher';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import VoucherList from '@component/list/voucher/VoucherList';
 import { StyledIndex } from './_styles';
 
@@ -22,7 +22,7 @@ function Index() {
 
   return (
     <StyledIndex>
-      <TitleLabel title="소유권 목록" styles={{ marginBottom: '1em' }} />
+      <TitleLabel title="소유권 목록" css={{ marginBottom: '1em' }} />
 
       <Card>
         <CardBody>

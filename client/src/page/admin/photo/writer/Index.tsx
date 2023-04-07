@@ -1,7 +1,7 @@
 import React, { useReducer, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAddPhotos from '@api/mutation/photo/useAddPhotos';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import SelectCard from './content/SelectCard';
 import Upload from './content/Upload';
 import PhotoList from './content/PhotoList';
@@ -48,7 +48,7 @@ function Index() {
 
   return (
     <StyledIndex>
-      <TitleLabel title="포토카드 등록" styles={{ marginBottom: '1em' }} />
+      <TitleLabel title="포토카드 등록" css={{ marginBottom: '1em' }} />
       <form onSubmit={onSubmit}>
         <section className="info-section">
           <SelectCard state={state} dispatch={dispatch} />

@@ -9,7 +9,7 @@ import SkeletonVoucherItem from '@component/voucher/item/SkeletonVoucherItem';
 import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
 import { InputMessage } from '@component/form/_styles';
 import Button from '@component/form/button/Button';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import { ItemSection } from '@component/list/content/_styles';
 import * as queryKey from '@api/queryKey';
 import { State, Action } from '@page/user/shipping/writer/reducer';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@component/form/button/Button';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -7,7 +6,7 @@ import SkeletonGroup from './content/SkeletonGroup';
 import Table from '@component/table/Table';
 import Group from './content/Group';
 import Col from '@component/table/styles/Col';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import { getErrorMessage } from '@util/request';
 import { StyledIndex } from './_styles';
 
@@ -16,7 +15,7 @@ function Index() {
 
   return (
     <StyledIndex>
-      <TitleLabel title="그룹 목록" styles={{ marginBottom: '1em' }}>
+      <TitleLabel title="그룹 목록" css={{ marginBottom: '1em' }}>
         <Link to="/admin/group/writer">
           <Button
             leftIcon={faPlus}

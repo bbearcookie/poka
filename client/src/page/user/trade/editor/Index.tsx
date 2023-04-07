@@ -4,7 +4,7 @@ import useTradeQuery from '@api/query/trade/useTradeQuery';
 import useModifyTrade from '@api/mutation/trade/useModifyTrade';
 import { useNavigate } from 'react-router';
 import { reducer, initialState, FormType } from '@component/trade/editor/reducer';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import Voucher from '@component/trade/editor/Voucher';
 import WantPhotocard from '@component/trade/editor/WantPhotocard';
 import ButtonSection from '@component/trade/editor/ButtonSection';
@@ -75,7 +75,7 @@ function Index() {
   if (status === 'success')
     return (
       <StyledIndex>
-        <TitleLabel title="교환 수정" styles={{ marginBottom: '2em' }} />
+        <TitleLabel title="교환 수정" css={{ marginBottom: '2em' }} />
         <Voucher
           ableToChange={false}
           state={state}

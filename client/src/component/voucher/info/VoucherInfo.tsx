@@ -1,7 +1,7 @@
 import { VoucherItem } from '@type/voucher';
 import { CSSProp } from 'styled-components';
 import { CardHeader, CardList } from '@component/card/basic/_styles';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import VoucherID from './content/VoucherID';
 import VoucherOwner from './content/VoucherOwner';
 import VoucherState from './content/VoucherState';

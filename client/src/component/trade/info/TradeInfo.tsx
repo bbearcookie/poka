@@ -4,7 +4,7 @@ import { TradeStateKey } from '@component/label/stateLabel/_types';
 import { CardHeader, CardBody, CardList } from '@component/card/basic/_styles';
 import CardListItem from '@component/card/basic/CardListItem';
 import StateLabel from '@component/label/stateLabel/StateLabel';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import UserProfile from '@component/profile/UserProfile';
 import PhotocardItem from '@component/photocard/item/PhotocardItem';
 import { ItemSection } from '@component/list/content/_styles';

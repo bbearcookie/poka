@@ -7,7 +7,7 @@ import Button from '@component/form/button/Button';
 import PhotoInfo from '@component/photocard/info/PhotoInfo';
 import SkeletonPhotoInfo from '@component/photocard/info/SkeletonPhotoInfo';
 import { InputMessage } from '@component/form/_styles';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import { getErrorMessage } from '@util/request';
 import { State, Action } from '../../reducer';
 import { CSSProp } from 'styled-components';

@@ -5,7 +5,7 @@ import { Card, CardBody } from '@component/card/basic/_styles';
 import Select from '@component/form/select/Select';
 import { InputMessage } from '@component/form/_styles';
 import { State, Action } from '../reducer';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import { InputSection } from './_styles';
 
 interface Props {
@@ -39,7 +39,7 @@ function SelectCard({ state, dispatch }: Props) {
   return (
     <Card className="SelectCard">
       <CardBody>
-        <TitleLabel title="그룹 멤버 정보" styles={{ marginBottom: '1em' }} />
+        <TitleLabel title="그룹 멤버 정보" css={{ marginBottom: '1em' }} />
 
         <InputSection>
           <section className="input-line">

@@ -1,5 +1,5 @@
 import { useAppSelector } from '@app/redux/reduxHooks';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import Profile from './profile/Index';
 import Shipping from './shipping/Index';
 import { StyledIndex } from './_styles';
@@ -9,7 +9,7 @@ function Index() {
 
   return (
     <StyledIndex>
-      <TitleLabel title="마이페이지" styles={{ marginBottom: "1em" }} />
+      <TitleLabel title="마이페이지" css={{ marginBottom: "1em" }} />
       <Profile userId={userId} />
       <Shipping userId={userId} />
     </StyledIndex>

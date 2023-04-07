@@ -4,7 +4,7 @@ import { Card, CardBody } from '@component/card/basic/_styles';
 import useSearcher from '@component/search/useSearcher';
 import Searcher from '@component/search/Searcher';
 import VoucherList from '@component/list/voucher/VoucherList';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import { useNavigate } from 'react-router-dom';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { StyledIndex } from './_styles';
@@ -29,7 +29,7 @@ function Index() {
 
   return (
     <StyledIndex>
-      <TitleLabel title="소유권 보관함" styles={{ marginBottom: "1em" }} />
+      <TitleLabel title="소유권 보관함" css={{ marginBottom: "1em" }} />
       <Card>
         <CardBody>
           <Searcher

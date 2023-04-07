@@ -1,6 +1,6 @@
 import { useReducer, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import useAddVouchers from '@api/mutation/voucher/useAddVouchers';
 import UsernameSection from './content/UsernameSection';
 import VoucherSection from './content/VoucherSection';
@@ -47,7 +47,7 @@ function Index() {
 
   return (
     <StyledIndex>
-      <TitleLabel title="소유권 발급" styles={{ marginBottom: '1em' }} />
+      <TitleLabel title="소유권 발급" css={{ marginBottom: '1em' }} />
       <UsernameSection state={state} dispatch={dispatch} />
       <VoucherSection state={state} dispatch={dispatch} />
       <SubmitSection handleSubmit={onSubmit} />
