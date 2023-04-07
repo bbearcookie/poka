@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import useGroupsQuery from '@api/query/group/useGroupsQuery';
-import Select from '@component/form/Select';
+import Select from '@component/form/select/Select';
 import { InputMessage } from '@component/form/_styles';
 import { State, Action } from '../reducer';
 import { InputSection } from './_styles';
@@ -29,7 +29,7 @@ function GroupSelect({ state, dispatch }: Props) {
       <Select
         value={state.form.groupId}
         onChange={onChangeGroup}
-        styles={{
+        css={{
           width: '100%',
           height: '2.5rem',
         }}

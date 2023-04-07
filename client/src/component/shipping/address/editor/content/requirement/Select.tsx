@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import SelectComponent from '@component/form/Select';
+import SelectComponent from '@component/form/select/Select';
 import { State, Action } from '../../reducer';
 
 const OptionText = [
@@ -65,7 +65,7 @@ function Select({ state, dispatch, setShowInput }: Props) {
       name="requirement"
       onChange={changeSelect}
       value={option}
-      styles={{
+      css={{
         width: '100%',
         height: '2.5em',
       }}

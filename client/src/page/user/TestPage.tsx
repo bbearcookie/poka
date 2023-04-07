@@ -4,6 +4,7 @@ import ConfirmModal from '@component/modal/ConfirmModal';
 import IconButton from '@component/form/iconButton/IconButton';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { StyledIndex } from './_styles';
+import Select from '@component/form/select/Select';
 
 function TestPage() {
   const modal = useModal();

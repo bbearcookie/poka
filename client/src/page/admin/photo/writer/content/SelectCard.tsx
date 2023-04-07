@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import useGroupsQuery from '@api/query/group/useGroupsQuery';
 import useGroupQuery from '@api/query/group/useGroupQuery';
 import { Card, CardBody } from '@component/card/basic/_styles';
-import Select from '@component/form/Select';
+import Select from '@component/form/select/Select';
 import { InputMessage } from '@component/form/_styles';
 import { State, Action } from '../reducer';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
@@ -46,7 +46,7 @@ function SelectCard({ state, dispatch }: Props) {
             <span className="input-label">그룹</span>
             <Select
               onChange={onChangeGroup}
-              styles={{
+              css={{
                 width: '100%',
                 height: '2.5rem',
                 marginLeft: '1em',
@@ -71,7 +71,7 @@ function SelectCard({ state, dispatch }: Props) {
             <span className="input-label">멤버</span>
             <Select
               onChange={onChangeMember}
-              styles={{
+              css={{
                 width: '100%',
                 height: '2.5rem',
                 marginLeft: '1em',
