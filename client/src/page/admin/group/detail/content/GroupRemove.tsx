@@ -28,7 +28,6 @@ function GroupRemove({ group, groupId }: Props) {
       <RemoveCard
         titleText="그룹 삭제"
         onClick={e => {
-          e.stopPropagation();
           removeModal.open();
         }}
       >

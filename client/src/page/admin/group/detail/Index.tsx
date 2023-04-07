@@ -16,7 +16,7 @@ function Index() {
         그룹 목록
       </BackLabel>
       {status === 'success' && <Success res={group} groupId={groupId} />}
-      {status === 'error' && <ErrorCard error={error} cssProp={{ marginBottom: '5em' }} />}
+      {status === 'error' && <ErrorCard error={error} css={{ marginBottom: '5em' }} />}
       {status === 'loading' && <Loading />}
     </StyledIndex>
   );

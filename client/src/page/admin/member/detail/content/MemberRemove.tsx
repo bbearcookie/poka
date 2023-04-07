@@ -33,7 +33,6 @@ function MemberRemove({ member, memberId }: Props) {
       <RemoveCard
         titleText="멤버 삭제"
         onClick={e => {
-          e.stopPropagation();
           removeModal.open();
         }}
       >

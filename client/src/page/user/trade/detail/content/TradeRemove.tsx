@@ -41,7 +41,7 @@ function TradeRemove({ trade }: Props) {
   return (
     <>
       {trade.state === 'trading' && trade.author.userId === userId && (
-        <RemoveCard titleText="교환글 삭제" onClick={openModal} cssProp={{ marginBottom: '5em' }}>
+        <RemoveCard titleText="교환글 삭제" onClick={openModal} css={{ marginBottom: '5em' }}>
           <p className="description">아직 교환이 성사되지 않은 경우에만 삭제 가능합니다.</p>
         </RemoveCard>
       )}
