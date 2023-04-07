@@ -14,7 +14,7 @@ function VoucherLog({ logId, type, voucherId, originUserId, destUserId, loggedTi
   return (
     <StyledLog>
       <CardListItem title="내용">
-        <StateLabel state={{ type: 'voucherLog', key: type }} styles={{ width: '5em' }} />
+        <StateLabel state={{ type: 'voucherLog', key: type }} css={{ width: '5em' }} />
       </CardListItem>
       <CardListItem title="시간">
         {getFormattedTime(new Date(loggedTime))}

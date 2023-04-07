@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, CardHeader, CardList } from '@component/card/basic/_styles';
 import CardListItem from '@component/card/basic/CardListItem';
 import UserProfile from '@component/profile/UserProfile';
@@ -23,7 +22,7 @@ function ShippingRequestInfo({ shipping, cssProp }: Props) {
       <CardListItem title="배송상태">
         <StateLabel
           state={{ type: 'shipping', key: shipping.state }}
-          styles={{ width: '6em', margin: '0 0.5em 0.2em 0' }}
+          css={{ width: '6em', margin: '0 0.5em 0.2em 0' }}
         />
         {shipping.state === 'waiting' && (
           <p className="description">관리자의 처리를 기다리는 상태입니다.</p>
@@ -36,7 +35,7 @@ function ShippingRequestInfo({ shipping, cssProp }: Props) {
       <CardListItem title="결제상태">
         <StateLabel
           state={{ type: 'payment', key: shipping.payment.state }}
-          styles={{ width: '6em', margin: '0 0.5em 0.2em 0' }}
+          css={{ width: '6em', margin: '0 0.5em 0.2em 0' }}
         />
         {shipping.payment.state === 'waiting' && (
           <p className="description">아직 배송비를 결제하지 않은 상태입니다.</p>

@@ -11,7 +11,7 @@ export function VoucherState({ voucherState }: Props) {
     <CardListItem title="상태">
       <StateLabel
         state={{ type: 'voucher', key: voucherState }}
-        styles={{ width: '6em', margin: '0' }}
+        css={{ width: '6em', margin: '0' }}
       />
     </CardListItem>
   );

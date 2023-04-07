@@ -1,6 +1,5 @@
-import React from 'react';
+import { CSSProp } from 'styled-components';
 import {
-  LabelProps as LabelStylesProps,
   VoucherStateLabel,
   TradeStateLabel,
   ShippingStateLabel,
@@ -21,7 +20,6 @@ import {
 } from './_types';
 
 interface Props {
-  className?: string;
   state:
     | {
         type: 'voucher';
@@ -43,38 +41,37 @@ interface Props {
         type: 'payment';
         key: PaymentStateKey;
       };
-  styles?: LabelStylesProps;
 }
 
-function StateLabel({ className, state, styles }: Props) {
+function StateLabel({ state, ...rest }: Props) {
   switch (state.type) {
     case 'voucher':
       return (
-        <VoucherStateLabel {...styles} className={className} type={state.key}>
+        <VoucherStateLabel {...rest} type={state.key}>
           {VoucherStateText[state.key]}
         </VoucherStateLabel>
       );
     case 'voucherLog':
       return (
-        <VoucherLogStateLabel {...styles} className={className} type={state.key}>
+        <VoucherLogStateLabel {...rest} type={state.key}>
           {VoucherLogStateText[state.key]}
         </VoucherLogStateLabel>
       );
     case 'trade':
       return (
-        <TradeStateLabel {...styles} className={className} type={state.key}>
+        <TradeStateLabel {...rest} type={state.key}>
           {TradeStateText[state.key]}
         </TradeStateLabel>
       );
     case 'shipping':
       return (
-        <ShippingStateLabel {...styles} className={className} type={state.key}>
+        <ShippingStateLabel {...rest} type={state.key}>
           {ShippingStateText[state.key]}
         </ShippingStateLabel>
       );
     case 'payment':
       return (
-        <PaymentStateLabel {...styles} className={className} type={state.key}>
+        <PaymentStateLabel {...rest} type={state.key}>
           {PaymentStateText[state.key]}
         </PaymentStateLabel>
       );

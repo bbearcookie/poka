@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { photoImage } from '@api/resource';
 import { getYearMonthDay } from '@util/date';
@@ -42,13 +42,13 @@ function Shipping({ request, payment, author, voucher, showOwner = false, to }: 
       <td>
         <StateLabel
           state={{ type: "payment", key: payment.state }}
-          styles={{ width: "5em", padding: "0.5em" }}
+          css={{ width: "5em", padding: "0.5em" }}
         />
       </td>
       <td>
         <StateLabel
           state={{ type: "shipping", key: request.state }}
-          styles={{ width: "5em", padding: "0.5em" }}
+          css={{ width: "5em", padding: "0.5em" }}
         />
       </td>
       <td>{getYearMonthDay(new Date(request.writtenTime))}</td>

@@ -7,24 +7,11 @@ import {
   PaymentStateKey,
 } from './_types';
 
-export interface LabelProps {
-  width?: string;
-  margin?: string;
-  padding?: string;
-  textAlign?: 'start' | 'end' | 'left' | 'right' | 'center' | 'justify' | 'match-parent';
-  backgroundColor?: string;
-  color?: string;
-}
-
-const Label = styled.span<LabelProps>`
-  width: ${p => p.width};
-  padding: ${p => (p.padding ? p.padding : '0.3em')};
-  margin: ${p => p.margin};
+const Label = styled.span`
   display: inline-block;
-  text-align: ${p => (p.textAlign ? p.textAlign : 'center')};
+  padding: 0.3em;
+  text-align: center;
   border-radius: 5px;
-  background-color: ${p => p.backgroundColor};
-  color: ${p => p.color};
 `;
 
 // 소유권 상태

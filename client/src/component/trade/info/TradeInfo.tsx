@@ -37,7 +37,7 @@ function TradeInfo({
         <CardListItem title="교환 상태">
           <StateLabel
             state={{ type: 'trade', key: tradeState }}
-            styles={{ width: '6em', margin: '0' }}
+            css={{ width: '6em', margin: '0' }}
           />
         </CardListItem>
 

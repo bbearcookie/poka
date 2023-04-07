@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
 import PhotocardItem from '@component/photocard/item/PhotocardItem';
 import { ItemSection } from '@component/list/content/_styles';
