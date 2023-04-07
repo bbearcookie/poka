@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
-import Input from '@component/form/Input';
+import Input from '@component/form/input/Input';
 import { InputMessage } from '@component/form/_styles';
 import { State, Action } from '../reducer';
 import { InputLine } from './_styles';
@@ -36,7 +36,7 @@ function Name({ state, dispatch, changeInput, blurInput }: Props) {
           value={state.form.name}
           onChange={changeInput}
           onBlur={blurInput}
-          styles={{
+          css={{
             width: '100%',
             height: '2.5em',
           }}

@@ -11,7 +11,7 @@ export const AddressSection = styled.div`
   display: flex;
   gap: 0.5em;
 
-  .Input {
+  input {
     flex-basis: 50%;
   }
 

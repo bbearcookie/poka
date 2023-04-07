@@ -4,7 +4,7 @@ import ConfirmModal from '@component/modal/ConfirmModal';
 import IconButton from '@component/form/iconButton/IconButton';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { StyledIndex } from './_styles';
-import Select from '@component/form/select/Select';
+import Input from '@component/form/input/Input';
 
 function TestPage() {
   const modal = useModal();
@@ -17,10 +17,11 @@ function TestPage() {
     <StyledIndex>
       <div>테스트 페이지</div>
 
+      <Input />
+
       <IconButton
         iconProps={{ icon: faRightFromBracket }}
         tooltip="툴팁"
-        css={{ background: 'yellow' }}
       />
 
       <ConfirmModal

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import Input from '@component/form/Input';
+import Input from '@component/form/input/Input';
 import { InputMessage } from '@component/form/_styles';
 import { State, Action } from '../reducer';
 import { InputLine } from './_styles';
@@ -36,17 +36,14 @@ function Recipient({ state, dispatch, changeInput, blurInput }: Props) {
           value={state.form.recipient}
           onChange={changeInput}
           onBlur={blurInput}
-          styles={{
+          css={{
             width: '100%',
             height: '2.5em',
           }}
-        >
-          {state.message.recipient && (
-            <InputMessage css={{ margin: '0.5em 0 0 0' }}>
-              {state.message.recipient}
-            </InputMessage>
-          )}
-        </Input>
+        />
+        {state.message.recipient && (
+          <InputMessage css={{ margin: '0.5em 0 0 0' }}>{state.message.recipient}</InputMessage>
+        )}
       </div>
     </InputLine>
   );

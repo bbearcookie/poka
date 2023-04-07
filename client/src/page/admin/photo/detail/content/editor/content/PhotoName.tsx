@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import Input from '@component/form/Input';
+import Input from '@component/form/input/Input';
 import { InputMessage } from '@component/form/_styles';
 import { State, Action } from '../reducer';
 import { InputSection } from './_styles';
@@ -27,13 +27,12 @@ function PhotoName({ state, dispatch }: Props) {
         name="name"
         value={state.form.name}
         onChange={changeInput}
-        styles={{
+        css={{
           width: '100%',
           height: '2.5em',
         }}
-      >
-        {state.message.name && <InputMessage>{state.message.name}</InputMessage>}
-      </Input>
+      />
+      {state.message.name && <InputMessage>{state.message.name}</InputMessage>}
     </InputSection>
   );
 }

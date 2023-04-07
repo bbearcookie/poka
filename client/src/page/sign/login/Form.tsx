@@ -1,7 +1,7 @@
 import React, { useReducer, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useLogin from '@api/mutation/auth/useLogin';
-import Input from '@component/form/Input';
+import Input from '@component/form/input/Input';
 import Button from '@component/form/button/Button';
 import { InputMessage } from '@component/form/_styles';
 import reducer, { initialState, FormType } from './reducer';
@@ -63,15 +63,14 @@ function Form() {
           autoComplete="off"
           onChange={changeInput}
           onBlur={blurInput}
-          styles={{
+          css={{
             width: '100%',
             height: '2.5rem',
           }}
-        >
-          <InputMessage css={{ margin: '0.5em 0 0 0.8em', wordBreak: 'break-all' }}>
-            {state.message.username}
-          </InputMessage>
-        </Input>
+        />
+        <InputMessage css={{ margin: '0.5em 0 0 0.8em', wordBreak: 'break-all' }}>
+          {state.message.username}
+        </InputMessage>
       </section>
 
       <section className="input-section">
@@ -83,18 +82,21 @@ function Form() {
           autoComplete="off"
           onChange={changeInput}
           onBlur={blurInput}
-          styles={{
+          css={{
             width: '100%',
             height: '2.5rem',
           }}
-        >
-          <InputMessage css={{ margin: '0.5em 0 0 0.8em', wordBreak: 'break-all' }}>
-            {state.message.password}
-          </InputMessage>
-        </Input>
+        />
+        <InputMessage css={{ margin: '0.5em 0 0 0.8em', wordBreak: 'break-all' }}>
+          {state.message.password}
+        </InputMessage>
       </section>
 
-      <Button buttonTheme='primary' type="submit" css={{ width: '100%', justifyContent: 'center', margin: '0 auto', marginTop: '2em' }}>
+      <Button
+        buttonTheme="primary"
+        type="submit"
+        css={{ width: '100%', justifyContent: 'center', margin: '0 auto', marginTop: '2em' }}
+      >
         <b>로그인</b>
       </Button>
     </form>

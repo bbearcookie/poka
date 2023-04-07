@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import Input from '@component/form/Input';
+import Input from '@component/form/input/Input';
 import { InputMessage } from '@component/form/_styles';
 import { State, Action } from '@component/trade/editor/reducer';
 
@@ -29,7 +29,7 @@ function Amount({ state, dispatch }: Props) {
         value={state.data.amount}
         name="amount"
         onChange={onChange}
-        styles={{
+        css={{
           width: '14em',
           height: '2em',
           margin: '0.75em 0',

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import Input from '@component/form/Input';
+import Input from '@component/form/input/Input';
 import { InputMessage } from '@component/form/_styles';
 import { Card, CardBody } from '@component/card/basic/_styles';
 import Button from '@component/form/button/Button';
@@ -53,7 +53,7 @@ function PhotoInfo({ idx, src, message, state, dispatch }: Props) {
               maxLength={100}
               onChange={onChange}
               onBlur={onBlur}
-              styles={{
+              css={{
                 height: '2.5em',
                 textAlign: 'center',
                 color: 'white',
@@ -63,20 +63,19 @@ function PhotoInfo({ idx, src, message, state, dispatch }: Props) {
                 activeBorder: '1px solid #adafb5',
                 activeBoxShadow: '0px 0px 1px 1px #adafb5',
               }}
-            >
-              {message && (
-                <InputMessage
-                  css={{
-                    width: '200px',
-                    margin: '1em 0 0 0',
-                    textAlign: 'center',
-                    wordBreak: 'keep-all',
-                  }}
-                >
-                  {message}
-                </InputMessage>
-              )}
-            </Input>
+            />
+            {message && (
+              <InputMessage
+                css={{
+                  width: '200px',
+                  margin: '1em 0 0 0',
+                  textAlign: 'center',
+                  wordBreak: 'keep-all',
+                }}
+              >
+                {message}
+              </InputMessage>
+            )}
           </section>
 
           <Button

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import Button from '@component/form/button/Button';
-import Input from '@component/form/Input';
+import Input from '@component/form/input/Input';
 import { State, Action } from '@component/shipping/address/editor/reducer';
 import { PostcodeSection } from '../_styles';
 
@@ -35,14 +35,14 @@ function Postcode({ state, dispatch }: Props) {
         value={state.form.postcode}
         placeholder="우편번호"
         readOnly={true}
-        styles={{
+        css={{
           display: 'inline-block',
           width: '6em',
           height: '2.5em',
         }}
       />
       <Button
-        buttonTheme='primary'
+        buttonTheme="primary"
         type="button"
         css={{
           width: '7em',

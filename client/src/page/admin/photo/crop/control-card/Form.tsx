@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from '@component/form/Input';
+import Input from '@component/form/input/Input';
 
 interface Props {
   moveX: number;
@@ -19,7 +19,7 @@ function Form({ moveX, setMoveX, moveY, setMoveY }: Props) {
           value={moveX}
           placeholder="가로 이동 간격"
           onChange={(e) => setMoveX(Number(e.target.value))}
-          styles={{
+          css={{
             display: "inline-block",
             width: "100%",
             height: "2em",
@@ -36,7 +36,7 @@ function Form({ moveX, setMoveX, moveY, setMoveY }: Props) {
           value={moveY}
           placeholder="세로 이동 간격"
           onChange={(e) => setMoveY(Number(e.target.value))}
-          styles={{
+          css={{
             display: "inline-block",
             width: "100%",
             height: "2em",

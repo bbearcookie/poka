@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import Input from '@component/form/Input';
+import Input from '@component/form/input/Input';
 import { InputMessage } from '@component/form/_styles';
 import { State, Action } from '../reducer';
 
@@ -17,7 +17,7 @@ function Nickname({ state, dispatch }: Props) {
     },
     [dispatch]
   );
-  
+
   return (
     <article className="nickname-section">
       <p className="label">
@@ -28,14 +28,13 @@ function Nickname({ state, dispatch }: Props) {
         name="nickname"
         value={state.form.nickname}
         placeholder="수정할 닉네임을 입력해주세요"
-        styles={{
+        css={{
           width: '100%',
           height: '2.5em',
         }}
         onChange={changeNickname}
-      >
-        {state.message.nickname && <InputMessage>{state.message.nickname}</InputMessage>}
-      </Input>
+      />
+      {state.message.nickname && <InputMessage>{state.message.nickname}</InputMessage>}
     </article>
   );
 }

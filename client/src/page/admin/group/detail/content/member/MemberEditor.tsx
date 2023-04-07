@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { getErrorMessage } from '@util/request';
 import useAddMember from '@api/mutation/member/useAddMember';
 import useModifyMember from '@api/mutation/member/useModifyMember';
-import Input from '@component/form/Input';
+import Input from '@component/form/input/Input';
 import { InputMessage } from '@component/form/_styles';
 import Button from '@component/form/button/Button';
 import { ButtonSection } from '@component/form/_styles';
@@ -59,13 +59,12 @@ function MemberEditor({ memberId, groupId, defaultValue = '', closeEditor }: Pro
           placeholder={memberId ? '수정할 이름을 입력하세요' : '추가할 이름을 입력하세요'}
           autoComplete="off"
           onChange={changeInput}
-          styles={{
+          css={{
             width: '100%',
             height: '2.5em',
           }}
-        >
-          <InputMessage css={{ margin: '0.5em 0 0 0.8em' }}>{message}</InputMessage>
-        </Input>
+        />
+        <InputMessage css={{ margin: '0.5em 0 0 0.8em' }}>{message}</InputMessage>
       </td>
       <td>
         <ButtonSection>

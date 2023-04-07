@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Input from '@component/form/Input';
+import Input from '@component/form/input/Input';
 import { Card, CardBody, CardFooter } from '@component/card/basic/_styles';
 import Download from './Download';
 
@@ -24,7 +24,7 @@ function DownloadCard({ cropList, setCropList }: Props) {
             value={download}
             placeholder="파일명"
             onChange={(e) => setDownload(e.target.value)}
-            styles={{
+            css={{
               display: "inline-block",
               width: "100%",
               height: "2em",
