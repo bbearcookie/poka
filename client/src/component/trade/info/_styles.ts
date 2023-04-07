@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { Card, CardListItem } from '@component/card/basic/_styles';
+import CardListItem from '@component/card/basic/CardListItem';
+import { Card } from '@component/card/basic/_styles';
 
 export const StyledTradeInfo = styled(Card)`
   .wantcard-label {

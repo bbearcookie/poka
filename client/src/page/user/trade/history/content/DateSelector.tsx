@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
 import Calendar from '@component/calendar/Calendar';
-import { StyledDateSelector } from './_styles';
 
 interface Props {
   todayDate: Date;
@@ -30,7 +29,7 @@ function DateSelector({ todayDate, startDate, endDate, setStartDate, setEndDate 
   );
 
   return (
-    <StyledDateSelector>
+    <Card css={{ marginBottom: '5em' }}>
       <CardHeader>
         <h1 className="title">조회할 기간</h1>
       </CardHeader>
@@ -43,7 +42,7 @@ function DateSelector({ todayDate, startDate, endDate, setStartDate, setEndDate 
           onChangeEndDate={onChangeEndDate}
         />
       </CardBody>
-    </StyledDateSelector>
+    </Card>
   );
 }
 
