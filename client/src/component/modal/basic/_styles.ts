@@ -1,6 +1,4 @@
 import styled, { css } from 'styled-components';
-import TitleLabel from '@component/label/TitleLabel';
-import { CardHeader } from '@component/card/basic/_styles';
 import { ModalHook } from '@component/modal/useModal';
 import { scrollbar } from '@util/_commonStyles';
 
@@ -70,13 +68,4 @@ export const Modal = styled.div<{ hook: ModalHook }>`
   }}
 
   ${scrollbar}
-`;
-
-export const ModalHeader = styled(CardHeader)`
-  display: flex;
-  align-items: center;
-
-  ${TitleLabel} {
-    flex-grow: 1;
-  }
 `;

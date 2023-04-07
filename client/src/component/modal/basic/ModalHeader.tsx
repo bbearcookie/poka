@@ -1,6 +1,7 @@
+import styled from 'styled-components';
+import { CardHeader } from '@component/card/basic/_styles';
 import TitleLabel from '@component/label/TitleLabel';
 import IconButton from '@component/form/iconButton/IconButton';
-import { ModalHeader as StyledModalHeader } from './_styles';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
@@ -8,13 +9,20 @@ interface Props {
   handleClose?: () => void;
 }
 
-function ModalHeader({ title, handleClose = () => {} }: Props) {
+function ModalHeader({ title, handleClose = () => {}, ...rest }: Props) {
   return (
-    <StyledModalHeader>
+    <CardHeader {...rest}>
       <TitleLabel title={title} />
       <IconButton iconProps={{ icon: faClose, size: '2x' }} onClick={handleClose} />
-    </StyledModalHeader>
+    </CardHeader>
   );
 }
 
-export default ModalHeader;
+export default styled(ModalHeader)<Props>`
+  display: flex;
+  align-items: center;
+
+  ${TitleLabel} {
+    flex-grow: 1;
+  }
+`;
