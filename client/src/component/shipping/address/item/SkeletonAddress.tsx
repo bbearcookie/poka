@@ -1,5 +1,5 @@
 import SkeletonItem from '@component/skeleton/SkeletonItem';
-import IconButton from '@component/form/IconButton';
+import IconButton from '@component/form/iconButton/IconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faPhone, faInfoCircle, faEdit, faClose, faUser, faHouse } from '@fortawesome/free-solid-svg-icons';
 import { StyledAddress, IconSection } from './_styles';
@@ -25,9 +25,9 @@ function SkeletonAddress() {
         <SkeletonItem styles={{ width: "min(10em, 100%)", height: "1.35em", marginBottom: "0.5em" }} />
       </div>
       <IconSection>
-        <IconButton width="1em" height="1em" icon={faHouse} tooltip="기본 배송지로 설정" styles={{ display: 'inline' }} />
-        <IconButton width="1em" height="1em" icon={faEdit} tooltip="수정" styles={{ display: 'inline' }} />
-        <IconButton width="1em" height="1em" icon={faClose} tooltip="삭제" styles={{ display: 'inline' }} />
+        <IconButton iconProps={{ icon: faHouse, width: "1em", height: "1em" }} tooltip="기본 배송지로 설정" />
+        <IconButton iconProps={{ icon: faEdit, width: "1em", height: "1em" }} tooltip="수정" />
+        <IconButton iconProps={{ icon: faClose, width: "1em", height: "1em" }} tooltip="삭제" />
       </IconSection>
     </StyledAddress>
   );

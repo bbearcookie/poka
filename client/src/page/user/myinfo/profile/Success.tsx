@@ -4,7 +4,7 @@ import { ResType } from '@api/query/user/useUserQuery';
 import useModifyUserProfile from '@api/mutation/user/useModifyUserProfile';
 import { userImage } from '@api/resource';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import UserProfileEditor from '@component/profile/editor/UserProfileEditor';
 import UserProfileInfo from '@component/profile/info/UserProfileInfo';
 import { reducer, initialState, FormType } from '@component/profile/editor/reducer';

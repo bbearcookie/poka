@@ -4,7 +4,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Card, CardHeader } from '@component/card/basic/_styles';
 import Table from '@component/table/Table';
 import Col from '@component/table/styles/Col';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import MemberEditor from './MemberEditor';
 import MemberInfo from './MemberInfo';
 import { ButtonSection } from '@component/form/_styles';

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { ModalHook } from '@component/modal/useModal';
 import TitleModal from '@component/modal/TitleModal';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import Address from '@component/shipping/address/item/Address';
 import { ResType } from '@api/query/shipping/useShippingAddressesQuery';
 import { State, Action } from '@component/shipping/address/editor/reducer';

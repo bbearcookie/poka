@@ -1,6 +1,6 @@
 import React from 'react';
 import { CardHeader, CardBody } from '@component/card/basic/_styles';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { RemoveCard as StyledRemoveCard } from './_styles';
 import { CSSProp } from 'styled-components';

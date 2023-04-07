@@ -4,7 +4,7 @@ import { InputMessage } from '@component/form/_styles';
 import useModal from '@component/modal/useModal';
 import TitleModal from '@component/modal/TitleModal';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
 import PhotoListWithFilter from '@component/list/photo/PhotoListWithFilter';
 import PhotoList from './photo/PhotoList';

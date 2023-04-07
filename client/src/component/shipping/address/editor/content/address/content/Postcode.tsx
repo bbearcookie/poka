@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import Input from '@component/form/Input';
 import { State, Action } from '@component/shipping/address/editor/reducer';
 import { PostcodeSection } from '../_styles';

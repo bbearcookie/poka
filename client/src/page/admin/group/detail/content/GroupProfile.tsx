@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { groupImage } from '@api/resource';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { StyledGroupProfile } from './_styles';
 

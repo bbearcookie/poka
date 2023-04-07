@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import IconButton from '@component/form/IconButton';
+import IconButton from '@component/form/iconButton/IconButton';
 import { faPenToSquare, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
@@ -21,9 +21,9 @@ function MemberInfo({ memberId, name, photoCount, startEditor }: Props) {
       <td>{photoCount} 종류</td>
       <td>
         <section className="action-section">
-          <IconButton icon={faPenToSquare} onClick={openEditor} />
+          <IconButton iconProps={{ icon: faPenToSquare }} onClick={openEditor} />
           <Link to={`/admin/member/detail/${memberId}`}>
-            <IconButton icon={faArrowRight} />
+            <IconButton iconProps={{ icon: faArrowRight }} />
           </Link>
         </section>
       </td>

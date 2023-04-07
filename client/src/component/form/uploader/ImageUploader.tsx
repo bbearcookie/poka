@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useRef } from 'react';
 import styled from 'styled-components';
 import classNames from 'classnames';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 

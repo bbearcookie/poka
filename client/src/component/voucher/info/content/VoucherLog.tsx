@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import CardListItem from '@component/card/basic/CardListItem';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 
 interface Props {
   voucherId: number;

@@ -9,7 +9,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { changeShow } from '@component/sidebar/sidebarSlice';
 import { userImage } from '@api/resource';
 import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import useDropdown from '@hook/useDropdown';
 import Dropdown from '@component/dropdown/Dropdown';
 import DropdownButton from '@component/dropdown/DropdownButton';

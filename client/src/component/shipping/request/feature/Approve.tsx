@@ -5,7 +5,7 @@ import { ResType } from '@api/query/shipping/useShippingRequestQuery';
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons';
 import ConfirmModal from '@component/modal/ConfirmModal';
 import useModal from '@component/modal/useModal';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 
 interface Props {
   res: ResType;

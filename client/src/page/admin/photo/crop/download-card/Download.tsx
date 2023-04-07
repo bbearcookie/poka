@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useRef } from 'react';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 
 interface Props {
   cropList: string[];

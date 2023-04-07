@@ -1,7 +1,7 @@
 import React, { useCallback, useReducer } from 'react';
 import useAddShippingAddress from '@api/mutation/shipping/address/useAddShippingAddress';
 import { reducer, initialState, FormType } from '@component/shipping/address/editor/reducer';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import AddressEditor from '@component/shipping/address/editor/AddressEditor';
 import { ButtonSection } from '@component/form/_styles';
 

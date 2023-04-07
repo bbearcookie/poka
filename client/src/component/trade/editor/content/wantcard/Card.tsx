@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { ModalHook } from '@component/modal/useModal';
 import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import { State, Action } from '@component/trade/editor/reducer';
 import CardContents from './contents/CardContents';

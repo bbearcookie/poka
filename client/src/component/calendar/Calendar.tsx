@@ -1,7 +1,7 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
-import IconButton from '@component/form/IconButton';
+import IconButton from '@component/form/iconButton/IconButton';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { getYearMonth } from '@util/date';
 import { ko } from 'date-fns/esm/locale';
@@ -30,9 +30,9 @@ function Calendar({ todayDate, startDate, endDate, onChangeStartDate, onChangeEn
         customInput={<CustomInput titleText="시작" date={startDate} />}
         renderCustomHeader={({ date, increaseMonth, decreaseMonth }) => (
           <CustomHeaderSection>
-            <IconButton icon={faChevronLeft} onClick={decreaseMonth} />
+            <IconButton iconProps={{ icon: faChevronLeft }} onClick={decreaseMonth} />
             <h3>{getYearMonth(date)}</h3>
-            <IconButton icon={faChevronRight} onClick={increaseMonth} />
+            <IconButton iconProps={{ icon: faChevronRight }} onClick={increaseMonth} />
           </CustomHeaderSection>
         )}
       />
@@ -49,9 +49,9 @@ function Calendar({ todayDate, startDate, endDate, onChangeStartDate, onChangeEn
         customInput={<CustomInput titleText="끝" date={endDate} />}
         renderCustomHeader={({ date, increaseMonth, decreaseMonth }) => (
           <CustomHeaderSection>
-            <IconButton icon={faChevronLeft} onClick={decreaseMonth} />
+          <IconButton iconProps={{ icon: faChevronLeft }} onClick={decreaseMonth} />
             <h3>{getYearMonth(date)}</h3>
-            <IconButton icon={faChevronRight} onClick={increaseMonth} />
+            <IconButton iconProps={{ icon: faChevronRight }} onClick={increaseMonth} />
           </CustomHeaderSection>
         )}
       />
@@ -82,7 +82,9 @@ const StyledCalendar = styled.div`
       border: 1px solid rgb(222, 222, 225);
       background-color: rgb(249, 249, 250);
 
-      .icon { color: inherit; }
+      .icon {
+        color: inherit;
+      }
     }
   }
 
@@ -95,7 +97,7 @@ const StyledCalendar = styled.div`
     border-radius: 10em;
     transition: all 0.1s;
   }
-`
+`;
 
 const CustomHeaderSection = styled.section`
   display: flex;
@@ -103,4 +105,4 @@ const CustomHeaderSection = styled.section`
   align-items: center;
   margin: 0;
   font-size: 1.2em;
-`
+`;

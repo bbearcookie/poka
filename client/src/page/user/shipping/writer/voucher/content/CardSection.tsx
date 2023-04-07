@@ -8,7 +8,7 @@ import VoucherItem from '@component/voucher/item/VoucherItem';
 import SkeletonVoucherItem from '@component/voucher/item/SkeletonVoucherItem';
 import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
 import { InputMessage } from '@component/form/_styles';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import { ItemSection } from '@component/list/content/_styles';
 import * as queryKey from '@api/queryKey';

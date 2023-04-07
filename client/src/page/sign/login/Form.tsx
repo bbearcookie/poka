@@ -2,7 +2,7 @@ import React, { useReducer, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useLogin from '@api/mutation/auth/useLogin';
 import Input from '@component/form/Input';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import { InputMessage } from '@component/form/_styles';
 import reducer, { initialState, FormType } from './reducer';
 

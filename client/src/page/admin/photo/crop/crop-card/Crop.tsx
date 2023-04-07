@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { faTrashCan, faCut } from '@fortawesome/free-solid-svg-icons';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 
 interface Props {
   cropper: Cropper;

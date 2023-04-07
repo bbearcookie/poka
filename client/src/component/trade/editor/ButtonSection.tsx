@@ -1,4 +1,4 @@
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import { ButtonSection as StyledButtonSection } from '@component/form/_styles';
 
 interface Props {

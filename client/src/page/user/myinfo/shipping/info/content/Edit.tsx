@@ -1,4 +1,4 @@
-import IconButton from '@component/form/IconButton';
+import IconButton from '@component/form/iconButton/IconButton';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
@@ -8,11 +8,8 @@ interface Props {
 function Edit({ startEditor }: Props) {
   return (
     <IconButton
-      width="1em"
-      height="1em"
-      icon={faEdit}
+      iconProps={{ icon: faEdit, width: '1em', height: '1em' }}
       tooltip="수정"
-      styles={{ display: 'inline' }}
       onClick={startEditor}
     />
   );

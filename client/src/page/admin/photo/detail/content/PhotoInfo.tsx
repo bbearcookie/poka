@@ -1,6 +1,6 @@
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { Photo } from '@type/photo';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import PhotoInfoComponent from '@component/photocard/info/PhotoInfo';
 
 interface Props {

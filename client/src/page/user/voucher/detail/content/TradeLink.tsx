@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { LocationState } from '@type/react-router';
 import useVoucherTradeQuery from '@api/query/voucher/useVoucherTradeQuery';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import { ResType } from '@api/query/voucher/useVoucherQuery';
 import { faShareNodes } from '@fortawesome/free-solid-svg-icons';
 

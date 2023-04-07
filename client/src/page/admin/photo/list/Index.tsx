@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { Card, CardBody } from '@component/card/basic/_styles';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import PhotoListWithFilter from '@component/list/photo/PhotoListWithFilter';
 import { StyledIndex } from './_styles';
 

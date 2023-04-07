@@ -4,7 +4,7 @@ import { AxiosError } from 'axios';
 import { ResponseError } from '@type/response';
 import Input from '@component/form/Input';
 import { InputMessage } from '@component/form/_styles';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import { Card, CardBody } from '@component/card/basic/_styles';
 import ImageUploader, { Image } from '@component/form/uploader/ImageUploader';
 import useAddGroup from '@api/mutation/group/useAddGroup';

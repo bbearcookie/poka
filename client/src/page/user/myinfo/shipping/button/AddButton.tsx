@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import { ButtonSection } from '@component/form/_styles';
 
 interface Props {

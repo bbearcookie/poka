@@ -3,7 +3,7 @@ import useVoucherQuery from '@api/query/voucher/useVoucherQuery';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { ModalHook } from '@component/modal/useModal';
 import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import PhotoInfo from '@component/photocard/info/PhotoInfo';
 import SkeletonPhotoInfo from '@component/photocard/info/SkeletonPhotoInfo';
 import { InputMessage } from '@component/form/_styles';

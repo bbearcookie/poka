@@ -4,7 +4,7 @@ import useAddMember from '@api/mutation/member/useAddMember';
 import useModifyMember from '@api/mutation/member/useModifyMember';
 import Input from '@component/form/Input';
 import { InputMessage } from '@component/form/_styles';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import { ButtonSection } from '@component/form/_styles';
 
 interface Props {

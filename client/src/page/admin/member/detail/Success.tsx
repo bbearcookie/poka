@@ -1,6 +1,6 @@
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { ResType as MemberType } from '@api/query/member/useMemberQuery';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
 import MemberRemove from './content/MemberRemove';

@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import { useNavigate } from 'react-router-dom';
 import { ButtonSection as StyledButtonSection } from '@component/form/_styles';
 

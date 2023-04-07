@@ -1,5 +1,5 @@
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
-import IconButton from '@component/form/IconButton';
+import IconButton from '@component/form/iconButton/IconButton';
 import { ModalHeader as StyledModalHeader } from './_styles';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 
@@ -12,7 +12,7 @@ function ModalHeader({ title, handleClose = () => {} }: Props) {
   return (
     <StyledModalHeader>
       <TitleLabel title={title} />
-      <IconButton icon={faClose} size="2x" onClick={handleClose} />
+      <IconButton iconProps={{ icon: faClose, size: '2x' }} onClick={handleClose} />
     </StyledModalHeader>
   );
 }

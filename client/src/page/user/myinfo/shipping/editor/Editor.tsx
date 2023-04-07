@@ -3,7 +3,7 @@ import produce from 'immer';
 import useModifyShippingAddress from '@api/mutation/shipping/address/useModifyShippingAddress';
 import { Address as AddressType } from '@type/shipping';
 import { reducer, initialState, FormType } from '@component/shipping/address/editor/reducer';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import AddressEditor from '@component/shipping/address/editor/AddressEditor';
 import { ButtonSection } from '@component/form/_styles';
 

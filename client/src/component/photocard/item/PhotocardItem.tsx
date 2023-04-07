@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { photoImage } from '@api/resource';
-import IconButton from '@component/form/IconButton';
+import IconButton from '@component/form/iconButton/IconButton';
 import { Photo } from '@type/photo';
 import { IconType } from '@type/icon';
 import { StylesPhotocardItem, StylesPhotocardItemProps, PhotoName, PhotoImg } from './_styles';
@@ -21,7 +21,7 @@ function PhotocardItem({
   icon,
   onClick = () => {},
   styles,
-  children
+  children,
 }: Props) {
   const handleClick = useCallback(() => {
     onClick(photocardId);
@@ -46,7 +46,11 @@ function PhotocardItem({
 
           <section className="icon-section">
             {icon && (
-              <IconButton icon={icon.svg} tooltip={icon.tooltip} size="lg" onClick={handleClick} />
+              <IconButton
+                iconProps={{ icon: icon.svg, size: 'lg' }}
+                tooltip={icon.tooltip}
+                onClick={handleClick}
+              />
             )}
           </section>
         </section>

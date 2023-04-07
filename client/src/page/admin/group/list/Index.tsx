@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import useGroupsQuery from '@api/query/group/useGroupsQuery';
 import SkeletonGroup from './content/SkeletonGroup';

@@ -1,5 +1,5 @@
 import { useEffect, useCallback } from 'react';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 
 interface Props {
   cropper: Cropper;

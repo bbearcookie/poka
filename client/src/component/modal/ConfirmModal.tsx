@@ -1,6 +1,6 @@
 import { CSSProp } from 'styled-components';
 import { InputMessage } from '@component/form/_styles';
-import Button, { ButtonTheme } from '@component/form/Button';
+import Button, { ButtonTheme } from '@component/form/button/Button';
 import ModalHeader from '@component/modal/basic/ModalHeader';
 import Modal, { Props as ModalProps } from '@component/modal/basic/Modal';
 import { Card, CardBody, CardFooter } from '@component/card/basic/_styles';

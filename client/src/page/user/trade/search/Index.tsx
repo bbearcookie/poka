@@ -5,7 +5,7 @@ import useIdolSelector from '@component/selector/useIdolSelector';
 import IdolSelector from '@component/selector/IdolSelector';
 import TradeList from '@component/list/trade/TradeList';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import { ButtonSection } from '@component/form/_styles';
 import { StyledIndex } from './_styles';
 

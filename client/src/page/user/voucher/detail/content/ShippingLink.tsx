@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import { ResType } from '@api/query/voucher/useVoucherQuery';
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons';
 

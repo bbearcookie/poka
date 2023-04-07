@@ -3,7 +3,7 @@ import useCheckShippingPayment from '@api/mutation/shipping/payment/useCheckShip
 import { toast } from 'react-toastify';
 import { ResType } from '@api/query/shipping/useShippingRequestQuery';
 import { faCoins } from '@fortawesome/free-solid-svg-icons';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 
 interface Props {
   res: ResType;
