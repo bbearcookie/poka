@@ -8,7 +8,7 @@ function Index() {
 
   return (
     <StyledIndex>
-      <BackLabel to={`/admin/voucher/detail/${voucherId}`} styles={{ marginBottom: "2em" }}>소유권 상세정보</BackLabel>
+      <BackLabel to={`/admin/voucher/detail/${voucherId}`} css={{ marginBottom: "2em" }}>소유권 상세정보</BackLabel>
       <VoucherLogList voucherId={voucherId} />
     </StyledIndex>
   );

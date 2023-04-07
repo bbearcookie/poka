@@ -10,7 +10,7 @@ function Index() {
 
   return (
     <StyledIndex>
-      <BackLabel to="/admin/photo/list" styles={{ marginBottom: '2em' }}>
+      <BackLabel to="/admin/photo/list" css={{ marginBottom: '2em' }}>
         포토카드 목록
       </BackLabel>
       {status === 'success' && <Success photo={photo} photocardId={photocardId} />}

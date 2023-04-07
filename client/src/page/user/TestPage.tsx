@@ -3,6 +3,7 @@ import useModal from '@component/modal/useModal';
 import ConfirmModal from '@component/modal/ConfirmModal';
 import IconButton from '@component/form/iconButton/IconButton';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import BackLabel from '@component/label/BackLabel';
 import { StyledIndex } from './_styles';
 import Input from '@component/form/input/Input';
 
@@ -16,6 +17,8 @@ function TestPage() {
   return (
     <StyledIndex>
       <div>테스트 페이지</div>
+
+      <BackLabel to='#'>뒤로가는링크</BackLabel>
 
       <Input />
 

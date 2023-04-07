@@ -12,7 +12,7 @@ function Index() {
 
   return (
     <StyledIndex>
-      <BackLabel to="/admin/group/list" styles={{ marginBottom: '2em' }}>
+      <BackLabel to="/admin/group/list" css={{ marginBottom: '2em' }}>
         그룹 목록
       </BackLabel>
       {status === 'success' && <Success res={group} groupId={groupId} />}

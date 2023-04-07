@@ -10,7 +10,7 @@ function Index() {
 
   return (
     <StyledIndex>
-      <BackLabel to="/voucher/list" styles={{ marginBottom: '2em' }}>
+      <BackLabel to="/voucher/list" css={{ marginBottom: '2em' }}>
         소유권 목록
       </BackLabel>
       {status === 'success' && <Success res={voucher} />}

@@ -10,7 +10,7 @@ function Index() {
 
   return (
     <StyledIndex>
-      <BackLabel styles={{ marginBottom: "1em" }} to="/shipping/list">배송 요청 목록</BackLabel>
+      <BackLabel to="/shipping/list" css={{ marginBottom: "1em" }}>배송 요청 목록</BackLabel>
       {status === 'success' && <Success res={shipping} />}
     </StyledIndex>
   );

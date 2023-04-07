@@ -19,11 +19,11 @@ function Index() {
   return (
     <StyledIndex>
       {member && member.groupId ? (
-        <BackLabel to={`/admin/group/detail/${member.groupId}`} styles={{ marginBottom: '2em' }}>
+        <BackLabel to={`/admin/group/detail/${member.groupId}`} css={{ marginBottom: '2em' }}>
           {member.groupName}
         </BackLabel>
       ) : (
-        <BackLabel onClick={toBackPage} styles={{ marginBottom: '2em' }}>
+        <BackLabel onClick={toBackPage} css={{ marginBottom: '2em' }}>
           뒤로가기
         </BackLabel>
       )}

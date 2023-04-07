@@ -18,7 +18,7 @@ function Index() {
   return (
     <StyledIndex>
       {prev && (
-        <BackLabel to={prev.url} styles={{ marginBottom: '2em' }}>
+        <BackLabel to={prev.url} css={{ marginBottom: '2em' }}>
           {prev.text}
         </BackLabel>
       )}
