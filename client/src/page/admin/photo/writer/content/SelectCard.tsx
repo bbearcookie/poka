@@ -3,7 +3,7 @@ import useGroupsQuery from '@api/query/group/useGroupsQuery';
 import useGroupQuery from '@api/query/group/useGroupQuery';
 import { Card, CardBody } from '@component/card/basic/_styles';
 import Select from '@component/form/Select';
-import InputMessage from '@component/form/InputMessage';
+import { InputMessage } from '@component/form/_styles';
 import { State, Action } from '../reducer';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import { InputSection } from './_styles';
@@ -62,7 +62,7 @@ function SelectCard({ state, dispatch }: Props) {
           </section>
 
           {state.message.groupId && (
-            <InputMessage styles={{ margin: '0.5em 0 0 0' }}>{state.message.groupId}</InputMessage>
+            <InputMessage css={{ margin: '0.5em 0 0 0' }}>{state.message.groupId}</InputMessage>
           )}
         </InputSection>
 
@@ -87,7 +87,7 @@ function SelectCard({ state, dispatch }: Props) {
           </section>
 
           {state.message.memberId && (
-            <InputMessage styles={{ margin: '0.5em 0 0 0' }}>{state.message.memberId}</InputMessage>
+            <InputMessage css={{ margin: '0.5em 0 0 0' }}>{state.message.memberId}</InputMessage>
           )}
         </InputSection>
 

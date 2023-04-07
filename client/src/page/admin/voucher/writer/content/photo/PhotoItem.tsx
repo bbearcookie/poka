@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { ResType as PhotoResType } from '@api/query/photo/usePhotoQuery';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import Input from '@component/form/Input';
-import InputMessage from '@component/form/InputMessage';
+import { InputMessage } from '@component/form/_styles';
 import PhotocardItem from '@component/photocard/item/PhotocardItem';
 import { State, Action } from '../../reducer';
 
@@ -55,7 +55,7 @@ function PhotoItem({ photo, idx, state, dispatch }: Props) {
           marginTop: '0.5em'
         }}
       >
-        <InputMessage styles={{ margin: '1em 0 0 0' }}>{state.form.vouchers[idx].message}</InputMessage>
+        <InputMessage css={{ margin: '1em 0 0 0' }}>{state.form.vouchers[idx].message}</InputMessage>
       </Input>
     </PhotocardItem>
   );

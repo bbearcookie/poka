@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import useSignup from '@api/mutation/auth/useSignup';
 import Input from '@component/form/Input';
 import Button from '@component/form/Button';
-import InputMessage from '@component/form/InputMessage';
+import { InputMessage } from '@component/form/_styles';
 import reducer, { initialState, FormType } from './reducer';
 
 function Form() {
@@ -69,7 +69,7 @@ function Form() {
             height: '2.5rem',
           }}
         >
-          <InputMessage styles={{ margin: '0.5em 0 0 0.8em', wordBreak: 'break-all' }}>
+          <InputMessage css={{ margin: '0.5em 0 0 0.8em', wordBreak: 'break-all' }}>
             {state.message.username}
           </InputMessage>
         </Input>
@@ -90,7 +90,7 @@ function Form() {
             height: '2.5rem',
           }}
         >
-          <InputMessage styles={{ margin: '0.5em 0 0 0.8em', wordBreak: 'break-all' }}>
+          <InputMessage css={{ margin: '0.5em 0 0 0.8em', wordBreak: 'break-all' }}>
             {state.message.nickname}
           </InputMessage>
         </Input>
@@ -111,7 +111,7 @@ function Form() {
             height: '2.5rem',
           }}
         >
-          <InputMessage styles={{ margin: '0.5em 0 0 0.8em', wordBreak: 'break-all' }}>
+          <InputMessage css={{ margin: '0.5em 0 0 0.8em', wordBreak: 'break-all' }}>
             {state.message.password}
           </InputMessage>
         </Input>
@@ -132,7 +132,7 @@ function Form() {
             height: '2.5rem',
           }}
         >
-          <InputMessage styles={{ margin: '0.5em 0 0 0.8em', wordBreak: 'break-all' }}>
+          <InputMessage css={{ margin: '0.5em 0 0 0.8em', wordBreak: 'break-all' }}>
             {state.message.passwordCheck}
           </InputMessage>
         </Input>

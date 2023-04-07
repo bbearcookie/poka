@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import Input from '@component/form/Input';
-import InputMessage from '@component/form/InputMessage';
+import { InputMessage } from '@component/form/_styles';
 import { State, Action } from '../reducer';
 
 interface Props {

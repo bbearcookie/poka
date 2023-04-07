@@ -4,7 +4,7 @@ import { useQueries } from '@tanstack/react-query';
 import { fetchPhotoDetail } from '@api/api/photo';
 import { ResType } from '@api/query/photo/usePhotoQuery';
 import { State, Action } from '@component/trade/editor/reducer';
-import InputMessage from '@component/form/InputMessage';
+import { InputMessage } from '@component/form/_styles';
 import PhotoList from './PhotoList';
 import Amount from './Amount';
 
@@ -25,7 +25,7 @@ function CardContents({ state, dispatch }: Props) {
 
   if (photos.length <= 0)
     return (
-      <InputMessage styles={{ margin: '0 0 0.5em 0' }}>
+      <InputMessage css={{ margin: '0 0 0.5em 0' }}>
         {state.message.wantPhotocardIds}
       </InputMessage>
     );
@@ -35,7 +35,7 @@ function CardContents({ state, dispatch }: Props) {
       <b className="label">종류</b>
       <PhotoList photos={photos} dispatch={dispatch} />
       {state.message.wantPhotocardIds && (
-        <InputMessage styles={{ margin: '0 0 0.5em 0' }}>
+        <InputMessage css={{ margin: '0 0 0.5em 0' }}>
           {state.message.wantPhotocardIds}
         </InputMessage>
       )}

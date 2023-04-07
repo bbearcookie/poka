@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { ResponseError } from '@type/response';
 import Input from '@component/form/Input';
-import InputMessage from '@component/form/InputMessage';
+import { InputMessage } from '@component/form/_styles';
 import Button from '@component/form/Button';
 import { Card, CardBody } from '@component/card/basic/_styles';
 import ImageUploader, { Image } from '@component/form/uploader/ImageUploader';
@@ -184,7 +184,7 @@ function Form({ name = DefaultProps.name, imageName = DefaultProps.imageName, gr
                 marginBottom: '1em',
               }}
             >
-              <InputMessage styles={{ margin: '0.5em 0 0 0.8em' }}>
+              <InputMessage css={{ margin: '0.5em 0 0 0.8em' }}>
                 {inputMessage.name}
               </InputMessage>
             </Input>

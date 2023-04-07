@@ -1,6 +1,6 @@
 import React, { useRef, useCallback } from 'react';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import InputMessage from '@component/form/InputMessage';
+import { InputMessage } from '@component/form/_styles';
 import useModal from '@component/modal/useModal';
 import TitleModal from '@component/modal/TitleModal';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
@@ -67,7 +67,7 @@ function VoucherSection({ state, dispatch }: Props) {
         <CardBody>
           {state.form.vouchers.length > 0 && <PhotoList state={state} dispatch={dispatch} />}
           {state.message.vouchers && (
-            <InputMessage styles={{ margin: '0 0 0.5em 0' }}>{state.message.vouchers}</InputMessage>
+            <InputMessage css={{ margin: '0 0 0.5em 0' }}>{state.message.vouchers}</InputMessage>
           )}
           <p className="description">사용자에게 발급하려는 소유권의 종류와 수량을 지정합니다.</p>
         </CardBody>

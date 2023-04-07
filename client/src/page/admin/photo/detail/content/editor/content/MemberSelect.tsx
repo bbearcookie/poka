@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import useGroupQuery from '@api/query/group/useGroupQuery';
 import Select from '@component/form/Select';
-import InputMessage from '@component/form/InputMessage';
+import { InputMessage } from '@component/form/_styles';
 import { State, Action } from '../reducer';
 import { InputSection } from './_styles';
 

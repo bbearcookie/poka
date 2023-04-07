@@ -7,7 +7,7 @@ import { ModalHook } from '@component/modal/useModal';
 import VoucherItem from '@component/voucher/item/VoucherItem';
 import SkeletonVoucherItem from '@component/voucher/item/SkeletonVoucherItem';
 import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
-import InputMessage from '@component/form/InputMessage';
+import { InputMessage } from '@component/form/_styles';
 import Button from '@component/form/Button';
 import TitleLabel from '@component/label/titleLabel/TitleLabel';
 import { ItemSection } from '@component/list/content/_styles';
@@ -88,7 +88,7 @@ function CardSection({ state, dispatch, modal }: Props) {
             )}
         </ItemSection>
         {state.message.voucherIds && (
-          <InputMessage styles={{ margin: '0 0 0.5em 0' }}>{state.message.voucherIds}</InputMessage>
+          <InputMessage css={{ margin: '0 0 0.5em 0' }}>{state.message.voucherIds}</InputMessage>
         )}
         <p className="description">실물로 배송받으려는 소유권을 지정합니다.</p>
       </CardBody>

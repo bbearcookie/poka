@@ -1,6 +1,6 @@
 import React from 'react';
 import InputComponent from '@component/form/Input';
-import InputMessage from '@component/form/InputMessage';
+import { InputMessage } from '@component/form/_styles';
 import { State, Action } from '../../reducer';
 
 interface Props {
@@ -27,7 +27,7 @@ function Input({ state, dispatch, changeInput, blurInput }: Props) {
       }}
     >
       {state.message.requirement && (
-        <InputMessage styles={{ margin: '0.5em 0 0 0' }}>{state.message.requirement}</InputMessage>
+        <InputMessage css={{ margin: '0.5em 0 0 0' }}>{state.message.requirement}</InputMessage>
       )}
     </InputComponent>
   );

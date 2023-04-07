@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import Input from '@component/form/Input';
-import InputMessage from '@component/form/InputMessage';
+import { InputMessage } from '@component/form/_styles';
 import { State, Action } from '../reducer';
 import { InputLine } from './_styles';
 
@@ -55,7 +55,7 @@ function Contact({ state, dispatch, changeInput, blurInput }: Props) {
           }}
         >
           {state.message.contact && (
-            <InputMessage styles={{ margin: '0.5em 0 0 0' }}>{state.message.contact}</InputMessage>
+            <InputMessage css={{ margin: '0.5em 0 0 0' }}>{state.message.contact}</InputMessage>
           )}
         </Input>
       </div>

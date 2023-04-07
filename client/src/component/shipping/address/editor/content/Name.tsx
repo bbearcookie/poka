@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import Input from '@component/form/Input';
-import InputMessage from '@component/form/InputMessage';
+import { InputMessage } from '@component/form/_styles';
 import { State, Action } from '../reducer';
 import { InputLine } from './_styles';
 
@@ -42,7 +42,7 @@ function Name({ state, dispatch, changeInput, blurInput }: Props) {
           }}
         />
         {state.message.name && (
-          <InputMessage styles={{ margin: '0.5em 0 0 0' }}>{state.message.name}</InputMessage>
+          <InputMessage css={{ margin: '0.5em 0 0 0' }}>{state.message.name}</InputMessage>
         )}
       </div>
     </InputLine>

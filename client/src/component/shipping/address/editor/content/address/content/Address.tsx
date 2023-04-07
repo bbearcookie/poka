@@ -1,6 +1,6 @@
 import React from 'react';
 import Input from '@component/form/Input';
-import InputMessage from '@component/form/InputMessage';
+import { InputMessage } from '@component/form/_styles';
 import { State, Action } from '../../../reducer';
 
 interface Props {
@@ -23,7 +23,7 @@ function Address({ state, dispatch }: Props) {
       }}
     >
       {state.message.address && (
-        <InputMessage styles={{ margin: '0.5em 0 0 0' }}>{state.message.address}</InputMessage>
+        <InputMessage css={{ margin: '0.5em 0 0 0' }}>{state.message.address}</InputMessage>
       )}
     </Input>
   );

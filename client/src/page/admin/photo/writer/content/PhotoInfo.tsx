@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import Input from '@component/form/Input';
-import InputMessage from '@component/form/InputMessage';
+import { InputMessage } from '@component/form/_styles';
 import { Card, CardBody } from '@component/card/basic/_styles';
 import Button from '@component/form/Button';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
@@ -66,7 +66,7 @@ function PhotoInfo({ idx, src, message, state, dispatch }: Props) {
             >
               {message && (
                 <InputMessage
-                  styles={{
+                  css={{
                     width: '200px',
                     margin: '1em 0 0 0',
                     textAlign: 'center',

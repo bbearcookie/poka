@@ -1,5 +1,5 @@
 import Button from '@component/form/Button';
-import { StyledButtonSection } from './_styles';
+import { ButtonSection as StyledButtonSection } from '@component/form/_styles';
 
 interface Props {
   handleCancel: () => void;

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import Input from '@component/form/Input';
-import InputMessage from '@component/form/InputMessage';
+import { InputMessage } from '@component/form/_styles';
 import { State, Action } from '@component/trade/editor/reducer';
 
 interface Props {
@@ -36,7 +36,7 @@ function Amount({ state, dispatch }: Props) {
         }}
       />
       {state.message.amount && (
-        <InputMessage styles={{ margin: '0 0 0.5em 0' }}>{state.message.amount}</InputMessage>
+        <InputMessage css={{ margin: '0 0 0.5em 0' }}>{state.message.amount}</InputMessage>
       )}
     </div>
   );

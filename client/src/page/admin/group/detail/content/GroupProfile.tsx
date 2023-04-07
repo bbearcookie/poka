@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { groupImage } from '@api/resource';
 import Button from '@component/form/Button';

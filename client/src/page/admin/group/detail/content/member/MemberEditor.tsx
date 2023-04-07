@@ -3,7 +3,7 @@ import { getErrorMessage } from '@util/request';
 import useAddMember from '@api/mutation/member/useAddMember';
 import useModifyMember from '@api/mutation/member/useModifyMember';
 import Input from '@component/form/Input';
-import InputMessage from '@component/form/InputMessage';
+import { InputMessage } from '@component/form/_styles';
 import Button from '@component/form/Button';
 import { ButtonSection } from '@component/form/_styles';
 
@@ -64,7 +64,7 @@ function MemberEditor({ memberId, groupId, defaultValue = '', closeEditor }: Pro
             height: '2.5em',
           }}
         >
-          <InputMessage styles={{ margin: '0.5em 0 0 0.8em' }}>{message}</InputMessage>
+          <InputMessage css={{ margin: '0.5em 0 0 0.8em' }}>{message}</InputMessage>
         </Input>
       </td>
       <td>
