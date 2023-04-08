@@ -1,17 +1,16 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ResType as GroupType } from '@api/query/group/useGroupQuery';
 import useModal from '@component/modal/useModal';
 import ConfirmModal from '@component/modal/ConfirmModal';
 import RemoveCard from '@component/card/RemoveCard';
 import useDeleteGroup from '@api/mutation/group/useDeleteGroup';
 
 interface Props {
-  group: GroupType;
   groupId: number;
+  name: string;
 }
 
-function GroupRemove({ group, groupId }: Props) {
+function GroupRemove({ groupId, name }: Props) {
   const removeModal = useModal();
   const navigate = useNavigate();
 
@@ -42,7 +41,7 @@ function GroupRemove({ group, groupId }: Props) {
         confirm={{ text: '삭제', buttonTheme: 'danger', onClick: removeGroup }}
       >
         <p className="text">이 그룹을 삭제하면 연관된 멤버와 포토카드도 함께 지워져요.</p>
-        <p className="text">정말로 {group?.name} 그룹을 삭제하시겠어요?</p>
+        <p className="text">정말로 {name} 그룹을 삭제하시겠어요?</p>
       </ConfirmModal>
     </>
   );

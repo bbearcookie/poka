@@ -8,5 +8,3 @@ export const InputSection = styled.section`
     font-weight: bold;
   }
 `;
-
-export const ImageSection = styled.section``;
