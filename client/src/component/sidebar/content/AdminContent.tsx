@@ -6,17 +6,7 @@ function AdminContent() {
   return (
     <>
       <ul className="category">
-        <li className="subheader-label">사용자 관리</li>
-        <ChildItem to="/admin/user" icon={faUser} text="사용자" />
-      </ul>
-      <ul className="category">
-        <li className="subheader-label">커뮤니티 관리</li>
-        <ChildItem to="/admin/notice" icon={faCommentAlt} text="공지사항" />
-        <ChildItem to="/admin/question" icon={faQuestionCircle} text="문의사항"/>
-      </ul>
-      <ul className="category">
-        <li className="subheader-label">교환 관리</li>
-        <ChildItem to="/admin/trade" icon={faArrowsSpin} text="교환글" />
+        <li className="subheader-label">소유권 관리</li>
         <ParentItem id="voucher" icon={faVcard} text="소유권">
           <ChildItem to="/admin/voucher/list" text="목록" />
           <ChildItem to="/admin/voucher/writer" text="발급" />
