@@ -5,8 +5,8 @@ import { ResponseError } from "@type/response";
 import { getErrorMessage } from '@util/request';
 import { useAppDispatch } from '@app/redux/store';
 import { LoginToken } from '@type/user';
-import { login } from '@util/auth/authSlice';
-import { removeUserFromStorage } from '@util/auth/auth';
+import { login } from '@feature/auth/authSlice';
+import { removeUserFromStorage } from '@feature/auth/authStorage';
 import { verify } from '@api/api/auth';
 
 export interface ResType {

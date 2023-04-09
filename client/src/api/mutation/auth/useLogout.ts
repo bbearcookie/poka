@@ -4,7 +4,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { ResponseError } from "@type/response";
 import { getErrorMessage } from '@util/request';
 import { useAppDispatch } from '@app/redux/store';
-import { logout } from '@util/auth/authSlice';
+import { logout } from '@feature/auth/authSlice';
 import { logout as logoutFn } from '@api/api/auth';
 
 interface ResType {

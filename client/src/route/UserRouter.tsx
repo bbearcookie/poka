@@ -1,4 +1,4 @@
-import { getUserFromStorage } from '@util/auth/auth';
+import { getUserFromStorage } from '@feature/auth/authStorage';
 import { useAppSelector } from "@app/redux/store";
 import { Route, Routes, Navigate } from "react-router-dom";
 import MyInfoPage from '@page/user/myinfo/Index';

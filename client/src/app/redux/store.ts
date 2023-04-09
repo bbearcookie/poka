@@ -1,7 +1,7 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import sidebarSlice from '@component/sidebar/sidebarSlice';
-import authSlice from '@util/auth/authSlice';
+import authSlice from '@feature/auth/authSlice';
 
 export const store = configureStore({
   reducer: combineReducers({

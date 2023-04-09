@@ -15,7 +15,6 @@ export function getYYYYMMDD(date: Date, delimiter = '-') {
 
 // date 타입의 값을 사람이 읽을 문자열 형태로 변환함
 export function getFormattedTime(date: Date) {
-  // const date = new Date(datetime);
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();

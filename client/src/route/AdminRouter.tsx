@@ -1,4 +1,4 @@
-import { getUserFromStorage } from '@util/auth/auth';
+import { getUserFromStorage } from '@feature/auth/authStorage';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import GroupListPage from '@page/admin/group/list/Index';
 import GroupWriterPage from '@page/admin/group/writer/WriterIndex';

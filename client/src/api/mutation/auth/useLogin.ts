@@ -4,7 +4,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { ResponseError } from "@type/response";
 import { getErrorMessage } from '@util/request';
 import { LoginToken } from '@type/user';
-import { login } from '@util/auth/authSlice';
+import { login } from '@feature/auth/authSlice';
 import { login as loginFn } from '@api/api/auth';
 import { useAppDispatch } from '@app/redux/store';
 
