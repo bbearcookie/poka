@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '@app/redux/reduxHooks';
+import { useAppSelector } from '@app/redux/store';
 import TitleLabel from '@component/label/TitleLabel';
 import useIdolSelector from '@component/selector/useIdolSelector';
 import IdolSelector from '@component/selector/IdolSelector';

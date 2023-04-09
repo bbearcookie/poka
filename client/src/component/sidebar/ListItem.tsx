@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
+import { useAppSelector, useAppDispatch } from '@app/redux/store';
 import { changeActiveURI, changeParentActiveId } from './sidebarSlice';
 
 // 토글 기능에 따라서 보여주는 스타일 컴포넌트  =============================================================

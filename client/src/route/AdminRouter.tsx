@@ -1,5 +1,4 @@
-import React from 'react';
-import { getUser } from '@util/auth/auth';
+import { getUserFromStorage } from '@util/auth/auth';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import GroupListPage from '@page/admin/group/list/Index';
 import GroupWriterPage from '@page/admin/group/writer/WriterIndex';
@@ -19,7 +18,7 @@ import ShippingDetailPage from '@page/admin/shipping/detail/Index';
 
 // /admin 하위 라우팅 내용
 function AdminRouter() {
-  const user = getUser();
+  const user = getUserFromStorage();
 
   return (
     <>

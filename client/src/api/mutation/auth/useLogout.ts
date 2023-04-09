@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ResponseError } from "@type/response";
 import { getErrorMessage } from '@util/request';
-import { useAppDispatch } from '@app/redux/reduxHooks';
+import { useAppDispatch } from '@app/redux/store';
 import { logout } from '@util/auth/authSlice';
 import { logout as logoutFn } from '@api/api/auth';
 

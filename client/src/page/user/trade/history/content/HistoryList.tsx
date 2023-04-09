@@ -1,7 +1,7 @@
 import { Fragment, useCallback } from 'react';
 import { useUpdateEffect } from 'react-use';
 import useUserTradeHistoryQuery from '@api/query/trade/useUserTradeHistoryQuery';
-import { useAppSelector } from '@app/redux/reduxHooks';
+import { useAppSelector } from '@app/redux/store';
 import { Card, CardHeader, CardList } from '@component/card/basic/_styles';
 import NextPageFetcher from '@component/list/content/NextPageFetcher';
 import History from './History';

@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { LoginToken } from "@type/user";
-import { saveUser, removeUser } from './auth';
+import { saveUserToStorage, removeUserFromStorage } from "./auth";
 
 const name = 'auth';
 
-const initialState: Pick<LoginToken, 'userId' | 'username' | 'role' | 'strategy'> = {
+const initialState = {
   userId: 0,
   username: '',
   role: '',
@@ -21,13 +21,13 @@ export const slice = createSlice({
       state.username = payload.username;
       state.role = payload.role;
       state.strategy = payload.strategy;
-      saveUser(payload);
+      saveUserToStorage(payload);
     },
 
     // 로그아웃시 상태 값 초기화
     logout: (state) => {
       state = initialState;
-      removeUser();
+      removeUserFromStorage();
     }
   }
 });

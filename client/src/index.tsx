@@ -1,19 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
-import App from '@app/App';
-import { store } from '@app/redux/store';
-import * as types from 'styled-components/cssprop'; // styled-components의 css prop 기능 사용
+import AppWrapper from '@app/AppWrapper';
 import './index.css';
 
 // StrictMode 상태에는 기본적으로 렌더링이 두 번씩 된다!
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <AppWrapper />
   </React.StrictMode>
 );
 

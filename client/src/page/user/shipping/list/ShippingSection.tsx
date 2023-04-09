@@ -1,5 +1,5 @@
 import { Fragment, useEffect } from 'react';
-import { useAppSelector } from '@app/redux/reduxHooks';
+import { useAppSelector } from '@app/redux/store';
 import useSearcher from '@component/search/useSearcher';
 import useShippingList from '@component/list/shipping/useShippingList';
 import Searcher from '@component/search/Searcher';

@@ -1,4 +1,4 @@
-import { useAppSelector } from '@app/redux/reduxHooks';
+import { useAppSelector } from '@app/redux/store';
 import TitleLabel from '@component/label/TitleLabel';
 import Profile from './profile/Index';
 import Shipping from './shipping/Index';

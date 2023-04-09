@@ -1,7 +1,7 @@
 import { Fragment, useCallback } from 'react';
 import produce from 'immer';
 import { useUpdateEffect } from 'react-use';
-import { useAppSelector } from '@app/redux/reduxHooks';
+import { useAppSelector } from '@app/redux/store';
 import TradeItem from '@component/trade/item/TradeItem';
 import NextPageFetcher from '@component/list/content/NextPageFetcher';
 import useTradesQuery, { FilterType } from '@api/query/trade/useTradesQuery';

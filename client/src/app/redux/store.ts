@@ -1,10 +1,14 @@
-import { configureStore } from "@reduxjs/toolkit";
-import rootReducer from "./rootReducer";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import sidebarSlice from '@component/sidebar/sidebarSlice';
+import authSlice from '@util/auth/authSlice';
 
 export const store = configureStore({
-  reducer: rootReducer
+  reducer: combineReducers({
+    sidebar: sidebarSlice,
+    auth: authSlice,
+  }),
 });
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
-export default store;
+export const useAppDispatch: () => typeof store.dispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<ReturnType<typeof store.getState>> = useSelector;

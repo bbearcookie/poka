@@ -1,4 +1,6 @@
 import { client } from '@util/request';
+import { ResType as VerifyResType } from '@api/mutation/auth/useVerify';
+import { AxiosResponse } from 'axios';
 
 // 회원가입
 export const signup = async (body: object) => {
@@ -22,7 +24,7 @@ export const logout = async () => {
 }
 
 // 로그인 토큰 검증
-export const verify = async () => {
+export const verify = async (): Promise<AxiosResponse<VerifyResType>> => {
   const url = `/api/auth/verify`;
   const res = await client.post(url);
   return res;

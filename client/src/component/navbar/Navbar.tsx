@@ -3,7 +3,7 @@ import useUserQuery from '@api/query/user/useUserQuery';
 import useLogout from '@api/mutation/auth/useLogout';
 import { useNavigate, Link } from 'react-router-dom';
 import { usePopper } from 'react-popper';
-import { useAppSelector, useAppDispatch } from '@app/redux/reduxHooks';
+import { useAppSelector, useAppDispatch } from '@app/redux/store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { changeShow } from '@component/sidebar/sidebarSlice';

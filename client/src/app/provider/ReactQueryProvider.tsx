@@ -6,7 +6,7 @@ interface Props {
   children?: React.ReactNode;
 }
 
-function ReactQuery({ children }: Props) {
+function ReactQueryProvider({ children }: Props) {
   const queryClient = new QueryClient();
 
   return (
@@ -17,4 +17,4 @@ function ReactQuery({ children }: Props) {
   );
 }
 
-export default ReactQuery;
+export default ReactQueryProvider;

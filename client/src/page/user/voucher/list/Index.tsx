@@ -1,5 +1,5 @@
 import { useEffect, useCallback } from 'react';
-import { useAppSelector } from '@app/redux/reduxHooks';
+import { useAppSelector } from '@app/redux/store';
 import { Card, CardBody } from '@component/card/basic/_styles';
 import useSearcher from '@component/search/useSearcher';
 import Searcher from '@component/search/Searcher';

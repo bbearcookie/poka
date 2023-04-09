@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { useAppSelector } from '@app/redux/reduxHooks';
+import { useAppSelector } from '@app/redux/store';
 import useTradeExchangeQuery from '@api/query/trade/useTradeExchangeQuery';
 import useExchangeTrade from '@api/mutation/trade/useExchangeTrade';
 import { TradeItem } from '@type/trade';

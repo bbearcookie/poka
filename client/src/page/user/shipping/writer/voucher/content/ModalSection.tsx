@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
-import { useAppSelector } from '@app/redux/reduxHooks';
+import { useAppSelector } from '@app/redux/store';
 import useSearcher from '@component/search/useSearcher';
 import Searcher from '@component/search/Searcher';
 import VoucherList from '@component/list/voucher/VoucherList';

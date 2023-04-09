@@ -1,6 +1,5 @@
-import React from 'react';
-import { getUser } from '@util/auth/auth';
-import { useAppSelector } from "@app/redux/reduxHooks";
+import { getUserFromStorage } from '@util/auth/auth';
+import { useAppSelector } from "@app/redux/store";
 import { Route, Routes, Navigate } from "react-router-dom";
 import MyInfoPage from '@page/user/myinfo/Index';
 import VoucherListPage from '@page/user/voucher/list/Index';
@@ -18,7 +17,7 @@ import TestPage from '@page/user/TestPage';
 
 function UserRouter() {
   const { username, strategy, role } = useAppSelector((state) => state.auth);
-  const user = getUser();
+  const user = getUserFromStorage();
 
   return (
     <>

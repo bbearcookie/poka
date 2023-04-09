@@ -1,6 +1,6 @@
 import React from 'react';
-import AdminRouter from '@app/router/AdminRouter';
-import UserRouter from '@app/router/UserRouter';
+import AdminRouter from '@route/AdminRouter';
+import UserRouter from '@route/UserRouter';
 import Sidebar from '@component/sidebar/Sidebar';
 import Navbar from '@component/navbar/Navbar';
 import './PageTemplate.scss';

@@ -3,13 +3,13 @@ import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ResponseError } from "@type/response";
 import { getErrorMessage } from '@util/request';
-import { useAppDispatch } from '@app/redux/reduxHooks';
+import { useAppDispatch } from '@app/redux/store';
 import { LoginToken } from '@type/user';
 import { login } from '@util/auth/authSlice';
-import { removeUser } from '@util/auth/auth';
+import { removeUserFromStorage } from '@util/auth/auth';
 import { verify } from '@api/api/auth';
 
-interface ResType {
+export interface ResType {
   message: string;
   user: LoginToken;
 }
@@ -31,7 +31,7 @@ UseMutationResult<
     },
     onError: (err) => {
       toast.error(getErrorMessage(err), { autoClose: 2000, position: toast.POSITION.BOTTOM_RIGHT });
-      removeUser();
+      removeUserFromStorage();
       if (onError) onError(err);
     }
   });

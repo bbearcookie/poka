@@ -1,7 +1,7 @@
 import React from 'react';
 import useShippingAddresses from '@api/query/shipping/useShippingAddressesQuery';
 import useModal from '@component/modal/useModal';
-import { useAppSelector } from '@app/redux/reduxHooks';
+import { useAppSelector } from '@app/redux/store';
 import { State, Action } from '@component/shipping/address/editor/reducer';
 import AddressCard from './content/AddressCard';
 import AddressModal from './content/AddressModal';

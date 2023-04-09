@@ -1,4 +1,4 @@
-import { useAppSelector } from '@app/redux/reduxHooks';
+import { useAppSelector } from '@app/redux/store';
 import { TradeItem } from '@type/trade';
 import Edit from './Edit';
 import Exchange from './Exchange';
