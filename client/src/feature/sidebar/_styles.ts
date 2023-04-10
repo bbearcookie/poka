@@ -12,18 +12,19 @@ export const StyledSidebar = styled.div`
   ${scrollbar}
 `;
 
-export const Background = styled.aside`
+export const Background = styled.aside<{ isOpened: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 99;
   background-color: rgba(0, 0, 0, 0.2);
+  z-index: 99;
 
   @media screen and (max-width: 65rem) {
-    width: 100%;
+    width: ${p => (p.isOpened ? '100%' : '0')};
+    height: ${p => (p.isOpened ? '100%' : '0')};
 
     ${StyledSidebar} {
-      transform: translateX(-15rem);
+      transform: ${p => (p.isOpened ? '' : 'translateX(-15rem)')};
       transition: 0.25s transform;
     }
   }
