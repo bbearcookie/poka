@@ -4,7 +4,7 @@ import { getUserFromStorage, saveUserToStorage, removeUserFromStorage } from "./
 
 const name = 'auth';
 
-const initialState = getUserFromStorage() || {
+const initialState = {
   userId: 0,
   username: '',
   role: '',
@@ -13,7 +13,7 @@ const initialState = getUserFromStorage() || {
 
 export const slice = createSlice({
   name,
-  initialState,
+  initialState: getUserFromStorage() || initialState,
   reducers: {
     login: (state, { payload }: PayloadAction<LoginToken>) => {
       state.userId = payload.userId;
@@ -31,4 +31,5 @@ export const slice = createSlice({
 });
 
 export const { login, logout } = slice.actions;
+
 export default slice.reducer;

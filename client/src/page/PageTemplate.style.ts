@@ -1,4 +1,6 @@
-.PageTemplate {
+import styled from 'styled-components';
+
+export const StyledPageTemplate = styled.div`
   color: #121828;
 
   a {
@@ -6,7 +8,7 @@
     text-decoration: none;
     background-color: inherit;
   }
-  
+
   .page-section {
     padding-left: 15rem; // 사이드 바 크기만큼 패딩
     min-height: 100vh;
@@ -37,4 +39,4 @@
 
     .page-section { padding-left: 0; }
   }
-}
+`;

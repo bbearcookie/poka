@@ -5,8 +5,7 @@ import { ResponseError } from "@type/response";
 import { getErrorMessage } from '@util/request';
 import { useAppDispatch } from '@app/redux/store';
 import { LoginToken } from '@type/user';
-import { login } from '@feature/auth/authSlice';
-import { removeUserFromStorage } from '@feature/auth/authStorage';
+import { login, logout } from '@feature/auth/authSlice';
 import { verify } from '@api/api/auth';
 
 export interface ResType {
@@ -31,7 +30,7 @@ UseMutationResult<
     },
     onError: (err) => {
       toast.error(getErrorMessage(err), { autoClose: 2000, position: toast.POSITION.BOTTOM_RIGHT });
-      removeUserFromStorage();
+      dispatch(logout());
       if (onError) onError(err);
     }
   });

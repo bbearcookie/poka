@@ -16,7 +16,7 @@ interface ExpandContentProps {
 
 const ExpandContent = styled.ul<ExpandContentProps>`
   max-height: ${p => p.show ? (2.9 * p.length).toString() + "em" : "0em"};
-  visibility: ${p => p.show ? "visible" : "hidden"};
+  /* visibility: ${p => p.show ? "visible" : "hidden"}; */
 `;
 
 // 부모 아이템 컴포넌트 ===========================================================================
