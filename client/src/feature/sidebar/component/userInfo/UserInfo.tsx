@@ -2,7 +2,7 @@ import useUserQuery from '@api/query/user/useUserQuery';
 import Profile from './content/Profile';
 import { useIsOpened } from '../../hook/useIsOpened';
 import { StyledProfile } from './content/Profile.style';
-import LinkItems from './content/LinkItems';
+import LinkItems from './content/ItemList';
 
 interface Props {
   userId: number;

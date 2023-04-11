@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Item = styled.li`
+export const StyledItem = styled.li`
   margin: 0.2em 1em;
   padding: 0 1em;
   display: flex;
@@ -30,7 +30,7 @@ export const Item = styled.li`
   }
 `;
 
-export const ItemList = styled.ul<{ isOpened: boolean; length: number }>`
+export const StyledItemList = styled.ul<{ isOpened: boolean; length: number }>`
   padding: 0;
   overflow: hidden;
   height: ${p => (p.isOpened ? 2.9 * p.length + 'em' : '0em')};
@@ -48,7 +48,7 @@ export const ParentWrapper = styled.li`
     padding: 0;
   }
 
-  ${ItemList} ${Item} {
+  ${StyledItemList} ${StyledItem} {
     padding-left: 2.5em;
   }
 `;

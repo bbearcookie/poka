@@ -2,8 +2,9 @@ import React, { Children, isValidElement, cloneElement, useState, useCallback } 
 import { useAppSelector } from '@app/redux/store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import ChildItem, { Props as ChildItemProps } from './ChildItem';
-import { Item, ItemList, ParentWrapper } from './_styles';
+import ChildItemWithActive, { Props as ChildItemProps } from './child/withActive';
+import { useIsOpened } from '../hook/useIsOpened';
+import { StyledItem, StyledItemList, ParentWrapper } from './_styles';
 import classNames from 'classnames';
 
 interface Props {
@@ -14,12 +15,8 @@ interface Props {
 
 function ParentItem({ icon, text, children }: Props) {
   const { activeId } = useAppSelector(state => state.newSidebar);
-  const [isOpened, setIsOpened] = useState(false);
+  const { isOpened, toggleOpen } = useIsOpened();
   const [childs, setChilds] = useState<number[]>([]);
-
-  const onClick = useCallback(() => {
-    setIsOpened(!isOpened);
-  }, [isOpened]);
 
   const addChild = useCallback((id: number) => {
     setChilds(prev => prev.concat(id));
@@ -28,22 +25,22 @@ function ParentItem({ icon, text, children }: Props) {
   return (
     <ParentWrapper>
       <ul className="parent-list">
-        <Item
+        <StyledItem
           className={classNames({ 'parent-active': childs.includes(activeId) && activeId !== 0 })}
-          onClick={onClick}
+          onClick={toggleOpen}
         >
           {icon && <FontAwesomeIcon icon={icon} width="1em" height="1em" />}
           <span className="text">{text}</span>
           <FontAwesomeIcon icon={isOpened ? faAngleDown : faAngleRight} />
-        </Item>
+        </StyledItem>
 
-        <ItemList isOpened={isOpened} length={Children.count(children)}>
+        <StyledItemList isOpened={isOpened} length={Children.count(children)}>
           {Children.map(children, child =>
-            isValidElement(child) && child.type === ChildItem
+            isValidElement(child) && child.type === ChildItemWithActive
               ? cloneElement(child as React.ReactElement<ChildItemProps>, { addChild })
               : child
           )}
-        </ItemList>
+        </StyledItemList>
       </ul>
     </ParentWrapper>
   );

@@ -1,14 +1,14 @@
 import { Children, Fragment } from 'react';
 import { Role } from '@/type/user';
-import ChildItem from '@feature/sidebar/item/ChildItem';
-import { ItemList } from '@feature/sidebar/item/_styles';
+import ChildItem from '@feature/sidebar/item/child/ChildItem';
+import { StyledItemList } from '@feature/sidebar/item/_styles';
 
 interface Props {
   isOpened: boolean;
   role: Role;
 }
 
-function LinkItems({ isOpened, role }: Props) {
+function ItemList({ isOpened, role }: Props) {
   const render = () => {
     switch (role) {
       case 'admin':
@@ -35,10 +35,10 @@ function LinkItems({ isOpened, role }: Props) {
   const children = render()[0].props.children;
 
   return (
-    <ItemList isOpened={isOpened} length={Children.count(children)}>
+    <StyledItemList isOpened={isOpened} length={Children.count(children)}>
       {children}
-    </ItemList>
+    </StyledItemList>
   );
 }
 
-export default LinkItems;
+export default ItemList;
