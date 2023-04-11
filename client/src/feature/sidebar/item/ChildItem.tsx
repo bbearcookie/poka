@@ -6,7 +6,7 @@ import { useAppSelector, useAppDispatch } from '@app/redux/store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { setActiveId } from '../sidebarSlice';
-import NextIdContext from '../NextIdContext';
+import NextIdContext from '../content/nextIdContext';
 import { Item } from './_styles';
 
 export interface Props {

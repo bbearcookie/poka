@@ -5,9 +5,7 @@ import { setIsOpened } from '../sidebarSlice';
 import IconButton from '@component/form/iconButton/IconButton';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
-interface Props {}
-
-function OpenButton({ ...rest }: Props) {
+function OpenButton({ ...rest }) {
   const dispatch = useAppDispatch();
 
   const onClick = useCallback(() => {
@@ -21,8 +19,9 @@ function OpenButton({ ...rest }: Props) {
   );
 }
 
-export default styled(OpenButton)<Props>`
+export default styled(OpenButton)`
   display: none;
+  position: fixed;
   justify-content: flex-end;
   align-items: center;
   width: fit-content;

@@ -69,7 +69,7 @@ function Navbar() {
                   <b>{user?.nickname}</b>
                 </DropdownItem>
                 <hr />
-                <Link to="/profile">
+                <Link to="/myinfo">
                   <DropdownItem>마이페이지</DropdownItem>
                 </Link>
                 <DropdownItem onClick={handleLogout}>로그아웃</DropdownItem>

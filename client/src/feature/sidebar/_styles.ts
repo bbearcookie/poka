@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { scrollbar } from '@util/_commonStyles';
 
-export const StyledSidebar = styled.div`
+export const StyledSidebar = styled.aside`
   width: 15rem;
   height: 100vh;
   position: fixed;
@@ -12,7 +12,7 @@ export const StyledSidebar = styled.div`
   ${scrollbar}
 `;
 
-export const Background = styled.aside<{ isOpened: boolean }>`
+export const Background = styled.section<{ isOpened: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
@@ -28,17 +28,4 @@ export const Background = styled.aside<{ isOpened: boolean }>`
       transition: 0.25s transform;
     }
   }
-`;
-
-export const Category = styled.ul`
-  margin: 1.5em 0;
-  padding: 0;
-  list-style: none;
-`;
-
-export const CategoryTitle = styled.span`
-  margin-left: 2em;
-  color: #6b7280;
-  font-size: 0.9rem;
-  font-weight: bold;
 `;

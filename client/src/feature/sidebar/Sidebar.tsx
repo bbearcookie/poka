@@ -1,10 +1,9 @@
 import { useRef, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@app/redux/store';
-import NextIdContext from './NextIdContext';
-import AdminContent from './content/AdminContent';
-import UserContent from './content/UserContent';
 import { Background, StyledSidebar } from './_styles';
 import { setIsOpened } from './sidebarSlice';
+import BarContent from './content/BarContent';
+import UserInfo from './component/UserInfo';
 
 export type BarType = 'GUEST' | 'USER' | 'ADMIN';
 
@@ -14,9 +13,9 @@ interface Props {
 
 function Sidebar({ barType }: Props) {
   const { isOpened } = useAppSelector(state => state.newSidebar);
-  const nextId = useRef(0);
-  const ref = useRef<HTMLDivElement>(null);
+  const { userId } = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
+  const ref = useRef<HTMLDivElement>(null);
 
   // 사이드바 바깥 영역이 클릭되면 사이드바를 닫는다
   useEffect(() => {
@@ -33,10 +32,8 @@ function Sidebar({ barType }: Props) {
   return (
     <Background isOpened={isOpened}>
       <StyledSidebar ref={ref}>
-        <NextIdContext.Provider value={nextId}>
-          {barType === 'ADMIN' && <AdminContent />}
-          {barType === 'USER' && <UserContent />}
-        </NextIdContext.Provider>
+        <UserInfo userId={userId} />
+        <BarContent barType={barType} />
       </StyledSidebar>
     </Background>
   );

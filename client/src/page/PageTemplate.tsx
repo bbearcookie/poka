@@ -2,7 +2,7 @@ import React from 'react';
 import AdminRouter from '@route/AdminRouter';
 import UserRouter from '@route/UserRouter';
 import NewSidebar from '@feature/sidebar/Sidebar';
-import OpenButton from '@feature/sidebar/item/OpenButton';
+import OpenButton from '@feature/sidebar/component/OpenButton';
 import Sidebar from '@component/sidebar/Sidebar';
 import Navbar from '@component/navbar/Navbar';
 import { StyledPageTemplate } from './PageTemplate.style';

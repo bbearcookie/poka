@@ -4,13 +4,13 @@ export interface User {
   username: string;
   nickname: string;
   imageName: string;
+  role: 'admin' | 'user';
 }
 
 // 사용자의 암호 포함 상세 타입
 export interface UserDetail extends User {
   password: string;
   salt: string;
-  role: string;
   strategy: string;
   registeredTime: string;
 }

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import OpenButton from '@feature/sidebar/item/OpenButton';
+import OpenButton from '@feature/sidebar/component/OpenButton';
 
 export const StyledPageTemplate = styled.div`
   color: #121828;
