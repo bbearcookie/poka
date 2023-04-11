@@ -12,7 +12,7 @@ import {
   faInfoCircle,
   faCut,
 } from '@fortawesome/free-solid-svg-icons';
-import { Category, CategoryTitle } from './BarContent.style';
+import { Category, CategoryTitle } from './_styles';
 import ParentItem from '../item/ParentItem';
 import ChildItem from '../item/ChildItem';
 import { BarType } from '../Sidebar';

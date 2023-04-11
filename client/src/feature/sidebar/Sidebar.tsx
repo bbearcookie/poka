@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '@app/redux/store';
 import { Background, StyledSidebar } from './_styles';
 import { setIsOpened } from './sidebarSlice';
 import BarContent from './content/BarContent';
-import UserInfo from './component/UserInfo';
+import UserInfo from './component/userInfo/UserInfo';
 
 export type BarType = 'GUEST' | 'USER' | 'ADMIN';
 

@@ -3,7 +3,7 @@ import { useAppSelector } from '@app/redux/store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import ChildItem, { Props as ChildItemProps } from './ChildItem';
-import { Item, ParentWrapper } from './_styles';
+import { Item, ItemList, ParentWrapper } from './_styles';
 import classNames from 'classnames';
 
 interface Props {
@@ -22,11 +22,11 @@ function ParentItem({ icon, text, children }: Props) {
   }, [isOpened]);
 
   const addChild = useCallback((id: number) => {
-    setChilds(c => c.concat(id));
+    setChilds(prev => prev.concat(id));
   }, []);
 
   return (
-    <ParentWrapper isOpened={isOpened} length={Children.count(children)}>
+    <ParentWrapper>
       <ul className="parent-list">
         <Item
           className={classNames({ 'parent-active': childs.includes(activeId) && activeId !== 0 })}
@@ -36,13 +36,14 @@ function ParentItem({ icon, text, children }: Props) {
           <span className="text">{text}</span>
           <FontAwesomeIcon icon={isOpened ? faAngleDown : faAngleRight} />
         </Item>
-        <ul className="child-list">
+
+        <ItemList isOpened={isOpened} length={Children.count(children)}>
           {Children.map(children, child =>
             isValidElement(child) && child.type === ChildItem
               ? cloneElement(child as React.ReactElement<ChildItemProps>, { addChild })
               : child
           )}
-        </ul>
+        </ItemList>
       </ul>
     </ParentWrapper>
   );

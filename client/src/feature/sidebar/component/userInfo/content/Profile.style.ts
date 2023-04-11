@@ -1,14 +1,20 @@
 import styled from 'styled-components';
 
-export const StyledUserInfo = styled.div`
+export const StyledProfile = styled.div<{ isOpened: boolean }>`
   display: flex;
   align-items: center;
   gap: 1em;
   margin: 1em;
-  padding: 1em;
+  padding: 0em 1em;
   height: 4em;
-  background-color: rgba(102, 51, 255, 0.5);
   border-radius: 10px;
+  user-select: none;
+  cursor: pointer;
+  transition: 0.2s ease-in all;
+
+  &:hover {
+    background-color: #242a38;
+  }
 
   .img {
     width: 3em;
@@ -17,6 +23,7 @@ export const StyledUserInfo = styled.div`
   }
 
   .info-section {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
