@@ -12,7 +12,7 @@ interface Props {
   role: Role;
 }
 
-function LinkItems({ isOpened, role }: Props) {
+function LinkItems({ isOpened, role, ...rest }: Props) {
   const handleLogout = useLogout();
   const location = useLocation();
 
@@ -49,7 +49,11 @@ function LinkItems({ isOpened, role }: Props) {
 
   const children = render()[0].props.children;
 
-  return <ItemList isOpened={isOpened}>{children}</ItemList>;
+  return (
+    <ItemList {...rest} isOpened={isOpened}>
+      {children}
+    </ItemList>
+  );
 }
 
 export default LinkItems;

@@ -19,7 +19,7 @@ function UserInfo({ userId }: Props) {
       return (
         <>
           <Profile user={user} isOpened={isOpened} toggleOpen={toggleOpen} />
-          <LinkItems isOpened={isOpened} role={user.role} />
+          <LinkItems isOpened={isOpened} role={user.role} css={{ margin: '-0.5em 0' }} />
         </>
       );
     case 'error':

@@ -6,9 +6,9 @@ export interface Props {
   children?: React.ReactNode;
 }
 
-function ItemList({ isOpened, children }: Props) {
+function ItemList({ isOpened, children, ...rest }: Props) {
   return (
-    <StyledItemList isOpened={isOpened} length={Children.count(children)}>
+    <StyledItemList {...rest} isOpened={isOpened} length={Children.count(children)}>
       {children}
     </StyledItemList>
   );

@@ -19,35 +19,26 @@ import ShippingDetailPage from '@page/admin/shipping/detail/Index';
 // /admin 하위 라우팅 내용
 function AdminRouter() {
   const user = getUserFromStorage();
+  if (!user || user.role !== 'admin') return <Navigate to="/" />;
 
   return (
-    <>
-      {user?.role !== 'admin' && <Navigate to="/" />}
-      <Routes>
-        <Route index element={
-          <>
-            <div>ㅎㅇ</div>
-            <div>ㅎㅇ</div>
-            {Array.from({length: 150}).map((_, idx) => (<div key={idx}>길이가 무지막지길다면</div>))}
-          </>
-        } />
-        <Route path="/group/list" element={<GroupListPage />} />
-        <Route path="/group/writer" element={<GroupWriterPage />} />
-        <Route path="/group/editor/:groupId" element={<GroupEditorPage />} />
-        <Route path="/group/detail/:groupId" element={<GroupDetailPage />} />
-        <Route path="/member/detail/:memberId" element={<MemberDetailPage />} />
-        <Route path="/photo/list" element={<PhotoListPage />} />
-        <Route path="/photo/crop" element={<CropPage />} />
-        <Route path="/photo/writer" element={<PhotoWriterPage />} />
-        <Route path="/photo/detail/:photocardId" element={<PhotoDetailPage />} />
-        <Route path="/voucher/writer" element={<VoucherWriterPage />} />
-        <Route path="/voucher/list" element={<VoucherListPage />} />
-        <Route path="/voucher/detail/:voucherId" element={<VoucherDetailPage />} />
-        <Route path="/voucher/log/:voucherId" element={<VoucherLogPage />} />
-        <Route path="/shipping/list" element={<ShippingListpage />} />
-        <Route path="/shipping/detail/:requestId" element={<ShippingDetailPage />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/group/list" element={<GroupListPage />} />
+      <Route path="/group/writer" element={<GroupWriterPage />} />
+      <Route path="/group/editor/:groupId" element={<GroupEditorPage />} />
+      <Route path="/group/detail/:groupId" element={<GroupDetailPage />} />
+      <Route path="/member/detail/:memberId" element={<MemberDetailPage />} />
+      <Route path="/photo/list" element={<PhotoListPage />} />
+      <Route path="/photo/crop" element={<CropPage />} />
+      <Route path="/photo/writer" element={<PhotoWriterPage />} />
+      <Route path="/photo/detail/:photocardId" element={<PhotoDetailPage />} />
+      <Route path="/voucher/writer" element={<VoucherWriterPage />} />
+      <Route path="/voucher/list" element={<VoucherListPage />} />
+      <Route path="/voucher/detail/:voucherId" element={<VoucherDetailPage />} />
+      <Route path="/voucher/log/:voucherId" element={<VoucherLogPage />} />
+      <Route path="/shipping/list" element={<ShippingListpage />} />
+      <Route path="/shipping/detail/:requestId" element={<ShippingDetailPage />} />
+    </Routes>
   );
 }
 

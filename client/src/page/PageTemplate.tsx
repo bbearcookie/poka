@@ -11,8 +11,7 @@ interface Props {
 function PageTemplate({ pageType }: Props) {
   return (
     <StyledPageTemplate>
-      {pageType === 'ADMIN' && <Sidebar barType="ADMIN" />}
-      {pageType === 'USER' && <Sidebar barType="USER" />}
+      <Sidebar barType={pageType} />
 
       <main className="page-section">
         <OpenButton />
