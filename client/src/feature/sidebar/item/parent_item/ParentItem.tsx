@@ -3,9 +3,9 @@ import classNames from 'classnames';
 import { useAppSelector } from '@app/redux/store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import useIsOpened from '../../hook/useIsOpened';
+import useIsOpened from '../../opened/hook/useIsOpened';
 import useItemList from '../item_list/hook/useItemList';
-import ItemList from '../item_list/ItemList';
+import ItemListWithDetect from '../item_list/hoc/withDetectChild';
 import { StyledItem } from '../item/Item.style';
 import { StyledParentItem } from './ParentItem.style';
 
@@ -25,7 +25,7 @@ function ParentItem({ icon, text, children }: Props) {
       <ul css={{ padding: 0 }}>
         <StyledItem
           className={classNames({
-            'active': itemList.childIds.includes(activeId) && activeId !== 0,
+            active: itemList.childIds.includes(activeId) && activeId !== 0,
           })}
           onClick={toggleOpen}
         >
@@ -34,9 +34,9 @@ function ParentItem({ icon, text, children }: Props) {
           <FontAwesomeIcon icon={isOpened ? faAngleDown : faAngleRight} />
         </StyledItem>
 
-        <ItemList {...itemList} isOpened={isOpened}>
+        <ItemListWithDetect {...itemList} isOpened={isOpened}>
           {children}
-        </ItemList>
+        </ItemListWithDetect>
       </ul>
     </StyledParentItem>
   );

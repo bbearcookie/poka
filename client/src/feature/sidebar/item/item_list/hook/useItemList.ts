@@ -2,15 +2,15 @@ import { useState, useCallback } from 'react';
 
 export interface ItemListHook {
   childIds: number[];
-  addChild: (id: number) => void;
+  registerToParent: (childId: number) => void;
 }
 
 export default function useItemList(): ItemListHook {
   const [childIds, setChildIds] = useState<number[]>([]);
 
-  const addChild = useCallback((id: number) => {
-    setChildIds(prev => prev.concat(id));
+  const registerToParent = useCallback((childId: number) => {
+    setChildIds(prev => prev.concat(childId));
   }, []);
 
-  return { childIds, addChild };
+  return { childIds, registerToParent };
 }

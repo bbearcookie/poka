@@ -1,7 +1,7 @@
 import AdminRouter from '@route/AdminRouter';
 import UserRouter from '@route/UserRouter';
 import Sidebar from '@feature/sidebar/Sidebar';
-import OpenButton from '@feature/sidebar/component/OpenButton';
+import OpenButton from '@feature/sidebar/opened/OpenButton';
 import { StyledPageTemplate } from './PageTemplate.style';
 
 interface Props {

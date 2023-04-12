@@ -6,10 +6,10 @@ import NextIdContext from '../../../content/nextIdContext';
 import Item, { Props as WrappedProps } from '../Item';
 
 export interface Props extends WrappedProps {
-  addChild?: (id: number) => void;
+  registerToParent?: (childId: number) => void;
 }
 
-const withActive = (WrappedComponent: typeof Item) => {
+const withActive = (ItemComponent: typeof Item) => {
   return (props: Props) => {
     const { activeId } = useAppSelector(state => state.sidebar);
     const nextId = useContext(NextIdContext);
@@ -22,7 +22,7 @@ const withActive = (WrappedComponent: typeof Item) => {
 
       id.current = nextId.current;
       nextId.current = nextId.current + 1;
-      props.addChild && props.addChild(id.current);
+      props.registerToParent && props.registerToParent(id.current);
     }, []);
 
     const handleSetActiveId = useCallback(() => {
@@ -30,7 +30,7 @@ const withActive = (WrappedComponent: typeof Item) => {
     }, [dispatch]);
 
     return (
-      <WrappedComponent
+      <ItemComponent
         {...props}
         className={classNames(props.className, {
           'active_with_background': activeId === id.current && id.current !== 0,
