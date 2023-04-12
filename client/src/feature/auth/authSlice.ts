@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { LoginToken } from "@type/user";
-import { getUserFromStorage, saveUserToStorage, removeUserFromStorage } from "./authStorage";
+import { getUserFromStorage } from "./authStorage";
 
 const name = 'auth';
 
@@ -20,12 +20,10 @@ export const slice = createSlice({
       state.username = payload.username;
       state.role = payload.role;
       state.strategy = payload.strategy;
-      saveUserToStorage(payload);
     },
 
     logout: (state) => {
       state = initialState;
-      removeUserFromStorage();
     }
   }
 });

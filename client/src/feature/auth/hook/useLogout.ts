@@ -4,24 +4,21 @@ import { useNavigate } from 'react-router';
 import { useAppDispatch } from '@app/redux/store';
 import { logout } from '@feature/auth/authSlice';
 import { logout as logoutFn } from '@api/api/auth';
+import { removeUserFromStorage } from '../authStorage';
 
-function useLogout() {
+export default function useLogout() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const logoutMutation = useMutation(logoutFn, {
     onSuccess: () => {
-      navigate('/login');
       dispatch(logout());
+      removeUserFromStorage();
+      navigate('/login');
     },
   });
 
-  // 로그아웃 로직
-  const handleLogout = useCallback(() => {
+  return useCallback(() => {
     logoutMutation.mutate();
   }, [logoutMutation]);
-
-  return handleLogout;
 }
-
-export default useLogout;

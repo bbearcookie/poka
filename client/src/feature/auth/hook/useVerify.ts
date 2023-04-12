@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { verify as verifyFn } from '@api/api/auth';
 import { login, logout } from '@feature/auth/authSlice';
 
-function useVerify() {
+export default function useVerify() {
   const dispatch = useAppDispatch();
 
   const logoutMutation = useMutation(verifyFn, {
@@ -12,12 +12,7 @@ function useVerify() {
     onError: () => dispatch(logout()),
   });
 
-  // 로그인 토큰 검증 로직
-  const handleVerify = useCallback(() => {
+  return useCallback(() => {
     logoutMutation.mutate();
   }, [logoutMutation]);
-
-  return handleVerify;
 }
-
-export default useVerify;

@@ -1,6 +1,5 @@
 import React, { useReducer, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import useLogin from '@api/mutation/auth/useLogin';
+import useLogin from '@feature/auth/hook/useLogin';
 import Input from '@component/form/input/Input';
 import Button from '@component/form/button/Button';
 import { InputMessage } from '@component/form/_styles';
@@ -8,20 +7,14 @@ import reducer, { initialState, FormType } from './reducer';
 
 function Form() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const navigate = useNavigate();
 
-  // 로그인 요청
-  const postMutation = useLogin<keyof FormType>(
-    res => {
-      if (res.data.user.role === 'admin') return navigate('/admin');
-      else return navigate('/');
-    },
-    err => {
+  const loginMutation = useLogin<keyof FormType>({
+    onError: err => {
       err.response?.data.errors.forEach(e => {
         dispatch({ type: 'SET_MESSAGE', target: e.param, value: e.message });
       });
-    }
-  );
+    },
+  });
 
   // input 포커스 해제시 오류 메시지 제거
   const blurInput = useCallback(
@@ -47,9 +40,9 @@ function Form() {
   const onSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
-      postMutation.mutate({ ...state.form });
+      loginMutation.mutate({ ...state.form });
     },
-    [state, postMutation]
+    [state, loginMutation]
   );
 
   return (
