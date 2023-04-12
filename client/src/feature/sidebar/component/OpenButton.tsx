@@ -21,9 +21,10 @@ function OpenButton({ ...rest }) {
 
 export default styled(OpenButton)`
   display: none;
-  position: fixed;
   justify-content: flex-end;
   align-items: center;
+  position: fixed;
+  margin-top: 1em;
   width: fit-content;
   background-color: #111827;
   color: #d1d5db;

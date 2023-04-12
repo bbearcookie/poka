@@ -13,8 +13,8 @@ import {
   faCut,
 } from '@fortawesome/free-solid-svg-icons';
 import { Category, CategoryTitle } from './_styles';
-import ParentItem from '../item/ParentItem';
-import ChildItem from '../item/child/withActive';
+import ParentItem from '../item/parent_item/ParentItem';
+import ChildItem from '../item/item/hoc/withActive';
 import { BarType } from '../Sidebar';
 
 interface Props {

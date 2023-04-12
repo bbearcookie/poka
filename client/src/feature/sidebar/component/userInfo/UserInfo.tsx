@@ -1,6 +1,6 @@
 import useUserQuery from '@api/query/user/useUserQuery';
 import Profile from './content/Profile';
-import { useIsOpened } from '../../hook/useIsOpened';
+import useIsOpened from '../../hook/useIsOpened';
 import { StyledProfile } from './content/Profile.style';
 import LinkItems from './content/ItemList';
 

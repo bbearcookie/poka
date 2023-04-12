@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-export function useIsOpened() {
+export default function useIsOpened() {
   const [isOpened, setIsOpened] = useState(false);
 
   const toggleOpen = useCallback(() => {

@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useRef, useContext } from 'react';
 import classNames from 'classnames';
 import { useAppSelector, useAppDispatch } from '@app/redux/store';
-import { setActiveId } from '../../sidebarSlice';
-import NextIdContext from '../../content/nextIdContext';
-import ChildItem, { Props as WrappedProps } from './ChildItem';
+import { setActiveId } from '../../../sidebarSlice';
+import NextIdContext from '../../../content/nextIdContext';
+import Item, { Props as WrappedProps } from '../Item';
 
 export interface Props extends WrappedProps {
   addChild?: (id: number) => void;
 }
 
-const withActive = (WrappedComponent: typeof ChildItem) => {
+const withActive = (WrappedComponent: typeof Item) => {
   return (props: Props) => {
     const { activeId } = useAppSelector(state => state.sidebar);
     const nextId = useContext(NextIdContext);
@@ -33,7 +33,7 @@ const withActive = (WrappedComponent: typeof ChildItem) => {
       <WrappedComponent
         {...props}
         className={classNames(props.className, {
-          active: activeId === id.current && id.current !== 0,
+          'active_with_background': activeId === id.current && id.current !== 0,
         })}
         onClick={handleSetActiveId}
       />
@@ -41,4 +41,4 @@ const withActive = (WrappedComponent: typeof ChildItem) => {
   };
 };
 
-export default withActive(ChildItem);
+export default withActive(Item);

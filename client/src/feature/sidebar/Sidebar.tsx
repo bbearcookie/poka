@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@app/redux/store';
-import { Background, StyledSidebar } from './_styles';
+import { Background, StyledSidebar } from './Sidebar.style';
 import { setIsOpened } from './sidebarSlice';
 import BarContent from './content/BarContent';
 import UserInfo from './component/userInfo/UserInfo';

@@ -1,8 +1,8 @@
 import { Children, Fragment } from 'react';
 import { Role } from '@/type/user';
 import { faArrowLeft, faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
-import ChildItem from '@feature/sidebar/item/child/ChildItem';
-import { StyledItemList } from '@feature/sidebar/item/_styles';
+import ChildItem from '@feature/sidebar/item/item/Item';
+import { StyledItemList } from '@feature/sidebar/item/item_list/ItemList.style';
 import useLogout from '@feature/auth/hook/useLogout';
 
 interface Props {
