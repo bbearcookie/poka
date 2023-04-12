@@ -12,7 +12,7 @@ interface Props {
 }
 
 function Sidebar({ barType }: Props) {
-  const { isOpened } = useAppSelector(state => state.newSidebar);
+  const { isOpened } = useAppSelector(state => state.sidebar);
   const { userId } = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);

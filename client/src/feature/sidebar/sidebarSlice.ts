@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const name = 'newSidebar';
+const name = 'sidebar';
 
 interface State {
   activeId: number;

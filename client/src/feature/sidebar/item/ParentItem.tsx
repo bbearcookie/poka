@@ -14,7 +14,7 @@ interface Props {
 }
 
 function ParentItem({ icon, text, children }: Props) {
-  const { activeId } = useAppSelector(state => state.newSidebar);
+  const { activeId } = useAppSelector(state => state.sidebar);
   const { isOpened, toggleOpen } = useIsOpened();
   const [childs, setChilds] = useState<number[]>([]);
 

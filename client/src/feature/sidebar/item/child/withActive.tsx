@@ -11,7 +11,7 @@ export interface Props extends WrappedProps {
 
 const withActive = (WrappedComponent: typeof ChildItem) => {
   return (props: Props) => {
-    const { activeId } = useAppSelector(state => state.newSidebar);
+    const { activeId } = useAppSelector(state => state.sidebar);
     const nextId = useContext(NextIdContext);
     const id = useRef(0);
     const dispatch = useAppDispatch();
