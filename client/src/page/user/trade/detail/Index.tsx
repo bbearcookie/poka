@@ -7,7 +7,7 @@ import useTradeQuery from '@api/query/trade/useTradeQuery';
 import BackLabel from '@component/label/BackLabel';
 import TradeRemove from './content/TradeRemove';
 import ButtonSection from './content/ButtonSection';
-import './Index.scss';
+import { StyledIndex } from './_styles';
 
 function Index() {
   const tradeId = Number(useParams().tradeId);
@@ -16,22 +16,22 @@ function Index() {
   const { data: trade, status } = useTradeQuery(tradeId);
 
   return (
-    <main className="UserTradeDetailPage">
+    <StyledIndex>
       {prev && (
-        <BackLabel to={prev.url} styles={{ marginBottom: '2em' }}>
+        <BackLabel to={prev.url} css={{ marginBottom: '2em' }}>
           {prev.text}
         </BackLabel>
       )}
 
       {status === 'success' && (
         <>
-          <PhotoInfo {...trade.voucher} styles={{ margin: '0 auto 5em auto' }} />
+          <PhotoInfo {...trade.voucher} cssProp={{ margin: '0 auto 5em auto' }} />
           <TradeInfo {...trade} tradeState={trade.state} />
           <TradeRemove trade={trade} />
           <ButtonSection trade={trade} />
         </>
       )}
-    </main>
+    </StyledIndex>
   );
 }
 

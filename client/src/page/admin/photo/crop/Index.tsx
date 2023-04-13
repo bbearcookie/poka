@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ControlCard from './control-card/Index';
 import CropCard from './crop-card/Index';
 import DownloadCard from './download-card/Index';
@@ -6,9 +6,7 @@ import CropList from './CropList';
 import Upload from './Upload';
 import './Index.scss';
 
-interface Props {}
-
-function PhotoCropPage({  }: Props) {
+function Index() {
   const [cropList, setCropList] = useState<string[]>([]);
   const [cropper, setCropper] = useState<Cropper>();
 
@@ -25,4 +23,4 @@ function PhotoCropPage({  }: Props) {
   );
 }
 
-export default PhotoCropPage;
+export default Index;

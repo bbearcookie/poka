@@ -38,7 +38,7 @@ function VoucherItem({
         <section className="info-section">
           <StateLabel
             state={{ type: 'voucher', key: voucherState }}
-            styles={{ textAlign: 'start', width: 'fit-content', margin: '0' }}
+            css={{ textAlign: 'start', width: 'fit-content', margin: '0' }}
           />
           {showOwner && (
             <span className="owner-name">

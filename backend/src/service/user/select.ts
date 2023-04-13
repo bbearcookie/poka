@@ -21,7 +21,8 @@ export const selectUser = async (identifier: string | number) => {
       user_id as userId,
       username,
       nickname,
-      image_name as imageName
+      image_name as imageName,
+      role
     FROM User
     ${where}`;
 

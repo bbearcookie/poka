@@ -2,11 +2,12 @@ import React from 'react';
 import { Photo } from '@type/photo';
 import { photoImage } from '@api/resource';
 import { PhotoImg, PhotoName } from '@component/photocard/item/_styles';
-import { StyledPhotoInfo, StyledPhotoInfoProps } from './_styles';
+import { StyledPhotoInfo } from './_styles';
+import { CSSProp } from 'styled-components';
 
 interface Props extends Photo {
+  cssProp?: CSSProp;
   children?: React.ReactNode;
-  styles?: StyledPhotoInfoProps;
 }
 
 function PhotoInfo({
@@ -15,11 +16,11 @@ function PhotoInfo({
   imageName,
   groupData,
   memberData,
-  styles,
+  cssProp,
   children,
 }: Props) {
   return (
-    <StyledPhotoInfo {...styles}>
+    <StyledPhotoInfo css={cssProp}>
       <main className="main">
         <PhotoImg src={photoImage(imageName)} alt="이미지" />
       </main>

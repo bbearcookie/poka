@@ -12,7 +12,7 @@ export interface FormType {
 
 export interface State {
   form: FormType;
-  message: { [k in keyof FormType]: string; };
+  message: { [k in keyof FormType]: string };
 }
 
 export const initialState: State = {
@@ -23,7 +23,7 @@ export const initialState: State = {
     postcode: '',
     address: '',
     addressDetail: '',
-    requirement: ''
+    requirement: '',
   },
   message: {
     name: '',
@@ -32,21 +32,21 @@ export const initialState: State = {
     postcode: '',
     address: '',
     addressDetail: '',
-    requirement: ''
-  }
-}
+    requirement: '',
+  },
+};
 
 export type Action =
-| { type: 'SET_FORM'; form: FormType; }
-| { type: 'SET_FORM_DATA'; target: keyof FormType; value: string; }
-| { 
-  type: 'SET_MESSAGE';
-  target: keyof FormType;
-  value: string;
-}
-| { type: 'INIT_MESSAGE' }
+  | { type: 'SET_FORM'; form: FormType }
+  | { type: 'SET_FORM_DATA'; target: keyof FormType; value: string }
+  | {
+      type: 'SET_MESSAGE';
+      target: keyof FormType;
+      value: string;
+    }
+  | { type: 'INIT_MESSAGE' };
 
-const reducer = (state: State, action: Action): State => {
+export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'SET_FORM':
       return produce(state, draft => {
@@ -54,11 +54,11 @@ const reducer = (state: State, action: Action): State => {
       });
     case 'SET_FORM_DATA':
       return produce(state, draft => {
-        draft.form[action.target] = action.value
+        draft.form[action.target] = action.value;
       });
     case 'SET_MESSAGE':
       return produce(state, draft => {
-        draft.message[action.target] = action.value
+        draft.message[action.target] = action.value;
       });
     case 'INIT_MESSAGE':
       return produce(state, draft => {
@@ -67,5 +67,4 @@ const reducer = (state: State, action: Action): State => {
     default:
       return state;
   }
-}
-export default reducer;
+};

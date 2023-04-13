@@ -7,11 +7,15 @@
     .label { margin: 0 0 1em 0; }
   }
 
-  .logo-card { max-width: 20rem; }
+  .logo-card { max-width: 20rem; margin-bottom: 2em; }
+
+  .contents-card { margin-bottom: 2em; }
 
   .button-section {
     display: flex;
-    justify-content: right;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 1em;
 
     .Button { margin-right: 1em; }
   }

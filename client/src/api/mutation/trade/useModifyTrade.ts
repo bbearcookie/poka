@@ -7,7 +7,7 @@ import { modifyTrade } from '@api/api/trade';
 import * as queryKey from '@api/queryKey';
 
 interface BodyType {
-  haveVoucherId: number;
+  voucherId: number;
   wantPhotocardIds: number[];
   amount: number;
 }

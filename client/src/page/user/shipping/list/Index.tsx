@@ -1,14 +1,27 @@
-import React from 'react';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
-import './Index.scss';
+import TitleLabel from '@component/label/TitleLabel';
+import Button from '@component/form/button/Button';
 import ShippingSection from './ShippingSection';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
+import { StyledIndex } from './_styles';
+import { Link } from 'react-router-dom';
 
 function Index() {
   return (
-    <main className="ShippingListPage">
-      <TitleLabel title="배송요청 목록" styles={{ marginBottom: "1em" }} />
+    <StyledIndex>
+      <TitleLabel title="배송요청 목록" css={{ marginBottom: '1em' }}>
+        <Link to="/shipping/writer">
+          <Button
+            buttonTheme="primary"
+            leftIcon={faPen}
+            iconMargin="1em"
+            css={{ justifySelf: 'center' }}
+          >
+            등록
+          </Button>
+        </Link>
+      </TitleLabel>
       <ShippingSection />
-    </main>
+    </StyledIndex>
   );
 }
 

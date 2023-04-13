@@ -1,40 +1,21 @@
-import React from 'react';
+import styled from 'styled-components';
 import Modal, { Props as ModalProps } from '@component/modal/basic/Modal';
-import Card from '@component/card/basic/Card';
-import CardHeader, { StylesProps as CardHeaderStyles } from '@component/card/basic/CardHeader';
-import CardBody, { StylesProps as CardBodyStyles } from '@component/card/basic/CardBody';
-import ModalHeader from './basic/ModalHeader';
+import { Card, CardBody } from '@component/card/basic/_styles';
+import ModalHeader from '@component/modal/basic/ModalHeader';
 
-interface Props extends ModalProps {
-  titleName?: string;
-  cardHeaderStyles?: CardHeaderStyles;
-  cardBodyStyles?: CardBodyStyles;
-  children?: React.ReactNode;
+export interface Props extends ModalProps {
+  title?: string;
 }
-const DefaultProps = {
-  titleName: '',
-};
 
-function TitleModal({
-  hook, location,
-  titleName = DefaultProps.titleName,
-  styles, cardHeaderStyles, cardBodyStyles, children }: Props) {
+function TitleModal({ hook, title, children, ...rest }: Props) {
   return (
-    <Modal
-      hook={hook}
-      location={location}
-      styles={styles}
-    >
-      <Card>
-        <CardHeader styles={cardHeaderStyles}>
-          <ModalHeader titleName={titleName} handleClose={hook.close} />
-        </CardHeader>
-        <CardBody styles={cardBodyStyles}>
-          {children}
-        </CardBody>
+    <Modal hook={hook}>
+      <Card {...rest}>
+        <ModalHeader title={title} handleClose={hook.close} />
+        <CardBody>{children}</CardBody>
       </Card>
     </Modal>
   );
 }
 
-export default TitleModal;
+export default styled(TitleModal)<Props>``;

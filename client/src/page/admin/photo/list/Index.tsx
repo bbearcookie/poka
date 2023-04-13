@@ -1,13 +1,12 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import Card from '@component/card/basic/Card';
-import CardBody from '@component/card/basic/CardBody';
-import Button from '@component/form/Button';
+import { Card, CardBody } from '@component/card/basic/_styles';
+import Button from '@component/form/button/Button';
 import PhotoListWithFilter from '@component/list/photo/PhotoListWithFilter';
-import './Index.scss';
+import { StyledIndex } from './_styles';
 
 function PhotoListPage() {
   const navigate = useNavigate();
@@ -21,13 +20,14 @@ function PhotoListPage() {
   );
 
   return (
-    <main className="PhotoListPage">
-      <TitleLabel title="포토카드 목록" styles={{ marginBottom: '1em' }}>
+    <StyledIndex>
+      <TitleLabel title="포토카드 목록" css={{ marginBottom: '1em' }}>
         <Link to="/admin/photo/writer">
           <Button
+            buttonTheme='primary'
             leftIcon={faPlus}
-            styles={{
-              theme: 'primary',
+            iconMargin='1em'
+            css={{
               padding: '0.7em 1.3em',
               iconMargin: '1em',
             }}
@@ -39,13 +39,10 @@ function PhotoListPage() {
 
       <Card>
         <CardBody>
-          <PhotoListWithFilter
-            icon={{ svg: faArrowRight }}
-            handleSelect={handleSelect}
-          />
+          <PhotoListWithFilter icon={{ svg: faArrowRight }} handleSelect={handleSelect} />
         </CardBody>
       </Card>
-    </main>
+    </StyledIndex>
   );
 }
 

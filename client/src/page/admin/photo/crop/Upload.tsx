@@ -1,24 +1,26 @@
 import React, { useState, useCallback, useRef } from 'react';
 import Cropper from 'react-cropper';
-import Card from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
-import CardBody from '@component/card/basic/CardBody';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
-import Button from '@component/form/Button';
+import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
+import TitleLabel from '@component/label/TitleLabel';
+import Button from '@component/form/button/Button';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
-import "cropperjs/dist/cropper.css";
+import 'cropperjs/dist/cropper.css';
 import './Index.scss';
 
 interface Props {
-  setCropper: React.Dispatch<React.SetStateAction<Cropper | undefined>>
+  setCropper: React.Dispatch<React.SetStateAction<Cropper | undefined>>;
 }
 
 function Upload({ setCropper }: Props) {
-  const [image, setImage] = useState<string | ArrayBuffer | null>("https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg");
+  const [image, setImage] = useState<string | ArrayBuffer | null>(
+    'https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg'
+  );
   const fileRef = useRef<HTMLInputElement>(null);
 
   // 파일 선택창 보여주기
-  const showInput = useCallback(() => { fileRef.current?.click(); }, []);
+  const showInput = useCallback(() => {
+    fileRef.current?.click();
+  }, []);
 
   // 선택한 파일로 이미지 변경
   const changeFile = useCallback((file: File | null) => {
@@ -39,24 +41,30 @@ function Upload({ setCropper }: Props) {
   }, []);
 
   // Input 파일 변경시 이미지 변경
-  const onChangeImageInput = useCallback((e: React.ChangeEvent) => {
-    const file = (e.target as HTMLInputElement).files?.item(0);
-    if (file) changeFile(file);
-  }, [changeFile]);
+  const onChangeImageInput = useCallback(
+    (e: React.ChangeEvent) => {
+      const file = (e.target as HTMLInputElement).files?.item(0);
+      if (file) changeFile(file);
+    },
+    [changeFile]
+  );
 
   return (
-    <Card styles={{ marginBottom: "2em" }}>
+    <Card className="Upload">
       <CardHeader>
         <TitleLabel title="이미지 자르기">
           <input type="file" accept=".jpg, .png" onChange={onChangeImageInput} ref={fileRef} />
           <Button
+            buttonTheme='primary'
+            iconMargin='1em'
             leftIcon={faUpload}
             onClick={showInput}
-            styles={{
-              theme:"primary",
-              padding: "0.75em 1em"
+            css={{
+              padding: '0.75em 1em',
             }}
-          >파일 선택</Button>
+          >
+            파일 선택
+          </Button>
         </TitleLabel>
       </CardHeader>
       <CardBody>
@@ -74,7 +82,7 @@ function Upload({ setCropper }: Props) {
           responsive={true}
           autoCropArea={1}
           checkOrientation={false}
-          onInitialized={(instance) => {
+          onInitialized={instance => {
             setCropper(instance);
           }}
           guides={true}

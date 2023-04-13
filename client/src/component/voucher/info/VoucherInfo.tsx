@@ -1,54 +1,45 @@
 import { VoucherItem } from '@type/voucher';
-import Card, { StylesProps } from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
-import CardBody from '@component/card/basic/CardBody';
-import CardList from '@component/card/basic/CardList';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
-import {
-  VoucherID,
-  VoucherOwner,
-  VoucherState,
-  VoucherLog,
-  Description,
-} from './_contents';
+import { CSSProp } from 'styled-components';
+import { CardHeader, CardList } from '@component/card/basic/_styles';
+import TitleLabel from '@component/label/TitleLabel';
+import VoucherID from './content/VoucherID';
+import VoucherOwner from './content/VoucherOwner';
+import VoucherState from './content/VoucherState';
+import VoucherLog from './content/VoucherLog';
+import Description from './content/Description';
+import { VoucherInfo as StyledVoucherInfo } from './_styles';
 
 interface Props {
   voucher: VoucherItem;
   displayType: 'admin' | 'user';
-  styles?: StylesProps;
+  cssProp?: CSSProp;
 }
 
-function VoucherInfo(props: Props) {
-  const { displayType, voucher, styles } = props;
-
+function VoucherInfo({ voucher, displayType, cssProp }: Props) {
   return (
-    <article>
-      <Card styles={styles}>
-        <CardHeader>
-          <TitleLabel title="소유권 정보" />
-        </CardHeader>
+    <StyledVoucherInfo css={cssProp}>
+      <CardHeader>
+        <TitleLabel title="소유권 정보" />
+      </CardHeader>
 
-        <CardBody styles={{ padding: '0' }}>
-          {displayType === 'admin' && (
-            <CardList>
-              <VoucherID {...voucher} />
-              <VoucherOwner {...voucher} />
-              <VoucherState voucherState={voucher.state} />
-              <VoucherLog {...voucher} />
-            </CardList>
-          )}
+      {displayType === 'admin' && (
+        <CardList>
+          <VoucherID {...voucher} />
+          <VoucherOwner {...voucher} />
+          <VoucherState voucherState={voucher.state} />
+          <VoucherLog {...voucher} />
+        </CardList>
+      )}
 
-          {displayType === 'user' && (
-            <CardList>
-              <VoucherOwner {...voucher} />
-              <VoucherState voucherState={voucher.state} />
-            </CardList>
-          )}
-        </CardBody>
+      {displayType === 'user' && (
+        <CardList>
+          <VoucherOwner {...voucher} />
+          <VoucherState voucherState={voucher.state} />
+        </CardList>
+      )}
 
-        <Description />
-      </Card>
-    </article>
+      <Description />
+    </StyledVoucherInfo>
   );
 }
 

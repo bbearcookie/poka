@@ -1,48 +1,28 @@
-import React from 'react';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { CardHeader } from '@component/card/basic/_styles';
+import TitleLabel from '@component/label/TitleLabel';
+import IconButton from '@component/form/iconButton/IconButton';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
-  titleName: string;
-  handleClose: () => void;
+  title?: string;
+  handleClose?: () => void;
 }
-const DefaultProps = {};
 
-function ModalHeader({ titleName, handleClose }: Props) {
+function ModalHeader({ title, handleClose = () => {}, ...rest }: Props) {
   return (
-    <StyledHeader>
-      <TitleLabel>{titleName}</TitleLabel>
-      <IconButton onClick={handleClose}>
-        <FontAwesomeIcon icon={faClose} />
-      </IconButton>
-    </StyledHeader>
+    <CardHeader {...rest}>
+      <TitleLabel title={title} />
+      <IconButton iconProps={{ icon: faClose, size: '2x' }} onClick={handleClose} />
+    </CardHeader>
   );
 }
 
-export default ModalHeader;
-
-const StyledHeader = styled.header`
+export default styled(ModalHeader)<Props>`
   display: flex;
   align-items: center;
-  font-size: 1.75em;
-`;
 
-const TitleLabel = styled.h1`
-  margin: 0;
-  flex-grow: 1;
-`
-
-const IconButton = styled.div`
-  color: gray;
-  padding: 0 0.5rem;
-  border-radius: 0.3rem;
-  transition: background-color 0.5s;
-  cursor: pointer;
-  user-select: none;
-
-  &:hover {
-    color: inherit;
-    background-color: rgb(249, 249, 250);
+  ${TitleLabel} {
+    flex-grow: 1;
   }
-`
+`;

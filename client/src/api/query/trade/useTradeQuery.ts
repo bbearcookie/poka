@@ -16,6 +16,7 @@ export default function useTradeQuery(
   return useQuery({
     queryKey: queryKey.tradeKeys.detail(tradeId),
     queryFn: () => fetchTradeDetail(tradeId),
+    retry: false,
     enabled: tradeId !== 0,
     ...options
   });

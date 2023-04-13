@@ -1,36 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
-import classNames from 'classnames';
 
 interface Props {
-  className?: string;
   title?: string | React.ReactNode;
-  titleStyles?: string;
-  styles?: StylesProps;
   children?: React.ReactNode;
 }
 
-function CardListItem({ className, title, styles, children }: Props) {
+function CardListItem({ title, children, ...rest }: Props) {
   return (
-    <StyledCardListItem className={classNames('CardListItem', className)} {...styles}>
-      <TitleLabel>{title}</TitleLabel>
-      <section>{children}</section>
-    </StyledCardListItem>
+    <li {...rest}>
+      <Title>{title}</Title>
+      <div>{children}</div>
+    </li>
   );
 }
 
-export default CardListItem;
-
-// 스타일 컴포넌트
-export interface StylesProps {
-  color?: string;
-  borderBottom?: string;
-}
-const StyledCardListItem = styled.li<StylesProps>`
+export default styled(CardListItem)`
   display: flex;
-  border-bottom: ${p => p.borderBottom || '1px solid #E5E7EB'};
+  border-bottom: 1px solid #e5e7eb;
   padding: 1.5em;
-  color: ${p => p.color};
 
   @media screen and (max-width: 65rem) {
     flex-direction: column;
@@ -38,10 +26,7 @@ const StyledCardListItem = styled.li<StylesProps>`
   }
 `;
 
-export interface TitleStyles {
-  flexBasis?: string;
-}
-const TitleLabel = styled.div<TitleStyles>`
-  flex-basis: ${p => p.flexBasis || '30%'};
+const Title = styled.div`
+  flex-basis: 30%;
   color: #121828;
 `;

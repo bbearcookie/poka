@@ -1,7 +1,5 @@
 import React from 'react';
-import Card from '@component/card/basic/Card';
-import CardBody from '@component/card/basic/CardBody';
-import CardFooter from '@component/card/basic/CardFooter';
+import { Card, CardBody, CardFooter } from '@component/card/basic/_styles';
 import Crop from './Crop';
 
 interface Props {
@@ -9,7 +7,6 @@ interface Props {
   cropList: string[];
   setCropList: React.Dispatch<React.SetStateAction<string[]>>;
 }
-const DefaultProps = {};
 
 function CropCard({ cropper, cropList, setCropList }: Props) {
   return (
@@ -18,7 +15,7 @@ function CropCard({ cropper, cropList, setCropList }: Props) {
         <h3 className="label">자르기</h3>
         <p className="description">선택한 영역의 이미지를 잘라서 추출합니다</p>
       </CardBody>
-      <CardFooter>
+      <CardFooter css={{ display: 'flex', flexWrap: 'wrap', gap: '1em' }}>
         <Crop cropper={cropper} cropList={cropList} setCropList={setCropList} />
       </CardFooter>
     </Card>

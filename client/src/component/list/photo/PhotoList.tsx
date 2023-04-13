@@ -1,7 +1,5 @@
-import React, { useState, Fragment } from 'react';
+import { useState, Fragment } from 'react';
 import { useUpdateEffect } from 'react-use';
-import { useQueryClient } from '@tanstack/react-query';
-import * as queryKey from '@api/queryKey';
 import usePhotosQuery, { FilterType } from '@api/query/photo/usePhotosQuery';
 import NextPageFetcher from '@component/list/content/NextPageFetcher';
 import PhotocardItem from '@component/photocard/item/PhotocardItem';
@@ -19,18 +17,22 @@ interface Props {
 }
 
 function PhotoList({ filter, keyword, icon, handleSelect }: Props) {
-  const queryClient = useQueryClient();
   const [refine, setRefine] = useState<FilterType>({
     groupIds: [],
     memberIds: [],
     photoNames: [],
   });
 
-  const { data: photos, isFetching, hasNextPage, fetchNextPage, refetch } = usePhotosQuery(refine, { enabled: filter.initialized });
+  const {
+    data: photos,
+    isFetching,
+    hasNextPage,
+    fetchNextPage,
+    refetch,
+  } = usePhotosQuery(refine, { enabled: filter.initialized });
 
   // 데이터 리패칭
   useUpdateEffect(() => {
-    queryClient.removeQueries(queryKey.photoKeys.all);
     refetch();
   }, [refine]);
 

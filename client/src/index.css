@@ -1,5 +1,9 @@
-html, body, #root, .App {
+html, body, #root, #modal, .App {
   height: 100%;
+}
+
+#modal {
+  position: absolute;
 }
 
 body {

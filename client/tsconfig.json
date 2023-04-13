@@ -42,6 +42,8 @@
     "@context/*": ["./src/context/*"],
     "@component": ["./src/component"],
     "@component/*": ["./src/component/*"],
+    "@feature": ["./src/feature"],
+    "@feature/*": ["./src/feature/*"],
     "@hook": ["./src/hook"],
     "@hook/*": ["./src/hook/*"],
     "@page": ["./src/page"],

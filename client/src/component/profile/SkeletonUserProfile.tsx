@@ -1,26 +1,21 @@
-import React from 'react';
-import { Profile } from './UserProfile';
 import SkeletonItem from '@component/skeleton/SkeletonItem';
+import { StyledUserProfile } from './_styles';
 
-interface Props {
-}
-const DefaultProps = {};
-
-function SkeletonUserProfile({  }: Props) {
+function SkeletonUserProfile() {
   return (
-    <Profile>
+    <StyledUserProfile>
       <SkeletonItem
         styles={{
-          width: "75px",
-          height: "75px",
-          borderRadius: "50px"
+          width: '5em',
+          height: '5em',
+          borderRadius: '50%',
         }}
       />
-      <div>
-        <SkeletonItem styles={{ margin: "0.5rem 0" }} />
-        <SkeletonItem styles={{ margin: "0.5rem 0" }} />
+      <div className="user-section">
+        <SkeletonItem styles={{ width: '7em', height: '1.5em', margin: '0.5rem 0' }} />
+        <SkeletonItem styles={{ width: '7em', height: '1.5em', margin: '0.5rem 0' }} />
       </div>
-    </Profile>
+    </StyledUserProfile>
   );
 }
 

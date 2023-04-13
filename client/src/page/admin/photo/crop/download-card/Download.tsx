@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useRef } from 'react';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 
 interface Props {
   cropList: string[];
@@ -7,7 +7,6 @@ interface Props {
   downloadName: string;
   children?: React.ReactNode;
 }
-const DefaultProps = {};
 
 function Download({ cropList, setCropList, downloadName }: Props) {
   const fileRefs = useRef<HTMLAnchorElement[] | null[]>([]);
@@ -23,20 +22,24 @@ function Download({ cropList, setCropList, downloadName }: Props) {
   return (
     <>
       <Button
+        buttonTheme='primary'
         onClick={handleDownload}
-        styles={{
-          theme: "primary",
-          padding: "0.65em 0.5em"
+        css={{
+          padding: '0.65em 0.5em',
         }}
-      >다운로드</Button>
+      >
+        다운로드
+      </Button>
       {cropList.map((item, idx) => (
         <Fragment key={idx}>
           <a
             className="download-link"
             href={item}
             download={downloadName}
-            ref={(el) => (fileRefs.current[idx] = el)}
-          >다운로드</a>
+            ref={el => (fileRefs.current[idx] = el)}
+          >
+            다운로드
+          </a>
         </Fragment>
       ))}
     </>

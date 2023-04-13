@@ -1,20 +1,17 @@
-import React from 'react';
-import { ResType } from '@api/query/group/useGroupQuery';
+import { useContext } from 'react';
 import GroupRemove from './content/GroupRemove';
 import GroupProfile from './content/GroupProfile';
 import MemberList from './content/member/MemberList';
+import GroupContext from './GroupContext';
 
-interface Props {
-  groupId: number;
-  res: ResType;
-}
+function Success() {
+  const group = useContext(GroupContext);
 
-function Success({ groupId, res }: Props) {
   return (
     <>
-      <GroupProfile {...res} />
-      <MemberList res={res} />
-      <GroupRemove group={res} groupId={groupId} />
+      <GroupProfile {...group} />
+      <MemberList res={group} />
+      <GroupRemove {...group} />
     </>
   );
 }

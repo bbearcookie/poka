@@ -1,6 +1,7 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
+import { ButtonSection as StyledButtonSection } from '@component/form/_styles';
 
 interface Props {
   handleSubmit: () => void;
@@ -14,25 +15,29 @@ function ButtonSection({ handleSubmit }: Props) {
   }, [navigate]);
 
   return (
-    <section className="button-section">
+    <StyledButtonSection>
       <Button
-        styles={{
-          theme: "primary-outlined",
-          padding: "1em 2em",
-          marginLeft: "1em"
+        buttonTheme="primary-outlined"
+        iconMargin='1em'
+        css={{
+          padding: '1em 2em',
         }}
         onClick={handleCancel}
-      >취소</Button>
+      >
+        취소
+      </Button>
       <Button
+        buttonTheme="primary"
+        iconMargin='1em'
         type="button"
-        styles={{
-          theme: "primary",
-          padding: "1em 2em",
-          marginLeft: "1em"
+        css={{
+          padding: '1em 2em',
         }}
         onClick={handleSubmit}
-      >발급</Button>
-    </section>
+      >
+        발급
+      </Button>
+    </StyledButtonSection>
   );
 }
 

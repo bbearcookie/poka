@@ -7,6 +7,7 @@ module.exports = {
       '@api': path.resolve(__dirname, 'src/api/'),
       '@context': path.resolve(__dirname, 'src/context/'),
       '@component': path.resolve(__dirname, 'src/component/'),
+      '@feature': path.resolve(__dirname, 'src/feature/'),
       '@hook': path.resolve(__dirname, 'src/hook/'),
       '@page': path.resolve(__dirname, 'src/page/'),
       '@util': path.resolve(__dirname, 'src/util/'),
@@ -14,6 +15,9 @@ module.exports = {
       '@template': path.resolve(__dirname, 'src/template/'),
       '@': path.resolve(__dirname, 'src/')
     }
+  },
+  babel: {
+    plugins: ["babel-plugin-styled-components"],
   },
   jest: {
     configure: {

@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { useAppSelector } from '@app/redux/reduxHooks';
+import { useAppSelector } from '@app/redux/store';
 import useTradeExchangeQuery from '@api/query/trade/useTradeExchangeQuery';
 import useExchangeTrade from '@api/mutation/trade/useExchangeTrade';
 import { TradeItem } from '@type/trade';
@@ -7,9 +7,10 @@ import { faArrowsSpin } from '@fortawesome/free-solid-svg-icons';
 import { getErrorMessage } from '@util/request';
 import { ItemSection } from '@component/list/content/_styles';
 import VoucherItem from '@component/voucher/item/VoucherItem';
-import Button from '@component/form/Button';
-import useModal from '@hook/useModal';
+import Button from '@component/form/button/Button';
+import useModal from '@component/modal/useModal';
 import ConfirmModal from '@component/modal/ConfirmModal';
+import { CheckBoxInput } from './_styles';
 
 interface Props {
   trade: TradeItem;
@@ -71,13 +72,13 @@ function Exchange({ trade }: Props) {
   return (
     <>
       <Button
+        buttonTheme="pink"
         disabled={status === 'success' && exchange.vouchers.length >= trade.amount ? false : true}
         leftIcon={faArrowsSpin}
+        iconMargin="1em"
         onClick={openModal}
-        styles={{
-          theme: 'pink',
-          width: '7em',
-          iconMargin: '1em',
+        css={{
+          width: '1em 1.5em',
         }}
       >
         교환
@@ -85,11 +86,8 @@ function Exchange({ trade }: Props) {
 
       <ConfirmModal
         hook={modal}
-        titleName="교환할 소유권 선택"
-        confirmText="교환"
-        confirmButtonTheme="pink"
-        cardStyles={{ width: "100vh" }}
-        handleConfirm={handleExchange}
+        title="교환할 소유권 선택"
+        confirm={{ text: '교환', buttonTheme: 'pink', onClick: handleExchange }}
       >
         <ItemSection templateColumnsSize="minmax(11.25em, 1fr)" marginBottom="1em">
           {exchange?.vouchers.map(v => (
@@ -100,12 +98,10 @@ function Exchange({ trade }: Props) {
               voucherState={v.state}
               showOwner={false}
               item={
-                <input
-                  type="checkbox"
+                <CheckBoxInput
                   value={v.voucherId}
                   checked={select[v.voucherId] ? true : false}
                   onChange={onChangeSelect}
-                  readOnly
                 />
               }
             />

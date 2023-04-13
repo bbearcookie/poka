@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { ResType as PhotoResType } from '@api/query/photo/usePhotoQuery';
 import PhotoInfo from './content/PhotoInfo';
 import PhotoEditor from './content/editor/PhotoEditor';
@@ -19,11 +19,7 @@ function Success({ photo, photocardId }: Props) {
   return (
     <>
       {editMode && (
-        <PhotoEditor
-          photo={photo}
-          photocardId={photocardId}
-          closeEditor={closeEditor}
-        />
+        <PhotoEditor photo={photo} photocardId={photocardId} closeEditor={closeEditor} />
       )}
       {!editMode && <PhotoInfo photo={photo} startEditor={startEditor} />}
       <PhotoRemove photo={photo} photocardId={photocardId} />

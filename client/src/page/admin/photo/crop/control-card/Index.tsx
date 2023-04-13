@@ -1,16 +1,12 @@
-import React, { useState, useCallback } from 'react';
-import Card from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
-import CardBody from '@component/card/basic/CardBody';
-import CardFooter from '@component/card/basic/CardFooter';
+import React, { useState } from 'react';
+import { Card, CardBody, CardFooter } from '@component/card/basic/_styles';
 import Form from './Form';
 import Move from './Move';
 
 interface Props {
-  cropper: Cropper,
+  cropper: Cropper;
   children?: React.ReactNode;
 }
-const DefaultProps = {};
 
 function ControlCard({ cropper }: Props) {
   const [moveX, setMoveX] = useState(0);
@@ -22,7 +18,7 @@ function ControlCard({ cropper }: Props) {
         <h3 className="label">영역 이동</h3>
         <Form moveX={moveX} setMoveX={setMoveX} moveY={moveY} setMoveY={setMoveY} />
       </CardBody>
-      <CardFooter>
+      <CardFooter css={{ display: 'flex', flexWrap: 'wrap', gap: '0.5em' }}>
         <Move cropper={cropper} moveX={moveX} moveY={moveY} />
       </CardFooter>
     </Card>

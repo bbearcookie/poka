@@ -1,8 +1,7 @@
-import React from 'react';
 import useGroupQuery from '@api/query/group/useGroupQuery';
 import { useParams } from 'react-router-dom';
 import { groupImage } from '@api/resource';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import Form from './Form';
 import './Index.scss';
 
@@ -12,7 +11,7 @@ function Index() {
 
   return (
     <main className="GroupWriterPage">
-      <TitleLabel title="그룹 수정" styles={{ marginBottom: "1em" }} />
+      <TitleLabel title="그룹 수정" css={{ marginBottom: "1em" }} />
       {status === 'success' && <Form groupId={groupId} name={group?.name} imageName={groupImage(group?.imageName)} />}
     </main>
   );

@@ -1,36 +1,37 @@
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '@app/redux/reduxHooks';
-import * as queryKey from '@api/queryKey';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import { useAppSelector } from '@app/redux/store';
+import TitleLabel from '@component/label/TitleLabel';
 import useIdolSelector from '@component/selector/useIdolSelector';
 import IdolSelector from '@component/selector/IdolSelector';
 import TradeList from '@component/list/trade/TradeList';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
-import Button from '@component/form/Button';
-import './Index.scss';
+import Button from '@component/form/button/Button';
+import { ButtonSection } from '@component/form/_styles';
+import { StyledIndex } from './_styles';
 
 function Index() {
   const { userId } = useAppSelector(state => state.auth);
   const selector = useIdolSelector();
 
   return (
-    <main className="TradeSearchPage">
-      <TitleLabel title="교환 찾기" styles={{ marginBottom: '2em' }} />
+    <StyledIndex>
+      <TitleLabel title="교환 찾기" css={{ marginBottom: '2em' }} />
       <IdolSelector hook={selector} />
 
-      <section className="add-button-section">
+      <ButtonSection>
         <Link to="/trade/writer">
           <Button
+            buttonTheme="primary"
             leftIcon={faPen}
-            styles={{ theme: 'primary', marginBottom: '2em', iconMargin: '1em' }}
+            iconMargin="1em"
+            css={{ marginBottom: '2em' }}
           >
             등록
           </Button>
         </Link>
-      </section>
+      </ButtonSection>
 
       <TradeList
-        queryKey={queryKey.tradeKeys.mine()}
         location={{
           to: '/trade/detail',
           state: {
@@ -42,7 +43,7 @@ function Index() {
         }}
         filter={{ ...selector, state: 'trading', excludeUserId: userId }}
       />
-    </main>
+    </StyledIndex>
   );
 }
 

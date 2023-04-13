@@ -1,37 +1,36 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import useGroupsQuery from '@api/query/group/useGroupsQuery';
 import SkeletonGroup from './content/SkeletonGroup';
 import Table from '@component/table/Table';
 import Group from './content/Group';
 import Col from '@component/table/styles/Col';
-import TitleLabel from '@component/label/titleLabel/TitleLabel';
+import TitleLabel from '@component/label/TitleLabel';
 import { getErrorMessage } from '@util/request';
-import './Index.scss';
+import { StyledIndex } from './_styles';
 
-interface Props {}
-
-function GroupListPage({  }: Props) {
+function Index() {
   const { status, data: groups, error } = useGroupsQuery();
 
   return (
-    <main className="GroupListPage">
-      <TitleLabel title="그룹 목록" styles={{ marginBottom: "1em" }}>
+    <StyledIndex>
+      <TitleLabel title="그룹 목록" css={{ marginBottom: '1em' }}>
         <Link to="/admin/group/writer">
           <Button
             leftIcon={faPlus}
-            styles={{
-              theme: "primary",
-              padding: "0.6em 1.2em",
-              iconMargin: "1em"
+            buttonTheme='primary'
+            iconMargin="1em"
+            css={{
+              padding: '0.6em 1.2em',
             }}
-          >추가</Button>
+          >
+            추가
+          </Button>
         </Link>
       </TitleLabel>
 
-      <Table styles={{ itemHeight: "1em", itemPadding: "1em" }}>
+      <Table styles={{ itemHeight: '1em', itemPadding: '1em' }}>
         <colgroup>
           <Col width="60%" />
           <Col width="25%" />
@@ -45,13 +44,18 @@ function GroupListPage({  }: Props) {
           </tr>
         </thead>
         <tbody>
-          {status === 'loading' && Array.from({ length: 10 }).map((_, i) => <SkeletonGroup key={i} />)}
+          {status === 'loading' &&
+            Array.from({ length: 10 }).map((_, i) => <SkeletonGroup key={i} />)}
           {status === 'success' && groups.groups.map(g => <Group key={g.groupId} {...g} />)}
-          {status === 'error' && <tr><td>{getErrorMessage(error)}</td></tr>}
+          {status === 'error' && (
+            <tr>
+              <td>{getErrorMessage(error)}</td>
+            </tr>
+          )}
         </tbody>
       </Table>
-    </main>
+    </StyledIndex>
   );
 }
 
-export default GroupListPage;
+export default Index;

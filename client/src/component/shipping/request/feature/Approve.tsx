@@ -4,8 +4,8 @@ import useApproveShippingRequest from '@api/mutation/shipping/request/useApprove
 import { ResType } from '@api/query/shipping/useShippingRequestQuery';
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons';
 import ConfirmModal from '@component/modal/ConfirmModal';
-import useModal from '@hook/useModal';
-import Button from '@component/form/Button';
+import useModal from '@component/modal/useModal';
+import Button from '@component/form/button/Button';
 
 interface Props {
   res: ResType;
@@ -31,21 +31,17 @@ function Approve({ res }: Props) {
   return (
     <>
       <Button
+        buttonTheme='primary'
         leftIcon={faTruckFast}
-        styles={{
-          theme: "primary",
-          width: "10em",
-          iconMargin: "1em"
-        }}
+        iconMargin='1em'
         onClick={openModal}
         disabled={res.shipping.payment.state !== 'paid'}
       >발송 완료</Button>
 
       <ConfirmModal
         hook={modal}
-        titleName="발송 완료 처리"
-        confirmButtonTheme="primary"
-        handleConfirm={handleApprove}
+        title="발송 완료 처리"
+        confirm={{ buttonTheme: "primary", onClick: handleApprove }}
       >
         <p className="text">배송 요청의 상태를 완료 상태로 변경합니다.</p>
         <p className="text">요청한 소유권들은 배송 완료 상태가 되어서 더 이상 <RedLabel>사용할 수 없습니다.</RedLabel></p>

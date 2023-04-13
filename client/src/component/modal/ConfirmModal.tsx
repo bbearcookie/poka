@@ -1,73 +1,58 @@
-import React from 'react';
-import styled from 'styled-components'
-import Modal, { Props as ModalProps, StylesProps as ModalStyles } from '@component/modal/basic/Modal';
-import Button from '@component/form/Button';
-import Card, { StylesProps as CardStyles } from '@component/card/basic/Card';
-import CardHeader from '@component/card/basic/CardHeader';
-import CardBody from '@component/card/basic/CardBody';
-import CardFooter from '@component/card/basic/CardFooter';
-import { ButtonTheme } from '@component/form/Button';
-import ModalHeader from './basic/ModalHeader';
+import { InputMessage } from '@component/form/_styles';
+import styled from 'styled-components';
+import Button, { ButtonTheme } from '@component/form/button/Button';
+import ModalHeader from '@component/modal/basic/ModalHeader';
+import Modal, { Props as ModalProps } from '@component/modal/basic/Modal';
+import { Card, CardBody, CardFooter } from '@component/card/basic/_styles';
+import { ButtonSection } from '@component/form/_styles';
+
+interface ButtonOptions {
+  text?: string;
+  buttonTheme?: ButtonTheme;
+  onClick?: () => void;
+}
 
 interface Props extends ModalProps {
-  titleName?: string;
-  confirmText?: string;
-  confirmButtonTheme?: ButtonTheme;
-  handleConfirm?: () => void;
-  cancelText?: string;
-  cancelButtonTheme?: ButtonTheme;
-  cardStyles?: CardStyles;
-  modalStyles?: ModalStyles;
-  children?: React.ReactNode;
+  title?: string;
+  confirm?: ButtonOptions;
+  cancel?: ButtonOptions;
 }
-const DefaultProps = {
-  titleName: '',
-  confirmButtonTheme: 'danger' as ButtonTheme,
-  cancelButtonTheme: 'gray' as ButtonTheme,
-  confirmText: '확인',
-  cancelText: '취소',
-};
-function ConfirmModal({
-  hook, location,
-  titleName = DefaultProps.titleName,
-  confirmText = DefaultProps.confirmText,
-  confirmButtonTheme = DefaultProps.confirmButtonTheme,
-  handleConfirm,
-  cancelText = DefaultProps.cancelText,
-  cancelButtonTheme = DefaultProps.cancelButtonTheme,
-  cardStyles, modalStyles, children 
-}: Props) {
+
+function ConfirmModal({ hook, title, confirm, cancel, children, ...rest }: Props) {
+  confirm = {
+    text: '확인',
+    buttonTheme: 'primary',
+    onClick: () => {},
+    ...confirm,
+  };
+
+  cancel = {
+    text: '취소',
+    buttonTheme: 'gray',
+    onClick: hook.close,
+    ...cancel,
+  };
 
   return (
-    <Modal
-      hook={hook}
-      location={location}
-      styles={modalStyles}
-    >
-      <Card styles={cardStyles}>
-        <CardHeader styles={{ padding: "1.25em" }}>
-          <ModalHeader titleName={titleName} handleClose={hook.close} />
-        </CardHeader>
-        <CardBody styles={{ padding: "1.25em" }}>
-          {children}
-        </CardBody>
-        <CardFooter styles={{ padding: "0 1.25em 1.25em 1.25em"}}>
-          {hook.errorMessage && <ErrorLabel>{hook.errorMessage}</ErrorLabel>}
+    <Modal hook={hook}>
+      <Card {...rest}>
+        <ModalHeader title={title} handleClose={hook.close} />
+        <CardBody>{children}</CardBody>
+        <CardFooter
+          css={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-end',
+          }}
+        >
+          {hook.errorMessage && <InputMessage>{hook.errorMessage}</InputMessage>}
           <ButtonSection>
-            <Button
-              onClick={handleConfirm}
-              styles={{
-                theme: confirmButtonTheme,
-                padding: "0.7em"
-              }}
-              >{confirmText}</Button>
-            <Button
-              onClick={hook.close}
-              styles={{
-                theme: cancelButtonTheme,
-                padding: "0.7em"
-              }}
-            >{cancelText}</Button>
+            <Button buttonTheme={confirm.buttonTheme} onClick={confirm.onClick}>
+              {confirm.text}
+            </Button>
+            <Button buttonTheme={cancel.buttonTheme} onClick={cancel.onClick}>
+              {cancel.text}
+            </Button>
           </ButtonSection>
         </CardFooter>
       </Card>
@@ -75,21 +60,4 @@ function ConfirmModal({
   );
 }
 
-export default ConfirmModal;
-
-const ErrorLabel = styled.p`
-  color: red;
-  text-align: right;
-  margin: 1.25em 0 0 0;
-`
-
-const ButtonSection = styled.section`
-  display: flex;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-
-  .Button {
-    margin-left: 1em;
-    margin-top: 1.25em;
-  }
-`
+export default styled(ConfirmModal)<Props>``;

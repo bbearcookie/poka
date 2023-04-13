@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import { ResType } from '@api/query/voucher/useVoucherQuery';
 import { faShareNodes } from '@fortawesome/free-solid-svg-icons';
 
@@ -11,13 +11,9 @@ interface Props {
 function WriteLink({ res }: Props) {
   return (
     <Link to={`/trade/writer?voucherId=${res.voucherId}`}>
-      <Button
-        leftIcon={faShareNodes}
-        styles={{
-          theme: "primary",
-          iconMargin: "3em"
-        }}
-      >교환글 작성하기</Button>
+      <Button buttonTheme="primary" leftIcon={faShareNodes} iconMargin="3em">
+        교환글 작성하기
+      </Button>
     </Link>
   );
 }

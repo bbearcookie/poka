@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { TradeItem } from '@type/trade';
 import { getErrorMessage } from '@util/request';
 import useDeleteTrade from '@api/mutation/trade/useDeleteTrade';
-import { useAppSelector } from '@app/redux/reduxHooks';
-import useModal from '@hook/useModal';
+import { useAppSelector } from '@app/redux/store';
+import useModal from '@component/modal/useModal';
 import ConfirmModal from '@component/modal/ConfirmModal';
 import RemoveCard from '@component/card/RemoveCard';
 
@@ -41,21 +41,15 @@ function TradeRemove({ trade }: Props) {
   return (
     <>
       {trade.state === 'trading' && trade.author.userId === userId && (
-        <RemoveCard
-          titleText="교환글 삭제"
-          cardStyles={{ marginBottom: '5em' }}
-          onClick={openModal}
-        >
+        <RemoveCard titleText="교환글 삭제" onClick={openModal} css={{ marginBottom: '5em' }}>
           <p className="description">아직 교환이 성사되지 않은 경우에만 삭제 가능합니다.</p>
         </RemoveCard>
       )}
 
       <ConfirmModal
         hook={removeModal}
-        titleName="교환글 삭제"
-        confirmText="삭제"
-        cardStyles={{ maxWidth: '100vh' }}
-        handleConfirm={removeTrade}
+        title="교환글 삭제"
+        confirm={{ text: '삭제', buttonTheme: 'danger', onClick: removeTrade }}
       >
         <p className="text">
           교환글을 삭제하면 등록한 소유권의 상태는 다시 교환 가능한 상태로 바뀌어요.

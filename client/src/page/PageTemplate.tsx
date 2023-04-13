@@ -1,9 +1,8 @@
-import React from 'react';
-import AdminRouter from '@app/router/AdminRouter';
-import UserRouter from '@app/router/UserRouter';
-import Sidebar from '@component/sidebar/Sidebar';
-import Navbar from '@component/navbar/Navbar';
-import './PageTemplate.scss';
+import AdminRouter from '@route/AdminRouter';
+import UserRouter from '@route/UserRouter';
+import Sidebar from '@feature/sidebar/Sidebar';
+import OpenButton from '@feature/sidebar/opened/OpenButton';
+import { StyledPageTemplate } from './PageTemplate.style';
 
 interface Props {
   pageType: 'USER' | 'ADMIN';
@@ -11,16 +10,15 @@ interface Props {
 
 function PageTemplate({ pageType }: Props) {
   return (
-    <div className="PageTemplate">
-      {pageType === 'ADMIN' && <Sidebar mode="ADMIN" />}
-      {pageType === 'USER' && <Sidebar mode="USER" />}
-      
+    <StyledPageTemplate>
+      <Sidebar barType={pageType} />
+
       <main className="page-section">
-        <Navbar />
+        <OpenButton />
         {pageType === 'ADMIN' && <AdminRouter />}
         {pageType === 'USER' && <UserRouter />}
       </main>
-    </div>
+    </StyledPageTemplate>
   );
 }
 

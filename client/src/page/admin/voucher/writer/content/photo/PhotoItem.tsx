@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { ResType as PhotoResType } from '@api/query/photo/usePhotoQuery';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
-import Input from '@component/form/Input';
-import InputMessage from '@component/form/InputMessage';
+import Input from '@component/form/input/Input';
+import { InputMessage } from '@component/form/_styles';
 import PhotocardItem from '@component/photocard/item/PhotocardItem';
 import { State, Action } from '../../reducer';
 
@@ -18,29 +18,27 @@ interface Props {
 }
 
 function PhotoItem({ photo, idx, state, dispatch }: Props) {
-
   // 수량 input 변경시 상태 값 반영
-  const changeAmountInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const id = Number(e.target.name);
-    const amount = Number(e.target.value);
-    if (isNaN(id) || isNaN(amount)) return;
-    dispatch({ type: 'SET_VOUCHER_AMOUNT', id, amount });
-  }, [dispatch]);
+  const changeAmountInput = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const id = Number(e.target.name);
+      const amount = Number(e.target.value);
+      if (isNaN(id) || isNaN(amount)) return;
+      dispatch({ type: 'SET_VOUCHER_AMOUNT', id, amount });
+    },
+    [dispatch]
+  );
 
   const handleRemove = useCallback(() => {
-    dispatch({ type: 'REMOVE_VOUCHER', id: photo.id })
+    dispatch({ type: 'REMOVE_VOUCHER', id: photo.id });
   }, [photo, dispatch]);
 
   const onBlur = useCallback(() => {
-    dispatch({ type: 'SET_VOUCHER_MESSAGE', id: photo.id, value: '' })
+    dispatch({ type: 'SET_VOUCHER_MESSAGE', id: photo.id, value: '' });
   }, [photo, dispatch]);
 
   return (
-    <PhotocardItem
-      {...photo}
-      icon={{ svg: faClose, tooltip: '취소' }}
-      onClick={handleRemove}
-    >
+    <PhotocardItem {...photo} icon={{ svg: faClose, tooltip: '취소' }} onClick={handleRemove}>
       <b>수량</b>
       <Input
         name={String(photo.id)}
@@ -49,14 +47,13 @@ function PhotoItem({ photo, idx, state, dispatch }: Props) {
         maxLength={1}
         onChange={changeAmountInput}
         onBlur={onBlur}
-        styles={{
+        css={{
           width: '100%',
           height: '2em',
-          marginTop: '0.5em'
+          marginTop: '0.5em',
         }}
-      >
-        <InputMessage styles={{ margin: '1em 0 0 0' }}>{state.form.vouchers[idx].message}</InputMessage>
-      </Input>
+      />
+      <InputMessage css={{ margin: '1em 0 0 0' }}>{state.form.vouchers[idx].message}</InputMessage>
     </PhotocardItem>
   );
 }

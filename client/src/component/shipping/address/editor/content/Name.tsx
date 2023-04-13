@@ -1,10 +1,10 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
-import Input from '@component/form/Input';
-import InputMessage from '@component/form/InputMessage';
-import { InputLine, LabelSection, InputSection } from '../AddressEditor';
+import Input from '@component/form/input/Input';
+import { InputMessage } from '@component/form/_styles';
 import { State, Action } from '../reducer';
+import { InputLine } from './_styles';
 
 interface Props {
   state: State;
@@ -12,16 +12,22 @@ interface Props {
   changeInput: React.ChangeEventHandler<HTMLInputElement>;
   blurInput: React.FocusEventHandler<HTMLInputElement>;
 }
-const DefaultProps = {};
 
 function Name({ state, dispatch, changeInput, blurInput }: Props) {
   return (
     <InputLine>
-      <LabelSection>
-        <FontAwesomeIcon className="icon" icon={faLocationDot} width="1.5em" height="1.5em" color="#2678F3" />
+      <div className="label-section">
+        <FontAwesomeIcon
+          className="icon"
+          icon={faLocationDot}
+          width="1.5em"
+          height="1.5em"
+          color="#2678F3"
+        />
         <span className="label">배송지 이름</span>
-      </LabelSection>
-      <InputSection>
+      </div>
+
+      <div className="input-section">
         <Input
           type="text"
           name="name"
@@ -30,13 +36,15 @@ function Name({ state, dispatch, changeInput, blurInput }: Props) {
           value={state.form.name}
           onChange={changeInput}
           onBlur={blurInput}
-          styles={{
-            width: "100%",
-            height: "2.5em"
+          css={{
+            width: '100%',
+            height: '2.5em',
           }}
         />
-        {state.message.name && <InputMessage styles={{ margin: "0.5em 0 0 0" }}>{state.message.name}</InputMessage>}
-      </InputSection>
+        {state.message.name && (
+          <InputMessage css={{ margin: '0.5em 0 0 0' }}>{state.message.name}</InputMessage>
+        )}
+      </div>
     </InputLine>
   );
 }

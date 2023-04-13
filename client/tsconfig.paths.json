@@ -6,6 +6,7 @@
       "@api/*": ["src/api/*"],
       "@context/*": ["src/context/*"],
       "@component/*": ["src/component/*"],
+      "@feature/*": ["src/feature/*"],
       "@hook/*": ["src/hook/*"],
       "@page/*": ["src/page/*"],
       "@util/*": ["src/util/*"],

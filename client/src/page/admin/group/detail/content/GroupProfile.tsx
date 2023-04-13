@@ -1,8 +1,8 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { groupImage } from '@api/resource';
-import Button from '@component/form/Button';
+import Button from '@component/form/button/Button';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { StyledGroupProfile } from './_styles';
 
 interface Props {
   groupId: number;
@@ -12,20 +12,22 @@ interface Props {
 
 function GroupProfile({ groupId, name, imageName }: Props) {
   return (
-    <div className="GroupProfile">
+    <StyledGroupProfile>
       <img src={groupImage(imageName)} width="60" height="60" alt={name} />
       <h1 className="name">{name}</h1>
       <Link to={`/admin/group/editor/${groupId}`}>
         <Button
           rightIcon={faPenToSquare}
-          styles={{
-            theme: "primary-outlined",
-            padding: "0.7em 1.3em",
-            iconMargin: "1em"
+          iconMargin='1em'
+          buttonTheme="primary-outlined"
+          css={{
+            padding: '0.7em 1.3em',
           }}
-        >수정</Button>
+        >
+          수정
+        </Button>
       </Link>
-    </div>
+    </StyledGroupProfile>
   );
 }
 
