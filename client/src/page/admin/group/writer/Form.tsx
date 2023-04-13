@@ -181,10 +181,9 @@ function Form({ name = DefaultProps.name, imageName = DefaultProps.imageName, gr
               css={{
                 width: '100%',
                 height: '2.5em',
-                marginBottom: '1em',
               }}
             />
-            <InputMessage css={{ margin: '0.5em 0 0 0.8em' }}>{inputMessage.name}</InputMessage>
+            <InputMessage>{inputMessage.name}</InputMessage>
             <p className="description">
               아이돌 그룹의 이름을 지정합니다. 이 이름은 사용자가 포토카드를 찾거나, 관리자가
               포토카드 정보를 관리할 때 사용됩니다.

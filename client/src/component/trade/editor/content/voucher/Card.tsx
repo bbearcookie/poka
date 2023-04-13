@@ -54,7 +54,7 @@ function CardWrapper({ ableToChange, modal, state, dispatch, cssProp }: Props) {
         </TitleLabel>
       </CardHeader>
       <CardBody>
-        {status === 'success' && <PhotoInfo {...voucher.photo} cssProp={{ marginBottom: '1em' }} />}
+        {status === 'success' && <PhotoInfo {...voucher.photo} css={{ marginBottom: '1em' }} />}
         {status === 'loading' && state.data.voucherId > 0 && <SkeletonPhotoInfo />}
         {state.message.voucherId && (
           <InputMessage css={{ margin: '0 0 0.5em 0' }}>{state.message.voucherId}</InputMessage>

@@ -64,27 +64,26 @@ function PhotoInfo({ idx, src, message, state, dispatch }: Props) {
                 activeBoxShadow: '0px 0px 1px 1px #adafb5',
               }}
             />
-            {message && (
-              <InputMessage
-                css={{
-                  width: '200px',
-                  margin: '1em 0 0 0',
-                  textAlign: 'center',
-                  wordBreak: 'keep-all',
-                }}
-              >
-                {message}
-              </InputMessage>
-            )}
           </section>
+          {message && (
+            <InputMessage
+              css={{
+                margin: '1em 0 0 0',
+                textAlign: 'center',
+                wordBreak: 'keep-all',
+              }}
+            >
+              {message}
+            </InputMessage>
+          )}
 
           <Button
             leftIcon={faTrashCan}
             onClick={handleRemove}
             buttonTheme="danger-outlined"
+            iconMargin="1em"
             css={{
-              width: '5em',
-              padding: '0.5em 0',
+              padding: '0.75em',
               marginTop: '1em',
             }}
           >
