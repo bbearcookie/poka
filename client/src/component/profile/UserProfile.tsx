@@ -12,14 +12,11 @@ interface Props {
 function UserProfile({ nickname, username, imageName, children }: Props) {
   return (
     <StyledUserProfile>
-      <img
-        className="img"
-        src={userImage(imageName)}
-        alt="프로필"
-        onError={e => (e.currentTarget.src = '/user.png')}
-      />
+      <img className="img" alt="프로필" src={userImage(imageName)} />
       <div className="user-section">
-        <p className="nickname"><b>{nickname}</b></p>
+        <p className="nickname">
+          <b>{nickname}</b>
+        </p>
         <p className="username-label">
           아이디: <span className="username">{username}</span>
         </p>

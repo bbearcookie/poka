@@ -21,8 +21,8 @@ function Success({ res }: Props) {
       draft.form.nickname = res.nickname;
       draft.form.image = {
         file: null,
-        previewURL: userImage(res.imageName),
-        initialURL: userImage(res.imageName),
+        previewURL: userImage(res.imageName) || '',
+        initialURL: userImage(res.imageName) || '',
       };
     })
   );
