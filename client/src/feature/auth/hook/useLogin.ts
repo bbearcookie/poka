@@ -5,8 +5,8 @@ import { ResponseError } from '@type/response';
 import { LoginToken } from '@type/user';
 import { login as loginFn } from '@api/api/auth';
 import { useAppDispatch } from '@app/redux/store';
-import { login } from '@feature/auth/authSlice';
-import { saveUserToStorage } from '../authStorage';
+import { login, logout } from '@feature/auth/authSlice';
+import { saveUserToStorage, removeUserFromStorage } from '../authStorage';
 
 interface BodyType {
   username: string;
@@ -54,6 +54,8 @@ export default function useLogin<TParam>(
         options?.onSuccess && options?.onSuccess(res, variables, context);
       },
       onError: (err, variables, context) => {
+        dispatch(logout());
+        removeUserFromStorage();
         options?.onError && options?.onError(err, variables, context);
       },
     }
