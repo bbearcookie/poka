@@ -1,7 +1,7 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { useAppSelector } from '@app/redux/store';
-import useSearcher from '@component/search/useSearcher';
+import useSearcher from '@component/search/hook/useSearcher';
 import Searcher from '@component/search/Searcher';
 import TitleModal from '@component/modal/TitleModal';
 import VoucherList from '@component/list/voucher/VoucherList';
@@ -15,19 +15,13 @@ interface Props {
 }
 
 function Modal({ modal, state, dispatch }: Props) {
-  const { filter, keyword, filterDispatch, keywordDispatch } = useSearcher({
-    voucherState: 'available',
-  });
-
   const username = useAppSelector(state => state.auth.username);
-
-  // 로그인 한 사용자의 소유권만 보이도록 기본 키워드 추가
-  useEffect(() => {
-    keywordDispatch({
-      type: 'ADD_KEYWORD',
-      value: { category: 'userName', title: '소유자', value: username, show: false },
-    });
-  }, [username, keywordDispatch]);
+  const searcher = useSearcher({
+    defaultFilter: {
+      voucherState: 'available',
+    },
+    defaultKeyword: [{ category: 'userName', title: '소유자', value: username, show: false }],
+  });
 
   // 사용할 소유권 선택
   const onSelectVoucher = useCallback(
@@ -42,24 +36,15 @@ function Modal({ modal, state, dispatch }: Props) {
   return (
     <TitleModal hook={modal} title="소유권 선택" css={{ width: '75vw' }}>
       <Searcher
+        hook={searcher}
         options={{
           group: true,
           member: true,
         }}
-        filter={filter}
-        keyword={keyword}
-        filterDispatch={filterDispatch}
-        keywordDispatch={keywordDispatch}
       />
 
       {username && (
-        <VoucherList
-          filter={filter}
-          keyword={keyword}
-          showOwner={false}
-          icon={{ svg: faCheck }}
-          handleSelect={onSelectVoucher}
-        />
+        <VoucherList hook={searcher} showOwner={false} icon={{ svg: faCheck }} handleSelect={onSelectVoucher} />
       )}
     </TitleModal>
   );

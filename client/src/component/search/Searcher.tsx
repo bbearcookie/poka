@@ -1,13 +1,4 @@
-import React from 'react';
-import {
-  State as FilterState,
-  Action as FilterAction
-} from '@component/search/content/filter/reducer';
-import {
-  CategoryType,
-  State as KeywordState,
-  Action as KeywordAction
-} from '@component/search/content/keyword/reducer';
+import { CategoryType } from '@component/search/content/keyword/reducer';
 import Search from '@component/search/content/search/Search';
 import { FilterSection } from '@component/search/content/filter/content/_styles';
 import { KeywordSection } from '@component/search/content/keyword/content/_styles';
@@ -18,23 +9,25 @@ import GroupKeywords from '@component/search/content/keyword/GroupKeywords';
 import MemberKeywords from '@component/search/content/keyword/MemberKeywords';
 import RadioKeywords from './content/keyword/RadioKeywords';
 import Keywords from '@component/search/content/keyword/Keywords';
+import { SearcherHook } from './hook/useSearcher';
 
 interface Props {
+  hook: SearcherHook;
   category?: CategoryType;
-  options?: { // 어떤 데이터에 대한 필터를 보여줄 것인지를 지정한다.
+  options?: {
+    // 어떤 데이터에 대한 필터를 보여줄 것인지를 지정한다.
     group?: boolean; // 그룹
     member?: boolean; // 멤버
     voucherState?: boolean; // 소유권 상태
     shippingState?: boolean; // 배송 상태
     paymentState?: boolean; // 결제 상태
-  }
-  filter: FilterState;
-  keyword: KeywordState;
-  filterDispatch: React.Dispatch<FilterAction>;
-  keywordDispatch: React.Dispatch<KeywordAction>;
+  };
 }
 
-function Searcher({ category = {}, options = {}, filter, keyword, filterDispatch, keywordDispatch }: Props) {
+function Searcher(props: Props) {
+  const { category = {}, options = {}, hook } = props;
+  const { filter, keyword, filterDispatch, keywordDispatch } = hook;
+
   return (
     <>
       <Search category={category} state={keyword} dispatch={keywordDispatch} />

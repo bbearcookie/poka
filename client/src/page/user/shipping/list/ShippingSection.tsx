@@ -1,6 +1,6 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 import { useAppSelector } from '@app/redux/store';
-import useSearcher from '@component/search/useSearcher';
+import useSearcher from '@component/search/hook/useSearcher';
 import useShippingList from '@component/list/shipping/useShippingList';
 import Searcher from '@component/search/Searcher';
 import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
@@ -11,23 +11,12 @@ import SkeletonShipping from '@component/shipping/item/SkeletonShipping';
 import NextPageFetcher from '@component/list/content/NextPageFetcher';
 
 function ShippingSection() {
-  const { filter, keyword, filterDispatch, keywordDispatch } = useSearcher();
   const username = useAppSelector(state => state.auth.username);
+  const searcher = useSearcher({
+    defaultKeyword: [{ category: 'userName', title: '작성자', value: username, show: false }],
+  });
 
-  // 로그인 한 사용자의 배송 요청만 보이도록 기본 키워드 추가
-  useEffect(() => {
-    keywordDispatch({
-      type: 'ADD_KEYWORD',
-      value: { category: 'userName', title: '작성자', value: username, show: false },
-    });
-  }, [username, keywordDispatch]);
-
-  const {
-    data: shippings,
-    isFetching,
-    hasNextPage,
-    fetchNextPage,
-  } = useShippingList(filter, keyword);
+  const { data: shippings, isFetching, hasNextPage, fetchNextPage } = useShippingList(searcher);
 
   return (
     <Card>
@@ -37,10 +26,7 @@ function ShippingSection() {
             shippingState: true,
             paymentState: true,
           }}
-          filter={filter}
-          filterDispatch={filterDispatch}
-          keyword={keyword}
-          keywordDispatch={keywordDispatch}
+          hook={searcher}
         />
       </CardHeader>
       <CardBody className="item-section">

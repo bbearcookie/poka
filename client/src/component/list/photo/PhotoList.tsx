@@ -5,18 +5,18 @@ import NextPageFetcher from '@component/list/content/NextPageFetcher';
 import PhotocardItem from '@component/photocard/item/PhotocardItem';
 import SkeletonPhotoCardItem from '@component/photocard/item/SkeletonPhotocardItem';
 import { IconType } from '@type/icon';
-import { State as FilterState } from '@component/search/content/filter/reducer';
-import { State as KeywordState } from '@component/search/content/keyword/reducer';
 import { ItemSection } from '@component/list/content/_styles';
+import { SearcherHook } from '@component/search/hook/useSearcher';
 
 interface Props {
-  filter: FilterState;
-  keyword: KeywordState;
+  hook: SearcherHook;
   icon?: IconType;
   handleSelect?: (photocardId: number) => void;
 }
 
-function PhotoList({ filter, keyword, icon, handleSelect }: Props) {
+function PhotoList({ hook, icon, handleSelect }: Props) {
+  const { filter, keyword, initialized } = hook;
+
   const [refine, setRefine] = useState<FilterType>({
     groupIds: [],
     memberIds: [],
@@ -29,7 +29,7 @@ function PhotoList({ filter, keyword, icon, handleSelect }: Props) {
     hasNextPage,
     fetchNextPage,
     refetch,
-  } = usePhotosQuery(refine, { enabled: filter.initialized });
+  } = usePhotosQuery(refine, { enabled: initialized });
 
   // 데이터 리패칭
   useUpdateEffect(() => {
