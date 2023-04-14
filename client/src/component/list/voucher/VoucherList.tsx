@@ -17,7 +17,7 @@ interface Props {
 }
 
 function VoucherList({ hook, showOwner = true, excludeVoucherIds, icon, handleSelect }: Props) {
-  const { filter, keyword } = hook;
+  const { filter, keyword, initialized } = hook;
   
   const makeRefineFilter = useCallback(
     (): FilterType => ({
@@ -39,11 +39,11 @@ function VoucherList({ hook, showOwner = true, excludeVoucherIds, icon, handleSe
     isFetching,
     hasNextPage,
     fetchNextPage,
-  } = useVouchersQuery(refine, { enabled: hook.initialized });
+  } = useVouchersQuery(refine, { enabled: initialized });
 
   // 검색 조건 변경시 새로운 필터 적용
   useUpdateEffect(() => {
-    if (!hook.initialized) return;
+    if (!initialized) return;
     setRefine(makeRefineFilter());
   }, [filter, keyword, excludeVoucherIds]);
 

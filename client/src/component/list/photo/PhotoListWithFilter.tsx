@@ -24,7 +24,7 @@ function PhotoListWithFilter({ icon, handleSelect }: Props) {
         }}
       />
 
-      <PhotoList hook={searcher} icon={icon} handleSelect={handleSelect} />
+      {searcher.initialized && <PhotoList hook={searcher} icon={icon} handleSelect={handleSelect} />}
     </>
   );
 }

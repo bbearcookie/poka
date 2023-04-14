@@ -1,4 +1,4 @@
-import { useState, Fragment } from 'react';
+import { useState, Fragment, useCallback } from 'react';
 import { useUpdateEffect } from 'react-use';
 import usePhotosQuery, { FilterType } from '@api/query/photo/usePhotosQuery';
 import NextPageFetcher from '@component/list/content/NextPageFetcher';
@@ -17,32 +17,23 @@ interface Props {
 function PhotoList({ hook, icon, handleSelect }: Props) {
   const { filter, keyword, initialized } = hook;
 
-  const [refine, setRefine] = useState<FilterType>({
-    groupIds: [],
-    memberIds: [],
-    photoNames: [],
-  });
-
-  const {
-    data: photos,
-    isFetching,
-    hasNextPage,
-    fetchNextPage,
-    refetch,
-  } = usePhotosQuery(refine, { enabled: initialized });
-
-  // 데이터 리패칭
-  useUpdateEffect(() => {
-    refetch();
-  }, [refine]);
-
-  // 검색 조건 변경시 새로운 필터 적용
-  useUpdateEffect(() => {
-    setRefine({
+  const makeRefindFilter = useCallback(
+    (): FilterType => ({
       groupIds: filter.groups.filter(g => g.checked).map(g => g.id),
       memberIds: filter.members.filter(m => m.checked).map(m => m.id),
       photoNames: keyword.keywords.filter(k => k.category === 'photoName').map(k => k.value),
-    });
+    }),
+    [filter, keyword]
+  );
+
+  const [refine, setRefine] = useState<FilterType>(makeRefindFilter());
+
+  const { data: photos, isFetching, hasNextPage, fetchNextPage } = usePhotosQuery(refine, { enabled: initialized });
+
+  // 검색 조건 변경시 새로운 필터 적용
+  useUpdateEffect(() => {
+    if (!initialized) return;
+    setRefine(makeRefindFilter());
   }, [filter, keyword]);
 
   return (
