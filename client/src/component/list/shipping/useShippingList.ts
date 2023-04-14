@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useUpdateEffect } from 'react-use';
 import useShippingsQuery, { FilterType } from '@api/query/shipping/useShippingsQuery';
 import { SearcherHook } from '@component/search/hook/useSearcher';
@@ -7,25 +7,22 @@ import { SearcherHook } from '@component/search/hook/useSearcher';
 export default function useShippingList(hook: SearcherHook) {
   const { filter, keyword, initialized } = hook;
 
-  const [refine, setRefine] = useState<FilterType>({
-    userNames: [],
-    paymentState: filter.paymentState,
-    shippingState: filter.shippingState,
-  });
-  const query = useShippingsQuery(refine, { enabled: initialized });
-
-  // 데이터 리패칭
-  useUpdateEffect(() => {
-    query.refetch();
-  }, [refine]);
-
-  // 검색 조건 변경시 새로운 필터 적용
-  useUpdateEffect(() => {
-    setRefine({
+  const makeRefineFilter = useCallback(
+    (): FilterType => ({
       userNames: keyword.keywords.filter(k => k.category === 'userName').map(k => k.value),
       shippingState: filter.shippingState,
       paymentState: filter.paymentState,
-    });
+    }),
+    [filter, keyword]
+  );
+
+  const [refine, setRefine] = useState<FilterType>(makeRefineFilter());
+  const query = useShippingsQuery(refine, { enabled: initialized });
+
+  // 검색 조건 변경시 새로운 필터 적용
+  useUpdateEffect(() => {
+    if (!initialized) return;
+    setRefine(makeRefineFilter());
   }, [filter, keyword]);
 
   return query;
