@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import ControlCard from './control-card/Index';
-import CropCard from './crop-card/Index';
-import DownloadCard from './download-card/Index';
-import CropList from './CropList';
+import ControlCard from './controlCard/Index';
+import CropCard from './cropCard/Index';
+import DownloadCard from './downloadCard/Index';
+import CropList from './cropList/CropList';
 import Upload from './Upload';
 import { StyledIndex } from './_styles';
 
@@ -20,7 +20,7 @@ function Index() {
           <DownloadCard cropList={cropList} setCropList={setCropList} />
         </section>
       )}
-      <CropList cropList={cropList} />
+      <CropList cropList={cropList} setCropList={setCropList} />
     </StyledIndex>
   );
 }

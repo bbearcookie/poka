@@ -23,4 +23,14 @@ export const StyledIndex = styled.main`
     display: flex;
     gap: 2em;
   }
+
+  .item-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+
+    &:empty {
+      display: none;
+    }
+  }
 `;
