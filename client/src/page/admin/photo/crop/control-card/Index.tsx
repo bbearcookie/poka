@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Card, CardBody, CardFooter } from '@component/card/basic/_styles';
+import TitleLabel from '@component/label/TitleLabel';
+import { Card, CardHeader, CardBody, CardFooter } from '@component/card/basic/_styles';
 import Form from './Form';
 import Move from './Move';
 
@@ -13,9 +14,11 @@ function ControlCard({ cropper }: Props) {
   const [moveY, setMoveY] = useState(0);
 
   return (
-    <Card className="control-card">
+    <Card>
+      <CardHeader>
+        <TitleLabel title="영역 이동" />
+      </CardHeader>
       <CardBody>
-        <h3 className="label">영역 이동</h3>
         <Form moveX={moveX} setMoveX={setMoveX} moveY={moveY} setMoveY={setMoveY} />
       </CardBody>
       <CardFooter css={{ display: 'flex', flexWrap: 'wrap', gap: '0.5em' }}>

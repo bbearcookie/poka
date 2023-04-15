@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, CardBody, CardFooter } from '@component/card/basic/_styles';
+import TitleLabel from '@component/label/TitleLabel';
+import { Card, CardHeader, CardBody, CardFooter } from '@component/card/basic/_styles';
 import Crop from './Crop';
 
 interface Props {
@@ -10,9 +11,11 @@ interface Props {
 
 function CropCard({ cropper, cropList, setCropList }: Props) {
   return (
-    <Card className="CropCard">
+    <Card>
+      <CardHeader>
+        <TitleLabel title="자르기" />
+      </CardHeader>
       <CardBody>
-        <h3 className="label">자르기</h3>
         <p className="description">선택한 영역의 이미지를 잘라서 추출합니다</p>
       </CardBody>
       <CardFooter css={{ display: 'flex', flexWrap: 'wrap', gap: '1em' }}>

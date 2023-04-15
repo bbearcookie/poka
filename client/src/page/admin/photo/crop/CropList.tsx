@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import TitleLabel from '@component/label/TitleLabel';
 import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
 
 interface Props {
@@ -7,9 +8,9 @@ interface Props {
 
 function CropList({ cropList }: Props) {
   return (
-    <Card className="CropList">
+    <Card>
       <CardHeader>
-        <h2 className="title">부분 이미지 목록</h2>
+        <TitleLabel title="부분 이미지 목록" />
       </CardHeader>
       <CardBody>
         {cropList.map((item, idx) => (
