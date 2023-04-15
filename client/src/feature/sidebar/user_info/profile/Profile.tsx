@@ -13,7 +13,13 @@ interface Props {
 function Profile({ user, isOpened, toggleOpen }: Props) {
   return (
     <StyledProfile isOpened={isOpened} onClick={toggleOpen}>
-      <img className="img" src={userImage(user.imageName)} alt="프로필" width="48" height="48" />
+      <img
+        className="img"
+        alt="프로필"
+        width="48"
+        height="48"
+        src={userImage(user.imageName)}
+      />
       <div className="info-section">
         <span className="nickname">
           <b>{user.nickname}</b>

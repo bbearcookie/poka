@@ -2,14 +2,14 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { Card, CardBody } from '@component/card/basic/_styles';
-import useSearcher from '@component/search/useSearcher';
+import useSearcher from '@component/search/hook/useSearcher';
 import Searcher from '@component/search/Searcher';
 import TitleLabel from '@component/label/TitleLabel';
 import VoucherList from '@component/list/voucher/VoucherList';
 import { StyledIndex } from './_styles';
 
 function Index() {
-  const { filter, keyword, filterDispatch, keywordDispatch } = useSearcher();
+  const searcher = useSearcher();
   const navigate = useNavigate();
 
   // 관리자용 상세 페이지로 이동
@@ -27,6 +27,7 @@ function Index() {
       <Card>
         <CardBody>
           <Searcher
+            hook={searcher}
             category={{
               photoName: '포토카드 이름',
               userName: '사용자 아이디',
@@ -36,18 +37,11 @@ function Index() {
               member: true,
               voucherState: true,
             }}
-            filter={filter}
-            keyword={keyword}
-            filterDispatch={filterDispatch}
-            keywordDispatch={keywordDispatch}
           />
 
-          <VoucherList
-            filter={filter}
-            keyword={keyword}
-            icon={{ svg: faArrowRight }}
-            handleSelect={handleSelect}
-          />
+          {searcher.initialized && (
+            <VoucherList hook={searcher} icon={{ svg: faArrowRight }} handleSelect={handleSelect} />
+          )}
         </CardBody>
       </Card>
     </StyledIndex>

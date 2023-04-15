@@ -1,48 +1,39 @@
-import { useState, Fragment } from 'react';
+import { useState, Fragment, useCallback } from 'react';
 import { useUpdateEffect } from 'react-use';
 import usePhotosQuery, { FilterType } from '@api/query/photo/usePhotosQuery';
 import NextPageFetcher from '@component/list/content/NextPageFetcher';
 import PhotocardItem from '@component/photocard/item/PhotocardItem';
 import SkeletonPhotoCardItem from '@component/photocard/item/SkeletonPhotocardItem';
 import { IconType } from '@type/icon';
-import { State as FilterState } from '@component/search/content/filter/reducer';
-import { State as KeywordState } from '@component/search/content/keyword/reducer';
 import { ItemSection } from '@component/list/content/_styles';
+import { SearcherHook } from '@component/search/hook/useSearcher';
 
 interface Props {
-  filter: FilterState;
-  keyword: KeywordState;
+  hook: SearcherHook;
   icon?: IconType;
   handleSelect?: (photocardId: number) => void;
 }
 
-function PhotoList({ filter, keyword, icon, handleSelect }: Props) {
-  const [refine, setRefine] = useState<FilterType>({
-    groupIds: [],
-    memberIds: [],
-    photoNames: [],
-  });
+function PhotoList({ hook, icon, handleSelect }: Props) {
+  const { filter, keyword, initialized } = hook;
 
-  const {
-    data: photos,
-    isFetching,
-    hasNextPage,
-    fetchNextPage,
-    refetch,
-  } = usePhotosQuery(refine, { enabled: filter.initialized });
-
-  // 데이터 리패칭
-  useUpdateEffect(() => {
-    refetch();
-  }, [refine]);
-
-  // 검색 조건 변경시 새로운 필터 적용
-  useUpdateEffect(() => {
-    setRefine({
+  const makeRefindFilter = useCallback(
+    (): FilterType => ({
       groupIds: filter.groups.filter(g => g.checked).map(g => g.id),
       memberIds: filter.members.filter(m => m.checked).map(m => m.id),
       photoNames: keyword.keywords.filter(k => k.category === 'photoName').map(k => k.value),
-    });
+    }),
+    [filter, keyword]
+  );
+
+  const [refine, setRefine] = useState<FilterType>(makeRefindFilter());
+
+  const { data: photos, isFetching, hasNextPage, fetchNextPage } = usePhotosQuery(refine, { enabled: initialized });
+
+  // 검색 조건 변경시 새로운 필터 적용
+  useUpdateEffect(() => {
+    if (!initialized) return;
+    setRefine(makeRefindFilter());
   }, [filter, keyword]);
 
   return (

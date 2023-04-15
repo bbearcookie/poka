@@ -25,7 +25,7 @@ function Index() {
 
       {status === 'success' && (
         <>
-          <PhotoInfo {...trade.voucher} cssProp={{ margin: '0 auto 5em auto' }} />
+          <PhotoInfo {...trade.voucher} css={{ margin: '0 auto 5em auto' }} />
           <TradeInfo {...trade} tradeState={trade.state} />
           <TradeRemove trade={trade} />
           <ButtonSection trade={trade} />

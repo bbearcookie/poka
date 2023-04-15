@@ -10,7 +10,7 @@ interface Props {
 
 function PhotoInfo({ photo, startEditor }: Props) {
   return (
-    <PhotoInfoComponent {...photo} cssProp={{ margin: '0 auto 5em auto' }}>
+    <PhotoInfoComponent {...photo} css={{ margin: '0 auto 5em auto' }}>
       <Button
         rightIcon={faPenToSquare}
         iconMargin='1em'

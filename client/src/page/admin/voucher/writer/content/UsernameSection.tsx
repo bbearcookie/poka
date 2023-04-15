@@ -45,7 +45,7 @@ function UsernameSection({ state, dispatch }: Props) {
           }}
         />
         {state.message.username && (
-          <InputMessage css={{ margin: '1em 0 0 0' }}>{state.message.username}</InputMessage>
+          <InputMessage>{state.message.username}</InputMessage>
         )}
         <p className="description">소유권을 발급하려는 대상 사용자의 아이디를 지정합니다.</p>
       </CardBody>

@@ -28,6 +28,7 @@ export default function useVouchersQuery(
   filter: FilterType,
   options?: UseInfiniteQueryOptions<ResType, AxiosError<ResponseError>>
 ): UseInfiniteQueryResult<ResType, AxiosError<ResponseError>> {
+
   return useInfiniteQuery<ResType, AxiosError<ResponseError>>({
     queryKey: queryKey.voucherKeys.list(filter),
     queryFn: ({ pageParam = 0 }) => fetchVouchers({ pageParam, filter }),

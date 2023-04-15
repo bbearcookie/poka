@@ -36,7 +36,7 @@ function PhotoEditor({ photo, photocardId, closeEditor }: Props) {
     res => closeEditor(),
     err => {
       err.response?.data.errors.forEach(e => {
-        dispatch({ type: 'SET_MESSAGE', payload: { target: e.param, value: '' } });
+        dispatch({ type: 'SET_MESSAGE', payload: { target: e.param, value: e.message } });
       });
     }
   );
@@ -45,7 +45,6 @@ function PhotoEditor({ photo, photocardId, closeEditor }: Props) {
   const onSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
-      console.log(state);
       putMutation.mutate({
         ...state.form,
         image: state.form.image.file,

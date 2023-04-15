@@ -30,7 +30,8 @@ function Amount({ state, dispatch }: Props) {
         name="amount"
         onChange={onChange}
         css={{
-          width: '14em',
+          display: 'block',
+          maxWidth: '14em',
           height: '2em',
           margin: '0.75em 0',
         }}

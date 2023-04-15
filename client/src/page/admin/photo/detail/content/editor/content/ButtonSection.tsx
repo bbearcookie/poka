@@ -10,12 +10,10 @@ function ButtonSection({ closeEditor }: Props) {
     <StyledButtonSection>
       <Button
         buttonTheme="primary-outlined"
-        iconMargin='1em'
+        iconMargin="1em"
         css={{
           width: 'fit-content',
-          margin: '1em 1em 0 0',
           padding: '0.7em 1.3em',
-          iconMargin: '1em',
         }}
         onClick={closeEditor}
       >
@@ -24,10 +22,9 @@ function ButtonSection({ closeEditor }: Props) {
       <Button
         type="submit"
         buttonTheme="primary"
-        iconMargin='1em'
+        iconMargin="1em"
         css={{
           width: 'fit-content',
-          marginTop: '1em',
           padding: '0.7em 1.3em',
         }}
       >

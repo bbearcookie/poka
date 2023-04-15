@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { ButtonSection } from '@component/form/_styles';
 
 export const PhotoSection = styled.section`
   display: flex;
@@ -17,5 +18,9 @@ export const DescriptionSection = styled.section`
   p {
     margin: 0.4em 0;
     word-break: break-all;
+  }
+
+  ${ButtonSection} {
+    margin-top: auto;
   }
 `;

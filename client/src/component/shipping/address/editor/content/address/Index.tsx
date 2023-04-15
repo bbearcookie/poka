@@ -1,5 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { InputMessage } from '@component/form/_styles';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { State, Action } from '../../reducer';
 import Postcode from './content/Postcode';
@@ -16,6 +17,8 @@ interface Props {
 }
 
 function Index(props: Props) {
+  const { state, dispatch } = props;
+
   return (
     <InputLine>
       <div className="label-section">
@@ -35,6 +38,10 @@ function Index(props: Props) {
           <Address {...props} />
           <AddressDetail {...props} />
         </AddressSection>
+        
+        {state.message.address && (
+          <InputMessage css={{ margin: '0.5em 0 0 0' }}>{state.message.address}</InputMessage>
+        )}
       </div>
     </InputLine>
   );

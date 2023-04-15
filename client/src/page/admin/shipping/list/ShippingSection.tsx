@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import useSearcher from '@component/search/useSearcher';
+import useSearcher from '@component/search/hook/useSearcher';
 import useShippingList from '@component/list/shipping/useShippingList';
 import Searcher from '@component/search/Searcher';
 import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
@@ -10,34 +10,26 @@ import SkeletonShipping from '@component/shipping/item/SkeletonShipping';
 import NextPageFetcher from '@component/list/content/NextPageFetcher';
 
 function ShippingSection() {
-  const { filter, keyword, filterDispatch, keywordDispatch } = useSearcher();
+  const searcher = useSearcher();
 
-  const {
-    data: shippings,
-    isFetching,
-    hasNextPage,
-    fetchNextPage
-  } = useShippingList(filter, keyword);
+  const { data: shippings, isFetching, hasNextPage, fetchNextPage } = useShippingList(searcher);
 
   return (
     <Card>
       <CardHeader className="search-header">
         <Searcher
           category={{
-            userName: "사용자 아이디"
+            userName: '사용자 아이디',
           }}
           options={{
             shippingState: true,
-            paymentState: true
+            paymentState: true,
           }}
-          filter={filter}
-          filterDispatch={filterDispatch}
-          keyword={keyword}
-          keywordDispatch={keywordDispatch}
+          hook={searcher}
         />
       </CardHeader>
       <CardBody className="item-section">
-        <Table styles={{ itemHeight: "1em", itemPadding: "1em" }}>
+        <Table styles={{ itemHeight: '1em', itemPadding: '1em' }}>
           <colgroup>
             <Col width="30%" />
             <Col width="20%" />
@@ -55,23 +47,25 @@ function ShippingSection() {
             </tr>
           </thead>
           <tbody>
-            {shippings?.pages.map((page, i) =>
-            <Fragment key={i}>
-              {page.shippings.map(r =>
-              <Shipping
-                key={r.requestId}
-                to="/admin/shipping/detail"
-                showOwner={true}
-                request={{
-                  requestId: r.requestId,
-                  state: r.state,
-                  writtenTime: r.writtenTime
-                }}
-                voucher={{ ...r.voucher.represent, amount: r.voucher.amount }}
-                author={r.author}
-                payment={r.payment}
-              />)}
-            </Fragment>)}
+            {shippings?.pages.map((page, i) => (
+              <Fragment key={i}>
+                {page.shippings.map(r => (
+                  <Shipping
+                    key={r.requestId}
+                    to="/admin/shipping/detail"
+                    showOwner={true}
+                    request={{
+                      requestId: r.requestId,
+                      state: r.state,
+                      writtenTime: r.writtenTime,
+                    }}
+                    voucher={{ ...r.voucher.represent, amount: r.voucher.amount }}
+                    author={r.author}
+                    payment={r.payment}
+                  />
+                ))}
+              </Fragment>
+            ))}
             {isFetching && Array.from({ length: 10 }).map((_, i) => <SkeletonShipping key={i} />)}
           </tbody>
         </Table>

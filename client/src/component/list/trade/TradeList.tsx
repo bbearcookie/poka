@@ -1,6 +1,5 @@
-import { Fragment, useCallback } from 'react';
+import { Fragment } from 'react';
 import produce from 'immer';
-import { useUpdateEffect } from 'react-use';
 import { useAppSelector } from '@app/redux/store';
 import TradeItem from '@component/trade/item/TradeItem';
 import NextPageFetcher from '@component/list/content/NextPageFetcher';
@@ -18,22 +17,7 @@ interface Props {
 
 function TradeList({ filter, location = { to: '#' } }: Props) {
   const { userId } = useAppSelector(state => state.auth);
-
-  const {
-    data: trades,
-    isFetching,
-    hasNextPage,
-    refetch,
-    fetchNextPage,
-  } = useTradesQuery(filter, { enabled: userId !== 0 });
-
-  // 검색 필터 변경시 데이터 리패칭
-  const handleRefetch = useCallback(async () => {
-    refetch();
-  }, [refetch]);
-  useUpdateEffect(() => {
-    handleRefetch();
-  }, [filter]);
+  const { data: trades, hasNextPage, fetchNextPage } = useTradesQuery(filter, { enabled: userId !== 0 });
 
   return (
     <StyledTradeList>

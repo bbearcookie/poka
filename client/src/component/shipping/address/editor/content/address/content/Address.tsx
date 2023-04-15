@@ -23,9 +23,6 @@ function Address({ state, dispatch }: Props) {
           height: '2.5em',
         }}
       />
-      {state.message.address && (
-        <InputMessage css={{ margin: '0.5em 0 0 0' }}>{state.message.address}</InputMessage>
-      )}
     </>
   );
 }

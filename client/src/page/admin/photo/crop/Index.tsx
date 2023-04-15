@@ -1,25 +1,27 @@
 import { useState } from 'react';
-import ControlCard from './control-card/Index';
-import CropCard from './crop-card/Index';
-import DownloadCard from './download-card/Index';
-import CropList from './CropList';
+import ControlCard from './controlCard/Index';
+import CropCard from './cropCard/Index';
+import DownloadCard from './downloadCard/Index';
+import CropList from './cropList/CropList';
 import Upload from './Upload';
-import './Index.scss';
+import { StyledIndex } from './_styles';
 
 function Index() {
   const [cropList, setCropList] = useState<string[]>([]);
   const [cropper, setCropper] = useState<Cropper>();
 
   return (
-    <main className="PhotoCropPage">
+    <StyledIndex>
       <Upload setCropper={setCropper} />
-      <section className="card-section">
-        {cropper && <ControlCard cropper={cropper} />}
-        {cropper && <CropCard cropper={cropper} cropList={cropList} setCropList={setCropList} />}
-        {cropper && <DownloadCard cropList={cropList} setCropList={setCropList} />}
-      </section>
-      <CropList cropList={cropList} />
-    </main>
+      {cropper && (
+        <section className="card-section">
+          <ControlCard cropper={cropper} />
+          <CropCard cropper={cropper} cropList={cropList} setCropList={setCropList} />
+          <DownloadCard cropList={cropList} setCropList={setCropList} />
+        </section>
+      )}
+      <CropList cropList={cropList} setCropList={setCropList} />
+    </StyledIndex>
   );
 }
 

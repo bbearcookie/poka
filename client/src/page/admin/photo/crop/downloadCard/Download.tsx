@@ -22,7 +22,7 @@ function Download({ cropList, setCropList, downloadName }: Props) {
   return (
     <>
       <Button
-        buttonTheme='primary'
+        buttonTheme="primary"
         onClick={handleDownload}
         css={{
           padding: '0.65em 0.5em',
@@ -37,6 +37,7 @@ function Download({ cropList, setCropList, downloadName }: Props) {
             href={item}
             download={downloadName}
             ref={el => (fileRefs.current[idx] = el)}
+            css={{ display: 'none' }}
           >
             다운로드
           </a>

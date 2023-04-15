@@ -1,5 +1,5 @@
 import { IconType } from '@type/icon';
-import useSearcher from '@component/search/useSearcher';
+import useSearcher from '@component/search/hook/useSearcher';
 import Searcher from '@component/search/Searcher';
 import PhotoList from './PhotoList';
 
@@ -9,25 +9,22 @@ interface Props {
 }
 
 function PhotoListWithFilter({ icon, handleSelect }: Props) {
-  const { filter, keyword, filterDispatch, keywordDispatch } = useSearcher();
+  const searcher = useSearcher();
 
   return (
     <>
       <Searcher
+        hook={searcher}
         category={{
-          photoName: '포토카드 이름'
+          photoName: '포토카드 이름',
         }}
         options={{
           group: true,
-          member: true
+          member: true,
         }}
-        filter={filter}
-        keyword={keyword}
-        filterDispatch={filterDispatch}
-        keywordDispatch={keywordDispatch}
       />
 
-      <PhotoList filter={filter} keyword={keyword} icon={icon} handleSelect={handleSelect} />
+      {searcher.initialized && <PhotoList hook={searcher} icon={icon} handleSelect={handleSelect} />}
     </>
   );
 }

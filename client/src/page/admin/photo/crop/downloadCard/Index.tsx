@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import TitleLabel from '@component/label/TitleLabel';
 import Input from '@component/form/input/Input';
-import { Card, CardBody, CardFooter } from '@component/card/basic/_styles';
+import { Card, CardHeader, CardBody, CardFooter } from '@component/card/basic/_styles';
 import Download from './Download';
 
 interface Props {
@@ -14,22 +15,22 @@ function DownloadCard({ cropList, setCropList }: Props) {
 
   return (
     <Card>
+      <CardHeader>
+        <TitleLabel title="다운로드" />
+      </CardHeader>
       <CardBody>
-        <h3 className="label">다운로드</h3>
-        <section className="input-line">
-          <span className="input-label">파일명</span>
+        <section>
+          <p css={{ margin: '0 0 0.5em 0' }}>파일명</p>
           <Input
             type="text"
             name="download"
             value={download}
-            placeholder="파일명"
-            onChange={(e) => setDownload(e.target.value)}
+            placeholder="저장될 파일명을 입력해주세요"
+            onChange={e => setDownload(e.target.value)}
             css={{
-              display: "inline-block",
-              width: "100%",
-              height: "2em",
-              marginLeft: "0.5em",
-              marginRight: "1em"
+              display: 'inline-block',
+              width: '100%',
+              height: '2em',
             }}
           />
         </section>
