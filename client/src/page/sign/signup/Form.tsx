@@ -44,7 +44,6 @@ function Form() {
   const onSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
-      console.log(state.form);
       postMutation.mutate({
         ...state.form,
       });

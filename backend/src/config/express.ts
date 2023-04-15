@@ -26,14 +26,14 @@ export default function () {
   const whitelist: string[] = [];
   process.env.CLIENT_LOCALHOST_URL && whitelist.push(process.env.CLIENT_LOCALHOST_URL);
   process.env.CLIENT_NETLIFY_URL && whitelist.push(process.env.CLIENT_NETLIFY_URL);
-  console.log(whitelist);
 
-  const corsOptions = {
-    origin: (origin: any, callback: any) => {
-      if (whitelist.indexOf(origin) !== -1) callback(null, true);
-      else callback(null, false);
-    },
-    credentials: true,
-  };
-  app.use(cors(corsOptions));
+  app.use(
+    cors({
+      origin: (origin, callback) => {
+        if (origin && whitelist.indexOf(origin) !== -1) callback(null, true);
+        else callback(null, false);
+      },
+      credentials: true
+    })
+  );
 }
