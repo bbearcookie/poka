@@ -7,6 +7,7 @@ import photoRouter from '@router/photo.router';
 import voucherRouter from '@router/voucher.router';
 import tradeRouter from '@router/trade.router';
 import shippingRouter from '@router/shipping.router';
+import testRouter from '@router/test.router';
 
 export default function(app: Express) {
   app.use('/api/auth', authRouter);
@@ -17,6 +18,7 @@ export default function(app: Express) {
   app.use('/api/voucher', voucherRouter);
   app.use('/api/trade', tradeRouter);
   app.use('/api/shipping', shippingRouter);
+  app.use('/api/test', testRouter);
 
   // 미들웨어가 response 응답을 하지 않으면 실행
   app.use('*', (req: Request, res: Response) => {
