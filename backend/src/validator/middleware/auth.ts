@@ -11,7 +11,7 @@ export function isAdmin(req: Request, res: Response, next: NextFunction) {
     if (user.role !== 'admin') return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
     next();
   } catch (err) {
-    const error = (err as jwt.VerifyErrors);
+    const error = err as jwt.VerifyErrors;
     return res.status(400).json({ message: error.message });
   }
 }
@@ -22,7 +22,7 @@ export function isLoggedIn(req: Request, res: Response, next: NextFunction) {
     checkLoggedIn(req, res);
     next();
   } catch (err) {
-    const error = (err as jwt.VerifyErrors);
+    const error = err as jwt.VerifyErrors;
     return res.status(400).json({ message: error.message });
   }
 }

@@ -1,11 +1,10 @@
-import fs from 'fs/promises';
-import path from 'path';
 import { NextFunction, Request, Response } from 'express';
 import { param, body } from 'express-validator';
 import { validate } from '@validator/middleware/response';
-import imageUploader, { PHOTO_IMAGE_DIR } from '@uploader/image.uploader';
+import ImageUploader, { getPhotoImageDir } from '@uploader/image.uploader';
+import { putFile, deleteFile } from '@util/s3';
+import { getTimestampFilename } from '@util/filename';
 import { isAdmin } from '@validator/middleware/auth';
-import { getTimestampFilename, removeFile } from '@util/multer';
 import { selectPhotoDetail } from '@service/photo/select';
 import { updatePhoto } from '@service/photo/update';
 
@@ -49,18 +48,12 @@ const controller = async (req: Request, res: Response, next: NextFunction) => {
   const [[photo]] = await selectPhotoDetail(photocardId);
   if (!photo) return res.status(404).json({ message: '해당 포토카드의 데이터가 서버에 존재하지 않아요.' });
 
+  // 다운받은 이미지 파일 있으면 기존 이미지 삭제 후 새로운 이미지 업로드
   let newFilename: string | undefined;
   if (file) {
-    // 임시 다운로드 파일 이름 변경
     newFilename = getTimestampFilename(photocardId.toString(), file.mimetype);
-    try { fs.rename(file.path, path.join(file.destination, newFilename)) }
-    catch (err) { console.error(err); }
-
-    // 기존의 이미지 파일 삭제
-    if (process.env.INIT_CWD) {
-      try { fs.rm(path.join(process.env.INIT_CWD, PHOTO_IMAGE_DIR, photo.imageName)) }
-      catch (err) { console.error(err); }
-    }
+    deleteFile({ Key: getPhotoImageDir(photo.imageName) });
+    await putFile({ Key: getPhotoImageDir(newFilename), Body: file.buffer });
   }
 
   await updatePhoto(photocardId, memberId, name, newFilename);
@@ -69,11 +62,11 @@ const controller = async (req: Request, res: Response, next: NextFunction) => {
   next();
 }
 
-const uploader = imageUploader('image', PHOTO_IMAGE_DIR);
+const uploader = new ImageUploader('image');
 
 // 포토카드 데이터 수정
 const putPhoto = [
-  uploader.single,
+  uploader.single(),
   uploader.errorHandler,
   ...validator,
   controller

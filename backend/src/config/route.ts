@@ -8,7 +8,7 @@ import voucherRouter from '@router/voucher.router';
 import tradeRouter from '@router/trade.router';
 import shippingRouter from '@router/shipping.router';
 
-export default function(app: Express) {
+export default function (app: Express) {
   app.use('/api/auth', authRouter);
   app.use('/api/user', userRouter);
   app.use('/api/group', groupRouter);

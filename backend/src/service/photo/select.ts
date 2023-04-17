@@ -6,11 +6,7 @@ import { WhereSQL } from '@util/database';
 import { FilterType } from '@controller/photo/getPhotos';
 
 // 포토카드 목록 조회
-export const selectPhotos = async (
-  itemPerPage: number,
-  pageParam: number,
-  filter: FilterType
-) => {
+export const selectPhotos = async (itemPerPage: number, pageParam: number, filter: FilterType) => {
   let con: PoolConnection | undefined;
 
   try {
@@ -40,12 +36,12 @@ export const selectPhotos = async (
       for (let i = 0; i < filter.photoNames.length; i++) {
         where.push({
           query: `P.name LIKE ${con.escape(`%${filter.photoNames[i]}%`)}`,
-          operator: i < filter.photoNames.length - 1 ? 'OR' : ''
+          operator: i < filter.photoNames.length - 1 ? 'OR' : '',
         });
       }
       where.push({
         query: ')',
-        operator: 'AND'
+        operator: 'AND',
       });
     }
 
@@ -53,7 +49,7 @@ export const selectPhotos = async (
     if (filter.groupIds.length > 0) {
       where.push({
         query: `G.group_id IN (${con.escape(filter.groupIds)})`,
-        operator: 'AND'
+        operator: 'AND',
       });
     }
 
@@ -61,8 +57,8 @@ export const selectPhotos = async (
     if (filter.memberIds.length > 0) {
       where.push({
         query: `M.member_id IN (${con.escape(filter.memberIds)})`,
-        operator: 'AND'
-      })
+        operator: 'AND',
+      });
     }
 
     // 조건 처리
@@ -77,7 +73,7 @@ export const selectPhotos = async (
   } finally {
     con?.release();
   }
-}
+};
 
 // 포토카드 상세 조회
 export const selectPhotoDetail = async (photocardId: number) => {
@@ -110,7 +106,32 @@ export const selectPhotoDetail = async (photocardId: number) => {
   } finally {
     con?.release();
   }
-}
+};
+
+// 특정 멤버의 포토카드 이미지 이름 조회
+export const selectPhotoImagenameOfMember = async (memberId: number | number[]) => {
+  let con: PoolConnection | undefined;
+
+  try {
+    con = await db.getConnection();
+
+    let where;
+    if (Array.isArray(memberId)) where = `WHERE member_id IN (${con.escape(memberId)})`;
+    else where = `WHERE member_id = ${con.escape(memberId)}`;
+
+    let sql = `
+    SELECT
+      image_name as imageName
+    FROM Photocard
+    ${where} AND image_name IS NOT NULL`;
+
+    return await con.query<Pick<Photo, 'imageName'>[] & ResultSetHeader>(sql);
+  } catch (err) {
+    throw err;
+  } finally {
+    con?.release();
+  }
+};
 
 // 교환글이 원하는 포토카드 목록 조회
 export const selectWantCardsOfTrade = async (tradeId: number) => {
@@ -144,4 +165,4 @@ export const selectWantCardsOfTrade = async (tradeId: number) => {
   } finally {
     con?.release();
   }
-}
+};
