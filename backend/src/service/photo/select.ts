@@ -2,7 +2,7 @@ import db from '@config/database';
 import { PoolConnection } from 'mysql2/promise';
 import { ResultSetHeader } from 'mysql2';
 import { Photo } from '@type/photo';
-import { WhereSQL } from '@util/database';
+import { WhereSQL, parseJsonObject } from '@util/database';
 import { FilterType } from '@controller/photo/getPhotos';
 
 // 포토카드 목록 조회
@@ -67,7 +67,9 @@ export const selectPhotos = async (itemPerPage: number, pageParam: number, filte
     ORDER BY photocard_id
     LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
 
-    return await con.query<Photo[] & ResultSetHeader>(sql);
+    let result = await con.query<Photo[] & ResultSetHeader>(sql);
+    result[0] = parseJsonObject(result[0], 'groupData', 'memberData') as Photo[] & ResultSetHeader;
+    return result;
   } catch (err) {
     throw err;
   } finally {
@@ -100,7 +102,9 @@ export const selectPhotoDetail = async (photocardId: number) => {
     INNER JOIN GroupData as G ON M.group_id=G.group_id
     WHERE photocard_id=${con.escape(photocardId)}`;
 
-    return await con.query<Photo[] & ResultSetHeader>(sql);
+    let result = await con.query<Photo[] & ResultSetHeader>(sql);
+    result[0] = parseJsonObject(result[0], 'groupData', 'memberData') as Photo[] & ResultSetHeader;
+    return result;
   } catch (err) {
     throw err;
   } finally {
@@ -159,7 +163,9 @@ export const selectWantCardsOfTrade = async (tradeId: number) => {
     INNER JOIN GroupData as G ON M.group_id=G.group_id
     WHERE W.trade_id=${con.escape(tradeId)}`;
 
-    return await con.query<Photo[] & ResultSetHeader>(sql);
+    let result = await con.query<Photo[] & ResultSetHeader>(sql);
+    result[0] = parseJsonObject(result[0], 'groupData', 'memberData') as Photo[] & ResultSetHeader;
+    return result;
   } catch (err) {
     throw err;
   } finally {

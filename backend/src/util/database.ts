@@ -36,3 +36,16 @@ export class WhereSQL {
     return result + ' ';
   }
 }
+
+// mariaDB의 SELECT문으로 가져온 JSON_OBJECT는 string 형태이기 때문에,
+// data 로부터 특정 key를 parse해서 저장한 뒤 반환함.
+export function parseJsonObject<T>(data: T[], ...keys: Array<keyof T>): T[] {
+  return data.map(item => {
+    keys.forEach(key => {
+      if (typeof item[key] === 'string') {
+        item[key] = JSON.parse(item[key] as string);
+      }
+    });
+    return item;
+  });
+}
