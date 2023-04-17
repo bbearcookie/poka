@@ -2,7 +2,7 @@ import db from '@config/database';
 import produce from 'immer';
 import { PoolConnection } from 'mysql2/promise';
 import { ResultSetHeader } from 'mysql2';
-import { WhereSQL } from '@util/database';
+import { WhereSQL, parseJsonObject } from '@util/database';
 import { ShippingRequestDetail, ShippingRequestItem } from '@type/shipping';
 import { FilterType } from '@controller/shipping/request/getRequests';
 
@@ -80,6 +80,7 @@ export const selectShippingRequests = async (
 
     // 배송 요청 목록 가져오기
     let [requests] = await con.query<ShippingRequestItem[] & ResultSetHeader>(sql);
+    requests = parseJsonObject(requests, 'address', 'payment', 'author', 'voucher') as ShippingRequestItem[] & ResultSetHeader;
 
     // 각 배송 요청에 등록된 첫 번째 소유권의 포토카드 이미지 가져오기
     const loadVouchers = requests.map(r => (
@@ -157,7 +158,9 @@ export const selectShippingRequestDetail = async (
     INNER JOIN Payment as P ON R.payment_id=P.payment_id
     WHERE R.request_id=${con.escape(requestId)}`;
 
-    return await con.query<ShippingRequestDetail[] & ResultSetHeader>(sql);
+    let result = await con.query<ShippingRequestDetail[] & ResultSetHeader>(sql);
+    result[0] = parseJsonObject(result[0], 'address', 'payment', 'author') as ShippingRequestDetail[] & ResultSetHeader;
+    return result;
   } catch (err) {
     throw err;
   } finally {

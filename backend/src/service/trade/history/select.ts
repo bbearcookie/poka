@@ -1,6 +1,7 @@
 import db from '@config/database';
 import { PoolConnection } from 'mysql2/promise';
 import { ResultSetHeader } from 'mysql2';
+import { parseJsonObject } from '@util/database';
 import { FilterType } from '@controller/user/trade/getTradeHistory';
 import { TradeHistory } from '@type/trade';
 
@@ -59,7 +60,9 @@ export const selectUserTradeHistory = async (
     ORDER BY L.logged_time DESC
     LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
 
-    return await con.query<TradeHistory[] & ResultSetHeader>(sql);
+    let result = await con.query<TradeHistory[] & ResultSetHeader>(sql);
+    result[0] = parseJsonObject(result[0], 'photo', 'originUser', 'destUser') as TradeHistory[] & ResultSetHeader;
+    return result;
   } catch (err) {
     throw err;
   } finally {

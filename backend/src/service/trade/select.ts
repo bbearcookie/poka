@@ -1,7 +1,7 @@
 import db from '@config/database';
 import { PoolConnection } from 'mysql2/promise';
 import { ResultSetHeader } from 'mysql2';
-import { WhereSQL } from '@util/database';
+import { WhereSQL, parseJsonObject } from '@util/database';
 import { Photo } from '@type/photo';
 import { TradeDetail, TradeItem } from '@type/trade';
 import { FilterType } from '@controller/trade/getTrades';
@@ -96,7 +96,8 @@ export const selectTrades = async (itemPerPage: number, pageParam: number, filte
     sql += `LIMIT ${con.escape(itemPerPage)} OFFSET ${con.escape(pageParam * itemPerPage)}`;
 
     // 교환글 목록 가져오기
-    const [trades] = await con.query<Omit<TradeItem, 'wantcards'>[] & ResultSetHeader>(sql);
+    let [trades] = await con.query<Omit<TradeItem, 'wantcards'>[] & ResultSetHeader>(sql);
+    trades = parseJsonObject(trades, 'voucher', 'author') as Omit<TradeItem, 'wantcards'>[] & ResultSetHeader;
 
     // 각 교환글이 원하는 멤버 정보 가져오기
     const loadWantMembers = trades.map(
@@ -124,7 +125,8 @@ export const selectTrades = async (itemPerPage: number, pageParam: number, filte
           WHERE T.trade_id=${t.tradeId}`;
 
           try {
-            const [wantcards] = await con.query<Photo[] & ResultSetHeader>(sql);
+            let [wantcards] = await con.query<Photo[] & ResultSetHeader>(sql);
+            wantcards = parseJsonObject(wantcards, 'memberData', 'groupData') as Photo[] & ResultSetHeader;
             resolve({ ...t, wantcards });
           } catch (err) {
             reject(err);
@@ -176,7 +178,9 @@ export const selectTradeDetail = async (tradeId: number) => {
     INNER JOIN GroupData as G ON M.group_id=G.group_id
     WHERE T.trade_id=${con.escape(tradeId)}`;
 
-    return await con.query<TradeDetail[] & ResultSetHeader>(sql);
+    let result = await con.query<TradeDetail[] & ResultSetHeader>(sql);
+    result[0] = parseJsonObject(result[0], 'voucher') as TradeDetail[] & ResultSetHeader;
+    return result;
   } catch (err) {
     throw err;
   } finally {
@@ -221,7 +225,9 @@ export const selectTradeDetailByVoucherID = async (voucherId: number) => {
     WHERE T.voucher_id=${con.escape(voucherId)} AND T.state='trading'
     ORDER BY T.written_time DESC`;
 
-    return await con.query<TradeDetail[] & ResultSetHeader>(sql);
+    let result = await con.query<TradeDetail[] & ResultSetHeader>(sql)
+    result[0] = parseJsonObject(result[0], 'voucher') as TradeDetail[] & ResultSetHeader;
+    return result;
   } catch (err) {
     throw err;
   } finally {
