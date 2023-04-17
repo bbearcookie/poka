@@ -5,11 +5,11 @@ export async function getToken() {
   const token = await axios({
     url: 'https://api.iamport.kr/users/getToken',
     method: 'post',
-    headers: { 'Content-Type': 'application/json' }, 
+    headers: { 'Content-Type': 'application/json' },
     data: {
       imp_key: process.env.IAMPORT_API_KEY,
-      imp_secret: process.env.IAMPORT_API_SECRET
-    }
+      imp_secret: process.env.IAMPORT_API_SECRET,
+    },
   });
 
   return token.data.response.access_token;
@@ -20,9 +20,9 @@ export async function getPaymentData(impUID: string, accessToken: string) {
   const result = await axios({
     url: `https://api.iamport.kr/payments/${impUID}`,
     method: 'get',
-    headers: { 'Authorization': accessToken }
+    headers: { Authorization: accessToken },
   });
-  
+
   return result.data.response;
 }
 
@@ -33,14 +33,14 @@ export async function refundPayment(impUID: string, amount: number, reason: stri
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': accessToken
+      Authorization: accessToken,
     },
     data: {
       reason,
       imp_uid: impUID,
       amount,
-      checksum: amount
-    }
+      checksum: amount,
+    },
   });
 
   return result.data;

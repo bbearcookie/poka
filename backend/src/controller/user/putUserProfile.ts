@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 import { param, body } from 'express-validator';
 import { validate } from '@validator/middleware/response';
-import ImageUploader, { getUserImageDir } from '@uploader/image.uploader.new';
+import ImageUploader, { getUserImageDir } from '@uploader/image.uploader';
 import { isLoggedIn } from '@validator/middleware/auth';
 import { isAdminOrOwner } from '@validator/function/auth';
 import { LoginToken } from '@type/user';
-import { getTimestampFilename, removeFile } from '@util/multer';
+import { getTimestampFilename } from '@util/filename';
 import { selectUser } from '@service/user/select';
 import { updateUserProfile } from '@service/user/update';
 import { putFile, deleteFile } from '@util/s3';
@@ -43,16 +43,11 @@ const controller = async (req: Request, res: Response, next: NextFunction) => {
   const file = req.file;
 
   const [[user]] = await selectUser(userId);
-  if (!user) {
-    removeFile(file);
-    return res.status(404).json({ message: '수정하려는 사용자의 데이터가 서버에 존재하지 않아요.' });
-  }
+  if (!user) return res.status(404).json({ message: '수정하려는 사용자의 데이터가 서버에 존재하지 않아요.' });
 
   // 관리자이거나, 자기 자신의 정보에 대한 경우에만 수정 가능
-  if (!isAdminOrOwner(loggedUser, user.userId)) {
-    removeFile(file);
+  if (!isAdminOrOwner(loggedUser, user.userId))
     return res.status(403).json({ message: '해당 기능을 사용할 권한이 없어요.' });
-  }
 
   // 다운받은 이미지 파일 있으면 기존 이미지 삭제 후 새로운 이미지 업로드
   let newFilename: string | undefined;

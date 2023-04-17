@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { body } from 'express-validator';
 import { validate } from '@validator/middleware/response';
-import ImageUploader, { getGroupImageDir } from '@uploader/image.uploader.new';
-import { getTimestampFilename } from '@util/multer';
+import ImageUploader, { getGroupImageDir } from '@uploader/image.uploader';
+import { getTimestampFilename } from '@util/filename';
 import { isAdmin } from '@validator/middleware/auth';
 import { insertGroup } from '@service/group/insert';
 import { updateImagename } from '@service/group/update';

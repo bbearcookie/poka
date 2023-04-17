@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import { param, body } from 'express-validator';
 import { validate } from '@validator/middleware/response';
-import ImageUploader, { getPhotoImageDir } from '@uploader/image.uploader.new';
+import ImageUploader, { getPhotoImageDir } from '@uploader/image.uploader';
 import { putFile, deleteFile } from '@util/s3';
-import { getTimestampFilename } from '@util/multer';
+import { getTimestampFilename } from '@util/filename';
 import { isAdmin } from '@validator/middleware/auth';
 import { selectPhotoDetail } from '@service/photo/select';
 import { updatePhoto } from '@service/photo/update';

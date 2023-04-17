@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { param } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { isAdmin } from '@validator/middleware/auth';
-import { getPhotoImageDir } from '@uploader/image.uploader.new';
+import { getPhotoImageDir } from '@uploader/image.uploader';
 import { deleteFile } from '@util/s3';
 import { selectPhotoDetail } from '@service/photo/select';
 import { deletePhoto as deletePhotoService } from '@service/photo/delete';

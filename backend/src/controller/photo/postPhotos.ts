@@ -1,12 +1,10 @@
-import fs from 'fs/promises';
-import path from 'path';
 import { NextFunction, Request, Response } from 'express';
 import { check, body } from 'express-validator';
 import { validate } from '@validator/middleware/response';
-import ImageUploader, { getPhotoImageDir } from '@uploader/image.uploader.new';
-import { putFile, deleteFile } from '@util/s3';
+import ImageUploader, { getPhotoImageDir } from '@uploader/image.uploader';
+import { putFile } from '@util/s3';
 import { isAdmin } from '@validator/middleware/auth';
-import { getTimestampFilename, removeFile } from '@util/multer';
+import { getTimestampFilename } from '@util/filename';
 import { insertPhotos } from '@service/photo/insert';
 import { updateImagename } from '@service/photo/update';
 

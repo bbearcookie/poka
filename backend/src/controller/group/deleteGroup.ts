@@ -4,7 +4,7 @@ import { validate } from '@validator/middleware/response';
 import { isAdmin } from '@validator/middleware/auth';
 import { selectGroupDetail } from '@service/group/select';
 import { deleteGroup as deleteGroupService } from '@service/group/delete';
-import { getGroupImageDir } from '@uploader/image.uploader.new';
+import { getGroupImageDir } from '@uploader/image.uploader';
 import { deleteFile } from '@util/s3';
 
 interface Params {
