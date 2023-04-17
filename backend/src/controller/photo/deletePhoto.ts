@@ -1,10 +1,9 @@
-import fs from 'fs/promises';
-import path from 'path';
 import { NextFunction, Request, Response } from 'express';
 import { param } from 'express-validator';
 import { validate } from '@validator/middleware/response';
 import { isAdmin } from '@validator/middleware/auth';
-import { PHOTO_IMAGE_DIR } from '@uploader/image.uploader';
+import { getPhotoImageDir } from '@uploader/image.uploader.new';
+import { deleteFile } from '@util/s3';
 import { selectPhotoDetail } from '@service/photo/select';
 import { deletePhoto as deletePhotoService } from '@service/photo/delete';
 
@@ -27,10 +26,7 @@ const controller = async (req: Request, res: Response, next: NextFunction) => {
   if (!photo) return res.status(404).json({ message: '해당 포토카드의 데이터가 서버에 존재하지 않아요.' });
 
   // 기존의 이미지 파일 삭제
-  if (process.env.INIT_CWD) {
-    try { fs.rm(path.join(process.env.INIT_CWD, PHOTO_IMAGE_DIR, photo.imageName)) }
-    catch (err) { console.error(err); }
-  }
+  deleteFile({ Key: getPhotoImageDir(photo.imageName) });
 
   await deletePhotoService(photocardId);
   return res.status(200).json({ message: `포토카드 ${photo.name} 을(를) 삭제했어요.` });

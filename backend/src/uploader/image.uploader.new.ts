@@ -2,18 +2,22 @@ import { Request, Response, NextFunction } from 'express';
 import multer, { Multer, MulterError } from 'multer';
 import { createResponseMessage } from '@validator/function/response';
 
+// 그룹 이미지 경로
 export function getGroupImageDir(fileName: string) {
   return `image/group/${fileName}`;
 }
 
+// 사용자 이미지 경로
 export function getUserImageDir(fileName: string) {
   return `image/user/${fileName}`;
 }
 
+// 포토카드 이미지 경로
 export function getPhotoImageDir(fileName: string) {
   return `image/photo/${fileName}`;
 }
 
+// 이미지 업로드를 다루는 multer 업로더
 class ImageUploader {
   fieldName: string;
   multer: Multer;
@@ -40,6 +44,7 @@ class ImageUploader {
   array = () => this.multer.array(this.fieldName); // 다중 파일 업로더
   fields = () => this.multer.fields([{ name: this.fieldName }]); // 다중 파일 업로더
 
+  // multer로 파싱한 이후에 에러를 핸들링 하기 위한 함수
   errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
     if (isExceedLimitSize(err))
       return res.status(413).json(createResponseMessage(this.fieldName, '5MB 이하의 파일만 업로드할 수 있어요.'));
@@ -63,6 +68,7 @@ class ImageUploader {
 
 export default ImageUploader;
 
+// multer에 기본적으로 정의된 유효성 검사 외에 직접 구현이 필요한 부분에 대한 에러 타입
 type CodeType = 'NOT_ACCEPTABLE';
 class FilterError extends Error {
   code: CodeType;
