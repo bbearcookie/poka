@@ -11,6 +11,8 @@ export const insertPhotos = async (
 
   try {
     con = await db.getConnection();
+    await con.beginTransaction();
+    
     const insertIds: number[] = [];
 
     for (let name of names) {

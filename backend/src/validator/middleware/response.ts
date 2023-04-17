@@ -10,8 +10,8 @@ export function validate(req: Request, res: Response, next: NextFunction) {
   // 유효성 에러 발견시 처리
   if (!result.isEmpty()) {
     // 업로드 된 파일이 있다면 삭제
-    if (req.file) removeFile(req.file);
-    if (req.files) removeFile(req.files as Express.Multer.File[]);
+    // if (req.file) removeFile(req.file);
+    // if (req.files) removeFile(req.files as Express.Multer.File[]);
 
     const errors: SingleError[] = Object.values(result.mapped()).map(err => ({
       message: err.msg,

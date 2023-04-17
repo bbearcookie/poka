@@ -10,6 +10,10 @@ export function getUserImageDir(fileName: string) {
   return `image/user/${fileName}`;
 }
 
+export function getPhotoImageDir(fileName: string) {
+  return `image/photo/${fileName}`;
+}
+
 class ImageUploader {
   fieldName: string;
   multer: Multer;
