@@ -40,7 +40,7 @@ function Move({ cropper, moveX, moveY }: Props) {
     window.addEventListener('keydown', handle);
 
     return () => {
-      window.removeEventListener('keypress', handle);
+      window.removeEventListener('keydown', handle);
     };
   }, [handleMove]);
 
