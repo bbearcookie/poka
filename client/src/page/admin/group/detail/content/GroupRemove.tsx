@@ -4,6 +4,7 @@ import useModal from '@component/modal/useModal';
 import ConfirmModal from '@component/modal/ConfirmModal';
 import RemoveCard from '@component/card/RemoveCard';
 import useDeleteGroup from '@api/mutation/group/useDeleteGroup';
+import { getErrorMessage } from '@util/request';
 
 interface Props {
   groupId: number;
@@ -15,7 +16,11 @@ function GroupRemove({ groupId, name }: Props) {
   const navigate = useNavigate();
 
   // 데이터 삭제 요청
-  const deleteMutation = useDeleteGroup(groupId, res => navigate('/admin/group/list'));
+  const deleteMutation = useDeleteGroup(
+    groupId,
+    res => navigate('/admin/group/list'),
+    err => removeModal.setErrorMessage(getErrorMessage(err))
+  );
 
   // 그룹 삭제
   const removeGroup = useCallback(() => {
@@ -30,9 +35,7 @@ function GroupRemove({ groupId, name }: Props) {
           removeModal.open();
         }}
       >
-        <p className="description">
-          해당 그룹을 삭제하면 연관된 멤버와 포토카드도 모두 지워지니 신중히 삭제해주세요.
-        </p>
+        <p className="description">해당 그룹을 삭제하면 연관된 멤버와 포토카드도 모두 지워지니 신중히 삭제해주세요.</p>
       </RemoveCard>
 
       <ConfirmModal

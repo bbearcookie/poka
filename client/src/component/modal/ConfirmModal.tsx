@@ -1,5 +1,4 @@
 import { InputMessage } from '@component/form/_styles';
-import styled from 'styled-components';
 import Button, { ButtonTheme } from '@component/form/button/Button';
 import ModalHeader from '@component/modal/basic/ModalHeader';
 import Modal, { Props as ModalProps } from '@component/modal/basic/Modal';
@@ -45,7 +44,7 @@ function ConfirmModal({ hook, title, confirm, cancel, children, ...rest }: Props
             alignItems: 'flex-end',
           }}
         >
-          {hook.errorMessage && <InputMessage>{hook.errorMessage}</InputMessage>}
+          {hook.errorMessage && <InputMessage css={{ margin: '0 0 0.5em 0' }}>{hook.errorMessage}</InputMessage>}
           <ButtonSection>
             <Button buttonTheme={confirm.buttonTheme} onClick={confirm.onClick}>
               {confirm.text}
@@ -60,4 +59,4 @@ function ConfirmModal({ hook, title, confirm, cancel, children, ...rest }: Props
   );
 }
 
-export default styled(ConfirmModal)<Props>``;
+export default ConfirmModal;
