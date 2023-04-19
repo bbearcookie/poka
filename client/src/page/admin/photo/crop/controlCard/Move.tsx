@@ -35,7 +35,8 @@ function Move({ cropper, moveX, moveY }: Props) {
   useEffect(() => {
     const handle = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement) return;
-      if (e.key === 'w' || e.key === 'a' || e.key === 's' || e.key === 'd') handleMove(e.key);
+      const key = e.key.toLowerCase();
+      if (key === 'w' || key === 'a' || key === 's' || key === 'd') handleMove(key);
     };
     window.addEventListener('keydown', handle);
 
