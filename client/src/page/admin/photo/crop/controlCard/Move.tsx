@@ -8,88 +8,84 @@ interface Props {
 }
 
 function Move({ cropper, moveX, moveY }: Props) {
-
   // 크롭된 부분 이동
-  const handleMove = useCallback((direction: 'UP' | 'DOWN' | 'LEFT' | 'RIGHT') => {
-    switch (direction) {
-      case 'UP':
-        cropper.move(0, moveY);
-        break;
-      case 'DOWN':
-        cropper.move(0, -1 * moveY);
-        break;
-      case 'LEFT':
-        cropper.move(moveX, 0);
-        break;
-      case 'RIGHT':
-        cropper.move(-1 * moveX, 0);
-        break;
-      default:
-        break;
-    }
-  }, [cropper, moveX, moveY]);
-  
-  // 키보드로 조작 가능
-  useEffect(() => {
-    const handle = (e: KeyboardEvent) => {
-      switch (e.key.toLowerCase()) {
-        case 'a':
-          handleMove('LEFT');
-          break;
-        case 'd':
-          handleMove('RIGHT');
-          break;
+  const handleMove = useCallback(
+    (direction: 'w' | 'a' | 's' | 'd') => {
+      switch (direction) {
         case 'w':
-          handleMove('UP');
+          cropper.move(0, moveY);
           break;
         case 's':
-          handleMove('DOWN');
+          cropper.move(0, -1 * moveY);
+          break;
+        case 'a':
+          cropper.move(moveX, 0);
+          break;
+        case 'd':
+          cropper.move(-1 * moveX, 0);
           break;
         default:
           break;
       }
-    }
-    window.addEventListener('keypress', handle);
+    },
+    [cropper, moveX, moveY]
+  );
+
+  // 키보드로 조작 가능
+  useEffect(() => {
+    const handle = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement) return;
+      if (e.key === 'w' || e.key === 'a' || e.key === 's' || e.key === 'd') handleMove(e.key);
+    };
+    window.addEventListener('keydown', handle);
 
     return () => {
       window.removeEventListener('keypress', handle);
-    }
+    };
   }, [handleMove]);
 
   return (
     <>
       <Button
-        buttonTheme='primary'
-        onClick={() => handleMove('LEFT')}
+        buttonTheme="primary"
+        onClick={() => handleMove('a')}
         css={{
-          padding: "0.3em",
-          fontSize: "1rem"
+          padding: '0.3em',
+          fontSize: '1rem',
         }}
-      >←</Button>
+      >
+        ←
+      </Button>
       <Button
-        buttonTheme='primary'
-        onClick={() => handleMove('RIGHT')}
+        buttonTheme="primary"
+        onClick={() => handleMove('d')}
         css={{
-          padding: "0.3em",
-          fontSize: "1rem"
+          padding: '0.3em',
+          fontSize: '1rem',
         }}
-      >→</Button>
+      >
+        →
+      </Button>
       <Button
-        buttonTheme='primary'
-        onClick={() => handleMove('UP')}
+        buttonTheme="primary"
+        onClick={() => handleMove('w')}
         css={{
-          padding: "0.3em 0.5em",
-          fontSize: "1rem"
+          padding: '0.3em 0.5em',
+          fontSize: '1rem',
         }}
-      >↑</Button>
+      >
+        ↑
+      </Button>
       <Button
-        buttonTheme='primary'
-        onClick={() => handleMove('DOWN')}
+        buttonTheme="primary"
+        onClick={() => handleMove('s')}
         css={{
-          padding: "0.3em 0.5em",
-          fontSize: "1rem"
+          padding: '0.3em 0.5em',
+          fontSize: '1rem',
         }}
-      >↓</Button>
+      >
+        ↓
+      </Button>
     </>
   );
 }

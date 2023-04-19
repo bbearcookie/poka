@@ -29,7 +29,9 @@ function Crop({ cropper, cropList, setCropList }: Props) {
   // 키보드로 조작 가능
   useEffect(() => {
     const handle = (e: KeyboardEvent) => {
-      if (e.key.toLowerCase() === '.') handleCrop();
+      if (e.target instanceof HTMLInputElement) return;
+      if (e.key !== '.') return;
+      handleCrop();
     };
 
     window.addEventListener('keyup', handle);
