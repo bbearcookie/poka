@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Card, CardHeader, CardBody } from '@component/card/basic/_styles';
 import Button from '@component/form/button/Button';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
@@ -36,4 +35,4 @@ function RemoveCard({ titleText, buttonText = '삭제', onClick, children, ...re
   );
 }
 
-export default styled(RemoveCard)<Props>``;
+export default RemoveCard;

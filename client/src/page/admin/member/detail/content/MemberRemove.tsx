@@ -32,19 +32,17 @@ function MemberRemove({ member, memberId }: Props) {
     <section>
       <RemoveCard
         titleText="멤버 삭제"
-        onClick={e => {
+        onClick={() => {
           removeModal.open();
         }}
       >
-        <p className="description">
-          해당 멤버를 삭제하면 연관된 포토카드도 모두 지워지니 신중히 삭제해주세요.
-        </p>
+        <p className="description">해당 멤버를 삭제하면 연관된 포토카드도 모두 지워지니 신중히 삭제해주세요.</p>
       </RemoveCard>
 
       <ConfirmModal
         hook={removeModal}
         title="멤버 삭제"
-        confirm={{ text: '삭제', buttonTheme: "danger", onClick: removeMember }}
+        confirm={{ text: '삭제', buttonTheme: 'danger', onClick: removeMember }}
       >
         <p className="text">이 멤버를 삭제하면 연관된 포토카드도 함께 지워져요.</p>
         <p className="text">정말로 {member?.name} 멤버를 삭제하시겠어요?</p>

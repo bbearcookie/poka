@@ -1,10 +1,11 @@
-export type Role = 'admin' | 'user';
+export type Role = 'root' | 'admin' | 'user';
 
 export const RoleText: {
   [k in Role]: string;
 } = {
   user: '회원',
   admin: '관리자',
+  root: '루트관리자',
 };
 
 // 사용자 타입

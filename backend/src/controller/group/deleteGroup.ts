@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { param } from 'express-validator';
 import { validate } from '@validator/middleware/response';
-import { isAdmin } from '@validator/middleware/auth';
+import { isRootAdmin } from '@validator/middleware/auth';
 import { getGroupImageDir } from '@uploader/image.uploader';
 import { deleteFile } from '@util/s3';
 import { selectGroupDetail } from '@service/group/select';
@@ -13,7 +13,7 @@ interface Params {
 }
 
 const validator = [
-  isAdmin,
+  isRootAdmin,
   param('groupId')
     .customSanitizer(v => Number(v))
     .isNumeric()

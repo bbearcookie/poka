@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import { isAdmin } from '@util/user';
 import classNames from 'classnames';
 import { useLocation } from 'react-router';
 import { Role } from '@/type/user';
@@ -17,33 +18,30 @@ function LinkItems({ isOpened, role, ...rest }: Props) {
   const location = useLocation();
 
   const render = () => {
-    switch (role) {
-      case 'admin':
-        return [
-          <Fragment key={role}>
-            <ChildItem
-              className={classNames({ active: !/^\/admin/.test(location.pathname) })}
-              icon={faArrowLeft}
-              to="/"
-              text="회원 페이지"
-            />
-            <ChildItem
-              className={classNames({ active: /^\/admin/.test(location.pathname) })}
-              icon={faArrowLeft}
-              to="/admin"
-              text="관리자 페이지"
-            />
-            <ChildItem icon={faUpRightFromSquare} onClick={handleLogout} text="로그아웃" />
-          </Fragment>,
-        ];
-      case 'user':
-        return [
-          <Fragment key={role}>
-            <ChildItem icon={faUpRightFromSquare} onClick={handleLogout} text="로그아웃" />
-          </Fragment>,
-        ];
-      default:
-        return [<></>];
+    if (isAdmin(role)) {
+      return [
+        <Fragment key={role}>
+          <ChildItem
+            className={classNames({ active: !/^\/admin/.test(location.pathname) })}
+            icon={faArrowLeft}
+            to="/"
+            text="회원 페이지"
+          />
+          <ChildItem
+            className={classNames({ active: /^\/admin/.test(location.pathname) })}
+            icon={faArrowLeft}
+            to="/admin"
+            text="관리자 페이지"
+          />
+          <ChildItem icon={faUpRightFromSquare} onClick={handleLogout} text="로그아웃" />
+        </Fragment>,
+      ];
+    } else {
+      return [
+        <Fragment key={role}>
+          <ChildItem icon={faUpRightFromSquare} onClick={handleLogout} text="로그아웃" />
+        </Fragment>,
+      ];
     }
   };
 

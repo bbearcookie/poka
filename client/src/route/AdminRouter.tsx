@@ -1,5 +1,6 @@
 import { getUserFromStorage } from '@feature/auth/authStorage';
 import { Route, Routes, Navigate } from 'react-router-dom';
+import { isAdmin } from '@util/user';
 import GroupListPage from '@page/admin/group/list/Index';
 import GroupWriterPage from '@page/admin/group/writer/WriterIndex';
 import GroupEditorPage from '@page/admin/group/writer/EditorIndex';
@@ -19,7 +20,7 @@ import ShippingDetailPage from '@page/admin/shipping/detail/Index';
 // /admin 하위 라우팅 내용
 function AdminRouter() {
   const user = getUserFromStorage();
-  if (!user || user.role !== 'admin') return <Navigate to="/" />;
+  if (!user || !isAdmin(user.role)) return <Navigate to="/" />;
 
   return (
     <Routes>
