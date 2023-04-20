@@ -1,6 +1,7 @@
 import React, { useReducer, useState } from 'react';
 import useInitGroup from './content/useInitGroup';
 import useInitMember from './content/useInitMember';
+import { VoucherStateKey, ShippingStateKey, PaymentStateKey } from '@component/label/stateLabel/_types';
 import produce from 'immer';
 
 import {
@@ -27,7 +28,13 @@ export interface SearcherHook {
 }
 
 interface Props {
-  defaultFilter?: Partial<FilterState>;
+  defaultFilter?: Partial<{
+    groupIds: number[];
+    memberIds: number[];
+    voucherState: VoucherStateKey;
+    shippingState: ShippingStateKey;
+    paymentState: PaymentStateKey;
+  }>;
   defaultKeyword?: KeywordType[];
 }
 
@@ -35,9 +42,9 @@ function useSearcher({ defaultFilter, defaultKeyword }: Props = {}): SearcherHoo
   const [filter, filterDispatch] = useReducer(
     FilterReducer,
     produce(FilterInitialState, draft => {
-      if (defaultFilter?.groups) draft.groups = defaultFilter?.groups;
-      if (defaultFilter?.members) draft.members = defaultFilter?.members;
-      if (defaultFilter?.voucherState) draft.voucherState = defaultFilter?.voucherState;
+      if (defaultFilter?.voucherState) draft.voucherState = defaultFilter.voucherState;
+      if (defaultFilter?.shippingState) draft.shippingState = defaultFilter.shippingState;
+      if (defaultFilter?.paymentState) draft.paymentState = defaultFilter.paymentState;
     })
   );
 
@@ -61,12 +68,13 @@ function useSearcher({ defaultFilter, defaultKeyword }: Props = {}): SearcherHoo
   const [initialized, setInitialized] = useState(false);
 
   // 그룹 초기 필터 설정
-  const { status: groupStatus } = useInitGroup({ dispatch: filterDispatch });
+  const { status: groupStatus } = useInitGroup({ dispatch: filterDispatch, defaultGroupIds: defaultFilter?.groupIds });
 
   // 멤버 초기 필터 설정
   useInitMember({
     enabled: groupStatus === 'success',
     state: filter,
+    defaultMemberIds: defaultFilter?.memberIds,
     dispatch: filterDispatch,
     handleInitialize: () => setInitialized(true),
   });

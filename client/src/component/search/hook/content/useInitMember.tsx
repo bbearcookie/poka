@@ -5,12 +5,13 @@ import { State, Action } from '@component/search/content/filter/reducer';
 interface Props {
   enabled: boolean;
   state: State;
+  defaultMemberIds?: number[];
   dispatch: React.Dispatch<Action>;
   handleInitialize: () => void;
 }
 
 // 멤버 데이터 가져오고 초기 필터 상태 설정
-export default function useInitMember({ enabled, state, dispatch, handleInitialize }: Props) {
+export default function useInitMember({ enabled, state, defaultMemberIds = [], dispatch, handleInitialize }: Props) {
   const query = useMembersQuery({ enabled });
   const { data: members, status } = query;
 
@@ -28,7 +29,10 @@ export default function useInitMember({ enabled, state, dispatch, handleInitiali
         .map(m => ({
           id: m.memberId,
           name: m.name,
-          checked: state.members.find(item => item.id === m.memberId)?.checked ? true : false,
+          checked:
+            state.members.find(item => item.id === m.memberId)?.checked || defaultMemberIds.includes(m.memberId)
+              ? true
+              : false,
         })),
     });
 

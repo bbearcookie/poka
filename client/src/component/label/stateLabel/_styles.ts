@@ -60,7 +60,7 @@ export const VoucherLogStateLabel = styled(Label)<{ type: VoucherLogStateKey }>`
         `;
       case 'shipped':
         return css`
-          background-color: #e95188;
+          background-color: #d14343;
           color: white;
         `;
       default:

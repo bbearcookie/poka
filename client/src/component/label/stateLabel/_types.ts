@@ -15,7 +15,7 @@ export const VoucherLogStateText: {
 } = {
   issued: '발급',
   traded: '교환',
-  shipped: '배송'
+  shipped: '발송'
 };
 
 export type TradeStateKey = 'all' | 'trading' | 'traded';
