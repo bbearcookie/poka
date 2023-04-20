@@ -16,10 +16,28 @@
 - 사용자에게 소유권을 발급하고, 소유권의 거래 내역 확인
 - 사용자가 배송 요청한 소유권을 발송 처리
 
-### 🖥️ 배포 방법
+### 🖥️ 배포
 [➡️ 서비스 둘러보기](https://poka-trade.site/)  
 
-![frontend](https://img.shields.io/badge/Frontend-Netlify-9cf?style=for-the-badge) 
-![backend](https://img.shields.io/badge/backend-cloudtype-black?style=for-the-badge) 
-![amazone](https://img.shields.io/badge/image-amazone_s3-red?style=for-the-badge)  
+<a href="https://netlify.com/"><img src="https://img.shields.io/badge/Frontend-Netlify-9cf?style=for-the-badge" /></a>
+<a href="https://cloudtype.io/"><img src="https://img.shields.io/badge/backend-cloudtype-black?style=for-the-badge" /></a>
+<a href="https://aws.amazon.com/ko/s3/?nc2=h_ql_prod_st_s3"><img src="https://img.shields.io/badge/storage-amazone_s3-red?style=for-the-badge" /></a>
 
+### 🔨 사용한 기술
+#### Front-End
+![](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)  
+![](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+![](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)  
+![](https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white)
+![](https://img.shields.io/badge/Redux_Toolkit-764ABC?style=for-the-badge&logo=redux&logoColor=white)
+
+#### Back-End
+![](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+![](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)  
+![](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge&logo=express)
+![](https://img.shields.io/badge/Express_Validator-764ABC?style=for-the-badge&logo=cachet&logoColor=white)
+![](https://img.shields.io/badge/multer-F46519?style=for-the-badge&logo=muller&logoColor=white)  
+![](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white)
