@@ -1,4 +1,3 @@
-import { CSSProp } from 'styled-components';
 import {
   VoucherStateLabel,
   TradeStateLabel,

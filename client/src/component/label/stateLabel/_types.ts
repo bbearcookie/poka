@@ -6,7 +6,7 @@ export const VoucherStateText: {
   available: '교환가능',
   trading: '교환중',
   shipping: '배송대기',
-  shipped: '배송완료',
+  shipped: '발송완료',
 };
 
 export type VoucherLogStateKey = 'issued' | 'traded' | 'shipped';
