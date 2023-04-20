@@ -38,7 +38,7 @@ function PhotoItem({ photo, idx, state, dispatch }: Props) {
   }, [photo, dispatch]);
 
   return (
-    <PhotocardItem {...photo} icon={{ svg: faClose, tooltip: '취소' }} onClick={handleRemove}>
+    <PhotocardItem {...photo} icon={{ svg: faClose, tooltip: '취소' }} handleClick={handleRemove}>
       <b>수량</b>
       <Input
         name={String(photo.id)}

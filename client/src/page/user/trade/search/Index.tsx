@@ -18,14 +18,9 @@ function Index() {
       <TitleLabel title="교환 찾기" css={{ marginBottom: '2em' }} />
       <IdolSelector hook={selector} />
 
-      <ButtonSection>
+      <ButtonSection css={{ marginBottom: '2em' }}>
         <Link to="/trade/writer">
-          <Button
-            buttonTheme="primary"
-            leftIcon={faPen}
-            iconMargin="1em"
-            css={{ marginBottom: '2em' }}
-          >
+          <Button buttonTheme="primary" leftIcon={faPen} iconMargin="1em">
             등록
           </Button>
         </Link>

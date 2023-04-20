@@ -51,8 +51,8 @@ function CardSection({ state, dispatch, modal }: Props) {
           <Button
             type="button"
             leftIcon={faAdd}
-            iconMargin='1em'
-            buttonTheme='primary'
+            iconMargin="1em"
+            buttonTheme="primary"
             css={{
               height: 'fit-content',
               padding: '0.7em 1.3em',
@@ -68,10 +68,7 @@ function CardSection({ state, dispatch, modal }: Props) {
       </CardHeader>
       <CardBody>
         <ItemSection templateColumnsSize="minmax(11.25em, 1fr)" marginBottom="2em">
-          {loading &&
-            Array.from({ length: 10 }).map((_, idx) => (
-              <SkeletonVoucherItem key={idx} showOwner={false} />
-            ))}
+          {loading && Array.from({ length: 10 }).map((_, idx) => <SkeletonVoucherItem key={idx} showOwner={false} />)}
           {!loading &&
             vouchers.map(
               v =>
@@ -82,7 +79,7 @@ function CardSection({ state, dispatch, modal }: Props) {
                     showOwner={false}
                     voucherState={v.data.state}
                     icon={{ svg: faClose, tooltip: '취소' }}
-                    onClick={onCancel}
+                    handleClick={onCancel}
                   />
                 )
             )}

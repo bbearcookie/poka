@@ -1,19 +1,15 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import PhotocardItem from '@component/photocard/item/PhotocardItem';
 import StateLabel from '@component/label/stateLabel/StateLabel';
 import { VoucherItem as VoucherItemType, VoucherState } from '@type/voucher';
 import { IconType } from '@type/icon';
 import { StylesVoucherItem } from './_styles';
 
-interface Props
-  extends Pick<
-    VoucherItemType,
-    'voucherId' | 'photo' | 'owner' | 'createdTime'
-  > {
+interface Props extends Pick<VoucherItemType, 'voucherId' | 'photo' | 'owner' | 'createdTime'> {
   voucherState: VoucherState;
   showOwner?: boolean;
   icon?: IconType;
-  onClick?: (voucherId: number) => void;
+  handleClick?: (voucherId: number) => void;
   item?: React.ReactNode;
 }
 
@@ -26,14 +22,10 @@ function VoucherItem({
   showOwner = true,
   icon,
   item,
-  onClick = () => {}
+  handleClick = () => {},
 }: Props) {
-  const handleClick = useCallback(() => {
-    onClick(voucherId);
-  }, [voucherId, onClick]);
-
   return (
-    <PhotocardItem {...photo} icon={icon} onClick={handleClick}>
+    <PhotocardItem {...photo} icon={icon} handleClick={() => handleClick(voucherId)}>
       <StylesVoucherItem>
         <section className="info-section">
           <StateLabel
@@ -47,9 +39,7 @@ function VoucherItem({
           )}
         </section>
 
-        <section className="item-section">
-          {item}
-        </section>
+        <section className="item-section">{item}</section>
       </StylesVoucherItem>
     </PhotocardItem>
   );

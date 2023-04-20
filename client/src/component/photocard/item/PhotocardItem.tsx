@@ -7,7 +7,8 @@ import { StylesPhotocardItem, StylesPhotocardItemProps, PhotoName, PhotoImg } fr
 
 interface Props extends Photo {
   icon?: IconType;
-  onClick?: (photocardId: number) => void;
+  // onClick?: (photocardId: number) => void;
+  handleClick?: () => void;
   styles?: StylesPhotocardItemProps;
   children?: React.ReactNode;
 }
@@ -19,13 +20,13 @@ function PhotocardItem({
   groupData,
   memberData,
   icon,
-  onClick = () => {},
+  handleClick = () => {},
   styles,
   children,
 }: Props) {
-  const handleClick = useCallback(() => {
-    onClick(photocardId);
-  }, [photocardId, onClick]);
+  // const handleClick = useCallback(() => {
+  //   onClick(photocardId);
+  // }, [photocardId, onClick]);
 
   return (
     <StylesPhotocardItem {...styles}>
