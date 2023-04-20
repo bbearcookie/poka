@@ -146,11 +146,11 @@ export const exchangeTrade = async ({
             if (!con) return reject(new Error('undefined db connection'));
 
             let sql = `
-          UPDATE Voucher
-          SET
-            user_id=${con.escape(trade.userId)},
-            state='available'
-          WHERE voucher_id=${con.escape(voucherId)}`;
+            UPDATE Voucher
+            SET
+              user_id=${con.escape(trade.userId)},
+              state='available'
+            WHERE voucher_id=${con.escape(voucherId)}`;
 
             con.execute(sql).then(resolve).catch(reject);
           });
@@ -160,17 +160,17 @@ export const exchangeTrade = async ({
             if (!con) return reject(new Error('undefined db connection'));
 
             let sql = `
-          INSERT INTO VoucherLog(
-            voucher_id,
-            origin_user_id,
-            dest_user_id,
-            type
-          ) VALUES (
-            ${con.escape(voucherId)},
-            ${con.escape(customer.userId)},
-            ${con.escape(trade.userId)},
-            'traded'
-          )`;
+            INSERT INTO VoucherLog(
+              voucher_id,
+              origin_user_id,
+              dest_user_id,
+              type
+            ) VALUES (
+              ${con.escape(voucherId)},
+              ${con.escape(customer.userId)},
+              ${con.escape(trade.userId)},
+              'traded'
+            )`;
 
             con.execute(sql).then(resolve).catch(reject);
           });
