@@ -1,4 +1,5 @@
 import { ResType } from '@api/query/shipping/useShippingRequestQuery';
+import { useNavigate } from 'react-router';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import ShippingRequestInfo from '@component/shipping/request/ShippingRequestInfo';
 import RequestVoucherInfo from '@component/shipping/request/RequestVoucherInfo';
@@ -11,13 +12,16 @@ interface Props {
 }
 
 function Success({ res }: Props) {
+  const navigate = useNavigate();
+
   return (
     <>
       <ShippingRequestInfo shipping={res.shipping} cssProp={{ marginBottom: '5em' }} />
       <RequestVoucherInfo
         vouchers={res.vouchers}
         icon={{ svg: faArrowRight, tooltip: '상세 보기' }}
-        cssProp={{ marginBottom: '5em' }}
+        css={{ marginBottom: '5em' }}
+        handleClick={id => navigate(`/admin/voucher/detail/${id}`)}
       />
       <ButtonSection>
         {res.shipping.state !== 'shipped' && <Approve res={res} />}

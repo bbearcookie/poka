@@ -14,7 +14,7 @@ interface Props {
   handleSelect?: (photocardId: number) => void;
 }
 
-function PhotoList({ hook, icon, handleSelect }: Props) {
+function PhotoList({ hook, icon, handleSelect = () => {} }: Props) {
   const { filter, keyword, initialized } = hook;
 
   const makeRefindFilter = useCallback(
@@ -41,7 +41,7 @@ function PhotoList({ hook, icon, handleSelect }: Props) {
       {photos?.pages.map((page, i) => (
         <Fragment key={i}>
           {page.photos.map(p => (
-            <PhotocardItem {...p} key={p.photocardId} icon={icon} onClick={handleSelect} />
+            <PhotocardItem {...p} key={p.photocardId} icon={icon} handleClick={() => handleSelect(p.photocardId)} />
           ))}
         </Fragment>
       ))}

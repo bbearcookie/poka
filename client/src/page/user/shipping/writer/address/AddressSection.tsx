@@ -2,7 +2,7 @@ import React from 'react';
 import useShippingAddresses from '@api/query/shipping/useShippingAddressesQuery';
 import useModal from '@component/modal/useModal';
 import { useAppSelector } from '@app/redux/store';
-import { State, Action, initialState } from '@component/shipping/address/editor/reducer';
+import { State, Action } from '@component/shipping/address/editor/reducer';
 import AddressCard from './content/AddressCard';
 import AddressModal from './content/AddressModal';
 
@@ -15,11 +15,7 @@ function AddressSection({ state, dispatch }: Props) {
   const addressModal = useModal();
   const { userId } = useAppSelector(state => state.auth);
 
-  const {
-    status,
-    data: addresses,
-    error,
-  } = useShippingAddresses(userId, {
+  const { status, data: addresses } = useShippingAddresses(userId, {
     onSuccess: res => {
       dispatch({
         type: 'SET_FORM',
@@ -29,9 +25,8 @@ function AddressSection({ state, dispatch }: Props) {
         },
       });
     },
-    refetchOnMount: false,
     refetchOnReconnect: false,
-    refetchOnWindowFocus: false
+    refetchOnWindowFocus: false,
   });
 
   return (

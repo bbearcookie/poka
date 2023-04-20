@@ -1,8 +1,9 @@
 import db from '@config/database';
+import { selectShippingRequestDetail } from './select';
 import { PoolConnection } from 'mysql2/promise';
 import { ResultSetHeader } from 'mysql2';
 
-// 발송 완료 처리
+// 배송 요청 발송 처리
 export const approveShippingRequest = async (requestId: number) => {
   let con: PoolConnection | undefined;
 
@@ -10,36 +11,7 @@ export const approveShippingRequest = async (requestId: number) => {
     con = await db.getConnection();
     await con.beginTransaction();
 
-    // 소유권 상태 변경
-    const updateVoucher = new Promise(async (resolve, reject) => {
-      if (!con) throw new Error('undefined db connection');
-
-      try {
-        let sql;
-
-        // 변경해야 할 소유권 ID 조회
-        sql = `
-        SELECT
-          voucher_id as voucherId
-        FROM ShippingRequestVoucher
-        WHERE request_id=${con.escape(requestId)}`;
-
-        interface VoucherIds { voucherId: number; }
-        const [result] = await con.query<VoucherIds[] & ResultSetHeader>(sql);
-        const voucherIds: number[] = result.map(v => v.voucherId);
-
-        // 소유권 상태 변경
-        sql = `
-        UPDATE Voucher
-        SET
-          state='shipped'
-        WHERE voucher_id IN (${con.escape(voucherIds)})`;
-
-        resolve(await con.execute(sql));
-      } catch (err) {
-        reject(err);
-      }
-    });
+    const [[request]] = await selectShippingRequestDetail(requestId);
 
     // 배송 요청 상태 변경
     const updateRequest = new Promise((resolve, reject) => {
@@ -54,7 +26,75 @@ export const approveShippingRequest = async (requestId: number) => {
       con.execute(sql).then(resolve).catch(reject);
     });
 
-    await Promise.all([updateVoucher, updateRequest]);
+    // 소유권 관련 작업
+    const updateVoucher = new Promise(async (resolve, reject) => {
+      if (!con) throw new Error('undefined db connection');
+
+      // 변경해야 할 소유권 ID 조회
+      const loadVoucherIds = () =>
+        new Promise<number[]>((resolve, reject) => {
+          if (!con) throw new Error('undefined db connection');
+
+          let sql = `
+          SELECT
+            voucher_id as voucherId
+          FROM ShippingRequestVoucher
+          WHERE request_id=${con.escape(requestId)}`;
+
+          interface VoucherIds {
+            voucherId: number;
+          }
+
+          con
+            .query<VoucherIds[] & ResultSetHeader>(sql)
+            .then(data => resolve(data[0].map(v => v.voucherId)))
+            .catch(reject);
+        });
+
+      // 소유권 상태 변경
+      const updateVoucherState = (voucherIds: number[]) =>
+        new Promise((resolve, reject) => {
+          if (!con) throw new Error('undefined db connection');
+
+          let sql = `
+          UPDATE Voucher
+          SET
+            state='shipped'
+          WHERE voucher_id IN (${con.escape(voucherIds)})`;
+
+          con.execute(sql).then(resolve).catch(reject);
+        });
+
+      // 소유권 기록 작성
+      const insertLogs = (voucherIds: number[]) =>
+        voucherIds.map(
+          voucherId =>
+            new Promise((resolve, reject) => {
+              if (!con) throw new Error('undefined db connection');
+
+              let sql = `
+              INSERT INTO VoucherLog(
+                voucher_id,
+                origin_user_id,
+                type
+              ) VALUES (
+                ${con.escape(voucherId)},
+                ${con.escape(request.author.userId)},
+                'shipped'
+              )`;
+
+              con.execute(sql).then(resolve).catch(reject);
+            })
+        );
+
+      const voucherIds = await loadVoucherIds();
+      Promise.all([updateVoucherState(voucherIds), insertLogs(voucherIds)])
+        .then(resolve)
+        .catch(reject);
+    });
+
+    await Promise.all([updateRequest, updateVoucher]);
+
     con.commit();
   } catch (err) {
     con?.rollback();
@@ -62,4 +102,4 @@ export const approveShippingRequest = async (requestId: number) => {
   } finally {
     con?.release();
   }
-}
+};

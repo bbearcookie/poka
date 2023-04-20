@@ -24,6 +24,7 @@ function AdminRouter() {
 
   return (
     <Routes>
+      <Route path="/" element={<Navigate to="/admin/voucher/list" />} />
       <Route path="/group/list" element={<GroupListPage />} />
       <Route path="/group/writer" element={<GroupWriterPage />} />
       <Route path="/group/editor/:groupId" element={<GroupEditorPage />} />

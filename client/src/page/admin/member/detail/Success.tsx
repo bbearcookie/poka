@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { ResType as MemberType } from '@api/query/member/useMemberQuery';
 import Button from '@component/form/button/Button';
@@ -23,9 +24,11 @@ function Success({ member, memberId }: Props) {
       <Card css={{ marginBottom: '5em' }}>
         <CardHeader>
           <TitleLabel title="등록된 포토카드">
-            <Button buttonTheme="primary" rightIcon={faArrowRight} iconMargin="1em">
-              목록
-            </Button>
+            <Link to={`/admin/photo/list?groupId=${member.groupId}&memberId=${member.memberId}`}>
+              <Button buttonTheme="primary" rightIcon={faArrowRight} iconMargin="1em">
+                목록
+              </Button>
+            </Link>
           </TitleLabel>
         </CardHeader>
         <CardBody>

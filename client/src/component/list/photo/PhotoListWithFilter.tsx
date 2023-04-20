@@ -5,11 +5,18 @@ import PhotoList from './PhotoList';
 
 interface Props {
   icon?: IconType;
+  defaultGroupIds?: number[];
+  defaultMemberIds?: number[];
   handleSelect?: (photocardId: number) => void;
 }
 
-function PhotoListWithFilter({ icon, handleSelect }: Props) {
-  const searcher = useSearcher();
+function PhotoListWithFilter({ icon, defaultGroupIds = [], defaultMemberIds = [], handleSelect }: Props) {
+  const searcher = useSearcher({
+    defaultFilter: {
+      groupIds: defaultGroupIds,
+      memberIds: defaultMemberIds,
+    },
+  });
 
   return (
     <>

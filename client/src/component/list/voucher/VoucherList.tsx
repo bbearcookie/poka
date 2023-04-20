@@ -16,9 +16,9 @@ interface Props {
   handleSelect?: (voucherId: number) => void;
 }
 
-function VoucherList({ hook, showOwner = true, excludeVoucherIds, icon, handleSelect }: Props) {
+function VoucherList({ hook, showOwner = true, excludeVoucherIds, icon, handleSelect = () => {} }: Props) {
   const { filter, keyword, initialized } = hook;
-  
+
   const makeRefineFilter = useCallback(
     (): FilterType => ({
       groupIds: filter.groups.filter(g => g.checked).map(g => g.id),
@@ -34,12 +34,7 @@ function VoucherList({ hook, showOwner = true, excludeVoucherIds, icon, handleSe
   const [refine, setRefine] = useState<FilterType>(makeRefineFilter());
 
   // 데이터 가져오기
-  const {
-    data: vouchers,
-    isFetching,
-    hasNextPage,
-    fetchNextPage,
-  } = useVouchersQuery(refine, { enabled: initialized });
+  const { data: vouchers, isFetching, hasNextPage, fetchNextPage } = useVouchersQuery(refine, { enabled: initialized });
 
   // 검색 조건 변경시 새로운 필터 적용
   useUpdateEffect(() => {
@@ -58,7 +53,7 @@ function VoucherList({ hook, showOwner = true, excludeVoucherIds, icon, handleSe
               voucherState={v.state}
               showOwner={showOwner}
               icon={icon}
-              onClick={handleSelect}
+              handleClick={() => handleSelect(v.voucherId)}
             />
           ))}
         </Fragment>

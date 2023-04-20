@@ -41,7 +41,7 @@ function PhotoList({ photos, dispatch }: Props) {
               {...photo.data}
               key={photo.data.photocardId}
               icon={{ svg: faClose, tooltip: '취소' }}
-              onClick={removePhoto}
+              handleClick={() => removePhoto(photo.data.photocardId)}
             />
           )
       )}
