@@ -1,6 +1,8 @@
 import { useReducer, useCallback } from 'react';
+import produce from 'immer';
+import QueryString from 'qs';
+import { useLocation, useNavigate } from 'react-router';
 import useAddTrade from '@api/mutation/trade/useAddTrade';
-import { useNavigate } from 'react-router';
 import { reducer, initialState, FormType } from '@component/trade/editor/reducer';
 import TitleLabel from '@component/label/TitleLabel';
 import Voucher from '@component/trade/editor/Voucher';
@@ -9,7 +11,14 @@ import ButtonSection from '@component/trade/editor/ButtonSection';
 import { StyledIndex } from './_styles';
 
 function Index() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const location = useLocation();
+  const voucherId = Number(QueryString.parse(location.search, { ignoreQueryPrefix: true }).voucherId) || 0;
+  const [state, dispatch] = useReducer(
+    reducer,
+    produce(initialState, draft => {
+      draft.data.voucherId = voucherId;
+    })
+  );
   const navigate = useNavigate();
 
   const postMutation = useAddTrade<keyof FormType>(
@@ -32,11 +41,7 @@ function Index() {
   return (
     <StyledIndex>
       <TitleLabel title="교환 등록" css={{ marginBottom: '2em' }} />
-      <Voucher
-        state={state}
-        dispatch={dispatch}
-        cssProp={{ width: 'fit-content', marginBottom: '5em' }}
-      />
+      <Voucher state={state} dispatch={dispatch} cssProp={{ width: 'fit-content', marginBottom: '5em' }} />
       <WantPhotocard state={state} dispatch={dispatch} cssProp={{ marginBottom: '5em' }} />
       <ButtonSection handleSubmit={handleSubmit} handleCancel={handleCancel} />
     </StyledIndex>
