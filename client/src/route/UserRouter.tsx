@@ -19,6 +19,7 @@ function UserRouter() {
 
   return (
     <Routes>
+      <Route path="/" element={<Navigate to="/myinfo" />} />
       <Route path="/myinfo" element={<MyInfoPage />} />
       <Route path="/voucher/list" element={<VoucherListPage />} />
       <Route path="/voucher/detail/:voucherId" element={<VoucherDetailPage />} />
