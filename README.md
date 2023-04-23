@@ -87,4 +87,5 @@
 데이터를 가지고 데이터베이스에서 조회한 뒤에 수행해야 하는 유효성 검사 부분도 있었는데, 이 부분도 `custom()` 을 활용해서 할 방법이 있을 것 같은데 데이터베이스에서 조회한 내용을 이후의 미들웨어로 전달하는 방법이 고민되어서 적용하지 못했습니다. 추후에 좋은 방법을 떠올려서 개선해 보면 좋을 것입니다.  
                       
 ## 🚀 구현 기능
-[Frontend](https://github.com/bbearcookie/poka/tree/bbearcookie-readme-1/client)
+[Frontend](https://github.com/bbearcookie/poka/tree/main/client)   
+[Backend](https://github.com/bbearcookie/poka/wiki/%F0%9F%93%9C-API-%EB%AA%85%EC%84%B8)
