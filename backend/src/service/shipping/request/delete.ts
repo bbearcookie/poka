@@ -3,10 +3,7 @@ import { PoolConnection } from 'mysql2/promise';
 import { ResultSetHeader } from 'mysql2';
 
 // 배송 요청 삭제
-export const deleteShippingRequest = async (
-  requestId: number, 
-  paymentId: number
-) => {
+export const deleteShippingRequest = async (requestId: number, paymentId: number) => {
   let con: PoolConnection | undefined;
 
   try {
@@ -24,8 +21,10 @@ export const deleteShippingRequest = async (
           voucher_id as voucherId
         FROM ShippingRequestVoucher
         WHERE request_id=${con.escape(requestId)}`;
-        
-        interface VoucherDataType { voucherId: number; }
+
+        interface VoucherDataType {
+          voucherId: number;
+        }
         const [voucherData] = await con.query<VoucherDataType[] & ResultSetHeader>(sql);
         let voucherIds = voucherData.map(v => v.voucherId);
 
@@ -44,24 +43,14 @@ export const deleteShippingRequest = async (
     });
 
     // 결제ID가 담긴 결제 정보 삭제
-    const deletePayment = new Promise((resolve, reject) => {
-      if (!con) return reject(new Error('connection is undefined'));
-
-      let sql = `
+    const deletePayment = con.execute(`
       DELETE FROM Payment
-      WHERE payment_id=${con.escape(paymentId)}`;
-      con.execute(sql).then(resolve).catch(reject);
-    });
+      WHERE payment_id=${con.escape(paymentId)}`);
 
     // 배송 요청 삭제
-    const deleteRequest = new Promise((resolve, reject) => {
-      if (!con) return reject(new Error('connection is undefined'));
-
-      let sql = `
+    const deleteRequest = con.execute(`
       DELETE FROM ShippingRequest
-      WHERE request_id=${con.escape(requestId)}`;
-      con.execute(sql).then(resolve).catch(reject);
-    });
+      WHERE request_id=${con.escape(requestId)}`);
 
     await Promise.all([updateVoucher, deletePayment, deleteRequest]);
     con.commit();
@@ -71,4 +60,4 @@ export const deleteShippingRequest = async (
   } finally {
     con?.release();
   }
-}
+};

@@ -68,45 +68,34 @@ export const insertShippingRequest = async (
       ${con.escape(address.address)},
       ${con.escape(address.addressDetail)},
       ${con.escape(address.requirement)}
-    )`
+    )`;
     const [request] = await con.execute<ResultSetHeader>(sql);
 
     // 소유권 관련 처리
-    const updateVouchers = voucherIds.map(voucherId => (
-      new Promise((resolve, reject) => {
+    const updateVouchers = voucherIds.map(
+      voucherId =>
+        new Promise((resolve, reject) => {
+          // 소유권 상태 배송대기 상태로 변경.
+          const updateVoucher = con?.execute(`
+            UPDATE Voucher
+            SET
+              state='shipping'
+            WHERE voucher_id=${con.escape(voucherId)}
+          `);
 
-        // 소유권 상태 배송대기 상태로 변경.
-        const updateVoucher = new Promise((resolve, reject) => {
-          if (!con) return reject(new Error('undefined connection'));
+          // 배송 요청하는 소유권 정보 생성
+          const insertRequestVoucher = con?.execute(`
+            INSERT INTO ShippingRequestVoucher(
+              request_id,
+              voucher_id
+            ) VALUES (
+              ${con.escape(request.insertId)},
+              ${con.escape(voucherId)}
+            )`);
 
-          let sql = `
-          UPDATE Voucher
-          SET
-            state='shipping'
-          WHERE voucher_id=${con.escape(voucherId)}`;
-
-          con.execute(sql).then(resolve).catch(reject);
-        });
-
-        // 배송 요청하는 소유권 정보 생성
-        const insertRequestVoucher = new Promise((resolve, reject) => {
-          if (!con) return reject(new Error('undefined connection'));
-
-          let sql = `
-          INSERT INTO ShippingRequestVoucher(
-            request_id,
-            voucher_id
-          ) VALUES (
-            ${con.escape(request.insertId)},
-            ${con.escape(voucherId)}
-          )`;
-
-          con.execute(sql).then(resolve).catch(reject);
-        });
-
-        Promise.all([updateVoucher, insertRequestVoucher]).then(resolve).catch(reject);
-      })
-    ));
+          Promise.all([updateVoucher, insertRequestVoucher]).then(resolve).catch(reject);
+        })
+    );
 
     await Promise.all(updateVouchers);
     con.commit();
@@ -117,4 +106,4 @@ export const insertShippingRequest = async (
   } finally {
     con?.release();
   }
-}
+};
