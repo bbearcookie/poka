@@ -20,28 +20,28 @@ export const updateTrade = async ({
 
     // 기존 wantPhotocard 모두 제거
     const deleteExistingWantcard = con.execute(`
-    DELETE FROM TradeWantcard
-    WHERE trade_id=${trade.tradeId}`);
+      DELETE FROM TradeWantcard
+      WHERE trade_id=${trade.tradeId}`);
 
     // 교환글 수정
     const updateTrade = con.execute(`
-    UPDATE Trade
-    SET
-      amount=${con.escape(amount)}
-    WHERE trade_id=${con.escape(trade.tradeId)}`);
+      UPDATE Trade
+      SET
+        amount=${con.escape(amount)}
+      WHERE trade_id=${con.escape(trade.tradeId)}`);
 
     // 교환글이 원하는 포토카드 정보 작성
     const insertWantcards = wantPhotocardIds.map(photocardId => {
       if (!con) throw new Error('undefined db connection');
 
       return con.execute(`
-      INSERT INTO TradeWantcard(
-        trade_id,
-        photocard_id
-      ) VALUES (
-        ${con.escape(trade.tradeId)},
-        ${con.escape(photocardId)}
-      )`);
+        INSERT INTO TradeWantcard(
+          trade_id,
+          photocard_id
+        ) VALUES (
+          ${con.escape(trade.tradeId)},
+          ${con.escape(photocardId)}
+        )`);
     });
 
     await Promise.all([deleteExistingWantcard, updateTrade, ...insertWantcards]);
@@ -73,33 +73,33 @@ export const exchangeTrade = async ({
 
     // 교환글 상태 변경, 교환일 변경
     const updateTrade = con.execute(`
-    UPDATE Trade
-    SET
-      state='traded',
-      traded_time=now()
-    WHERE trade_id=${con.escape(trade.tradeId)}`);
+      UPDATE Trade
+      SET
+        state='traded',
+        traded_time=now()
+      WHERE trade_id=${con.escape(trade.tradeId)}`);
 
     // 교환글에 등록된 소유권의 주인과 상태 변경
     const updateTradeVoucher = con.execute(`
-    UPDATE Voucher
-    SET
-      user_id=${con.escape(customer.userId)},
-      state='available'
-    WHERE voucher_id=${con.escape(trade.voucher.voucherId)}`);
+      UPDATE Voucher
+      SET
+        user_id=${con.escape(customer.userId)},
+        state='available'
+      WHERE voucher_id=${con.escape(trade.voucher.voucherId)}`);
 
     // 교환 기록 추가
     const insertVoucherLog = con.execute(`
-    INSERT INTO VoucherLog(
-      voucher_id,
-      origin_user_id,
-      dest_user_id,
-      type
-    ) VALUES (
-      ${con.escape(trade.voucher.voucherId)},
-      ${con.escape(trade.userId)},
-      ${con.escape(customer.userId)},
-      'traded'
-    )`);
+      INSERT INTO VoucherLog(
+        voucher_id,
+        origin_user_id,
+        dest_user_id,
+        type
+      ) VALUES (
+        ${con.escape(trade.voucher.voucherId)},
+        ${con.escape(trade.userId)},
+        ${con.escape(customer.userId)},
+        'traded'
+      )`);
 
     // 교환 신청한 사용자의 소유권 변경 및 기록 작성
     const updateVouchers = customer.voucherIds.map(
@@ -109,25 +109,25 @@ export const exchangeTrade = async ({
 
           // 소유권 변경
           const updateVoucher = con.execute(`
-          UPDATE Voucher
-          SET
-            user_id=${con.escape(trade.userId)},
-            state='available'
-          WHERE voucher_id=${con.escape(voucherId)}`);
+            UPDATE Voucher
+            SET
+              user_id=${con.escape(trade.userId)},
+              state='available'
+            WHERE voucher_id=${con.escape(voucherId)}`);
 
           // 교환 기록 작성
           const insertLog = con.execute(`
-          INSERT INTO VoucherLog(
-            voucher_id,
-            origin_user_id,
-            dest_user_id,
-            type
-          ) VALUES (
-            ${con.escape(voucherId)},
-            ${con.escape(customer.userId)},
-            ${con.escape(trade.userId)},
-            'traded'
-          )`);
+            INSERT INTO VoucherLog(
+              voucher_id,
+              origin_user_id,
+              dest_user_id,
+              type
+            ) VALUES (
+              ${con.escape(voucherId)},
+              ${con.escape(customer.userId)},
+              ${con.escape(trade.userId)},
+              'traded'
+            )`);
 
           Promise.all([updateVoucher, insertLog]).then(resolve).catch(reject);
         })
