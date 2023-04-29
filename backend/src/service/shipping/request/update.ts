@@ -14,17 +14,11 @@ export const approveShippingRequest = async (requestId: number) => {
     const [[request]] = await selectShippingRequestDetail(requestId);
 
     // 배송 요청 상태 변경
-    const updateRequest = new Promise((resolve, reject) => {
-      if (!con) return reject(new Error('undefined db connection'));
-
-      let sql = `
+    const updateRequest = con.execute(`
       UPDATE ShippingRequest
       SET
         state='shipped'
-      WHERE request_id=${con.escape(requestId)}`;
-
-      con.execute(sql).then(resolve).catch(reject);
-    });
+      WHERE request_id=${con.escape(requestId)}`);
 
     // 소유권 관련 작업
     const updateVoucher = new Promise(async (resolve, reject) => {

@@ -10,28 +10,18 @@ export const deleteTrade = async (tradeId: number, voucherId: number) => {
     await con.beginTransaction();
 
     // 소유권 상태 변경
-    const updateVoucher = new Promise((resolve, reject) => {
-      if (!con) return reject(new Error('undefined db connection'));
-
-      let sql = `
+    const updateVoucher = con.execute(`
       UPDATE Voucher
       SET
         state='available'
-      WHERE voucher_id=${con.escape(voucherId)}`;
-
-      con.execute(sql).then(resolve).catch(reject);
-    });
+      WHERE voucher_id=${con.escape(voucherId)}
+    `);
 
     // 교환글 삭제
-    const deleteTrade = new Promise((resolve, reject) => {
-      if (!con) return reject(new Error('undefined db connection'));
-
-      let sql = `
+    const deleteTrade = con.execute(`
       DELETE FROM Trade
-      WHERE trade_id=${con.escape(tradeId)}`;
-
-      con.execute(sql).then(resolve).catch(reject);
-    });
+      WHERE trade_id=${con.escape(tradeId)}
+    `);
 
     await Promise.all([updateVoucher, deleteTrade]);
     con.commit();
@@ -41,4 +31,4 @@ export const deleteTrade = async (tradeId: number, voucherId: number) => {
   } finally {
     con?.release();
   }
-}
+};
