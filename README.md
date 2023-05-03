@@ -20,7 +20,7 @@
 |FrontEnd|BackEnd|Stoarage|Domain|
 |:---:|:---:|:---:|:---:|
 |<img width="90" height="60" src="https://devopedia.org/images/article/397/9618.1642936094.png">|<img width="90" height="90" src="https://oopy.lazyrockets.com/api/v2/notion/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F6a9c0584-cd27-4d1c-9555-fdbb8942ca34%2Fcloudtype_logo_vertical.png&blockId=c38f4d8c-2d4b-4640-a793-d8970dca47ab">|<img width="50" height="60" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Amazon-S3-Logo.svg/642px-Amazon-S3-Logo.svg.png?20220427001138">|<img width="60" height="50" src="https://company.gabia.com/assets/images/intro/img_gabia-logo.svg">|
-|<a href="https://netlify.com/">Netlify</a>|<a href="https://cloudtype.io/">cloudtype</a>|<a href="https://aws.amazon.com/ko/s3/?nc2=h_ql_prod_st_s3">Amazone S3</a>|<a href="https://www.gabia.com/">Gabia</a>|
+|<a href="https://netlify.com/">Netlify</a>|<a href="https://cloudtype.io/">cloudtype</a>|<a href="https://aws.amazon.com/ko/s3/?nc2=h_ql_prod_st_s3">Amazon S3</a>|<a href="https://www.gabia.com/">Gabia</a>|
 
 [➡️ 서비스 둘러보기](https://poka-trade.site/)  
 
