@@ -1,12 +1,7 @@
 {
-  "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -20,43 +15,10 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": [
-      "iamport-typings"
-    ]
+    "types": ["iamport-typings"],
+    "baseUrl": "."
   },
-  "include": [
-    "src",
-    "craco.config.js"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/node_modules/*"
-  ],
-  "baseUrl": ".",
-  "paths": {
-    "@app": ["./src/app"],
-    "@app/*": ["./src/app/*"],
-    "@api": ["./src/api"],
-    "@api/*": ["./src/api/*"],
-    "@context": ["./src/context"],
-    "@context/*": ["./src/context/*"],
-    "@component": ["./src/component"],
-    "@component/*": ["./src/component/*"],
-    "@feature": ["./src/feature"],
-    "@feature/*": ["./src/feature/*"],
-    "@hook": ["./src/hook"],
-    "@hook/*": ["./src/hook/*"],
-    "@page": ["./src/page"],
-    "@page/*": ["./src/page/*"],
-    "@util": ["./src/util"],
-    "@util/*": ["./src/util/*"],
-    "@route": ["./src/route"],
-    "@route/*": ["./src/route/*"],
-    "@type": ["./src/type"],
-    "@type/*": ["./src/type/*"],
-    "@template": ["./src/template"],
-    "@template/*": ["./src/template/*"],
-    "@": ["./src"],
-    "@/*": ["./src/*"]
-  },
+  "include": ["src", "craco.config.js"],
+  "exclude": ["node_modules", "**/node_modules/*"],
+  "extends": "./tsconfig.paths.json"
 }

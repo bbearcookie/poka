@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@config": ["src/config/index.ts"],
+      "@config/*": ["src/config/*"],
+      "@controller": ["src/controller/index.ts"],
+      "@controller/*": ["src/controller/*"],
+      "@router": ["src/router/index.ts"],
+      "@router/*": ["src/router/*"],
+      "@service": ["src/service/index.ts"],
+      "@service/*": ["src/service/*"],
+      "@type": ["src/type/index.ts"],
+      "@type/*": ["src/type/*"],
+      "@util": ["/src/util/index.ts"],
+      "@util/*": ["src/util/*"],
+      "@uploader": ["/src/uploader/index.ts"],
+      "@uploader/*": ["src/uploader/*"],
+      "@validator": ["/src/validator/index.ts"],
+      "@validator/*": ["src/validator/*"],
+      "@": ["src"],
+      "@/*": ["src/*"]
+    }
+  }
+}

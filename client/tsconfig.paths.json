@@ -1,17 +1,27 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
     "paths": {
+      "@app": ["src/app/index.ts"],
       "@app/*": ["src/app/*"],
+      "@api": ["src/api"],
       "@api/*": ["src/api/*"],
+      "@context": ["src/context"],
       "@context/*": ["src/context/*"],
+      "@component": ["src/component"],
       "@component/*": ["src/component/*"],
+      "@feature": ["src/feature"],
       "@feature/*": ["src/feature/*"],
+      "@hook": ["src/hook"],
       "@hook/*": ["src/hook/*"],
+      "@page": ["src/page"],
       "@page/*": ["src/page/*"],
+      "@util": ["src/util"],
       "@util/*": ["src/util/*"],
+      "@route": ["src/route"],
       "@route/*": ["src/route/*"],
+      "@type": ["src/type"],
       "@type/*": ["src/type/*"],
+      "@template": ["src/template"],
       "@template/*": ["src/template/*"],
       "@/*": ["src/*"]
     }
