@@ -31,15 +31,14 @@ function PhotoEditor({ photo, photocardId, closeEditor }: Props) {
   );
 
   // 데이터 수정 요청
-  const putMutation = useModifyPhoto<keyof FormType>(
-    photocardId,
-    res => closeEditor(),
-    err => {
+  const putMutation = useModifyPhoto<keyof FormType>(photocardId, {
+    onSuccess: () => closeEditor(),
+    onError: err => {
       err.response?.data.errors.forEach(e => {
         dispatch({ type: 'SET_MESSAGE', payload: { target: e.param, value: e.message } });
       });
-    }
-  );
+    },
+  });
 
   // 전송 이벤트
   const onSubmit = useCallback(

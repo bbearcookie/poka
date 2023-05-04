@@ -14,9 +14,9 @@ function Index() {
   const navigate = useNavigate();
 
   // 데이터 추가 요청
-  const postMutation = useAddPhotos<string>(
-    res => navigate('/admin/photo/list'),
-    err => {
+  const postMutation = useAddPhotos<string>({
+    onSuccess: () => navigate('/admin/photo/list'),
+    onError: err => {
       err.response?.data.errors.forEach(item => {
         if (item.param === 'groupId' || item.param === 'memberId') {
           dispatch({ type: 'SET_MESSAGE', payload: { target: item.param, value: item.message } });
@@ -26,8 +26,8 @@ function Index() {
           dispatch({ type: 'SET_PHOTO_MESSAGE', idx: index, message: item.message });
         }
       });
-    }
-  );
+    },
+  });
 
   // 전송시 작동
   const onSubmit = useCallback(

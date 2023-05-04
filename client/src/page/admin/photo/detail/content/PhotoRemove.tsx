@@ -17,16 +17,15 @@ function PhotoRemove({ photo, photocardId }: Props) {
   const navigate = useNavigate();
 
   // 데이터 삭제 요청
-  const deleteMutation = useDeletePhoto(
-    photocardId,
-    res => navigate('/admin/photo/list'),
-    err => removeModal.setErrorMessage(getErrorMessage(err))
-  );
+  const deleteMutation = useDeletePhoto(photocardId, {
+    onSuccess: () => navigate('/admin/photo/list'),
+    onError: err => removeModal.setErrorMessage(getErrorMessage(err)),
+  });
 
   // 포토카드 삭제
   const removePhotocard = useCallback(() => {
-    deleteMutation.mutate({ photocardId });
-  }, [deleteMutation, photocardId]);
+    deleteMutation.mutate();
+  }, [deleteMutation]);
 
   return (
     <>
@@ -45,7 +44,7 @@ function PhotoRemove({ photo, photocardId }: Props) {
       <ConfirmModal
         hook={removeModal}
         title="포토카드 삭제"
-        confirm={{ text: '삭제', buttonTheme: "danger", onClick: removePhotocard }}
+        confirm={{ text: '삭제', buttonTheme: 'danger', onClick: removePhotocard }}
       >
         <p className="text">이 그룹을 삭제하면 연관된 사용자의 소유권도 함께 지워져요.</p>
         <p className="text">정말로 {photo?.name} 카드를 삭제하시겠어요?</p>

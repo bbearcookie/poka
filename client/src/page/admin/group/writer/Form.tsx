@@ -114,7 +114,7 @@ function Form({ name = DefaultProps.name, imageName = DefaultProps.imageName, gr
 
   // 폼 전송 이벤트
   const onSubmit = useCallback(
-    async (e: React.FormEvent) => {
+    (e: React.FormEvent) => {
       e.preventDefault();
 
       // 그룹 수정중이면 수정 요청

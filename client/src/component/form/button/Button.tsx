@@ -29,10 +29,9 @@ function Button({
   rightIcon,
   children,
   ...rest
-}: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> &
-  Props) {
+}: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & Props) {
   return (
-    <button {...rest}>
+    <button type="button" {...rest}>
       {leftIcon && <FontAwesomeIcon icon={leftIcon} />}
       {children}
       {rightIcon && <FontAwesomeIcon icon={rightIcon} />}
