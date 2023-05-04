@@ -16,16 +16,15 @@ function GroupRemove({ groupId, name }: Props) {
   const navigate = useNavigate();
 
   // 데이터 삭제 요청
-  const deleteMutation = useDeleteGroup(
-    groupId,
-    res => navigate('/admin/group/list'),
-    err => removeModal.setErrorMessage(getErrorMessage(err))
-  );
+  const deleteMutation = useDeleteGroup(groupId, {
+    onSuccess: () => navigate('/admin/group/list'),
+    onError: err => removeModal.setErrorMessage(getErrorMessage(err)),
+  });
 
   // 그룹 삭제
   const removeGroup = useCallback(() => {
-    deleteMutation.mutate({ groupId });
-  }, [deleteMutation, groupId]);
+    deleteMutation.mutate();
+  }, [deleteMutation]);
 
   return (
     <>

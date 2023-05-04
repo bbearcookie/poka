@@ -54,17 +54,16 @@ function Form({ name = DefaultProps.name, imageName = DefaultProps.imageName, gr
   );
 
   // 데이터 추가 요청
-  const postMutation = useAddGroup<keyof InputType>(
-    res => navigate(`/admin/group/list`),
-    onMutationError
-  );
+  const postMutation = useAddGroup<keyof InputType>({
+    onSuccess: () => navigate(`/admin/group/list`),
+    onError: onMutationError,
+  });
 
   // 데이터 수정 요청
-  const putMutation = useModifyGroup<keyof InputType>(
-    groupId || 0,
-    res => navigate(`/admin/group/detail/${groupId}`),
-    onMutationError
-  );
+  const putMutation = useModifyGroup<keyof InputType>(groupId || 0, {
+    onSuccess: () => navigate(`/admin/group/detail/${groupId}`),
+    onError: onMutationError,
+  });
 
   // 유효성 검사
   const validate = useCallback(
@@ -185,8 +184,8 @@ function Form({ name = DefaultProps.name, imageName = DefaultProps.imageName, gr
             />
             <InputMessage>{inputMessage.name}</InputMessage>
             <p className="description">
-              아이돌 그룹의 이름을 지정합니다. 이 이름은 사용자가 포토카드를 찾거나, 관리자가
-              포토카드 정보를 관리할 때 사용됩니다.
+              아이돌 그룹의 이름을 지정합니다. 이 이름은 사용자가 포토카드를 찾거나, 관리자가 포토카드 정보를 관리할 때
+              사용됩니다.
             </p>
           </CardBody>
         </Card>

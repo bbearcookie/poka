@@ -1,8 +1,8 @@
-import { useMutation, UseMutationResult } from '@tanstack/react-query';
+import { useMutation, UseMutationOptions } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { addGroup } from '@api/api/group';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ResponseError } from "@type/response";
+import { ResponseError } from '@type/response';
 import { getErrorMessage } from '@util/request';
 
 interface BodyType {
@@ -10,25 +10,24 @@ interface BodyType {
   image: File | null;
 }
 
-interface ResType { message: string; }
+interface ResType {
+  message: string;
+}
 
 export default function useAddGroup<TParam>(
-  onSuccess?: (res: AxiosResponse<ResType>) => void,
-  onError?: (err: AxiosError<ResponseError<TParam>, any>) => void
-): 
-UseMutationResult<
-  AxiosResponse<ResType>,
-  AxiosError<ResponseError<TParam>>,
-  BodyType
-> {
-  return useMutation(body => addGroup(body), {
-    onSuccess: (res: AxiosResponse<ResType>) => {
+  options?: Omit<
+    UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType, unknown>,
+    'mutationFn'
+  >
+) {
+  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>(body => addGroup(body), {
+    onSuccess: (res, variables, context) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-      if (onSuccess) onSuccess(res);
+      options?.onSuccess && options?.onSuccess(res, variables, context);
     },
-    onError: (err) => {
+    onError: (err, variables, context) => {
       toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-      if (onError) onError(err);
-    }
+      options?.onError && options?.onError(err, variables, context);
+    },
   });
 }

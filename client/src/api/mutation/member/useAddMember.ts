@@ -1,8 +1,8 @@
-import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
+import { useMutation, UseMutationOptions, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { addMember } from '@api/api/member';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ResponseError } from "@type/response";
+import { ResponseError } from '@type/response';
 import { getErrorMessage } from '@util/request';
 import * as queryKey from '@api/queryKey';
 
@@ -17,25 +17,24 @@ interface ResType {
 
 export default function useAddMember<TParam>(
   groupId: number,
-  onSuccess?: (res: AxiosResponse<ResType>) => void,
-  onError?: (err: AxiosError<ResponseError<TParam>, any>) => void
-): 
-UseMutationResult<
-  AxiosResponse<ResType>,
-  AxiosError<ResponseError<TParam>>,
-  BodyType
-> {
+  options?: Omit<
+    UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType, unknown>,
+    'mutationFn'
+  >
+) {
   const queryClient = useQueryClient();
 
-  return useMutation(body => addMember(groupId, body), {
-    onSuccess: (res: AxiosResponse<ResType>) => {
-      queryClient.invalidateQueries(queryKey.groupKeys.all);
-      queryClient.invalidateQueries(queryKey.groupKeys.detail(groupId));
-      if (onSuccess) onSuccess(res);
-    },
-    onError: (err) => {
-      toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-      if (onError) onError(err);
+  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>(
+    body => addMember(groupId, body),
+    {
+      onSuccess: (res, variables, context) => {
+        queryClient.invalidateQueries(queryKey.groupKeys.all);
+        options?.onSuccess && options?.onSuccess(res, variables, context);
+      },
+      onError: (err, variables, context) => {
+        toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
+        options?.onError && options?.onError(err, variables, context);
+      },
     }
-  });
+  );
 }

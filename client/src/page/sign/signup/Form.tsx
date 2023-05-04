@@ -11,14 +11,14 @@ function Form() {
   const navigate = useNavigate();
 
   // 회원가입 요청
-  const postMutation = useSignup<keyof FormType>(
-    res => navigate('/login'),
-    err => {
+  const postMutation = useSignup<keyof FormType>({
+    onSuccess: () => navigate('/login'),
+    onError: err => {
       err.response?.data.errors.forEach(e => {
         dispatch({ type: 'SET_MESSAGE', target: e.param, value: e.message });
       });
-    }
-  );
+    },
+  });
 
   // input 포커스 해제시 오류 메시지 제거
   const blurInput = useCallback(

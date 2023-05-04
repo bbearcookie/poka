@@ -17,16 +17,15 @@ function MemberRemove({ member, memberId }: Props) {
   const navigate = useNavigate();
 
   // 데이터 삭제 요청
-  const deleteMutation = useDeleteMember(
-    memberId,
-    res => navigate(`/admin/group/detail/${res.data.groupId}`),
-    err => removeModal.setErrorMessage(getErrorMessage(err))
-  );
+  const deleteMutation = useDeleteMember(memberId, {
+    onSuccess: res => navigate(`/admin/group/detail/${res.data.groupId}`),
+    onError: err => removeModal.setErrorMessage(getErrorMessage(err)),
+  });
 
   // 멤버 삭제
   const removeMember = useCallback(() => {
-    deleteMutation.mutate({ memberId });
-  }, [deleteMutation, memberId]);
+    deleteMutation.mutate();
+  }, [deleteMutation]);
 
   return (
     <section>

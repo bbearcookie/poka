@@ -1,7 +1,7 @@
-import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient, UseMutationOptions } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ResponseError } from "@type/response";
+import { ResponseError } from '@type/response';
 import { getErrorMessage } from '@util/request';
 import * as queryKey from '@api/queryKey';
 import { modifyGroup } from '@api/api/group';
@@ -10,32 +10,32 @@ interface BodyType {
   name: string;
   image: File | null;
 }
+
 interface ResType {
   message: string;
 }
 
 export default function useModifyGroup<TParam>(
   groupId: number,
-  onSuccess?: (res: AxiosResponse<ResType>) => void,
-  onError?: (err: AxiosError<ResponseError<TParam>, any>) => void
-): 
-UseMutationResult<
-  AxiosResponse<ResType>,
-  AxiosError<ResponseError<TParam>>,
-  BodyType
-> {
+  options?: Omit<
+    UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType, unknown>,
+    'mutationFn'
+  >
+) {
   const queryClient = useQueryClient();
 
-  return useMutation(body => modifyGroup(groupId, body), {
-    onSuccess: (res: AxiosResponse<ResType>) => {
-      toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-      queryClient.invalidateQueries(queryKey.groupKeys.all);
-      queryClient.invalidateQueries(queryKey.groupKeys.detail(groupId));
-      if (onSuccess) onSuccess(res);
-    },
-    onError: (err) => {
-      toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-      if (onError) onError(err);
+  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>(
+    body => modifyGroup(groupId, body),
+    {
+      onSuccess: (res, variables, context) => {
+        toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
+        queryClient.invalidateQueries(queryKey.groupKeys.all);
+        options?.onSuccess && options?.onSuccess(res, variables, context);
+      },
+      onError: (err, variables, context) => {
+        toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
+        options?.onError && options?.onError(err, variables, context);
+      },
     }
-  })
+  );
 }

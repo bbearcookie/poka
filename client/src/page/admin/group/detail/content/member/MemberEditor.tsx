@@ -19,34 +19,26 @@ function MemberEditor({ memberId, groupId, defaultValue = '', closeEditor }: Pro
   const [message, setMessage] = useState('');
 
   // 데이터 추가 요청
-  const addMutation = useAddMember(
-    groupId,
-    res => closeEditor(),
-    err => setMessage(getErrorMessage(err))
-  );
+  const addMutation = useAddMember(groupId, {
+    onSuccess: () => closeEditor(),
+    onError: err => setMessage(getErrorMessage(err)),
+  });
 
   // 데이터 수정 요청
-  const modifyMutation = useModifyMember(
-    memberId || 0,
-    res => closeEditor(),
-    err => setMessage(getErrorMessage(err))
-  );
+  const modifyMutation = useModifyMember(memberId || 0, {
+    onSuccess: () => closeEditor(),
+    onError: err => setMessage(getErrorMessage(err)),
+  });
 
   // input 상태 값 변경
-  const changeInput = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value),
-    []
-  );
+  const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value), []);
 
   // 전송 이벤트
   const onSubmit = useCallback(() => {
     // 수정 요청
-    if (memberId) {
-      modifyMutation.mutate({ name: input });
-      // 추가 요청
-    } else {
-      addMutation.mutate({ name: input });
-    }
+    if (memberId) modifyMutation.mutate({ name: input });
+    // 추가 요청
+    else addMutation.mutate({ name: input });
   }, [input, memberId, addMutation, modifyMutation]);
 
   return (

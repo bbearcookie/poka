@@ -24,7 +24,6 @@ export default function usePhotosQuery(
   filter: FilterType,
   options?: UseInfiniteQueryOptions<ResType, AxiosError<ResponseError>>
 ): UseInfiniteQueryResult<ResType, AxiosError<ResponseError>> {
-
   return useInfiniteQuery<ResType, AxiosError<ResponseError>>({
     queryKey: queryKey.photoKeys.list(filter),
     queryFn: ({ pageParam = 0 }) => fetchPhotos({ pageParam, filter }),
@@ -32,6 +31,6 @@ export default function usePhotosQuery(
       return lastPage.paging.hasNextPage && lastPage.paging.pageParam + 1;
     },
     refetchOnWindowFocus: false,
-    ...options
+    ...options,
   });
 }
