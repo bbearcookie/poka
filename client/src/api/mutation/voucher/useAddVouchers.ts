@@ -1,7 +1,7 @@
-import { useMutation, UseMutationResult } from '@tanstack/react-query';
+import { useMutation, UseMutationOptions } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ResponseError } from "@type/response";
+import { ResponseError } from '@type/response';
 import { getErrorMessage } from '@util/request';
 import { addVouchers } from '@api/api/voucher';
 
@@ -18,22 +18,19 @@ interface ResType {
 }
 
 export default function useAddVouchers<TParam>(
-  onSuccess?: (res: AxiosResponse<ResType>) => void,
-  onError?: (err: AxiosError<ResponseError<TParam>, any>) => void
-): 
-UseMutationResult<
-  AxiosResponse<ResType>,
-  AxiosError<ResponseError<TParam>>,
-  BodyType
-> {
-  return useMutation(body => addVouchers(body), {
-    onSuccess: (res: AxiosResponse<ResType>) => {
+  options?: Omit<
+    UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType, unknown>,
+    'mutationFn'
+  >
+) {
+  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>(body => addVouchers(body), {
+    onSuccess: (res, variables, context) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-      if (onSuccess) onSuccess(res);
+      options?.onSuccess && options?.onSuccess(res, variables, context);
     },
-    onError: (err) => {
+    onError: (err, variables, context) => {
       toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-      if (onError) onError(err);
-    }
+      options?.onError && options?.onError(err, variables, context);
+    },
   });
 }

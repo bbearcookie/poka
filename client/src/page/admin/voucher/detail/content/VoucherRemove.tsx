@@ -15,16 +15,15 @@ function VoucherRemove({ voucherId }: Props) {
   const navigate = useNavigate();
 
   // 데이터 삭제 요청
-  const deleteMutation = useDeleteVoucher(
-    voucherId,
-    res => navigate('/admin/voucher/list'),
-    err => removeModal.setErrorMessage(getErrorMessage(err))
-  );
+  const deleteMutation = useDeleteVoucher(voucherId, {
+    onSuccess: () => navigate('/admin/voucher/list'),
+    onError: err => removeModal.setErrorMessage(getErrorMessage(err)),
+  });
 
   // 소유권 삭제
   const handleRemove = useCallback(() => {
-    deleteMutation.mutate({ voucherId });
-  }, [deleteMutation, voucherId]);
+    deleteMutation.mutate();
+  }, [deleteMutation]);
 
   return (
     <section>
@@ -35,19 +34,16 @@ function VoucherRemove({ voucherId }: Props) {
           removeModal.open();
         }}
       >
+        <p className="description">관리자가 소유권을 잘못 발급 했을 경우를 대비한 삭제 기능입니다.</p>
         <p className="description">
-          관리자가 소유권을 잘못 발급 했을 경우를 대비한 삭제 기능입니다.
-        </p>
-        <p className="description">
-          이 기능을 사용할 경우는 드물며, 해당 소유권을 삭제하면 연관된 교환글도 모두 지워지니
-          신중히 삭제해주세요.
+          이 기능을 사용할 경우는 드물며, 해당 소유권을 삭제하면 연관된 교환글도 모두 지워지니 신중히 삭제해주세요.
         </p>
       </RemoveCard>
 
       <ConfirmModal
         hook={removeModal}
         title="소유권 삭제"
-        confirm={{ text: '삭제', buttonTheme: "danger", onClick: handleRemove }}
+        confirm={{ text: '삭제', buttonTheme: 'danger', onClick: handleRemove }}
       >
         <p className="text">이 소유권을 삭제하면 연관된 교환글도 함께 지워져요.</p>
         <p className="text">정말로 이 소유권을 삭제하시겠어요?</p>

@@ -28,15 +28,14 @@ function Success({ res }: Props) {
   );
 
   // 데이터 수정 요청
-  const putMutation = useModifyUserProfile<keyof FormType>(
-    res.userId,
-    res => closeEditor(),
-    err => {
+  const putMutation = useModifyUserProfile<keyof FormType>(res.userId, {
+    onSuccess: () => closeEditor(),
+    onError: err => {
       err.response?.data.errors.forEach(e => {
         dispatch({ type: 'SET_MESSAGE', target: e.param, value: e.message });
       });
-    }
-  );
+    },
+  });
 
   // 편집 모드 ON / OFF
   const [editMode, setEditMode] = useState(false);
@@ -67,9 +66,9 @@ function Success({ res }: Props) {
     return (
       <UserProfileInfo {...res} cssProp={{ marginBottom: '5em' }}>
         <Button
-          buttonTheme='primary-outlined'
+          buttonTheme="primary-outlined"
           rightIcon={faPenToSquare}
-          iconMargin='1em'
+          iconMargin="1em"
           css={{
             width: 'fit-content',
             height: '3em',

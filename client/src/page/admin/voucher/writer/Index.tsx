@@ -13,9 +13,9 @@ function Index() {
   const navigate = useNavigate();
 
   // 소유권 발급 요청
-  const postMutation = useAddVouchers<string>(
-    res => navigate('/admin/voucher/list'),
-    err => {
+  const postMutation = useAddVouchers<string>({
+    onSuccess: () => navigate('/admin/voucher/list'),
+    onError: err => {
       err.response?.data.errors.forEach(item => {
         if (item.param === 'username' || item.param === 'vouchers') {
           dispatch({ type: 'SET_MESSAGE', target: item.param, value: item.message });
@@ -29,8 +29,8 @@ function Index() {
           });
         }
       });
-    }
-  );
+    },
+  });
 
   // 폼 전송 이벤트
   const onSubmit = useCallback(() => {
