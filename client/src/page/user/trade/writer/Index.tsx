@@ -21,14 +21,14 @@ function Index() {
   );
   const navigate = useNavigate();
 
-  const postMutation = useAddTrade<keyof FormType>(
-    res => navigate('/trade/mine'),
-    err => {
+  const postMutation = useAddTrade<keyof FormType>({
+    onSuccess: () => navigate('/trade/mine'),
+    onError: err => {
       err.response?.data.errors.forEach(item => {
         dispatch({ type: 'SET_MESSAGE', target: item.param, value: item.message });
       });
-    }
-  );
+    },
+  });
 
   const handleCancel = useCallback(() => {
     navigate(-1);

@@ -32,15 +32,10 @@ function Exchange({ trade }: Props) {
     },
   });
 
-  const postMutation = useExchangeTrade(
-    trade.tradeId,
-    res => {
-      modal.close();
-    },
-    err => {
-      modal.setErrorMessage(getErrorMessage(err));
-    }
-  );
+  const postMutation = useExchangeTrade(trade.tradeId, {
+    onSuccess: () => modal.close(),
+    onError: err => modal.setErrorMessage(getErrorMessage(err)),
+  });
 
   // 모달 열기
   const openModal = useCallback(

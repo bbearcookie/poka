@@ -32,15 +32,14 @@ function Index() {
   }, [trade]);
 
   // 수정 요청
-  const putMutation = useModifyTrade<keyof FormType>(
-    tradeId,
-    res => navigate(`/trade/detail/${tradeId}`),
-    err => {
+  const putMutation = useModifyTrade<keyof FormType>(tradeId, {
+    onSuccess: () => navigate(`/trade/detail/${tradeId}`),
+    onError: err => {
       err.response?.data.errors.forEach(item => {
         dispatch({ type: 'SET_MESSAGE', target: item.param, value: item.message });
       });
-    }
-  );
+    },
+  });
 
   // 취소 버튼 클릭시
   const handleCancel = useCallback(() => {

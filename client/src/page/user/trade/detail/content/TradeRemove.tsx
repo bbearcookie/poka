@@ -18,11 +18,10 @@ function TradeRemove({ trade }: Props) {
   const navigate = useNavigate();
 
   // 데이터 삭제 요청
-  const deleteMutation = useDeleteTrade(
-    trade.tradeId,
-    res => navigate('/trade/list'),
-    err => removeModal.setErrorMessage(getErrorMessage(err))
-  );
+  const deleteMutation = useDeleteTrade(trade.tradeId, {
+    onSuccess: () => navigate('/trade/list'),
+    onError: err => removeModal.setErrorMessage(getErrorMessage(err)),
+  });
 
   // 모달 열기
   const openModal = useCallback(
@@ -35,8 +34,8 @@ function TradeRemove({ trade }: Props) {
 
   // 교환글 삭제
   const removeTrade = useCallback(() => {
-    deleteMutation.mutate({ tradeId: trade.tradeId });
-  }, [deleteMutation, trade]);
+    deleteMutation.mutate();
+  }, [deleteMutation]);
 
   return (
     <>
@@ -51,9 +50,7 @@ function TradeRemove({ trade }: Props) {
         title="교환글 삭제"
         confirm={{ text: '삭제', buttonTheme: 'danger', onClick: removeTrade }}
       >
-        <p className="text">
-          교환글을 삭제하면 등록한 소유권의 상태는 다시 교환 가능한 상태로 바뀌어요.
-        </p>
+        <p className="text">교환글을 삭제하면 등록한 소유권의 상태는 다시 교환 가능한 상태로 바뀌어요.</p>
         <p className="text">정말로 교환글을 삭제하시겠어요?</p>
       </ConfirmModal>
     </>
