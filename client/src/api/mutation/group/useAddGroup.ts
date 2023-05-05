@@ -15,12 +15,10 @@ interface ResType {
 }
 
 export default function useAddGroup<TParam>(
-  options?: Omit<
-    UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType, unknown>,
-    'mutationFn'
-  >
+  options?: UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>
 ) {
-  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>(body => addGroup(body), {
+  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>({
+    mutationFn: body => addGroup(body),
     onSuccess: (res, variables, context) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
       options?.onSuccess && options?.onSuccess(res, variables, context);

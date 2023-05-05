@@ -17,25 +17,20 @@ interface ResType {
 
 export default function useModifyGroup<TParam>(
   groupId: number,
-  options?: Omit<
-    UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType, unknown>,
-    'mutationFn'
-  >
+  options?: UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>
 ) {
   const queryClient = useQueryClient();
 
-  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>(
-    body => modifyGroup(groupId, body),
-    {
-      onSuccess: (res, variables, context) => {
-        toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-        queryClient.invalidateQueries(queryKey.groupKeys.all);
-        options?.onSuccess && options?.onSuccess(res, variables, context);
-      },
-      onError: (err, variables, context) => {
-        toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-        options?.onError && options?.onError(err, variables, context);
-      },
-    }
-  );
+  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>({
+    mutationFn: body => modifyGroup(groupId, body),
+    onSuccess: (res, variables, context) => {
+      toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
+      queryClient.invalidateQueries(queryKey.groupKeys.all);
+      options?.onSuccess && options?.onSuccess(res, variables, context);
+    },
+    onError: (err, variables, context) => {
+      toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
+      options?.onError && options?.onError(err, variables, context);
+    },
+  });
 }

@@ -17,12 +17,10 @@ interface ResType {
 }
 
 export default function useSignup<TParam>(
-  options?: Omit<
-    UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType, unknown>,
-    'mutationFn'
-  >
+  options?: UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>
 ) {
-  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>(body => signup(body), {
+  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>({
+    mutationFn: body => signup(body),
     onSuccess: (res, variables, context) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
       options?.onSuccess && options?.onSuccess(res, variables, context);

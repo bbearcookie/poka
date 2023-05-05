@@ -8,7 +8,8 @@ import { login, logout } from '@feature/auth/authSlice';
 export default function useVerify() {
   const dispatch = useAppDispatch();
 
-  const logoutMutation = useMutation(verifyFn, {
+  const logoutMutation = useMutation({
+    mutationFn: verifyFn,
     onSuccess: res => {
       dispatch(login(res.data.user));
       saveUserToStorage(res.data.user);
@@ -16,7 +17,7 @@ export default function useVerify() {
     onError: () => {
       dispatch(logout());
       removeUserFromStorage();
-    }
+    },
   });
 
   return useCallback(() => {

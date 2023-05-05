@@ -13,10 +13,7 @@ interface ResType {
 
 export default function useDeleteShippingRequest<TParam>(
   requestId: number,
-  options?: Omit<
-    UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, unknown, unknown>,
-    'mutationFn'
-  >
+  options?: UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>>
 ) {
   const queryClient = useQueryClient();
 

@@ -24,10 +24,7 @@ interface ResType {
 
 export default function useModifyShippingAddress<TParam>(
   addressId: number,
-  options?: Omit<
-    UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType, unknown>,
-    'mutationFn'
-  >
+  options?: UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>
 ) {
   const queryClient = useQueryClient();
 

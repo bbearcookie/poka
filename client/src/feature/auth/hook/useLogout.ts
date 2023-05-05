@@ -10,7 +10,8 @@ export default function useLogout() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const logoutMutation = useMutation(logoutFn, {
+  const logoutMutation = useMutation({
+    mutationFn: logoutFn,
     onSuccess: () => {
       dispatch(logout());
       removeUserFromStorage();

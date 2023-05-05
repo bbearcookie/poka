@@ -19,25 +19,20 @@ interface ResType {
 
 export default function useModifyPhoto<TParam>(
   photocardId: number,
-  options?: Omit<
-    UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType, unknown>,
-    'mutationFn'
-  >
+  options?: UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>
 ) {
   const queryClient = useQueryClient();
 
-  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>(
-    body => modifyPhoto(photocardId, body),
-    {
-      onSuccess: (res, variables, context) => {
-        toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-        queryClient.invalidateQueries(queryKey.photoKeys.all);
-        options?.onSuccess && options?.onSuccess(res, variables, context);
-      },
-      onError: (err, variables, context) => {
-        toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-        options?.onError && options?.onError(err, variables, context);
-      },
-    }
-  );
+  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>({
+    mutationFn: body => modifyPhoto(photocardId, body),
+    onSuccess: (res, variables, context) => {
+      toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
+      queryClient.invalidateQueries(queryKey.photoKeys.all);
+      options?.onSuccess && options?.onSuccess(res, variables, context);
+    },
+    onError: (err, variables, context) => {
+      toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
+      options?.onError && options?.onError(err, variables, context);
+    },
+  });
 }

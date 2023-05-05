@@ -12,14 +12,12 @@ interface ResType {
 
 export default function useDeletePhoto<TParam>(
   photocardId: number,
-  options?: Omit<
-    UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, unknown, unknown>,
-    'mutationFn'
-  >
+  options?: UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>>
 ) {
   const queryClient = useQueryClient();
 
-  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>>(() => deletePhoto(photocardId), {
+  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>>({
+    mutationFn: () => deletePhoto(photocardId),
     onSuccess: (res, variables, context) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
       queryClient.invalidateQueries(queryKey.photoKeys.all);

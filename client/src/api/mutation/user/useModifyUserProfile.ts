@@ -17,10 +17,7 @@ interface ResType {
 
 export default function useModifyUserProfile<TParam>(
   userId: number,
-  options?: Omit<
-    UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType, unknown>,
-    'mutationFn'
-  >
+  options?: UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>
 ) {
   const queryClient = useQueryClient();
 

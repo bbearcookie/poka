@@ -10,12 +10,10 @@ interface ResType {
 }
 
 export default function useAddPhotos<TParam>(
-  options?: Omit<
-    UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, unknown, unknown>,
-    'mutationFn'
-  >
+  options?: UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, unknown>
 ) {
-  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, FormData>(body => addPhotos(body), {
+  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, FormData>({
+    mutationFn: body => addPhotos(body),
     onSuccess: (res, variables, context) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
       options?.onSuccess && options?.onSuccess(res, variables, context);

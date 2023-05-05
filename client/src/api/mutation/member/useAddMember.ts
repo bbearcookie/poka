@@ -17,24 +17,19 @@ interface ResType {
 
 export default function useAddMember<TParam>(
   groupId: number,
-  options?: Omit<
-    UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType, unknown>,
-    'mutationFn'
-  >
+  options?: UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>
 ) {
   const queryClient = useQueryClient();
 
-  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>(
-    body => addMember(groupId, body),
-    {
-      onSuccess: (res, variables, context) => {
-        queryClient.invalidateQueries(queryKey.groupKeys.all);
-        options?.onSuccess && options?.onSuccess(res, variables, context);
-      },
-      onError: (err, variables, context) => {
-        toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-        options?.onError && options?.onError(err, variables, context);
-      },
-    }
-  );
+  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>({
+    mutationFn: body => addMember(groupId, body),
+    onSuccess: (res, variables, context) => {
+      queryClient.invalidateQueries(queryKey.groupKeys.all);
+      options?.onSuccess && options?.onSuccess(res, variables, context);
+    },
+    onError: (err, variables, context) => {
+      toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
+      options?.onError && options?.onError(err, variables, context);
+    },
+  });
 }

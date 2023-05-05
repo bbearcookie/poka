@@ -19,15 +19,13 @@ interface ResType {
 }
 
 export default function useLogin<TParam>(
-  options?: Omit<
-    UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType, unknown>,
-    'mutationFn'
-  >
+  options?: UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>
 ) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>(body => loginFn(body), {
+  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>({
+    mutationFn: body => loginFn(body),
     onSuccess: (res, variables, context) => {
       dispatch(login(res.data.user));
       saveUserToStorage(res.data.user);
