@@ -22,13 +22,12 @@ function Editor({ address, closeEditor }: Props) {
   );
 
   // 데이터 수정 요청
-  const putMutation = useModifyShippingAddress<keyof FormType>(
-    address.addressId,
-    res => {
+  const putMutation = useModifyShippingAddress<keyof FormType>(address.addressId, {
+    onSuccess: () => {
       dispatch({ type: 'SET_FORM', form: initialState.form });
       closeEditor();
     },
-    err => {
+    onError: err => {
       err.response?.data.errors.forEach(e => {
         if (e.param.substring(0, 8) === 'address.') {
           dispatch({
@@ -38,8 +37,8 @@ function Editor({ address, closeEditor }: Props) {
           });
         }
       });
-    }
-  );
+    },
+  });
 
   // 폼 전송 이벤트
   const onSubmit = useCallback(

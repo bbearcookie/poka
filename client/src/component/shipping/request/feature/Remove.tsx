@@ -20,18 +20,13 @@ function Remove({ res, redirectTo }: Props) {
   const navigate = useNavigate();
 
   // 삭제 요청
-  const deleteMutation = useDeleteShippingRequest(
-    res.shipping.requestId,
-    res => navigate(redirectTo),
-    err => {
-      modal.setErrorMessage(getErrorMessage(err));
-    }
-  );
+  const deleteMutation = useDeleteShippingRequest(res.shipping.requestId, {
+    onSuccess: () => navigate(redirectTo),
+    onError: err => modal.setErrorMessage(getErrorMessage(err)),
+  });
 
   // 환불 요청
-  const refundMutation = useRefundShippingPayment(res.shipping.requestId, res =>
-    deleteMutation.mutate({})
-  );
+  const refundMutation = useRefundShippingPayment(res.shipping.requestId, { onSuccess: () => deleteMutation.mutate() });
 
   // 모달 열기
   const openModal = useCallback(
@@ -45,19 +40,14 @@ function Remove({ res, redirectTo }: Props) {
   // 배송요청 취소
   const onCancel = useCallback(() => {
     // 아직 결제하지 않은 경우 바로 삭제
-    if (res.shipping.payment.state === 'waiting') deleteMutation.mutate({});
+    if (res.shipping.payment.state === 'waiting') deleteMutation.mutate();
     // 결제한 경우 환불 후 삭제
-    else refundMutation.mutate({});
+    else refundMutation.mutate();
   }, [res, deleteMutation, refundMutation]);
 
   return (
     <>
-      <Button
-        buttonTheme="danger"
-        leftIcon={faClose}
-        iconMargin='1em'
-        onClick={openModal}
-      >
+      <Button buttonTheme="danger" leftIcon={faClose} iconMargin="1em" onClick={openModal}>
         삭제
       </Button>
 

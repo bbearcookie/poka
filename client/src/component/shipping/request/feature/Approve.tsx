@@ -17,7 +17,7 @@ function Approve({ res }: Props) {
 
   // 발송 완료 처리
   const handleApprove = useCallback(() => {
-    approveMutation.mutate({});
+    approveMutation.mutate();
     modal.close();
   }, [approveMutation, modal]);
 

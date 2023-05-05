@@ -13,7 +13,7 @@ function Prime({ addressId }: Props) {
 
   // 클릭 이벤트
   const handleClick = useCallback(() => {
-    patchMutation.mutate({});
+    patchMutation.mutate();
   }, [patchMutation]);
 
   return (

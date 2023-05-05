@@ -1,7 +1,7 @@
-import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
+import { useMutation, UseMutationOptions, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ResponseError } from "@type/response";
+import { ResponseError } from '@type/response';
 import { getErrorMessage } from '@util/request';
 import * as queryKey from '@api/queryKey';
 import { deleteShippingRequest } from '@api/api/shipping/request';
@@ -13,27 +13,24 @@ interface ResType {
 
 export default function useDeleteShippingRequest<TParam>(
   requestId: number,
-  onSuccess?: (res: AxiosResponse<ResType>) => void,
-  onError?: (err: AxiosError<ResponseError<TParam>, any>) => void
-): 
-UseMutationResult<
-  AxiosResponse<ResType>,
-  AxiosError<ResponseError<TParam>>
-> {
+  options?: Omit<
+    UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, unknown, unknown>,
+    'mutationFn'
+  >
+) {
   const queryClient = useQueryClient();
 
-  return useMutation(() => deleteShippingRequest(requestId), {
-    onSuccess: (res: AxiosResponse<ResType>) => {
+  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>>({
+    mutationFn: () => deleteShippingRequest(requestId),
+    onSuccess: (res, variables, context) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
-      queryClient.invalidateQueries(queryKey.shippingKeys.detail(requestId));
       queryClient.invalidateQueries(queryKey.shippingKeys.all);
-      res.data.voucherIds.forEach(v => queryClient.invalidateQueries(queryKey.voucherKeys.detail(v)));
       queryClient.invalidateQueries(queryKey.voucherKeys.all);
-      if (onSuccess) onSuccess(res);
+      options?.onSuccess && options?.onSuccess(res, variables, context);
     },
-    onError: (err) => {
+    onError: (err, variables, context) => {
       toast.error(getErrorMessage(err), { autoClose: 5000, position: toast.POSITION.BOTTOM_RIGHT });
-      if (onError) onError(err);
-    }
-  })
+      options?.onError && options?.onError(err, variables, context);
+    },
+  });
 }

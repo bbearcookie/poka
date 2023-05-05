@@ -16,8 +16,8 @@ function Remove({ addressId, name, address, addressDetail }: Props) {
 
   // 삭제 이벤트
   const handleRemove = useCallback(() => {
-    deleteMutation.mutate({ addressId });
-  }, [addressId, deleteMutation]);
+    deleteMutation.mutate();
+  }, [deleteMutation]);
 
   return (
     <>

@@ -35,9 +35,9 @@ function Index() {
   const navigate = useNavigate();
 
   // 작성 요청
-  const addMutation = useAddShippingRequest<string>(
-    res => navigate(`/shipping/detail/${res.data.requestId}`),
-    err => {
+  const addMutation = useAddShippingRequest<string>({
+    onSuccess: res => navigate(`/shipping/detail/${res.data.requestId}`),
+    onError: err => {
       err.response?.data.errors.forEach(e => {
         if (e.param.substring(0, 8) === 'address.') {
           addressDispatcher({
@@ -49,8 +49,8 @@ function Index() {
           dispatch({ type: 'SET_MESSAGE', target: e.param as keyof FormType, value: e.message });
         }
       });
-    }
-  );
+    },
+  });
 
   // 등록 이벤트
   const onSubmit = useCallback(

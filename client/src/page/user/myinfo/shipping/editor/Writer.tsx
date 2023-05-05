@@ -14,13 +14,12 @@ function Writer({ userId, closeEditor }: Props) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // 데이터 추가 요청
-  const postMutation = useAddShippingAddress<keyof FormType>(
-    userId,
-    res => {
+  const postMutation = useAddShippingAddress<keyof FormType>(userId, {
+    onSuccess: () => {
       dispatch({ type: 'SET_FORM', form: initialState.form });
       closeEditor();
     },
-    err => {
+    onError: err => {
       err.response?.data.errors.forEach(e => {
         if (e.param.substring(0, 8) === 'address.') {
           dispatch({
@@ -30,8 +29,8 @@ function Writer({ userId, closeEditor }: Props) {
           });
         }
       });
-    }
-  );
+    },
+  });
 
   // 폼 전송 이벤트
   const onSubmit = useCallback(
