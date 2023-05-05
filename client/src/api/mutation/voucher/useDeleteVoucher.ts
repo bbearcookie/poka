@@ -12,14 +12,13 @@ interface ResType {
 
 export default function useDeleteVoucher<TParam>(
   voucherId: number,
-  options?: Omit<
-    UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, unknown, unknown>,
-    'mutationFn'
-  >
+  options?: UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>>
 ) {
   const queryClient = useQueryClient();
 
-  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>>(() => deleteVoucher(voucherId), {
+  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>>({
+    ...options,
+    mutationFn: () => deleteVoucher(voucherId),
     onSuccess: (res, variables, context) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
       queryClient.invalidateQueries(queryKey.voucherKeys.all);

@@ -13,6 +13,7 @@ export default function useAddPhotos<TParam>(
   options?: UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, unknown>
 ) {
   return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, FormData>({
+    ...options,
     mutationFn: body => addPhotos(body),
     onSuccess: (res, variables, context) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });

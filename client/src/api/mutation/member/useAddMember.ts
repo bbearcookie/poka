@@ -22,6 +22,7 @@ export default function useAddMember<TParam>(
   const queryClient = useQueryClient();
 
   return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>({
+    ...options,
     mutationFn: body => addMember(groupId, body),
     onSuccess: (res, variables, context) => {
       queryClient.invalidateQueries(queryKey.groupKeys.all);

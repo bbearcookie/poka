@@ -29,6 +29,7 @@ export default function useModifyShippingAddress<TParam>(
   const queryClient = useQueryClient();
 
   return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>({
+    ...options,
     mutationFn: body => modifyShippingAddress(addressId, body),
     onSuccess: (res, variables, context) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });

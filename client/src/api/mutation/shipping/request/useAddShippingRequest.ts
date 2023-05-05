@@ -33,6 +33,7 @@ export default function useAddShippingRequest<TParam>(
   const voucherIds = useRef<number[]>([]);
 
   return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>({
+    ...options,
     mutationFn: body => addShippingRequest(body),
     onSuccess: (res, variables, context) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });

@@ -20,6 +20,7 @@ export default function useSignup<TParam>(
   options?: UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>
 ) {
   return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>({
+    ...options,
     mutationFn: body => signup(body),
     onSuccess: (res, variables, context) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });

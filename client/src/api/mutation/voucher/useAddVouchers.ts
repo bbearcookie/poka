@@ -18,12 +18,11 @@ interface ResType {
 }
 
 export default function useAddVouchers<TParam>(
-  options?: Omit<
-    UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType, unknown>,
-    'mutationFn'
-  >
+  options?: UseMutationOptions<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>
 ) {
-  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>(body => addVouchers(body), {
+  return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>, BodyType>({
+    ...options,
+    mutationFn: body => addVouchers(body),
     onSuccess: (res, variables, context) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
       options?.onSuccess && options?.onSuccess(res, variables, context);

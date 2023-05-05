@@ -18,6 +18,7 @@ export default function useDeleteShippingRequest<TParam>(
   const queryClient = useQueryClient();
 
   return useMutation<AxiosResponse<ResType>, AxiosError<ResponseError<TParam>>>({
+    ...options,
     mutationFn: () => deleteShippingRequest(requestId),
     onSuccess: (res, variables, context) => {
       toast.success(res.data.message, { autoClose: 5000, position: toast.POSITION.TOP_CENTER });
